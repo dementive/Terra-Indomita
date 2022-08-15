@@ -1,0 +1,133 @@
+﻿#Mandate of Heaven script values
+
+mandate_maximum_value = 100
+mandate_minimum_value = 0
+mandate_initial_value = 60
+mandate_great_event = 20
+mandate_good_event = 10
+mandate_bad_event = -10
+mandate_awful_event = -20
+mandate_needed_for_reform = 70
+
+mandate_yearly_change = {
+	value = 0
+	add = mandate_natural_growth
+	add = mandate_stability_svalue
+	add = mandate_tributaries_svalue
+	add = mandate_negative_treasury_svalue
+	add = mandate_corruption_svalue
+	add = mandate_good_emperor_svalue
+	add = mandate_cruel_emperor_svalue
+}
+
+mandate_current_plus_change = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = mandate_variable
+		}
+		add = var:mandate_variable
+		add = mandate_yearly_change
+	}
+}
+
+mandate_yearly_real_change = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = mandate_variable
+		}
+		if = {
+			limit = {
+				mandate_current_plus_change < mandate_maximum_value
+				mandate_current_plus_change > mandate_minimum_value
+			}
+			add = mandate_yearly_change
+		}
+	}
+}
+
+mandate_natural_growth = 2
+
+mandate_stability_svalue = {
+	#at 100 stab get 3 mandate at less than 15 stab lose 1
+	value = stability
+	if = {
+		limit = { stability > 25 }
+		divide = 50
+		round = floor
+		min = 0
+		max = 2
+	}
+	else_if = {
+		limit = {
+			stability <= 25
+			stability > 15
+		}
+		add = -0.5
+	}
+	else = {
+		limit = {
+			stability <= 15
+		}
+		add = -1
+	}
+}
+
+mandate_tributaries_svalue = {
+	value = 0
+	every_subject = {
+		add = 0.2
+	}
+}
+
+mandate_negative_treasury_svalue = -0.5
+
+mandate_corruption_svalue = {
+	value = 0
+	if = {
+		limit = {
+			current_ruler = {
+				corruption > 50
+				NOT = { corruption > 75}
+			}
+		}
+		add = -0.5
+	}
+	else_if = {
+		limit = {
+			current_ruler = {
+				corruption > 75
+			}
+		}
+		add = -1
+	}
+}
+
+mandate_good_emperor_svalue = {
+	value = 0
+	if = {
+		limit = {
+			current_ruler = {
+				OR = {
+					has_trait = good_natured
+					has_trait = just
+					has_trait = righteous
+					has_trait = wise
+				}
+			}
+		}
+		add = 0.5
+	}
+}
+mandate_cruel_emperor_svalue = {
+	value = 0
+	if = {
+		limit = {
+			current_ruler = {
+				has_trait = cruel
+			}
+		}
+		add = -0.5
+	}
+}

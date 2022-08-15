@@ -1,0 +1,409 @@
+﻿wonders = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	effect = {
+		clear_variable_list = wonders
+		every_ownable_province = {
+			limit = {
+				has_great_work = yes
+			}
+
+			root = {
+				add_to_variable_list = {
+					name = wonders
+					target = prev
+				}
+			}
+		}
+	}
+}
+
+territories = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	effect = {
+		clear_variable_list = territories
+
+		every_owned_province = {
+			root = {
+				add_to_variable_list = {
+					name = territories_temp
+					target = prev
+				}
+			}
+		}
+		ordered_in_list = {
+			variable = territories_temp
+			order_by = total_population
+			min = 0
+
+			root = {
+				add_to_variable_list = {
+					name = territories
+					target = prev
+				}
+			}
+		}
+	}
+}
+
+sort_pops = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 1
+	}
+
+	effect = {
+		sort_territories = { sorting = total_population num = 1 }
+	}
+}
+
+sort_nobles = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 2
+	}
+
+	effect = {
+		sort_territories = { sorting = num_of_nobles num = 2 }
+	}
+}
+
+sort_citizens = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 3
+	}
+
+	effect = {
+		sort_territories = { sorting = num_of_citizen num = 3 }
+	}
+}
+
+sort_freemen = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 4
+	}
+
+	effect = {
+		sort_territories = { sorting = num_of_freemen num = 4 }
+	}
+}
+
+sort_tribesemen = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 5
+	}
+
+	effect = {
+		sort_territories = { sorting = num_of_tribesmen num = 5 }
+	}
+}
+
+sort_slaves = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 6
+	}
+
+	effect = {
+		sort_territories = { sorting = num_of_slaves num = 6 }
+	}
+}
+
+sort_unrest = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 7
+	}
+
+	effect = {
+		sort_territories = { sorting = province_unrest num = 7 }
+	}
+}
+
+sort_civilization = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 8
+	}
+
+	effect = {
+		sort_territories = { sorting = civilization_value num = 8 }
+	}
+}
+
+sort_buildings = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 9
+	}
+
+	effect = {
+		sort_territories = { sorting = num_of_used_building_slots num = 9 }
+	}
+}
+
+sort_building_slots = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 10
+	}
+
+	effect = {
+		sort_territories = { sorting = num_of_total_building_slots num = 10 }
+	}
+}
+
+sort_manpower = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 11
+	}
+
+	effect = {
+		sort_territories = { sorting = province_manpower_income  num = 11 }
+	}
+}
+
+sort_tax = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 12
+	}
+
+	effect = {
+		sort_territories = { sorting = province_tax_income num = 12 }
+	}
+}
+
+sort_religion = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 13
+	}
+
+	effect = {
+		sort_territories = { sorting = province_religious_unity num = 13 }
+	}
+}
+
+sort_culture = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 14
+	}
+
+	effect = {
+		sort_territories = { sorting = province_cultural_unity num = 14 }
+	}
+}
+
+sort_slaves_needed = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_variable = sorting
+		var:sorting = 14
+	}
+
+	effect = {
+		sort_territories = { sorting = slaves_needed num = 15 }
+	}
+}
+
+
+treasures = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	effect = {
+		clear_variable_list = treasure_owners
+		every_country = {
+			limit = {
+				has_variable_list = country_treasures
+			}
+			clear_variable_list = country_treasures
+		}
+		every_country = {
+			limit = {
+				has_variable_list = all_treasure_sites
+			}
+			clear_variable_list = all_treasure_sites
+		}
+		every_country = {
+			limit = {
+				total_treasure_count > 0
+			}
+			root = {
+				add_to_variable_list = {
+					name = treasure_owners_temp
+					target = prev
+				}
+			}
+			every_country_treasure = {
+				prev = {
+					add_to_variable_list = {
+						name = country_treasures
+						target = prev.prev
+					}
+				}
+			}
+			every_owned_holy_site = {
+				limit = {
+					treasure_count > 0
+				}
+				prev = {
+					add_to_variable_list = {
+						name = all_treasure_sites
+						target = prev.prev
+					}
+				}
+			}
+		}
+
+		ordered_in_list = {
+			variable = treasure_owners_temp
+			order_by = total_treasure_count
+			min = 0
+			root = {
+				add_to_variable_list = {
+					name = treasure_owners
+					target = prev
+				}
+			}
+		}
+		clear_variable_list = treasure_owners_temp
+	}
+}
+
+
+clear_ledger = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	effect = {
+		clear_variable_list = wonders
+		clear_variable_list = treasure_owners
+		clear_variable_list = territories
+	}
+}
+
+can_change_policy = {
+	scope = character
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_valid = {
+		loyalty > 33
+		employer = {
+			can_pay_price = change_governor_policy
+		}
+	}
+}

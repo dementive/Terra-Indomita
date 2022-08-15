@@ -1,0 +1,720 @@
+types BUI_Outliner
+{
+	type outliner_category_button_square_BUI = widget {
+		minimumsize = { 0 0 }
+
+		button = {
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = togglepushbuttongfx
+			size = { 100% 100% }
+
+			block "On_click" { }
+
+			# ToDo: Add Sound. //generic
+			clicksound = "event:/SFX/UI/Generic/2.0/sfx_ui_button_secondary"
+			# oversound = " ToDo "
+
+			framesize = { 200 200 }
+
+			textbox = {
+				using = SubHeaderFont
+				using = Sub_Header_FontColor
+				fontsize = 16
+				block "Text" { text = "lol" }
+				autoresize = yes
+				parentanchor = left
+				position = { 6 1 }
+			}
+
+			icon = {
+				using = button_tiled_texture
+				spriteborder = { 200 200 }
+				framesize = { 200 200 }
+				size = { 100% 14 }
+				position = { 0 8 }
+				parentanchor = hcenter|bottom
+
+				block "Down" {}
+
+				modify_texture = {
+					name = "Alpha"
+					texture = "gfx/interface/base_parts/outliner_category_button_fs60x28y_bd28x_alpha.dds"
+					blend_mode = alphamultiply
+					framesize = { 30 14 }
+					spriteType = Corneredtiled
+					spriteborder = { 12 14 }
+				}
+			}
+
+			icon = {
+				using = button_tiled_texture
+				spriteborder = { 200 200 }
+				framesize = { 200 200 }
+				size = { 100% 14 }
+				position = { 0 8 }
+				parentanchor = hcenter|bottom
+
+				block "Up" { visible = no }
+
+				modify_texture = {
+					name = "Alpha"
+					texture = "gfx/interface/base_parts/outliner_category_button_fs60x28y_bd28x_alpha.dds"
+					blend_mode = alphamultiply
+					framesize = { 30 14 }
+					frame = 2
+					spriteType = Corneredtiled
+					spriteborder = { 12 14 }
+				}
+			}
+
+		}
+	}
+}
+
+window = {
+	gfxtype = windowgfx
+	name = "outliner"
+	layer = middle
+
+	parentanchor = top|right
+	position = { 1 0 }
+
+	size = { 278 775 }
+	movable = no
+	filter_mouse = all
+	alwaystransparent = yes
+	allow_outside = yes
+
+	vbox = {
+		visible = "[Not(IsReplayShown)]"
+		allow_outside = yes
+		widget = {#top
+			size = { 0 45 }
+		}
+
+		widget = {#main
+			layoutpolicy_vertical = expanding
+			alwaystransparent = no
+			allow_outside = yes
+
+			background = {
+				shaderfile = "gfx/FX/pdxgui_default.shader"
+				texture = "gfx/interface/base_parts/background_black_texture.dds"
+				spriteType = Corneredtiled
+				alpha = 0.95
+
+				modify_texture = {
+					name = "Alpha"
+					texture = "gfx/interface/base_parts/background_x60bd_alpha.dds"
+					blend_mode = alphamultiply
+					spriteType = Corneredtiled
+					spriteborder = { 60 60 }
+				}
+			}
+
+			margin_widget = {
+				size = { 100% 100% }
+				margin_top = 30
+				margin_bottom = 10
+
+				filter_mouse = all
+				alwaystransparent = no
+
+				scrollarea = {
+					size = { 270 100% }
+					position = { 5 0 }
+
+					scrollbarpolicy_horizontal = always_off
+					scrollbar_vertical = {
+						using = VerticalScrollBar
+					}
+
+					blockoverride "BlackVisible" { visible = yes }
+
+					scrollwidget = {
+
+						flowcontainer = {
+							ignoreinvisible = yes
+							direction = vertical
+
+							flowcontainer = {
+								direction = vertical
+								ignoreinvisible = yes
+								visible = "[Not(IsDataModelEmpty(Player.MakeScope.GetList('fav_territories')))]"
+
+								outliner_category_button_square_BUI = {
+									size = { 250 25 }
+									using = tooltip_es
+									blockoverride "Text" { text = "territories" }
+									#tooltip = "[OutlinerCategory.GetTooltip]"
+									blockoverride "Down" { visible = "[Not(GetVariableSystem.Exists('hide_fav_territories'))]" }
+									blockoverride "Up" { visible = "[GetVariableSystem.Exists('hide_fav_territories')]" }
+									blockoverride "On_click" { onclick = "[GetVariableSystem.Toggle('hide_fav_territories')]" }
+									position = { 0 6 }
+								}
+
+								fixedgridbox = {
+									addrow = 25
+									addcolumn = 250
+
+									visible = "[Not(GetVariableSystem.Exists('hide_fav_territories'))]"
+
+									datamodel = "[Player.MakeScope.GetList('fav_territories')]"
+
+									item = {
+
+										widget = {
+											size = { 250 25 }
+											outliner_highlight_button = {
+												position = { -5 5 }
+												size = { 250 25 }
+												blockoverride "Text" {
+													text = "[Scope.GetProvince.GetNameWithNoTooltip]"
+													max_width = 140
+													elide = right
+													fontsize_min = 14
+												}
+												blockoverride "On_click" {
+													onclick = "[OnClickOnProvince( Scope.GetProvince )]"
+												}
+
+												textbox = {
+													position = { -60 0 }
+													parentanchor = vcenter|right
+													using = BaseFontS
+													autoresize = yes
+													elide = right
+													text = "[Scope.GetProvince.GetTotalAmountOfBuildingLevels]/[Scope.GetProvince.GetAllowedAmountOfBuildingLevels]"
+													tooltip = "[Scope.GetProvince.GetBuildingLevelInformation]"
+												}
+
+												textbox = {
+													position = { 0 0 }
+													parentanchor = vcenter|right
+													using = BaseFontS
+													autoresize = yes
+													elide = right
+													text = "[AddTextIf( GreaterThan_int32( Scope.GetProvince.GetPopulation('total'), Scope.GetProvince.GetPopulationCapacityValue), '#r')] [Scope.GetProvince.GetPopulation('total')]/[Scope.GetProvince.GetPopulationCapacityValue]"
+													tooltip = "[Scope.GetProvince.GetPopulationCapacityInfo]"
+												}
+											}
+										}
+									}
+								}
+							}
+
+							flowcontainer = {
+								direction = vertical
+								ignoreinvisible = yes
+								visible = "[Not(IsDataModelEmpty(Player.MakeScope.GetList('fav_countries')))]"
+
+								outliner_category_button_square_BUI = {
+									size = { 250 25 }
+									using = tooltip_es
+									blockoverride "Text" { text = "countries_outliner" }
+									#tooltip = "[OutlinerCategory.GetTooltip]"
+									blockoverride "Down" { visible = "[Not(GetVariableSystem.Exists('hide_fav_countries'))]" }
+									blockoverride "Up" { visible = "[GetVariableSystem.Exists('hide_fav_countries')]" }
+									blockoverride "On_click" { onclick = "[GetVariableSystem.Toggle('hide_fav_countries')]" }
+									position = { 0 6 }
+								}
+
+								fixedgridbox = {
+									addrow = 25
+									addcolumn = 250
+
+									datamodel = "[Player.MakeScope.GetList('fav_countries')]"
+									visible = "[Not(GetVariableSystem.Exists('hide_fav_countries'))]"
+
+									item = {
+										widget = {
+											size = { 250 25 }
+											outliner_highlight_button = {
+												position = { -5 5 }
+												size = { 250 25 }
+												blockoverride "Text" {
+													text = "[Scope.GetCountry.GetNameWithNoTooltip]"
+													visible = "[Scope.GetCountry.Exists]"
+													max_width = 140
+													elide = right
+													fontsize_min = 14
+												}
+												blockoverride "On_click" {
+													onclick = "[OpenDiplomacy(Scope.GetCountry)]"
+												}
+
+												button = {
+													size = { 100% 100% }
+													visible = "[Not(Scope.GetCountry.Exists)]"
+													datacontext = "[GetScriptedGui('fav_countries')]"
+													onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Scope.GetCountry.MakeScope ).AddScope('player', Player.MakeScope).End )]"
+													tooltip = "remove_fav_tag"
+
+													icon = {
+														texture = "gfx/interface/icons/font_icons/font_icon_paper_cross.dds"
+														framesize = { 16 16 }
+														parentanchor = vcenter
+														position = { 15 0 }
+														frame = 2
+														size = { 24 24 }
+													}
+												}
+
+												flowcontainer = {
+													position = { 0 0 }
+													ignoreinvisible = yes
+													datacontext = "[Scope.GetCountry]"
+													parentanchor = right
+													spacing = 10
+													visible = "[Country.Exists]"
+
+													icon = {
+														size = { 30 25 }
+														visible =  "[GreaterThan_CFixedPoint(Scope.GetCountry.GetProgressTowardsCivilWar, '(CFixedPoint)0')]"
+
+														tooltip = "[Country.GetPossibleCivilWarTooltip]"
+
+														icon = {
+															position = { 15 -1 }
+															texture = "gfx/interface/icons/shared_icons/civil_war_active_inactive.dds"
+															frame = "[Country.GetCivilWarFrame]"
+															framesize = { 50 50 }
+															size = { 26 26 }
+														}
+
+														container = {
+															position = { 10 2 }
+															visible =  "[GreaterThan_CFixedPoint(Country.GetProgressTowardsCivilWar, '(CFixedPoint)0')]"
+															icon = {
+																position = { 0 0 }
+																size = { 6 20 }
+																using = flat_background_white
+																color = { 0.5 0.5 0.5 1 }
+
+																progressbar = {
+																	using = flat_background_white
+																	color = { 1 0.1 0 1 }
+																	size = { 100% 20 }
+																	direction = vertical
+																	value = "[FixedPointToFloat(Country.GetProgressTowardsCivilWar)]"
+																}
+															}
+														}
+													}
+
+													icon = {
+														tooltip = "at_war"
+														visible = "[Country.IsAtWar]"
+														size = { 20 20 }
+														parentanchor = vcenter
+														texture = "gfx/interface/alerts/war.dds"
+														glow = {
+															color = { 1 0.5 0 0.5 }
+															glow_radius = 2
+														}
+														tintcolor = { 1 0.9 0.8 1 }
+													}
+
+													textbox = {
+														using = BaseFontS
+														size = { 25 25 }
+														text = "[Scope.GetCountry.GetOpinionOf(Player.GetCountry)|+=]"
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+
+							dynamicgridbox = {
+								name = "category_grid"
+
+								datamodel = "[Outliner.GetCategories]"
+								ignoreinvisible = yes
+
+								item = {
+									container = {
+										visible = "[And(OutlinerCategory.IsVisible,NotEqualTo_int32(OutlinerCategory.GetItemCount,'(int32)0'))]"
+
+										button = {
+											size = { 250 32 }
+											onclick = "[OutlinerCategory.ToggleCollapsed]"
+											position = { 0 6 }
+										}
+
+										outliner_category_button_square_BUI = {
+											size = { 250 25 }
+											using = tooltip_es
+											blockoverride "Text" { text = "#T [OutlinerCategory.GetName]" }
+											tooltip = "[OutlinerCategory.GetTooltip]"
+											blockoverride "Down" { visible = "[Not( OutlinerCategory.IsCollapsed )]" }
+											blockoverride "Up" { visible = "[OutlinerCategory.IsCollapsed]" }
+											blockoverride "On_click" { onclick = "[OutlinerCategory.ToggleCollapsed]" }
+											position = { 0 6 }
+										}
+
+										flowcontainer = {
+											direction = vertical
+											position = { 0 28 }
+
+											dynamicgridbox = {
+												name = "item_grid"
+
+												datamodel = "[OutlinerCategory.GetItems]"
+
+												item = {
+													button_group = {
+														using = tooltip_ws
+														tooltip = "[OutlinerItem.GetTooltip]"
+														tooltip_offset = { -4 0 }
+														clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_click"
+														onclick = "[OutlinerItem.OnClick]"
+														onrightclick = "[OutlinerItem.OnRightClick]"
+
+														outliner_highlight_button = {
+															position = { -4 8 }
+															size = { 100% 100% }
+															blockoverride "Text" {
+																text = "[OutlinerItem.GetText]"
+																max_width = 160
+																elide = right
+																fontsize_min = 10
+															}
+															blockoverride "On_click" {
+
+															}
+															visible = "[Not( OutlinerItem.HasCharacter )]"
+														}
+
+														flowcontainer = {
+															spacing = 0
+															direction = vertical
+															ignoreinvisible = yes
+
+															container = {
+																ignoreinvisible = yes
+
+																container = {
+																	ignoreinvisible = yes
+																	position = { 16 2 }
+
+																	widget = {
+																		position = { 0 12 }
+																		size = { 250 42 }
+																		visible = "[OutlinerItem.HasCharacter]"
+
+																		cpt_button = {
+																			blockoverride "Context" { datacontext = "[OutlinerItem.GetCharacter]" }
+																			blockoverride "Margin" { margin = { 2 2 } }
+																			size = { 35 50 }
+																			parentanchor = top|left
+																			position = { -10 -3 }
+																			blockoverride "portrait_button_template_tooltip" {}
+																		}
+
+																		country_flag = {
+																			parentanchor = right
+																			position = { -14 24 }
+																			datacontext = "[OutlinerItem.GetCharacter.GetEmployer]"
+
+																			blockoverride "flag"
+																			{
+
+																				texture = "[OutlinerItem.GetCharacter.GetEmployer.AccessCoatOfArms.GetTexture('(int32)120','(int32)120')]"
+																				frame = "[OutlinerItem.GetCharacter.GetEmployer.AccessCoatOfArms.GetFrame('(int32)120','(int32)120'))]"
+																				framesize = { 120 120 }
+																			}
+
+																			blockoverride "size"
+																			{
+																				size = { 26 26 }
+																			}
+
+																			blockoverride "click"
+																			{
+																				onclick = "[OpenDiplomacy(OutlinerItem.GetCharacter.GetEmployer)]"
+																			}
+																		}
+
+																		flowcontainer = {
+																			position = { 36 20 }
+																			visible = "[OutlinerItem.GetCharacter.HasActiveAmbition]"
+
+																			spacing = 4
+
+																			textbox = {
+																				using = BaseFontS
+																				fontcolor = { 1 1 1 1 }
+																				parentanchor = top|left
+																				autoresize = yes
+																				maximumsize = { 164 24 }
+																				elide = right
+																				align = left
+																				visible = "[OutlinerItem.GetCharacter.HasActiveAmbition]"
+																				text = "[OutlinerItem.GetCharacter.GetAmbitionName]"
+																				widgetanchor = top|left
+																				fontsize = 12
+																			}
+																		}
+
+																		container = {
+																			position = { 30 40 }
+																			tooltip = "[OutlinerItem.GetCharacter.GetAmbitionInformation]"
+																			using = tooltip_below
+																			fixed_size_progressbar = {
+																				blockoverride "size" { size = { 166 7 } }
+																				blockoverride "Value"
+																				{
+																					value = "[FixedPointToFloat( OutlinerItem.GetCharacter.GetAmbitionProgress )]"
+																				}
+																				position = { 6 0 }
+																				visible = "[And(OutlinerItem.GetCharacter.HasCheckedAmbition, GreaterThan_int32(OutlinerItem.GetCharacter.GetAge, '(int32)15'))]"
+																			}
+																		}
+
+																		flowcontainer = {
+																			position = { -12 -3 }
+																			parentanchor = right
+																			spacing = 2
+																			icon = {
+																				using = icon_loyalty
+																				size = { 22 22 }
+																			}
+																			textbox = {
+																				name = "loyalty"
+																				size = { 48 20 }
+																				using = BaseFontS
+																				align = right
+																				elide = right
+																				autoresize = yes
+																				fontcolor = { 1 1 1 1 }
+																				text = "[OutlinerItem.GetStatus]"
+																			}
+
+																		}
+																	}
+
+																	textbox = {
+																		name = "item_status_text"
+																		visible = "[OutlinerItem.HasCharacter]"
+																		size = { 48 18 }
+																		autoresize = yes
+																		position = { 34 8 }
+																		using = BaseFontS
+																		text = "[OutlinerItem.GetText]"
+																		fontcolor = { 1 1 1 1 }
+																	}
+																}
+																widget = {
+																	size = { 80 13 }
+																	position = { 170 13 }
+																	icon = {
+																		name = "item_icon"
+																		size = { 12 12 }
+																		texture = "[OutlinerItem.GetIcon]"
+																		parentanchor = left
+																		position = { 10 4 }
+																	}
+																	textbox = {
+																		parentanchor = right
+																		maximumsize = { 80 16 }
+																		name = "item_text"
+																		autoresize = yes
+																		using = BaseFontS
+																		max_width = 80
+																		fontsize_min = 12
+																		elide = right
+																		align = right
+																		fontcolor = { 1 1 1 1 }
+																		text = "[OutlinerItem.GetStatus]"
+																		visible = "[And(OutlinerItem.IsStatusText,Not(OutlinerItem.HasCharacter))]"
+																		#parentanchor = vcenter
+																	}
+																}
+																#flowcontainer = {
+																#	position = { 190 13 }
+																#
+																#
+																#
+																#}
+															}
+
+															widget = {
+																size = { 4 3 }
+																visible = "[OutlinerItem.IsStatusProgress]"
+															}
+
+															container = {
+																visible = "[OutlinerItem.IsStatusProgress]"
+
+																icon = {
+																	name = "progressbar_frame"
+																	spriteType = Corneredtiled
+																	spriteborder = { 5 2 }
+																	size = { 244 9 }
+																	position = { 12 0 }
+																	texture = "gfx/interface/tiles/progressbar_green_frame.dds"
+																}
+
+																progressbar = {
+																	name = "item_status_progress"
+																	using = progressbar_green_horizontal
+																	parentanchor = top|hcenter
+																	position = { 14 2 }
+																	size = { 230 5 }
+																	value = "[OutlinerItem.GetStatusPercent]"
+																}
+															}
+														}
+													}
+												}
+											}
+
+											widget = {
+												size = { 0 3 }
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			button = {
+				alwaystransparent = no
+				position = { -50 1 }
+				size = { 58 48 }
+
+				icon = {
+					using = flat_background
+					size = { 96 204 }
+					scale = 0.66
+					position = { 0 -18 }
+
+					modify_texture = {
+						name = "Alpha"
+						texture = "gfx/interface/header_decorations/outliner_ornament_test.dds"
+						blend_mode = alphamultiply
+					}
+				}
+			}
+
+			secondary_header = {
+				alwaystransparent = no
+				position = { 0 1 }
+				size = { 100% 32 }
+				blockoverride "Title_text" { text = "OUTLINER" }
+				blockoverride "White_buttons"
+				{
+					button_settings = {
+						onclick = "[Outliner.ToggleSettingsVisible]"
+						tooltip = "OUTLINER_SETTINGS"
+					}
+				}
+			}
+
+			debug_button_1 = {}
+
+			button_slide_out = {
+				name = "hide_outliner_button"
+				position = { -19 6 }
+				alwaystransparent = no
+				inherit_visual_state = yes
+				shortcut = "outliner"
+				onclick = "[PdxGuiTriggerAllAnimations('hide_outliner')]"
+				onclick = "[PdxGuiWidget.Hide]"
+				onclick = "[PdxGuiWidget.AccessParent.FindChild('show_outliner_button').Show]"
+				onclick = "[Outliner.OnHideSettings]"
+				### Audio ###
+				state = {
+					name = _show
+					start_sound = {
+						soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_outliner_open"
+					}
+				}
+			}
+
+			button_slide_in = {
+				name = "show_outliner_button"
+				position = { -19 7 }
+				visible = no
+				alwaystransparent = no
+				inherit_visual_state = yes
+				shortcut = "outliner"
+				onclick = "[PdxGuiTriggerAllAnimations('show_outliner')]"
+				onclick = "[PdxGuiWidget.Hide]"
+				onclick = "[PdxGuiWidget.AccessParent.FindChild('hide_outliner_button').Show]"
+				### Audio ###
+				state = {
+					name = _show
+					start_sound = {
+						soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_outliner_close"
+					}
+				}
+			}
+		}
+
+		state = {
+			name = "show_outliner"
+
+			animation = {
+				position = { 1 0 }
+			}
+			bezier = { 0.44 1.11 0.74 0.91 }
+
+			duration = 0.2
+
+		}
+
+		state = {
+			name = "hide_outliner"
+
+			animation = {
+				position = { 270 0 }
+			}
+			bezier = { 0.44 0.2 0.74 0.91 }
+
+			duration = 0.2
+		}
+
+		widget = { #minimap
+			size = { 0 35 }
+			alwaystransparent = yes
+
+			state = {
+				name = show_minor_events
+				size = { 0 166 }
+				bezier = { 0.1 0.25 0.4 1 }
+				duration = 0.2
+			}
+			state = {
+				name = hide_minor_events
+				size = { 0 35 }
+				bezier = { 0.1 0.25 0.4 1 }
+				duration = 0.2
+			}
+		}
+
+		widget = { #minimap
+			size = { 0 102 }
+			alwaystransparent = yes
+
+			state = {
+				name = hide_minimap_anim
+				size = { 278 102 }
+				bezier = { 0.1 0.25 0.4 1 }
+				duration = 0.2
+			}
+			state = {
+				name = show_minimap_anim
+				size = { 278 285 }
+				bezier = { 0.1 0.25 0.4 1 }
+				duration = 0.2
+			}
+		}
+	}
+}

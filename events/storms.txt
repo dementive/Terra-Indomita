@@ -44,11 +44,6 @@ storm.1 = {
 			id = storm.10 #Random Archipelago
 			days = { 70 240 }
 		}
-		trigger_event = {
-			id = storm.100 #Caspian/Aral
-			days = { 70 240 }
-		}
-		
 	}
 }
 
@@ -665,50 +660,6 @@ storm.10 = { #Extra
 							duration = 60
 						}
 					}
-				}
-			}
-		}
-	}
-}
-
-storm.100 = { 
-	type = country_event
-	hidden = yes
-	immediate = {
-		#Caspian/Aral
-		random_sea_and_river_zone = {
-			limit = {
-				or = {
-					is_in_area = mare_caspian_area
-					is_in_area = mare_aral_area
-				}
-				terrain = ocean
-				NOT = { has_province_modifier = stormy_seas }
-			}
-			add_vfx = {
-				name = "seastorm"
-				duration = 60
-			}
-			add_province_modifier = {
-				name = "stormy_seas"
-				duration = 60
-			}
-			every_neighbor_province = {
-				limit = {
-					or = {
-						is_in_area = mare_caspian_area
-						is_in_area = mare_aral_area
-					}
-					terrain = ocean
-					NOT = { has_province_modifier = stormy_seas }
-				}
-				add_vfx = {
-					name = "seastorm"
-					duration = 60
-				}
-				add_province_modifier = {
-					name = "stormy_seas"
-					duration = 60
 				}
 			}
 		}

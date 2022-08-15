@@ -1,0 +1,2627 @@
+template DementiveFadeStates #Fade states for windows
+{
+	state = {
+		name = _show
+		
+		animation = {
+			alpha = 0
+		}
+		start_sound = {
+			soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_tab_open"
+		#	soundeffect = "event:/SFX/Events/Generic/sfx_event_generic_deified_ruler_death"
+		}	
+		next = fadein
+	}
+	
+	state = {
+		name = fadein
+		
+		animation = {
+			alpha = 1
+		}
+		duration = 0.25
+	}
+	
+	state = {
+		name = _hide
+		
+		animation = {
+			alpha = 0
+		}
+		start_sound = {
+			soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_tab_close"
+		}
+		duration = 0.25
+	}
+}
+template RedGlowEffect #Glow effect for buttons and frames
+{
+	glow = {
+		glow_radius = 3
+		#color = { 0.95  0.72  0.44 1 }
+		#color = { 0.365  0.027  0.027 0.5 }
+		color = { 0.7 0.04 0.04 0.5 } #red
+		visible = yes
+	}
+#	state = {
+#		trigger_on_create = yes
+#
+#		name = squeeze
+#		next = expand
+#		 
+#		duration = 1
+#		glow_radius = 2.9
+#	}
+#
+#	state = {
+#		name = expand
+#		next = squeeze
+#		
+#		duration = 1
+#		glow_radius = 3
+#	}
+}
+template progressbar_red_horizontal
+{
+	progresstexture = "gfx/interface/tiles/progressbar_red_tile_new.dds"
+#	noprogresstexture = "gfx/interface/tiles/tile_progress_empty.dds"
+
+	block "L_bar"
+	{
+		spriteType = Corneredtiled
+		spriteborder = { 0 0 }
+	}
+}
+template red_button_tiled_texture
+{
+	texture = "gfx/interface/base_parts/background_red.dds"
+	#color = { 1 1 1 1 }
+}
+template light_red_button_tiled_texture
+{
+	texture = "gfx/interface/icons/shared_icons/background_light_red.dds"
+}
+template blue_button_tiled_texture
+{
+	texture = "gfx/interface/icons/shared_icons/background_blue.dds"
+	#color = { 1 1 1 1 }
+}
+template light_blue_button_tiled_texture
+{
+	texture = "gfx/interface/icons/shared_icons/background_light_blue.dds"
+	#color = { 1 1 1 1 }
+}
+template green_button_tiled_texture
+{
+	texture = "gfx/interface/icons/shared_icons/background_green.dds"
+	#color = { 1 1 1 1 }
+}
+template light_green_button_tiled_texture
+{
+	texture = "gfx/interface/icons/shared_icons/background_light_green.dds"
+	#color = { 1 1 1 1 }
+}
+template yellow_button_tiled_texture
+{
+	texture = "gfx/interface/icons/shared_icons/background_yellow.dds"
+	#color = { 1 1 1 1 }
+}
+template flat_background_dark
+{
+	texture = "gfx/interface/base_parts/background_black_texture.dds"
+	#background_black_texture.dds
+	#color = { 0 0.3 0.05 0.92 }
+}
+
+types Base_GUI_Types
+{
+	# Icon Button with a sound block
+	type icon_button_square_sound = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }		
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.5			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}		
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_white
+			spriteType = Corneredtiled
+		}
+		
+		button = {
+			name = "button teal border"
+			using = button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+			framesize = { 200 200 }
+			upframe = 1
+			overframe = 2
+			downframe = 3
+			disableframe = 4			
+			block "On_click" { }
+			
+			# ToDo: Add Sound. //?
+			block "ClickSound" {
+				clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_click"
+				oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
+			}
+			
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 6 6 }
+			}
+
+			using = ButtonBorderTear
+			
+			modify_texture = {
+					name = "Decay"
+					texture = "gfx/interface/base_parts/demanded_rot.dds"
+					blend_mode = alphamultiply
+					spriteType = Corneredtiled
+					alpha = 0.5
+			}
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}
+				glow = {
+					block "Glow" 
+					{
+						glow_radius = 0
+						color = { 1.0 0.85 0.45 0.9 }
+					}
+				}	
+			}
+			
+		}
+	}
+	type treasure_widget = widget {
+		# Size needed
+		minimumsize = { 0 32 }
+		hbox = {
+			
+			widget = {
+				size = { 4 4 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			icon = {
+				#position = { 0 0 }
+				framesize = { 50 50 }
+				size = { 34 34 }
+				layoutpolicy_horizontal = fixed
+				
+				block "Icon"
+				{
+					texture = "gfx/interface/icons/shared_icons/leader.dds"
+				}
+				
+			}
+
+			widget = {
+				size = { 4 4 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			widget = {
+				size = { 0 24 }
+				layoutpolicy_horizontal = expanding
+				
+				textbox = {
+					name = "Text"
+					position = { 0 1 }
+					size = { 100% 24 }					
+					align = left|nobaseline
+					elide = right
+					using = BaseFontM
+					using = Black_FontColor
+					fontsize_min = 16
+					block "Text"
+					{
+						
+						text = "888.88%"
+					}
+				}
+			}
+			
+			widget = {
+				size = { 6 6 }
+				layoutpolicy_horizontal = fixed
+			}			
+		}
+	}
+	type main_bloodline_button = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		
+		button = {
+			#using = button_tiled_texture
+			#spriteType = Corneredtiled
+			#spriteborder = { 200 200 }
+			#gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			
+			block "On_click" { }
+			
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 6 6 }
+			}
+
+			using = ButtonBorderTear
+			
+			modify_texture = {
+					name = "Decay"
+					texture = "gfx/interface/base_parts/demanded_rot.dds"
+					blend_mode = alphamultiply
+					spriteType = Corneredtiled
+					alpha = 0.9
+			}
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}	
+		}
+	}
+	type bloodline_button = widget { 
+		size = { 200 200 }
+		margin_widget = {
+			margin = { -42 -31 }
+			textbox = {
+				name = "Text"
+				autoresize = yes
+				font = HeaderFont
+				fontsize = 24
+				using = BaseFontM	
+				using = Black_FontColor
+				alpha = 0.8
+				fontsize_min = 12
+				block "Text"
+				{
+					text = "Button Text"
+				}
+			}
+		}
+		icon = {
+			texture = "gfx/interface/base_parts/roung_shadow_52.dds"
+			size = { 116% 116% }
+			position = { 0 0 }
+			parentanchor = center
+			alpha = 0.85
+		}
+		margin_widget = {
+			size = { 100% 100% }
+			margin = { 2 2 }
+			icon = {
+				name = "Base"
+				texture = "gfx/interface/base_parts/circle_60.dds"
+				size = { 100% 100% }
+				parentanchor = center
+				glow = {
+					glow_radius = 7
+					color = { 0.16 0.04 0.04 0.6 } #black
+					visible = yes
+				}
+			}
+			
+			margin_widget = {
+				margin = { 2 2 }
+				size = { 100% 100% }
+				button = {
+					using = button_tiled_texture
+					spriteType = Corneredtiled
+					spriteborder = { 200 200 }
+					gfxtype = framedbuttongfx
+					size = { 100% 100% }
+					framesize = { 200 200 }
+					upframe = 1
+					overframe = 2
+					downframe = 3
+					disableframe = 4
+					parentanchor = center
+
+					# ToDo: Add Sound.//?
+					#clicksound = " ToDo "
+					# oversound = " ToDo "
+					
+					modify_texture = {
+						name = "Alpha"
+						texture = "gfx/interface/base_parts/circle_60.dds"
+						blend_mode = alphamultiply
+						#spriteType = corneredtiled
+						#spriteborder = { 6 6 }
+					}
+
+					block "On_click" { }
+					icon = {
+						size = { 50 50 } 
+						position = { 3 5 }
+						block "Icon" { texture = "gfx/interface/icons/_default.dds" }
+						parentanchor = center
+					}
+					alpha = 1
+					state = {
+						name = _mouse_hierarchy_enter
+						animation = {
+							alpha = 0.85
+						}
+						duration = 0.08
+					}			
+					state = {
+						name = _mouse_hierarchy_leave
+						animation = {
+							alpha = 1
+						}
+						duration = 0.08
+					}
+				}
+			}
+		}
+	}
+	type bloodline_marriage_widget = widget {
+		# Size needed
+		minimumsize = { 0 32 }
+		hbox = {
+			position = { 0 -13 }
+			icon = {
+				#position = { 0 0 }
+				framesize = { 50 50 }
+				size = { 34 34 }
+				layoutpolicy_horizontal = fixed
+				
+				block "Icon"
+				{
+					texture = "gfx/interface/icons/shared_icons/leader.dds"
+				}
+			}	
+		}
+	}
+	type trade_goods_widget = widget {
+		# Size needed
+		minimumsize = { 0 34 }
+		
+		hbox = {
+			
+			widget = {
+				size = { 4 4 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			widget = {
+				size = { 0 50 }
+				layoutpolicy_horizontal = expanding
+				button = {
+					size = { 100% 100% }
+					using = button_tiled_texture
+					spriteType = Corneredtiled
+					spriteborder = { 100 100 }
+					gfxtype = framedbuttongfx
+					
+					# ToDo: Add Sound.//?
+					#clicksound = " ToDo "
+					# oversound = " ToDo "
+					
+					framesize = { 200 200 }
+					upframe = 1
+					overframe = 2
+					downframe = 3
+					disableframe = 4
+					
+					block "On_click" {}
+					
+					margin_widget = {
+						margin = { 3 3 }
+						size = { 100% 100% }
+						margin_widget = {
+							size = { 100% 100% }
+							
+							background = {
+								using = flat_background_white
+								shaderfile = "gfx/FX/pdxgui_default.shader"
+								spriteType = corneredtiled		
+								
+								modify_texture = {
+									name = "Alpha" 
+									spriteborder = { 16 16 }
+									spriteType = Corneredtiled
+									texture = "gfx/interface/base_parts/portrait_x32y32bd_alpha.dds"
+									blend_mode = alphamultiply
+								}
+							}
+						}
+						icon = {
+							position = { 0 -3 }
+							size = { 36 36 }
+							block "Icon" { texture = "gfx/interface/icons/_default.dds" }
+							parentanchor = top|hcenter
+						}
+					}
+					alpha = 1
+					state = {
+						name = _mouse_hierarchy_enter
+						animation = {
+							alpha = 0.9
+						}
+						duration = 0.08
+					}			
+					state = {
+						name = _mouse_hierarchy_leave
+						animation = {
+							alpha = 1
+						}
+						duration = 0.08
+					}
+				}
+			}
+			
+			widget = {
+				size = { 6 6 }
+				layoutpolicy_horizontal = fixed
+			}			
+		}
+	}
+	type charpt_button_large_with_data = cpt_button_large { #cpt_button_large is directly above this
+		cpt_button_large = {
+			margin_widget = {
+				size = { 100% 100% }
+				block "ContentMargins" {}
+				country_flag_reworked = {
+					position = { -1 -1 }
+					blockoverride "Size"
+					{
+						size = { 58 58 }
+					}
+					blockoverride "Flag"
+					{
+						texture = "[Character.GetEmployer.AccessCoatOfArms.GetTexture('(int32)120', '(int32)120')]"
+						frame = "[Character.GetEmployer.AccessCoatOfArms.GetFrame('(int32)120', '(int32)120'))]"
+						framesize = { 120 120 }
+					}
+					blockoverride "On_click"
+					{
+						onclick = "[OpenDiplomacy(CharacterWindow.GetCharacter.GetEmployer)]"
+					}
+					tooltip = "[Character.GetEmployer.GetDescriptiveName]"
+				}
+
+				icon = {
+					texture = "gfx/interface/icons/shared_icons/leader_pretender.dds"
+					size = { 50 50 }
+					position = { 74 3 }
+					visible = "[And( Character.GetEmployer.GetGovernment.IsMonarchy, Character.IsPretender )]"
+					tooltip = "PRETENDER_TOOLTIP"
+				}
+
+				flowcontainer = {
+					parentanchor = top|right
+					widgetanchor = right
+					spacing = 11
+					position = { -2 2 }
+					margin_top = 2
+					margin_right = 2
+					@character_stats_bg_alpha = 0.65
+
+					flowcontainer = {
+						spacing = 2
+						direction = vertical
+						background = {
+							shaderfile = "gfx/FX/pdxgui_default.shader"
+							using = flat_background_white
+							using = border_medium_torn_alpha
+							alpha = @character_stats_bg_alpha
+							margin = { 8 8 }
+							margin_bottom = 12
+						}
+						ignoreinvisible = yes
+						#using = NoninteractableBG
+						#blockoverride "BackAlpha" { alpha = @character_stats_bg_alpha }
+						minimumsize = { 136 0 }
+						flowcontainer = {
+							spacing = 6
+							ignoreinvisible = yes
+							icon = {
+								texture = "gfx/interface/icons/icon_alpha/male_female_frame.dds"
+								framesize = { 33 33 }
+								position = { -4 0 }
+								size = { 23 23 }
+								frame = "[Character.GetGenderFrame]"
+								parentanchor = left|vcenter
+							}
+							tag_dark = {
+								minimumsize = { 174 34 }
+								text = "[Character.GetNameWithNoTooltip]"
+								fontsize_min = 10
+								max_width = 174
+								elide = right
+							}
+							icon = {
+								texture = "gfx/interface/base_parts/plus.dds"
+								size = { 26 26 }
+								visible = "[Not( StringIsEmpty( Character.GetRelevantDescription ) )]"
+								tooltip = "[Character.GetRelevantDescription]"
+							}
+						}
+						tag_dark = {
+							minimumsize = { 0 34 }
+							visible = "[Character.HasTitle]"
+							text = "[Character.GetTitleNameShort]"
+							fontsize_min = 10
+							max_width = 188
+							elide = right
+							parentanchor = hcenter
+							tooltip = "[Character.GetTitle.GetTooltip]"
+						}
+						flowcontainer = {
+							spacing = 8
+							ignoreinvisible = no
+							visible = "[Not( Character.HasTitle )]"
+							widget = {
+								size = { 30 30 }
+								parentanchor = left|vcenter
+								icon = {
+									texture = "gfx/interface/icons/shared_icons/age.dds"
+									size = { 26 26 }
+									parentanchor = right
+									position = { -4 0 }
+								}
+							}
+							tag_dark = {
+								minimumsize = { 0 34 }
+								text = "[Character.GetAgeInfo]"
+								max_width = 180
+								elide = right
+								fontsize_min = 12
+							}
+							tooltip = "[Character.GetAgeOnDeathOrBirthDate]"
+						}
+					}
+
+					flowcontainer = {
+						spacing = 8
+						direction = vertical
+						background = {
+							shaderfile = "gfx/FX/pdxgui_default.shader"
+							using = flat_background_white
+							using = border_medium_torn_alpha
+							alpha = @character_stats_bg_alpha
+							margin = { 8 8 }
+							margin_bottom = 12
+						}
+						#using = NoninteractableBG
+						#blockoverride "BackAlpha" { alpha = @character_stats_bg_alpha }
+						icon_and_text_dark = {
+							size = { 168 26 }
+
+							blockoverride "Icon" { using = icon_culture }
+							blockoverride "Text" { text = "[Character.GetCulture.GetName]" }
+							#fontsize_min = 9
+						}
+
+						icon_and_text_dark = {
+							size = { 168 26 }
+
+							blockoverride "Icon" { using = icon_religious }
+							blockoverride "Text" { text = "[Character.GetReligion.GetName]" }
+							#fontsize_min = 9
+						}
+
+					}
+
+				}
+
+				flowcontainer = {
+					ignoreinvisible = yes
+					parentanchor = bottom
+					spacing = 5
+
+					icon_card = {
+						size = { 44 44 }
+						blockoverride "Icon"
+						{
+							texture = "[GetPartyIcon( Character.GetParty )]"
+						}
+						block "PartyIconVisibility"
+						{
+							visible = "[Character.ShowParty]"
+						}
+						tooltip = "[Character.GetPartyTooltip]"
+					}
+
+					block "traits" {
+
+						dynamicgridbox = {
+							#using = NoninteractableBG
+							datamodel = "[Character.GetTraits]"
+							flipdirection = yes
+							item = {
+								icon = {
+									size = { 40 40 }
+									texture = "[GetTraitIcon(Trait.GetIconHook)]"
+
+									tooltipwidget = {
+										container = {
+											using = GeneralTooltipSetup
+											alwaystransparent = no
+
+											widget = {
+												name = "background"
+												using = DefaultTooltipBackground
+												size = { 100% 100% }
+												alwaystransparent = no
+											}
+											flowcontainer = {
+												flowcontainer = {
+													direction = vertical
+													ignoreinvisible = yes
+
+													textbox = {
+														name = "TooltipText1"
+														using = DefaultTooltipText
+														margin = { 20 0 }
+														margin_top = 10
+														multiline = yes
+														maximumsize = { 350 -1 }
+														text = "#T [Trait.GetName]"
+													}
+
+													textbox = {
+														name = "TooltipText2"
+														using = DefaultTooltipText
+														margin = { 20 0 }
+														margin_bottom = 20
+														multiline = yes
+														maximumsize = { 350 -1 }
+														text = "[Trait.GetEffect]"
+													}
+												}
+												margin_widget = {
+													size = { 10 100% }
+													margin = { 0 6 }
+													using = ProgressLockIndicator
+												}
+											}
+										}
+									}
+
+								}
+
+							}
+						}
+					}
+				}
+
+				flowcontainer = {
+					background = {
+						shaderfile = "gfx/FX/pdxgui_default.shader"
+						using = flat_background_white
+						using = border_medium_torn_alpha
+						alpha = @character_stats_bg_alpha
+						margin = { 8 8 }
+						margin_bottom = 14
+					}
+					#using = NoninteractableBG
+					#blockoverride "BackAlpha" { alpha = @character_stats_bg_alpha }
+					parentanchor = bottom|right
+					direction = vertical
+					spacing = 8
+					position = { -2 -9 }
+					margin_right = 2
+
+					flowcontainer = {
+						spacing = 8
+						icon_and_text_dark = {
+							name = "Martial"
+							size = { 80 0 }
+							tooltip = "[Character.GetMartialToolTip]"
+
+							blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/military.dds" }
+							blockoverride "Text" { text = "[Character.GetMartial]" }
+						}
+
+						icon_and_text_dark = {
+							name = "Finesse"
+							size = { 80 0 }
+							tooltip = "[Character.GetFinesseToolTip]"
+
+							blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/civic.dds" }
+							blockoverride "Text" { text = "[Character.GetFinesse]" }
+						}
+
+					}
+
+					flowcontainer = {
+						spacing = 8
+						icon_and_text_dark = {
+							name = "Oratory"
+							size = { 80 0 }
+							tooltip = "[Character.GetCharismaToolTip]"
+
+							blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/oratory.dds" }
+							blockoverride "Text" { text = "[Character.GetCharisma]" }
+						}
+
+						icon_and_text_dark = {
+							name = "Zeal"
+							size = { 80 0 }
+							tooltip = "[Character.GetZealToolTip]"
+
+							blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/religious.dds" }
+							blockoverride "Text" { text = "[Character.GetZeal]" }
+						}
+					}
+				}
+
+				flowcontainer = {
+					background = {
+						shaderfile = "gfx/FX/pdxgui_default.shader"
+						using = flat_background_white
+						using = border_medium_torn_alpha
+						alpha = @character_stats_bg_alpha
+						margin = { 8 8 }
+						margin_bottom = 12
+					}
+					#using = NoninteractableBG
+					#blockoverride "BackAlpha" { alpha = @character_stats_bg_alpha }
+					parentanchor = vcenter|right
+					direction = vertical
+					spacing = 8
+					position = { -2 -3 }
+					margin_right = 2
+
+					flowcontainer = {
+						spacing = 8
+						icon_and_text_dark = {
+							name = "Loyalty"
+							size = { 80 0 }
+
+							tooltip = "[Character.GetLoyaltyToolTip]"
+
+							blockoverride "Icon" {
+								texture = "gfx/interface/icons/shared_icons/loyalty.dds"
+							}
+							blockoverride "Text" {
+								text = "[Character.GetLoyalty|0]"
+							}
+						}
+
+						icon_and_text_dark = {
+							name = "Popularity"
+							size = { 80 0 }
+							tooltip = "[Character.GetPopularityToolTip]"
+
+							blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/popularity.dds" }
+							blockoverride "Text" { text = "[Character.GetPopularity|0]" }
+						}
+
+					}
+
+					flowcontainer = {
+						spacing = 8
+						ignoreinvisible = yes
+						icon_and_text_dark = {
+							name = "Prominence"
+							size = { 80 0 }
+							tooltip = "[Character.GetProminenceToolTip]"
+							visible = "[Not( Character.GetEmployer.GetGovernment.IsRepublic )]"
+							blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/prominence.dds" }
+							blockoverride "Text" { text = "[Character.GetProminence|0]" }
+						}
+
+						icon_and_text_dark = {
+							name = "Statesmanship"
+							size = { 80 0 }
+							tooltip = "[Character.GetExperienceInformation]"
+							visible = "[Character.GetEmployer.GetGovernment.IsRepublic]"
+							blockoverride "Icon" { using = icon_statesmanship }
+							blockoverride "Text" { text = "[Character.GetExperience|0]" }
+						}
+
+						icon_and_text_dark = {
+							name = "Corruption"
+							size = { 80 0 }
+							tooltip = "[Character.GetCorruptionToolTip]"
+
+							blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/corruption.dds" }
+							blockoverride "Text" { text = "[Character.GetCorruption|0]" }
+						}
+					}
+				}
+
+				flowcontainer = {
+					spacing = 2
+					direction = vertical
+					parentanchor = vcenter|right
+					position = { -298 -2 }
+					background = {
+						shaderfile = "gfx/FX/pdxgui_default.shader"
+						using = flat_background_white
+						using = border_medium_torn_alpha
+						alpha = @character_stats_bg_alpha
+						margin = { 8 8 }
+						margin_bottom = 12
+					}
+
+					#using = NoninteractableBG
+					#blockoverride "BackAlpha" { alpha = @character_stats_bg_alpha }
+					minimumsize = { 120 67 }
+					visible = "[Character.HasTitle]"
+					flowcontainer = {
+						spacing = 8
+						ignoreinvisible = no
+
+						widget = {
+							size = { 30 30 }
+							parentanchor = left|vcenter
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/age.dds"
+								size = { 26 26 }
+								parentanchor = right
+								position = { -1 0 }
+							}
+						}
+						tag_dark = {
+							minimumsize = { 0 34 }
+							text = "[Character.GetAgeInfo]"
+							max_width = 65
+							elide = right
+							fontsize_min = 10
+						}
+						tooltip = "[Character.GetAgeOnDeathOrBirthDate]"
+					}
+					widget = { size = { 0 1 } }
+					icon_and_text_dark = {
+						size = { 100 34 }
+						blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/land_combat.dds" }
+						blockoverride "Text" { text = "[Character.GetNumberOfLoyalCohorts]" }
+						tooltip = "LOYAL_VETS_TOOLTIP"
+					}
+				}
+
+				flowcontainer = {
+					background = {
+						shaderfile = "gfx/FX/pdxgui_default.shader"
+						using = flat_background_white
+						using = border_medium_torn_alpha
+						alpha = @character_stats_bg_alpha
+						margin = { 8 8 }
+						margin_bottom = 12
+					}
+					#using = NoninteractableBG
+					#blockoverride "BackAlpha" { alpha = @character_stats_bg_alpha }
+					parentanchor = vcenter|right
+					direction = vertical
+					spacing = 8
+					position = { -182 -3 } ###
+					icon_and_text_dark = {
+						name = "Loyalty"
+						size = { 106 0 }
+
+						tooltip = "[Character.GetPowerBaseInfo]"
+
+						blockoverride "Icon" {
+							texture = "gfx/interface/icons/shared_icons/power_base.dds"
+						}
+						blockoverride "Text" {
+							text = "[Character.GetPowerBase|0]"
+						}
+					}
+					icon_and_text_dark = {
+						name = "Prominence"
+						size = { 106 0 }
+						tooltip = "[Character.GetWealthInformation]"
+
+						blockoverride "Icon" { using = icon_treasury }
+						blockoverride "Text" { text = "[Character.GetWealth|0]" }
+					}
+				}
+				icon = {
+					size = { 20 20 }
+					texture = "gfx/interface/tooltip/lock_icon_alpha_s.dds"
+					position = { 0 65 }
+					visible = "[PdxGuiWidget.IsTooltipLocked]"
+					background = {
+						texture = "gfx/interface/tooltip/lock_icon_alpha_s.dds"
+						shaderfile = "gfx/FX/pdxgui_default.shader"
+						margin = { 3 3 }
+						parentanchor = center
+						color = { 0 0 0 1 }
+					}
+				}
+			}
+		}
+	}
+	# Icon Button
+	type icon_button_square_red = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button red border"
+			using = red_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 1
+			overframe = 2
+			downframe = 3
+			disableframe = 16		
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 8.5 8.75 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_light_red = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button red border"
+			using = light_red_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 1
+			overframe = 2
+			downframe = 3
+			disableframe = 16		
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 8.5 8.75 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_blue = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button red border"
+			using = blue_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 3
+			overframe = 1
+			downframe = 3
+			disableframe = 4
+			
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 8.5 8.75 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_light_blue = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button red border"
+			using = light_blue_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 3
+			overframe = 1
+			downframe = 3
+			disableframe = 4
+			
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 8.5 8.75 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_green = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button red border"
+			using = green_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 3
+			overframe = 1
+			downframe = 3
+			disableframe = 4
+			
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 8.5 8.75 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_light_green = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button red border"
+			using = light_green_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 3
+			overframe = 1
+			downframe = 3
+			disableframe = 4
+			
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 8.5 8.75 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_yellow = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.825
+		}
+		
+		button = {
+			name = "button red border"
+			using = yellow_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 3
+			overframe = 1
+			downframe = 3
+			disableframe = 4
+			
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 8.5 8.75 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_small_red = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button red border"
+			using = red_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 1
+			overframe = 1
+			downframe = 1
+			disableframe = 1	
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 6 6 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+	
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_small_green = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button green border"
+			using = green_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 1
+			overframe = 1
+			downframe = 1
+			disableframe = 1	
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 6 6 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+	
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_small_yellow = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button green border"
+			using = yellow_button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 200 200 }
+			upframe = 1
+			overframe = 1
+			downframe = 1
+			disableframe = 1	
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 6 6 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+	
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type icon_button_square_completed = widget {
+		size = { @Icon_button_size_M @Icon_button_size_M }
+		background = {
+			name = "Shadow"
+			texture = "gfx/interface/base_parts/button_square_dropshadow_x16y16bd.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			spriteType = corneredtiled
+			spriteborder = { 8 8 }
+			margin_left = 4
+			margin_bottom = 4
+			alpha = 0.01
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}			
+		}
+		
+		background = {
+			name = "Base"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			using = flat_background_dark
+			spriteType = Corneredtiled
+			alpha = 0.875
+		}
+		
+		button = {
+			name = "button red border"
+			using = green_button_tiled_texture
+			#spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+
+			framesize = { 300 300 }
+			upframe = 1
+			overframe = 2
+			downframe = 3
+			disableframe = 4
+			
+			block "On_click" { }
+						
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/button2_outer_x8y8bd_alpha.dds"
+				blend_mode = alphamultiply
+				#spriteType = Corneredtiled
+				spriteborder = { 50 50 }
+			}
+			using = ButtonBorderTear
+			
+			modify_texture = {
+				name = "Decay"
+				texture = "gfx/interface/base_parts/demanded_rot.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				alpha = 0.1
+			}
+
+			
+			icon = {
+				widgetanchor = center
+				parentanchor = center
+				
+				block "IconSize" { size = { 38 38 } }
+				block "Icon" 
+				{
+					# Override with the relevant Icon.
+					texture = "gfx/interface/icons/temp_icon.dds"
+				}	
+			}
+			
+		}
+	}
+	type fixed_size_progressbar_char_experience = margin_widget {
+		
+		block "size"
+		{
+			size = { 400 15 }
+		}
+		
+		icon = {
+			using = flat_background
+			size = { 4 100% }
+		}
+		
+		margin_widget = {
+			size = { 100% 100% }
+			margin = { 6 0 }
+			
+			widget = {
+				size = { 100% 100% }
+				icon = {
+					name = "progress_frame"
+					texture = "gfx/interface/base_parts/progressbar_background_frame.dds"
+					
+					minimumsize = { 0 7 }
+					size = { 100% 100% }
+					color = { 0.7 0.7 0.7 1 }
+					block "ProgressAlpha" { alpha = 0.5 }
+				}
+				progressbar = {
+					name = "progress_value"
+					position = { 0 0 }
+					size = { 100% 100% }
+					alpha = 1
+					using = progressbar_flat_green
+					block "Value"
+					{
+						value = 1
+					}
+					
+					marker = {
+						container = {
+							name = "progress_marker2"           
+							alwaystransparent = yes
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/plus.dds"
+								size = { 23 23 }
+								position = { -24 0 }
+								color = { 0 0 0 1 }
+								block "PlusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/plus.dds"
+								size = { 23 23 }
+								position = { -30 0 }
+								color = { 0 0 0 1 }
+								block "PlusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/minus.dds"
+								size = { 23 23 }
+								position = { -24 0 }
+								color = { 0.4 0 0 1 }
+								block "MinusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/minus.dds"
+								size = { 23 23 }
+								position = { -30 0 }
+								color = { 0.4 0 0 1 }
+								block "MinusMarker" { visible = no }
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
+		icon = {
+			using = flat_background
+			parentanchor = right
+			size = { 4 100% }
+		}
+	}	
+	type icon_and_text_progress_char_experience = widget { #fixed size
+		# Static Size
+		block "TotalSize" { size = { 250 38 } }
+		##minimumsize = { 102 38 }
+		
+		fixed_size_progressbar_char_experience = {
+			position = { 7 28 }
+			block "BarSize" { blockoverride "size" { size = { 250 7 } } }
+			#Passes "Value" override
+		}
+		
+		hbox = {
+			
+			widget = {
+				size = { 0 0 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			container = {
+				icon = {
+					position = { 4 -15 }
+					framesize = { 50 50 }
+					size = { 32 32 }
+					layoutpolicy_horizontal = fixed
+					
+					block "Icon"
+					{
+						texture = "gfx/interface/icons/shared_icons/leader.dds"
+					}
+					icon = {
+						texture = "gfx/interface/icons/shared_icons/plus.dds"
+						block "UpIndicator" { visible = no }
+						position = { -2 12 }
+					}
+					icon = {
+						texture = "gfx/interface/icons/shared_icons/minus.dds"
+						block "DownIndicator" { visible = no }
+						position = { -2 12 }
+					}
+				}
+			}
+
+			widget = {
+				size = { 0 0 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			widget = {
+				size = { 0 24}
+				layoutpolicy_horizontal = expanding
+				
+				textbox = {
+					name = "Text"
+					position = { -80 -10 }
+					size = { 100% 24 }
+					fontsize = 24	
+					align = right
+					elide = right
+					using = BaseFontM
+					using = Black_FontColor
+	
+					block "Text"
+					{
+						
+						text = "888.88%"
+					}
+				}
+			}
+			
+			widget = {
+				size = { 6 6 }
+				layoutpolicy_horizontal = fixed
+			}			
+		}
+	}
+	##POSITIVE WAR SCORE BAR
+	type fixed_size_progressbar_war_score = margin_widget {
+		
+		block "size"
+		{
+			size = { 510 19 }
+		}
+		
+		icon = {
+			using = flat_background
+			size = { 4 100% }
+		}
+		
+		margin_widget = {
+			size = { 100% 100% }
+			margin = { 6 0 }
+			
+			widget = {
+				size = { 100% 100% }
+				icon = {
+					name = "progress_frame"
+					texture = "gfx/interface/base_parts/progressbar_background_frame.dds"
+					
+					minimumsize = { 0 7 }
+					size = { 100% 100% }
+					color = { 0.7 0.7 0.7 1 }
+					block "ProgressAlpha" { alpha = 0.5 }
+				}
+				progressbar = {
+					name = "progress_value"
+					position = { 0 0 }
+					size = { 100% 100% }
+					alpha = 1
+					using = progressbar_flat_green
+					block "Value"
+					{
+						value = 1
+					}
+					
+					marker = {
+						container = {
+							name = "progress_marker2"           
+							alwaystransparent = yes
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/plus.dds"
+								size = { 23 23 }
+								position = { -24 0 }
+								color = { 0 0 0 1 }
+								block "PlusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/plus.dds"
+								size = { 23 23 }
+								position = { -30 0 }
+								color = { 0 0 0 1 }
+								block "PlusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/minus.dds"
+								size = { 23 23 }
+								position = { -24 0 }
+								color = { 0.4 0 0 1 }
+								block "MinusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/minus.dds"
+								size = { 23 23 }
+								position = { -30 0 }
+								color = { 0.4 0 0 1 }
+								block "MinusMarker" { visible = no }
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
+		icon = {
+			using = flat_background
+			parentanchor = right
+			size = { 4 100% }
+		}
+	}
+	type icon_and_text_progress_war_score = widget { #fixed size
+		# Static Size
+		block "TotalSize" { size = { 350 38 } }
+		##minimumsize = { 102 38 }
+		
+		fixed_size_progressbar_war_score = {
+			position = { 7 28 }
+			block "BarSize" { blockoverride "size" { size = { 350 7 } } }
+			#Passes "Value" override
+		}
+		
+		hbox = {
+			
+			widget = {
+				size = { 0 0 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			container = {
+				icon = {
+					position = { 230 -63 }
+					framesize = { 50 50 }
+					size = { 32 32 }
+					layoutpolicy_horizontal = fixed
+					
+					block "Icon"
+					{
+						texture = "gfx/interface/icons/shared_icons/leader.dds"
+					}
+					icon = {
+						texture = "gfx/interface/icons/shared_icons/plus.dds"
+						block "UpIndicator" { visible = no }
+						position = { -2 12 }
+					}
+					icon = {
+						texture = "gfx/interface/icons/shared_icons/minus.dds"
+						block "DownIndicator" { visible = no }
+						position = { -2 12 }
+					}
+				}
+			}
+
+			widget = {
+				size = { 0 0 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			widget = {
+				size = { 0 24}
+				layoutpolicy_horizontal = expanding
+				
+				textbox = {
+					name = "Text"
+					position = { 0 -10 }
+					size = { 100% 24 }
+					fontsize = 24	
+					align = right
+					elide = right
+					using = BaseFontM
+					using = Black_FontColor
+	
+					block "Text"
+					{
+						
+						text = "888.88%"
+					}
+				}
+			}
+			
+			widget = {
+				size = { 6 6 }
+				layoutpolicy_horizontal = fixed
+			}			
+		}
+	}
+	##Idea Bar
+	type fixed_size_progressbar_ideas = margin_widget {
+		
+		block "size"
+		{
+			size = { 582 19 }
+		}
+		
+		icon = {
+			using = flat_background
+			size = { 4 100% }
+		}
+		
+		margin_widget = {
+			size = { 100% 100% }
+			margin = { 6 0 }
+			
+			widget = {
+				size = { 100% 100% }
+				icon = {
+					name = "progress_frame"
+					texture = "gfx/interface/base_parts/progressbar_background_frame.dds"
+					
+					minimumsize = { 0 7 }
+					size = { 100% 100% }
+					color = { 0.7 0.7 0.7 1 }
+					block "ProgressAlpha" { alpha = 0.5 }
+				}
+				progressbar = {
+					name = "progress_value"
+					position = { 0 0 }
+					size = { 100% 100% }
+					alpha = 1
+					using = progressbar_flat_green
+					block "Value"
+					{
+						value = 1
+					}
+					
+					marker = {
+						container = {
+							name = "progress_marker2"           
+							alwaystransparent = yes
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/plus.dds"
+								size = { 23 23 }
+								position = { -24 0 }
+								color = { 0 0 0 1 }
+								block "PlusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/plus.dds"
+								size = { 23 23 }
+								position = { -30 0 }
+								color = { 0 0 0 1 }
+								block "PlusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/minus.dds"
+								size = { 23 23 }
+								position = { -24 0 }
+								color = { 0.4 0 0 1 }
+								block "MinusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/minus.dds"
+								size = { 23 23 }
+								position = { -30 0 }
+								color = { 0.4 0 0 1 }
+								block "MinusMarker" { visible = no }
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
+		icon = {
+			using = flat_background
+			parentanchor = right
+			size = { 4 100% }
+		}
+	}
+	type icon_and_text_progress_ideas = widget { #fixed size
+		# Static Size
+		block "TotalSize" { size = { 350 38 } }
+		##minimumsize = { 102 38 }
+		
+		fixed_size_progressbar_ideas = {
+			position = { 7 28 }
+			block "BarSize" { blockoverride "size" { size = { 450 7 } } }
+			#Passes "Value" override
+		}
+		
+		hbox = {
+			
+			widget = {
+				size = { 0 0 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			container = {
+				icon = {
+					position = { 230 -63 }
+					framesize = { 50 50 }
+					size = { 32 32 }
+					layoutpolicy_horizontal = fixed
+					
+					block "Icon"
+					{
+						texture = "gfx/interface/icons/shared_icons/leader.dds"
+					}
+					icon = {
+						texture = "gfx/interface/icons/shared_icons/plus.dds"
+						block "UpIndicator" { visible = no }
+						position = { -2 12 }
+					}
+					icon = {
+						texture = "gfx/interface/icons/shared_icons/minus.dds"
+						block "DownIndicator" { visible = no }
+						position = { -2 12 }
+					}
+				}
+			}
+
+			widget = {
+				size = { 0 0 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			widget = {
+				size = { 0 24}
+				layoutpolicy_horizontal = expanding
+				
+				textbox = {
+					name = "Text"
+					position = { 0 -10 }
+					size = { 100% 24 }
+					fontsize = 24	
+					align = right
+					elide = right
+					using = BaseFontM
+					using = Black_FontColor
+	
+					block "Text"
+					{
+						
+						text = "888.88%"
+					}
+				}
+			}
+			
+			widget = {
+				size = { 6 6 }
+				layoutpolicy_horizontal = fixed
+			}			
+		}
+	}
+	##NEGATIVE WAR SCORE BAR
+	type fixed_size_progressbar_war_score_red = margin_widget {
+		
+		block "size"
+		{
+			size = { 510 19 }
+		}
+		
+		icon = {
+			using = flat_background
+			size = { 4 100% }
+		}
+		
+		margin_widget = {
+			size = { 100% 100% }
+			margin = { 6 0 }
+			
+			widget = {
+				size = { 100% 100% }
+				icon = {
+					name = "progress_frame"
+					texture = "gfx/interface/base_parts/progressbar_background_frame.dds"
+					
+					minimumsize = { 0 7 }
+					size = { 100% 100% }
+					color = { 0.7 0.7 0.7 1 }
+					block "ProgressAlpha" { alpha = 0.5 }
+				}
+				progressbar = {
+					name = "progress_value"
+					position = { 0 0 }
+					size = { 100% 100% }
+					alpha = 1
+					using = progressbar_red_horizontal
+					block "Value"
+					{
+						value = 1
+					}
+					
+					marker = {
+						container = {
+							name = "progress_marker2"           
+							alwaystransparent = yes
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/plus.dds"
+								size = { 23 23 }
+								position = { -24 0 }
+								color = { 0 0 0 1 }
+								block "PlusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/plus.dds"
+								size = { 23 23 }
+								position = { -30 0 }
+								color = { 0 0 0 1 }
+								block "PlusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/minus.dds"
+								size = { 23 23 }
+								position = { -24 0 }
+								color = { 0.4 0 0 1 }
+								block "MinusMarker" { visible = no }
+							}
+							icon = {
+								texture = "gfx/interface/icons/shared_icons/minus.dds"
+								size = { 23 23 }
+								position = { -30 0 }
+								color = { 0.4 0 0 1 }
+								block "MinusMarker" { visible = no }
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
+		icon = {
+			using = flat_background
+			parentanchor = right
+			size = { 4 100% }
+		}
+	}
+	type icon_and_text_progress_war_score_red = widget { #fixed size
+		# Static Size
+		block "TotalSize" { size = { 350 38 } }
+		##minimumsize = { 102 38 }
+		
+		fixed_size_progressbar_war_score_red = {
+			position = { 7 28 }
+			block "BarSize" { blockoverride "size" { size = { 350 7 } } }
+			#Passes "Value" override
+		}
+		
+		hbox = {
+			
+			widget = {
+				size = { 0 0 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			container = {
+				icon = {
+					position = { 230 -63 }
+					framesize = { 50 50 }
+					size = { 32 32 }
+					layoutpolicy_horizontal = fixed
+					
+					block "Icon"
+					{
+						texture = "gfx/interface/icons/shared_icons/leader.dds"
+					}
+					icon = {
+						texture = "gfx/interface/icons/shared_icons/plus.dds"
+						block "UpIndicator" { visible = no }
+						position = { -2 12 }
+					}
+					icon = {
+						texture = "gfx/interface/icons/shared_icons/minus.dds"
+						block "DownIndicator" { visible = no }
+						position = { -2 12 }
+					}
+				}
+			}
+
+			widget = {
+				size = { 0 0 }
+				layoutpolicy_horizontal = fixed
+			}
+			
+			widget = {
+				size = { 0 24}
+				layoutpolicy_horizontal = expanding
+				
+				textbox = {
+					name = "Text"
+					position = { 0 -10 }
+					size = { 100% 24 }
+					fontsize = 24	
+					align = right
+					elide = right
+					using = BaseFontM
+					using = Black_FontColor
+	
+					block "Text"
+					{
+						
+						text = "888.88%"
+					}
+				}
+			}
+			
+			widget = {
+				size = { 6 6 }
+				layoutpolicy_horizontal = fixed
+			}			
+		}
+	}
+	type open_focus_button = button {
+		minimumsize = { 40 33 }
+		using = flat_background_white
+		using = DropShadow
+		using = border_very_torn_alpha
+		blockoverride "ShadowMargins"
+		{
+			margin_left = 4
+			margin_bottom = 5
+			margin_top = 8
+			margin_right = 3
+		}
+		block "On_click" {}
+		textbox = {
+			using = BaseFontM
+			using = Black_FontColor
+			autoresize = yes
+			elide = right
+			block "TextMaxWidth" { max_width = 120 }
+			fontsize_min = 16
+			block "Text" {  }
+			block "Text_alignment" 
+			{ 
+				parentanchor = center 
+				align = center
+				position = { 0 -2 }
+			}
+			#position = { 0 -2 }
+		}
+		icon = {
+			size = { 100% 100% }
+			using = button_tiled_texture
+			spriteborder = { 200 200 }
+			framesize = { 100 100 }
+			
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/brown_underline_x60bd.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 16 16 }
+			}
+		}
+	}
+	type button_plus_war = widget {
+		size = { 35 35 }
+		
+		icon = {
+			name = "Shadow"
+			position = { -1 1 }
+			texture = "gfx/interface/base_parts/roung_shadow_52.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			widgetanchor = center
+			parentanchor = center
+			alpha = 0.3
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}
+		}
+		
+		icon = {
+			name = "Base"
+			size = { 35 35 }
+			using = flat_background_white
+			spriteType = Corneredtiled
+			
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/round_back_52.dds"
+				blend_mode = alphamultiply
+			}           
+		}
+		
+		button = {
+			using = button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+			framesize = { 200 200 }
+			upframe = 1
+			overframe = 2
+			downframe = 3
+			disableframe = 4
+			
+			# ToDo: Add Sound.//increment
+			clicksound = "event:/SFX/UI/Generic/2.0/sfx_ui_button_increment"
+			# oversound = " ToDo "
+			
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/roung_outline_52.dds"
+				blend_mode = alphamultiply
+			}
+			
+			button = {
+				size = { 35 35 }
+				using = button_tiled_texture
+				spriteType = corneredtiled
+				gfxtype = framedbuttongfx
+				widgetanchor = center
+				parentanchor = center
+				
+				framesize = { 200 200 }
+				upframe = 1
+				overframe = 2
+				downframe = 3
+				disableframe = 4                
+				
+				block "On_click" { }
+				clicksound = "event:/SFX/UI/Generic/2.0/sfx_ui_button_increment"
+				modify_texture = {
+					name = "Alpha"
+					texture = "gfx/interface/base_parts/plus.dds"
+					blend_mode = alphamultiply                  
+				}
+				
+			}
+		}
+	}   
+	
+	type button_minus_war = widget {
+		size = { 35 35 }
+		
+		icon = {
+			name = "Shadow"
+			position = { -1 1 }
+			texture = "gfx/interface/base_parts/roung_shadow_52.dds"
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			widgetanchor = center
+			parentanchor = center
+			alpha = 0.3
+			
+			block "Drop_shadow" 
+			{
+				# If this is not a button/unclickable, set this visible to no.
+				visible = yes
+			}
+		}
+		
+		icon = {
+			name = "Base"
+			size = { 35 35 }
+			using = flat_background_white
+			spriteType = Corneredtiled
+			
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/round_back_52.dds"
+				blend_mode = alphamultiply
+			}           
+		}
+		
+		button = {
+			using = button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+			framesize = { 200 200 }
+			upframe = 1
+			overframe = 2
+			downframe = 3
+			disableframe = 4
+			
+			
+			# ToDo: Add Sound. Decrement
+			clicksound = "event:/SFX/UI/Generic/2.0/sfx_ui_button_decrement"
+			# oversound = " ToDo "
+			
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/roung_outline_52.dds"
+				blend_mode = alphamultiply
+			}
+			
+			button = {
+				size = { 35 35 }
+				using = button_tiled_texture
+				spriteType = corneredtiled
+				gfxtype = framedbuttongfx
+				widgetanchor = center
+				parentanchor = center
+				
+				framesize = { 200 200 }
+				upframe = 1
+				overframe = 2
+				downframe = 3
+				disableframe = 4                
+				
+				block "On_click" { }
+				clicksound = "event:/SFX/UI/Generic/2.0/sfx_ui_button_decrement"
+				
+				modify_texture = {
+					name = "Alpha"
+					texture = "gfx/interface/base_parts/minus.dds"
+					blend_mode = alphamultiply                  
+				}
+			}
+		}
+	}
+}

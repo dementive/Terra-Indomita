@@ -1,0 +1,735 @@
+﻿namespace = me_qin_shan_yang
+
+me_qin_shan_yang.1 = {
+    type = country_event
+
+    title = me_qin_shan_yang_1_title
+    desc = me_qin_shan_yang_1_desc
+    picture = great_library
+
+    immediate = {
+        set_variable = {
+            name = abrogating_fengjian
+            days = 730
+        }
+    }
+
+
+    option = {
+        name = "me_qin_shan_yang_1.a"
+        custom_tooltip = me_qin_shan_yang_1_tooltip
+    }
+
+    after = {
+        trigger_event = {
+            id = me_qin_shan_yang.1000
+            days = { 30 60 }
+        }
+    }
+}
+me_qin_shan_yang.1000 = {
+    type = country_event
+
+    title = me_qin_shan_yang_1000_title
+    desc = me_qin_shan_yang_1000_desc
+    picture = great_library
+    trigger = {
+        has_variable = abrogating_fengjian
+        any_neighbour_country = {
+            religion = chinese_religions
+            any_owned_province = {
+                any_pops_in_province = {
+                    pop_type = freemen
+                }
+            }
+            NOT = { has_variable = pops_stolen }
+        }
+
+    }
+    immediate = {
+        set_variable = {
+            name = roll_1
+            value = { integer_range = { min = 1 max = 3 } }
+            days = 5
+        }
+        set_variable = {
+            name = roll_2
+            value = { integer_range = { min = 1 max = 2 } }
+            days = 5
+        }
+        random_neighbour_country = {
+            limit = {
+                religion = chinese_religions
+                any_owned_province = {
+                    any_pops_in_province = {
+                        pop_type = freemen
+                    }
+                }
+                NOT = { has_variable = pops_stolen }
+            }
+            save_scope_as = neighbor
+        }
+        random_owned_province = {
+            limit = {
+                any_neighbor_province = {
+                    owner = scope:neighbor
+                }
+            }
+            save_scope_as = migration_prov
+        }
+    }
+
+
+    option = {
+        name = "me_qin_shan_yang_1000.a"
+        scope:neighbor = {
+            ordered_owned_province = {
+                limit = {
+                    num_of_freemen >= root.var:roll_1
+                }
+                order_by = freemen_happiness
+                check_range_bounds = no
+                max = root.var:roll_2
+
+                ordered_pops_in_province = {
+                    limit = {
+                        pop_type = freemen
+                    }
+                    order_by = pop_hapiness
+                    position = 0
+                    max = root.var:roll_1
+                    move_pop = scope:migration_prov
+                }
+            }
+            set_variable = {
+                name = pops_stolen
+                days = 750
+            }
+        }
+    }
+
+    after = {
+        trigger_event =  {
+            id = me_qin_shan_yang.1000
+            days = { 365 600 }
+        }
+    }
+}
+me_qin_shan_yang.2 = {
+    type = country_event
+
+    title = me_qin_shan_yang_2_title
+    desc = me_qin_shan_yang_2_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_2.a"
+        custom_tooltip = me_qin_shan_yang_2_tooltip
+        custom_tooltip = qin_01_shan_yang_task_2_tt
+
+        hidden_effect = {
+            c:YQI = {
+                add_opinion = {
+                    modifier = yiqu_is_mad_lol_pussies
+                    target = root
+                }
+            }
+            area:anding_area = {
+                every_area_province = {
+                    add_claim = root
+                }
+            }
+            area:tianshui_area = {
+                every_area_province = {
+                    add_claim = root
+                }
+            }
+        }
+    }
+}
+me_qin_shan_yang.3 = {
+    type = country_event
+
+    title = me_qin_shan_yang_3_title
+    desc = me_qin_shan_yang_3_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_3.a"
+        custom_tooltip = me_qin_shan_yang_3_tooltip
+
+    }
+}
+me_qin_shan_yang.4 = {
+    type = country_event
+
+    title = me_qin_shan_yang_4_title
+    desc = me_qin_shan_yang_4_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_4.a"
+        custom_tooltip = me_qin_shan_yang_4_tooltip
+
+    }
+}
+me_qin_shan_yang.5 = {
+    type = country_event
+
+    title = me_qin_shan_yang_5_title
+    desc = me_qin_shan_yang_5_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_5.a"
+        custom_tooltip = me_qin_shan_yang_5_tooltip
+
+    }
+}
+me_qin_shan_yang.6 = {
+    type = country_event
+
+    title = me_qin_shan_yang_6_title
+    desc = me_qin_shan_yang_6_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_6.a"
+        custom_tooltip = me_qin_shan_yang_6_tooltip
+
+    }
+}
+me_qin_shan_yang.7 = {
+    type = country_event
+
+    title = me_qin_shan_yang_7_title
+    desc = me_qin_shan_yang_7_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_7.a"
+        custom_tooltip = me_qin_shan_yang_7_tooltip
+
+    }
+}
+me_qin_shan_yang.8 = {
+    type = country_event
+
+    title = me_qin_shan_yang_8_title
+    desc = me_qin_shan_yang_8_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_8.a"
+        custom_tooltip = me_qin_shan_yang_8_tooltip
+
+    }
+}
+me_qin_shan_yang.9 = {
+    type = country_event
+
+    title = me_qin_shan_yang_9_title
+    desc = me_qin_shan_yang_9_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_9.a"
+        custom_tooltip = me_qin_shan_yang_9_tooltip
+
+    }
+}
+me_qin_shan_yang.10 = {
+    type = country_event
+
+    title = me_qin_shan_yang_10_title
+    desc = me_qin_shan_yang_10_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_10.a"
+        custom_tooltip = me_qin_shan_yang_10_tooltip
+
+    }
+}
+me_qin_shan_yang.11 = {
+    type = country_event
+
+    title = me_qin_shan_yang_11_title
+    desc = me_qin_shan_yang_11_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_11.a"
+        custom_tooltip = me_qin_shan_yang_11_tooltip
+
+    }
+}
+
+
+namespace = me_qin_li_si
+
+
+me_qin_li_si.1 = {
+    type = country_event
+
+    title = me_qin_li_si_1_title
+    desc = me_qin_li_si_1_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_1.a"
+        custom_tooltip = me_qin_li_si_1_tooltip
+
+    }
+}
+me_qin_li_si.2 = {
+    type = country_event
+
+    title = me_qin_li_si_2_title
+    desc = me_qin_li_si_2_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_2.a"
+        custom_tooltip = me_qin_li_si_2_tooltip
+
+    }
+}
+me_qin_li_si.3 = {
+    type = country_event
+
+    title = me_qin_li_si_3_title
+    desc = me_qin_li_si_3_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_3.a"
+        custom_tooltip = me_qin_li_si_3_tooltip
+
+    }
+}
+me_qin_li_si.4 = {
+    type = country_event
+
+    title = me_qin_li_si_4_title
+    desc = me_qin_li_si_4_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_4.a"
+        custom_tooltip = me_qin_li_si_4_tooltip
+
+    }
+}
+me_qin_li_si.5 = {
+    type = country_event
+
+    title = me_qin_li_si_5_title
+    desc = me_qin_li_si_5_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_5.a"
+        custom_tooltip = me_qin_li_si_5_tooltip
+
+    }
+}
+me_qin_li_si.6 = {
+    type = country_event
+
+    title = me_qin_li_si_6_title
+    desc = me_qin_li_si_6_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_6.a"
+        custom_tooltip = me_qin_li_si_6_tooltip
+
+    }
+}
+me_qin_li_si.7 = {
+    type = country_event
+
+    title = me_qin_li_si_7_title
+    desc = me_qin_li_si_7_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_7.a"
+        custom_tooltip = me_qin_li_si_7_tooltip
+
+    }
+}
+me_qin_li_si.8 = {
+    type = country_event
+
+    title = me_qin_li_si_8_title
+    desc = me_qin_li_si_8_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_8.a"
+        custom_tooltip = me_qin_li_si_8_tooltip
+
+    }
+}
+me_qin_li_si.9 = {
+    type = country_event
+
+    title = me_qin_li_si_9_title
+    desc = me_qin_li_si_9_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_9.a"
+        custom_tooltip = me_qin_li_si_9_tooltip
+
+    }
+}
+me_qin_li_si.10 = {
+    type = country_event
+
+    title = me_qin_li_si_10_title
+    desc = me_qin_li_si_10_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_10.a"
+        custom_tooltip = me_qin_li_si_10_tooltip
+
+    }
+}
+me_qin_li_si.11 = {
+    type = country_event
+
+    title = me_qin_li_si_11_title
+    desc = me_qin_li_si_11_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_11.a"
+        custom_tooltip = me_qin_li_si_11_tooltip
+
+    }
+}
+me_qin_li_si.12 = {
+    type = country_event
+
+    title = me_qin_li_si_12_title
+    desc = me_qin_li_si_12_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_12.a"
+        custom_tooltip = me_qin_li_si_12_tooltip
+
+    }
+}
+me_qin_li_si.13 = {
+    type = country_event
+
+    title = me_qin_li_si_13_title
+    desc = me_qin_li_si_13_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_13.a"
+        custom_tooltip = me_qin_li_si_13_tooltip
+
+    }
+}
+me_qin_li_si.14 = {
+    type = country_event
+
+    title = me_qin_li_si_14_title
+    desc = me_qin_li_si_14_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_14.a"
+        custom_tooltip = me_qin_li_si_14_tooltip
+
+    }
+}
+me_qin_li_si.15 = {
+    type = country_event
+
+    title = me_qin_li_si_15_title
+    desc = me_qin_li_si_15_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_15.a"
+        custom_tooltip = me_qin_li_si_15_tooltip
+
+    }
+}
+me_qin_li_si.16 = {
+    type = country_event
+
+    title = me_qin_li_si_16_title
+    desc = me_qin_li_si_16_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_16.a"
+        custom_tooltip = me_qin_li_si_16_tooltip
+
+    }
+}
+
+me_qin_li_si.17 = {
+    type = country_event
+
+    title = me_qin_li_si_17_title
+    desc = me_qin_li_si_17_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_17.a"
+        custom_tooltip = me_qin_li_si_17_tooltip
+
+    }
+}
+
+me_qin_li_si.18 = {
+    type = country_event
+
+    title = me_qin_li_si_18_title
+    desc = me_qin_li_si_18_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_18.a"
+        custom_tooltip = me_qin_li_si_18_tooltip
+
+    }
+}
+
+
+
+namespace = me_qin_empire
+
+
+
+me_qin_empire.1 = {
+    type = country_event
+
+    title = me_qin_empire_1_title
+    desc = me_qin_empire_1_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_1.a"
+        custom_tooltip = me_qin_empire_1_tooltip
+
+    }
+}
+me_qin_empire.2 = {
+    type = country_event
+
+    title = me_qin_empire_2_title
+    desc = me_qin_empire_2_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_2.a"
+        custom_tooltip = me_qin_empire_2_tooltip
+
+    }
+}
+me_qin_empire.3 = {
+    type = country_event
+
+    title = me_qin_empire_3_title
+    desc = me_qin_empire_3_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_3.a"
+        custom_tooltip = me_qin_empire_3_tooltip
+
+    }
+}
+me_qin_empire.4 = {
+    type = country_event
+
+    title = me_qin_empire_4_title
+    desc = me_qin_empire_4_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_4.a"
+        custom_tooltip = me_qin_empire_4_tooltip
+
+    }
+}
+me_qin_empire.5 = {
+    type = country_event
+
+    title = me_qin_empire_5_title
+    desc = me_qin_empire_5_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_5.a"
+        custom_tooltip = me_qin_empire_5_tooltip
+
+    }
+}
+me_qin_empire.6 = {
+    type = country_event
+
+    title = me_qin_empire_6_title
+    desc = me_qin_empire_6_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_6.a"
+        custom_tooltip = me_qin_empire_6_tooltip
+
+    }
+}
+me_qin_empire.7 = {
+    type = country_event
+
+    title = me_qin_empire_7_title
+    desc = me_qin_empire_7_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_7.a"
+        custom_tooltip = me_qin_empire_7_tooltip
+
+    }
+}
+me_qin_empire.8 = {
+    type = country_event
+
+    title = me_qin_empire_8_title
+    desc = me_qin_empire_8_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_8.a"
+        custom_tooltip = me_qin_empire_8_tooltip
+
+    }
+}
+me_qin_empire.9 = {
+    type = country_event
+
+    title = me_qin_empire_9_title
+    desc = me_qin_empire_9_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_9.a"
+        custom_tooltip = me_qin_empire_9_tooltip
+
+    }
+}
+me_qin_empire.10 = {
+    type = country_event
+
+    title = me_qin_empire_10_title
+    desc = me_qin_empire_10_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_10.a"
+        custom_tooltip = me_qin_empire_10_tooltip
+
+    }
+}
+me_qin_empire.11 = {
+    type = country_event
+
+    title = me_qin_empire_11_title
+    desc = me_qin_empire_11_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_11.a"
+        custom_tooltip = me_qin_empire_11_tooltip
+
+    }
+}
+me_qin_empire.12 = {
+    type = country_event
+
+    title = me_qin_empire_12_title
+    desc = me_qin_empire_12_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_12.a"
+        custom_tooltip = me_qin_empire_12_tooltip
+
+    }
+}
+me_qin_empire.13 = {
+    type = country_event
+
+    title = me_qin_empire_13_title
+    desc = me_qin_empire_13_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_13.a"
+        custom_tooltip = me_qin_empire_13_tooltip
+
+    }
+}
+me_qin_empire.14 = {
+    type = country_event
+
+    title = me_qin_empire_14_title
+    desc = me_qin_empire_14_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_14.a"
+        custom_tooltip = me_qin_empire_14_tooltip
+
+    }
+}
+me_qin_empire.15 = {
+    type = country_event
+
+    title = me_qin_empire_15_title
+    desc = me_qin_empire_15_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_15.a"
+        custom_tooltip = me_qin_empire_15_tooltip
+
+    }
+}
+me_qin_empire.16 = {
+    type = country_event
+
+    title = me_qin_empire_16_title
+    desc = me_qin_empire_16_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_16.a"
+        custom_tooltip = me_qin_empire_16_tooltip
+
+    }
+}
+me_qin_empire.17 = {
+    type = country_event
+
+    title = me_qin_empire_17_title
+    desc = me_qin_empire_17_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_17.a"
+        custom_tooltip = me_qin_empire_17_tooltip
+
+    }
+}

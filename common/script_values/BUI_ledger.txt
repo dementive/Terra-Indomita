@@ -1,0 +1,36 @@
+﻿total_treasure_count = {
+	value = 0
+
+	every_country_treasure = {
+		add = 1
+	}
+
+	every_owned_holy_site = {
+		limit = {
+			treasure_count > 0
+		}
+		add = treasure_count
+	}
+}
+integrated_pops = {
+  if = {
+    limit = {
+      has_owner = yes
+    }
+    every_pops_in_province = {
+      limit = {
+        country_culture = {
+          is_integrated = yes
+        }
+      }
+      add = 1
+    }
+  }
+}
+
+province_religious_unity = {
+  value = total_population
+  subtract = num_other_religion
+  divide = total_population
+  multiply = 100
+}

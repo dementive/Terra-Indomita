@@ -1,0 +1,94 @@
+﻿increase_civilization_cap_button = {
+	scope = province
+
+	confirm_title = "increase_civ_cap_t"
+    confirm_text = "increase_civ_cap_desc"
+
+	saved_scopes = {
+		player
+	}
+
+	is_valid = {
+		trigger_if = {
+			limit = {
+				has_province_modifier = urban_development_in_progress
+			}
+			NOT = {
+				has_province_modifier = urban_development_in_progress
+			}
+		}
+		trigger_if = {
+			limit = {
+				has_province_modifier = founding_city_in_progress
+			}
+			NOT = {
+				has_province_modifier = founding_city_in_progress
+			}
+		}
+		trigger_if = {
+			limit = {
+				has_province_modifier = founding_metropolis_in_progress
+			}
+			NOT = {
+				has_province_modifier = founding_metropolis_in_progress
+			}
+		}
+		trigger_if = {
+			limit = {
+				scope:player = {
+					NOT = {
+						can_pay_price = price_local_civ_button
+					}
+				}
+			}
+			scope:player = {
+				can_pay_price = price_local_civ_button
+			}
+		}
+		trigger_if = {
+			limit = {
+				has_city_status = no
+			}
+			has_city_status = yes
+		}
+		civilization_value < 100
+
+		add_civilization_scaling_gold_cost_trigger = yes
+	}
+	effect = {
+		scope:player = {
+			if = {
+				limit = {
+					has_variable = free_investments
+					var:free_investments > 0
+				}
+				custom_tooltip = "reduce_investments_by_1"
+				change_variable = {
+					name = free_investments
+					add = -1
+				}
+			}
+			else = {
+				pay_price = price_local_civ_button
+				root = { add_civilization_scaling_gold_cost_effect = yes }
+			}
+		}
+		custom_tooltip = "city_output_reduced_ttt"
+		show_as_tooltip = {
+			add_permanent_province_modifier = {
+				name = local_civilization_pmod_stack
+				mode = add
+			}
+		}
+		hidden_effect = {
+			add_province_modifier = {
+				name = urban_development_in_progress
+				duration = 730
+			}
+		}
+		trigger_event = {
+			id = state_improvement.5
+			days = 730
+		}
+	}
+}

@@ -1,0 +1,95 @@
+﻿fav_territories = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	saved_scopes = {
+		player
+	}
+
+	is_shown = {
+		scope:player = {
+			is_target_in_variable_list = {
+				name = fav_territories
+				target = prev
+			}
+		}
+	}
+
+	effect = {
+		if = {
+			limit = {
+				scope:player = {
+					is_target_in_variable_list = {
+						name = fav_territories
+						target = prev
+					}
+				}
+			}
+			scope:player = {
+				remove_list_variable = {
+					name = fav_territories
+					target = prev
+				}
+			}
+		}
+		else = {
+			scope:player = {
+				add_to_variable_list = {
+					name = fav_territories
+					target = prev
+				}
+			}
+		}
+	}
+}
+
+fav_countries = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	saved_scopes = {
+		player
+	}
+
+	is_shown = {
+		scope:player = {
+			is_target_in_variable_list = {
+				name = fav_countries
+				target = prev
+			}
+		}
+	}
+
+	effect = {
+		if = {
+			limit = {
+				scope:player = {
+					is_target_in_variable_list = {
+						name = fav_countries
+						target = prev
+					}
+				}
+			}
+			scope:player = {
+				remove_list_variable = {
+					name = fav_countries
+					target = prev
+				}
+			}
+		}
+		else = {
+			scope:player = {
+				add_to_variable_list = {
+					name = fav_countries
+					target = prev
+				}
+			}
+		}
+	}
+}

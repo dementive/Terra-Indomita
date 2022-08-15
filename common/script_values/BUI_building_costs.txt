@@ -1,0 +1,249 @@
+﻿ruler_finesse_svalue = {
+  value = current_ruler.finesse
+  multiply = 0.01
+}
+
+settlement_building_cost = {
+  value = 200
+
+  multiply = cost_modifiers
+
+}
+
+city_building_cost_100 = {
+  value = 100
+
+  multiply = cost_modifiers
+}
+
+city_building_cost_150 = {
+  value = 150
+
+  multiply = cost_modifiers
+}
+
+city_building_cost_300 = {
+  value = 300
+  multiply = cost_modifiers
+}
+
+cost_modifiers = {
+  value = 1
+
+  subtract = ruler_finesse_svalue
+
+  if = {
+    limit = { rank = 1 }
+    add = -0.15
+  }
+
+  if = {
+    limit = { rank = local_power }
+    add = -0.1
+  }
+
+  if = {
+    limit = { rank = regional_power }
+    add = -0.05
+  }
+
+  if = {
+    limit = { is_republic = yes }
+    if = {
+      limit = {
+        current_ruler = {
+        OR = {
+            party_type = oligarchic_party
+            party_type = boni_party
+          }
+        }
+      }
+      add = -0.15
+    }
+  }
+
+  #
+
+  if = {
+    limit = { has_country_great_work_effect = gw_effect_civil_engineering }
+
+    if = {
+      limit = { has_country_great_work_effect = gw_effect_civil_engineering:1 }
+      add = -0.025
+    }
+
+    if = {
+      limit = { has_country_great_work_effect = gw_effect_civil_engineering:2 }
+      add = -0.005
+    }
+
+    if = {
+      limit = { has_country_great_work_effect = gw_effect_civil_engineering:3 }
+      add = -0.075
+    }
+
+    if = {
+      limit = { has_country_great_work_effect = gw_effect_civil_engineering:4 }
+      add = -0.1
+    }
+  }
+
+  if = {
+    limit = { heritage = forest_heritage }
+    add = 0.1
+  }
+
+  if = {
+    limit = {
+      OR = {
+        heritage = tartessian_heritage
+        heritage = halikarnassan_heritage
+        heritage = attalid_heritage
+        heritage = mithridatic_heritage
+        heritage = bithynian_heritage
+      }
+    }
+    add = -0.1
+  }
+
+  if = {
+    limit = {
+      OR = {
+        heritage = cyrenaican_heritage
+        heritage = akragantine_heritage
+        heritage = milesian_heritage
+      }
+    }
+    add = -0.05
+  }
+
+  if = {
+    limit = { idea = idea_standard_construction }
+    add = -0.1
+  }
+
+  ###
+
+  if = {
+    limit = { invention = greek_advanced_mechanics_inv }
+    add = -0.1
+  }
+
+  if = {
+    limit = { invention = research_points_modifier_inv_1 }
+    add = -0.025
+  }
+
+  if = {
+    limit = { invention = research_points_modifier_inv_2 }
+    add = -0.025
+  }
+
+  if = {
+    limit = { invention = global_building_slot_inv }
+    add = -0.05
+  }
+
+  if = {
+    limit = { invention = omen_duration_inv_1 }
+    add = -0.05
+  }
+
+  if = {
+    limit = { invention = greek_advanced_mechanics_inv }
+    add = -0.1
+  }
+
+  if = {
+    limit = { has_country_modifier = me_epi_1_5_cmod }
+    add = -0.1
+  }
+
+  if = {
+    limit = { has_country_modifier = carthage_mission_iberian_investments_loyal_iberia_modifier }
+    add = -0.1
+  }
+
+  if = {
+    limit = { has_country_modifier = me_gre_1_13_pmod }
+    add = -0.05
+  }
+
+  if = {
+    limit = { has_country_modifier = me_mac_2_5_cmod }
+    add = -0.05
+  }
+
+  if = {
+    limit = { has_country_modifier = me_mac_2_5_2_cmod }
+    add = -0.05
+  }
+
+  #
+
+  if = {
+    limit = { religion = bon_religion }
+    add = -0.1
+  }
+
+  ###
+
+  if = {
+    limit = {
+      capital_scope = {
+        state = {
+          trade_good_surplus = {
+            target = stone
+            value > 1
+          }
+        }
+      }
+    }
+    add = -0.05
+  }
+
+  ###
+
+  if = {
+    limit = {
+      current_ruler = {
+        has_trait = founder
+      }
+    }
+    add = -0.05
+  }
+
+  if = {
+    limit = {
+      current_ruler = {
+        has_trait = antipatrid
+      }
+    }
+    add = -0.05
+  }
+
+
+
+  #
+  if = {
+    limit = { has_deity_in_pantheon = deity:omen_pluto }
+    add = -0.05
+  }
+
+  if = {
+    limit = { has_deity_in_pantheon = deity:omen_hades }
+    add = -0.05
+  }
+
+  if = {
+    limit = { has_deity_in_pantheon = deity:omen_roth_teej }
+    add = -0.05
+  }
+
+  if = {
+    limit = { has_this_omen = deity:omen_asha }
+    add = -0.05
+  }
+
+  multiply = 0.25
+}

@@ -11,8 +11,8 @@
 roman_mission_greek_ally_area_potential_trigger = {
 	any_area_province = {
 		owner = {
-			NOR = { 
-				this = root 
+			NOR = {
+				this = root
 				war_with = root
 			}
 			country_culture_group = hellenic
@@ -24,8 +24,8 @@ roman_mission_greek_ally_area_potential_trigger = {
 roman_mission_greek_ally_area_allow_trigger = {
 	any_area_province = {
 		owner = {
-			NOR = { 
-				this = root 
+			NOR = {
+				this = root
 				war_with = root
 			}
 			is_subject = no
@@ -54,7 +54,7 @@ syracuse_democracy_leader_trigger = {
 	from_ruler_family = no
 	prisoner = no
 	is_adult = yes
-	NOR = { 
+	NOR = {
 		is_friend = root.current_ruler
 		is_spouse_of = root.current_ruler
 		has_character_modifier = foreign_citizen
@@ -100,9 +100,9 @@ syracuse_foreign_devils_trigger = {
 		}
 	}
 	is_subject = no
-	NOR = { 
+	NOR = {
 		alliance_with = c:SYR
-		primary_culture = syracusan 
+		primary_culture = syracusan
 		tag = SYR
 		has_variable = me_syr_deal_rejected
 	}
@@ -138,7 +138,7 @@ gm_1_euxine_haven_trigger = {
 		region:bithynia_region = {
 			any_region_province = {
 				has_province_modifier = pirate_haven_modifier
-				NOR = { 
+				NOR = {
 					owner = root
 					province_id = 248
 				}
@@ -177,7 +177,7 @@ gm_1_euxine_haven_trigger = {
 		area:europa_area = {
 			any_area_province = {
 				has_province_modifier = pirate_haven_modifier
-				NOR = { 
+				NOR = {
 					owner = root
 					province_id = 1453
 					province_id = 350
@@ -250,7 +250,7 @@ me_syr_sic_all_trigger = {
 }
 
 me_syr_sic_part_trigger = {
-    OR = { 
+    OR = {
         AND = {
             any_country = {
                 count = 2
@@ -382,8 +382,8 @@ me_syr_ita_trigger = {
         }
     }
     num_of_cities <= 2
-    NOR = { 
-        tag = SYR 
+    NOR = {
+        tag = SYR
         tag = SII
     }
 }
@@ -429,7 +429,7 @@ me_syr_ita_all_trigger = {
 }
 
 me_syr_ita_part_trigger = {
-    OR = { 
+    OR = {
         AND = {
             any_country = {
                 count = 2
@@ -506,7 +506,7 @@ gm_1_pirates_destroyed_trigger = {
 		area:europa_area = {
 			any_area_province = {
 				has_province_modifier = pirate_haven_modifier
-				NOR = { 
+				NOR = {
 					province_id = 1453
 					province_id = 350
 					province_id = 347
@@ -633,7 +633,7 @@ gre_2_3_trigger = {
 gre_2_gov_trigger = {
     country_culture_group = hellenic
     trigger_if = {
-        limit = { 
+        limit = {
         	scope:gm_2_greek_scope = { me_gre_2_olig_mon_trigger = yes }
         }
         OR = {
@@ -645,7 +645,7 @@ gre_2_gov_trigger = {
         }
     }
     trigger_else_if = {
-    	limit = { 
+    	limit = {
         	scope:gm_2_greek_scope = { me_gre_2_rep_trigger = yes }
         }
         is_republic = yes
@@ -670,31 +670,31 @@ me_gre_2_9_trigger = {
 	owns_or_subject_owns = p:418
 	owns_or_subject_owns = p:424
 	trigger_if = {
-		limit = { 
+		limit = {
 			NOT = { p:416.owner = root }
 		}
 		p:416.owner = { gre_2_gov_trigger = yes }
 	}
 	trigger_if = {
-		limit = { 
+		limit = {
 			NOT = { p:427.owner = root }
 		}
 		p:427.owner = { gre_2_gov_trigger = yes }
 	}
 	trigger_if = {
-		limit = { 
+		limit = {
 			NOT = { p:426.owner = root }
 		}
 		p:426.owner = { gre_2_gov_trigger = yes }
 	}
 	trigger_if = {
-		limit = { 
+		limit = {
 			NOT = { p:418.owner = root }
 		}
 		p:418.owner = { gre_2_gov_trigger = yes }
 	}
 	trigger_if = {
-		limit = { 
+		limit = {
 			NOT = { p:424.owner = root }
 		}
 		p:424.owner = { gre_2_gov_trigger = yes }
@@ -775,7 +775,7 @@ gm_4_hub_trigger = {
 state_improvement_military_trigger = {
 	trigger_if = {
 		limit = {
-			exists = owner 
+			exists = owner
 			owner = {
 				has_dlc = "Magna Graecia"
 				OR = {
@@ -783,7 +783,7 @@ state_improvement_military_trigger = {
 					has_variable = spa_unique_mech
 				}
 			}
-		} 
+		}
 		has_state_modifier = state_improvement_military_SPA
 	}
 	trigger_else = {
@@ -802,15 +802,15 @@ state_improvement_oratory_trigger = {
 state_improvement_religious_trigger = {
 	trigger_if = {
 		limit = {
-			exists = owner 
-			owner = { 
+			exists = owner
+			owner = {
 				has_dlc = "Magna Graecia"
 				OR = {
 					tag = SPA
 					has_variable = spa_unique_mech
-				} 
+				}
 			}
-		} 
+		}
 		has_state_modifier = state_improvement_religious_SPA
 	}
 	trigger_else = {
@@ -836,7 +836,7 @@ me_gre_1_2_argo_trigger = {
 		province_id = 1720
 		province_id = 4563
 		province_id = 4528
-		province_id = 481 
+		province_id = 481
 	}
 	province_dominant_culture_group = hellenic
 	total_population >= 20
@@ -939,12 +939,6 @@ generic_block_trigger = {
 						is_in_region = asia_region
 						is_in_region = bithynia_region
 					}
-				}
-				AND = {
-					ROOT = {
-						NOT = { has_completed_mission = roman_10_invading_britannia }
-					}
-					is_in_region = britain_region
 				}
 			}
 		}
@@ -1150,8 +1144,8 @@ generic_block_trigger = {
 						tag = ATH
 						tag = SPA
 					}
-					NAND = { 
-						primary_culture = cretan 
+					NAND = {
+						primary_culture = cretan
 						NOT = { tag = 1KR }
 					}
 				}
@@ -1386,7 +1380,7 @@ generic_block_trigger = {
 					is_in_region = syria_region
 					is_in_region = mesopotamia_region
 				}
-			}		
+			}
 		}
 		trigger_if = { #Tamils
 			limit = {
@@ -1401,7 +1395,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = { 
+					NOR = {
 						has_completed_mission = tamil_king_missions
 						has_completed_mission = tamilakam_missions_01_unity
 					}
@@ -1411,7 +1405,7 @@ generic_block_trigger = {
 					is_in_region = karnata_region
 					is_in_region = vindhyaprstha_region
 				}
-			}		
+			}
 		}
 		trigger_if = { #Thebes
 			limit = {
@@ -1421,12 +1415,12 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = { 
+					NOR = {
 						has_completed_mission = thebes_missions_01_restoration
 					}
 				}
 				is_in_region = greece_region
-			}		
+			}
 		}
 		trigger_if = { #Bithynia
 			limit = {
@@ -1436,7 +1430,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = { 
+					NOR = {
 						has_completed_mission = bithynia_missions
 					}
 				}
@@ -1444,7 +1438,7 @@ generic_block_trigger = {
 					is_in_region = thrace_region
 					is_in_region = bithynia_region
 				}
-			}		
+			}
 		}
 		trigger_if = { #Rhodes
 			limit = {
@@ -1454,7 +1448,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = { 
+					NOR = {
 						has_completed_mission = rhodes_01_aegean
 						has_completed_mission = rhodes_02_asia
 					}
@@ -1463,21 +1457,25 @@ generic_block_trigger = {
 					is_in_region = greece_region
 					is_in_region = asia_region
 				}
-			}		
+			}
 		}
 		trigger_if = { #Maurya
 			limit = {
 				ROOT = {
+					is_ai = no
 					tag = MRY
 				}
 			}
-			current_date > 455.3.5
-			ROOT = {
-				NOR = {
-					has_global_variable = mauryan_collapse_prevented
-					has_global_variable = maurya_collapse_happened
-				}	
-			}	
+			#AND = {
+				ROOT = {
+					#NOR = {
+					#	has_completed_mission = rhodes_01_aegean
+					#	has_completed_mission = rhodes_02_asia
+					#}
+				}
+				current_date > 465.1.1
+				current_date < 500.1.1
+			#}
 		}
 		trigger_if = { #Bharat
 			limit = {
@@ -1485,42 +1483,17 @@ generic_block_trigger = {
 					tag = BHA
 				}
 			}
-			AND = {
+			#AND = {
 				ROOT = {
-					NOT = { 
+					NOT = {
 						has_completed_mission = bharat_missions
 					}
 				}
-				OR = {
-					is_in_region = sogdiana_region
-					is_in_region = tibet_region
-					is_in_region = himalayan_region
-					is_in_region = bactriana_region
-					is_in_region = gedrosia_region
-					is_in_region = ariana_region
-					is_in_region = parthia_region
-					is_in_region = persis_region
-					is_in_region = media_region
-					is_in_region = assyria_region
-					is_in_region = mesopotamia_region
-					is_in_region = armenia_region
-					is_in_region = lower_egypt_region
-					is_in_region = upper_egypt_region
-					is_in_region = syria_region
-					is_in_region = palestine_region
-					is_in_region = arabia_region
-					is_in_region = arabia_felix_region
-					is_in_region = cappadocia_pontica_region
-					is_in_region = cappadocia_region
-					is_in_region = cilicia_region
-					is_in_region = galatia_region
-					is_in_region = asia_region
-					is_in_region = bithynia_region
-					is_in_region = macedonia_region
-					is_in_region = thrace_region
-					is_in_region = greece_region
-				}
-			}		
+			#	OR = {
+			#		is_in_region = greece_region
+			#		is_in_region = asia_region
+			#	}
+			#}
 		}
 		trigger_if = { #Rhodes
 			limit = {
@@ -1530,7 +1503,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = { 
+					NOR = {
 						has_completed_mission = rhodes_01_aegean
 						has_completed_mission = rhodes_02_asia
 					}
@@ -1539,7 +1512,7 @@ generic_block_trigger = {
 					is_in_region = greece_region
 					is_in_region = asia_region
 				}
-			}		
+			}
 		}
 		trigger_if = { #Lanka
 			limit = {
@@ -1549,7 +1522,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = { 
+					NOR = {
 						has_completed_mission = lankan_missions
 						has_completed_mission = lankan_missions_reclamation
 					}
@@ -1561,179 +1534,7 @@ generic_block_trigger = {
 					is_in_region = vindhyaprstha_region
 					is_in_region = maru_region
 				}
-			}		
-		}	
-		trigger_if = { #Aremorica
-			limit = {
-				ROOT = {
-					primary_culture = aremorican
-				}
 			}
-			AND = {
-				ROOT = {
-					NOT = { 
-						has_completed_mission = barbaricum_aremorica_mission
-					}
-				}
-				OR = {
-					is_in_region = armorica_region
-					is_in_region = britain_region
-					is_in_region = caledonia_region
-					is_in_region = aquitaine_region
-				}
-			}		
-		}
-		trigger_if = { #Numidians
-			limit = {
-				ROOT = {
-					OR = {
-						tag = MSS
-            			tag = MAU
-						tag = NUM
-					}
-				}
-			}
-			AND = {
-				ROOT = {
-					NOT = { 
-						has_completed_mission = numidian_mission_01
-					}
-				}
-				OR = {
-					is_in_region = mauretainia_region
-					is_in_region = numidia_region
-					is_in_region = fezzan_region
-					is_in_region = atlas_region
-					is_in_region = africa_region
-				}
-			}		
-		}
-		trigger_if = { #Fezzani
-			limit = {
-				ROOT = {
-					OR = {
-						tag = MKA # MAKAE
-						tag = PSY # PSYLLI
-						tag = NAS # NASAMONES
-						tag = GAR # GARAMANTES
-						tag = MHY # MACHYLES
-						tag = PHZ # PHAZANI
-					}
-				}
-			}
-			AND = {
-				ROOT = {
-					NOT = { 
-						has_completed_mission = fezzani_mission_01
-					}
-				}
-				OR = {
-					is_in_region = fezzan_region
-					is_in_region = cyrenaica_region
-					is_in_region = africa_region				
-					is_in_region = magna_graecia_region
-					is_in_region = numidia_region
-				}
-			}		
-		}
-		trigger_if = { #Aksum
-			limit = {
-				ROOT = {
-					primary_culture = aksumite
-				}
-			}
-			AND = {
-				ROOT = {
-					NOT = { 
-						has_completed_mission = aksum_mission_1_ethiopia
-					}
-				}
-				is_in_region = punt_region
-			}
-			AND = {
-				ROOT = {
-					NOT = { 
-						has_completed_mission = aksum_mission_2_nubia
-					}
-				}
-				is_in_region = nubia_region
-			}	
-		}
-		trigger_if = { #Kush
-			limit = {
-				ROOT = {
-					tag = KSH
-				}
-			}
-			AND = {
-				ROOT = {
-					NOT = { 
-						has_completed_mission = kush_missions
-					}
-				}
-				is_in_region = arabia_region
-				is_in_region = arabia_felix_region
-				is_in_region = nubia_region
-				is_in_region = upper_egypt_region
-				is_in_region = lower_egypt_region
-				is_in_region = cyrenaica_region
-				is_in_region = palestine_region
-				is_in_region = syria_region
-				is_in_region = cilicia_region
-				is_in_region = cappadocia_pontica_region
-				is_in_region = cappadocia_region
-				is_in_region = bithynia_region
-				is_in_region = asia_region
-				is_in_region = galatia_region
-				is_in_region = greece_region
-				is_in_region = armenia_region
-				is_in_region = mesopotamia_region
-				is_in_region = assyria_region
-			}	
-		}
-		trigger_if = { #Kalinga
-			limit = {
-				ROOT = {
-					OR = {
-						tag = KAL
-						AND = {
-							root.capital_scope = {
-								is_in_area = kalinga_area
-							}
-							primary_culture = kalingan
-						}
-					}
-				}
-			}
-			AND = {
-				ROOT = {
-					NOT = { 
-						has_completed_mission = kalinga_missions
-					}
-				}
-				OR = {
-					is_in_region = vindhyaprstha_region
-					is_in_region = dravida_region
-					is_in_region = karnata_region
-				}
-			}		
-		}
-		trigger_if = { #Cisalpine Gaul
-			limit = {
-				ROOT = {
-					primary_culture = lepontic
-				}
-			}
-			AND = {
-				ROOT = {
-					NOT = { 
-						has_completed_mission = barbaricum_gallia_cisalpina_mission
-					}
-				}
-				is_in_region = cisalpine_gaul_region
-				is_in_region = central_italy_region
-				is_in_region = magna_graecia_region
-			}	
 		}
 	}
 }
@@ -1815,7 +1616,7 @@ ant_01_9_ter_trigger = {
 	any_pops_in_province = {
 		count >= 2
 		pop_culture_group = hellenic
-		NOR = { 
+		NOR = {
             pop_type = slaves
             pop_type = nobles
         }
@@ -1840,7 +1641,7 @@ ant_01_9_sub_trigger = {
 		any_pops_in_province = {
 			count >= 2
 			pop_culture_group = hellenic
-			NOR = { 
+			NOR = {
 	            pop_type = slaves
 	            pop_type = nobles
 	        }
@@ -1904,7 +1705,7 @@ ant_01_15_alliance_trigger = {
 	}
 	current_ruler = {
 		NOT = { is_rival = ROOT.current_ruler }
-	}	
+	}
 }
 
 ant_01_15_marriage_candidate_trigger = {
@@ -1922,7 +1723,7 @@ ant_1_5_diad_trigger = {
 	any_subject = {
 		country_culture_group = hellenic
 		NOT = { is_subject_type = tributary }
-	}	
+	}
 }
 
 ant_1_5_synoikism_trigger = {
@@ -1935,7 +1736,7 @@ ant_1_5_synoikism_trigger = {
         province_id = 258
         province_id = 290
         province_id = 287
-    }	
+    }
 }
 
 ant_1_5_tyre_trigger = {
@@ -2043,7 +1844,7 @@ ant_2_marriage_allow_trigger = {
 	NOT = { war_with = ROOT }
 	NOT = { this = ROOT }
 	OR = {
-		current_ruler = { 
+		current_ruler = {
 			is_adult = yes
 			is_female = no
 		}

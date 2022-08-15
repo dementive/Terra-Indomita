@@ -1,0 +1,271 @@
+types ReorgView
+{
+	type reorg_view_transfer_button = icon_button_square {
+		size = { 36 36 }
+		parentanchor = bottom|hcenter
+		blockoverride "Icon" {
+			texture = "gfx/interface/base_parts/arrow_in_out_alpha.dds"
+			framesize = { 18 18 }
+			block "Frame"
+			{
+				frame = 1
+			}
+			size = { 24 24 }
+		}
+	}
+
+	type reorg_view_left_transfer_button = reorg_view_transfer_button {
+		blockoverride "Frame"
+		{
+			frame = 1
+		}
+		block "leftarrow"
+		{
+			visible = no
+		}
+	}
+
+	type reorg_view_right_transfer_button = reorg_view_transfer_button {
+		blockoverride "Frame"
+		{
+			frame = 2
+		}
+		block "rightarrow"
+		{
+			visible = no
+		}
+	}
+}
+
+local_template ReorgUnit
+{
+	size = { 500 700 }
+	widget = {
+		size = { 100% 100% }
+
+		block "unitcontent"
+		{
+		}
+
+		sub_header = {
+			size = { 60% 28 }
+			blockoverride "Title_text"
+			{
+				text = "[UnitInfoItem.GetName]"
+			}
+		}
+
+		text_button_square = {
+			position = { -2 2 }
+			size = { 25% 28 }
+			parentanchor = right
+			blockoverride "Center_text" { text = "SELECT_ARMY" }
+			enabled = "[UnitInfoItem.CanSelect]"
+			blockoverride "ClickSound" { clicksound = "event:/SFX/UI/Unit/sfx_ui_unit_merge" }
+			blockoverride "On_click" { onclick = "[UnitInfoItem.Select]" }
+			tooltip = "SELECT_UNIT"
+		}
+
+		overlappingitembox = {
+			position = { 4 40 }
+			ignoreinvisible = yes
+			size = { 98% 150 }
+			parentanchor = left
+			list_entry = {
+				size = { 100% 90 }
+				position = { 0 10 }
+			}
+
+			datamodel = "[UnitInfoItem.GetTypeList]"
+
+			item = {
+				widget = {
+					size = { 70 141 }
+					visible = "[UnitTypeInfoItem.IsVisible]"
+					unit_card = {
+						blockoverride "Size" { size = { 68 102 } }
+						datacontext = "[UnitTypeInfoItem.GetCountsCache]"
+						alwaystransparent = no
+						filter_mouse = all
+						enabled = "[UnitTypeInfoItem.IsEnabled]"
+					}
+
+					reorg_view_left_transfer_button = {
+						enabled = "[UnitTypeInfoItem.IsEnabled]"
+						blockoverride "On_click" { onclick = "[UnitTypeInfoItem.Transfer]" }
+						tooltip = "[UnitTypeInfoItem.GetTransferInfo]"
+					}
+
+					reorg_view_right_transfer_button = {
+						enabled = "[UnitTypeInfoItem.IsEnabled]"
+						blockoverride "On_click" { onclick = "[UnitTypeInfoItem.Transfer]" }
+						tooltip = "[UnitTypeInfoItem.GetTransferInfo]"
+					}
+				}
+			}
+		}
+
+		scrollarea = {
+			scrollbar_vertical = {
+				using = VerticalScrollBar
+			}
+			using = VerticalScrollAreaCutOff
+			using = standard_list
+			name = "envoys_scroll_area"
+
+			blockoverride "ss_scrollarea"
+			{
+				position = { 0 192 }
+				size = { 100% 488 }
+			}
+
+			blockoverride "ss_container"
+			{
+				dynamicgridbox = {
+					position = { 10 0 }
+					datamodel = "[UnitInfoItem.GetSubUnits]"
+
+					item = {
+						flowcontainer = {
+							ignoreinvisible = yes
+
+							reorg_view_left_transfer_button = {
+								enabled = "[SubUnitInfoItem.CanTransfer]"
+								parentanchor = vcenter
+								blockoverride "On_click"
+								{
+									onclick = "[SubUnitInfoItem.Transfer]"
+								}
+								tooltip = "[SubUnitInfoItem.GetTransferInfo]"
+							}
+
+							widget = {
+								size = { 440 40 }
+
+								margin_widget = {
+									size = { 100% 40 }
+									datacontext = "[SubUnitInfoItem.GetSubUnit]"
+									margin_right = 12
+									list_entry = {
+										size = { 100% 100% }
+									}
+									icon_card = {
+										size = { 38 38 }
+										blockoverride "Icon" { texture = "[GetSubUnitIcon(SubUnit.GetType)]" }
+										tooltip = "[SubUnit.GetTypeDescription]"
+									}
+
+									textbox = {
+										position = { 42 -1 }
+										parentanchor = vcenter
+										autoresize = yes
+										using = BaseFontS
+										using = Black_FontColor
+										text = "[SubUnit.GetName]"
+										tooltip = "[SubUnit.GetDescription]"
+										max_width = 140
+										fontsize_min = 10
+										elide = right
+									}
+
+									button = {
+										using = icon_loyalty
+										visible = "[SubUnit.HasPersonalLoyalty]"
+										tooltip = "[SubUnit.GetLoyaltyInformation]"
+										onclick = "[DefaultOnCharacterClick( SubUnit.GetPersonalLoyalty.GetID )]"
+										clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_sub_tab"
+										oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
+										size = { 28 28 }
+										position = { 412 -2 }
+										parentanchor = vcenter
+									}
+
+									icon_and_text = {
+										size = { 88 0 }
+										position = { 184 0 }
+										blockoverride "Icon" { using = icon_morale }
+										blockoverride "Text" { text = "[SubUnit.GetMoralePercent|0]%" }
+										tooltip = "[SubUnit.GetMoraleInfo]"
+									}
+
+									icon_and_text = {
+										size = { 88 0 }
+										position = { 276 0 }
+										blockoverride "Icon" { using = icon_military_experience }
+										blockoverride "Text" { text = "[SubUnit.GetExperience|0]%" }
+										tooltip = "[SubUnit.GetExperienceInfo]"
+									}
+
+									textbox = {
+										autoresize = yes
+										using = BaseFontM
+										using = Black_FontColor
+										parentanchor = vcenter|right
+										position = { -18 -4 }
+										text = "[SubUnit.GetStrength]"
+										tooltip = "[SubUnit.GetStrengthDescription]"
+
+									}
+								}
+							}
+
+							reorg_view_right_transfer_button = {
+								parentanchor = vcenter
+								enabled = "[SubUnitInfoItem.CanTransfer]"
+								blockoverride "On_click" {
+									onclick = "[SubUnitInfoItem.Transfer]"
+								}
+								tooltip = "[SubUnitInfoItem.GetTransferInfo]"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+base_sub_window = {
+	name = "reorg_window"
+	parentanchor = top|left
+	size = { 1030 734 }
+	widgetanchor = top|left
+	using = main_window_template
+
+	blockoverride "Title_text" { text = "REORGANIZE_WINDOW_TITLE" }
+	blockoverride "White_buttons"
+	{
+		button_close = {
+			onclick = "[ReorgWindow.OnClose]"
+			tooltip = "CLOSE"
+		}
+	}
+
+	widget = {
+		name = "left_unit_info"
+		position = { 8 36 }
+		using = "ReorgUnit"
+		blockoverride "rightarrow"
+		{
+			visible = yes
+		}
+		blockoverride "unitcontent"
+		{
+			datacontext = "[ReorgWindow.GetLeftUnit]"
+		}
+	}
+
+	widget = {
+		name = "right_unit_info"
+		position = { 518 36 }
+		using = "ReorgUnit"
+		blockoverride "leftarrow"
+		{
+			visible = yes
+		}
+		blockoverride "unitcontent"
+		{
+			datacontext = "[ReorgWindow.GetRightUnit]"
+		}
+	}
+}

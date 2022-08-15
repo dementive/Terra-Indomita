@@ -1,0 +1,135 @@
+﻿namespace = chinese_flavor
+
+
+#Any non-subject nation belonging to either the pagan or eastern religion groups can claim the Mandate by declaring war using the “Take Mandate of Heaven” casus belli which becomes available if they neighbor the current emperor and don't have a truce with them.
+#Aside from the claim to the Mandate, the CB also grants Province war score cost.png −50% province warscore cost and Aggressive expansion impact.png −50% aggressive expansion to all provinces in the China super-region.
+
+#Mandate is a measure of how legitimate the emperor's rule of China is viewed. It scales from 0 to 100, and gives the following modifiers, scaling linearly with malus converting to bonus at 50[2]:
+
+
+#Upon gaining the emperorship, Mandate is set to 60. Mandate is affected by the following yearly modifiers
+
+#+0.24 per point of stability.
+#+0.03 per state with prosperity.
+#+0.15 per 100 development of tributaries.
+#-10.0 per 100 development of stated provinces with 100% devastation, scaling with degree of devastation.
+#-0.36 every five loans.
+#Mandate is also affected by the following monthly modifiers:
+
+#+0.05 for Emperor with humane personality
+#+0.05 for 25 years for new Chinese Emperor
+#+0.05 with the celestial reform "Elevate Tributary Relations"
+#+0.05 when fighting a war with "Unify China" CB
+#+0.05 Son of Heaven Chinese group idea
+#+0.05 Thuan Thiên Dai Viet group idea
+#+0.05 until the end of the game as reward of Manchu mission "The Mandate of Heaven"
+#+0.05 until the end of the game as reward of Siamese mission "Take the Mandate"
+#+0.03 Claim to the Mandate Shun country idea
+#+0.03 for 20 years as reward of Korean mission "Tame the Dragon"
+#+0.03Great project level icon tier 1.png/+0.05Great project level icon tier 3.png for holding The Forbidden City (only with Leviathan.png)
+#-0.05 for Emperor with petty personality
+#-0.05 for not owning and controlling Beijing
+#-0.05 for not owning and controlling Nanjing
+#-0.05 for not owning and controlling Canton
+#-0.3 during "Unguarded Nomadic Frontier" disaster
+#-0.3 during "Empire of China in Name" disaster
+#-0.1 during bankruptcy
+#-1 at 100 corruption
+#One-time modifiers to Mandate include:
+
+#+5 for winning a defensive war with the Take Mandate of Heaven CB.[6]
+#+25 for ending "Empire of China in Name" disaster
+#+20 for ending "Unguarded Nomadic Frontier" disaster
+#-10 for declining a Call to Arms from a tributary.[7]
+#-20 for triggering "Unguarded Nomadic Frontier" disaster
+#-25 for triggering "Empire of China in Name" disaster
+#-70 for passing a reform.[8]
+#There are also many events that affect Mandate.
+
+
+#The emperor may pass a series of five Celestial Reforms to better govern China. Passing a reform requires at least 80 Mandate, and lowers Mandate by -70 as well as stability by -1.[8] The reforms must be passed in order, though unlike the Holy Roman Empire's reforms, there is no special reward for completing all of them. If a new nation takes the Mandate, all reforms are lost and Mandate is reset to 60.[9]
+
+
+#Meritocracy.png Meritocracy takes the place of Legitimacy.png legitimacy (or its equivalent). It represents the efficiency of the imperial bureaucracy.
+
+#Scaling linearly from 0 to 100, it gives:
+
+
+
+
+chinese_flavor.1 = {
+    type = country_event
+    hidden = yes
+
+    left_portrait = current_ruler
+
+    trigger = {
+
+    }
+
+    immediate = {
+    	ordered_country = {
+    		limit = {
+    			country_culture_group = "chinese"
+    		}
+    		max = 5
+    		order_by = num_of_cities
+    		current_ruler = {
+    			if = {
+    				limit = {
+    					NOT = { has_variable = chinese_ruler }
+    				}
+    				set_variable = chinese_ruler
+    			}
+    		}
+    	}
+    }
+}
+
+chinese_flavor.2 = { # A New Emperor
+    type = country_event
+    title = chinese_flavor.2.t
+    desc = chinese_flavor.2.desc
+    picture = greek_city_market
+
+    left_portrait = current_ruler
+
+    immediate = {
+        set_variable = {
+            name = mandate_variable
+            value = mandate_initial_value
+        }
+        mandate_yearly_effects = yes
+    }
+
+    option = { #The Celestial Empire will last for Eternity
+        name = chinese_flavor.2.a
+        add_legitimacy = 25
+    }
+}
+
+chinese_flavor.3 = { # A New Emperor
+    type = country_event
+    title = chinese_flavor.3.t
+    desc = chinese_flavor.3.desc
+    picture = greek_city_market
+
+    left_portrait = current_ruler
+
+    immediate = {
+
+    }
+
+    option = { #The Celestial Empire will last for Eternity
+        name = add_20_mandate
+        change_mandate_effect = {
+            VALUE = mandate_great_event
+        }
+    }
+    option = { #The Celestial Empire will last for Eternity
+        name = add_10_mandate
+        change_mandate_effect = {
+            VALUE = mandate_great_event
+        }
+    }
+}

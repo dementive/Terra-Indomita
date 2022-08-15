@@ -1,41 +1,4 @@
 ﻿##Vanilla legitamacy scheme, added the new bloodlines.
-ambition_grow_up = {
-	effect = {
-		custom_tooltip = ambition_grow_up_tooltip
-		hidden_effect = {
-			random_list = {
-				3 = {
-					trigger = {
-						martial < child_stat_max
-					}
-					add_martial = 1
-				}
-				3 = {
-					trigger = {
-						charisma < child_stat_max 
-					}
-					add_charisma = 1
-				}
-				3 = {
-					trigger = {
-						zeal < child_stat_max 
-					}
-					add_zeal = 1
-				}
-				3 = {
-					trigger = {
-						finesse < child_stat_max 
-					}
-					add_finesse = 1
-				}
-				
-				88 = {
-				}
-			}
-		}
-	}
-}
-
 scheme_ruler_legitimacy_finish = {
 	effect = {
 		employer = {
@@ -366,7 +329,6 @@ scheme_exploit_populous_start = {
 		}
 		random_holdings = {
 			limit = {
-				NOT = { has_province_rank = city_metropolis }
 				total_population > 10
 			}
 			save_scope_as = exploiting_holding
@@ -734,7 +696,6 @@ scheme_exploit_slaves_start = {
 		}
 		random_holdings = {
 			limit = {
-				NOT = { has_province_rank = city_metropolis }
 				num_of_slaves > 5
 			}
 			save_scope_as = slaves_holding

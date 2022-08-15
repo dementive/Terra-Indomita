@@ -1,0 +1,50 @@
+﻿ymt_gather_support = {
+
+	on_other_nation = no
+	on_own_nation = yes
+
+	sound = "event:/SFX/UI/Character/Unique/sfx_ui_character_arrange_marriage"
+
+	message = no
+
+
+	potential_trigger = {
+		scope:actor = {
+			tag = YMT
+			has_variable = YMT_gathering_clan_support
+		}
+		hidden:scope:target = {
+			is_alive = yes
+			age >= 16
+			employer = scope:actor
+			NOT = {
+				this = scope:actor.current_ruler
+			}
+			NOT = { employer = { tag = REB } }
+			NOT = { employer = { tag = BAR } }
+			NOT = { has_variable = attempted_to_gather_support }
+		}
+	}
+
+
+	allowed_trigger = {
+		scope:actor = {
+			treasury >= 50
+		}
+		scope:target = {
+			NOT = {
+				has_character_modifier = support_gathered
+			}
+		}
+	}
+
+
+	effect = {
+		scope:actor = {
+			trigger_event = yamato_gather_support.1
+		}
+		scope:target = {
+			set_variable = attempted_to_gather_support
+		}
+	}
+}

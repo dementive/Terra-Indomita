@@ -1,0 +1,84 @@
+﻿sort_territories = {
+
+    every_in_list = {
+        variable = territories
+
+        root = {
+            add_to_variable_list = {
+                name = territories_temp
+                target = prev
+            }
+        }
+    }
+
+    clear_variable_list = territories
+
+    ordered_in_list = {
+        variable = territories_temp
+        order_by = $sorting$
+        min = 0
+
+        root = {
+            add_to_variable_list = {
+                name = territories
+                target = prev
+            }
+        }
+    }
+
+    set_variable = {
+        name = sorting
+        value = $num$
+    }
+}
+add_civilization_scaling_gold_cost_effect = {
+    if = {
+        limit = {
+            has_variable = num_civ_investments
+            scope:player = {
+                is_ai = no
+            }
+        }
+        scope:player = {
+            hidden_effect = {
+                add_treasury = {
+                    value = root.calc_civ_cap_fee
+                    multiply = -1
+                }
+            }
+            custom_tooltip = CIVILIZATION_GOLD_SCALE_TT
+        }
+        hidden_effect = {
+            every_state_province = {
+                limit = {
+                    exists = holding_owner
+                }
+                holding_owner = {
+                    add_gold = {
+                        value = root.calc_civ_cap_fee
+                        divide = 4
+                    }
+                }
+            }
+        }
+    }
+}
+increment_civ_investment_count = {
+    if = {
+        limit = {
+            NOT = {
+                has_variable = num_civ_investments
+            }
+        }
+        set_variable = {
+            name = num_civ_investments
+            value = 1
+        }
+    }
+    else = {
+        change_variable = {
+            name = num_civ_investments
+            add = 1
+        }
+    }
+}

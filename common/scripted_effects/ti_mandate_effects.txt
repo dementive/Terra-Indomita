@@ -1,0 +1,1338 @@
+﻿change_mandate_effect = {
+	if = {
+		limit = {
+			has_variable = mandate_variable
+		}
+		change_variable = {
+			name = mandate_variable
+			add = $VALUE$
+		}
+	}
+}
+
+mandate_yearly_effects = {
+	#Apply mandate modifiers in a scalar way (is there a better way? I can't think of one.)
+
+	#for i in range(101): print(f"    else_if = {{\n        limit = {{\n            var:mandate_variable >= {i}\n            var:mandate_variable < {i + 1}\n            NOT = {{ has_country_modifier = mandate_mod_{i} }}\n        }}\n        remove_all_mandate_mods_effect = yes\n        add_country_modifier = {{\n            name = mandate_mod_{i}\n            duration = -1\n        }}\n    }}")
+
+	if = {
+		limit = {
+			var:mandate_variable >= 0
+			var:mandate_variable < 1
+			NOT = { has_country_modifier = mandate_mod_0 }
+		}
+		remove_all_mandate_mods_effect = yes
+		add_country_modifier = {
+			name = mandate_mod_0
+			duration = -1
+		}
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 1
+	        var:mandate_variable < 2
+	        NOT = { has_country_modifier = mandate_mod_1 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_1
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 2
+	        var:mandate_variable < 3
+	        NOT = { has_country_modifier = mandate_mod_2 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_2
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 3
+	        var:mandate_variable < 4
+	        NOT = { has_country_modifier = mandate_mod_3 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_3
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 4
+	        var:mandate_variable < 5
+	        NOT = { has_country_modifier = mandate_mod_4 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_4
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 5
+	        var:mandate_variable < 6
+	        NOT = { has_country_modifier = mandate_mod_5 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_5
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 6
+	        var:mandate_variable < 7
+	        NOT = { has_country_modifier = mandate_mod_6 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_6
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 7
+	        var:mandate_variable < 8
+	        NOT = { has_country_modifier = mandate_mod_7 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_7
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 8
+	        var:mandate_variable < 9
+	        NOT = { has_country_modifier = mandate_mod_8 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_8
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 9
+	        var:mandate_variable < 10
+	        NOT = { has_country_modifier = mandate_mod_9 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_9
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 10
+	        var:mandate_variable < 11
+	        NOT = { has_country_modifier = mandate_mod_10 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_10
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 11
+	        var:mandate_variable < 12
+	        NOT = { has_country_modifier = mandate_mod_11 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_11
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 12
+	        var:mandate_variable < 13
+	        NOT = { has_country_modifier = mandate_mod_12 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_12
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 13
+	        var:mandate_variable < 14
+	        NOT = { has_country_modifier = mandate_mod_13 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_13
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 14
+	        var:mandate_variable < 15
+	        NOT = { has_country_modifier = mandate_mod_14 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_14
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 15
+	        var:mandate_variable < 16
+	        NOT = { has_country_modifier = mandate_mod_15 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_15
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 16
+	        var:mandate_variable < 17
+	        NOT = { has_country_modifier = mandate_mod_16 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_16
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 17
+	        var:mandate_variable < 18
+	        NOT = { has_country_modifier = mandate_mod_17 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_17
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 18
+	        var:mandate_variable < 19
+	        NOT = { has_country_modifier = mandate_mod_18 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_18
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 19
+	        var:mandate_variable < 20
+	        NOT = { has_country_modifier = mandate_mod_19 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_19
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 20
+	        var:mandate_variable < 21
+	        NOT = { has_country_modifier = mandate_mod_20 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_20
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 21
+	        var:mandate_variable < 22
+	        NOT = { has_country_modifier = mandate_mod_21 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_21
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 22
+	        var:mandate_variable < 23
+	        NOT = { has_country_modifier = mandate_mod_22 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_22
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 23
+	        var:mandate_variable < 24
+	        NOT = { has_country_modifier = mandate_mod_23 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_23
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 24
+	        var:mandate_variable < 25
+	        NOT = { has_country_modifier = mandate_mod_24 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_24
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 25
+	        var:mandate_variable < 26
+	        NOT = { has_country_modifier = mandate_mod_25 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_25
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 26
+	        var:mandate_variable < 27
+	        NOT = { has_country_modifier = mandate_mod_26 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_26
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 27
+	        var:mandate_variable < 28
+	        NOT = { has_country_modifier = mandate_mod_27 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_27
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 28
+	        var:mandate_variable < 29
+	        NOT = { has_country_modifier = mandate_mod_28 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_28
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 29
+	        var:mandate_variable < 30
+	        NOT = { has_country_modifier = mandate_mod_29 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_29
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 30
+	        var:mandate_variable < 31
+	        NOT = { has_country_modifier = mandate_mod_30 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_30
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 31
+	        var:mandate_variable < 32
+	        NOT = { has_country_modifier = mandate_mod_31 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_31
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 32
+	        var:mandate_variable < 33
+	        NOT = { has_country_modifier = mandate_mod_32 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_32
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 33
+	        var:mandate_variable < 34
+	        NOT = { has_country_modifier = mandate_mod_33 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_33
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 34
+	        var:mandate_variable < 35
+	        NOT = { has_country_modifier = mandate_mod_34 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_34
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 35
+	        var:mandate_variable < 36
+	        NOT = { has_country_modifier = mandate_mod_35 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_35
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 36
+	        var:mandate_variable < 37
+	        NOT = { has_country_modifier = mandate_mod_36 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_36
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 37
+	        var:mandate_variable < 38
+	        NOT = { has_country_modifier = mandate_mod_37 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_37
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 38
+	        var:mandate_variable < 39
+	        NOT = { has_country_modifier = mandate_mod_38 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_38
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 39
+	        var:mandate_variable < 40
+	        NOT = { has_country_modifier = mandate_mod_39 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_39
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 40
+	        var:mandate_variable < 41
+	        NOT = { has_country_modifier = mandate_mod_40 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_40
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 41
+	        var:mandate_variable < 42
+	        NOT = { has_country_modifier = mandate_mod_41 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_41
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 42
+	        var:mandate_variable < 43
+	        NOT = { has_country_modifier = mandate_mod_42 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_42
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 43
+	        var:mandate_variable < 44
+	        NOT = { has_country_modifier = mandate_mod_43 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_43
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 44
+	        var:mandate_variable < 45
+	        NOT = { has_country_modifier = mandate_mod_44 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_44
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 45
+	        var:mandate_variable < 46
+	        NOT = { has_country_modifier = mandate_mod_45 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_45
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 46
+	        var:mandate_variable < 47
+	        NOT = { has_country_modifier = mandate_mod_46 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_46
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 47
+	        var:mandate_variable < 48
+	        NOT = { has_country_modifier = mandate_mod_47 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_47
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 48
+	        var:mandate_variable < 49
+	        NOT = { has_country_modifier = mandate_mod_48 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_48
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 49
+	        var:mandate_variable < 50
+	        NOT = { has_country_modifier = mandate_mod_49 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_49
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 50
+	        var:mandate_variable < 51
+	        NOT = { has_country_modifier = mandate_mod_50 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_50
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 51
+	        var:mandate_variable < 52
+	        NOT = { has_country_modifier = mandate_mod_51 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_51
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 52
+	        var:mandate_variable < 53
+	        NOT = { has_country_modifier = mandate_mod_52 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_52
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 53
+	        var:mandate_variable < 54
+	        NOT = { has_country_modifier = mandate_mod_53 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_53
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 54
+	        var:mandate_variable < 55
+	        NOT = { has_country_modifier = mandate_mod_54 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_54
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 55
+	        var:mandate_variable < 56
+	        NOT = { has_country_modifier = mandate_mod_55 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_55
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 56
+	        var:mandate_variable < 57
+	        NOT = { has_country_modifier = mandate_mod_56 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_56
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 57
+	        var:mandate_variable < 58
+	        NOT = { has_country_modifier = mandate_mod_57 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_57
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 58
+	        var:mandate_variable < 59
+	        NOT = { has_country_modifier = mandate_mod_58 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_58
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 59
+	        var:mandate_variable < 60
+	        NOT = { has_country_modifier = mandate_mod_59 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_59
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 60
+	        var:mandate_variable < 61
+	        NOT = { has_country_modifier = mandate_mod_60 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_60
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 61
+	        var:mandate_variable < 62
+	        NOT = { has_country_modifier = mandate_mod_61 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_61
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 62
+	        var:mandate_variable < 63
+	        NOT = { has_country_modifier = mandate_mod_62 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_62
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 63
+	        var:mandate_variable < 64
+	        NOT = { has_country_modifier = mandate_mod_63 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_63
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 64
+	        var:mandate_variable < 65
+	        NOT = { has_country_modifier = mandate_mod_64 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_64
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 65
+	        var:mandate_variable < 66
+	        NOT = { has_country_modifier = mandate_mod_65 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_65
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 66
+	        var:mandate_variable < 67
+	        NOT = { has_country_modifier = mandate_mod_66 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_66
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 67
+	        var:mandate_variable < 68
+	        NOT = { has_country_modifier = mandate_mod_67 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_67
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 68
+	        var:mandate_variable < 69
+	        NOT = { has_country_modifier = mandate_mod_68 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_68
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 69
+	        var:mandate_variable < 70
+	        NOT = { has_country_modifier = mandate_mod_69 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_69
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 70
+	        var:mandate_variable < 71
+	        NOT = { has_country_modifier = mandate_mod_70 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_70
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 71
+	        var:mandate_variable < 72
+	        NOT = { has_country_modifier = mandate_mod_71 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_71
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 72
+	        var:mandate_variable < 73
+	        NOT = { has_country_modifier = mandate_mod_72 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_72
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 73
+	        var:mandate_variable < 74
+	        NOT = { has_country_modifier = mandate_mod_73 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_73
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 74
+	        var:mandate_variable < 75
+	        NOT = { has_country_modifier = mandate_mod_74 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_74
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 75
+	        var:mandate_variable < 76
+	        NOT = { has_country_modifier = mandate_mod_75 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_75
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 76
+	        var:mandate_variable < 77
+	        NOT = { has_country_modifier = mandate_mod_76 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_76
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 77
+	        var:mandate_variable < 78
+	        NOT = { has_country_modifier = mandate_mod_77 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_77
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 78
+	        var:mandate_variable < 79
+	        NOT = { has_country_modifier = mandate_mod_78 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_78
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 79
+	        var:mandate_variable < 80
+	        NOT = { has_country_modifier = mandate_mod_79 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_79
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 80
+	        var:mandate_variable < 81
+	        NOT = { has_country_modifier = mandate_mod_80 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_80
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 81
+	        var:mandate_variable < 82
+	        NOT = { has_country_modifier = mandate_mod_81 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_81
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 82
+	        var:mandate_variable < 83
+	        NOT = { has_country_modifier = mandate_mod_82 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_82
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 83
+	        var:mandate_variable < 84
+	        NOT = { has_country_modifier = mandate_mod_83 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_83
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 84
+	        var:mandate_variable < 85
+	        NOT = { has_country_modifier = mandate_mod_84 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_84
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 85
+	        var:mandate_variable < 86
+	        NOT = { has_country_modifier = mandate_mod_85 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_85
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 86
+	        var:mandate_variable < 87
+	        NOT = { has_country_modifier = mandate_mod_86 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_86
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 87
+	        var:mandate_variable < 88
+	        NOT = { has_country_modifier = mandate_mod_87 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_87
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 88
+	        var:mandate_variable < 89
+	        NOT = { has_country_modifier = mandate_mod_88 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_88
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 89
+	        var:mandate_variable < 90
+	        NOT = { has_country_modifier = mandate_mod_89 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_89
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 90
+	        var:mandate_variable < 91
+	        NOT = { has_country_modifier = mandate_mod_90 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_90
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 91
+	        var:mandate_variable < 92
+	        NOT = { has_country_modifier = mandate_mod_91 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_91
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 92
+	        var:mandate_variable < 93
+	        NOT = { has_country_modifier = mandate_mod_92 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_92
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 93
+	        var:mandate_variable < 94
+	        NOT = { has_country_modifier = mandate_mod_93 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_93
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 94
+	        var:mandate_variable < 95
+	        NOT = { has_country_modifier = mandate_mod_94 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_94
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 95
+	        var:mandate_variable < 96
+	        NOT = { has_country_modifier = mandate_mod_95 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_95
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 96
+	        var:mandate_variable < 97
+	        NOT = { has_country_modifier = mandate_mod_96 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_96
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 97
+	        var:mandate_variable < 98
+	        NOT = { has_country_modifier = mandate_mod_97 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_97
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 98
+	        var:mandate_variable < 99
+	        NOT = { has_country_modifier = mandate_mod_98 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_98
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 99
+	        var:mandate_variable < 100
+	        NOT = { has_country_modifier = mandate_mod_99 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_99
+	        duration = -1
+	    }
+	}
+	else_if = {
+	    limit = {
+	        var:mandate_variable >= 100
+	        var:mandate_variable < 101
+	        NOT = { has_country_modifier = mandate_mod_100 }
+	    }
+	    remove_all_mandate_mods_effect = yes
+	    add_country_modifier = {
+	        name = mandate_mod_100
+	        duration = -1
+	    }
+	}
+}
+
+remove_all_mandate_mods_effect = {
+	switch = {
+		trigger = has_country_modifier
+
+		mandate_mod_0 = { remove_country_modifier = mandate_mod_0 }
+		mandate_mod_1 = { remove_country_modifier = mandate_mod_1 }
+		mandate_mod_2 = { remove_country_modifier = mandate_mod_2 }
+		mandate_mod_3 = { remove_country_modifier = mandate_mod_3 }
+		mandate_mod_4 = { remove_country_modifier = mandate_mod_4 }
+		mandate_mod_5 = { remove_country_modifier = mandate_mod_5 }
+		mandate_mod_6 = { remove_country_modifier = mandate_mod_6 }
+		mandate_mod_7 = { remove_country_modifier = mandate_mod_7 }
+		mandate_mod_8 = { remove_country_modifier = mandate_mod_8 }
+		mandate_mod_9 = { remove_country_modifier = mandate_mod_9 }
+		mandate_mod_10 = { remove_country_modifier = mandate_mod_10 }
+		mandate_mod_11 = { remove_country_modifier = mandate_mod_11 }
+		mandate_mod_12 = { remove_country_modifier = mandate_mod_12 }
+		mandate_mod_13 = { remove_country_modifier = mandate_mod_13 }
+		mandate_mod_14 = { remove_country_modifier = mandate_mod_14 }
+		mandate_mod_15 = { remove_country_modifier = mandate_mod_15 }
+		mandate_mod_16 = { remove_country_modifier = mandate_mod_16 }
+		mandate_mod_17 = { remove_country_modifier = mandate_mod_17 }
+		mandate_mod_18 = { remove_country_modifier = mandate_mod_18 }
+		mandate_mod_19 = { remove_country_modifier = mandate_mod_19 }
+		mandate_mod_20 = { remove_country_modifier = mandate_mod_20 }
+		mandate_mod_21 = { remove_country_modifier = mandate_mod_21 }
+		mandate_mod_22 = { remove_country_modifier = mandate_mod_22 }
+		mandate_mod_23 = { remove_country_modifier = mandate_mod_23 }
+		mandate_mod_24 = { remove_country_modifier = mandate_mod_24 }
+		mandate_mod_25 = { remove_country_modifier = mandate_mod_25 }
+		mandate_mod_26 = { remove_country_modifier = mandate_mod_26 }
+		mandate_mod_27 = { remove_country_modifier = mandate_mod_27 }
+		mandate_mod_28 = { remove_country_modifier = mandate_mod_28 }
+		mandate_mod_29 = { remove_country_modifier = mandate_mod_29 }
+		mandate_mod_30 = { remove_country_modifier = mandate_mod_30 }
+		mandate_mod_31 = { remove_country_modifier = mandate_mod_31 }
+		mandate_mod_32 = { remove_country_modifier = mandate_mod_32 }
+		mandate_mod_33 = { remove_country_modifier = mandate_mod_33 }
+		mandate_mod_34 = { remove_country_modifier = mandate_mod_34 }
+		mandate_mod_35 = { remove_country_modifier = mandate_mod_35 }
+		mandate_mod_36 = { remove_country_modifier = mandate_mod_36 }
+		mandate_mod_37 = { remove_country_modifier = mandate_mod_37 }
+		mandate_mod_38 = { remove_country_modifier = mandate_mod_38 }
+		mandate_mod_39 = { remove_country_modifier = mandate_mod_39 }
+		mandate_mod_40 = { remove_country_modifier = mandate_mod_40 }
+		mandate_mod_41 = { remove_country_modifier = mandate_mod_41 }
+		mandate_mod_42 = { remove_country_modifier = mandate_mod_42 }
+		mandate_mod_43 = { remove_country_modifier = mandate_mod_43 }
+		mandate_mod_44 = { remove_country_modifier = mandate_mod_44 }
+		mandate_mod_45 = { remove_country_modifier = mandate_mod_45 }
+		mandate_mod_46 = { remove_country_modifier = mandate_mod_46 }
+		mandate_mod_47 = { remove_country_modifier = mandate_mod_47 }
+		mandate_mod_48 = { remove_country_modifier = mandate_mod_48 }
+		mandate_mod_49 = { remove_country_modifier = mandate_mod_49 }
+		mandate_mod_50 = { remove_country_modifier = mandate_mod_50 }
+		mandate_mod_51 = { remove_country_modifier = mandate_mod_51 }
+		mandate_mod_52 = { remove_country_modifier = mandate_mod_52 }
+		mandate_mod_53 = { remove_country_modifier = mandate_mod_53 }
+		mandate_mod_54 = { remove_country_modifier = mandate_mod_54 }
+		mandate_mod_55 = { remove_country_modifier = mandate_mod_55 }
+		mandate_mod_56 = { remove_country_modifier = mandate_mod_56 }
+		mandate_mod_57 = { remove_country_modifier = mandate_mod_57 }
+		mandate_mod_58 = { remove_country_modifier = mandate_mod_58 }
+		mandate_mod_59 = { remove_country_modifier = mandate_mod_59 }
+		mandate_mod_60 = { remove_country_modifier = mandate_mod_60 }
+		mandate_mod_61 = { remove_country_modifier = mandate_mod_61 }
+		mandate_mod_62 = { remove_country_modifier = mandate_mod_62 }
+		mandate_mod_63 = { remove_country_modifier = mandate_mod_63 }
+		mandate_mod_64 = { remove_country_modifier = mandate_mod_64 }
+		mandate_mod_65 = { remove_country_modifier = mandate_mod_65 }
+		mandate_mod_66 = { remove_country_modifier = mandate_mod_66 }
+		mandate_mod_67 = { remove_country_modifier = mandate_mod_67 }
+		mandate_mod_68 = { remove_country_modifier = mandate_mod_68 }
+		mandate_mod_69 = { remove_country_modifier = mandate_mod_69 }
+		mandate_mod_70 = { remove_country_modifier = mandate_mod_70 }
+		mandate_mod_71 = { remove_country_modifier = mandate_mod_71 }
+		mandate_mod_72 = { remove_country_modifier = mandate_mod_72 }
+		mandate_mod_73 = { remove_country_modifier = mandate_mod_73 }
+		mandate_mod_74 = { remove_country_modifier = mandate_mod_74 }
+		mandate_mod_75 = { remove_country_modifier = mandate_mod_75 }
+		mandate_mod_76 = { remove_country_modifier = mandate_mod_76 }
+		mandate_mod_77 = { remove_country_modifier = mandate_mod_77 }
+		mandate_mod_78 = { remove_country_modifier = mandate_mod_78 }
+		mandate_mod_79 = { remove_country_modifier = mandate_mod_79 }
+		mandate_mod_80 = { remove_country_modifier = mandate_mod_80 }
+		mandate_mod_81 = { remove_country_modifier = mandate_mod_81 }
+		mandate_mod_82 = { remove_country_modifier = mandate_mod_82 }
+		mandate_mod_83 = { remove_country_modifier = mandate_mod_83 }
+		mandate_mod_84 = { remove_country_modifier = mandate_mod_84 }
+		mandate_mod_85 = { remove_country_modifier = mandate_mod_85 }
+		mandate_mod_86 = { remove_country_modifier = mandate_mod_86 }
+		mandate_mod_87 = { remove_country_modifier = mandate_mod_87 }
+		mandate_mod_88 = { remove_country_modifier = mandate_mod_88 }
+		mandate_mod_89 = { remove_country_modifier = mandate_mod_89 }
+		mandate_mod_90 = { remove_country_modifier = mandate_mod_90 }
+		mandate_mod_91 = { remove_country_modifier = mandate_mod_91 }
+		mandate_mod_92 = { remove_country_modifier = mandate_mod_92 }
+		mandate_mod_93 = { remove_country_modifier = mandate_mod_93 }
+		mandate_mod_94 = { remove_country_modifier = mandate_mod_94 }
+		mandate_mod_95 = { remove_country_modifier = mandate_mod_95 }
+		mandate_mod_96 = { remove_country_modifier = mandate_mod_96 }
+		mandate_mod_97 = { remove_country_modifier = mandate_mod_97 }
+		mandate_mod_98 = { remove_country_modifier = mandate_mod_98 }
+		mandate_mod_99 = { remove_country_modifier = mandate_mod_99 }
+		mandate_mod_100 = { remove_country_modifier = mandate_mod_100 }
+	}
+}

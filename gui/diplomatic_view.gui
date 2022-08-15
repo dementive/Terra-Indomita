@@ -1,4 +1,4 @@
-@window_margin_left = 20
+﻿@window_margin_left = 20
 @window_margin_right = 20
 @window_margin_top = 0
 @window_margin_bottom = 0
@@ -13,7 +13,7 @@ base_window = {
 
 		on_start = "[PdxGuiTriggerAllAnimations('instantiate_then_hide_subwindow')]"
 	}
-
+	movable = no
 	using = main_window_template
 
 	### Audio ###
@@ -65,7 +65,18 @@ base_window = {
 				onclick = "[DiplomaticView.OnPrevious]"
 				tooltip = "PREVIOUS_DIPLOMATIC_VIEW"
 			}
-
+			button = {
+				position = { 35 2 }
+				clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_click"
+				oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
+				framesize = { 50 50 }
+				size = { 26 26 }
+				texture = "gfx/interface/icons/shared_icons/star.dds"
+				datacontext = "[GetScriptedGui('fav_countries')]"
+				frame = "[Select_int32(ScriptedGui.IsShown(GuiScope.SetRoot(DiplomaticView.GetTargetCountry.MakeScope).AddScope('player', Player.MakeScope).End),'(int32)2','(int32)1'))]"
+				onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( DiplomaticView.GetTargetCountry.MakeScope ).AddScope('player', Player.MakeScope).End )]"
+				tooltip = "fav"
+			}
 			button_close = {
 				onclick = "[DiplomaticView.OnClose]"
 				tooltip = "CLOSE"

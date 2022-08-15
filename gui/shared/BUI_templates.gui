@@ -1,0 +1,208 @@
+template dark_red_font {
+	fontcolor = { 0.5 0 0 1 }
+}
+
+template icon_mask {
+	modify_texture = {
+		name = "Alpha"
+		blend_mode = alphamultiply
+		block "icon" {
+			texture = "gfx/interface/base_parts/scroll_bar_vertical_line_y20bd.dds"
+		}
+		spriteType = Corneredtiled
+	}
+}
+
+template "bigger_button_change" {
+	size = { 0 40 }
+}
+
+template double_tooltip_vert {
+	container = {
+		alwaystransparent = no
+
+		widget = {
+			name = "background"
+			using = DefaultTooltipBackground
+			size = { 100% 100% }
+			alwaystransparent = no
+		}
+
+		flowcontainer = {
+
+			flowcontainer = {
+				direction = vertical
+				ignoreinvisible = yes
+
+				textbox = {
+					using = DefaultTooltipText
+					margin = { 20 20 }
+					margin_top = 10
+					multiline = yes
+					maximumsize = { 450 -1 }
+					block "TopText" {}
+				}
+
+        block "line" {
+  				icon = {
+  					size = { 85% 1 }
+  					using = flat_background_white
+  					alpha = 0.7
+  					parentanchor = hcenter
+  				}
+        }
+
+				textbox = {
+					using = DefaultTooltipText
+					margin = { 20 0 }
+					margin_top = 10
+					multiline = yes
+					maximumsize = { 450 -1 }
+					block "BotText" {}
+				}
+
+        textbox = {
+					using = DefaultTooltipText
+					margin = { 20 20 }
+					margin_top = 10
+					multiline = yes
+					maximumsize = { 450 -1 }
+					block "ThirdText" {}
+				}
+			}
+			margin_widget = {
+				size = { 10 100% }
+				margin = { 0 6 }
+				using = ProgressLockIndicator
+			}
+		}
+	}
+}
+
+template tornedge {
+	modify_texture = {
+		name = "Alpha"
+		texture = "gfx/interface/base_parts/background_x60bd_alpha.dds"
+		blend_mode = alphamultiply
+		spriteType = Corneredtiled
+		spriteborder = { 60 60 }
+	}
+}
+
+template default_position {
+	position = { 60 138 }
+}
+
+template movable_windows {
+	datacontext = "[GetScriptedGui('movable_windows')]"
+	movable = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+}
+
+types BUITypes {
+
+	type button_reset = widget {
+		size = { 26 26 } # there was some alignment bug so I had made it into a widget. Maybe not needed anymore.
+
+		visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+		white_button_round = {
+			tooltip = "reset_position"
+			size = { 100% 100% }
+			blockoverride "Icon" {
+				texture = "gfx/icons/reset.dds"
+			}
+		}
+	}
+
+	type button_round_alpha = button {
+
+		texture = "gfx/interface/base_parts/white_button_color_200fs.dds"
+		spriteType = Corneredtiled
+		spriteborder = { 100 100 }
+		gfxtype = framedbuttongfx
+		size = { 22 22 }
+		clicksound = "event:/SFX/UI/Generic/2.0/sfx_ui_button_close"
+
+		framesize = { 100 100 }
+		upframe = 1
+		overframe = 2
+		downframe = 3
+		disableframe = 4
+
+		modify_texture = {
+			name = "Alpha"
+			texture = "gfx/interface/base_parts/button_round_22_alpha.dds"
+			blend_mode = alphamultiply
+		}
+	}
+
+	type button_icon = button {
+		tooltip_offset = { 0 25}
+		size = { 28 28 }
+		using = button_tiled_texture
+		spriteType = corneredtiled
+		gfxtype = framedbuttongfx
+		widgetanchor = center
+		parentanchor = center
+		framesize = { 200 200 }
+		upframe = 1
+		overframe = 2
+		downframe = 3
+		disableframe = 4
+		block "position" {}
+
+		modify_texture = {
+			name = "Alpha"
+			block "icon"
+			{
+				texture = "gfx/interface/base_parts/settings.dds"
+			}
+			blend_mode = alphamultiply
+		}
+	}
+
+	type icon_button = button {
+		tooltip_offset = { 0 25 }
+		size = { 28 28 }
+		block "color" {
+			using = button_tiled_texture
+		}
+		spriteType = corneredtiled
+		gfxtype = framedbuttongfx
+		framesize = { 200 200 }
+		upframe = 1
+		overframe = 2
+		downframe = 3
+		disableframe = 4
+		block "position" {}
+
+		modify_texture = {
+			name = "Alpha"
+			block "icon"
+			{
+				texture = "gfx/interface/base_parts/settings.dds"
+			}
+			blend_mode = alphamultiply
+		}
+	}
+
+	type track_button = list_button {
+		size = { 60 32 }
+		tag = {
+			parentanchor = center
+			block "text" {
+				text = "1"
+			}
+		}
+	}
+
+	type full_track_button = list_button {
+		size = { 230 30 }
+		tag = {
+			#parentanchor = left
+			position = { 10 0 }
+			block "text" {
+				text = "1"
+			}
+		}
+	}
+}

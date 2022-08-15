@@ -1,0 +1,3505 @@
+@windowwidth = 1230
+@windowheight = 900
+@tagwidth = 50
+@sortwidth = 52
+@statwidth = 60
+@bigstatwidth = 80
+@ledgertab = 35
+
+base_window = {
+	gfxtype = windowgfx
+	name = "ledger"
+	parentanchor = top|left
+	widgetanchor = top|left
+	size = { @windowwidth @windowheight }
+	position = { 60 138 }
+
+	####################
+	### MAIN HEADER
+	####################
+
+
+	vbox = {
+		using = MainWindowHeaderBox
+		name = "main window box with main header"
+		blockoverride "Title_text"
+		{
+			text = "LEDGER_HEADER"
+			tooltip = "LEDGER_HEADER_TT"
+		}
+
+		blockoverride "White_buttons"
+		{
+			button_back = {
+				shortcut = "previous_window"
+				onclick = "[Ledger.OnPrevious]"
+				tooltip = "PREVIOUS_LEDGER"
+			}
+
+			button_close = {
+				onclick = "[Ledger.OnClose]"
+				tooltip = "CLOSE"
+				shortcut = "close_window"
+			}
+		}
+
+		vbox = {
+			layoutpolicy_vertical = expanding
+			layoutpolicy_horizontal = expanding
+
+
+			hbox = {#tabs
+				layoutpolicy_vertical = fixed
+				layoutpolicy_horizontal = expanding
+				margin_right = 11
+				margin_left = 12
+				margin_top = 0
+				spacing = 2
+				@mincategorybuttonwidth = 149
+				@maxcategorybuttonwidth = 149
+				datacontext = "[GetScriptedGui('clear_ledger')]"
+				@mincategorybuttonheight = 28
+				@maxcategorybuttonheight = 34
+
+				category_tab = {
+					name = "default_tab"
+					blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+					blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+					blockoverride "MinVisible" { visible = "[Or(Not( Ledger.IsPageShown('default') ), GetVariableSystem.Exists('ledger_pages'))]" }
+					blockoverride "MaxVisible" { visible = "[And(Ledger.IsPageShown('default'), Not(GetVariableSystem.Exists('ledger_pages')) )]" }
+					######## Shared Overrides
+					blockoverride "Center_text" {
+						text = "LEDGER_DEFAULT"
+					}
+					######## Small Button Overrides
+					blockoverride "ClickFunction"
+					{
+						onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						onclick = "[Ledger.ShowPage('default')]"
+						onclick = "[GetVariableSystem.Clear('ledger_pages')]"
+					}
+				}
+				category_tab = {
+					name = "rulers_tab"
+					blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+					blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+					blockoverride "MinVisible" { visible = "[Or(Not( Ledger.IsPageShown('country_rulers') ), GetVariableSystem.Exists('ledger_pages'))]" }
+					blockoverride "MaxVisible" { visible = "[And(Ledger.IsPageShown('country_rulers'), Not(GetVariableSystem.Exists('ledger_pages')) )]" }
+					######## Shared Overrides
+					blockoverride "Center_text" {
+						text = "LEDGER_country_rulers"
+					}
+					######## Small Button Overrides
+					blockoverride "ClickFunction"
+					{
+						onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						onclick = "[Ledger.ShowPage('default')]"
+						onclick = "[Ledger.ShowPage('country_rulers')]"
+						onclick = "[GetVariableSystem.Clear('ledger_pages')]"
+					}
+				}
+				category_tab = {
+					name = "states_tab"
+					blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+					blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+					blockoverride "MinVisible" { visible = "[Or(Not( Ledger.IsPageShown('our_states') ), GetVariableSystem.Exists('ledger_pages'))]" }
+					blockoverride "MaxVisible" { visible = "[And(Ledger.IsPageShown('our_states'), Not(GetVariableSystem.Exists('ledger_pages')) )]" }
+					######## Shared Overrides
+					blockoverride "Center_text" {
+						text = "LEDGER_our_states"
+					}
+					######## Small Button Overrides
+					blockoverride "ClickFunction"
+					{
+						onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						onclick = "[Ledger.ShowPage('default')]"
+						onclick = "[Ledger.ShowPage('our_states')]"
+						onclick = "[GetVariableSystem.Clear('ledger_pages')]"
+					}
+				}
+
+				category_tab = {#territories
+					blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+					blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+					blockoverride "MinVisible" { visible = "[Not(GetVariableSystem.HasValue('ledger_pages', 'territories'))]" }
+					blockoverride "MaxVisible" { visible = "[GetVariableSystem.HasValue('ledger_pages', 'territories')]" }
+					######## Shared Overrides
+					blockoverride "Center_text" {
+						text = "Territories"
+					}
+					######## Small Button Overrides
+					datacontext = "[GetScriptedGui('territories')]"
+					blockoverride "ClickFunction"
+					{
+						onclick = "[GetVariableSystem.Set('ledger_pages', 'territories')]"
+						onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+					}
+				}
+
+				category_tab = {
+					name = "show_stats"
+					blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+					blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+					blockoverride "MinVisible" { visible = "[Or(Not( Ledger.IsPageShown('army_navy_stats') ), GetVariableSystem.Exists('ledger_pages'))]" }
+					blockoverride "MaxVisible" { visible = "[And(Ledger.IsPageShown('army_navy_stats'), Not(GetVariableSystem.Exists('ledger_pages')) )]" }
+					######## Shared Overrides
+					blockoverride "Center_text" { text = "ARMY_STATS" }
+					blockoverride "Icon" { visible = no }
+					######## Small Button Overrides
+					blockoverride "ClickFunction"
+					{
+						onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						onclick = "[Ledger.ShowPage('default')]"
+						onclick = "[Ledger.ShowPage('army_navy_stats')]"
+						onclick = "[GetVariableSystem.Clear('ledger_pages')]"
+					}
+				}
+
+				category_tab = {
+					name = "our_rulers_tab"
+					blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+					blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+					blockoverride "MinVisible" { visible = "[Or(Not( Ledger.IsPageShown('former_rulers') ), GetVariableSystem.Exists('ledger_pages'))]" }
+					blockoverride "MaxVisible" { visible = "[And(Ledger.IsPageShown('former_rulers'), Not(GetVariableSystem.Exists('ledger_pages')) )]" }
+					######## Shared Overrides
+					blockoverride "Center_text" {
+						text = "LEDGER_our_rulers"
+					}
+					######## Small Button Overrides
+					blockoverride "ClickFunction"
+					{
+						onclick = "[Ledger.ShowPage('former_rulers')]"
+						onclick = "[GetVariableSystem.Clear('ledger_pages')]"
+					}
+				}
+
+				category_tab = {
+					blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+					blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+					blockoverride "MinVisible" { visible = "[Not(GetVariableSystem.HasValue('ledger_pages', 'wonders'))]" }
+					blockoverride "MaxVisible" { visible = "[GetVariableSystem.HasValue('ledger_pages', 'wonders')]" }
+					######## Shared Overrides
+					blockoverride "Center_text" {
+						text = "wonders"
+					}
+					######## Small Button Overrides
+					datacontext = "[GetScriptedGui('wonders')]"
+					blockoverride "ClickFunction"
+					{
+						onclick = "[GetVariableSystem.Set('ledger_pages', 'wonders')]"
+						onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+					}
+				}
+				category_tab = {
+					blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+					blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+					blockoverride "MinVisible" { visible = "[Not(GetVariableSystem.HasValue('ledger_pages', 'treasures'))]" }
+					blockoverride "MaxVisible" { visible = "[GetVariableSystem.HasValue('ledger_pages', 'treasures')]"}
+					######## Shared Overrides
+					blockoverride "Center_text" {
+						text = "treasures"
+					}
+					datacontext = "[GetScriptedGui('treasures')]"
+					######## Small Button Overrides
+					blockoverride "ClickFunction"
+					{
+						onclick = "[GetVariableSystem.Set('ledger_pages', 'treasures')]"
+						onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+					}
+				}
+				hbox = { layoutpolicy_horizontal = expanding }
+			}
+
+			###########################################################
+			# 'default'
+			############################################################
+			container = {
+				visible = "[And(Ledger.IsPageShown('default'), Not(GetVariableSystem.Exists('ledger_pages')) )]"
+
+				flowcontainer = {
+					spacing = 4
+
+					text_button_sort = {
+						name = "sort_title"
+						tooltip = SORT_NAME_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('name')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('name')]"
+						}
+
+						#clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_sub_tab"
+						size = { 290 32 }
+
+						blockoverride "Button_text"
+						{
+							text = "SORT_NAME"
+						}
+						blockoverride "Icon"
+						{
+							visible = no
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_opinion"
+						tooltip = SORT_OPINION_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('opinion')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('opinion')]"
+						}
+
+						#clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_sub_tab"
+						size = { 50 32 }
+
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/diplomatic_status/opinion_improvement_active.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_rank"
+						tooltip = SORT_RANK_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('rank')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('rank')]"
+						}
+
+						#clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_sub_tab"
+						size = { 37 32 }
+
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/diplomacy/country_rank.dds"
+							size = { 26 26 }
+							framesize = { 54 54 }
+							frame = 5
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_stability"
+						tooltip = SORT_STABILITY_TT
+
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('stability')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('stability')]"
+						}
+
+						size = { 50 32 }
+
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+
+						blockoverride "Icon"
+						{
+							using = icon_stability
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_tyranny"
+						tooltip = SORT_TYRANNY_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('tyranny')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('tyranny')]"
+						}
+
+						size = { 50 32 }
+
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_tyranny
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_ae"
+						tooltip = SORT_AE_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('ae')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('ae')]"
+						}
+
+						size = { 50 32 }
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_aggressive_expansion
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_war_ex"
+						tooltip = SORT_WAR_EX_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('war_exhaustion')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('war_exhaustion')]"
+						}
+
+						size = { 50 32 }
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/modifiers/war_exhaustion.dds"
+							size = { 26 26 }
+						}
+					}
+
+					widget = {
+
+						size = { 80 32 }
+					}
+
+					text_button_sort = {
+						name = "sort_heritage"
+						tooltip = SORT_HERITAGE_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('heritage')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('heritage')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_civilization
+							size = { 26 26 }
+						}
+
+						size = { 34 32 }
+					}
+
+					text_button_sort = {
+						name = "sort_stance"
+						tooltip = SORT_STANCE_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('stance')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('stance')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/modifiers/diplomatic_reputation.dds"
+							size = { 26 26 }
+						}
+
+						size = { 37 32 }
+					}
+
+					text_button_sort = {
+						name = "sort_cities"
+						tooltip = SORT_CITIES_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('cities')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('cities')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_city
+							size = { 26 26 }
+						}
+						size = { 50 32 }
+					}
+
+					text_button_sort = {
+						name = "sort_population"
+						tooltip = SORT_POPS_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('pops')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('pops')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_type
+							size = { 26 26 }
+						}
+
+						size = { 64 32 }
+					}
+
+					#text_button_sort = {
+					#	name = "sort_gold"
+					#	tooltip = SORT_GOLD_TT
+					#	blockoverride "On_click"
+					#	{
+					#		onclick = "[Ledger.SortCountrys('gold')]"
+					#	}
+					#	blockoverride "DownState"
+					#	{
+					#		down = "[Ledger.IsCountrySorted('gold')]"
+					#	}
+					#	blockoverride "Button_text"
+					#	{
+					#		text = ""
+					#	}
+					#	blockoverride "Icon"
+					#	{
+					#		using = icon_treasury
+					#		size = { 26 26 }
+					#	}
+					#
+					#	size = { 70 32 }
+					#}
+
+					#text_button_sort = {
+					#	name = "sort_manpower"
+					#	tooltip = SORT_MANPOWER_TT
+					#	blockoverride "On_click"
+					#	{
+					#		onclick = "[Ledger.SortCountrys('manpower')]"
+					#	}
+					#	blockoverride "DownState"
+					#	{
+					#		down = "[Ledger.IsCountrySorted('manpower')]"
+					#	}
+					#	blockoverride "Button_text"
+					#	{
+					#		text = ""
+					#	}
+					#	blockoverride "Icon"
+					#	{
+					#		using = icon_manpower
+					#		size = { 26 26 }
+					#	}
+					#
+					#	size = { 83 32 }
+					#
+					#}
+
+					# text_button_sort = {
+					# 	name = "sort_cohorts"
+					# 	tooltip = SORT_COHORTS_TT
+					# 	blockoverride "On_click"
+					# 	{
+					# 		onclick = "[Ledger.SortCountrys('cohorts')]"
+					# 	}
+					# 	blockoverride "DownState"
+					# 	{
+					# 		down = "[Ledger.IsCountrySorted('cohorts')]"
+					# 	}
+					# 	blockoverride "Button_text"
+					# 	{
+					# 		text = ""
+					# 	}
+					# 	blockoverride "Icon"
+					# 	{
+					# 		using = icon_land_combat
+					# 		size = { 26 26 }
+					# 	}
+					#
+					# 	size = { 63 32 }
+					# }
+
+					text_button_sort = {
+						name = "sort_ships"
+						tooltip = SORT_SHIPS_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCountrys('ships')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCountrySorted('ships')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_naval_combat
+							size = { 26 26 }
+						}
+
+						size = { 63 32 }
+					}
+				}
+
+				scrollarea = {
+					position = { 0 42 }
+					size = { 1188 745 }
+					scrollbarpolicy_horizontal = always_off
+
+					scrollbar_vertical = {
+						using = VerticalScrollBar
+					}
+
+					using = VerticalScrollAreaCutOff
+
+					scrollwidget = {
+						fixedgridbox = {
+							datamodel = "[Ledger.GetCountries]"
+							addcolumn = 1195
+							addrow = 46
+
+							item = {
+
+								container = {
+									list_entry = {
+										size = { 100% 100% }
+									}
+
+									country_flag = {
+										datacontext = "[CountryDiplomaticItem.GetCountry]"
+										tooltip = "COUNTRY_SHORTHAND_INFO"
+										position = { 0 0 }
+
+										blockoverride "flag"
+										{
+											texture = "[CountryDiplomaticItem.GetCountry.AccessCoatOfArms.GetTexture('(int32)56','(int32)56')]"
+											frame = "[CountryDiplomaticItem.GetCountry.AccessCoatOfArms.GetFrame('(int32)56','(int32)56')]"
+											framesize = { 56 56 }
+										}
+										blockoverride "size"
+										{
+											size = { 42 42 }
+										}
+
+										blockoverride "click"
+										{
+											onclick = "[OpenDiplomacy(CountryDiplomaticItem.GetCountry)]"
+										}
+
+										blockoverride "hover_leave"
+										{
+											onmousehierarchyleave = "[DiplomaticView.ResetHighlight]"
+										}
+									}
+
+									tag = {
+										position = { 48 0 }
+										datacontext = "[CountryDiplomaticItem.GetCountry]"
+										text = "[CountryDiplomaticItem.GetName]"
+										parentanchor = vcenter
+										max_width = 300
+										tooltip = "COUNTRY_SHORTHAND_INFO"
+									}
+
+									flowcontainer = {
+										position = { 290 0 }
+										parentanchor = vcenter
+										spacing = 4
+										tag = {
+											size = { @tagwidth 0 }
+											text = "[CountryDiplomaticItem.GetValue|+=]"
+											min_width = @tagwidth
+											tooltip = "[CountryDiplomaticItem.GetTooltip]"
+										}
+										widget = { size = { 3 0 } }
+										icon = {
+											framesize = { 54 54 }
+											size = { 34 34 }
+											parentanchor = top
+											texture = "gfx/interface/diplomacy/country_rank.dds"
+											frame = "[CountryDiplomaticItem.GetCountry.GetRankFrame]"
+											tooltip = "[CountryDiplomaticItem.GetCountry.GetRankInformation]"
+										}
+
+			                        	tag = {
+											size = { @tagwidth 0 }
+											text = "[CountryDiplomaticItem.GetCountry.GetStability|0]"
+											min_width = @tagwidth
+											tooltip = "[CountryDiplomaticItem.GetCountry.GetStabilityTooltip]"
+										}
+
+										tag = {
+											size = { @tagwidth 0 }
+											text = "[CountryDiplomaticItem.GetCountry.GetTyranny|0]"
+											min_width = @tagwidth
+											tooltip = "[CountryDiplomaticItem.GetCountry.GetTyrannyTooltip]"
+										}
+
+			                        	tag = {
+											size = { @tagwidth 0 }
+											text = "[CountryDiplomaticItem.GetCountry.GetCurrentAgressiveExpansion|0]"
+											min_width = @tagwidth
+											tooltip = "[CountryDiplomaticItem.GetCountry.GetCurrentAgressiveExpansionInfo]"
+										}
+
+			                        	tag = {
+											size = { @tagwidth 0 }
+											text = "[CountryDiplomaticItem.GetCountry.GetWarExhaustion|0]"
+											min_width = @tagwidth
+											tooltip = "[CountryDiplomaticItem.GetCountry.GetWarExhaustionTooltip]"
+										}
+
+			                        	widget = {
+											size = { 86 34 }
+										}
+
+										icon = {
+											datacontext = "[CountryDiplomaticItem.GetCountry.GetHeritage]"
+											tooltipwidget = { using = heritage_tooltip }
+											size = { 36 36 }
+											texture = "[CountryDiplomaticItem.GetCountry.GetHeritage.GetModifier.GetIcon]"
+											framesize = { 54 54 }
+										}
+
+										icon = {
+											size = { 28 28 }
+											parentanchor = vcenter
+											texture = "[GetDiplomaticStanceIcon(CountryDiplomaticItem.GetCountry.GetDiplomaticStance)]"
+											framesize = { 54 54 }
+											tooltip = "[CountryDiplomaticItem.GetCountry.GetDiplomaticStance.GetTooltip]"
+										}
+
+										tag = {
+											size = { @tagwidth 0 }
+											text = "[CountryDiplomaticItem.GetCountry.GetOwnedProvinceCount]"
+											min_width = @tagwidth
+											tooltip = "[CountryDiplomaticItem.GetCountry.GetOwnedProvinceTooltip]"
+										}
+
+										tag = {
+											size = { 68 0 }
+											text = "[CountryDiplomaticItem.GetCountry.GetTotalPopulation]"
+											min_width = 68
+											tooltip = "[CountryDiplomaticItem.GetCountry.BuildTotalPopulationToolTip]"
+										}
+
+										#tag = {
+										#	size = { 70 0 }
+										#	text = "[CountryDiplomaticItem.GetCountry.GetTreasury|0]"
+										#	min_width = 70
+										#	tooltip = "[CountryDiplomaticItem.GetCountry.GetTreasuryTooltip]"
+										#}
+										#
+			                        	#tag = {
+										#	size = { 78 0 }
+										#	text = "[CountryDiplomaticItem.GetCountry.GetManpower]"
+										#	min_width = 78
+										#	tooltip = "[CountryDiplomaticItem.GetCountry.GetTreasuryTooltip]"
+										#}
+
+
+										tag = {
+                  		datacontext = "[CountryDiplomaticItem.GetCountry]"
+											size = { 62 0 }
+											text = "[CountryDiplomaticItem.GetCountry.GetTotalNumOfShips]"
+											min_width = 62
+											tooltip = "DIPLOMATIC_VIEW_TOTAL_SHIPS"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			###########################################################
+			# 'country_rulers'
+			###########################################################
+			container = {
+				visible = "[And(Ledger.IsPageShown('country_rulers'), Not(GetVariableSystem.Exists('ledger_pages')) )]"
+
+				flowcontainer = {
+					spacing = 2
+
+					text_button_sort = {
+						name = "sort_name"
+						size = { 70 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_NAME_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('name')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('name')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = "A_Z"
+						}
+						blockoverride "Icon"
+						{
+							visible = no
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_martial"
+						size = { 72 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_MARTIAL_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('martial')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('martial')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_military
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_finesse"
+						size = { 72 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_FINESS_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('finesse')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('finesse')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_civic
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_charisma"
+						size = { 72 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_CHARISMA_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('charisma')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('charisma')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_oratory
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_zeal"
+						size = { 76 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_ZEAL_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('zeal')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('zeal')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_religious
+							size = { 26 26 }
+						}
+					}
+
+
+					text_button_sort = {
+						name = "sort_power_base"
+						size = { 64 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_POWER_BASE_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('power_base')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('power_base')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_power_base
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_popularity"
+						size = { 64 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_POPULARITY_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('popularity')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('popularity')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_popularity
+							size = { 26 26 }
+						}
+					}
+
+
+					text_button_sort = {
+						name = "sort_corruption"
+						size = { 64 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_CORRUPTION_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('corruption')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('corruption')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_corruption
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_health"
+						size = { 63 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_HEALTH_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('health')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('health')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/modifiers/health.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_age"
+						size = { 63 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_AGE_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('age')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('age')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_age
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_wealth"
+						size = { 104 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_WEALTH_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('wealth')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('wealth')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_treasury
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_traits"
+						size = { 356 32 }
+						blockoverride "Button_text"
+						{
+							text = "TRAITS"
+						}
+
+						tooltip = CHARACTER_VIEW_SORT_BY_TRAITS_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortCharacters('traits')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsCharacterSorted('traits')]"
+						}
+						blockoverride "Icon"
+						{
+							visible = no
+						}
+
+					}
+				}
+
+				scrollarea = {
+					position = { 0 42 }
+					size = { 1188 745 }
+					scrollbarpolicy_horizontal = always_off
+
+					scrollbar_vertical = {
+						using = VerticalScrollBar
+					}
+
+					using = VerticalScrollAreaCutOff
+
+					scrollwidget = {
+						fixedgridbox = {
+							name = "characters_grid"
+							addcolumn = 1190
+							addrow = 86
+							maxhorizontalslots = 1
+
+							datamodel = "[Ledger.GetCharacters]"
+
+							item = {
+								widget = {
+									size = { 1160 80 }
+									list_entry = {
+										size = { 100% 100% }
+
+										flowcontainer = {
+											spacing = 12
+											parentanchor = vcenter
+											position = { 0 2 }
+
+											cpt_button = {
+												size = { 54 80 }
+												blockoverride "Context" { datacontext = "[CharacterGlue.GetCharacter]" }
+												blockoverride "ShowIcons" { visible = yes }
+												parentanchor = vcenter
+											}
+
+											tag = {
+												size = { 250 0 }
+												text = "[CharacterGlue.GetCharacter.GetFullName]"
+												#text = "[CharacterGlue.GetCharacter.GetNameWithNoTooltip]"
+												min_width = 250
+											}
+										}
+
+										flowcontainer = {
+											spacing = 6
+											parentanchor = bottom
+											position = { 68 -12 }
+
+											icon_and_text = {
+												size = { 66 0 }
+												min_width = 66
+												blockoverride "Icon"
+												{
+													using = icon_military
+													size = { 34 34 }
+												}
+												blockoverride "Text"
+												{
+													text = "[CharacterGlue.GetCharacter.GetMartial]"
+												}
+												tooltip = "[CharacterGlue.GetCharacter.GetMartialToolTip]"
+											}
+
+											icon_and_text = {
+												size = { 66 0 }
+												min_width = 66
+												blockoverride "Icon"
+												{
+													using = icon_civic
+													size = { 34 34 }
+												}
+												blockoverride "Text"
+												{
+													text = "[CharacterGlue.GetCharacter.GetFinesse]"
+												}
+												tooltip = "[CharacterGlue.GetCharacter.GetFinesseToolTip]"
+											}
+
+											icon_and_text = {
+												size = { 66 0 }
+												min_width = 66
+												blockoverride "Icon"
+												{
+													using = icon_oratory
+													size = { 34 34 }
+												}
+												blockoverride "Text"
+												{
+													text = "[CharacterGlue.GetCharacter.GetCharisma]"
+												}
+												tooltip = "[CharacterGlue.GetCharacter.GetCharismaToolTip]"
+											}
+
+											icon_and_text = {
+												size = { 66 0 }
+												min_width = 66
+												blockoverride "Icon"
+												{
+													using = icon_religious
+													size = { 34 34 }
+												}
+												blockoverride "Text"
+												{
+													text = "[CharacterGlue.GetCharacter.GetZeal]"
+												}
+												tooltip = "[CharacterGlue.GetCharacter.GetZealToolTip]"
+											}
+										}
+
+										flowcontainer = {
+											position = { 372 -12 }
+											parentanchor = bottom
+											spacing = 10
+
+											tag = {
+												size = { 56 0 }
+												text = "[CharacterGlue.GetCharacter.GetPowerBase|0]"
+												min_width = 56
+												tooltip = "[CharacterGlue.GetCharacter.GetPowerBaseInfo]"
+											}
+
+											tag = {
+												size = { 56 0 }
+												text = "[CharacterGlue.GetCharacter.GetPopularity|0]"
+												min_width = 56
+												tooltip = "[CharacterGlue.GetCharacter.GetPopularityToolTip]"
+											}
+
+											tag = {
+												size = { 56 0 }
+												text = "[CharacterGlue.GetCharacter.GetCorruption|0]"
+												min_width = 56
+												tooltip = "[CharacterGlue.GetCharacter.GetCorruptionToolTip]"
+											}
+										}
+
+										flowcontainer = {
+											position = { 568 -12 }
+											parentanchor = bottom
+											spacing = 4
+
+											tag = {
+												size = { 62 0 }
+												text = "[CharacterGlue.GetCharacter.GetHealth|0]"
+												min_width = 62
+												tooltip = "[CharacterGlue.GetCharacter.GetHealthInformation]"
+											}
+
+											tag = {
+												size = { 62 0 }
+												text = "[CharacterGlue.GetCharacter.GetAge]"
+												min_width = 62
+												tooltip = "[CharacterGlue.GetCharacter.GetAgeOnDeathOrBirthDate]"
+											}
+
+											tag = {
+												size = { 100 0 }
+												text = "[CharacterGlue.GetCharacter.GetWealth|0]"
+												min_width = 100
+												tooltip = "[CharacterGlue.GetCharacter.GetWealthInformation]"
+											}
+
+										}
+
+										fixedgridbox = {
+											name = "traits_grid"
+											flipdirection = yes
+											position = { 810 0 }
+											size = { 572 40 }
+											parentanchor = vcenter
+											datamodel_wrap = 4
+											addrow = 36
+											addcolumn = 40
+											datamodel = "[CharacterGlue.GetTraitItems]"
+
+											item = {
+												icon = {
+													size = { 40 40 }
+													texture = "[TraitItem.GetIcon]"
+													tooltip = "[TraitItem.GetTooltip]"
+												}
+											}
+										}
+									}
+
+
+								}
+							}
+						}
+					}
+				}
+			}
+			###########################################################
+			# 'army_navy_stats'
+			###########################################################
+			container = {
+				visible = "[And(Ledger.IsPageShown('army_navy_stats'), Not(GetVariableSystem.Exists('ledger_pages')) )]"
+				widget = { size = { 0 787 } }
+				flowcontainer = {
+					direction = horizontal
+					spacing = 8
+					flowcontainer = {
+						direction = vertical
+						spacing = 12
+						sub_header = {
+							#position = { -12 58 }
+							size = { 580 26 }
+							blockoverride "Title_text" { text = "COHORT_STATS" }
+						}
+						flowcontainer = {
+							spacing = 1
+
+							icon_and_text = {
+								size = { 96 26 }
+								tooltip = "[Ledger.GetPlayer.GetDefaultLandMoraleTooltip]"
+								blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/land_morale.dds" }
+								blockoverride "Text" { text = "[Ledger.GetPlayer.GetDefaultLandMorale|Y]" }
+							}
+
+							icon_and_text = {
+								size = { 116 26 }
+								tooltip = "[Ledger.GetPlayer.GetModifierTooltip('discipline')]"
+								blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/discipline.dds" }
+								blockoverride "Text" { text = "[Ledger.GetPlayer.GetModifierValue('discipline')]" }
+							}
+
+							icon_and_text = {
+								size = { 116 26 }
+								tooltip = "[Ledger.GetPlayer.GetAverageArmyExperienceInfo]"
+								blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/global_regiment_start_experience.dds" }
+								blockoverride "Text" { text = "[Ledger.GetPlayer.GetAverageArmyExperience|/2Y%]" }
+							}
+
+							icon_and_text = {
+								size = { 116 26 }
+								tooltip = "[Ledger.GetPlayer.GetModifierTooltip('siege_ability')]"
+								blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/siege.dds" }
+								blockoverride "Text" { text = "[Ledger.GetPlayer.GetModifierValue('siege_ability')]" }
+							}
+
+							icon_and_text = {
+								size = { 116 26 }
+								tooltip = "[Ledger.GetPlayer.GetModifierTooltip('enslavement_efficiency')]"
+								blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/enslavement_efficiency.dds" }
+								blockoverride "Text" { text = "[Ledger.GetPlayer.GetModifierPureValue('enslavement_efficiency')|2Y%]" }
+							}
+
+						}
+					}#army stats flowcontainer
+
+
+					###########################
+					# Navy Stats
+					###########################
+					flowcontainer = {
+						direction = vertical
+						spacing = 12
+						sub_header = {
+							#position = { -12 58 }
+							size = { 580 26 }
+							blockoverride "Title_text" { text = "NAVY_STATS_TITLE" }
+						}
+
+						flowcontainer = {
+							direction = vertical
+							spacing = 3
+
+							flowcontainer = {
+								spacing = 1
+
+								icon_and_text = {
+									size = { 106 26 }
+									tooltip = "[Ledger.GetPlayer.GetDefaultNavalMoraleTooltip]"
+									blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/naval_morale.dds" }
+									blockoverride "Text" { text = "[Ledger.GetPlayer.GetDefaultNavalMorale|Y]" }
+								}
+
+								icon_and_text = {
+									size = { 116 26 }
+									tooltip = "[Ledger.GetPlayer.GetModifierTooltip('naval_damage_done')]"
+									blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/naval_damage_done.dds" }
+									blockoverride "Text" { text = "[Ledger.GetPlayer.GetModifierValue('naval_damage_done')]" }
+								}
+
+								icon_and_text = {
+									size = { 116 26 }
+									tooltip = "[Ledger.GetPlayer.GetModifierTooltip('naval_damage_taken')]"
+									blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/naval_damage_taken.dds" }
+									blockoverride "Text" { text = "[Ledger.GetPlayer.GetModifierValue('naval_damage_taken')]" }
+								}
+
+								icon_and_text = {
+									size = { 116 26 }
+									tooltip = "[Ledger.GetPlayer.GetModifierTooltip('ship_capture_chance')]"
+									blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/ship_capture_chance.dds" }
+									blockoverride "Text" { text = "[Ledger.GetPlayer.GetModifierValue('ship_capture_chance')]" }
+								}
+
+								icon_and_text = {
+									size = { 116 26 }
+									tooltip = "[Ledger.GetPlayer.GetModifierTooltip('blockade_efficiency')]"
+									blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/blockade_efficiency.dds" }
+									blockoverride "Text" { text = "[Ledger.GetPlayer.GetModifierValue('blockade_efficiency')]" }
+								}
+
+							}
+						}
+
+					}#navy stats flowcontainer
+				}
+				scrollarea = {
+					position = { 0 90 }
+					size = { 1200 690 }
+					scrollbarpolicy_horizontal = always_off
+					scrollbar_vertical = {
+						using = VerticalScrollBar
+					}
+
+					using = VerticalScrollAreaCutOff
+
+					scrollwidget = {
+						fixedgridbox = {
+							name = "stats_grid2"
+							addcolumn = 1200
+							addrow = 84
+							maxhorizontalslots = 1
+							datamodel = "[Ledger.GetSubUnitCounts]"
+
+							item = {
+								widget = {
+									size = { 1184 80 }
+									list_entry = {
+										size = { 100% 100% }
+									}
+									alwaystransparent = no
+									icon_card = {
+										size = { 48 72 }
+										blockoverride "Icon"
+										{
+											texture = "[GetSubUnitIcon(SubUnitTypeGlue.GetType)]"
+										}
+									}
+
+									sub_header = {
+										position = { 52 2 }
+										size = { 204 26 }
+
+										blockoverride "Title_text"
+										{
+											text = "[SubUnitTypeGlue.GetName]"
+										}
+										tooltip = "[SubUnitTypeGlue.GetTooltip]"
+									}
+
+									flowcontainer = {
+										position = { 50 37 }
+										ignoreinvisible = yes
+
+										icon_and_text = {
+											size = { 100 26 }
+											tooltip = ATTRITION_WEIGHT_DIF
+											visible = "[SubUnitTypeGlue.GetDefinition.ShowAttritionWeight]"
+											blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/attrition.dds" }
+											blockoverride "Text" { text = "[SubUnitTypeGlue.GetDefinition.GetAttritionWeightDiff|-=0%]" }
+										}
+
+										icon_and_text = {
+											size = { 100 26 }
+											tooltip = MORALE_DIF
+											visible = "[SubUnitTypeGlue.GetDefinition.ShowMoraleDamageTaken]"
+											blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/morale_damage_taken.dds" }
+											blockoverride "Text" { text = "[SubUnitTypeGlue.GetDefinition.GetMoraleDamageTakenDiff|-=0%]" }
+										}
+
+										icon_and_text = {
+											size = { 100 26 }
+											tooltip = STRENGTH_DIF
+											visible = "[SubUnitTypeGlue.GetDefinition.ShowStrengthDamageTaken]"
+											blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/strength_damage_taken.dds" }
+											blockoverride "Text" { text = "[SubUnitTypeGlue.GetDefinition.GetStrengthDamageTakenDiff|-=0%]" }
+										}
+
+										icon_and_text = {
+											size = { 100 26 }
+											tooltip = MORALE_DIF_OFF
+											visible = "[SubUnitTypeGlue.GetDefinition.ShowMoraleDamageDone]"
+											blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/morale_damage_done.dds" }
+											blockoverride "Text" { text = "[SubUnitTypeGlue.GetDefinition.GetMoraleDamageDoneDiff|+=0%]" }
+										}
+
+										icon_and_text = {
+											size = { 100 26 }
+											tooltip = STRENGTH_DIF_OFF
+											visible = "[SubUnitTypeGlue.GetDefinition.ShowStrengthDamageDone]"
+											blockoverride "Icon" { texture = "gfx/interface/icons/modifiers/strength_damage_done.dds" }
+											blockoverride "Text" { text = "[SubUnitTypeGlue.GetDefinition.GetStrengthDamageDoneDiff|+=0%]" }
+										}
+
+									}
+
+									dynamicgridbox = {
+										position = { 362 36 }
+										size = { 280 200 }
+										datamodel_wrap = 9
+										flipdirection = yes
+										datamodel = "[SubUnitTypeGlue.GetModifiers]"
+
+										item = {
+											icon_and_text = {
+												size = { 136 36 }
+												tooltip = "[SubUnitModifierGlue.GetModifierTooltip]"
+												blockoverride "Icon" { texture = "[SubUnitModifierGlue.GetModifierIcon]" }
+												blockoverride "Text" { text = "[SubUnitModifierGlue.GetModifierValue]" }
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}#scrollarea
+			}
+			###########################################################
+			# 'our_states' - Provinces
+			###########################################################
+			container = {#provinces
+				visible = "[And(Ledger.IsPageShown('our_states'), Not(GetVariableSystem.Exists('ledger_pages')) )]"
+				allow_outside = yes
+
+				flowcontainer = {
+
+					spacing = 2
+
+					widget = {
+						size = { 20 0 }
+					}
+
+					text_button_sort = {
+						name = "sort_name"
+						size = { 220 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_NAME_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('name')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('name')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = "A_Z"
+						}
+						blockoverride "Icon"
+						{
+							visible = no
+						}
+					}
+
+					widget = {
+						size = { 54 32 }
+
+						icon = {
+							parentanchor = center
+							using = icon_population
+							size = { 27 27 }
+							position = { 0 -5 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 54 32 }
+						tooltip = SORT_NOBLES_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('nobles')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('nobles')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_nobles
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 54 32 }
+						tooltip = SORT_CITIZENS_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('citizen')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('citizen')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_citizens
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+
+						size = { 54 32 }
+						tooltip = SORT_FREEMEN_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('freemen')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('freemen')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_freemen
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 54 32 }
+						tooltip = SORT_TRIBESMEN_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('tribesmen')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('tribesmen')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_tribal
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 54 32 }
+						tooltip = SORT_SLAVES_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('slaves')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('slaves')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_slaves
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_trade_roots"
+						size = { 76 32 }
+						tooltip = SORT_TRADE_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('trade')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('trade')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/shared_icons/trade.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_loyalty"
+						size = { 93 32 }
+						tooltip = SORT_LOYALTY_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('loyalty')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('loyalty')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/shared_icons/loyalty.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 70 32 }
+						tooltip = SORT_COMMERCE_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('commerce')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('commerce')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/modifiers/global_commerce_modifier.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 70 32 }
+						tooltip = SORT_TAX_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('tax')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('tax')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_treasury
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 93 32 }
+						tooltip = SORT_RELIGION_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('religion')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('religion')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/shared_icons/province_religion.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 93 32 }
+						tooltip = SORT_CULTURE_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('culture')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('culture')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/shared_icons/province_culture.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 100 32 }
+						tooltip = SORT_FOOD_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortStates('food')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsStatesSorted('food')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/shared_icons/food.dds"
+							size = { 26 26 }
+						}
+					}
+				}
+
+				scrollarea = {
+					position = { -15 42 }
+					size = { 1210 745 }
+					scrollbarpolicy_horizontal = always_off
+					scrollbar_vertical = {
+						using = VerticalScrollBar
+					}
+
+					using = VerticalScrollAreaCutOff
+
+					scrollwidget = {
+						fixedgridbox = {
+							addcolumn = 1195
+							addrow = 40
+							maxhorizontalslots = 1
+
+							datamodel = "[Ledger.GetStates]"
+
+							item = {
+								widget = {
+									size = { 1195 40 }
+									list_entry = {
+										size = { 100% 100% }
+									}
+
+									flowcontainer = {
+										position = { 8 4 }
+										spacing = 4
+										ignoreinvisible = yes
+
+										goto_button = {
+											parentanchor = vcenter
+											size = { 26 26 }
+											datacontext = "[StateItem.GetState]"
+											tooltip = "go_to"
+
+											blockoverride "On_click"
+											{
+												onclick = "[OnClickOnState(StateItem.GetState)]"
+											}
+										}
+
+										container = {
+											cpt_button = {
+												position = { 0 -3 }
+												size = { 25 35 }
+												datacontext = "[StateItem.GetState.GetGovernorOrRuler]"
+											}
+										}
+
+										icon_button_square = {
+											visible = "[Not(StateItem.GetState.IsAiAllowedToTrade)]"
+
+											size = { 30 30 }
+
+											tooltip = "TRADEROUTE_AUTOMATIC_FOR_STATE"
+											blockoverride "Icon"
+											{
+												texture = "gfx/interface/icons/shared_icons/trade.dds"
+												size = { 24 24 }
+												position = { -4 -1 }
+												alpha = 0.8
+
+
+												icon = {
+													using = negative_color_texture
+													size = { 18 18 }
+													position = { 9 3 }
+													parentanchor = bottom|right
+													modify_texture = {
+														name = "Alpha"
+														texture = "gfx/interface/icons/font_icons/font_icon_paper_cross.dds"
+														framesize = { 16 16 }
+														frame = 2
+														blend_mode = alphamultiply
+													}
+												}
+											}
+
+
+											blockoverride "On_click"
+											{
+												onclick = "[StateItem.ToggleAiTradeAllowance]"
+											}
+										}
+
+										icon_button_square = {
+											visible = "[StateItem.GetState.IsAiAllowedToTrade]"
+
+											size = { 30 30 }
+
+											tooltip = "TRADEROUTE_NOT_AUTOMATIC_FOR_STATE"
+											blockoverride "Icon"
+											{
+												texture = "gfx/interface/icons/shared_icons/trade.dds"
+												size = { 30 30 }
+											}
+
+											blockoverride "On_click"
+											{
+												onclick = "[StateItem.ToggleAiTradeAllowance]"
+											}
+										}
+
+										icon_button_square = {
+											datacontext = "[GetScriptedGui('can_change_policy')]"
+											enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(StateItem.GetState.GetGovernorOrRuler.MakeScope).End)]"
+											tooltip = "[GetChangeGovernorPoliciesTooltip(StateItem.GetState)]"
+											blockoverride "On_click"
+											{
+												onclick = "[ChangePolicy(StateItem.GetState)]"
+												clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_sub_tab"
+												oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
+											}
+
+											blockoverride "Icon"
+											{
+												texture = "[GetGovernorPolicyIcon(StateItem.GetState.GetGovernorPolicy)]"
+												size = { 90% 90% }
+											}
+
+											size = { 30 30 }
+
+										}
+
+										tag_left_fixed = {
+											size = { 120 0 }
+											text = "[StateItem.GetState.GetShortName]"
+										}
+
+										tag_fixed = {
+											size = { @sortwidth 0 }
+											text = "#bold [StateItem.GetState.GetPopulation('total')]"
+											tooltip = "[StateItem.GetState.GetPopulationInfo('total')]"
+										}
+
+										tag_fixed = {
+											size = { @sortwidth 0 }
+											text = "[StateItem.GetState.GetPopulation('nobles')]"
+											tooltip = "[StateItem.GetState.GetPopulationInfo('nobles')]"
+										}
+
+										tag_fixed = {
+											size = { @sortwidth 0 }
+											text = "[StateItem.GetState.GetPopulation('citizen')]"
+											tooltip = "[StateItem.GetState.GetPopulationInfo('citizen')]"
+										}
+
+										tag_fixed = {
+											size = { @sortwidth 0 }
+											text = "[StateItem.GetState.GetPopulation('freemen')]"
+											tooltip = "[StateItem.GetState.GetPopulationInfo('freemen')]"
+										}
+
+										tag_fixed = {
+											size = { @sortwidth 0 }
+											text = "[StateItem.GetState.GetPopulation('tribesmen')]"
+											tooltip = "[StateItem.GetState.GetPopulationInfo('tribesmen')]"
+										}
+
+										tag_fixed = {
+											size = { @sortwidth 0 }
+											text = "[StateItem.GetState.GetPopulation('slaves')]"
+											tooltip = "[StateItem.GetState.GetPopulationInfo('slaves')]"
+										}
+
+										tag_fixed = {
+											size = { 75 0 }
+											text = "[StateItem.GetState.GetTradeRoutesShort]"
+											tooltip = "[StateItem.GetState.GetTradeRoutesTooltip]"
+										}
+
+										flowcontainer = {
+											direction = horizontal
+											ignoreinvisible = no
+											spacing = -5
+											tooltip = "[StateItem.GetState.GetLoyaltyTooltip]"
+
+											tag_fixed = {
+												size = { 65 0 }
+												text = "[StateItem.GetState.GetStateLoyalty|1]%"
+											}
+
+											icon = {
+												texture = "gfx/interface/arrows_strip.dds"
+												framesize = { 50 50 }
+												size = { 28 28 }
+												frame = "[StateItem.GetState.GetMonthlyLoyaltyFrame]"
+												visible = "[Not(StateItem.GetState.IsCapitalState)]"
+											}
+										}
+
+										tag_fixed = {
+											size = { 70 0 }
+											text = "[StateItem.GetState.GetCommerceIncome|2]"
+											tooltip = "[StateItem.GetState.GetCurrentCommerceIncomeInfo]"
+										}
+
+										tag_fixed = {
+											size = { 70 0 }
+											text = "[StateItem.GetState.GetTaxIncome|2]"
+											tooltip = "[StateItem.GetState.GetCurrentTaxIncomeInfo]"
+										}
+
+										tag = {
+											size = { 90 0 }
+											text = "[StateItem.GetState.GetReligiousUnity|%2]"
+											min_width = 90
+											tooltip = "[StateItem.GetState.GetReligionInfo]"
+										}
+
+										tag = {
+											size = { 90 0 }
+											text = "[StateItem.GetState.GetCulturalUnity|%2]"
+											min_width = 90
+											tooltip = "[StateItem.GetState.GetCulturalInfo]"
+										}
+
+										widget = {
+											size = { 88 30 }
+											min_width = 88
+											tooltip = "[StateItem.GetState.GetFoodTooltip][StateItem.GetState.GetFoodModifierEffect]"
+
+											#icon = {
+											#	texture = "gfx/interface/icons/shared_icons/state_loyalty_increase.dds"
+											#	framesize = { 50 50 }
+											#	size = { 28 28 }
+											#	frame = "[StateItem.GetState.GetFoodFrame]"
+											#	position = { 22 -6 }
+											#}
+											textbox = {
+												autoresize = yes
+												using = BaseFontM
+												using = Black_FontColor
+												align = center
+												parentanchor = top|right
+												text = "[StateItem.GetState.GetFood|0] / [StateItem.GetState.GetFoodCapacity|0]"
+											}
+
+											fixed_size_progressbar = {
+												blockoverride "size" { size = { 88 8 } }
+												parentanchor = bottom|hcenter
+												position = { 0 0 }
+
+												blockoverride "Value"
+												{
+													value = "[FixedPointToFloat(StateItem.GetState.GetFoodCapacityPercent)]"
+												}
+											}
+
+											#progressbar = {
+											#	name = "foodbar"
+											#	position = { 1 2 }
+											#	size = { 64 6 }
+											#	visible = "[GreaterThanOrEqualTo_CFixedPoint(StateItem.GetState.GetMonthlyFood, '(CFixedPoint)0')]"
+											#	using = progressbar_green_horizontal
+											#	value = "[FixedPointToFloat(StateItem.GetState.GetFoodCapacityPercent)]"
+											#}
+											#progressbar = {
+											#	name = "foodbar_negative"
+											#	position = { 1 2 }
+											#	size = { 64 6 }
+											#	visible = "[LessThan_CFixedPoint(StateItem.GetState.GetMonthlyFood, '(CFixedPoint)0')]"
+											#	using = progressbar_red_horizontal
+											#	value = "[FixedPointToFloat(StateItem.GetState.GetFoodCapacityPercent)]"
+											#}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			container = {#territories
+				visible = "[GetVariableSystem.HasValue('ledger_pages', 'territories')]"
+
+				widget = {
+					size = { 100% 32 }
+
+					margin_widget = {
+						size = { 100% 100%  }
+						margin_bottom = 10
+						margin_left = 7
+						margin_right = 15
+						icon = {
+							using = NoninteractableBG
+							size = { 100% 100% }
+							alpha = 0.7
+						}
+					}
+				}
+
+				flowcontainer = {
+
+					spacing = 2
+
+					widget = {
+						size = { 215 32 }
+					}
+
+					text_button_sort = {
+						size = { @sortwidth 32 }
+						tooltip = "sort_pops"
+						datacontext = "[GetScriptedGui('sort_pops')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_population
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { @sortwidth 32 }
+						tooltip = SORT_NOBLES_TT
+						datacontext = "[GetScriptedGui('sort_nobles')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_nobles
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { @sortwidth 32 }
+						tooltip = SORT_CITIZENS_TT
+						datacontext = "[GetScriptedGui('sort_citizens')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_citizens
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+
+						size = { @sortwidth 32 }
+						tooltip = SORT_FREEMEN_TT
+						datacontext = "[GetScriptedGui('sort_freemen')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_freemen
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { @sortwidth 32 }
+						tooltip = SORT_TRIBESMEN_TT
+						datacontext = "[GetScriptedGui('sort_tribesemen')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_tribal
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 35 32 }
+						tooltip = SORT_SLAVES_TT
+						datacontext = "[GetScriptedGui('sort_slaves')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_pop_slaves
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 35 32 }
+						tooltip = "sort_slaves_needed"
+						datacontext = "[GetScriptedGui('sort_slaves_needed')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/modifiers/global_goods_from_slaves.dds"
+							size = { 26 26 }
+						}
+					}
+
+					widget = {
+						size = { 52 32 }
+
+						icon = {
+							texture = "gfx/interface/icons/shared_icons/trade.dds"
+							size = { 26 26 }
+							parentanchor = hcenter
+							position = { 0 0 }
+						}
+					}
+
+					text_button_sort = {
+						size = { @sortwidth 32 }
+						tooltip = "sort_unrest"
+						datacontext = "[GetScriptedGui('sort_unrest')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_unrest
+							size = { 26 26 }
+						}
+					}
+
+					widget = {
+						size = { 57 32 }
+						icon = {
+							texture = "gfx/interface/icons/modifiers/local_monthly_state_loyalty.dds"
+							size = { 26 26 }
+							parentanchor = hcenter
+						}
+					}
+
+					text_button_sort = {
+						size = { 62 32 }
+						tooltip = "sort_civilization"
+						datacontext = "[GetScriptedGui('sort_civilization')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_civilization
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 32 32 }
+						tooltip = "sort_buildings"
+						datacontext = "[GetScriptedGui('sort_buildings')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/shared_icons/building_slot.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 32 32 }
+						tooltip = "sort_building_slots"
+						datacontext = "[GetScriptedGui('sort_building_slots')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/icons/building_slot_empty.dds"
+							size = { 26 26 }
+						}
+					}
+
+
+					widget = {
+						size = { 38 32 }
+						icon = {
+							using = icon_research
+							size = { 26 26 }
+							parentanchor = hcenter
+						}
+					}
+
+
+					text_button_sort = {
+						size = { @sortwidth 32 }
+						tooltip = "sort_manpower"
+						datacontext = "[GetScriptedGui('sort_manpower')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_manpower
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { @sortwidth 32 }
+						tooltip = SORT_TAX_TT
+						datacontext = "[GetScriptedGui('sort_tax')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_treasury
+							size = { 26 26 }
+						}
+					}
+
+					widget = {
+						size = { @sortwidth 32 }
+
+						icon = {
+							texture = "gfx/interface/icons/shared_icons/food.dds"
+							size = { 26 26 }
+							parentanchor = hcenter
+						}
+					}
+
+					text_button_sort = {
+						size = { 57 32 }
+						tooltip = SORT_RELIGION_TT
+						datacontext = "[GetScriptedGui('sort_religion')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/shared_icons/province_religion.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						size = { 57 32 }
+						tooltip = SORT_CULTURE_TT
+						datacontext = "[GetScriptedGui('sort_culture')]"
+						blockoverride "On_click"
+						{
+							onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[ScriptedGui.IsShown(GuiScope.SetRoot(Player.MakeScope).End)]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/shared_icons/province_culture.dds"
+							size = { 26 26 }
+						}
+					}
+
+				}
+
+				scrollarea = {
+					position = { 0 42 }
+					size = { 1188 745 }
+					scrollbarpolicy_horizontal = always_off
+					scrollbar_vertical = {
+						using = VerticalScrollBar
+						blockoverride "speed" {
+							wheelstep = 60
+						}
+					}
+
+					using = VerticalScrollAreaCutOff
+
+					scrollwidget = {
+						fixedgridbox = {
+							addcolumn = 1195
+							addrow = 32
+							maxhorizontalslots = 1
+
+							datamodel = "[Player.MakeScope.GetList('territories')]"
+
+							item = {
+								widget = {
+									size = { 1220 40 }
+									datacontext = "[Scope.GetProvince]"
+									list_entry = {
+										size = { 100% 100% }
+									}
+
+									flowcontainer = {
+										position = { 8 4 }
+										spacing = 4
+
+										goto_button = {
+											size = { 26 26 }
+											blockoverride "On_click"
+											{
+												onclick = "[OnClickOnProvince( Province.GetProvince )]"
+											}
+										}
+
+										tag_fixed = {
+											size = { 175 0 }
+											text = "[Province.GetName]"
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											text = "#bold [Province.GetPopulation('total')]"
+											min_width = @tagwidth
+											#tooltip = "[Province.GetPopulationInfo('total')]"
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											text = "[Province.GetPopulation('nobles')]"
+											min_width = @tagwidth
+											tooltip = "[Province.GetPopulationTooltip('nobles')]"
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											text = "[Province.GetPopulation('citizen')]"
+											min_width = @tagwidth
+											tooltip = "[Province.GetPopulationTooltip('citizen')]"
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											text = "[Province.GetPopulation('freemen')]"
+											min_width = @tagwidth
+											tooltip = "[Province.GetPopulationTooltip('freemen')]"
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											text = "[Province.GetPopulation('tribesmen')]"
+											tooltip = "[Province.GetPopulationTooltip('tribesmen')]"
+										}
+
+										tag_fixed = {
+											size = { 25 0 }
+											align = right|nobaseline
+											text = "[Province.GetPopulation('slaves')]"
+											tooltip = "[Province.GetPopulationTooltip('slaves')]"
+										}
+
+										flowcontainer = {
+											ignoreinvisible = yes
+											tooltip = "slaves_needed"
+
+											# tag_fixed = {
+											# 	align = left|nobaseline
+											# 	size = { 25 0 }
+											# 	datacontext = "[GetScriptedGui('farmland_terrain')]"
+											# 	visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(Province.MakeScope).End)]"
+											# 	alpha = 0.6
+											# 	text = "/[Add_CFixedPoint( GuiScope.SetRoot( Province.MakeScope ).ScriptValue('slaves_needed'), '(CFixedPoint)-2')|0]"
+											# }
+
+											tag_fixed = {
+												align = left|nobaseline
+												size = { 25 0 }
+												#datacontext = "[GetScriptedGui('farmland_terrain')]"
+												#visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(Province.MakeScope).End))]"
+												alpha = 0.6
+												text = "/[GuiScope.SetRoot( Province.MakeScope ).ScriptValue('slaves_needed')|0]"
+											}
+										}
+
+										flowcontainer = {
+											tooltip = "[Province.GetTradeGoods.GetTooltip]"
+											spacing = 7
+											tag_fixed = {
+												size = { 27 0 }
+												text = "[Province.GetNumGoodsProduced]"
+												align = right|nobaseline
+											}
+											icon = {
+												texture = "[GetTradeGoodsIcon(Province.GetTradeGoods)]"
+												size = { 26 26 }
+											}
+										}
+
+										widget = {
+											size = { 5 0 }
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											min_width = @tagwidth
+											text = "[Province.GetUnrest|1-]"
+											tooltip = "[Province.GetUnrestDescription]"
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											text = "[Province.GetImpactOnStateLoyalty|2=+]"
+											tooltip = "[Province.GetImpactOnStateLoyaltyTooltip]"
+										}
+
+										widget = {
+											size = { 1 0 }
+										}
+
+										tag_fixed = {
+											size = { @statwidth 0 }
+											text = "[Province.GetCivilizationValue|0]/[Province.GetLocalCivilizationCap|0]"
+											tooltip = "[Province.GetLocalCivilizationCapTooltip]"
+										}
+
+										tag_fixed = {
+											size = { 25 0 }
+											text = "[Province.GetTotalAmountOfBuildingLevels]"
+											tooltip = "[Province.GetBuildingLevelInformation]"
+											align = right|nobaseline
+										}
+
+										tag_fixed = {
+											size = { 25 0 }
+											text = "/[Province.GetAllowedAmountOfBuildingLevels]"
+											tooltip = "[Province.GetBuildingLevelInformation]"
+											align = left|nobaseline
+										}
+
+										widget = {
+											size = { 1 0 }
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											text = "[Province.GetCurrentResearch|1]"
+											tooltip = "[Province.GetCurrentResearchDescription]"
+										}
+
+										tag_fixed = {
+											size = { 40 0 }
+											text = "[GetManpowerDisplay(Province.GetCurrentManpowerIncome)]"
+											tooltip = "[Province.GetCurrentManpowerIncomeDescription]"
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											text = "[Province.GetCurrentIncome|2]"
+											tooltip = "[Province.GetIncomeDescription]"
+										}
+
+										tag_fixed = {
+											size = { @tagwidth 0 }
+											text = "[Province.GetFoodIncome|1+]"
+											tooltip = "[Province.GetFoodValueTooltip]"
+										}
+
+										tag_fixed = {
+											size = { 55 0 }
+											text = "[GuiScope.SetRoot(Province.MakeScope).ScriptValue('province_religious_unity')|0]%"
+											tooltip = "[Province.GetReligionBreakdown]"
+										}
+
+										tag_fixed = {
+											size = { 55 0 }
+											text = "[GuiScope.SetRoot(Province.MakeScope).ScriptValue('province_cultural_unity')|0]%"
+											tooltip = "[Province.GetCultureBreakdown]"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			###########################################################
+			# 'former_rulers'
+			###########################################################
+			container = {
+				visible = "[And(Ledger.IsPageShown('former_rulers'), Not(GetVariableSystem.Exists('ledger_pages')) )]"
+
+				flowcontainer = {
+					spacing = 2
+					parentanchor = hcenter
+
+					text_button_sort = {
+						name = "sort_name"
+						size = { 368 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_NAME_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortRulers('name')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsRulersSorted('name')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = "A_Z"
+						}
+						blockoverride "Icon"
+						{
+							visible = no
+						}
+					}
+
+					text_button_sort = {
+						size = { 248 32 }
+						tooltip = LEDGER_SORT_BY_TITLE_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortRulers('title')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsRulersSorted('title')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = "LEDGER_SORT_BY_TITLE"
+						}
+						blockoverride "Icon"
+						{
+							visible = no
+						}
+					}
+
+					text_button_sort = {
+						size = { 44 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_PARTY_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortRulers('party')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsRulersSorted('party')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							texture = "gfx/interface/icons/shared_icons/political_parties.dds"
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_martial"
+						size = { 48 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_MARTIAL_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortRulers('martial')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsRulersSorted('martial')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_military
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_finesse"
+						size = { 48 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_FINESS_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortRulers('finesse')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsRulersSorted('finesse')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_civic
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_charisma"
+						size = { 48 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_CHARISMA_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortRulers('charisma')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsRulersSorted('charisma')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_oratory
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+						name = "sort_zeal"
+						size = { 48 32 }
+						tooltip = CHARACTER_VIEW_SORT_BY_ZEAL_TOOLTIP
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortRulers('zeal')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsRulersSorted('zeal')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = ""
+						}
+						blockoverride "Icon"
+						{
+							using = icon_religious
+							size = { 26 26 }
+						}
+					}
+
+					text_button_sort = {
+
+						size = { 154 32 }
+						tooltip = LEDGER_SORT_BY_START_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortRulers('start')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsRulersSorted('start')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = "LEDGER_SORT_BY_START"
+						}
+						blockoverride "Icon"
+						{
+							visible = no
+						}
+					}
+					text_button_sort = {
+
+						size = { 154 32 }
+						tooltip = LEDGER_SORT_BY_END_TT
+						blockoverride "On_click"
+						{
+							onclick = "[Ledger.SortRulers('end')]"
+						}
+						blockoverride "DownState"
+						{
+							down = "[Ledger.IsRulersSorted('end')]"
+						}
+						blockoverride "Button_text"
+						{
+							text = "LEDGER_SORT_BY_END"
+						}
+						blockoverride "Icon"
+						{
+							visible = no
+						}
+
+					}
+				}
+
+				scrollarea = {
+					position = { 0 42 }
+					size = { 1180 745 }
+					scrollbarpolicy_horizontal = always_off
+
+					scrollbar_vertical = {
+						using = VerticalScrollBar
+					}
+
+					using = VerticalScrollAreaCutOff
+
+					scrollwidget = {
+						fixedgridbox = {
+							addcolumn = 1182
+							addrow = 86
+							maxhorizontalslots = 1
+
+							datamodel = "[Ledger.GetRulers]"
+
+							item = {
+								widget = {
+									size = { 1176 80 }
+									list_entry = {
+										size = { 100% 100% }
+										flowcontainer = {
+											spacing = 2
+											#parentanchor = hcenter
+											position = { 8 0 }
+
+											cpt_button = {
+												size = { 54 80 }
+												blockoverride "Context" { datacontext = "[RulerItem.GetCharacter]" }
+												parentanchor = vcenter
+											}
+
+											tag = {
+												size = { 300 0 }
+												parentanchor = vcenter
+												text = "[RulerItem.GetCharacter.GetName]"
+												min_width = 300
+											}
+
+											tag = {
+												size = { 258 0 }
+												parentanchor = vcenter
+												text = "[RulerItem.GetRulerTitle]"
+												min_width = 258
+											}
+
+											icon = {
+												size = { 38 38 }
+												parentanchor = vcenter
+												min_width = 38
+												texture = "[GetPartyIcon(RulerItem.GetPartyType)]"
+												visible = "[RulerItem.GetCharacter.ShowParty]"
+												tooltip = "[RulerItem.GetPartyType.GetName|T]"
+											}
+
+											tag = {
+												size = { @tagwidth 0 }
+												parentanchor = vcenter
+												text = "[RulerItem.GetCharacter.GetMartial]"
+												min_width = @tagwidth
+												tooltip = "[RulerItem.GetCharacter.GetMartialToolTip]"
+											}
+
+											tag = {
+												size = { @tagwidth 0 }
+												parentanchor = vcenter
+												text = "[RulerItem.GetCharacter.GetFinesse]"
+												min_width = @tagwidth
+												tooltip = "[RulerItem.GetCharacter.GetFinesseToolTip]"
+											}
+
+											tag = {
+												size = { @tagwidth 0 }
+												parentanchor = vcenter
+												text = "[RulerItem.GetCharacter.GetCharisma]"
+												min_width = @tagwidth
+												tooltip = "[RulerItem.GetCharacter.GetCharismaToolTip]"
+											}
+
+											tag = {
+												size = { @tagwidth 0 }
+												parentanchor = vcenter
+												text = "[RulerItem.GetCharacter.GetZeal]"
+												min_width = @tagwidth
+												tooltip = "[RulerItem.GetCharacter.GetZealToolTip]"
+											}
+
+											tag = {
+												size = { 150 0 }
+												parentanchor = vcenter
+												text = "[RulerItem.GetStartDate]"
+												min_width = 150
+											}
+
+											tag = {
+												size = { 150 0 }
+												parentanchor = vcenter
+												text = "[RulerItem.GetEndDate]"
+												min_width = 150
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			scrollarea = {
+				visible = "[GetVariableSystem.HasValue('ledger_pages', 'wonders')]"
+				#position = { 0  }
+				size = { 1188 787 }
+				scrollbarpolicy_horizontal = always_off
+				scrollbar_vertical = {
+					using = VerticalScrollBar
+				}
+
+				using = VerticalScrollAreaCutOff
+				using = NoninteractableBG
+
+				scrollwidget = {
+					fixedgridbox = {
+						addcolumn = 1195
+						addrow = 100
+						maxhorizontalslots = 1
+
+						datamodel = "[Player.MakeScope.GetList('wonders')]"
+
+						item = {
+							margin_widget = {
+								datacontext = "[Scope.GetProvince]"
+								size = { 1180 100 }
+
+								icon = {
+									using = fs
+									using = flat_background_white
+									alpha = 0.9
+									using = tornedge
+								}
+
+								list_entry = {
+									size = { 100% 100% }
+								}
+
+								flowcontainer = {
+									position = { 0 4 }
+									spacing = 4
+									datacontext = "[Province.GetGreatWork]"
+
+									widget = {
+										size = { 100 100 }
+
+										tooltipwidget = {
+											icon = {
+												size = { 500 500 }
+												texture = "[GetGreatWorkImage(Province.GetGreatWork)]"
+
+												modify_texture = {
+													name = "Alpha"
+													texture = "gfx/interface/base_parts/background_x60bd_alpha.dds"
+													blend_mode = alphamultiply
+													spriteType = Corneredtiled
+													spriteborder = { 60 60 }
+												}
+											}
+										}
+
+										icon = {
+											position = { -2 -6 }
+											size = { 104 104 }
+											texture = "[GetGreatWorkImage(Province.GetGreatWork)]"
+
+											modify_texture = {
+												name = "Alpha"
+												texture = "gfx/interface/base_parts/background_x60bd_alpha.dds"
+												blend_mode = alphamultiply
+												spriteType = Corneredtiled
+												spriteborder = { 60 60 }
+											}
+										}
+									}
+
+									widget = {
+										size = { 300 88 }
+										#using = NoninteractableBG
+
+										flowcontainer = {
+											direction = vertical
+											spacing = 1
+
+											tag = {
+												size = { 236 0 }
+												text = "#bold [GreatWork.GetName]"
+												min_width = 236
+												max_width = 300
+												blockoverride "Align" {
+													align = nobaseline
+												}
+												margin_left = 5
+											}
+
+											flowcontainer = {
+												margin_left = 4
+												spacing = 5
+
+												goto_button = {
+													size = { 25 25 }
+													blockoverride "On_click" { onclick = "[OnClickOnProvince(Scope.GetProvince)]" }
+													onmousehierarchyenter = "[SetHighlightProvince(Province.GetId)]"
+													onmousehierarchyleave = "[ClearHighlightColors]"
+												}
+
+												tag = {
+													size = { 236 0 }
+													text = "[Province.GetName] ([Province.GetOwner.GetName])"
+													min_width = 236
+													max_width = 250
+
+													blockoverride "Align" {
+														align = left|nobaseline
+														margin_left = 5
+													}
+												}
+											}
+										}
+									}
+
+									widget = {
+										size = { 0 0 }
+									}
+
+									widget = {
+										size = { 300 90 }
+
+										flowcontainer = { # effects
+										spacing = 0
+										direction = vertical
+
+										datamodel = "[GreatWork.GetEffects]"
+
+										item = {
+											margin_widget = {
+												size = { 260 30 }
+
+												tooltip = "[GetGreatWorkEffectTooltip(GreatWorkEffectSelection.GetEffect, GreatWorkEffectSelection.GetEffectTier, Scope.GetProvince)]"
+
+												widget = {
+													visible = "[GreatWorkEffectSelection.IsSet]"
+													size = { 30 30 }
+													parentanchor = vcenter|left
+
+													icon = {
+														parentanchor = vcenter|hcenter
+														size = { 85% 85% }
+														texture = "[GetGreatWorkEffectIcon(GreatWorkEffectSelection.GetEffect)]"
+
+														icon = {
+															parentanchor = bottom|right
+															size = {60% 60%}
+															texture = "[GetGreatWorkEffectTierIcon(GreatWorkEffectSelection.GetEffectTier)]"
+														}
+													}
+												}
+
+												icon = {
+													visible = "[Not(GreatWorkEffectSelection.IsSet)]"
+													size = {30 30}
+													parentanchor = vcenter|left
+													texture = "gfx/interface/icons/shared_icons/ideas.dds"
+												}
+
+												icon_and_text = {
+													visible = "[GreatWorkEffectSelection.IsSet]"
+													parentanchor = vcenter
+													position = { 26 0 }
+													size = { 230 40 }
+													max_width = 230
+													blockoverride "Text"
+													{
+														align = left|nobaseline
+														margin_left = 5
+														text = "[GetGreatWorkEffectName(GreatWorkEffectSelection.GetEffect, GreatWorkEffectSelection.GetEffectTier)]"
+													}
+													blockoverride "Icon"
+													{
+														visible = no
+													}
+												}
+											}
+										}
+									}
+									}
+
+									widget = {
+										size = { 0 0 }
+									}
+
+									widget = {
+										#using = NoninteractableBG
+										size = { 500 95 }
+
+										scrollarea = {
+											size = { 100% 100% }
+											scrollbarpolicy_horizontal = always_off
+
+											scrollbar_vertical = {
+												using = VerticalScrollBar
+											}
+
+											scrollwidget = {
+												flowcontainer = { # effects
+													spacing = 0
+													direction = vertical
+
+													datamodel = "[GreatWork.GetEffects]"
+
+													item = {
+														tag = {
+															blockoverride "LineVisibility"
+															{
+																visible = no
+															}
+															text = "[GetGreatWorkEffectTooltip(GreatWorkEffectSelection.GetEffect, GreatWorkEffectSelection.GetEffectTier, Scope.GetProvince)]"
+															fontsize = 15
+															max_width = 500
+															blockoverride "Align"
+															{
+																align = left|nobaseline
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			scrollarea = {
+				visible = "[GetVariableSystem.HasValue('ledger_pages', 'treasures')]"
+				size = { 1188 787 }
+				scrollbarpolicy_horizontal = always_off
+				scrollbar_vertical = {
+					using = VerticalScrollBar
+					blockoverride "speed"
+					{
+						wheelstep = 60
+					}
+				}
+
+				using = VerticalScrollAreaCutOff
+				using = NoninteractableBG
+
+				scrollwidget = {
+
+					dynamicgridbox = {
+						datamodel = "[Player.MakeScope.GetList('treasure_owners')]"
+						item = {
+							flowcontainer = {
+								margin_top = 10
+								margin_bottom = 15
+
+								background = {
+									using = flat_background_white
+									shaderfile = "gfx/FX/pdxgui_default.shader"
+									margin_left = 5
+									margin_right = 5
+									alpha = 0.9
+
+									using = tornedge
+								}
+
+								flowcontainer = {
+									minimumsize = { 1170 0 }
+									datacontext = "[Scope.GetCountry]"
+									direction = vertical
+									margin_left = 5
+									ignoreinvisible = yes
+									flowcontainer = {
+										spacing = 5
+
+										country_flag = {
+											tooltip = "COUNTRY_SHORTHAND_INFO"
+
+											blockoverride "flag"
+											{
+												texture = "[Country.AccessCoatOfArms.GetTexture('(int32)56','(int32)56')]"
+												frame = "[Country.AccessCoatOfArms.GetFrame('(int32)56','(int32)56')]"
+												framesize = { 56 56 }
+											}
+											blockoverride "size"
+											{
+												size = { 30 30 }
+											}
+
+											blockoverride "click"
+											{
+												onclick = "[OpenDiplomacy(Scope.GetCountry)]"
+											}
+
+											blockoverride "hover_leave"
+											{
+												onmousehierarchyleave = "[ClearHighlightColors]"
+											}
+										}
+
+										tag = {
+											text = "[Country.GetName]"
+										}
+
+										tag = {
+											text = "[GuiScope.SetRoot( Country.MakeScope ).ScriptValue('total_treasure_count')|0]"
+										}
+									}
+
+									tag = {
+										text = "in_reliquary"
+										margin_left = 5
+										margin_top = 2
+										margin_bottom = 5
+										visible = "[Not(IsDataModelEmpty(Country.MakeScope.GetList('country_treasures')))]"
+										minimumsize = { 660 0 }
+										blockoverride "Align" { align = nobaseline }
+									}
+
+									fixedgridbox = {#
+										datamodel = "[Country.MakeScope.GetList('country_treasures')]"
+										minimumsize = { 660 0 }
+										addrow = 30
+										addcolumn = 660
+
+										item = {
+											flowcontainer = {
+												datacontext = "[Scope.Treasure]"
+												spacing = 5
+
+												margin_left = 5
+
+												icon = {
+													size = { 26 26 }
+													texture = "[GetTreasureIcon(Scope.Treasure)]"
+													#parentanchor = vcenter
+												}
+
+												tag = {
+													minimumsize = { 270 30  }
+													text = "[Treasure.GetName]"
+													blockoverride "Align" { align = nobaseline }
+													blockoverride "LineVisibility" { visible = no }
+												}
+
+												tag = {
+													minimumsize = { 300 30 }
+													text = "[Treasure.GetStateModifierIconSummary]"
+													blockoverride "Align" { align = nobaseline }
+													blockoverride "LineVisibility" { visible = no }
+												}
+
+											}
+										}
+									}
+
+									tag = {
+										text = "in_holy_sites"
+										margin_left = 5
+										margin_top = 2
+										margin_bottom = 5
+										minimumsize = { 660 0 }
+										blockoverride "Align" { align = nobaseline }
+										visible = "[Not(IsDataModelEmpty(Country.MakeScope.GetList('all_treasure_sites')))]"
+									}
+
+									dynamicgridbox = {
+										datamodel = "[Country.MakeScope.GetList('all_treasure_sites')]"
+
+										minimumsize = { 660 0 }
+
+										item = {
+											flowcontainer = {
+												datacontext = "[Scope.GetProvince]"
+												ignoreinvisible = yes
+
+												goto_button = {
+													#parentanchor = vcenter
+													size = { 25 25 }
+													blockoverride "On_click" { onclick = "[OnClickOnProvince(Scope.GetProvince)]" }
+													onmousehierarchyenter = "[SetHighlightProvince(Scope.GetProvince.GetId)]"
+													onmousehierarchyleave = "[ClearHighlightColors]"
+													tooltip = "[Province.GetName]"
+												}
+
+												flowcontainer = {
+													datacontext = "[Province.GetTreasureSlots]"
+													ignoreinvisible = yes
+													direction = vertical
+
+													#margin_left = 30
+													#margin_bottom = 10
+
+													flowcontainer = {
+														visible = "[ProvinceTreasures.HasValidTreasureAt( '(int32)0')]"
+														spacing = 5
+														icon = {
+															texture = "[GetTreasureIcon( ProvinceTreasures.GetTreasureAt( '(int32)0').Self )]"
+															size = { 26 26 }
+															tooltip = "[ProvinceTreasures.GetTreasureAt( '(int32)0').GetName|T] [ProvinceTreasures.GetTreasureAt( '(int32)0').GetStateEffectIconCondensed]"
+														}
+
+														tag = {
+															minimumsize = { 250 30 }
+															text = "[ProvinceTreasures.GetTreasureAt( '(int32)0').GetName]"
+															blockoverride "Align" { align = nobaseline }
+															blockoverride "LineVisibility" { visible = no }
+														}
+
+														tag = {
+															minimumsize = { 300 30 }
+															text = "[ProvinceTreasures.GetTreasureAt( '(int32)0').GetStateModifierIconSummary]"
+															blockoverride "Align" { align = nobaseline }
+															blockoverride "LineVisibility" { visible = no }
+														}
+													}
+
+													flowcontainer = {
+														visible = "[ProvinceTreasures.HasValidTreasureAt( '(int32)1')]"
+														spacing = 5
+														icon = {
+															texture = "[GetTreasureIcon( ProvinceTreasures.GetTreasureAt( '(int32)1').Self )]"
+															size = { 26 26 }
+															tooltip = "[ProvinceTreasures.GetTreasureAt( '(int32)1').GetName|T] [ProvinceTreasures.GetTreasureAt( '(int32)1').GetStateEffectIconCondensed]"
+														}
+
+														tag = {
+															minimumsize = { 250 30 }
+															text = "[ProvinceTreasures.GetTreasureAt( '(int32)1').GetName]"
+															blockoverride "Align" { align = nobaseline }
+															blockoverride "LineVisibility" { visible = no }
+														}
+
+														tag = {
+															minimumsize = { 300 30 }
+															text = "[ProvinceTreasures.GetTreasureAt( '(int32)1').GetStateModifierIconSummary]"
+															blockoverride "Align" { align = nobaseline }
+															blockoverride "LineVisibility" { visible = no }
+														}
+													}
+
+													flowcontainer = {
+														visible = "[ProvinceTreasures.HasValidTreasureAt( '(int32)2')]"
+														spacing = 5
+														icon = {
+															texture = "[GetTreasureIcon( ProvinceTreasures.GetTreasureAt( '(int32)2').Self )]"
+															size = { 26 26 }
+															tooltip = "[ProvinceTreasures.GetTreasureAt( '(int32)2').GetName|T] [ProvinceTreasures.GetTreasureAt( '(int32)2').GetStateEffectIconCondensed]"
+														}
+
+														tag = {
+															minimumsize = { 250 30 }
+															text = "[ProvinceTreasures.GetTreasureAt( '(int32)2').GetName]"
+															blockoverride "Align" { align = nobaseline }
+															blockoverride "LineVisibility" { visible = no }
+														}
+
+														tag = {
+															minimumsize = { 300 30 }
+															text = "[ProvinceTreasures.GetTreasureAt( '(int32)02').GetStateModifierIconSummary]"
+															blockoverride "Align" { align = nobaseline }
+															blockoverride "LineVisibility" { visible = no }
+														}
+													}
+													margin_right = 24
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

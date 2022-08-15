@@ -1,0 +1,323 @@
+﻿open_chinese_empire_window = {
+    scope = country
+    is_valid = {
+        has_variable = mandate_variable
+    }
+    effect = {
+        every_subject = {
+            root = {
+                add_to_variable_list = {
+                    name = emperor_tributes_list
+                    target = prev
+                }
+            }
+        }
+    }
+}
+close_chinese_empire_window = {
+    scope = country
+    effect = {
+        every_in_list = {
+            variable = emperor_tributes_list
+            root = {
+                remove_list_variable = {
+                    name = emperor_tributes_list
+                    target = prev
+                }
+            }
+        }
+    }
+}
+
+pass_celestial_reform_one_button = {
+    scope = country
+
+    is_valid = {
+        trigger_if = {
+            limit = { has_variable = reform_one_taken }
+            custom_tooltip = {
+                text = reform_already_taken_tooltipazoo
+                NOT = { has_variable = reform_one_taken }
+            }
+        }
+        trigger_else_if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            custom_tooltip = {
+                text = need_more_than_70_for_celestial_reform
+                var:mandate_variable >= mandate_needed_for_reform
+            }
+        }
+        trigger_else = {
+            always = no
+        }
+    }
+
+    effect = {
+        if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            change_variable = {
+                name = mandate_variable
+                subtract = mandate_needed_for_reform
+            }
+            add_country_modifier = {
+                name = celestial_reform_1
+                duration = -1
+            }
+        }
+        set_variable = reform_one_taken
+    }
+}
+
+pass_celestial_reform_two_button = {
+    scope = country
+
+    is_valid = {
+        trigger_if = {
+            limit = { NOT = { has_variable = reform_one_taken } }
+            custom_tooltip = {
+                text = need_reform_1_bozo
+                has_variable = reform_one_taken
+            }
+        }
+        trigger_if = {
+            limit = { has_variable = reform_two_taken }
+            custom_tooltip = {
+                text = reform_already_taken_tooltipazoo
+                NOT = { has_variable = reform_two_taken }
+            }
+        }
+        trigger_else_if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            custom_tooltip = {
+                text = need_more_than_70_for_celestial_reform
+                var:mandate_variable >= mandate_needed_for_reform
+            }
+        }
+        trigger_else = {
+            always = no
+        }
+    }
+
+    effect = {
+        if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            change_variable = {
+                name = mandate_variable
+                subtract = mandate_needed_for_reform
+            }
+            add_country_modifier = {
+                name = celestial_reform_2
+                duration = -1
+            }
+        }
+        set_variable = reform_two_taken
+    }
+}
+
+pass_celestial_reform_three_button = {
+    scope = country
+
+    is_valid = {
+        trigger_if = {
+            limit = { NOT = { has_variable = reform_two_taken } }
+            custom_tooltip = {
+                text = need_reform_2_bozo
+                has_variable = reform_two_taken
+            }
+        }
+        trigger_if = {
+            limit = { has_variable = reform_three_taken }
+            custom_tooltip = {
+                text = reform_already_taken_tooltipazoo
+                NOT = { has_variable = reform_three_taken }
+            }
+        }
+        trigger_else_if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            custom_tooltip = {
+                text = need_more_than_70_for_celestial_reform
+                var:mandate_variable >= mandate_needed_for_reform
+            }
+        }
+        trigger_else = {
+            always = no
+        }
+    }
+
+    effect = {
+        if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            change_variable = {
+                name = mandate_variable
+                subtract = mandate_needed_for_reform
+            }
+            add_country_modifier = {
+                name = celestial_reform_3
+                duration = -1
+            }
+        }
+        set_variable = reform_three_taken
+    }
+}
+
+pass_celestial_reform_four_button = {
+    scope = country
+
+    is_valid = {
+        trigger_if = {
+            limit = { NOT = { has_variable = reform_three_taken } }
+            custom_tooltip = {
+                text = need_reform_3_bozo
+                has_variable = reform_three_taken
+            }
+        }
+        trigger_if = {
+            limit = { has_variable = reform_four_taken }
+            custom_tooltip = {
+                text = reform_already_taken_tooltipazoo
+                NOT = { has_variable = reform_four_taken }
+            }
+        }
+        trigger_else_if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            custom_tooltip = {
+                text = need_more_than_70_for_celestial_reform
+                var:mandate_variable >= mandate_needed_for_reform
+            }
+        }
+        trigger_else = {
+            always = no
+        }
+    }
+
+    effect = {
+        if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            change_variable = {
+                name = mandate_variable
+                subtract = mandate_needed_for_reform
+            }
+            add_country_modifier = {
+                name = celestial_reform_4
+                duration = -1
+            }
+        }
+        set_variable = reform_four_taken
+    }
+}
+
+pass_celestial_reform_five_button = {
+    scope = country
+
+    is_valid = {
+        trigger_if = {
+            limit = { NOT = { has_variable = reform_four_taken } }
+            custom_tooltip = {
+                text = need_reform_4_bozo
+                has_variable = reform_four_taken
+            }
+        }
+        trigger_if = {
+            limit = { has_variable = reform_five_taken }
+            custom_tooltip = {
+                text = reform_already_taken_tooltipazoo
+                NOT = { has_variable = reform_five_taken }
+            }
+        }
+        trigger_else_if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            custom_tooltip = {
+                text = need_more_than_70_for_celestial_reform
+                var:mandate_variable >= mandate_needed_for_reform
+            }
+        }
+        trigger_else = {
+            always = no
+        }
+    }
+
+    effect = {
+        if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            change_variable = {
+                name = mandate_variable
+                subtract = mandate_needed_for_reform
+            }
+            add_country_modifier = {
+                name = celestial_reform_5
+                duration = -1
+            }
+        }
+        set_variable = reform_five_taken
+    }
+}
+
+pass_celestial_reform_six_button = {
+    scope = country
+
+    is_valid = {
+        trigger_if = {
+            limit = { NOT = { has_variable = reform_five_taken } }
+            custom_tooltip = {
+                text = need_reform_5_bozo
+                has_variable = reform_five_taken
+            }
+        }
+        trigger_if = {
+            limit = { has_variable = reform_six_taken }
+            custom_tooltip = {
+                text = reform_already_taken_tooltipazoo
+                NOT = { has_variable = reform_six_taken }
+            }
+        }
+        trigger_else_if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            custom_tooltip = {
+                text = need_more_than_70_for_celestial_reform
+                var:mandate_variable >= mandate_needed_for_reform
+            }
+        }
+        trigger_else = {
+            always = no
+        }
+    }
+
+    effect = {
+        if = {
+            limit = {
+                has_variable = mandate_variable
+            }
+            change_variable = {
+                name = mandate_variable
+                subtract = mandate_needed_for_reform
+            }
+            add_country_modifier = {
+                name = celestial_reform_6
+                duration = -1
+            }
+        }
+        set_variable = reform_six_taken
+    }
+}

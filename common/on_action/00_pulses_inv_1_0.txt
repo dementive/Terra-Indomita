@@ -3,11 +3,7 @@
 		delay = { days = { 1 364 } }
 		tech_spread_pulse
 		delay = { days = { 1 364 } }
-		steppe_invasion_pulse
-		delay = { days = { 1 364 } }
 		yearly_invictus_disaster_pulse
-		delay = { days = { 1 364 } }
-		5_year_trade_good_pulse
 		delay = { days = { 1 364 } }
 		invictus_yearly_flavor_pulse #ADD EVENTS HERE
 	}
@@ -19,6 +15,17 @@ invictus_yearly_events_effect = {
 		trigger_event = { id = harvest.1 days = 333 }
 		trigger_event = { id = harvest.2 days = 148 }
 		trigger_event = { id = monsoon.1 days = 148 }
+		#TI mandate
+		if = {
+			limit = {
+				has_variable = mandate_variable
+			}
+			change_variable = {
+				name = mandate_variable
+				add = mandate_yearly_real_change
+			}
+			mandate_yearly_effects = yes
+		}
 	}
 }
 
@@ -40,10 +47,6 @@ invictus_yearly_flavor_pulse = {
 		flavor_maurya.6 #Death of Ashoka
 		flavor_maurya.14 #Ashoka claps his brother
 		bloodlines_setup_completion.3
-		galatian_invasion.1
-		galatian_invasion.44
-		galatian_invasion.70
-		galatian_invasion.71
 		cyr_ophellas_01.4
 	}
 	random_events = {
@@ -123,24 +126,6 @@ mauryan_reconquest_task_4_persuade_indo_greeks_monthly_pulse = {
 	}
 }
 
-steppe_invasion_pulse = {
-	trigger = {
-		num_of_cities >= 1
-		NOR = {
-			tag = REB
-			tag = BAR
-		}
-	}
-	random_events = {
-		25 = invasions.1 #Invasion Start, Xiongnu take over, allows event 3
-		25 = invasions.2 #Wusun Invasion, happens after Yuezhi
-		25 = invasions.3 #Yuezhi pops arrive, allows event 4
-		25 = invasions.5 #Ai Yuezhi invasion if player says no or isn't present
-		25 = invasions.7 #Backup parthia event
-		100 = 0
-	}	
-}
-
 cyrene_1_magas_task_1_pulse = {
 	events = {
 		cyr_magas_01.2
@@ -185,30 +170,6 @@ macedon_mission_1_task_9_pulse = {
 		30 = me_macedon_4_lighthouse.12
 		30 = me_macedon_4_lighthouse.13
 		10 = 0
-	}
-}
-
-5_year_trade_good_pulse = {
-	trigger = {
-		NOT = { has_variable = 5_year_trade_good_pulse }
-	}
-	effect = {
-		set_variable = {
-			name = 5_year_trade_good_pulse
-			days = 1800
-		}
-	}
-	random_events = {
-		10 = trade_good_events.1
-		10 = trade_good_events.2
-		10 = trade_good_events.3
-		10 = trade_good_events.4
-		10 = trade_good_events.5
-		10 = trade_good_events.6
-		10 = trade_good_events.7
-		10 = trade_good_events.8
-		10 = trade_good_events.9
-		10 = trade_good_events.10
 	}
 }
 
