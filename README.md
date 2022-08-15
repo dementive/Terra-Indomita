@@ -1,4 +1,4 @@
-# Imperator: Invictus
+# Terra Indomita
 How to play the dev-versions: 
 Download this program: https://desktop.github.com/ and install it
 Once installed open it and press clone new repo, go to the url tab and put in this: https://github.com/dementive/Terra-Indomita.git
