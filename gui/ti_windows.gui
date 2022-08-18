@@ -31,12 +31,12 @@ base_window = {
         position = { -7 10}
     }
     icon = {
-        position = { 20 130 }
-        size = { 250 100 }
+        position = { 5 120 }
+        size = { 270 110 }
         texture = "gfx/interface/china/emperor_of_china_dragon.dds"
     }
     cpt_button = {
-        position = { 120 54 }
+        position = { 10 54 }
         size = { 55 85 }
         datacontext = "[Player.GetRuler]"
         blockoverride "ShowIcons" { visible = no }
@@ -68,7 +68,7 @@ base_window = {
         }
         blockoverride "Text"
         {
-            text = "[Player.MakeScope.Var('mandate_variable').GetValue]" #this will be mandate value
+            text = "[Player.MakeScope.Var('mandate_variable').GetValue|2]" #this will be mandate value
         }
         tooltip = "Current Mandate: #G [Player.MakeScope.Var('mandate_variable').GetValue]#!"
     }
@@ -215,7 +215,7 @@ base_window = {
                 }
                 blockoverride "Text"
                 {
-                    text = "[Player.GetLegitimacy]"
+                    text = "[Player.GetLegitimacy|2]"
                 }
                 tooltip = "Current Meritocracy: #BOLD;COLOR:{0.0,1.0,0.6} Todo#!"
             }
@@ -275,7 +275,7 @@ base_window = {
                 position = { 0 180 }
                 using = MarbleButtonFontM
                 using = Black_FontColor
-                parentanchor = center|bottom
+                parentanchor = bottom|center
                 autoresize = yes
                 text = "0 Subjects"
             }
