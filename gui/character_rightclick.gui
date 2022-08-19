@@ -1,0 +1,82 @@
+
+base_sub_window = {
+	gfxtype = windowgfx
+	name = "character_rightclick"
+	using = DementiveFadeStates
+	parentanchor = top|left
+	size = { 336 440 }
+	widgetanchor = top|left
+	movable = yes
+	layer = top
+	blockoverride "White_buttons"
+	{
+		container = {
+			button = {
+				position = { 0 -1 }
+				clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_click"
+				oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
+				framesize = { 50 50 }
+				size = { 26 26 }
+				texture = "gfx/interface/icons/shared_icons/star.dds"
+				onclick = "[CharacterRightClickMenu.FavoriteToggle]"
+				frame = "[Select_int32(CharacterRightClickMenu.IsFavorite,'(int32)2','(int32)1'))]"
+				tooltip = "[CharacterRightClickMenu.GetTooltip]"
+				color = { 1 1 1 1 }
+			}
+		}
+	
+		button_close = {
+			shortcut = "close_window"
+			onclick = "[CharacterRightClickMenu.OnClose]"
+			tooltip = "CLOSE"
+		}
+	}
+
+	blockoverride "Title_text"
+	{
+		text = "CHARACTER_INTERACTIONS_SUBTITLE"
+		using = Sub_Header_FontColor
+	}
+	
+	vbox = {
+		using = vbox_item_grid_button
+		margin = { 20 0 }
+		margin_top = 40
+		margin_bottom = 18
+		
+		blockoverride "DataModel" { datamodel = "[CharacterRightClickMenu.GetInteractions]" }
+		
+		blockoverride "On_click" {
+			onclick = "[InteractionItem.OnClick]"
+			enabled = "[InteractionItem.IsEnabled]"
+			tooltip = "[InteractionItem.GetTooltip]"
+			clicksound = "[InteractionItem.GetClickSound]"
+		}
+		
+		blockoverride "Center_text"
+		{
+			text = "[InteractionItem.GetName]"
+		}
+		container = {
+			main_bloodline_button = {
+				size = { 60 60 }
+				#position = { 90 0 }
+				parentanchor = top|right
+				blockoverride "Icon" 
+				{ 
+					size = { 37 50 }
+					alpha = 0.95
+					texture = "gfx/interface/icons/shared_icons/bloodline_icon.dds"
+					using = RedGlowEffect
+				}
+				blockoverride "On_click" 
+				{ 
+					onclick = "[ExecuteConsoleCommand('gui.createwidget gui/bloodlines.gui bloodline_window')]"
+					onclick = "[CharacterRightClickMenu.OnClose]"
+				}
+				tooltip = "SHOW_ALL_BLOODLINES__TT"
+			}
+		}
+	}
+}
+

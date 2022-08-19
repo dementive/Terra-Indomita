@@ -1,0 +1,1608 @@
+# OPEN WITH: gui.createwidget gui/ti_windows.gui bloodline_window
+
+@black_line_width = 792
+
+base_window = {
+    name = "bloodline_window" #name used in console command to open widget
+    gfxtype = windowgfx
+    parentanchor = center
+    size = { 756 710 }
+    vbox = {
+        using = MainWindowHeaderBoxCentered
+
+        blockoverride "Title_text" { text = "Bloodlines" }
+
+        vbox = {
+            layoutpolicy_vertical = expanding
+        }
+
+    }
+    button_close = {
+        onclick = "[ExecuteConsoleCommand('GUI.ClearWidgets bloodline_window')]"
+        tooltip = "CLOSE"
+        parentanchor = top|right
+        position = { -12 15}
+    }
+    container = {
+        scrollarea = {
+            name = "bloodline_scroll_area"
+            position = { 10 55 }
+            size = { 739 630 }
+            scrollbar_vertical = {
+                using = VerticalScrollBar
+            }
+            scrollbarpolicy_horizontal = always_off
+            scrollwidget = {
+                flowcontainer = {
+                    position = { 45 0 }
+                    direction = vertical
+
+                    container = {}
+                    container = {}
+                    spacing = 14
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 100
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_argeads_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/argeads.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Argeads"
+                                position = { 22 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ARGEAD_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_alcimachid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/alcimachid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Lysimachos"
+                                position = { 9 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ALCIMACHID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_antigonids_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/antigonids.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Antigonids"
+                                position = { 5 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ANTIGONID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_antipatrid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/antipatrid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Antipatrid"
+                                position = { 7 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ANTIPATRID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_lagids_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/lagids.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Lagids"
+                                position = { 30 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_LAGIDS_CHARACTERS"
+                        }
+                    }
+
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 100
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_seleucids_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/seleucids.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Seleukos"
+                                position = { 22 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_SELEUCID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_aeacidae_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/aeacidae.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Aiakos"
+                                position = { 30 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_AIKOS_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_agiad_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/agiad.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Agiad"
+                                position = { 33 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_AGIAD_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_achaemenid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/achaemenid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Achaemenid"
+                                position = { 6 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ACHAEMENID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_maurya_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/maurya.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Maurya"
+                                position = { 25 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_MAURYA_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 100
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_zadok_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/zadok.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Zadok"
+                                position = { 32 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ZADOK_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_agathocles_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/agathocles.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Agathocles"
+                                position = { 8 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_AGATHOCLES_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_orontid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/orontid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Orontid"
+                                position = { 20 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ORONTID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_atropates_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/atropates.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Atropates"
+                                position = { 14 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ATROPATES_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_barca_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/barca.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Barca"
+                                position = { 36 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_BARCA_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 100
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_arsaces_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/arsaces.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Arsaces"
+                                position = { 24 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ARSACES_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_spartocid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/spartocid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Spartocid"
+                                position = { 18 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_SPARTOCID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_sophytid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/sophytid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Sophytid"
+                                position = { 21 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_SOPHYTID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_diodotus_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/diodotus.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Diodotus"
+                                position = { 17 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_DIODOTUS_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_brennus_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/brennus.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Brennus"
+                                position = { 21 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_BRENUS_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 100
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_fabii_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/fabii.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Fabii"
+                                position = { 31 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_FABII_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_claudii_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/claudii.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Claudii"
+                                position = { 24 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_CLAUDII_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_cornelii_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/cornelii.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Cornelii"
+                                position = { 18 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_CORNELII_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_demosthenid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/demosthenid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Demosthenid"
+                                position = { -3 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_DEMOSTHENID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_mithridates_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/mithridates.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Mithridates"
+                                position = { -1 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_MITHRIDATES_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 100
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_superbus_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/superbus.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Superbus"
+                                position = { 23 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_SUPERBUS_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_vercingetorix_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/vercingetorix.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Vercingetorix"
+                                position = { -10 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_VERCINGETORIX_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_chola_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/chola.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Chola"
+                                position = { 31 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_CHOLA_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_chera_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/chera.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Chera"
+                                position = { 32 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_CHERA_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_pandya_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/pandya.dds"
+                                size = { 50 50 }
+                                position = { 4 6 }
+                            }
+                            blockoverride "Text" {
+                                text = "Pandya"
+                                position = { 28 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_PANDYA_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 100
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_magonid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/magonid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Magonid"
+                                position = { 15 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_MAGONID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_hannonid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/hannonid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Hannonid"
+                                position = { 11 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_HANNONID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_dido_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/dido.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Dido"
+                                position = { 38 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_DIDO_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_blood_of_porus_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/blood_of_porus.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Porus"
+                                position = { 36 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_PORUS_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_blood_of_vijaya_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/blood_of_vijaya.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Vijaya"
+                                position = { 33 -4 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_VIJAYA_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 100
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_kalinga_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/kalinga.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Kalinga"
+                                position = { 23 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_KALINGA_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_ariovistid_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/ariovistid.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Ariovistid"
+                                position = { 14 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ARIOVISTID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_battiad_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/battiad.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Battiad"
+                                position = { 20 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_BATTIAD_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_blood_of_menander_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/blood_of_menander.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Menander"
+                                position = { 8 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_MENANDER_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_blood_of_bharata_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/blood_of_bharata.dds"
+                                size = { 50 50 }
+                                position = { 4 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Bharata"
+                                position = { 20 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_BHARATA_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 100
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_blood_of_aratus_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/blood_of_aratus.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Aratus"
+                                position = { 31 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ARATUS_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_blood_of_david_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/blood_of_david.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "David"
+                                position = { 31 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_DAVID_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_magas_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/magas.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Magas"
+                                position = { 31 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_MAGAS_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 47 47 }
+                            datacontext = "[GetScriptedGui('show_illyrius_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/illyrius.dds"
+                                size = { 50 50 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Illyrius"
+                                position = { 25 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ILLYRIUS_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_blood_of_zipoetes_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/blood_of_zipoetes.dds"
+                                size = { 45 45 }
+                                position = { 3 5 }
+                            }
+                            blockoverride "Text" {
+                                text = "Zipoetes"
+                                position = { 17 0 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ZIPOETES_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 105
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_qin_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/qin_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Qin"
+                                position = { 41 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_QIN_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_chu_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/chu_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Chu"
+                                position = { 41 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_CHU_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_wei_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/wei_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Wei"
+                                position = { 37 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_WEI_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_zhou_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/zhou_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Zhou"
+                                position = { 34 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ZHOU_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_zhou_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/yue_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Yue"
+                                position = { 41 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_YUE_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 105
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_yan_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/yan_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Yan"
+                                position = { 41 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_YAN_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_song_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/song_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Song"
+                                position = { 37 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_SONG_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_lu_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/lu_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Lu"
+                                position = { 48 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_LU_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_wii_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/lu_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Wii"
+                                position = { 39 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_WII_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_han_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/han_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Han"
+                                position = { 39 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_HAN_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 105
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_zhao_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/zhao_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Zhao"
+                                position = { 36 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ZHAO_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_zhongshan_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/zhongshan_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Zhongshan"
+                                position = { 6 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ZHONGSHAN_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_qii_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/qii_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Qii"
+                                position = { 44 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_QII_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_nii_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/nii_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Nii"
+                                position = { 44 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_NII_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_zou_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/zou_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Zou"
+                                position = { 42 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ZOU_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                    container = {}
+                    flowcontainer = {
+                        direction = horizontal
+                        spacing = 105
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_teng_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/teng_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Teng"
+                                position = { 31 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_TENG_CHARACTERS"
+                        }
+                        bloodline_button = {
+                            size = { 42 42 }
+                            datacontext = "[GetScriptedGui('show_zhaoxian_bloodline_characters_button')]"
+                            enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                            blockoverride "Icon" {
+                                texture = "gfx/interface/icons/traits/zhaoxian_bloodline.dds"
+                                size = { 45 45 }
+                                position = { 5 7 }
+                            }
+                            blockoverride "Text" {
+                                text = "Zhaoxian"
+                                position = { 9 -2 }
+                            }
+                            blockoverride "On_click" {
+                                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'yes' )]"
+                            }
+                            tooltip = "SHOW_ZHAOXIAN_CHARACTERS"
+                        }
+                    }
+                    container = {
+                        icon = {
+                            texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+                            size = { @black_line_width 2 }
+                            position = { -110 -5 }
+                            alpha = 0.5
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #Bloodlines Window
+    base_window = {
+        size = { 756 710 }
+        movable = no
+        parentanchor = center
+        visible = "[GetVariableSystem.HasValue( 'show_bloodline_window', 'yes' )]"
+        vbox = {
+            using = MainWindowHeaderBoxCentered
+
+            blockoverride "Title_text" { text = "Bloodlines" }
+
+            vbox = {
+                layoutpolicy_vertical = expanding
+            }
+
+        }
+        alwaystransparent = no
+        flowcontainer = {
+            parentanchor = top|right
+            position = { -12 15 }
+            button_close = {
+                name = "close_button"
+                datacontext = "[GetScriptedGui('remove_bloodline_list_variables_button')]"
+                onclick = "[GetVariableSystem.Set( 'show_bloodline_window', 'no' )]"
+                onclick = "[GetVariableSystem.Toggle('show_no_char_text')]"
+                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                tooltip = "CLOSE"
+            }
+        }
+        widget = {
+            visible = "[IsDataModelEmpty(Player.MakeScope.GetList('player_bloodline_list'))]"
+            size = { 100% 28 }
+
+            textbox = {
+                position = { 0 180 }
+                parentanchor = hcenter
+                size = { 100 100 }
+                using = HeaderFont
+                using = Black_FontColor
+                text = "No Characters with this bloodline"
+                align = center
+                fontsize = 28
+                alpha = 0.85
+            }
+        }
+        vbox = {
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+            margin_top = 43
+            margin_bottom = 15
+            margin_right = 6
+            margin_left = 15
+
+            vbox = {
+                margin_bottom = 3
+                layoutpolicy_vertical = expanding
+                layoutpolicy_horizontal = expanding
+
+                widget = {
+                    size = { 0 12 }
+                }
+                scrollarea = {
+                    layoutpolicy_vertical = expanding
+                    using = VerticalScrollAreaCutOff
+
+                    scrollbar_vertical = {
+                        using = VerticalScrollBar
+                    }
+
+                    scrollbarpolicy_horizontal = always_off
+
+                    scrollwidget = {
+                        vbox = {
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                layoutpolicy_vertical = shrinking
+                                datamodel = "[Player.MakeScope.GetList('player_bloodline_list')]"
+                                item = {
+                                    hbox = {
+                                        hbox = {
+                                            layoutpolicy_vertical = expanding
+                                            layoutpolicy_horizontal = shrinking
+                                            datacontext = "[Scope.Char]"
+                                            widget = {
+                                                size = { 0 80 }
+                                            }
+                                            cpt_button = {
+                                                datacontext = "[Scope.Char]"
+                                                size = { 50 75 }
+
+                                            }
+                                            widget = {
+                                                size = { 10 0 }
+                                            }
+                                            icon_and_text = {
+                                                size = { 210 0 }
+                                                #tooltip = "[Character.GetNameWithNoTooltip]"
+                                                blockoverride "Icon"
+                                                    {
+                                                        texture = "gfx/interface/icons/shared_icons/civilization.dds"
+                                                        size = { 0 0 }
+                                                    }
+                                                blockoverride "Text"
+                                                {
+                                                    text = "[Character.GetNameWithNoTooltip]"
+                                                    using = BaseFontM
+                                                    using = Black_FontColor
+                                                }
+                                            }
+                                            widget = {
+                                                size = { 10 0 }
+                                            }
+                                            icon_and_text = {
+                                                size = { 80 0 }
+                                                tooltip = "[Character.GetAgeInfo]"
+                                                blockoverride "Icon"
+                                                    {
+                                                        texture = "gfx/interface/icons/shared_icons/age.dds"
+                                                        size = { 35 35 }
+                                                    }
+                                                blockoverride "Text"
+                                                {
+                                                    text = "[Character.GetAge]"
+                                                    using = BaseFontM
+                                                    using = Black_FontColor
+                                                }
+                                            }
+                                            widget = {
+                                                size = { 15 0 }
+                                            }
+                                            icon_and_text = {
+                                                size = { 75 0 }
+                                                tooltip = "[Character.GetPowerBaseInfo]"
+                                                blockoverride "Icon"
+                                                {
+                                                    texture = "gfx/interface/icons/shared_icons/power_base.dds"
+                                                    size = { 35 35 }
+                                                }
+                                                blockoverride "Text"
+                                                {
+                                                    text = "[Character.GetPowerBase|0]"
+                                                    using = BaseFontM
+                                                    using = Black_FontColor
+                                                }
+                                            }
+                                            widget = {
+                                                size = { 20 0 }
+                                            }
+                                            icon_and_text = {
+                                                size = { 75 0 }
+                                                tooltip = "[Character.GetProminenceToolTip]"
+                                                blockoverride "Icon"
+                                                {
+                                                    texture = "gfx/interface/icons/shared_icons/prominence.dds"
+                                                    size = { 35 35 }
+                                                }
+                                                blockoverride "Text"
+                                                {
+                                                    text = "[Character.GetProminence|0]"
+                                                    using = BaseFontM
+                                                    using = Black_FontColor
+                                                }
+                                            }
+                                            widget = {
+                                                size = { 15 0 }
+                                            }
+                                            icon_and_text = {
+                                                size = { 80 0 }
+                                                tooltip = "[Character.GetEmployer.GetName] has [Character.GetEmployer.GetOpinionOf( Player.GetCountry )|+=] opinion of us."
+                                                blockoverride "Icon"
+                                                {
+                                                    texture = "gfx/interface/icons/diplomatic_status/opinion_improvement_active.dds"
+                                                    size = { 35 35 }
+                                                }
+                                                blockoverride "Text"
+                                                {
+                                                    text = "[Character.GetEmployer.GetOpinionOf( Player.GetCountry )|+=]"
+                                                    using = BaseFontM
+                                                    using = Black_FontColor
+                                                }
+                                            }
+                                            widget = {
+                                                size = { 12 0 }
+                                            }
+                                            flowcontainer = {
+                                                bloodline_marriage_widget = {
+                                                    size = { 50 0 }
+                                                    datacontext = "[GetScriptedGui('char_can_royal_marry_trigger')]"
+                                                    visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Character.MakeScope ).End )]"
+                                                    tooltip = "[Character.GetNameWithNoTooltip] is eligible for a royal marriage."
+                                                    blockoverride "Icon"
+                                                    {
+                                                        texture = "gfx/interface/icons/shared_icons/grateful_family.dds"
+                                                        size = { 45 45 }
+                                                    }
+                                                }
+                                            }
+                                            textbox = {
+                                                size = { 200 }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            vbox = {
+                                name = "expander"
+                                layoutpolicy_vertical = growing
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
