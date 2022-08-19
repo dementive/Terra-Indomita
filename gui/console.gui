@@ -179,20 +179,27 @@ window = {
 					hbox = {
 						using = ev
 						console_button = {
-							text = "Indomitus Mod Menu"
+							text = "Mod Menu"
 							size = { 0 0 }
 							blockoverride "icon" {}
 							onclick = "[ExecuteConsoleCommand('gui.CreateDockable gui/debug_menus.gui imp19c')]"
 							tooltip = "Open Indomitus mod menu"
 						}
 						console_button = {
-							text = "Chinese Empire Window"
+							text = "Chinese Empire"
 							size = { 0 0 }
 							blockoverride "icon" {}
 							enabled = "[GetScriptedGui('open_chinese_empire_window').IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
 							onclick = "[GetScriptedGui('open_chinese_empire_window').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
-							onclick = "[ExecuteConsoleCommand('gui.createwidget gui/ti_windows.gui chinese_empire')]"
+							onclick = "[ExecuteConsoleCommand('gui.createwidget gui/chinese_empire.gui chinese_empire')]"
 							tooltip = "Open the Chinese Empire window"
+						}
+						console_button = {
+							text = "Bloodlines"
+							size = { 0 0 }
+							blockoverride "icon" {}
+							onclick = "[ExecuteConsoleCommand('gui.createwidget gui/bloodlines.gui bloodline_window')]"
+							tooltip = "Open the Bloodline window"
 						}
 					}
 				}

@@ -716,7 +716,24 @@ base_window = {
 			}
 		}	
 	}
-	
+	main_bloodline_button = {
+		size = { 40 40 }
+		position = { -225 336 }
+		parentanchor = top|right
+		blockoverride "Icon" 
+		{ 
+			size = { 35 45 }
+			alpha = 0.95
+			texture = "gfx/interface/icons/shared_icons/bloodline_icon.dds"
+			using = RedGlowEffect
+		}
+		blockoverride "On_click" 
+		{ 
+			onclick = "[ExecuteConsoleCommand('gui.createwidget gui/bloodlines.gui bloodline_window')]"
+			onclick = "[CharacterWindow.OnClose]"
+		}
+		tooltip = "SHOW_ALL_BLOODLINES__TT"
+	}
 	dynamicgridbox = {
 		datamodel = "[CharacterWindow.GetHeirSupport]"
 		size = { 200 83 }
