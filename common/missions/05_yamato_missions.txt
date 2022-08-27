@@ -1,0 +1,616 @@
+﻿yamato_01_heartland = {
+    header = "mission_image_general"
+    icon = "seleukid_2"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = YMT
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+    on_completion = {
+        add_treasury  = {
+            value = root.has_monthly_income
+            multiply = add_monthly_income_huge
+        }
+    }
+    yamato_01_heartland_task_1 = { #Trustworthy Allies
+        icon = "task_political"
+        allow = {
+            any_allied_country = {
+                count >= 2
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.1
+            add_legitimacy = 10
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = strong_alliance_network
+                    duration = 7300
+                }
+            }
+        }
+    }
+    yamato_01_heartland_task_2 = { #Preparations for War
+        icon = "task_political"
+        allow = {
+            political_influence >= 10
+            treasury >= 15
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.2
+            add_treasury = -15
+            add_political_influence = -10
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = war_preparations_country_mod
+                    duration = 3650
+                }
+            }
+        }
+    }
+    yamato_01_heartland_task_3 = { #Outward Expansion
+        icon = "task_political"
+        requires = { yamato_01_heartland_task_2 }
+        allow = {
+            war = yes
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.3
+            show_as_tooltip = {
+                add_legitimacy = legitimacy_small
+                add_country_modifier = {
+                    name = warriors_of_yamato
+                    duration = 730
+                }
+            }
+        }
+    }
+    yamato_01_heartland_task_4 = { #The First Steps
+        icon = "task_political"
+        requires = { yamato_01_heartland_task_3 }
+        allow = {
+            num_of_cities > 1
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.4
+            show_as_tooltip = {
+                add_treasury = 75
+            }
+        }
+    }
+    yamato_01_heartland_task_5 = { #Great City of Yamato
+        icon = "task_political"
+        requires = { yamato_01_heartland_task_4 }
+        highlight = {
+            scope:province = {
+                this = p:9328
+            }
+        }
+        allow = {
+            hidden:p:9328 = {
+                has_city_status = yes
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.5
+            show_as_tooltip = {
+                p:9328 = {
+                    add_permanent_province_modifier = {
+                        name = great_city_of_yamato
+                        mode = add
+                    }
+                }
+            }
+        }
+    }
+    yamato_01_heartland_task_6 = { #Cultivation of Rice
+        icon = "task_political"
+        requires = { yamato_01_heartland_task_4 }
+        allow = {
+            any_owned_province = {
+                num_of_basic_settlement_infratructure_building = 1
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.6
+            show_as_tooltip = {
+                random_owned_province = {
+                    limit = {
+                        has_food_trade_good_trigger = yes
+                    }
+                    add_province_modifier = {
+                        name = major_food_source_prov_mod
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    yamato_01_heartland_task_7 = { # On Proper Footing
+        icon = "task_political"
+        requires = { yamato_01_heartland_task_4 }
+        allow = {
+            num_of_cities >= 4
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.7
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = prosperity_of_yamato
+                    duration = 3650
+                }
+            }
+        }
+    }
+    yamato_01_heartland_task_8 = { #Control the Heartland
+        requires = { yamato_01_heartland_task_7 }
+        icon = "task_political"
+        final = yes
+        highlight = {
+            scope:province = {
+                is_in_area = yamato_area
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = yamato_area
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.8
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = ascension_of_yamato
+                    duration = -1
+                }
+            }
+        }
+    }
+    yamato_01_heartland_task_9 = { #Developing Yamato
+        icon = "task_political"
+        requires = { yamato_01_heartland_task_5 }
+        highlight = {
+            scope:province = {
+                this = p:9328
+            }
+        }
+        allow = {
+            p:9328 = {
+                num_of_used_building_slots >= 3
+                trigger_if = {
+                    limit = { has_construction = yes }
+                    custom_tooltip = {
+                        text = province_has_no_constuction_tooltip
+                        has_construction  = no
+                    }
+                }
+            }
+            custom_tooltip = {
+                text = yamato_01_heartland_task_9_tt
+                p:9328.state = {
+                    calc_true_if = {
+                        amount >= 1
+                        state_improvement_military_trigger = yes
+                        state_improvement_civic_trigger = yes
+                        state_improvement_oratory_trigger = yes
+                        state_improvement_religious_trigger = yes
+                    }
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.9
+            show_as_tooltip = {
+                add_political_influence = 15
+                p:9328 = {
+                    add_permanent_province_modifier = {
+                        name = great_city_of_yamato
+                        mode = add
+                    }
+                }
+            }
+        }
+    }
+    yamato_01_heartland_task_10 = {
+        icon = "task_political"
+        allow = {
+            custom_tooltip = {
+                text = yamato_01_heartland_task_10_tt
+                any_character = {
+                    count >= 2
+                    is_clan_chief = yes
+                    loyalty >= 50
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.10
+            custom_tooltip = yamato_01_heartland_task_10_ttt
+            set_variable = YMT_gathering_clan_support
+        }
+    }
+    yamato_01_heartland_task_11 = {
+        icon = "task_political"
+        requires = { yamato_01_heartland_task_10 }
+        allow = {
+            any_character = {
+                count = 2
+                is_clan_chief = yes
+                has_character_modifier = support_gathered
+                is_ruler = no
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.11
+            if = {
+                limit = { has_variable = YMT_gathering_clan_support }
+                remove_variable = YMT_gathering_clan_support
+            }
+            show_as_tooltip = {
+                add_centralization = centralization_huge
+                add_political_influence = 25
+            }
+        }
+    }
+    yamato_01_heartland_task_12 = {
+        icon = "task_political"
+        requires = { yamato_01_heartland_task_11 }
+        allow = {
+            current_ruler = { popularity >= 75 }
+        }
+        on_completion = {
+            trigger_event = me_yamato_heartland.12
+            custom_tooltip = yamato_01_heartland_task_12_tt
+        }
+    }
+}
+
+yamato_02_consolidate = {
+    header = "mission_image_general"
+    icon = "seleukid_2"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var_2 }
+        tag = YMT
+        has_completed_mission = yamato_01_heartland
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var_2
+            days = 7300
+        }
+    }
+    on_completion = {}
+    yamato_02_consolidate_task_1 = { #The Kingdom of Yamato
+        icon = "task_political"
+        duration = 90
+        allow = {
+            political_influence >= 25
+        }
+        on_start = {
+            add_political_influence = -25
+        }
+        on_completion = {
+            custom_tooltip = yamato_02_consolidate_task_1_tt
+            trigger_event = me_yamato_consolidate.1
+        }
+    }
+    yamato_02_consolidate_task_2 = { #Southern Push
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_1 }
+        allow = {
+            owns_or_subject_owns_area = iya_area
+            owns_or_subject_owns_area = kii_area
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.2
+            random_owned_province = {
+                limit = {
+                    is_in_area = iya_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = yamato_influence_state_mod
+                        duration = -1
+                    }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    is_in_area = kii_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = yamato_influence_state_mod
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    yamato_02_consolidate_task_3 = { #Coastal Ventures
+        icon = "task_political"
+        allow = {
+            owns_or_subject_owns_area = tsuma_area
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.3
+            random_owned_province = {
+                limit = {
+                    is_in_area = tsuma_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = thriving_coastal_province_state_mod
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    yamato_02_consolidate_task_4 = { #Up North
+        icon = "task_political"
+        allow = {
+            owns_or_subject_owns_area = mino_area
+            owns_or_subject_owns_area = owari_area
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.4
+            add_2_free_province_investments = yes
+        }
+    }
+    yamato_02_consolidate_task_5 = { #A Functional Administration
+        icon = "task_political"
+        allow = {
+            custom_tooltip = {
+                text = yamato_02_consolidate_task_5_tt
+                any_character = {
+                    count >= 3
+                    has_any_office = yes
+                    loyalty >= 80
+                    character_experience >= 50
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.5
+            add_country_modifier = {
+                name = organized_admin_country_mod
+                duration = -1
+            }
+        }
+    }
+    yamato_02_consolidate_task_6 = { #Northern Consolidation
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_4 }
+        allow = {
+            owns_or_subject_owns_area = musasi_area
+            owns_or_subject_owns_area = sinano_area
+            owns_or_subject_owns_area = kaga_area
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.6
+            add_treasury  = {
+                value = root.has_monthly_income
+                multiply = add_monthly_income_large
+            }
+        }
+    }
+    yamato_02_consolidate_task_7 = { #Cleaning up Kumaso
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_2 }
+        allow = {
+            owns_or_subject_owns_area = kumaso_area
+            owns_or_subject_owns_area = matsura_area
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.7
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    yamato_02_consolidate_task_8 = { #Yamato Warrior Class
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_5 }
+        allow = {
+            #Have a legion
+            trigger_if = {
+                limit = {
+                    capital_scope.governorship = { has_legion_trigger = yes }
+                    any_unit = { legion = ROOT.capital_scope.governorship.legion }
+                }
+                custom_tooltip = {
+                    text = bithynia_missions_task_17_tooltip
+                    any_legion = {
+                        any_legion_unit = {
+                            unit_size >= 10
+                        }
+                    }
+                }
+            }
+            trigger_else = {
+                custom_tooltip = {
+                    text = bithynia_missions_task_17_tooltip
+                    num_of_ships >= 1000000 #Random impossible trigger so no error log pain
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.8
+            add_country_modifier = {
+                name = yamato_warrior_class_mod
+                duration = -1
+            }
+        }
+    }
+    yamato_02_consolidate_task_9 = { #A Proper Navy
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_5 }
+        allow = {
+            num_of_ships >= 25
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.9
+            add_country_modifier = {
+                name = developing_navy_mod
+                duration = 3650
+            }
+        }
+    }
+    yamato_02_consolidate_task_10 = { #Authority of the King
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_8 }
+        allow = {
+            custom_tooltip = {
+                text = yamato_02_consolidate_task_10_tt
+                NOT = {
+                    any_character = {
+                        loyalty < 30
+                    }
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.10
+            add_country_modifier = {
+                name = authority_of_the_king_mod
+                duration = 3650
+            }
+            current_ruler = {
+                add_popularity = 10
+                family = { add_prestige = 300 }
+            }
+        }
+    }
+    yamato_02_consolidate_task_11 = { #Divine Emperor
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_5 yamato_02_consolidate_task_12  }
+        final = yes
+        #Highlight all of Japan
+        highlight = {
+            scope:province = { is_in_region = wa_region }
+        }
+        allow = {
+            owns_or_subject_owns_region = wa_region
+            trigger_if = {
+                limit = { has_dlc = "Magna Graecia" }
+                hidden:current_ruler = { is_deified = yes }
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.11
+            change_government = yamato_empire
+        }
+    }
+    yamato_02_consolidate_task_12 = { #Masters of Wa
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_6 yamato_02_consolidate_task_7 }
+        highlight = {
+            scope:province = { is_in_region = wa_region }
+        }
+        allow = {
+            owns_or_subject_owns_region = wa_region
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.12
+            add_treasury  = {
+                value = root.has_monthly_income
+                multiply = add_monthly_income_huge
+            }
+        }
+    }
+    yamato_02_consolidate_task_13 = { #Developing the Island
+        icon = "task_political"
+        highlight = {
+            scope:province = { is_in_region = wa_region }
+        }
+        allow = {
+            region:wa_region = {
+                any_region_province = {
+                    count >= 10
+                    has_city_status = yes
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.13
+            add_country_modifier = {
+                name = cities_of_wa
+                duration = -1
+            }
+        }
+    }
+    yamato_02_consolidate_task_14 = { #Builders of Yamato
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_13 }
+        allow = {
+            custom_tooltip = {
+                text = yamato_02_consolidate_task_14_tt
+                current_yam_buildings_svalue >= total_yam_buildings_svalues
+                region:wa_region = {
+                    NOT = {
+                        any_region_province = {
+                            owner = root
+                            has_construction = yes
+                        }
+                    }
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.14
+            add_2_free_province_investments = yes
+            add_political_influence = 50
+        }
+    }
+    yamato_02_consolidate_task_15 = { # A city fit for an Emperor
+        icon = "task_political"
+        requires = { yamato_02_consolidate_task_13 }
+        allow = {
+            p:9328 = {
+                num_of_used_building_slots >= 10
+                total_population >= 90
+                has_province_rank = city_metropolis
+                trigger_if = {
+                    limit = { has_construction = yes }
+                    custom_tooltip = {
+                        text = province_has_no_constuction_tooltip
+                        has_construction  = no
+                    }
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_yamato_consolidate.15
+            p:9328 = {
+                add_permanent_province_modifier = {
+                    name = great_city_of_yamato
+                    mode = add
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-# OPEN WITH: gui.createwidget gui/ti_windows.gui chinese_empire
+# OPEN WITH: gui.createwidget gui/chinese_empire.gui chinese_empire
 
 @bottom_china_container_x = 510
 @bottom_china_container_y = 270
@@ -26,6 +26,7 @@ base_window = {
         onclick = "[GetScriptedGui('close_chinese_empire_window').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
         onclick = "[ExecuteConsoleCommand('GUI.ClearWidgets chinese_empire')]"
         tooltip = "CLOSE"
+        shortcut = "close_window"
         parentanchor = top|right
         position = { -7 10}
     }
@@ -69,7 +70,7 @@ base_window = {
         {
             text = "[Player.MakeScope.Var('mandate_variable').GetValue|2]" #this will be mandate value
         }
-        tooltip = "Current Mandate: #G [Player.MakeScope.Var('mandate_variable').GetValue]#!"
+        tooltip = "Current Harmony: #G [Player.MakeScope.Var('mandate_variable').GetValue]#!"
     }
     icon_and_text = {
         size = { 110 0 }
@@ -216,7 +217,7 @@ base_window = {
                 {
                     text = "[Player.GetLegitimacy|2]"
                 }
-                tooltip = "Current Meritocracy: #BOLD;COLOR:{0.0,1.0,0.6} Todo#!"
+                tooltip = "Current Legitimacy: #Y [Player.GetLegitimacy|2]#!"
             }
             flowcontainer = {
                 spacing = 10
@@ -224,24 +225,27 @@ base_window = {
                 position = { 15 45 }
                 list_button = {
                     size = { 230 32 }
-                    tooltip = "hi"
-                    #onclick = "[CultureDecisionItem.Enact]"
-                    #enabled = "[CultureDecisionItem.IsAllowed]"
-                    text = "#COLOR:{0.0,0.0,0.0} Expand Palace Bureacracy#!"
+                    tooltip = "meritocracy_reform_1_tt"
+                    datacontext = "[GetScriptedGui('pass_meritocracy_reform_one_button')]"
+                    enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    text = "meritocracy_reform_1_gui"
                 }
                 list_button = {
                     size = { 230 32 }
-                    tooltip = "hi"
-                    #onclick = "[CultureDecisionItem.Enact]"
-                    #enabled = "[CultureDecisionItem.IsAllowed]"
-                    text = "#COLOR:{0.0,0.0,0.0} Promote Naval Officers#!"
+                    tooltip = "meritocracy_reform_2_tt"
+                    datacontext = "[GetScriptedGui('pass_meritocracy_reform_two_button')]"
+                    enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    text = "meritocracy_reform_2_gui"
                 }
                 list_button = {
                     size = { 230 32 }
-                    tooltip = "hi"
-                    #onclick = "[CultureDecisionItem.Enact]"
-                    #enabled = "[CultureDecisionItem.IsAllowed]"
-                    text = "#COLOR:{0.0,0.0,0.0} Improve Defense Effort#!"
+                    tooltip = "meritocracy_reform_3_tt"
+                    datacontext = "[GetScriptedGui('pass_meritocracy_reform_three_button')]"
+                    enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    text = "meritocracy_reform_3_gui"
                 }
             }
             flowcontainer = {
@@ -250,24 +254,27 @@ base_window = {
                 position = { 267 45 }
                 list_button = {
                     size = { 230 32 }
-                    tooltip = "hi"
-                    #onclick = "[CultureDecisionItem.Enact]"
-                    #enabled = "[CultureDecisionItem.IsAllowed]"
-                    text = "#COLOR:{0.0,0.0,0.0} Conduct Population Census#!"
+                    tooltip = "meritocracy_reform_4_tt"
+                    datacontext = "[GetScriptedGui('pass_meritocracy_reform_four_button')]"
+                    enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    text = "meritocracy_reform_4_gui"
                 }
                 list_button = {
                     size = { 230 32 }
-                    tooltip = "hi"
-                    #onclick = "[CultureDecisionItem.Enact]"
-                    #enabled = "[CultureDecisionItem.IsAllowed]"
-                    text = "#COLOR:{0.0,0.0,0.0} Increase Tariff Control#!"
+                    tooltip = "meritocracy_reform_5_tt"
+                    datacontext = "[GetScriptedGui('pass_meritocracy_reform_five_button')]"
+                    enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    text = "meritocracy_reform_5_gui"
                 }
                 list_button = {
                     size = { 230 32 }
-                    tooltip = "hi"
-                    #onclick = "[CultureDecisionItem.Enact]"
-                    #enabled = "[CultureDecisionItem.IsAllowed]"
-                    text = "#COLOR:{0.0,0.0,0.0} Boost Officer Corps#!"
+                    tooltip = "meritocracy_reform_6_tt"
+                    datacontext = "[GetScriptedGui('pass_meritocracy_reform_six_button')]"
+                    enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+                    text = "meritocracy_reform_6_gui"
                 }
             }
             textbox = {
@@ -276,10 +283,46 @@ base_window = {
                 using = Black_FontColor
                 parentanchor = bottom|center
                 autoresize = yes
-                text = "0 Subjects"
+                text = "[GuiScope.SetRoot( Player.MakeScope ).ScriptValue('current_num_of_subjects_svalue')|0] Subjects"
             }
-            # Make a datamodel when the window is opened and fill it with the
-            # emperors subjects
+            container = {
+                position = { 10 215 }
+                alwaystransparent = no
+
+                dynamicgridbox = {
+                #TODO make this work for more than 13 subjects...
+                    size = { 200 200 }
+                    #maximumsize = { 500 680 }
+                    flipdirection = yes
+                    #datamodel_wrap = 13
+                    maxhorizontalslots = 13
+                    datamodel = "[Player.MakeScope.GetList('emperor_tributes_list')]"
+                    item = {
+                        country_flag = {
+                            datacontext = "[Scope.Country]"
+                            tooltip = "COUNTRY_SHORTHAND_INFO"
+                            parentanchor = vcenter
+                        
+                            blockoverride "flag"
+                            {
+                                texture = "[Country.AccessCoatOfArms.GetTexture('(int32)56','(int32)56')]"
+                                frame = "[Country.AccessCoatOfArms.GetFrame('(int32)56','(int32)56')]"
+                                framesize = { 56 56 }
+                            }
+
+                            blockoverride "size"
+                            {
+                                size = { 38 38 }
+                            }
+
+                            blockoverride "click"
+                            {
+                                onclick = "[OpenDiplomacy(Country.GetCountry)]"
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

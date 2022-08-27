@@ -300,6 +300,84 @@ types Base_GUI_Types
 			}	
 		}
 	}
+	type china_open_button = widget { 
+		size = { 200 200 }
+		icon = {
+			texture = "gfx/interface/base_parts/roung_shadow_52.dds"
+			size = { 116% 116% }
+			position = { 0 0 }
+			parentanchor = center
+			alpha = 0.85
+		}
+		margin_widget = {
+			size = { 100% 100% }
+			margin = { 2 2 }
+			icon = {
+				name = "Base"
+				texture = "gfx/interface/base_parts/circle_60.dds"
+				size = { 100% 100% }
+				parentanchor = center
+				glow = {
+					glow_radius = 4
+					color = { 0.16 0.04 0.04 0.6 } #black
+					visible = yes
+				}
+			}
+			
+			margin_widget = {
+				margin = { 2 2 }
+				size = { 100% 100% }
+				button = {
+					using = button_tiled_texture
+					spriteType = Corneredtiled
+					spriteborder = { 200 200 }
+					gfxtype = framedbuttongfx
+					size = { 100% 100% }
+					framesize = { 200 200 }
+					upframe = 1
+					overframe = 2
+					downframe = 3
+					disableframe = 4
+					parentanchor = center
+
+					# ToDo: Add Sound.//?
+					#clicksound = " ToDo "
+					# oversound = " ToDo "
+					
+					modify_texture = {
+						name = "Alpha"
+						texture = "gfx/interface/base_parts/circle_60.dds"
+						blend_mode = alphamultiply
+						#spriteType = corneredtiled
+						#spriteborder = { 6 6 }
+					}
+
+					block "On_click" { }
+					icon = {
+						size = { 50 50 } 
+						position = { 3 5 }
+						block "Icon" { texture = "gfx/interface/icons/_default.dds" }
+						parentanchor = center
+					}
+					alpha = 1
+					state = {
+						name = _mouse_hierarchy_enter
+						animation = {
+							alpha = 0.85
+						}
+						duration = 0.08
+					}			
+					state = {
+						name = _mouse_hierarchy_leave
+						animation = {
+							alpha = 1
+						}
+						duration = 0.08
+					}
+				}
+			}
+		}
+	}
 	type bloodline_button = widget { 
 		size = { 200 200 }
 		margin_widget = {
