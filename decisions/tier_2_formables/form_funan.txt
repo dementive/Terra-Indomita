@@ -1,0 +1,53 @@
+﻿country_decisions = {
+	
+	# Form Funan
+	form_funan = {
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = {
+				any_country = {
+					tag = FNN
+				}
+			}
+			capital_scope = {
+				is_in_region = funan_region
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				is_in_region = funan_region
+			}
+		}
+		
+		allow = {
+			can_form_nation_trigger = yes
+			owns_or_subject_owns_region = funan_region
+		}
+		
+		effect = {
+			custom_tooltip = "tier_2_formable_tooltip"
+			change_country_name = "FNN_NAME"
+			hidden_effect = {
+				change_country_adjective = "FNN_ADJECTIVE"
+				change_country_color = "aegean_league_country_color"
+				change_country_tag = FNN
+			}
+			capital_scope = {
+				capital_formable_medium_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			hidden_effect = {
+				region:funan_region = { formable_region_province_effect = yes }
+			}
+			add_3_free_province_investments = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+}
+

@@ -1,4 +1,33 @@
-﻿change_mandate_effect = {
+﻿declare_china_war_effect = {
+	$COUNTRY$ = {
+	    random_neighbour_country = {
+	        limit = {
+	        	is_ai = yes
+	            country_culture_group = chinese
+	            NOT = {
+	            	alliance_with = $COUNTRY$
+	            }
+	        }
+	        weight = {
+	        	modifier = {
+	        		factor = {
+	        			value = 1
+	        			add = num_of_cities
+	        			divide = 2
+	        		}
+	        	}
+	        }
+	        prev = {
+	            declare_war_with_wargoal = {
+	                war_goal = chinese_unification_wargoal
+	                target = prev
+	            }
+	        }
+	    }
+	}
+}
+
+change_mandate_effect = {
 	if = {
 		limit = {
 			has_variable = mandate_variable

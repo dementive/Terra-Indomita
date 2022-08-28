@@ -127,7 +127,7 @@ slaves_locked = {
 }
 
 number_of_prisoners_abroad = {
-	stability_monthly_change = -0.025
+	stability_monthly_change = 0.0
 }
 
 ##########################################################################
@@ -241,7 +241,7 @@ dominant_non_state_religion = {
 starving_city = {
 	supply_limit_modifier = -0.25
 	local_migration_speed = 10
-	local_migration_attraction = -10
+	local_migration_attraction = -12
 	local_pop_demotion_speed_modifier = 0.33
 }
 
@@ -251,6 +251,8 @@ state_starving = {
 	local_unrest = 5
 	minimum_unrest = 5
 	supply_limit_modifier = -0.25
+	local_migration_attraction = -4
+	local_migration_speed = 3
 }
 
 overpopulation = { #Scales depending on how much over capacity
@@ -329,7 +331,7 @@ is_capital_city = {
 	local_nobles_happyness = happiness_large_svalue
 	local_citizen_happyness = happiness_large_svalue
 	local_population_capacity = 10
-	local_building_slot = 1
+	local_building_slot = 2
 	local_pop_promotion_speed_modifier = 0.25
 	local_migration_attraction = 2
 	local_pop_conversion_speed_modifier = 0.20
@@ -404,7 +406,8 @@ unrest = {
 	local_pop_promotion_speed_modifier = -0.1
 	local_pop_demotion_speed_modifier = 0.1
 	local_migration_attraction = -1
-	local_migration_speed_modifier = 0.25
+	local_migration_speed_modifier = 0.025 # Holy shit had to lower this by x10
+	local_pop_assimilation_speed_modifier = -0.05  ### new modifier ###
 }
 
 no_unrest = {
@@ -726,7 +729,7 @@ base_values = {
 	num_of_clan_chiefs = 2
 	enslavement_efficiency = 0.05
 	integrate_speed = 0.25
-	
+	diplomatic_range_modifier = 2
 	global_manpower = 0.25
 	global_tax_income = 2
 	stability_monthly_decay = 0.01
@@ -855,7 +858,7 @@ religious_unity = {
 province_is_holy_site = { # update HOLY_SITE_PROVINCE_BENEFITS_TT if changing
 	local_tax_modifier = 0.1
 	local_building_slot = 1
-	local_migration_attraction = 5
+	local_migration_attraction = 1.5
 }
 
 call_for_peace = {
@@ -1005,57 +1008,56 @@ governor_commanding_levies = {
 }
 
 nation_rank_0 = {
-	global_capital_trade_routes = -2
 	global_manpower = 1
 	num_of_clan_chiefs = 1
 	army_weight_modifier = -0.25
-	civil_war_threshold = 1000
 }
 
 
 nation_rank_1 = {
-	global_commerce_modifier = 0.2	
+	global_commerce_modifier = 0.2
+	global_capital_trade_routes = 1	
 	global_defensive = 0.2
 	diplomatic_relations = 2
-	global_capital_trade_routes = -1
 	num_of_clan_chiefs = 1
 	integrate_speed = 0.05
 	monthly_wage_modifier = 0.025
 	levy_size_multiplier = 0.12
-	mercenary_land_maintenance_cost = -0.25
-	build_cost = -0.25
+	mercenary_land_maintenance_cost = -0.15
+	build_cost = -0.15
 	max_mercenary_stacks = 1
-	civil_war_threshold = 0.85
+	global_monthly_food_modifier = 0.25
+	global_population_capacity_modifier = 0.15 
 }
 
 nation_rank_2 = {
-	diplomatic_relations = 2
+	diplomatic_relations = 1
 	diplomatic_range_modifier = 0.10
 	num_of_clan_chiefs = 1
 	integrate_speed = 0.1
-	happiness_for_same_culture_modifier = 0.02
+	happiness_for_same_culture_modifier = 0.04
 	monthly_wage_modifier = 0.05
 	mercenary_land_maintenance_cost = -0.1
-	build_cost = -0.15
+	build_cost = -0.1
 	max_mercenary_stacks = 1
-	civil_war_threshold = 0.85
+	civil_war_threshold = 0.15
 }
 
 nation_rank_3 = {
-	diplomatic_relations = 2
+	diplomatic_relations = 1
 	global_capital_trade_routes = 1
 	diplomatic_range_modifier = 0.5
 	num_of_clan_chiefs = 2
 	integrate_speed = 0.15
-	price_found_city_cost_modifier = -0.1
+	monthly_political_influence_modifier = 0.05
+	civil_war_threshold = -0.03
 	global_monthly_state_loyalty = -0.01
 	war_score_cost = -0.05
-	happiness_for_same_culture_modifier = 0.04
+	happiness_for_same_culture_modifier = 0.08
 	monthly_wage_modifier = 0.075
 	build_cost = -0.05
-	change_governor_policy_cost_modifier = -0.1
 	max_mercenary_stacks = 2
-	civil_war_threshold = 0.55
+	civil_war_threshold = 0.1
 }
 
 nation_rank_4 = {

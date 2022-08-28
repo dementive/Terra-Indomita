@@ -1,0 +1,51 @@
+﻿country_decisions = {
+	
+	# Form Piaoyue
+	form_piaoyue = {
+		
+		potential = {
+			num_of_cities >= 1
+			primary_culture = piaoyue
+			NOT = {
+				any_country = {
+					tag = PIY
+				}
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				is_in_region = pyu_region
+			}
+		}
+		
+		allow = {
+			can_form_nation_trigger = yes
+			owns_or_subject_owns_region = pyu_region
+		}
+		
+		effect = {
+			custom_tooltip = "tier_2_formable_tooltip"
+			change_country_name = "PIY_NAME"
+			hidden_effect = {
+				change_country_adjective = "PIY_ADJECTIVE"
+				change_country_color = "aegean_league_country_color"
+				change_country_tag = PIY
+			}
+			capital_scope = {
+				capital_formable_medium_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			hidden_effect = {
+				region:pyu_region = { formable_region_province_effect = yes }
+			}
+			add_3_free_province_investments = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+}
+

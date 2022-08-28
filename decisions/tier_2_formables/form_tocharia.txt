@@ -1,0 +1,51 @@
+﻿country_decisions = {
+	
+	# Form Great Tocharia
+	form_great_tocharia = {
+		
+		potential = {
+			num_of_cities >= 1
+			country_culture_group = xiyu
+			NOT = {
+				any_country = {
+					tag = XIY
+				}
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				is_in_region = xiyu_region
+			}
+		}
+		
+		allow = {
+			can_form_nation_trigger = yes
+			owns_or_subject_owns_region = xiyu_region
+		}
+		
+		effect = {
+			custom_tooltip = "tier_2_formable_tooltip"
+			change_country_name = "XIY_NAME"
+			hidden_effect = {
+				change_country_adjective = "XIY_ADJECTIVE"
+				change_country_color = "citrine_green"
+				change_country_tag = XIY
+			}
+			capital_scope = {
+				capital_formable_medium_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			hidden_effect = {
+				region:xiyu_region = { formable_region_province_effect = yes }
+			}
+			add_3_free_province_investments = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+}
+

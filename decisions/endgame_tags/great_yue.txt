@@ -1,0 +1,53 @@
+﻿country_decisions = {
+
+	form_great_yue = {
+		potential = {
+			num_of_cities >= 1
+			country_culture_group = yue
+			NOT = {
+				any_country = {
+					tag = GRY
+				}
+			}
+		}
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_region = jiao_region
+					is_in_region = nanzhong_region
+					is_in_region = jing_region
+					is_in_region = yang_region
+				}
+			}
+		}
+		allow = {
+			#Own south china
+			owns_or_subject_owns_region = jiao_region
+			owns_or_subject_owns_region = nanzhong_region
+			owns_or_subject_owns_region = jing_region
+			owns_or_subject_owns_region = yang_region
+			can_form_nation_trigger = yes
+		}
+		effect = {
+			change_country_name = "GRY_NAME"
+			hidden_effect = {
+				change_country_adjective = "GRY_ADJECTIVE"
+				change_country_color = "not_magna_graecia_color"
+				change_country_tag = GRY
+			}
+			add_country_modifier = {
+				name = formable_country_huge_modifier
+				duration = 7600
+			}
+			capital_scope = {
+				capital_formable_large_effect = yes
+				formable_capital_modifier_large_effect = yes
+			}
+			add_4_free_province_investments = yes
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+}

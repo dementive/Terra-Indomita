@@ -106,3 +106,24 @@ imperial_conquest_wargoal = {
 	ticking_war_score = 0.5
 
 }
+
+chinese_unification_wargoal = {
+	type = superiority
+	uses_civil_war_conquest = yes
+	allow = { #Will this show up in the declare war window.
+		NOT = { has_global_variable = china_unified }
+		country_culture_group = chinese
+		scope:defender = {
+			country_culture_group = chinese
+		}
+	}
+	
+	attacker = {
+		conquer_cost = -0.05
+	}
+	defender = {
+		conquer_cost = -0.05
+	}
+	ticking_war_score = 0.5
+
+}

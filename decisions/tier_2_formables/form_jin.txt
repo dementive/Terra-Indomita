@@ -1,0 +1,69 @@
+﻿country_decisions = {
+	
+	# Form Jin
+	# Wei Zhao or Han
+	form_jin = {
+		
+		potential = {
+			num_of_cities >= 1
+			OR = {
+				tag = ZHA
+				tag = HAN
+				tag = WEI
+			}
+			NOT = {
+				any_country = {
+					tag = JIN
+				}
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = henei_area
+					is_in_region = yu_region
+					is_in_region = yan_region
+					is_in_region = yong_region
+					is_in_area = taiyuan_area
+					is_in_area = shangdang_area
+				}
+			}
+		}
+		
+		allow = {
+			can_form_nation_trigger = yes
+			owns_or_subject_owns_region = yu_region
+			owns_or_subject_owns_region = yan_region
+			owns_or_subject_owns_region = yong_region
+			owns_or_subject_owns_area = henei_area
+			owns_or_subject_owns_area = taiyuan_area
+			owns_or_subject_owns_area = shangdang_area
+		}
+		
+		effect = {
+			custom_tooltip = "tier_2_formable_tooltip"
+			change_country_name = "JIN_NAME"
+			hidden_effect = {
+				change_country_adjective = "JIN_ADJ"
+				change_country_color = "jin_color"
+				change_country_tag = JIN
+			}
+			capital_scope = {
+				capital_formable_medium_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			add_country_modifier = {
+				name = restoration_of_jin
+				duration = -1
+			}
+			add_3_free_province_investments = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+}
+
