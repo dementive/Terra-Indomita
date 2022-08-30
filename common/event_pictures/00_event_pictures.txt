@@ -231,7 +231,18 @@ trade_port = {
 
 city_siege = {
 	theme = War
-	picture = "gfx/interface/event_window/Event_walled_city_under_siege.dds"
+	picture = {
+		trigger = {
+			country_culture_group = chinese
+		}
+		texture = "gfx/interface/event_window/event_ea_tribal_path_attacking_the_city.dds"
+	}
+	picture = {
+		trigger = {
+			always = yes
+		}
+		texture = "gfx/interface/event_window/Event_walled_city_under_siege.dds"
+	}
 }
 
 city_siege_honor = {
@@ -308,6 +319,12 @@ city_country = {
 			country_culture_group = numidian
 		}
 		texture = "gfx/interface/event_window/Event_bakery_with_street_outside_showing_as_well.dds"
+	}
+	picture = {
+		trigger = {
+			country_culture_group = chinese
+		}
+		texture = "gfx/interface/event_window/event_chinese_path_favorable_geographical_conditions.dds"
 	}
 	picture = {
 		trigger = {
@@ -439,12 +456,17 @@ council_country = {
 			}
 		}
 		texture = "gfx/interface/event_window/Event_senate_debate.dds"
+	}
+	picture = {
+		trigger = {
+			country_culture_group = chinese
+		}
+		texture = "gfx/interface/event_window/event_chinese_path_junxian_system.dds"
 	} 
 	picture = {
 		trigger = {
-			OR = {
-				is_monarchy = yes
-			}
+			is_monarchy = yes
+			NOT = { country_culture_group = chinese }
 		}
 		texture = "gfx/interface/event_window/Event_throneroom_king_on_throne_a_few_councilors_nearby.dds"
 	}
@@ -480,6 +502,12 @@ oration = {
 
 war_council = {
 	theme = Senate
+	picture = {
+		trigger = {
+			country_culture_group = chinese
+		}
+		texture = "gfx/interface/event_window/event_chinese_path_junxian_system.dds"
+	}
 	picture = {
 		trigger = {
 			is_republic = yes
@@ -531,6 +559,12 @@ shrine_city = {
 	}
 	picture = {
 		trigger = {
+			country_culture_group = chinese
+		}
+		texture = "gfx/interface/event_window/event_chinese_path_favorable_geographical_conditions.dds"
+	}
+	picture = {
+		trigger = {
 			always = yes
 		}
 		texture = "gfx/interface/event_window/Event_close_up_of_altar_with_ongoing_religious_ceremony.dds"
@@ -570,4 +604,10 @@ peaceful_integration_or_crucifixion = {
 		}
 		texture = "gfx/interface/event_window/Event_greek_philosopher_talking.dds"
 	}
+}
+
+
+chinese_talented_people = {
+	theme = Honor
+	picture = "gfx/interface/event_window/event_chinese_path_recruiting_talented_people.dds"
 }
