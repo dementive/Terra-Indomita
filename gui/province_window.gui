@@ -3689,7 +3689,17 @@ window = {
                         tooltip = "[ProvinceWindow.GetColonizeTooltip]"
                         layoutpolicy_horizontal = fixed
                     }
-
+                    icon_button_province = {
+                        size = { 144 66 }
+                        visible = "[And( Not( ProvinceWindow.GetProvince.IsHolySite ), ProvinceWindow.IsPlayerProvince )]"
+                        blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/holy_site_any.dds" }
+                        enabled = "[ProvinceWindow.CanEnactHolySite]"
+						blockoverride "On_click"
+                        {
+                            onclick = "[ProvinceWindow.ToggleSelectHolySiteWindow]"
+                        }
+                        tooltip = "[ProvinceWindow.GetEnactHolySiteTooltip]"
+                    }
                     icon_button_province = {
                         size = { 144 66 }
                         datacontext = "[GetScriptedGui('move_capital_button')]"

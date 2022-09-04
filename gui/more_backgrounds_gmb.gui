@@ -809,6 +809,20 @@ types MoreBGsTypes {
 			}
 			visible = "[And(Character.HasArmy, EqualTo_string(Character.GetEmployer.GetTag, 'PRY'))]"
 		}
+		# huge wartent for chinese tags
+		icon = {
+			texture = "gfx/interface/portrait/background_ruler_monarchy_wartent_china_huge.dds"
+			spriteType = Corneredtiled
+			size = { 100% 100% }
+			modify_texture = {
+				name = "Alpha"
+				block "AlphaTexture" { texture = "gfx/interface/base_parts/portrait_x32y32bd_alpha.dds" }
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 4 4 }
+			}
+			visible = "[And(Character.HasArmy, EqualTo_string(Character.GetCulture.GetCultureGroup.GetKey, 'chinese'))]"
+		}
 		# huge wartent background for Rome tag
 		icon = {
 			texture = "gfx/interface/portrait/background_ruler_republic_wartent_roman_huge.dds"

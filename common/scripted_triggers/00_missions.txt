@@ -1536,6 +1536,22 @@ generic_block_trigger = {
 				}
 			}
 		}
+		trigger_if = { #Yamato
+			limit = {
+				ROOT = {
+					tag = YMT
+				}
+			}
+			AND = {
+				ROOT = {
+					NOR = {
+						has_completed_mission = yamato_01_heartland
+						has_completed_mission = yamato_02_consolidate
+					}
+				}
+				is_in_region = wa_region
+			}
+		}
 	}
 }
 
