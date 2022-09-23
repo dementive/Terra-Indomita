@@ -1007,6 +1007,34 @@ types MoreBGsTypes {
 			}
 			visible = "[And( And( Character.IsConsort, EqualTo_string(Character.GetEmployer.GetTag, 'PAR')), And( Not(Character.HasArmy), Not(Character.HasNavy)))]"
 		}
+		# Japan Council HUGE
+		icon = {
+			texture = "gfx/interface/portrait/background_ruler_japan_huge.dds"
+			spriteType = Corneredtiled
+			size = { 100% 100% }
+			modify_texture = {
+				name = "Alpha"
+				block "AlphaTexture" { texture = "gfx/interface/base_parts/portrait_x32y32bd_alpha.dds" }
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 4 4 }
+			}
+			visible = "[And( Character.HasTitle, EqualTo_string(Character.GetCulture.GetCultureGroup.GetKey, 'japan'))]"
+		}
+		# Japan Commoner
+		icon = {
+			texture = "gfx/interface/portrait/background_ruler_japan2_huge.dds"
+			spriteType = Corneredtiled
+			size = { 100% 100% }
+			modify_texture = {
+				name = "Alpha"
+				block "AlphaTexture" { texture = "gfx/interface/base_parts/portrait_x32y32bd_alpha.dds" }
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 4 4 }
+			}
+			visible = "[And( Not(Character.HasTitle), EqualTo_string(Character.GetCulture.GetCultureGroup.GetKey, 'japan'))]"
+		}
 		scissor = yes
 
 		margin_widget = {
