@@ -1,0 +1,184 @@
+﻿yue_philosophy = { 
+	color = hsv { 0.9 0.23 0.5 }
+	image = chinese_path_take_the_supplies_from_the_enemy
+
+	allow = {
+		trigger_if = {
+			limit = { country_culture_group = chinese }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = chinese
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = yi }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = yi
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = pu
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = pu
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = yue
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = yue
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = austronesian }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = austronesian
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = miao
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = miao
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = chinese_influence
+			}
+		}
+	}
+
+	yue_one_with_the_water = { ###鐵器使用
+		modifier = { 
+			naval_morale_modifier = 0.05
+		}
+		icon = yue_one_with_the_water
+		requires = {}
+	}
+	yue_rivermen_mil_trad = { ###教誡爲先
+		modifier = { 
+			liburnian_morale = 0.05
+		}
+		icon = yue_rivermen_mil_trad
+		requires = { yue_one_with_the_water }
+	}
+	yue_coastal_warfare_mil_trad = { ###善用地形
+		modifier = { 
+			liburnian_discipline = 0.05
+			blockade_efficiency = 0.025
+		}
+		icon = yue_coastal_warfare_mil_trad
+		requires = { yue_one_with_the_water }
+	}
+	yue_legendary_swords_mil_trad = { ###因糧於敵
+		modifier = { 
+			heavy_infantry_morale = 0.05
+		}
+		icon = yue_legendary_swords_mil_trad
+		requires = {}
+	}
+	yue_bronze_barbarians_mil_trad = { ###用兵之道
+		modifier = {
+			global_export_commerce_modifier = 0.05
+		}
+		icon = yue_bronze_barbarians_mil_trad
+		requires = { yue_legendary_swords_mil_trad }
+	}
+	yue_huaxia_ways_mil_trad = { ###效法狄夷
+		modifier = { 
+			country_civilization_value = 3
+		}
+		on_activate = {
+			add_2_free_province_investments = yes
+		}
+		icon = yue_huaxia_ways_mil_trad
+		requires = { yue_bronze_barbarians_mil_trad }
+	}
+	yue_wild_warriors_mil_trad = { ###效法西戎
+		modifier = { 
+			land_morale_modifier = 0.025
+		}
+		icon = yue_wild_warriors_mil_trad
+		requires = { yue_bronze_barbarians_mil_trad yue_jungle_fever_mil_trad }
+	}
+	yue_royal_armies_mil_trad = { ###人口增长
+		modifier = { 
+			discipline = 0.025
+			global_population_growth = 0.01 
+		}
+		icon = yue_royal_armies_mil_trad
+		allow = {
+			# Have legions
+		}
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 6
+				create_2_freemen_effect = yes
+			}
+			# Give the legion a distinction?
+		}
+		requires = { yue_huaxia_ways_mil_trad }
+	}
+	yue_martial_valor_mil_trad = { ###郡縣制度
+		modifier = { 
+			levy_size_multiplier = 0.025
+		}
+		icon = yue_martial_valor_mil_trad
+		requires = { yue_wild_warriors_mil_trad }
+	}
+	yue_the_hundred_yue_mil_trad = { ###簡募良材
+		modifier = { 
+			global_manpower_modifier = 0.1
+			global_population_capacity_modifier = 0.025
+		}
+		icon = yue_the_hundred_yue_mil_trad
+		requires = { yue_royal_armies_mil_trad yue_martial_valor_mil_trad }
+		on_activate = {
+			add_innovation = 4
+		}
+	}
+	yue_tropical_heat_mil_trad = { ###築城技術
+		modifier = { 
+			hostile_attrition = 0.5
+		}
+		on_activate = {
+			capital_scope = {
+				add_building_level = fortress_building
+			}
+		}
+		icon = yue_tropical_heat_mil_trad
+		requires = {}
+	}
+	yue_jungle_fever_mil_trad = { ###驛站系統
+		modifier = {
+			jungle_combat_bonus = 0.05
+			archers_jungle_combat_bonus = 0.05
+		}
+		icon = yue_jungle_fever_mil_trad
+		requires = { yue_tropical_heat_mil_trad }
+	}
+	yue_elephants_of_the_orient_mil_trad = { ###臨機應變
+		modifier = { 
+			warelephant_discipline = 0.05
+		}
+		icon = yue_elephants_of_the_orient_mil_trad
+		requires = { yue_jungle_fever_mil_trad }
+	}
+}

@@ -1,0 +1,175 @@
+﻿tocharian_philosophy = { 
+	color = hsv { 0 0.98 0.5 }
+	image = ea_tribal_path_all_hands_on_deck
+
+	allow = {
+		trigger_if = {
+			limit = {
+				country_culture_group = di
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = di
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = saka_g
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = saka_g
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = xiyu
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = xiyu
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = eastern_steppe_influence
+			}
+		}
+	}
+
+	tocharian_oasis_cities = { ###鐵器使用
+		modifier = { 
+			oasis_combat_bonus = 0.075
+		}
+		icon = tocharian_oasis_cities
+		requires = {}
+	}
+	tocharian_taklamakan_sands = { ###教誡爲先
+		modifier = { 
+			hostile_attrition = 0.25
+		}
+		icon = tocharian_taklamakan_sands
+		requires = { }
+	}
+	tocharian_horse_adaptablity = { ###善用地形
+		modifier = { 
+			light_cavalry_discipline = 0.05
+			light_cavalry_defensive = 0.05
+		}
+		icon = tocharian_horse_adaptablity
+		requires = { tocharian_oasis_cities }
+	}
+	tocharian_desert_tactics = { ###因糧於敵
+		modifier = { 
+			light_infantry_desert_combat_bonus = 0.075
+		}
+		icon = tocharian_desert_tactics
+		requires = { tocharian_horse_adaptablity }
+	}
+	tocharian_city_state_conscription = { ###用兵之道
+		modifier = {
+			global_manpower_modifier = 0.025
+		}
+		icon = tocharian_city_state_conscription
+		requires = { tocharian_oasis_cities tocharian_taklamakan_sands }
+	}
+	tocharian_desert_defenses = { ###效法狄夷
+		modifier = { 
+			global_defensive = 0.05
+		}
+		icon = tocharian_desert_defenses
+		requires = { tocharian_taklamakan_sands }
+
+	}
+	tocharian_footmen = { ###效法西戎
+		modifier = { 
+			light_infantry_maintenance_cost = -0.05
+			light_infantry_morale = 0.025
+		}
+		icon = tocharian_footmen
+		requires = { tocharian_desert_defenses }
+	}
+	tocharian_local_geography = { ###人口增长
+		modifier = { 
+			global_population_growth = 0.025
+		}
+		icon = tocharian_local_geography
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 6
+				create_2_freemen_effect = yes
+			}
+		}
+		requires = { tocharian_city_state_conscription }
+	}
+	tocharian_anti_steppe_tactics = { ###郡縣制度
+		modifier = { 
+			fortress_building_cost = -0.05
+		}
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					fort_level >= 1
+					is_in_region = xiyu_region
+				}
+				order_by = fort_level
+				max = 3
+				add_province_modifier = {
+					name = anti_steppe_tactics_mods
+					duration = -1
+				}
+			}
+		}
+		icon = tocharian_anti_steppe_tactics
+		requires = { tocharian_city_state_conscription }
+	}
+	tocharian_steppe_bow_mastery = { ###簡募良材
+		modifier = { 
+			horse_archers_discipline = 0.05
+		}
+		icon = tocharian_steppe_bow_mastery
+		requires = { tocharian_anti_steppe_tactics }
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 10
+					add_trait = conqueror
+				}
+			}
+		}
+	}
+	tocharian_chinese_adaptation = { ###築城技術
+		modifier = { 
+			happiness_for_wrong_culture_group_modifier = 0.02
+		}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 10
+					add_trait = conqueror
+				}
+			}
+		}
+		icon = tocharian_chinese_adaptation
+		requires = { tocharian_local_geography }
+	}
+	tocharian_silk_kings = { ###驛站系統
+		modifier = {
+			global_commerce_modifier = 0.05
+		}
+		on_activate = {
+			add_2_free_province_investments = yes
+		}
+		icon = tocharian_silk_kings
+		requires = { tocharian_steppe_bow_mastery tocharian_chinese_adaptation }
+	}
+}

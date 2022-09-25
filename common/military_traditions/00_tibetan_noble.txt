@@ -1,0 +1,180 @@
+﻿tibetan_noble_philosophy = { 
+	color = hsv { 0.27 0.6 0.5 }
+	image = tibetan_noble_philosophy
+	
+
+	allow = {
+		trigger_if = {
+			limit = {
+				country_culture_group = tibetan
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = tibetan
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = rong
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = rong
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = tibetan_influence
+			}
+		}
+	}
+
+	tibetan_fortress_path_1 = {
+		modifier = { 
+			hills_combat_bonus = 0.10
+			mountain_combat_bonus = 0.10
+		}
+		icon = tibetan_fortress_path_1
+		requires = {}
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 3
+				check_range_bounds = no
+				create_2_freemen_effect = yes
+			}
+		}
+	}
+	
+	tibetan_fortress_path_2 = {
+		modifier = { 
+			global_defensive = 0.25
+			fort_limit = 1
+		}
+		icon = tibetan_fortress_path_2
+		requires = {tibetan_fortress_path_1}
+		on_activate = {
+			ordered_owned_province = {	#Upgrades a fort, or creates one
+				limit = {
+					can_build_building = fortress_building
+				}
+				order_by = total_population
+				add_building_level = fortress_building
+			}
+		}
+	}
+	
+		tibetan_fortress_path_3 = {
+		modifier = { 
+			fort_maintenance_cost = -0.10
+		}
+		icon = tibetan_fortress_path_3
+		requires = {tibetan_fortress_path_2}
+		on_activate = {
+			add_4_free_province_investments = yes
+		}
+	}
+
+	tibetan_noble_path_1 = {
+		modifier = { 
+			heavy_infantry_morale = 0.1
+		}
+		icon = tibetan_noble_path_1
+		requires = {}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = tactician
+				}
+			}
+		}
+	}
+	
+	tibetan_noble_path_2 = {
+		modifier = { 
+			heavy_infantry_offensive = 0.1
+		}
+		icon = tibetan_noble_path_2
+		requires = {tibetan_noble_path_1}
+	}
+	
+	tibetan_noble_path_3 = {
+		modifier = { 
+			heavy_infantry_maintenance_cost = -0.05
+			heavy_infantry_cost = -0.05
+		}
+		icon = tibetan_noble_path_3
+		requires = {tibetan_noble_path_2}
+	}
+	
+	tibetan_mauryan_enable = { 
+		modifier = {}
+		icon = mauryan_noble_path_1
+		requires = { tibetan_noble_path_3 }
+		modifier = { 
+			jungle_combat_bonus = 0.075
+		}
+	}
+	
+	tibetan_guerrilla_path_1 = {
+		modifier = { 
+			light_infantry_morale = 0.1
+		}
+		icon = tibetan_guerrilla_path_1
+		requires = {}
+	}
+	
+	tibetan_guerrilla_path_2 = {
+		modifier = { 
+			light_infantry_offensive = 0.1
+			light_infantry_defensive = 0.1
+		}
+		icon = tibetan_guerrilla_path_2
+		requires = {tibetan_guerrilla_path_1}
+	}
+	
+	tibetan_guerrilla_path_3 = {
+		modifier = { 
+			light_infantry_discipline = 0.1
+		}
+		icon = tibetan_guerrilla_path_3
+		requires = {tibetan_guerrilla_path_2}
+	}
+	
+	tibetan_guerrilla_path_4 = {
+		modifier = { 
+			light_infantry_mountain_combat_bonus = 0.15
+			heavy_infantry_mountain_combat_bonus = 0.15
+			mountain_combat_bonus = 0.05
+		}
+		icon = tibetan_guerrilla_path_4
+		requires = {tibetan_guerrilla_path_3 tibetan_noble_path_3}
+	}
+	
+	tibetan_attrition_path_1 = {
+		modifier = { 
+			land_unit_attrition = -0.1
+			light_infantry_hills_combat_bonus = 0.1
+			heavy_infantry_hills_combat_bonus = 0.1
+		}
+		icon = tibetan_attrition_path_1
+		requires = {tibetan_fortress_path_1}
+	}
+	
+	tibetan_attrition_path_2 = {
+		modifier = { 
+			hostile_attrition = 1
+			war_exhaustion = -0.01
+		}
+		icon = tibetan_attrition_path_2
+		requires = {tibetan_attrition_path_1}
+	}
+
+}

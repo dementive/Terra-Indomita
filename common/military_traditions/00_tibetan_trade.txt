@@ -1,0 +1,206 @@
+﻿silk_road_philosophy = { 
+	color = hsv { 0.27 0.6 0.5 }
+	image = silk_road_philosophy
+	
+
+	allow = {
+		trigger_if = {
+			limit = {
+				country_culture_group = tibetan
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = tibetan
+		}	
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = tibetan_influence
+			}
+		}
+	}
+
+	edge_of_world_path_1 = {
+		modifier = { 
+			manpower_recovery_speed = 0.05
+		}
+		icon = edge_of_world_path_1
+		requires = {}
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 3
+				check_range_bounds = no
+				create_2_freemen_effect = yes
+			}
+		}
+	}
+	
+	steppe_raiders_path_1 = {
+		modifier = {
+			mercenary_land_maintenance_cost = -0.15
+			}
+		icon = steppe_raiders_path_1
+		requires = {edge_of_world_path_1}
+	}
+	
+	steppe_raiders_path_2b = {
+		modifier = {
+			enslavement_efficiency = 0.1
+			light_cavalry_movement_speed = 0.1
+			horse_archers_movement_speed = 0.1
+			}
+		icon = steppe_raiders_path_2b
+		requires = {steppe_raiders_path_1}
+	}
+	
+	steppe_raiders_path_3 = {
+		modifier = { 
+			siege_ability = 0.05
+		}
+		icon = steppe_raiders_path_3
+		requires = {steppe_raiders_path_2b}
+	}
+	
+	steppe_raiders_path_2a = {
+		modifier = {
+			light_cavalry_offensive = 0.1
+			horse_archers_offensive = 0.1
+			}
+		icon = steppe_raiders_path_2a
+		requires = {steppe_raiders_path_1}
+	}
+
+	silk_road_persian_enable = {
+		modifier = {
+			plains_combat_bonus = 0.05
+		}
+		requires = { steppe_raiders_path_2a }
+		icon = persian_philosophy_start_bonus
+		allow = {
+			trigger_if = {
+				limit = {
+					any_country_culture = {
+						is_integrated = yes
+						country_culture_pop_count >= percent_size_culture_group_comparison
+						OR = {
+							this.culture.culture_group = culture_group:persia
+							this.culture.culture_group = culture_group:bactrian
+							this.culture.culture_group = culture_group:scythia
+							this.culture.culture_group = culture_group:east_levantine
+							this.culture.culture_group = culture_group:anatolian
+							this.culture.culture_group = culture_group:caucasian
+						}
+					}
+				}
+				any_country_culture = {
+					custom_tooltip = {
+						text = tradition_unlock_requirement_short
+						is_integrated = yes
+						country_culture_pop_count >= percent_size_culture_group_comparison
+						OR = {
+							this.culture.culture_group = culture_group:persia
+							this.culture.culture_group = culture_group:bactrian
+							this.culture.culture_group = culture_group:scythia
+							this.culture.culture_group = culture_group:east_levantine
+							this.culture.culture_group = culture_group:anatolian
+							this.culture.culture_group = culture_group:caucasian
+						}
+					}
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = "tradition_unlock_requirement_persian"
+					any_country_culture = {
+						is_integrated = yes
+						country_culture_pop_count >= percent_size_culture_group_comparison
+						OR = {
+							this.culture.culture_group = culture_group:persia
+							this.culture.culture_group = culture_group:bactrian
+							this.culture.culture_group = culture_group:scythia
+							this.culture.culture_group = culture_group:east_levantine
+							this.culture.culture_group = culture_group:anatolian
+							this.culture.culture_group = culture_group:caucasian
+						}
+					}
+				}
+			}
+		}
+		on_activate = {
+			persian_unlock_effect = yes			
+		}
+	}
+
+	trade_routes_path_1 = {
+		modifier = { 
+			research_points_modifier = 0.025
+		}
+		icon = trade_routes_path_1
+		requires = {}
+		on_activate = {
+			add_innovation = 4
+		}
+	}
+
+	trade_routes_path_2 = {
+		modifier = { 
+			global_commerce_modifier = 0.025
+			global_defensive = 0.05
+		}
+		icon = trade_routes_path_2
+		requires = {trade_routes_path_1}
+	}
+	
+	trade_routes_path_3 = {
+		modifier = { 
+			light_infantry_cost = -0.1
+			light_cavalry_cost = -0.1
+		}
+		icon = trade_routes_path_3
+		requires = {trade_routes_path_2}
+	}
+	
+	trade_routes_path_4 = {
+		modifier = { 
+			happiness_for_wrong_culture_modifier = 0.02
+			happiness_for_same_culture_modifier = 0.02
+		}
+		icon = trade_routes_path_4
+		requires = {trade_routes_path_3}
+	}
+	
+	caravan_guards_path_1 = {
+		modifier = { 
+			light_infantry_maintenance_cost = -0.1
+			light_cavalry_maintenance_cost = -0.1
+		}
+		icon = caravan_guards_path_1
+		requires = {edge_of_world_path_1}
+	}
+	
+	caravan_guards_path_2 = {
+		modifier = { 
+			light_cavalry_discipline = 0.1
+			global_cohort_start_experience = 2.5
+			experience_decay = -0.0025
+		}
+		icon = caravan_guards_path_2
+		requires = {caravan_guards_path_1}
+	}
+	
+	caravan_guards_path_3 = {
+		modifier = { 
+			cohort_reinforcement_speed = 0.1
+		}
+		icon = caravan_guards_path_3
+		requires = {caravan_guards_path_2}
+	}
+	
+
+}
