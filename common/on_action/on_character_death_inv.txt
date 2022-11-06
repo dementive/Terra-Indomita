@@ -749,18 +749,9 @@ on_character_death = {
 				limit = {
 					exists = scope:holding_target
 				}
-				set_variable = {
-					name = count
-					value = 0
-				}
 				while = {
 					limit = {
 						num_holdings_owned > 0
-						var:count < 50
-					}
-					change_variable = {
-						name = count
-						add = 1
 					}
 					random_holdings = {
 						save_scope_as = holding_transfer
