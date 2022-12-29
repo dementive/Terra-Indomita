@@ -1,0 +1,216 @@
+﻿qin_03_empire = {
+    header = "mission_image_china"
+    icon = "general_1"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var_3 }
+        # has_completed_mission = qin_02_li_si
+        tag = QIN
+        always = no
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var_3
+            days = 7300
+        }
+    }
+    on_completion = {
+        #Form qin empire country, get empire gov
+    }
+    qin_03_empire_task_1 = { #Wei Liao
+        icon = "task_political"
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.1
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_2 = { #Promote Wei Liao
+        icon = "task_political"
+        requires = { qin_03_empire_task_1 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.2
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_3 = { #The Great Weng Jian
+        icon = "task_political"
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.3
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_4 = { #Promote Weng Jian
+        icon = "task_political"
+        requires = { qin_03_empire_task_3 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.4
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_5 = { #Wei Liauzi
+        icon = "task_political"
+        requires = { qin_03_empire_task_2 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.5
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_6 = { #Planning Unification
+        icon = "task_political"
+        requires = { qin_03_empire_task_4 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.6
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_7 = { #Humiliate Chu
+        icon = "task_political"
+        requires = { qin_03_empire_task_4 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.7
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_8 = { #Squash Chu
+        icon = "task_political"
+        requires = { qin_03_empire_task_7 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.8
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_9 = { #Han's Demise
+        icon = "task_political"
+        requires = { qin_03_empire_task_5 qin_03_empire_task_6 }
+        allow = {
+            #Annex Han
+        }
+        on_completion = {
+            trigger_event = me_qin_empire.9
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_10 = { #Fell Zhao
+        icon = "task_political"
+        requires = { qin_03_empire_task_9 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.10
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_11 = { #Lay Waste to Wei
+        icon = "task_political"
+        requires = { qin_03_empire_task_9 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.11
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_12 = { #Yue Conquest
+        icon = "task_political"
+        requires = { qin_03_empire_task_8 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.12
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_13 = { #End the Zhou Dynasty
+        icon = "task_political"
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.13
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_14 = { #New Mandate of Heaven
+        icon = "task_political"
+        requires = { qin_03_empire_task_13 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.14
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_15 = { #Yeet Yan
+        icon = "task_political"
+        requires = { qin_03_empire_task_10 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.15
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_16 = { #Extinguish Qi
+        icon = "task_political"
+        requires = { qin_03_empire_task_15 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.16
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    qin_03_empire_task_17 = { #One Nation Under Qin
+        icon = "task_political"
+        requires = { qin_03_empire_task_16 }
+        final = yes
+        allow = {}
+        on_completion = {
+            trigger_event = me_qin_empire.17
+            show_as_tooltip = {
+
+            }
+        }
+    }
+}
