@@ -31,7 +31,9 @@
         on_completion = {
             trigger_event = me_qin_shan_yang.1
             custom_tooltip = qin_01_shan_yang_task_1_tt
-            add_political_influence = -15
+            show_as_tooltip = {
+				add_political_influence = -15
+			}
         }
     }
     qin_01_shan_yang_task_2 = { #Claim Yiqu
@@ -58,34 +60,44 @@
     qin_01_shan_yang_task_3 = { #Neuter Yiqu
         icon = "task_political"
         requires = { qin_01_shan_yang_task_2 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = anding_area
+					is_in_area = tianshui_area
+				}
+			}
+		}
         allow = {
             #Control anding_area and tianshui_area
             owns_or_subject_owns_area = anding_area
             owns_or_subject_owns_area = tianshui_area
         }
         on_completion = {
-            random_owned_province = {
-                limit = {
-                    is_in_area = anding_area
-                }
-                state = {
-                    add_state_modifier = {
-                        name = destruction_of_yiqu
-                        duration = 7300
-                    }
-                }
-            }
-            random_owned_province = {
-                limit = {
-                    is_in_area = tianshui_area
-                }
-                state = {
-                    add_state_modifier = {
-                        name = destruction_of_yiqu
-                        duration = 7300
-                    }
-                }
-            }
+			show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						is_in_area = anding_area
+					}
+					state = {
+						add_state_modifier = {
+							name = destruction_of_yiqu
+							duration = 7300
+						}
+					}
+				}
+				random_owned_province = {
+					limit = {
+						is_in_area = tianshui_area
+					}
+					state = {
+						add_state_modifier = {
+							name = destruction_of_yiqu
+							duration = 7300
+						}
+					}
+				}
+			}
             trigger_event = me_qin_shan_yang.3
         }
     }
@@ -97,26 +109,81 @@
         on_start = {
             #Trigger 3 random event with different descriptions so it feels different
             #trigger_event = me_qin_shan_yang.4a
+			trigger_event = {
+				id = me_qin_shan_yang.4000
+				days = { 100 150 }
+			}
+			trigger_event = {
+				id = me_qin_shan_yang.4001
+				days = { 250 300 }
+			}
+			trigger_event = {
+				id = me_qin_shan_yang.4002
+				days = { 400 450 }
+			}
         }
         on_completion = {
-            custom_tooltip = TODO_events
             trigger_event = me_qin_shan_yang.4
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = womens_militia_mod #5% fort def, -5% fort maint
+					duration = -1
+				}
+			}
         }
     }
     qin_01_shan_yang_task_5 = { #Sechuan Assimilation
         icon = "task_political"
         requires = { qin_01_shan_yang_task_1 }
         duration = 550
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = guanghan_area
+					is_in_area = ba_area
+					is_in_area = shu_area
+					is_in_area = qianwei_area
+				}
+			}
+		}
         allow = {
             political_influence >= 25
         }
         on_start = {
-            #Negative events throughout...
+            trigger_event = {
+				id = me_qin_shan_yang.5000
+				days = { 100 150 }
+			}
+			trigger_event = {
+				id = me_qin_shan_yang.5001
+				days = { 250 300 }
+			}
+			trigger_event = {
+				id = me_qin_shan_yang.5002
+				days = { 400 450 }
+			}
             custom_tooltip = qin_01_shan_yang_task_5_tt
             add_political_influence = -25
         }
         on_completion = {
             trigger_event = me_qin_shan_yang.5
+			show_as_tooltip = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = guanghan_area
+							is_in_area = ba_area
+							is_in_area = shu_area
+							is_in_area = qianwei_area
+						}
+					}
+					add_province_modifier = {
+						name = sechuan_assimilation_mod
+						duration = 7300
+					}
+				}
+			}
+			
             #assimilation mod in guanghan_area, ba_area, shu_area and qianwei_area
         }
     }
@@ -124,39 +191,189 @@
         icon = "task_political"
         requires = { qin_01_shan_yang_task_1 }
         allow = {
-            #Remove 7 holdings from great families (svalue in the revoke char interaction)
+			any_character = {
+				count >=3
+				has_loyalty = revoked_holding_l
+			}
+            #Remove 7 holdings from great families (svalue in the revoke char interaction) --> too complicated --> use has_loyalty = revoked_holding_l
         }
         on_completion = {
             trigger_event = me_qin_shan_yang.6
-            add_political_influence = 30
-            add_legitimacy = 10
-            #Give a modifier as well
-            add_country_modifier = {
-                name = sechuan_admin_mod
-                duration = 3650
-            }
+			show_as_tooltip = {
+				add_political_influence = 30
+				add_legitimacy = 10
+				add_country_modifier = {
+					name = sechuan_admin_mod
+					duration = 3650
+				}
+			}
         }
     }
     qin_01_shan_yang_task_7 = { #Civilize Sechuan
         icon = "task_political"
         requires = { qin_01_shan_yang_task_5 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = guanghan_area
+					is_in_area = ba_area
+					is_in_area = shu_area
+					is_in_area = qianwei_area
+				}
+			}
+		}
         allow = {
+			area:guanghan_area = {
+				any_area_province = {
+					count >=3
+					has_city_status = yes
+					total_population >= 25
+					free_building_slots = 0
+				}
+			}
+			area:ba_area = {
+				any_area_province = {
+					count >=3
+					has_city_status = yes
+					total_population >= 25
+					free_building_slots = 0
+				}
+			}
+			area:shu_area = {
+				any_area_province = {
+					count >=3
+					has_city_status = yes
+					total_population >= 25
+					free_building_slots = 0
+				}
+			}
+			area:qianwei_area = {
+				any_area_province = {
+					count >=3
+					has_city_status = yes
+					total_population >= 25
+					free_building_slots = 0
+				}
+			}
             #3 cities over 25 pops and 5 buildings in guanghan_area, ba_area, shu_area and qianwei_area areas.
         }
         on_completion = {
             trigger_event = me_qin_shan_yang.7
-            add_2_free_province_investments = yes
-            #Convert + promote 8-12 pops in the cities
+			show_as_tooltip = {
+				add_2_free_province_investments = yes
+				every_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = guanghan_area
+							is_in_area = ba_area
+							is_in_area = shu_area
+							is_in_area = qianwei_area
+						}
+						has_city_status = yes
+						total_population >= 25
+						free_building_slots = 0
+					}
+					ordered_pops_in_province = {
+						limit = {
+							NOT = { pop_culture = root.culture }
+						}
+						order_by = pop_hapiness
+						max = 8
+						check_range_bounds = no
+						set_pop_culture = root.culture
+					}
+					every_pops_in_province = {
+						limit = { 
+							pop_culture = root.culture
+							pop_type = slaves 
+						}
+						set_pop_type = freemen 
+					}
+					every_pops_in_province = {
+						limit = { 
+							pop_culture = root.culture
+							pop_type = freemen 
+						}
+						set_pop_type = citizen 
+					}
+				}
+				#Convert + promote 8-12 pops in the cities
+			}   
         }
     }
     qin_01_shan_yang_task_8 = { # Meritocratic Promotion
         icon = "task_political"
         requires = { qin_01_shan_yang_task_4 }
         allow = {
-            #Copy the athens tree statemenship things
+            trigger_if = {
+        		limit = {
+        			NOT = {
+        				any_character = {
+        					has_office = office_foreign_minister
+        				}
+        			}
+        		}
+        		custom_tooltip = {
+        			text = "qin_01_shan_yang_task_8_foreign_minister_check"
+        			always = no
+        		}
+        	}
+        	trigger_if = {
+        		limit = {
+        			NOT = {
+        				any_character = {
+        					has_office = office_steward
+        				}
+        			}
+        		}
+        		custom_tooltip = {
+        			text = "qin_01_shan_yang_task_8_steward_check"
+        			always = no
+        		}
+        	}
+        	trigger_if = {
+        		limit = {
+        			NOT = {
+        				any_character = {
+        					has_tech_office_of = civic_tech
+        				}
+        			}
+        		}
+        		custom_tooltip = {
+        			text = "athenian_mission_03_political_task_2_trigger_civic_researcher_check"
+        			always = no
+        		}
+        	}
+        	custom_tooltip = {
+    			text = qin_01_shan_yang_task_8_trigger_tt #compare athenian_mission_03_political_task_2_trigger_tt
+    			any_character = {
+					has_office = office_foreign_minister
+					loyalty >= 80
+					character_experience >= 50
+    			}
+    			any_character = {
+					has_office = office_steward
+					loyalty >= 80
+					character_experience >= 50
+    			}
+    			any_character = {
+					has_tech_office_of = civic_tech
+					loyalty >= 80
+					character_experience >= 50
+    			}
+    		}
         }
         on_completion = {
             trigger_event = me_qin_shan_yang.8
+			show_as_tooltip = {
+				every_character = {
+					limit = { has_office = yes }
+					add_zeal = 1
+					add_martial = 1
+					add_charisma = 1
+					add_finesse = 1
+				}
+			}
             #+1 all attributes for all officals and researchers
         }
     }
@@ -164,30 +381,60 @@
         icon = "task_political"
         requires = { qin_01_shan_yang_task_6 }
         allow = {
+			NOT = {
+				any_character = {
+					OR = {
+						has_any_office = yes
+						is_head_of_family = yes
+					}
+					loyalty <= 33
+				}
+			}
             #All characters with more than 0 powerbase are loyal
         }
         on_completion = {
             trigger_event = me_qin_shan_yang.9
-            add_political_influence = 20
-            current_ruler.family = { add_prestige = 200 }
-            add_country_modifier = {
-                name = absolute_authority_country_mod
-                duration = 3650
-            }
+			show_as_tooltip = {
+				add_political_influence = 20
+				current_ruler.family = { add_prestige = 200 }
+				add_country_modifier = {
+					name = absolute_authority_country_mod
+					duration = 3650
+				}
+			}
         }
     }
     qin_01_shan_yang_task_10 = { #End of the Rong
         icon = "task_political"
         requires = { qin_01_shan_yang_task_3 }
+		highlight = {
+			scope:province = {
+				AND = {
+					has_owner = yes
+					owner = c:YQI
+				}
+			}
+		}
         allow = {
-            #Yiqu is has no land or is vassalized
+			OR = {
+				c:YQI = {
+					has_land = no
+				}
+				any_subject = {
+					tag = YQI
+				}
+			}
+			
+			#Yiqu is has no land or is vassalized
         }
         on_completion = {
             trigger_event = me_qin_shan_yang.10
-            add_country_modifier = {
-                name = end_of_rong_country_mod
-                duration = 3650
-            }
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = end_of_rong_country_mod
+					duration = 3650
+				}
+			}
         }
     }
     qin_01_shan_yang_task_11 = { #Shan Yang's Legacy
@@ -202,12 +449,14 @@
         allow = {}
         on_completion = {
             trigger_event = me_qin_shan_yang.11
-            add_political_influence = 20
-            add_legitimacy = 10
-            add_country_modifier = {
-                name = shan_yangs_legacy_country_mod
-                duration = 3650
-            }
+			show_as_tooltip = {
+				add_political_influence = 20
+				add_legitimacy = 10
+				add_country_modifier = {
+					name = shan_yangs_legacy_country_mod
+					duration = 3650
+				}
+			}
         }
     }
 }

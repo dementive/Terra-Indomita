@@ -18,6 +18,7 @@ me_qin_shan_yang.1 = {
     option = {
         name = "me_qin_shan_yang_1.a"
         custom_tooltip = me_qin_shan_yang_1_tooltip
+		add_political_influence = -15
     }
 
     after = {
@@ -156,8 +157,28 @@ me_qin_shan_yang.3 = {
 
     option = {
         name = "me_qin_shan_yang_3.a"
-        custom_tooltip = me_qin_shan_yang_3_tooltip
-
+		random_owned_province = {
+			limit = {
+				is_in_area = anding_area
+			}
+			state = {
+				add_state_modifier = {
+					name = destruction_of_yiqu
+					duration = 7300
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_in_area = tianshui_area
+			}
+			state = {
+				add_state_modifier = {
+					name = destruction_of_yiqu
+					duration = 7300
+				}
+			}
+		}
     }
 }
 me_qin_shan_yang.4 = {
@@ -169,8 +190,62 @@ me_qin_shan_yang.4 = {
 
     option = {
         name = "me_qin_shan_yang_4.a"
-        custom_tooltip = me_qin_shan_yang_4_tooltip
+        add_country_modifier = {
+			name = womens_militia_mod #5% fort def, -5% fort maint
+			duration = -1
+		}
+    }
+}
+me_qin_shan_yang.4000 = {
+    type = country_event
 
+    title = me_qin_shan_yang_4000_title
+    desc = me_qin_shan_yang_4000_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_4000.a"
+		capital_scope = {
+			add_province_modifier = {
+				name = womens_militia_mod_neg1 #local unrest
+				duration = 1825 #5 years
+			}
+		}
+		random_owned_province = {
+			limit = { has_city_status = yes }
+			add_province_modifier = {
+				name = womens_militia_mod_neg1 #local unrest
+				duration = 1825 #5 years
+			}
+			save_scope_as = rebels_against_womens_militia
+		}
+    }
+}
+me_qin_shan_yang.4001 = {
+    type = country_event
+
+    title = me_qin_shan_yang_4001_title
+    desc = me_qin_shan_yang_4001_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_4001.a"
+		add_stability = -10
+    }
+}
+me_qin_shan_yang.4002 = {
+    type = country_event
+
+    title = me_qin_shan_yang_4002_title
+    desc = me_qin_shan_yang_4002_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_4002.a"
+        add_country_modifier = {
+			name = womens_militia_mod_neg2 #noble unhappiness
+			duration = -1
+		}
     }
 }
 me_qin_shan_yang.5 = {
@@ -182,8 +257,103 @@ me_qin_shan_yang.5 = {
 
     option = {
         name = "me_qin_shan_yang_5.a"
-        custom_tooltip = me_qin_shan_yang_5_tooltip
+        every_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = guanghan_area
+					is_in_area = ba_area
+					is_in_area = shu_area
+					is_in_area = qianwei_area
+				}
+			}
+			add_province_modifier = {
+				name = sechuan_assimilation_mod
+				duration = 7300
+			}
+		}
+    }
+}
+me_qin_shan_yang.5000 = {
+    type = country_event
 
+    title = me_qin_shan_yang_5000_title
+    desc = me_qin_shan_yang_5000_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_5000.a"
+        random_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = guanghan_area
+					is_in_area = ba_area
+					is_in_area = shu_area
+					is_in_area = qianwei_area
+				}
+			}
+			add_province_modifier = {
+				name = sechuan_neg_mod1 #something bad
+				duration = 1825 # 5years
+			}
+		}
+
+    }
+}
+me_qin_shan_yang.5001 = {
+    type = country_event
+
+    title = me_qin_shan_yang_5001_title
+    desc = me_qin_shan_yang_5001_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_5001.a"
+        if = {
+			limit = {
+				any_country_culture = {
+					is_integrated = no
+				}
+			}					
+			random_country_culture = {
+				limit = { is_integrated = no }
+				save_scope_as = sechuan_culture_scope
+				add_country_culture_modifier = {
+					 name = sechuan_neg_mod2 #something bad
+					 duration = 3650 # 30 years
+				}
+			}
+		}
+    }
+}
+me_qin_shan_yang.5002 = {
+    type = country_event
+
+    title = me_qin_shan_yang_5002_title
+    desc = me_qin_shan_yang_5002_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_5.a"
+        random_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = guanghan_area
+					is_in_area = ba_area
+					is_in_area = shu_area
+					is_in_area = qianwei_area
+				}
+				any_pops_in_province = {
+					pop_culture = root.culture
+				}
+			}
+			every_pops_in_province = {
+				limit = {
+					pop_culture = root.culture
+				}
+				kill_pop = yes
+			}
+		}
+		
     }
 }
 me_qin_shan_yang.6 = {
@@ -195,7 +365,12 @@ me_qin_shan_yang.6 = {
 
     option = {
         name = "me_qin_shan_yang_6.a"
-        custom_tooltip = me_qin_shan_yang_6_tooltip
+		add_political_influence = 30
+		add_legitimacy = 10
+		add_country_modifier = {
+			name = sechuan_admin_mod
+			duration = 3650
+		}
 
     }
 }
@@ -208,8 +383,43 @@ me_qin_shan_yang.7 = {
 
     option = {
         name = "me_qin_shan_yang_7.a"
-        custom_tooltip = me_qin_shan_yang_7_tooltip
-
+        add_2_free_province_investments = yes
+		every_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = guanghan_area
+					is_in_area = ba_area
+					is_in_area = shu_area
+					is_in_area = qianwei_area
+				}
+				has_city_status = yes
+				total_population >= 25
+				free_building_slots = 0
+			}
+			ordered_pops_in_province = {
+				limit = {
+					NOT = { pop_culture = root.culture }
+				}
+				order_by = pop_hapiness
+				max = 8
+				check_range_bounds = no
+				set_pop_culture = root.culture
+			}
+			every_pops_in_province = {
+				limit = { 
+					pop_culture = root.culture
+					pop_type = slaves 
+				}
+				set_pop_type = freemen 
+			}
+			every_pops_in_province = {
+				limit = { 
+					pop_culture = root.culture
+					pop_type = freemen 
+				}
+				set_pop_type = citizen 
+			}
+		}
     }
 }
 me_qin_shan_yang.8 = {
@@ -221,7 +431,13 @@ me_qin_shan_yang.8 = {
 
     option = {
         name = "me_qin_shan_yang_8.a"
-        custom_tooltip = me_qin_shan_yang_8_tooltip
+		every_character = {
+			limit = { has_office = yes }
+			add_zeal = 1
+			add_martial = 1
+			add_charisma = 1
+			add_finesse = 1
+		}
 
     }
 }
@@ -234,8 +450,12 @@ me_qin_shan_yang.9 = {
 
     option = {
         name = "me_qin_shan_yang_9.a"
-        custom_tooltip = me_qin_shan_yang_9_tooltip
-
+        add_political_influence = 20
+		current_ruler.family = { add_prestige = 200 }
+		add_country_modifier = {
+			name = absolute_authority_country_mod
+			duration = 3650
+		}
     }
 }
 me_qin_shan_yang.10 = {
@@ -247,8 +467,10 @@ me_qin_shan_yang.10 = {
 
     option = {
         name = "me_qin_shan_yang_10.a"
-        custom_tooltip = me_qin_shan_yang_10_tooltip
-
+        add_country_modifier = {
+			name = end_of_rong_country_mod
+			duration = 3650
+		}
     }
 }
 me_qin_shan_yang.11 = {
@@ -260,8 +482,12 @@ me_qin_shan_yang.11 = {
 
     option = {
         name = "me_qin_shan_yang_11.a"
-        custom_tooltip = me_qin_shan_yang_11_tooltip
-
+		add_political_influence = 20
+		add_legitimacy = 10
+		add_country_modifier = {
+			name = shan_yangs_legacy_country_mod
+			duration = 3650
+		}
     }
 }
 
