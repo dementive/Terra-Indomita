@@ -501,11 +501,45 @@ me_qin_li_si.1 = {
     title = me_qin_li_si_1_title
     desc = me_qin_li_si_1_desc
     picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:li_si_character
+	
+	immediate = {
+		create_character = {
+			first_name = "Li"
+			family_name = "Si"
+			culture = root.culture
+			religion = root.religion
+			age = 33
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				amazing_martial_effect = yes
+				amazing_finesse_effect = yes
+				amazing_charisma_effect = yes
+				amazing_zeal_effect = yes
+				add_trait = silver_tongued
+				add_trait = wise
+				add_trait = shrewd
+				add_trait = scholar
+				add_trait = intelligent
+				add_trait = ambitious
+				add_charisma = 3
+				add_finesse = 3
+				add_zeal = 3
+			}
+			save_scope_as = li_si_character
+        }
+		set_variable = {
+			name = li_si_character_scope_variable
+			value = scope:li_si_character
+		}
+	}
 
     option = {
         name = "me_qin_li_si_1.a"
-        custom_tooltip = me_qin_li_si_1_tooltip
-
+		
     }
 }
 me_qin_li_si.2 = {
@@ -514,10 +548,13 @@ me_qin_li_si.2 = {
     title = me_qin_li_si_2_title
     desc = me_qin_li_si_2_desc
     picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:li_si_character
 
     option = {
         name = "me_qin_li_si_2.a"
-        custom_tooltip = me_qin_li_si_2_tooltip
+        custom_tooltip = qin_02_li_si_task_2_claims_tt
 
     }
 }
@@ -530,7 +567,7 @@ me_qin_li_si.3 = {
 
     option = {
         name = "me_qin_li_si_3.a"
-        custom_tooltip = me_qin_li_si_3_tooltip
+        custom_tooltip = qin_02_li_si_task_3_claims_tt
 
     }
 }
@@ -543,8 +580,12 @@ me_qin_li_si.4 = {
 
     option = {
         name = "me_qin_li_si_4.a"
-        custom_tooltip = me_qin_li_si_4_tooltip
-
+        p:8866 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8879 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
     }
 }
 me_qin_li_si.5 = {
@@ -605,11 +646,23 @@ me_qin_li_si.9 = {
     title = me_qin_li_si_9_title
     desc = me_qin_li_si_9_desc
     picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:royal_tutor_qin_9
+	
+	immediate = {
+		random_character = {
+			limit = { has_office = office_royal_tutor }
+			save_scope_as = royal_tutor_qin_9
+		}
+	}
 
     option = {
         name = "me_qin_li_si_9.a"
-        custom_tooltip = me_qin_li_si_9_tooltip
-
+        add_country_modifier = {
+			name = state_sanctioned_scholars_country_mod
+			duration = 7300
+		}
     }
 }
 me_qin_li_si.10 = {
@@ -647,8 +700,10 @@ me_qin_li_si.12 = {
 
     option = {
         name = "me_qin_li_si_12.a"
-        custom_tooltip = me_qin_li_si_12_tooltip
-
+        add_country_modifier = {
+			name = great_wall_of_qin
+			duration = -1
+		}
     }
 }
 me_qin_li_si.13 = {
@@ -660,8 +715,21 @@ me_qin_li_si.13 = {
 
     option = {
         name = "me_qin_li_si_13.a"
-        custom_tooltip = me_qin_li_si_13_tooltip
-
+        p:8589 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8335 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8380 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8367 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8626 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
     }
 }
 me_qin_li_si.14 = {
@@ -710,11 +778,41 @@ me_qin_li_si.17 = {
     title = me_qin_li_si_17_title
     desc = me_qin_li_si_17_desc
     picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:bai_qi_character
+	
+	immediate = {
+		create_character = {
+			first_name = "Bai"
+			family_name = "Qi"
+			culture = root.culture
+			religion = root.religion
+			age = 39
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				amazing_martial_effect = yes
+				amazing_finesse_effect = yes
+				amazing_charisma_effect = yes
+				amazing_zeal_effect = yes
+				add_trait = energetic
+				add_trait = tactician
+				add_trait = disciplined
+				add_trait = intelligent
+				add_trait = ambitious
+				add_martial = 6
+			}
+			save_scope_as = bai_qi_character
+        }
+		set_variable = {
+			name = bai_qi_character_scope_variable
+			value = scope:bai_qi_character
+		}
+	}
 
     option = {
         name = "me_qin_li_si_17.a"
-        custom_tooltip = me_qin_li_si_17_tooltip
-
     }
 }
 
@@ -724,11 +822,16 @@ me_qin_li_si.18 = {
     title = me_qin_li_si_18_title
     desc = me_qin_li_si_18_desc
     picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:bai_qi_character
 
     option = {
         name = "me_qin_li_si_18.a"
-        custom_tooltip = me_qin_li_si_18_tooltip
-
+        add_country_modifier = {
+			name = leadership_of_bai_qi
+			duration = 7300
+		}
     }
 }
 
