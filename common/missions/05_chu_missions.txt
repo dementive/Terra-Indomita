@@ -16,7 +16,6 @@
         ai_mission_back_out_trigger = yes
     }
     on_start = {
-        trigger_event = me_chu.26
         start_mission_ai_effect = yes
     }
     on_abort = {
@@ -34,18 +33,28 @@
         }
     }
 
-    01_chu_missions_task_1 = { #Tension on the Border
-        icon = "task_expansion"
-        duration = 90
+    01_chu_missions_task_1 = { #A Quarrel Turned Deadly
+        icon = "task_diplomatic"
+        duration = 15
+        
 
         allow = {
             political_influence >= 15
             treasury >= 25
         }
+
+        on_start = {
+            char:474 = {
+                save_scope_as = poor_kui_ying
+            }
+            any_character = {
+                is_primary_heir = yes
+                save_scope_as = next_king
+            }
+            
+        }
+
         on_completion = {
-            area:chomolangma_area = {
-                add_provincial_claim_effect = yes
-			}
             add_political_influence = -15
         	add_treasury = -25
             trigger_event = me_chu.1
@@ -54,35 +63,35 @@
             }
         }
     }
-    01_chu_missions_task_2 = { #Foothills of Terai
+    01_chu_missions_task_2 = { #War Refugees
         icon = "task_diplomatic"
         duration = 60
 
         requires = { 01_chu_missions_task_1}
 
-        highlight = {
-			scope:province = {
-				OR = {
-					province_id = 5573				
-				}
-			}
-		}
 
         allow = {
-            political_influence >= 15
-            treasury >= 25
+            has_war_exhaustion >= 10
+            manpower <= 10
+            capital_scope = {
+                free_building_slots >= 1
+            }
         }
         on_completion = {
-            add_political_influence = -15
-        	add_treasury = -25
-            p:5573 = { set_owned_by = root }
+            capital_scope = {
+                add_building_level = citizen_building
+                create_state_pop = citizen
+                create_state_pop = citizen
+                create_state_pop = citizen
+                create_state_pop = citizen
+            }
             trigger_event = me_chu.2
             show_as_tooltip = {
 
             }
         }
     }
-    01_chu_missions_task_3 = { #Finishing the Tsang
+    01_chu_missions_task_3 = { #Harsh Realities
         icon = "task_battle"
 
         highlight = {
@@ -96,16 +105,17 @@
         requires = { 01_chu_missions_task_1}
 
         allow = {
-            owns = 5589
-            political_influence >= 15
-            treasury >= 25
+            political_influence >= 50
+            treasury >= 100
+            stability >= 70
         }
         on_completion = {
-            add_political_influence = -15
-        	add_treasury = -25
+            add_political_influence = -50
+        	add_treasury = -100
+            add_stability = -10
             add_country_modifier = {
-                name = glorious_battle
-                duration = 1825	# 5 years
+                name = chu_mil_gov_reform
+                duration = 7300	# 20 years
             }
             trigger_event = me_chu.3
             show_as_tooltip = {
@@ -113,7 +123,7 @@
             }
         }
     }
-    01_chu_missions_task_4 = { #The Spoils of War
+    01_chu_missions_task_4 = { #A Candle In The Dark
         icon = "task_happiness"
         duration = 180
 
@@ -122,83 +132,101 @@
         highlight = {
 			scope:province = {
 				OR = {
-                    province_id = 5630
+                    province_id = 8972
 				}
 			}
         }
 
         allow = {
-            owns = 5630
+            hidden:capital_scope = {
+                has_building = commerce_building
+                has_building = academy_building
+                has_building = port_building
+            }
         }
         on_completion = {
-            capital_scope = {
-                create_2_slaves_effect = yes
-            } 
-            add_1_free_province_investments = yes
-            add_innovation = 1
+            add_2_free_province_investments = yes
+            p:8972 = {
+                add_province_modifier = {
+                    name = chu_candle_dark
+                    duration = -1
+                }
+            }
             trigger_event = me_chu.4
             show_as_tooltip = {
 
             }
         }
     }
-    01_chu_missions_task_5 = { #Rumors of Gemstones
-        icon = "task_economical"
+    01_chu_missions_task_5 = { #Envoy to Qi
+        icon = "task_diplomatic"
         duration = 365
 
         requires = { 01_chu_missions_task_3 }
 
+
+        hidden:immediate = {
+                c:CHU= {
+                    create_character = {
+                        first_name = "Qu"
+                        family_name = "Yuan"
+                        age = 32
+                        female = no
+                        culture = chu
+                        religion = chinese_religions
+                        save_scope_as = qu_yuan
+                    }
+                    scope:qu_yuan = {
+                        add_martial = 1
+                        add_charisma = 1
+                        add_finesse = 1
+                        add_zeal = 1
+                        add_trait = steadfast
+                    }
+            }
+        }
+
         allow = {
             political_influence >= 30
-            treasury >=150
+            treasury >=50
         }
+
         on_completion = {
             add_political_influence = -30
-        	add_treasury = -150
-            area:suvarna_gotra_area = {
-                random_area_province = {
-                        limit = {
-                            has_city_status = no
-                            trade_goods = cattle
-                        }
-						set_trade_goods = gems
-                }
-            }
+        	add_treasury = -50
+            c:QII = {
+				add_opinion = {
+					modifier = cyr_foreign_friend_opinion
+					target = ROOT
+				}
+			}
+         
             trigger_event = me_chu.5
             show_as_tooltip = {
 
             }
         }
     }
-    01_chu_missions_task_6 = { #Uniting the Bon
+    01_chu_missions_task_6 = { #Attacking the Yue
         icon = "task_conquest"
         duration = 365
-
-        highlight = {
-			scope:province = {
-				OR = {
-                    province_id = 5630
-				}
-			}
-        }
 
         requires = { 01_chu_missions_task_3 }
 
         allow = {
-            owns = 5630
             political_influence >= 30
             treasury >= 50
         }
         on_completion = {
             add_political_influence = -30
         	add_treasury = -50
-            area:lhasa_area = {
+            area:luling_area = {
                 add_provincial_claim_effect = yes
 			}
-            area:yarlung_area = {
+            area:kuaiji_area = {
                 add_provincial_claim_effect = yes
 			}
-            area:sumpa_area = {
+            area:linhai_area = {
                 add_provincial_claim_effect = yes
 			}
             trigger_event = me_chu.6
@@ -207,7 +235,7 @@
             }
         }
     }
-    01_chu_missions_task_7 = { #Protecting the West
+    01_chu_missions_task_7 = { #Claiming the Island
         icon = "task_political"
 
         requires = { 01_chu_missions_task_6 }
@@ -215,43 +243,44 @@
         highlight = {
 			scope:province = {
 				OR = {
-                    province_id = 5597
+                    province_id = 9105
+                    province_id = 9101
 				}
 			}
         }
 
         allow = {
-            custom_tooltip = {
-                text = gilgit_tt
-                p:5597 = { 
-                    num_of_fortress_building >= 1
-                }
-        }
+            owns = 9105
+            owns = 9101
     }
         on_completion = {
-            
+            area:tutikungshan_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:qilin_area = {
+                add_provincial_claim_effect = yes
+			}
             trigger_event = me_chu.7
             show_as_tooltip = {
 
             }
         }
     }
-    01_chu_missions_task_8 = { #Roof of the World
+    01_chu_missions_task_8 = { #Training in the Jungles
         icon = "task_battle"
         duration = 90
 
         requires = { 01_chu_missions_task_7 }
 
         allow = {
-            political_influence >= 15
-            treasury >= 25
+            military_experience >= 40
         }
         on_completion = {
-            add_political_influence = -15
-        	add_treasury = -25
-            area:pamir_area = {
-                add_provincial_claim_effect = yes
-			}
+            add_military_experience = -40
+            add_country_modifier = {
+                name = chu_marshland_modifier
+                duration = -1
+            }
             trigger_event = me_chu.8
             show_as_tooltip = {
 
@@ -260,20 +289,40 @@
     }
     01_chu_missions_task_9 = { #Entering the Basin
         icon = "task_expansion"
-        duration = 90
+        duration = 365
 
         requires = { 01_chu_missions_task_7 }
 
         allow = {
-            political_influence >= 15
-            treasury >= 25
+            trigger_if = {
+                limit = {
+                    any_country = {
+                        num_of_cities <= 400
+                        any_character = {
+                            has_trait = qin_bloodline
+                        }
+                    }
+                }
+                custom_tooltip = {
+                    text = chu_missions_task_9_tt
+                    NOT = {
+                        any_country = {
+                            NOT = { THIS = ROOT }
+                            any_character = {
+                                is_ruler = yes
+                                has_trait = qin_bloodline
+                            }
+                        }
+                    }
+                }
+            }
+            trigger_else = {
+                owns_or_subject_owns_region = changan_region
+            }
         }
         on_completion = {
             add_political_influence = -15
         	add_treasury = -25
-            area:tarim_area = {
-                add_provincial_claim_effect = yes
-			}
             trigger_event = me_chu.9
             show_as_tooltip = {
 
@@ -310,68 +359,83 @@
             }
         }
     }
-    01_chu_missions_task_11 = { #Bon Betrayal
-        icon = "task_diplomatic"
+    01_chu_missions_task_11 = { #Merchants of Men
+        icon = "task_economical"
 
         requires = { 01_chu_missions_task_6 }
 
+        highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 8972
+				}
+			}
+        }
 
         allow = {
-            political_influence >= 30
-            treasury >= 100
+            capital_scope = {
+                num_of_slave_building >= 3
+                num_of_port_building >= 3
+                num_of_foundry_building >= 1 
+            }
         }
         on_completion = {
-            add_political_influence = -30
         	add_treasury = -100
-            add_country_modifier = {
-				name = "bon_informers"
-				duration = 7300	 
-			}
+            p:8972 = {
+                add_province_modifier = {
+                    name = chu_merchants_men
+                    duration = -1
+                }
+            }
             trigger_event = me_chu.11
             show_as_tooltip = {
 
             }
         }
     }
-    01_chu_missions_task_12 = { #The Walls of Gilgit
-        icon = "task_heracles"
+    01_chu_missions_task_12 = { #Ying's Harbor District
+        icon = "task_calm"
 
-        requires = { 01_chu_missions_task_7 }
+        requires = { 01_chu_missions_task_11 01_chu_missions_task_7 }
 
         highlight = {
 			scope:province = {
 				OR = {
-					is_in_area = chu_area
+                    province_id = 8972
 				}
 			}
         }
 
         allow = {
-            political_influence >= 50
-            treasury >= 100
-            capital_scope.state = {
-                trade_good_surplus = {
-                    target = stone
-                    value >= 3
+            p:8972 = { has_road_towards = p:8973 }
+            p:8973 = { has_road_towards = p:605 }
+            p:605 = { has_road_towards = p:8986 }
+            p:8986 = { has_road_towards = p:8987 }
+            p:8987 = { has_road_towards = p:8988 }
+            p:8988 = { has_road_towards = p:8846 }
+            p:8846 = { has_road_towards = p:8845 }
+            capital_scope = {
+                is_importing_trade_good = stone
+                num_of_port_building >= 5
                 }
             }
-        }
         on_completion = {
-            add_political_influence = -50
-        	add_treasury = -100
-            p:5594 = {
+            p:8972 = {
                 add_province_modifier = {
-				name = "gilgit_walls"
+				name = chu_ying_harbor_district
 				duration = -1	 
 			}
         }
+            add_political_influence = -50
+        	add_treasury = -100
             trigger_event = me_chu.12
             show_as_tooltip = {
 
             }
         }
     }
-    01_chu_missions_task_13 = { #Searching for Olmo Lungring
+
+    01_chu_missions_task_13 = { #Jungle Warriors
         icon = "task_religion"
         duration = 3650
 
@@ -386,26 +450,25 @@
         }
 
         allow = {
-            owns_or_subject_owns = 6768
-            current_ruler = {
-                zeal >= 7
+            custom_tooltip = {
+                text = chu_legion_20_tt
+            any_legion = {
+                any_legion_unit = {
+                    unit_size >= 20
+                }
+            }
             }
             political_influence >= 50
             treasury >= 100
         }
         on_completion = {
+            add_country_modifier = {
+                name = chu_jungle_modifier
+                duration = -1
+            }
             add_political_influence = -50
         	add_treasury = -100
             trigger_event = me_chu.13
-            create_country_treasure = {
-                key = "three_texts"
-                icon = "old_script_1"
-                modifier = {
-					local_happiness_for_same_religion_modifier = 0.05
-                    local_population_growth = 0.1
-                    local_base_trade_routes_modifier = 0.15
-                }
-            }
             show_as_tooltip = {
 
             }
@@ -441,15 +504,13 @@
             }
         }
     }
-    01_chu_missions_task_15 = { #The Land of Heavenly Horses
+    01_chu_missions_task_15 = { #With Friends Like Us
         icon = "task_economical"
 
         highlight = {
 			scope:province = {
 				OR = {
-					is_in_area = north_tarim_area
-                    is_in_area = south_tarim_area
-                    is_in_area = tarim_area
+                    province_id = 8435
 				}
 			}
         }
@@ -457,59 +518,42 @@
         requires = { 01_chu_missions_task_19 }
 
         allow = {
-            owns_or_subject_owns_area = north_tarim_area
-            owns_or_subject_owns_area = south_tarim_area
-            owns_or_subject_owns_area = tarim_area
-            political_influence >= 15
+            owns = 8435
             treasury >= 25
         }
         on_completion = {
-            add_political_influence = -15
-        	add_treasury = -25
-            area:ferghana_area = {
+            area:dong_area = {
                 add_provincial_claim_effect = yes
 			}
+            area:taishan_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:pingyuan_area = {
+                add_provincial_claim_effect = yes
+			}
+            add_political_influence = -15
+        	add_treasury = -25
             trigger_event = me_chu.15
             show_as_tooltip = {
+                add_country_modifier = {
+                    name = "chu_fairweather_friends"
+                    duration = 1825	 
+                }
 
             }
         }
     }
-    01_chu_missions_task_16 = { #Dawn of a New Era
+    01_chu_missions_task_16 = { #Integrating the Yue
         icon = "task_atlas"
         duration = 30
 
         requires = { 01_chu_missions_task_6 }
 
-        highlight = {
-			scope:province = {
-				OR = {
-					province_id = 5636
-                    province_id = 5618
-                    province_id = 5650
-				}
-			}
-        }
-
-
         allow = {
-            owns = 5636
-            owns = 5618
-            owns = 5650
-            political_influence >= 25
-            treasury >= 50
-        }
+    }
+        
         on_completion = {
-            add_political_influence = -25
-            add_treasury = -50
-            capital_scope = {
-                if = {
-					limit = {
-						has_province_rank = settlement
-					}
-					set_city_status = city
-				}
-            }
+   
             add_country_modifier = {
 				name = "ascendant_bon"
 				duration = -1	 
@@ -520,31 +564,34 @@
             }
         }
     }
-    01_chu_missions_task_17 = { #A Worthy Home
+    01_chu_missions_task_17 = { #Expanding Northward
         icon = "task_diplomatic"
+        duration = 180
 
         requires = { 01_chu_missions_task_16 }
 
         highlight = {
 			scope:province = {
 				OR = {
-                    province_id = 5557
+                    province_id = 8668
 				}
 			}
         }
 
         allow = {
+            owns = 8668
             political_influence >= 25
             treasury >= 50
-            capital_scope = {
-                num_of_used_building_slots >= 5
-                total_population > 40
-            }
         }
         on_completion = {
-            add_country_modifier = {
-				name = "state_investments"
-				duration = 7300	 
+            area:handan_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:qinghe_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:shangdang_area = {
+                add_provincial_claim_effect = yes
 			}
             add_political_influence = -25
             add_treasury = -50
@@ -596,58 +643,78 @@
             }
         }
     }
-    01_chu_missions_task_19 = { #Bread for Everyone
-        icon = "task_political"
+    01_chu_missions_task_19 = { #Fast Friends
+        icon = "task_battle"
 
         requires = { 01_chu_missions_task_5 }
 
-        highlight = {
-			scope:province = {
-				OR = {
-                    province_id = 5557
-				}
-			}
-        }
-
-
         allow = {
-            hidden:capital_scope = {
-                has_building = population_building
+            hidden:c:QII = {
+                alliance_with = root
             }
-				custom_tooltip = {
-					text = build_food_tt
-        			any_owned_province = {
-        			count >= 3
-        			has_province_rank = settlement
-        			num_of_basic_settlement_infratructure_building = 1
-				}
-        	}
+            manpower >= 25
         }
         on_completion = {
-            add_country_modifier = {
-				name = "mountain_granaries"
-				duration = -1	 
+            area:yingchuan_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:pei_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:donghai_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:langya_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:daliang_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:henan_area = {
+                add_provincial_claim_effect = yes
 			}
             trigger_event = me_chu.19
             show_as_tooltip = {
-
             }
         }
     }
-    01_chu_missions_task_20 = { #Mountain Kingdom
+    01_chu_missions_task_20 = { #Protecting the Mouth
         icon = "task_happiness"
 
         requires = { 01_chu_missions_task_21 }
 
+        highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 8556
+                    province_id = 9083
+				}
+			}
+        }
 
         allow = {
-            political_influence >= 75
-            treasury >= 400
+            p:8556 = {
+                num_of_fortress_building >= 2
+            }
+            p:9083 = {
+                num_of_fortress_building >= 2
+            }
         }
         on_completion = {
+            p:8556 = {
+				add_province_modifier = {
+					name = "chu_river_mouth"
+					duration = -1
+				}
+            }
+            p:9083 = {
+				add_province_modifier = {
+					name = "chu_river_mouth"
+					duration = -1
+				}
+            }
             trigger_event = me_chu.20
             add_political_influence = -75
-            add_treasury = -400
             add_country_modifier = {
 				name = "mountain_power"
 				duration = -1	 
@@ -659,224 +726,34 @@
             }
         }
     }
-    01_chu_missions_task_21 = { #The Mountain King
-        icon = "task_political"
+    01_chu_missions_task_21 = { #Expanding the Royal Navy
+        icon = "task_expansion"
         requires = { 01_chu_missions_task_4 }
 
         highlight = {
 			scope:province = {
 				OR = {
-					province_id = 5630
-                    province_id = 5636
-                    province_id = 5618
-                    province_id = 7184
-                    province_id = 6771
-                    province_id = 6772
+                    province_id = 8972
 				}
 			}
         }
 
         allow = {
-            political_influence >= 50
-            treasury >= 100
-            owns_or_subject_owns = 5630
-            owns_or_subject_owns = 5636
-            owns_or_subject_owns = 5618
-            owns_or_subject_owns = 7184
-            owns_or_subject_owns = 6771
-            owns_or_subject_owns = 6772
+            capital_scope = {
+                is_importing_trade_good = wood
+                is_importing_trade_good = cedar
+                }
+                invention = 	trireme_discipline_inv_1 
+                num_of_ships >= 50
         }
+
         on_completion = {
-            current_ruler = {
-                add_trait = conqueror
-                add_popularity = 15
-                add_zeal = 3
-            }
-            add_political_influence = -50
-            add_treasury = -100
-            change_government = despotic_monarchy		
-			switch_government_type_event_clearup_effect = yes
-			if = {
-				limit = {
-					exists = scope:monarchy_family
-					scope:monarchy_family = {
-						any_family_member = {
-							is_adult = yes
-							trigger_if = {
-								limit = {
-									root = {
-										gender_equality = no
-									}
-								}
-								is_male = yes
-							}
-							has_any_office = no
-						}
-					}
-				}
-				custom_tooltip = grant_offices_monarchy_reform_tt
-				hidden_effect = {
-					if = {
-						limit = {
-							scope:monarchy_family = {
-								any_family_member = {
-									is_adult = yes
-									trigger_if = {
-										limit = {
-											root = {
-												gender_equality = no
-											}
-										}
-										is_male = yes
-									}
-									has_any_office = no
-									is_general = no
-									is_admiral = no
-									is_governor = no
-									has_tech_office = no
-								}
-							}
-							office_is_empty = office_foreign_minister
-						}
-						scope:monarchy_family = {
-							random_family_member = {
-								limit = {
-									is_adult = yes
-									trigger_if = {
-										limit = {
-											root = {
-												gender_equality = no
-											}
-										}
-										is_male = yes
-									}
-									has_any_office = no
-									is_general = no
-									is_admiral = no
-									is_governor = no
-									has_tech_office = no
-								}
-								weight = {
-									modifier = {
-										factor = {
-											value = 1
-											add = charisma
-										}
-									}
-								}
-								give_office = office_foreign_minister
-							}
-						}
-					}
-					if = {
-						limit = {
-							scope:monarchy_family = {
-								any_family_member = {
-									is_adult = yes
-									trigger_if = {
-										limit = {
-											root = {
-												gender_equality = no
-											}
-										}
-										is_male = yes
-									}
-									has_any_office = no
-									is_general = no
-									is_admiral = no
-									is_governor = no
-									has_tech_office = no
-								}
-							}
-							office_is_empty = office_marshal
-						}
-						scope:monarchy_family = {
-							random_family_member = {
-								limit = {
-									is_adult = yes
-									trigger_if = {
-										limit = {
-											root = {
-												gender_equality = no
-											}
-										}
-										is_male = yes
-									}
-									has_any_office = no
-									is_general = no
-									is_admiral = no
-									is_governor = no
-									has_tech_office = no
-								}
-								weight = {
-									modifier = {
-										factor = {
-											value = 1
-											add = martial
-										}
-									}
-								}
-								give_office = office_marshal
-							}
-						}
-					}
-					if = {
-						limit = {
-							scope:monarchy_family = {
-								any_family_member = {
-									is_adult = yes
-									trigger_if = {
-										limit = {
-											root = {
-												gender_equality = no
-											}
-										}
-										is_male = yes
-									}
-									has_any_office = no
-									is_general = no
-									is_admiral = no
-									is_governor = no
-									has_tech_office = no
-								}
-							}
-							office_is_empty = office_high_priest_monarchy
-						}
-						scope:monarchy_family = {
-							random_family_member = {
-								limit = {
-									is_adult = yes
-									trigger_if = {
-										limit = {
-											root = {
-												gender_equality = no
-											}
-										}
-										is_male = yes
-									}
-									has_any_office = no
-									is_general = no
-									is_admiral = no
-									is_governor = no
-									has_tech_office = no
-								}
-								weight = {
-									modifier = {
-										factor = {
-											value = 1
-											add = zeal
-										}
-									}
-								}
-								give_office = office_high_priest_monarchy
-							}
-						}
-					}
-				}
-			}
+                add_country_modifier = {
+                    name = chu_royal_navy
+                    duration = -1
+                }
             trigger_event = me_chu.21
             show_as_tooltip = {
-
             }
         }
     }
@@ -905,7 +782,7 @@
     }
     01_chu_missions_task_23 = { #Plugging the Cracks
         icon = "task_battle"
-
+        final = yes
         requires = { 01_chu_missions_task_14 }
 
         highlight = {
@@ -940,50 +817,65 @@
             }
         }
     }
-    01_chu_missions_task_24 = { #Claiming the Foothills
-        icon = "task_shiva"
+    01_chu_missions_task_24 = { #A Golden River
+        icon = "task_atlas"
         duration = 730
 
         requires = { 01_chu_missions_task_20 }
 
+        highlight = {
+			scope:province = {
+				OR = {
+					province_id = 8997
+                    province_id = 9126
+                    province_id = 9067
+                    province_id = 9076
+				}
+			}
+        }
+
         allow = {
-            political_influence >= 100
-            treasury >= 150
+            p:8997 = {
+                num_of_port_building >= 2
+                num_of_commerce_building >= 1
+                num_of_town_hall_building >= 1
+            }
+            p:9126 = {
+                num_of_port_building >= 2
+                num_of_commerce_building >= 1
+                num_of_town_hall_building >= 1
+            }
+            p:9067 = {
+                num_of_port_building >= 2
+                num_of_commerce_building >= 1
+                num_of_town_hall_building >= 1
+            }
+            p:9076 = {
+                num_of_port_building >= 2
+                num_of_commerce_building >= 1
+                num_of_town_hall_building >= 1
+            }
         }
         on_completion = {
-            add_political_influence = -100
-            add_treasury = -150
-            area:kasmira_area = {
-                add_provincial_claim_effect = yes
-			}
-            area:sthanisvara_area = {
-                add_provincial_claim_effect = yes
-			}
-            area:malla_area = {
-                add_provincial_claim_effect = yes
-			}
-            area:vrji_area = {
-                add_provincial_claim_effect = yes
-			}
-            area:kamata_area = {
-                add_provincial_claim_effect = yes
-			}
-            area:kamarupa_area = {
-                add_provincial_claim_effect = yes
-			}
+            add_country_modifier = {
+                name = chu_royal_river
+                duration = -1
+            }
+            add_political_influence = 100
+            add_treasury = 500
             trigger_event = me_chu.24
             show_as_tooltip = {
 
             }
         }
     }
-    01_chu_missions_task_25 = { #Master of the Horse
+    01_chu_missions_task_25 = { #The Bohai Sea
         icon = "task_expansion"
-        final = yes
         highlight = {
 			scope:province = {
 				OR = {
-					is_in_area = ferghana_area
+					province_id = 8518
+                    province_id = 8722
 				}
 			}
         }
@@ -991,13 +883,24 @@
         requires = { 01_chu_missions_task_15 }
 
         allow = {
-            owns_or_subject_owns_area = ferghana_area
+            owns = 8518
+            owns = 8722
+            num_of_ships >= 75
         }
+
         on_completion = {
-            add_country_modifier = {
-				name = "horse_lord"
-				duration = -1	 
-			}
+            area:yuyang_area = {
+                    add_provincial_claim_effect = yes
+                }
+            area:youbeiping_area = {
+                    add_provincial_claim_effect = yes
+                }
+            area:liaoxi_area = {
+                    add_provincial_claim_effect = yes
+                }
+            area:liaodong_area = {
+                    add_provincial_claim_effect = yes
+                }
             trigger_event = me_chu.25
             show_as_tooltip = {
 

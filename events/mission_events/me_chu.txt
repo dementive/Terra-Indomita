@@ -5,13 +5,63 @@ me_chu.1 = {
 
     title = me_chu_1_title
     desc = me_chu_1_desc
-    picture = steppe_cavalry
-    left_portrait = current_ruler
+    picture = interesting_histories_asia_mountains
+    left_portrait = current_heir
+    right_portrait = char:474
+
+    trigger = {
+		tag = SEL
+		num_of_cities >= 1
+	}
 
     option = {
+        scope:poor_kui_ying = {
+			death = {
+				killer = scope:next_heir
+				death_reason = death_stabbing
+			}
+		}
         name = "me_chu_1.a"
         custom_tooltip = me_chu_1_tooltip
-
+        c:QIN = {
+            hidden:p:8828 = { add_claim = QIN }
+            declare_war_with_wargoal = {
+                war_goal = conquer_wargoal
+                province = 8828 # Wuling
+                target = CHU
+            }
+        }
+        c:HAN = {
+            hidden:p:8393 = { add_claim = HAN }
+            declare_war_with_wargoal = {
+                war_goal = conquer_wargoal
+                province = 8393 # Yangdi
+                target = CHU
+            }
+        }
+        c:WEI = {
+            hidden:p:8457= { add_claim = WEI }
+            declare_war_with_wargoal = {
+                war_goal = conquer_wargoal
+                province = 8457 # Chen
+                target = CHU
+            }
+        }
+        c:QIN = {
+			trigger_event = {
+				id = me_chu.1
+			}
+		}
+        c:HAN = {
+			trigger_event = {
+				id = me_chu.1
+			}
+		}
+        c:WEI = {
+			trigger_event = {
+				id = me_chu.1
+			}
+		}
     }
 }
 me_chu.2 = {
@@ -33,7 +83,7 @@ me_chu.3 = {
 
     title = me_chu_3_title
     desc = me_chu_3_desc
-    picture = interesting_histories_asia_mountains
+    picture = great_library
     left_portrait = current_ruler
 
     option = {
@@ -60,8 +110,10 @@ me_chu.5 = {
 
     title = me_chu_5_title
     desc = me_chu_5_desc
-    picture = war_chest
+    picture = war_council
     left_portrait = current_ruler
+    right_portrait = char:567
+
 
     option = {
         name = "me_chu_5.a"
