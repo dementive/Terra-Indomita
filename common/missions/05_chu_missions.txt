@@ -294,6 +294,8 @@
         requires = { 01_chu_missions_task_7 }
 
         allow = {
+            political_influence >= 15
+            treasury >= 25
             trigger_if = {
                 limit = {
                     any_country = {
@@ -323,6 +325,10 @@
         on_completion = {
             add_political_influence = -15
         	add_treasury = -25
+            add_country_modifier = {
+				name = "ascendant_chu_bwahaha"
+				duration = 3650	 
+			}
             trigger_event = me_chu.9
             show_as_tooltip = {
 
@@ -553,7 +559,6 @@
     }
         
         on_completion = {
-   
             add_country_modifier = {
 				name = "ascendant_bon"
 				duration = -1	 
@@ -601,41 +606,35 @@
             }
         }
     }
-    01_chu_missions_task_18 = { #A Place of Worship
-        icon = "task_religion"
+    01_chu_missions_task_18 = { #Doorway To The Steppe
+        icon = "task_expansion"
+        duration = 180
 
         requires = { 01_chu_missions_task_17 }
 
         highlight = {
 			scope:province = {
 				OR = {
-                    province_id = 5557
+                    province_id = 8614
+                    owns = 8749
 				}
 			}
         }
 
 
         allow = {
-            capital_scope = {
-				is_importing_trade_good = incense
-                }
-            capital_scope = {
-                is_holy_site = yes
-            }
-             custom_tooltip = {
-                text = religious_piety_tt
-                capital_scope.state = {
-                    calc_true_if = {
-                        amount >= 1   
-                        state_improvement_religious_trigger = yes      
-                    }
-                }
-            } 
+            owns = 8614
+            owns = 8749
         }
         on_completion = {
-            add_country_modifier = {
-				name = "persuasive_bon"
-				duration = -1 
+            area:yinshan_north_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:wuhuan_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:raole_area = {
+                add_provincial_claim_effect = yes
 			}
             trigger_event = me_chu.18
             show_as_tooltip = {
@@ -757,17 +756,41 @@
             }
         }
     }
-    01_chu_missions_task_22 = { #Gathering Under One Test
+    01_chu_missions_task_22 = { #Guarding Against the Barbarians
         icon = "task_diplomatic"
         duration = 180
         requires = { 01_chu_missions_task_18 }
 
+        highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 9505
+                    province_id = 9526
+				}
+			}
+        }
 
         allow = {
-            political_influence >= 50
-            treasury >= 100
+            p:9505 = {
+                num_of_fortress_building >= 1
+            }
+            p:9526 = {
+                num_of_fortress_building >= 1
+            }
         }
         on_completion = {
+            p:9505 = {
+                add_province_modifier = {
+                    name = "chu_defended_border_passes"
+                    duration = -1
+                }
+            }
+            p:9526 = {
+                add_province_modifier = {
+                    name = "chu_defended_border_passes"
+                    duration = -1
+                }
+            }
             add_political_influence = -50
             add_treasury = -100
             add_country_modifier = {
