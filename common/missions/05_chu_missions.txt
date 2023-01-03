@@ -164,6 +164,13 @@
 
         requires = { 01_chu_missions_task_3 }
 
+        highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 9089
+				}
+			}
+        }
 
         hidden:immediate = {
                 c:CHU= {
@@ -189,6 +196,7 @@
         allow = {
             political_influence >= 30
             treasury >=50
+            owns = 9089
         }
 
         on_completion = {
@@ -274,6 +282,9 @@
 
         allow = {
             military_experience >= 40
+            current_ruler = {
+				martial >= 6
+			}
         }
         on_completion = {
             add_military_experience = -40
@@ -287,15 +298,13 @@
             }
         }
     }
-    01_chu_missions_task_9 = { #Entering the Basin
+    01_chu_missions_task_9 = { #Purging the Qin
         icon = "task_expansion"
         duration = 365
 
         requires = { 01_chu_missions_task_7 }
 
         allow = {
-            political_influence >= 15
-            treasury >= 25
             trigger_if = {
                 limit = {
                     any_country = {
@@ -323,39 +332,42 @@
             }
         }
         on_completion = {
-            add_political_influence = -15
-        	add_treasury = -25
             add_country_modifier = {
-				name = "ascendant_chu_bwahaha"
-				duration = 3650	 
-			}
+                name = ascendant_chu_bwahaha
+                duration = -1
+            }
             trigger_event = me_chu.9
             show_as_tooltip = {
 
             }
         }
     }
-    01_chu_missions_task_10 = { #The North
-        icon = "task_battle"
+    01_chu_missions_task_10 = { #Barbarian Tradition And Song
+        icon = "task_happiness"
         duration = 90
         requires = { 01_chu_missions_task_9 }
 
         highlight = {
 			scope:province = {
 				OR = {
-                    province_id = 6744
+                    province_id = 8972
 				}
 			}
         }
 
         allow = {
-            owns = 6744
-            political_influence >= 15
-            treasury >= 25
+            capital_scope = {
+                num_of_theathre_building >= 3
+                has_province_rank = city_metropolis
+                has_holy_site = yes
+            }
+            invention = scientific_patronage_inv
+            political_influence >= 30
+            treasury >= 75
         }
         on_completion = {
-            add_political_influence = -15
-        	add_treasury = -25
+            add_political_influence = -30
+        	add_treasury = -75
             area:north_tarim_area = {
                 add_provincial_claim_effect = yes
 			}
@@ -480,8 +492,8 @@
             }
         }
     }
-    01_chu_missions_task_14 = { #The South
-        icon = "task_conquest"
+    01_chu_missions_task_14 = { #A Blade Birds And Worm Style
+        icon = "task_battle"
         duration = 90
         highlight = {
 			scope:province = {
@@ -491,19 +503,33 @@
 			}
         }
 
-        requires = { 01_chu_missions_task_9 }
+        
+        requires = { 01_chu_missions_task_9 01_chu_missions_task_12 }
 
         allow = {
-            owns = 6756
-            political_influence >= 15
-            treasury >= 25
+            capital_scope = {
+                is_importing_trade_good = iron
+                is_importing_trade_good = precious_metals
+                is_importing_trade_good = gems
+                is_importing_trade_good = jade
+                is_importing_trade_good = base_metals
+            }
+            political_influence >= 50
+            treasury >= 250
+            has_military_bonus = yue_legendary_swords_mil_trad
         }
         on_completion = {
             add_political_influence = -15
         	add_treasury = -25
-            area:south_tarim_area = {
-                add_provincial_claim_effect = yes
-			}
+            create_country_treasure = {
+                key = "sword_of_goujian"
+                icon = "treasure_sword"
+                modifier = {
+					local_hostile_attrition = 0.1
+					local_manpower_modifier = 0.1
+					local_unrest = -5
+                }
+            }
             trigger_event = me_chu.14
             show_as_tooltip = {
 
@@ -556,13 +582,19 @@
         requires = { 01_chu_missions_task_6 }
 
         allow = {
+            hidden:ROOT = {
+                custom_tooltip = {
+                    text = chu_yue_integrate_tt
+                any_country_culture = {
+                    is_integrated = yes
+                    is_culture = yue
+                    }
+                }
+            }
     }
         
         on_completion = {
-            add_country_modifier = {
-				name = "ascendant_bon"
-				duration = -1	 
-			}
+
             trigger_event = me_chu.16
             show_as_tooltip = {
 
@@ -742,7 +774,7 @@
                 is_importing_trade_good = wood
                 is_importing_trade_good = cedar
                 }
-                invention = 	trireme_discipline_inv_1 
+                invention = trireme_discipline_inv_1 
                 num_of_ships >= 50
         }
 
@@ -756,7 +788,7 @@
             }
         }
     }
-    01_chu_missions_task_22 = { #Guarding Against the Barbarians
+    01_chu_missions_task_22 = { #Guarding Against the Steppe Riders
         icon = "task_diplomatic"
         duration = 180
         requires = { 01_chu_missions_task_18 }
@@ -793,47 +825,30 @@
             }
             add_political_influence = -50
             add_treasury = -100
-            add_country_modifier = {
-				name = "one_tent"
-				duration = 7300	 
-			}
             trigger_event = me_chu.22
             show_as_tooltip = {
 
             }
         }
     }
-    01_chu_missions_task_23 = { #Plugging the Cracks
-        icon = "task_battle"
+    01_chu_missions_task_23 = { #Autumn Turning Into Spring
+        icon = "task_conquest"
         final = yes
         requires = { 01_chu_missions_task_14 }
 
-        highlight = {
-			scope:province = {
-				OR = {
-					province_id = 5574
-                    province_id = 5583
-                    province_id = 5590
-                    province_id = 5624
-                    province_id = 5633
-                    province_id = 5644
-				}
-			}
-        }
-
         allow = {
-            p:5574 = {num_of_fortress_building = 1}
-            p:5583 = {num_of_fortress_building = 1}
-            p:5590 = {num_of_fortress_building = 1}
-            p:5624 = {num_of_fortress_building = 1}
-            p:5633 = {num_of_fortress_building = 1}
-            p:5644 = {num_of_fortress_building = 1}
+            government = chinese_empire 
         }
         on_completion = {
+            current_ruler = {
+                add_trait = victorious
+                add_zeal = 3
+                add_martial = 4
+            }
             add_country_modifier = {
-				name = "secure_borders"
-				duration = -1	 
-			}
+                name = chu_house_of_chu
+                duration = -1
+            }
             trigger_event = me_chu.23
             show_as_tooltip = {
 
