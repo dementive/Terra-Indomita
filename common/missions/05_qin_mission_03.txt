@@ -7,9 +7,9 @@
 
     potential = {
         NOT = { has_variable = mission_cooldown_var_3 }
-        # has_completed_mission = qin_02_li_si
+        has_completed_mission = qin_02_li_si
         tag = QIN
-        always = no
+        #always = no
     }
 
     abort = {}
@@ -28,39 +28,101 @@
     }
     qin_03_empire_task_1 = { #Wei Liao
         icon = "task_political"
+		duration = 180
         allow = {}
         on_completion = {
             trigger_event = me_qin_empire.1
             show_as_tooltip = {
-
+				create_character = {
+					first_name = "Wei"
+					family_name = "Liao"
+					culture = qin
+					religion = chinese_religions
+					age = 32
+					no_stats = yes
+					no_traits = yes
+					#positive_martial_trait_effect = yes
+					#amazing_martial_effect = yes
+					#average_finesse_effect = yes
+					#average_charisma_effect = yes
+					#average_zeal_effect = yes
+				}
             }
         }
     }
     qin_03_empire_task_2 = { #Promote Wei Liao
         icon = "task_political"
         requires = { qin_03_empire_task_1 }
-        allow = {}
+        allow = {
+			hidden:var:wei_liao_character_scope_variable = {
+				has_tech_office_of = military_tech
+			}
+		}
         on_completion = {
             trigger_event = me_qin_empire.2
             show_as_tooltip = {
-
+				add_country_modifier = {
+					name = promoted_wei_lio_mod # global_manpower_modifier = 0.1
+					duration = 7300
+				}
             }
         }
     }
-    qin_03_empire_task_3 = { #The Great Weng Jian
+    qin_03_empire_task_3 = { #The Great Wang Jian
         icon = "task_political"
+		duration = 365
         allow = {}
         on_completion = {
             trigger_event = me_qin_empire.3
             show_as_tooltip = {
-
+				create_character = {
+					first_name = "Wang"
+					family_name = "Jian"
+					culture = qin
+					religion = chinese_religions
+					age = 39
+					no_stats = yes
+					no_traits = yes
+					#positive_martial_trait_effect = yes
+					#amazing_martial_effect = yes
+					#average_finesse_effect = yes
+					#average_charisma_effect = yes
+					#average_zeal_effect = yes
+				}
+				create_character = {
+					first_name = "Wang"
+					family_name = "Ben"
+					culture = qin
+					religion = chinese_religions
+					age = 19
+					no_stats = yes
+					no_traits = yes
+					#positive_martial_trait_effect = yes
+					#good_martial_effect = yes
+					#average_finesse_effect = yes
+					#average_charisma_effect = yes
+					#average_zeal_effect = yes
+				}
+				create_character = {
+					first_name = "Wang"
+					family_name = "Li"
+					culture = qin
+					religion = chinese_religions
+					age = 1
+					no_stats = yes
+					no_traits = yes
+				}
             }
         }
     }
-    qin_03_empire_task_4 = { #Promote Weng Jian
+    qin_03_empire_task_4 = { #Promote Wang Jian
         icon = "task_political"
         requires = { qin_03_empire_task_3 }
-        allow = {}
+        allow = {
+			hidden:var:wang_jian_character_scope_variable = {
+				is_general = yes
+			}
+		}
         on_completion = {
             trigger_event = me_qin_empire.4
             show_as_tooltip = {
@@ -70,87 +132,268 @@
     }
     qin_03_empire_task_5 = { #Wei Liauzi
         icon = "task_political"
+		duration = 1095
         requires = { qin_03_empire_task_2 }
         allow = {}
         on_completion = {
             trigger_event = me_qin_empire.5
             show_as_tooltip = {
-
-            }
+				create_country_treasure = {
+					key = "wei_liazo_treasure"
+					icon = "treasure_chest"
+					modifier = {
+						local_research_points_modifier = 0.2
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_6 = { #Planning Unification
         icon = "task_political"
+		duration = 365
         requires = { qin_03_empire_task_4 }
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:HAN
+			}
+        }
         allow = {}
         on_completion = {
             trigger_event = me_qin_empire.6
-            show_as_tooltip = {
-
-            }
+            custom_tooltip = qin_03_empire_task_6_claims_tt
+			hidden_effect = {
+				c:HAN = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_7 = { #Humiliate Chu
         icon = "task_political"
         requires = { qin_03_empire_task_4 }
-        allow = {}
+		highlight = {
+			scope:province = {
+				province_id = 8972
+			}
+		}
+        allow = {
+			owns = 8972
+		}
         on_completion = {
             trigger_event = me_qin_empire.7
-            show_as_tooltip = {
-
-            }
+            custom_tooltip = qin_03_empire_task_7_claims_tt
+			hidden_effect = {
+				c:CHU = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_8 = { #Squash Chu
         icon = "task_political"
         requires = { qin_03_empire_task_7 }
-        allow = {}
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:CHU
+			}
+        }
+        allow = {
+			c:CHU = {
+				has_land = no
+			}
+		}
         on_completion = {
             trigger_event = me_qin_empire.8
-            show_as_tooltip = {
-
-            }
+			custom_tooltip = qin_03_empire_task_8_claims_tt
+            hidden_effect = {
+				area:jianan_area = { mission_area_claim_effect = yes }
+				area:luling_area = { mission_area_claim_effect = yes }
+				area:linhai_area = { mission_area_claim_effect = yes }
+				area:kuaiji_area = { mission_area_claim_effect = yes }
+				area:nanhai_area = { mission_area_claim_effect = yes }
+				area:hepu_area = { mission_area_claim_effect = yes }
+				area:cangwu_area = { mission_area_claim_effect = yes }
+			}
+			show_as_tooltip = {
+				p:9049 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 5
+						set_pop_culture = root.culture
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_9 = { #Han's Demise
         icon = "task_political"
         requires = { qin_03_empire_task_5 qin_03_empire_task_6 }
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:HAN
+			}
+        }
         allow = {
-            #Annex Han
+            c:HAN = {
+				has_land = no
+			}
         }
         on_completion = {
             trigger_event = me_qin_empire.9
-            show_as_tooltip = {
-
-            }
+            custom_tooltip = qin_03_empire_task_9_claims_tt
+			hidden_effect = {
+				c:WEI = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
+			hidden_effect = {
+				c:ZHA = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
+			show_as_tooltip = {
+				p:8384 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 5
+						set_pop_culture = root.culture
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_10 = { #Fell Zhao
         icon = "task_political"
         requires = { qin_03_empire_task_9 }
-        allow = {}
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:ZHA
+			}
+        }
+        allow = {
+            c:ZHA = {
+				has_land = no
+			}
+        }
         on_completion = {
             trigger_event = me_qin_empire.10
+			custom_tooltip = qin_03_empire_task_10_claims_tt
+			hidden_effect = {
+				c:YAN = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
             show_as_tooltip = {
-
-            }
+				p:8681 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 5
+						set_pop_culture = root.culture
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_11 = { #Lay Waste to Wei
         icon = "task_political"
         requires = { qin_03_empire_task_9 }
-        allow = {}
+        highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:WEI
+			}
+        }
+        allow = {
+            c:WEI = {
+				has_land = no
+			}
+        }
         on_completion = {
             trigger_event = me_qin_empire.11
+			custom_tooltip = qin_03_empire_task_11_claims_tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						has_land = yes
+						country_culture_group = chinese
+						num_of_cities <= 25
+					}
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
             show_as_tooltip = {
-
-            }
+				p:8446 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 5
+						set_pop_culture = root.culture
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_12 = { #Yue Conquest
         icon = "task_political"
         requires = { qin_03_empire_task_8 }
-        allow = {}
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = jianan_area
+					is_in_area = linhai_area
+					is_in_area = kuaiji_area
+					is_in_area = nanhai_area
+				}
+			}
+		}
+        allow = {
+			owns_area = jianan_area
+			owns_area = linhai_area
+			owns_area = kuaiji_area
+			owns_area = nanhai_area
+		}
         on_completion = {
             trigger_event = me_qin_empire.12
             show_as_tooltip = {
@@ -160,57 +403,182 @@
     }
     qin_03_empire_task_13 = { #End the Zhou Dynasty
         icon = "task_political"
+		duration = 180
         allow = {}
+		bypass = {
+			c:ZHO = { 
+				has_land = no
+			}
+		}
         on_completion = {
             trigger_event = me_qin_empire.13
-            show_as_tooltip = {
-
-            }
+			custom_tooltip = qin_03_empire_task_13_claims
+			hidden_effect = {
+				c:ZHO = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_14 = { #New Mandate of Heaven
         icon = "task_political"
         requires = { qin_03_empire_task_13 }
-        allow = {}
+        allow = {
+			owns = 8379
+			c:ZHO = {
+				has_land = no
+			}
+		}
         on_completion = {
             trigger_event = me_qin_empire.14
             show_as_tooltip = {
-
+				add_country_modifier = {
+					name = new_mandate_mod #stability_monthly_change = 0.05
+					duration = -1
+				}
             }
+			p:8379 = {
+				every_province_treasure = { 
+					transfer_treasure_to_country = root 
+				}
+			}
         }
     }
     qin_03_empire_task_15 = { #Yeet Yan
         icon = "task_political"
         requires = { qin_03_empire_task_10 }
-        allow = {}
+        highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:YAN
+			}
+        }
+        allow = {
+            c:YAN = {
+				has_land = no
+			}
+        }
         on_completion = {
             trigger_event = me_qin_empire.15
+            custom_tooltip = qin_03_empire_task_11_claims_tt
+			hidden_effect = {
+				c:QII = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
             show_as_tooltip = {
-
-            }
+				p:8742 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 5
+						set_pop_culture = root.culture
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_16 = { #Extinguish Qi
         icon = "task_political"
         requires = { qin_03_empire_task_15 }
-        allow = {}
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:QII
+			}
+        }
+        allow = {
+			c:QII = {
+				has_land = no
+			}
+		}
         on_completion = {
             trigger_event = me_qin_empire.16
             show_as_tooltip = {
-
-            }
+				p:8504 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 5
+						set_pop_culture = root.culture
+					}
+				}
+			}
         }
     }
     qin_03_empire_task_17 = { #One Nation Under Qin
         icon = "task_political"
         requires = { qin_03_empire_task_16 }
         final = yes
-        allow = {}
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 8313
+					province_id = 8972
+					province_id = 8504
+					province_id = 8742
+					province_id = 8379
+					province_id = 8446
+					province_id = 9049
+					province_id = 8384
+					province_id = 8433
+					province_id = 8533
+				}
+			}
+        }
+        allow = {
+			owns = 8313
+			owns = 8972
+			owns = 8504
+			owns = 8742
+			owns = 8379
+			owns = 8446
+			owns = 9049
+			owns = 8384
+			owns = 8433
+			owns = 8533
+		}
         on_completion = {
             trigger_event = me_qin_empire.17
             show_as_tooltip = {
-
+				add_country_modifier = {
+					name = one_nation_under_qin_legitimacy_mod #monthly_legitimacy = 0.1
+					duration = -1
+				}
+				add_country_modifier = {
+					name = one_nation_under_qin_conversion_mod #global_pop_assimilation_speed = 0.15 = global_pop_conversion_speed
+					duration = -1
+				}
+				add_political_influence = 50
+				change_government = chinese_empire
+				add_country_modifier = {
+					name = formable_country_huge_modifier_china
+					duration = 7600
+				}
+				capital_scope = {
+					capital_formable_large_effect = yes
+					formable_capital_modifier_large_effect = yes
+				}
+				add_4_free_province_investments = yes
+				#trigger_event = chinese_flavor.2 #trigger it a few days after .17
             }
+			
         }
     }
 }
