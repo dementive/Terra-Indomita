@@ -8,7 +8,6 @@
     potential = {
         NOT = { has_variable = mission_cooldown_var }
         tag = QIN
-        #always = no
     }
 
     abort = {}
@@ -167,8 +166,9 @@
         }
         on_completion = {
             trigger_event = me_qin_shan_yang.5
+			custom_tooltip = qin_01_shan_yang_task_5_reward_tt #Every province in the Areas of Guanghan, ... gets: --> note: show_as_tooltip already shows the modifier
 			show_as_tooltip = {
-				every_owned_province = {
+				random_owned_province = {
 					limit = {
 						OR = {
 							is_in_area = guanghan_area
@@ -223,36 +223,48 @@
 			}
 		}
         allow = {
-			area:guanghan_area = {
-				any_area_province = {
-					count >=3
-					has_city_status = yes
-					total_population >= 25
-					free_building_slots = 0
+			custom_tooltip = {
+				text = qin_01_shan_yang_task_7_guanghan_area
+				area:guanghan_area = {
+					any_area_province = {
+						count >=3
+						has_city_status = yes
+						total_population >= 25
+						free_building_slots = 0
+					}
 				}
 			}
-			area:ba_area = {
-				any_area_province = {
-					count >=3
-					has_city_status = yes
-					total_population >= 25
-					free_building_slots = 0
+			custom_tooltip = {
+				text = qin_01_shan_yang_task_7_ba_area
+				area:ba_area = {
+					any_area_province = {
+						count >=3
+						has_city_status = yes
+						total_population >= 25
+						free_building_slots = 0
+					}
 				}
 			}
-			area:shu_area = {
-				any_area_province = {
-					count >=3
-					has_city_status = yes
-					total_population >= 25
-					free_building_slots = 0
+			custom_tooltip = {
+				text = qin_01_shan_yang_task_7_shu_area
+				area:shu_area = {
+					any_area_province = {
+						count >=3
+						has_city_status = yes
+						total_population >= 25
+						free_building_slots = 0
+					}
 				}
 			}
-			area:qianwei_area = {
-				any_area_province = {
-					count >=3
-					has_city_status = yes
-					total_population >= 25
-					free_building_slots = 0
+			custom_tooltip = {
+				text = qin_01_shan_yang_task_7_qianwei_area
+				area:qianwei_area = {
+					any_area_province = {
+						count >=3
+						has_city_status = yes
+						total_population >= 25
+						free_building_slots = 0
+					}
 				}
 			}
             #3 cities over 25 pops and 5 buildings in guanghan_area, ba_area, shu_area and qianwei_area areas.
@@ -365,9 +377,10 @@
         }
         on_completion = {
             trigger_event = me_qin_shan_yang.8
+			custom_tooltip = qin_01_shan_yang_task_8_reward_tt #Every character with an office gets:
 			show_as_tooltip = {
-				every_character = {
-					limit = { has_office = yes }
+				random_character = {
+					limit = { has_any_office = yes }
 					add_zeal = 1
 					add_martial = 1
 					add_charisma = 1
@@ -381,15 +394,19 @@
         icon = "task_atlas"
         requires = { qin_01_shan_yang_task_6 }
         allow = {
-			NOT = {
-				any_character = {
-					OR = {
-						has_any_office = yes
-						is_head_of_family = yes
+			custom_tooltip = {
+				text = qin_01_shan_yang_task_9_req_tt # all officeholders and heads of a great family are loyal
+				NOT = {
+					any_character = {
+						OR = {
+							has_any_office = yes
+							is_head_of_family = yes
+						}
+						loyalty <= 33
 					}
-					loyalty <= 33
 				}
 			}
+			
             #All characters with more than 0 powerbase are loyal
         }
         on_completion = {
@@ -424,7 +441,6 @@
 					tag = YQI
 				}
 			}
-			
 			#Yiqu is has no land or is vassalized
         }
         on_completion = {
