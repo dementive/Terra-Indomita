@@ -1,0 +1,1095 @@
+﻿namespace = me_qin_shan_yang
+
+me_qin_shan_yang.1 = {
+    type = country_event
+
+    title = me_qin_shan_yang_1_title
+    desc = me_qin_shan_yang_1_desc
+    picture = great_library
+
+    immediate = {
+        set_variable = {
+            name = abrogating_fengjian
+            days = 730
+        }
+    }
+
+
+    option = {
+        name = "me_qin_shan_yang_1.a"
+        custom_tooltip = me_qin_shan_yang_1_tooltip
+		add_political_influence = -15
+    }
+
+    after = {
+        trigger_event = {
+            id = me_qin_shan_yang.1000
+            days = { 30 60 }
+        }
+    }
+}
+me_qin_shan_yang.1000 = {
+    type = country_event
+
+    title = me_qin_shan_yang_1000_title
+    desc = me_qin_shan_yang_1000_desc
+    picture = great_library
+    trigger = {
+        has_variable = abrogating_fengjian
+        any_neighbour_country = {
+            religion = chinese_religions
+            any_owned_province = {
+                any_pops_in_province = {
+                    pop_type = freemen
+                }
+            }
+            NOT = { has_variable = pops_stolen }
+        }
+
+    }
+    immediate = {
+        set_variable = {
+            name = roll_1
+            value = { integer_range = { min = 1 max = 3 } }
+            days = 5
+        }
+        set_variable = {
+            name = roll_2
+            value = { integer_range = { min = 1 max = 2 } }
+            days = 5
+        }
+        random_neighbour_country = {
+            limit = {
+                religion = chinese_religions
+                any_owned_province = {
+                    any_pops_in_province = {
+                        pop_type = freemen
+                    }
+                }
+                NOT = { has_variable = pops_stolen }
+            }
+            save_scope_as = neighbor
+        }
+        random_owned_province = {
+            limit = {
+                any_neighbor_province = {
+                    owner = scope:neighbor
+                }
+            }
+            save_scope_as = migration_prov
+        }
+    }
+
+
+    option = {
+        name = "me_qin_shan_yang_1000.a"
+        scope:neighbor = {
+            ordered_owned_province = {
+                limit = {
+                    num_of_freemen >= root.var:roll_1
+                }
+                order_by = freemen_happiness
+                check_range_bounds = no
+                max = root.var:roll_2
+
+                ordered_pops_in_province = {
+                    limit = {
+                        pop_type = freemen
+                    }
+                    order_by = pop_hapiness
+                    position = 0
+                    max = root.var:roll_1
+                    move_pop = scope:migration_prov
+                }
+            }
+            set_variable = {
+                name = pops_stolen
+                days = 750
+            }
+        }
+    }
+
+    after = {
+        trigger_event =  {
+            id = me_qin_shan_yang.1000
+            days = { 365 600 }
+        }
+    }
+}
+me_qin_shan_yang.2 = {
+    type = country_event
+
+    title = me_qin_shan_yang_2_title
+    desc = me_qin_shan_yang_2_desc
+    picture = steppe_cavalry
+
+    option = {
+        name = "me_qin_shan_yang_2.a"
+        custom_tooltip = me_qin_shan_yang_2_tooltip
+        custom_tooltip = qin_01_shan_yang_task_2_tt
+
+        hidden_effect = {
+            c:YQI = {
+                add_opinion = {
+                    modifier = yiqu_is_mad_lol_pussies
+                    target = root
+                }
+            }
+            area:anding_area = {
+                every_area_province = {
+                    add_claim = root
+                }
+            }
+            area:tianshui_area = {
+                every_area_province = {
+                    add_claim = root
+                }
+            }
+        }
+    }
+}
+me_qin_shan_yang.3 = {
+    type = country_event
+
+    title = me_qin_shan_yang_3_title
+    desc = me_qin_shan_yang_3_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_3.a"
+		random_owned_province = {
+			limit = {
+				is_in_area = anding_area
+			}
+			state = {
+				add_state_modifier = {
+					name = destruction_of_yiqu
+					duration = 7300
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_in_area = tianshui_area
+			}
+			state = {
+				add_state_modifier = {
+					name = destruction_of_yiqu
+					duration = 7300
+				}
+			}
+		}
+    }
+}
+me_qin_shan_yang.4 = {
+    type = country_event
+
+    title = me_qin_shan_yang_4_title
+    desc = me_qin_shan_yang_4_desc
+    picture = interesting_histories_greek_lady
+
+    option = {
+        name = "me_qin_shan_yang_4.a"
+        add_country_modifier = {
+			name = womens_militia_mod #5% fort def, -5% fort maint
+			duration = -1
+		}
+    }
+}
+me_qin_shan_yang.4000 = {
+    type = country_event
+
+    title = me_qin_shan_yang_4000_title
+    desc = me_qin_shan_yang_4000_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_4000.a"
+		capital_scope = {
+			add_province_modifier = {
+				name = womens_militia_mod_neg1 #local unrest
+				duration = 1825 #5 years
+			}
+		}
+		random_owned_province = {
+			limit = { has_city_status = yes }
+			add_province_modifier = {
+				name = womens_militia_mod_neg1 #local unrest
+				duration = 1825 #5 years
+			}
+			save_scope_as = rebels_against_womens_militia
+		}
+    }
+}
+me_qin_shan_yang.4001 = {
+    type = country_event
+
+    title = me_qin_shan_yang_4001_title
+    desc = me_qin_shan_yang_4001_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_4001.a"
+		add_stability = -10
+    }
+}
+me_qin_shan_yang.4002 = {
+    type = country_event
+
+    title = me_qin_shan_yang_4002_title
+    desc = me_qin_shan_yang_4002_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_4002.a"
+        add_country_modifier = {
+			name = womens_militia_mod_neg2 #noble unhappiness
+			duration = -1
+		}
+    }
+}
+me_qin_shan_yang.5 = {
+    type = country_event
+
+    title = me_qin_shan_yang_5_title
+    desc = me_qin_shan_yang_5_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_5.a"
+		custom_tooltip = qin_01_shan_yang_task_5_reward_tt #Every province in the Areas of Guanghan, ... gets: --> note: show_as_tooltip already shows the modifier
+		show_as_tooltip = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						is_in_area = guanghan_area
+						is_in_area = ba_area
+						is_in_area = shu_area
+						is_in_area = qianwei_area
+					}
+				}
+				add_province_modifier = {
+					name = sechuan_assimilation_mod
+					duration = 7300
+				}
+			}
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						is_in_area = guanghan_area
+						is_in_area = ba_area
+						is_in_area = shu_area
+						is_in_area = qianwei_area
+					}
+				}
+				add_province_modifier = {
+					name = sechuan_assimilation_mod
+					duration = 7300
+				}
+			}
+		}
+    }
+}
+me_qin_shan_yang.5000 = {
+    type = country_event
+
+    title = me_qin_shan_yang_5000_title
+    desc = me_qin_shan_yang_5000_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_5000.a"
+        random_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = guanghan_area
+					is_in_area = ba_area
+					is_in_area = shu_area
+					is_in_area = qianwei_area
+				}
+			}
+			add_province_modifier = {
+				name = sechuan_neg_mod1 #something bad
+				duration = 1825 # 5years
+			}
+		}
+
+    }
+}
+me_qin_shan_yang.5001 = {
+    type = country_event
+
+    title = me_qin_shan_yang_5001_title
+    desc = me_qin_shan_yang_5001_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_5001.a"
+        if = {
+			limit = {
+				any_country_culture = {
+					is_integrated = no
+				}
+			}					
+			random_country_culture = {
+				limit = { is_integrated = no }
+				save_scope_as = sechuan_culture_scope
+				add_country_culture_modifier = {
+					 name = sechuan_neg_mod2 #something bad
+					 duration = 3650 # 30 years
+				}
+			}
+		}
+    }
+}
+me_qin_shan_yang.5002 = {
+    type = country_event
+
+    title = me_qin_shan_yang_5002_title
+    desc = me_qin_shan_yang_5002_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_5.a"
+        random_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = guanghan_area
+					is_in_area = ba_area
+					is_in_area = shu_area
+					is_in_area = qianwei_area
+				}
+				any_pops_in_province = {
+					pop_culture = root.culture
+				}
+			}
+			every_pops_in_province = {
+				limit = {
+					pop_culture = root.culture
+				}
+				kill_pop = yes
+			}
+		}
+		
+    }
+}
+me_qin_shan_yang.6 = {
+    type = country_event
+
+    title = me_qin_shan_yang_6_title
+    desc = me_qin_shan_yang_6_desc
+    picture = assassination
+
+    option = {
+        name = "me_qin_shan_yang_6.a"
+		add_political_influence = 30
+		add_legitimacy = 10
+		add_country_modifier = {
+			name = sechuan_admin_mod
+			duration = 3650
+		}
+
+    }
+}
+me_qin_shan_yang.7 = {
+    type = country_event
+
+    title = me_qin_shan_yang_7_title
+    desc = me_qin_shan_yang_7_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_7.a"
+        add_2_free_province_investments = yes
+		every_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = guanghan_area
+					is_in_area = ba_area
+					is_in_area = shu_area
+					is_in_area = qianwei_area
+				}
+				has_city_status = yes
+				total_population >= 25
+				free_building_slots = 0
+			}
+			ordered_pops_in_province = {
+				limit = {
+					NOT = { pop_culture = root.culture }
+				}
+				order_by = pop_hapiness
+				max = 8
+				check_range_bounds = no
+				set_pop_culture = root.culture
+			}
+			every_pops_in_province = {
+				limit = { 
+					pop_culture = root.culture
+					pop_type = slaves 
+				}
+				set_pop_type = freemen 
+			}
+			every_pops_in_province = {
+				limit = { 
+					pop_culture = root.culture
+					pop_type = freemen 
+				}
+				set_pop_type = citizen 
+			}
+		}
+    }
+}
+me_qin_shan_yang.8 = {
+    type = country_event
+
+    title = me_qin_shan_yang_8_title
+    desc = me_qin_shan_yang_8_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_8.a"
+		custom_tooltip = qin_01_shan_yang_task_8_reward_tt #Every character with an office gets:
+		show_as_tooltip = {
+			random_character = {
+				limit = { has_any_office = yes }
+				add_zeal = 1
+				add_martial = 1
+				add_charisma = 1
+				add_finesse = 1
+			}
+		}
+		hidden_effect = {
+			every_character = {
+				limit = { has_any_office = yes }
+				add_zeal = 1
+				add_martial = 1
+				add_charisma = 1
+				add_finesse = 1
+			}
+		}
+    }
+}
+me_qin_shan_yang.9 = {
+    type = country_event
+
+    title = me_qin_shan_yang_9_title
+    desc = me_qin_shan_yang_9_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_9.a"
+        add_political_influence = 20
+		current_ruler.family = { add_prestige = 200 }
+		add_country_modifier = {
+			name = absolute_authority_country_mod
+			duration = 3650
+		}
+    }
+}
+me_qin_shan_yang.10 = {
+    type = country_event
+
+    title = me_qin_shan_yang_10_title
+    desc = me_qin_shan_yang_10_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_shan_yang_10.a"
+        add_country_modifier = {
+			name = end_of_rong_country_mod
+			duration = 3650
+		}
+    }
+}
+me_qin_shan_yang.11 = {
+    type = country_event
+
+    title = me_qin_shan_yang_11_title
+    desc = me_qin_shan_yang_11_desc
+    picture = great_work_architect
+    left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_shan_yang_11.a"
+		add_political_influence = 20
+		add_legitimacy = 10
+		add_country_modifier = {
+			name = shan_yangs_legacy_country_mod
+			duration = 3650
+		}
+    }
+}
+
+
+namespace = me_qin_li_si
+
+
+me_qin_li_si.1 = {
+    type = country_event
+
+    title = me_qin_li_si_1_title
+    desc = me_qin_li_si_1_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:li_si_character
+	
+	immediate = {
+		create_character = {
+			first_name = "Li"
+			family_name = "Si"
+			culture = root.culture
+			religion = root.religion
+			age = 33
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				amazing_martial_effect = yes
+				amazing_finesse_effect = yes
+				amazing_charisma_effect = yes
+				amazing_zeal_effect = yes
+				add_trait = silver_tongued
+				add_trait = wise
+				add_trait = shrewd
+				add_trait = scholar
+				add_trait = intelligent
+				add_trait = ambitious
+				add_charisma = 3
+				add_finesse = 3
+				add_zeal = 3
+			}
+			save_scope_as = li_si_character
+        }
+		set_variable = {
+			name = li_si_character_scope_variable
+			value = scope:li_si_character
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_1.a"
+		
+    }
+}
+me_qin_li_si.2 = {
+    type = country_event
+
+    title = me_qin_li_si_2_title
+    desc = me_qin_li_si_2_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:li_si_character
+
+    option = {
+        name = "me_qin_li_si_2.a"
+        custom_tooltip = qin_02_li_si_task_2_claims_tt
+
+    }
+}
+me_qin_li_si.3 = {
+    type = country_event
+
+    title = me_qin_li_si_3_title
+    desc = me_qin_li_si_3_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_3.a"
+        custom_tooltip = qin_02_li_si_task_3_claims_tt
+
+    }
+}
+me_qin_li_si.4 = {
+    type = country_event
+
+    title = me_qin_li_si_4_title
+    desc = me_qin_li_si_4_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_4.a"
+        p:8866 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8879 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+    }
+}
+me_qin_li_si.5 = {
+    type = country_event
+
+    title = me_qin_li_si_5_title
+    desc = me_qin_li_si_5_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_5.a"
+        custom_tooltip = me_qin_li_si_5_tooltip
+
+    }
+}
+me_qin_li_si.6 = {
+    type = country_event
+
+    title = me_qin_li_si_6_title
+    desc = me_qin_li_si_6_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_6.a"
+        custom_tooltip = me_qin_li_si_6_tooltip
+
+    }
+}
+me_qin_li_si.7 = {
+    type = country_event
+
+    title = me_qin_li_si_7_title
+    desc = me_qin_li_si_7_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_7.a"
+        custom_tooltip = me_qin_li_si_7_tooltip
+
+    }
+}
+me_qin_li_si.8 = {
+    type = country_event
+
+    title = me_qin_li_si_8_title
+    desc = me_qin_li_si_8_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_8.a"
+        custom_tooltip = me_qin_li_si_8_tooltip
+
+    }
+}
+me_qin_li_si.9 = {
+    type = country_event
+
+    title = me_qin_li_si_9_title
+    desc = me_qin_li_si_9_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:royal_tutor_qin_9
+	
+	immediate = {
+		random_character = {
+			limit = { has_office = office_royal_tutor }
+			save_scope_as = royal_tutor_qin_9
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_9.a"
+        add_country_modifier = {
+			name = state_sanctioned_scholars_country_mod
+			duration = 7300
+		}
+    }
+}
+me_qin_li_si.10 = {
+    type = country_event
+
+    title = me_qin_li_si_10_title
+    desc = me_qin_li_si_10_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_10.a"
+        custom_tooltip = me_qin_li_si_10_tooltip
+
+    }
+}
+me_qin_li_si.11 = {
+    type = country_event
+
+    title = me_qin_li_si_11_title
+    desc = me_qin_li_si_11_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_11.a"
+        custom_tooltip = me_qin_li_si_11_tooltip
+
+    }
+}
+me_qin_li_si.12 = {
+    type = country_event
+
+    title = me_qin_li_si_12_title
+    desc = me_qin_li_si_12_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_12.a"
+        add_country_modifier = {
+			name = great_wall_of_qin
+			duration = -1
+		}
+    }
+}
+me_qin_li_si.13 = {
+    type = country_event
+
+    title = me_qin_li_si_13_title
+    desc = me_qin_li_si_13_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_13.a"
+        p:8589 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8335 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8380 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8367 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+		p:8626 = {
+			add_state_loyalty = state_province_loyalty_medium
+		}
+    }
+}
+me_qin_li_si.14 = {
+    type = country_event
+
+    title = me_qin_li_si_14_title
+    desc = me_qin_li_si_14_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_14.a"
+        custom_tooltip = me_qin_li_si_14_tooltip
+
+    }
+}
+me_qin_li_si.15 = {
+    type = country_event
+
+    title = me_qin_li_si_15_title
+    desc = me_qin_li_si_15_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_15.a"
+        custom_tooltip = me_qin_li_si_15_tooltip
+
+    }
+}
+me_qin_li_si.16 = {
+    type = country_event
+
+    title = me_qin_li_si_16_title
+    desc = me_qin_li_si_16_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_li_si_16.a"
+        custom_tooltip = me_qin_li_si_16_tooltip
+
+    }
+}
+
+me_qin_li_si.17 = {
+    type = country_event
+
+    title = me_qin_li_si_17_title
+    desc = me_qin_li_si_17_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:bai_qi_character
+	
+	immediate = {
+		create_character = {
+			first_name = "Bai"
+			family_name = "Qi"
+			culture = root.culture
+			religion = root.religion
+			age = 39
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				amazing_martial_effect = yes
+				amazing_finesse_effect = yes
+				amazing_charisma_effect = yes
+				amazing_zeal_effect = yes
+				add_trait = energetic
+				add_trait = tactician
+				add_trait = disciplined
+				add_trait = intelligent
+				add_trait = ambitious
+				add_martial = 6
+			}
+			save_scope_as = bai_qi_character
+        }
+		set_variable = {
+			name = bai_qi_character_scope_variable
+			value = scope:bai_qi_character
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_17.a"
+    }
+}
+
+me_qin_li_si.18 = {
+    type = country_event
+
+    title = me_qin_li_si_18_title
+    desc = me_qin_li_si_18_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:bai_qi_character
+
+    option = {
+        name = "me_qin_li_si_18.a"
+        add_country_modifier = {
+			name = leadership_of_bai_qi
+			duration = 7300
+		}
+    }
+}
+
+
+
+namespace = me_qin_empire
+
+
+
+me_qin_empire.1 = {
+    type = country_event
+
+    title = me_qin_empire_1_title
+    desc = me_qin_empire_1_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_1.a"
+        custom_tooltip = me_qin_empire_1_tooltip
+
+    }
+}
+me_qin_empire.2 = {
+    type = country_event
+
+    title = me_qin_empire_2_title
+    desc = me_qin_empire_2_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_2.a"
+        custom_tooltip = me_qin_empire_2_tooltip
+
+    }
+}
+me_qin_empire.3 = {
+    type = country_event
+
+    title = me_qin_empire_3_title
+    desc = me_qin_empire_3_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_3.a"
+        custom_tooltip = me_qin_empire_3_tooltip
+
+    }
+}
+me_qin_empire.4 = {
+    type = country_event
+
+    title = me_qin_empire_4_title
+    desc = me_qin_empire_4_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_4.a"
+        custom_tooltip = me_qin_empire_4_tooltip
+
+    }
+}
+me_qin_empire.5 = {
+    type = country_event
+
+    title = me_qin_empire_5_title
+    desc = me_qin_empire_5_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_5.a"
+        custom_tooltip = me_qin_empire_5_tooltip
+
+    }
+}
+me_qin_empire.6 = {
+    type = country_event
+
+    title = me_qin_empire_6_title
+    desc = me_qin_empire_6_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_6.a"
+        custom_tooltip = me_qin_empire_6_tooltip
+
+    }
+}
+me_qin_empire.7 = {
+    type = country_event
+
+    title = me_qin_empire_7_title
+    desc = me_qin_empire_7_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_7.a"
+        custom_tooltip = me_qin_empire_7_tooltip
+
+    }
+}
+me_qin_empire.8 = {
+    type = country_event
+
+    title = me_qin_empire_8_title
+    desc = me_qin_empire_8_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_8.a"
+        custom_tooltip = me_qin_empire_8_tooltip
+
+    }
+}
+me_qin_empire.9 = {
+    type = country_event
+
+    title = me_qin_empire_9_title
+    desc = me_qin_empire_9_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_9.a"
+        custom_tooltip = me_qin_empire_9_tooltip
+
+    }
+}
+me_qin_empire.10 = {
+    type = country_event
+
+    title = me_qin_empire_10_title
+    desc = me_qin_empire_10_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_10.a"
+        custom_tooltip = me_qin_empire_10_tooltip
+
+    }
+}
+me_qin_empire.11 = {
+    type = country_event
+
+    title = me_qin_empire_11_title
+    desc = me_qin_empire_11_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_11.a"
+        custom_tooltip = me_qin_empire_11_tooltip
+
+    }
+}
+me_qin_empire.12 = {
+    type = country_event
+
+    title = me_qin_empire_12_title
+    desc = me_qin_empire_12_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_12.a"
+        custom_tooltip = me_qin_empire_12_tooltip
+
+    }
+}
+me_qin_empire.13 = {
+    type = country_event
+
+    title = me_qin_empire_13_title
+    desc = me_qin_empire_13_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_13.a"
+        custom_tooltip = me_qin_empire_13_tooltip
+
+    }
+}
+me_qin_empire.14 = {
+    type = country_event
+
+    title = me_qin_empire_14_title
+    desc = me_qin_empire_14_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_14.a"
+        custom_tooltip = me_qin_empire_14_tooltip
+
+    }
+}
+me_qin_empire.15 = {
+    type = country_event
+
+    title = me_qin_empire_15_title
+    desc = me_qin_empire_15_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_15.a"
+        custom_tooltip = me_qin_empire_15_tooltip
+
+    }
+}
+me_qin_empire.16 = {
+    type = country_event
+
+    title = me_qin_empire_16_title
+    desc = me_qin_empire_16_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_16.a"
+        custom_tooltip = me_qin_empire_16_tooltip
+
+    }
+}
+me_qin_empire.17 = {
+    type = country_event
+
+    title = me_qin_empire_17_title
+    desc = me_qin_empire_17_desc
+    picture = great_library
+
+    option = {
+        name = "me_qin_empire_17.a"
+        custom_tooltip = me_qin_empire_17_tooltip
+
+    }
+}
