@@ -179,20 +179,25 @@
     }
     qin_02_li_si_task_6 = { #Weights & Measures
         icon = "task_political"
-        duration = 180
+        duration = 365
+		monthly_on_action = qin_02_li_si_task_6_monthly_pulse
         requires = { qin_02_li_si_task_5 }
         allow = {
             political_influence >= 25
         }
         on_start = {
             add_political_influence = -25
+			set_variable = {
+				name = ongoing_mission_pulse_flag
+				days = 365
+			}
             #Trigger character loyalty/corruption events throughout
         }
         on_completion = {
             trigger_event = me_qin_li_si.6
             show_as_tooltip = {
 				add_country_modifier = {
-					name = centralised_qin_law #global_import_commerce_modifier = 0.1
+					name = qin_weights_measures_mod #global_import_commerce_modifier = 0.1
 					duration = 7300
 				}
             }
@@ -200,13 +205,18 @@
     }
     qin_02_li_si_task_7 = { #Burning Books
         icon = "task_political"
-        duration = 365
+        duration = 730
+		monthly_on_action = qin_02_li_si_task_7_monthly_pulse
         requires = { qin_02_li_si_task_6 }
         allow = {
             political_influence >= 25
         }
         on_start = {
             add_political_influence = -25
+			set_variable = {
+				name = ongoing_mission_pulse_flag
+				days = 730
+			}
             # Events with negatives hurting loyalty w/ religious and cultural
             # minority characters, nations, and vassals.
         }
@@ -223,17 +233,26 @@
     }
     qin_02_li_si_task_8 = { #Seduce Scholars
         icon = "task_political"
-        duration = 180
+        duration = 730
         requires = { qin_02_li_si_task_6 }
         allow = {
             treasury >= 200
         }
         on_start = {
             add_treasury = -200
+			trigger_event = me_qin_li_si.800 #trigger event saying something about starting to seduce scholars
+			trigger_event = {
+				id = me_qin_li_si.801 #Qi scholar
+				days = { 130 230 }
+			}
+			trigger_event = {
+				id = me_qin_li_si.802 #Zhou scholar
+				days = { 315 415 }
+			}
             #trigger event saying something about starting to seduce scholars
          }
         on_completion = {
-            trigger_event = me_qin_li_si.8
+            trigger_event = me_qin_li_si.8 #Chu scholar
             custom_tooltip = qin_02_li_si_task_8_reward_tt
 			# Take some high skilled characters from Zhou states (qi, chu, zhou)
             # If they don't have land just get some characters
@@ -264,39 +283,53 @@
     }
     qin_02_li_si_task_10 = { #Burying Confucianists
         icon = "task_political"
-        duration = 365
+        duration = 730
+		monthly_on_action = qin_02_li_si_task_10_monthly_pulse
         requires = { qin_02_li_si_task_7 }
         allow = {
             stability >= 40
         }
         on_start = {
             add_stability = -10
+			set_variable = {
+				name = ongoing_mission_pulse_flag
+				days = 730
+			}
             #Do the events for killing confucian characters
         }
         on_completion = {
-            add_country_modifier = {
-                name = freedom_from_confucian_values_mod
-                duration = 5475
-            }
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = freedom_from_confucian_values_mod
+					duration = 5475
+				}
+			}
             trigger_event = me_qin_li_si.10
         }
     }
     qin_02_li_si_task_11 = { #Seal Script
         icon = "task_political"
-        duration = 365
+        duration = 730
+		monthly_on_action = qin_02_li_si_task_11_monthly_pulse
         requires = { qin_02_li_si_task_7 }
         allow = {
             treasury >= 50
 			political_influence >= 50
         }
         on_start = {
+			set_variable = {
+				name = ongoing_mission_pulse_flag
+				days = 730
+			}
             #Negative events for loyalty, areas, characters, PI, and cash
         }
         on_completion = {
-            add_country_modifier = {
-                name = qin_assimiliation_mod
-                duration = -1
-            }
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = qin_assimiliation_mod
+					duration = -1
+				}
+			}
             trigger_event = me_qin_li_si.11
         }
     }
@@ -574,7 +607,7 @@
 					limit = {
 						has_distinction = distinction_legio_primagena
 					}
-					add_distinction = distinction_corona_obsidionalis
+					add_distinction = distinction_great_army_of_qin
 				}
 			}
             trigger_event = me_qin_li_si.15
@@ -583,6 +616,11 @@
     qin_02_li_si_task_16 = { #Great Library of Qin
         icon = "task_political"
         duration = 18250
+		highlight = {
+			scope:province = {
+				province_id = 8313
+			}
+		}
         requires = {
             qin_02_li_si_task_12
             qin_02_li_si_task_11
