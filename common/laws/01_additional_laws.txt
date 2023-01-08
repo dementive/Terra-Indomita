@@ -1,0 +1,610 @@
+﻿minting_laws = { #minting laws - only for civilised states
+	potential = {
+		is_tribal = no
+		is_subject = no
+	}
+
+	minting_laws_0 = { #default - no precious metals, no own coin
+
+	}
+
+	minting_laws_1 = { #state monopoly - allows the building of the mint in the capital region only
+		modifier = {
+			global_capital_trade_routes = 1
+		}
+		allow = {
+			custom_tooltip = {
+				text = mint_metals_prerequisites
+				any_owned_province = {
+					#OR = {
+						trade_goods = precious_metals
+						#Commented this out because it is thowing MILLIONS of errors and idk how to fix, should do something else instead.
+						#is_importing_trade_good = precious_metals
+					#}
+				}
+			}
+		}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = 5
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = 10
+				}
+			}
+			custom_tooltip = minting_laws_mint_building_capital_region
+		}
+	}
+
+	minting_laws_2 = { #decentralised minting - allows the building of the mint in all provinces (but has downsides) - allows ai governors to build the mint (is that possible to do?)
+		modifier = {
+			governor_loyalty = 5 #more power
+			monthly_governor_wage = 0.1 #self-payment
+		}
+
+
+		allow = {
+			custom_tooltip = {
+				text = mint_metals_prerequisites
+				any_owned_province = {
+					trade_goods = precious_metals
+				}
+			}
+		}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = 5
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = 5
+				}
+			}
+			custom_tooltip = minting_laws_mint_building_everywhere
+		}
+	}
+
+	minting_laws_3 = { #autonomous coinage - subjects are allowed to mint their own coin (i.e. they are more independent)
+		allow = {
+			any_subject = {
+				count > 0
+				exists = this
+			}
+			custom_tooltip = {
+				text = mint_metals_prerequisites
+				any_owned_province = {
+					trade_goods = precious_metals
+				}
+			}
+		}
+		modifier = {
+			subject_opinions = 20 #they like you for giving them more rights
+			subject_loyalty = -10 #they are more autonomous, i.e. independent
+			global_commerce_modifier = 0.05 #different coinage having different values
+		}
+
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = -10
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = 10
+				}
+			}
+			custom_tooltip = minting_laws_mint_building_capital_region
+			custom_tooltip = minting_laws_mint_building_subjects
+		}
+	}
+
+	minting_laws_4 = { #privatised minting - disallows the mint for the player, only ai characters can build it (schemes)
+		modifier = {
+			character_loyalty = 3 #privilege
+			monthly_corruption = 0.025 #power corrupts
+			build_cost = -0.05
+		}
+
+
+		allow = {
+			custom_tooltip = {
+				text = mint_metals_prerequisites
+				any_owned_province = {
+					trade_goods = precious_metals
+				}
+			}
+		}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = 10
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = -10
+				}
+			}
+			custom_tooltip = minting_laws_mint_building_disabled_for_player
+		}
+	}
+}
+
+education_laws_civilised = {
+	potential = {
+		is_tribal = no
+	}
+
+	education_laws_civilised_0 = { #default - nobles only can afford to educate their children
+		modifier = {
+			global_nobles_happyness = 0.03
+			global_nobles_output = 0.01
+		}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = 10
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = 5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = -10
+				}
+			}
+		}
+	}
+
+	education_laws_civilised_1 = { #subsidise craftsmen
+		allow = {
+			invention = research_points_modifier_inv_2
+		}
+
+		modifier = {
+			global_freemen_output = 0.06
+			global_monthly_civilization = 0.02
+		}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = -10
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = 10
+				}
+			}
+		}
+	}
+
+	education_laws_civilised_2 = { #religious schools
+		allow = {
+			invention = research_points_modifier_inv_2
+		}
+
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.03
+			happiness_for_same_religion_modifier = 0.08
+		}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = 5
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = 10
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = -10
+				}
+			}
+		}
+	}
+
+	education_laws_civilised_3 = { #subsidise/free education for everyone
+		allow = {
+			invention = research_points_modifier_inv_2
+			has_monthly_income >= 50
+		}
+
+		modifier = {
+			technology_investment = 0.05
+			global_tax_income = -5
+		}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = -10
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = 10
+				}
+			}
+		}
+	}
+}
+
+education_laws_tribal = {
+	potential = {
+		is_tribal = yes
+	}
+
+	education_laws_tribal_0 = { #oral traditions
+		modifier = {
+			happiness_for_same_culture_modifier = 0.03
+		}
+	}
+
+	education_laws_tribal_1 = { #formalised warrior schools
+		modifier = {
+			discipline = 0.03
+		}
+	}
+
+	education_laws_tribal_2 = { #copy the civilised states
+		modifier = {
+			global_monthly_civilization = 0.01
+			monthly_centralization = 0.03
+		}
+
+		allow = {
+			any_neighbour_country = {
+				OR = {
+					is_republic = yes
+					is_monarchy = yes
+				}
+				opinion = {
+					target = root
+					value >= 100
+				}
+			}
+		}
+	}
+}
+
+# weapons_ownership_laws = { #who can own weapons - and what effect that has...
+# 	potential = {
+# 		always = yes
+# 	}
+
+# 	weapons_ownership_laws_0 = { # default - no regulations on small weapons such as knives and bows
+
+# 		on_enact = {
+# 			if = {
+# 				limit = {
+# 					is_republic = yes
+# 				}
+# 				add_party_approval = {
+# 					party_type = oligarchic_party
+# 					value = -5
+# 				}
+# 				add_party_approval = {
+# 					party_type = traditionalist_party
+# 					value = 10
+# 				}
+# 				add_party_approval = {
+# 					party_type = democratic_party
+# 					value = 5
+# 				}
+# 			}
+# 		}
+# 	}
+# 	weapons_ownership_laws_1 = { #total prohibition on weapon ownership for the populace - cooking and hunting won't be easy...
+# 		allow = {}
+
+# 		on_enact = {
+# 			if = {
+# 				limit = {
+# 					is_republic = yes
+# 				}
+# 				add_party_approval = {
+# 					party_type = oligarchic_party
+# 					value = 10
+# 				}
+# 				add_party_approval = {
+# 					party_type = traditionalist_party
+# 					value = 5
+# 				}
+# 				add_party_approval = {
+# 					party_type = democratic_party
+# 					value = -10
+# 				}
+# 			}
+# 		}
+
+# 		modifier = { #have an event chain that could create a revolt?
+# 			unrest = 1
+# 			global_monthly_state_loyalty = 0.05
+# 		}
+# 	}
+
+# 	weapons_ownership_laws_2 = { #no restrictions
+# 		allow = {}
+
+# 		on_enact = {
+# 			if = {
+# 				limit = {
+# 					is_republic = yes
+# 				}
+# 				add_party_approval = {
+# 					party_type = oligarchic_party
+# 					value = -10
+# 				}
+# 				add_party_approval = {
+# 					party_type = traditionalist_party
+# 					value = -5
+# 				}
+# 				add_party_approval = {
+# 					party_type = democratic_party
+# 					value = 10
+# 				}
+# 			}
+# 		}
+
+# 		modifier = {
+# 			unrest = -1
+# 			governor_loyalty = -5
+# 			general_loyalty = -5
+# 		}
+# 	}
+
+# 	weapons_ownership_laws_3 = { #italian culture possibilty - pomerium - weapons prohibited inside of cities for non-lictors
+# 		potential = {
+# 			country_culture_group = latin
+# 		}
+
+# 		on_enact = { #tie in triumph char interaction maybe
+# 			if = {
+# 				limit = {
+# 					is_republic = yes
+# 				}
+# 				add_party_approval = {
+# 					party_type = oligarchic_party
+# 					value = 5
+# 				}
+# 				add_party_approval = {
+# 					party_type = traditionalist_party
+# 					value = 5
+# 				}
+# 				add_party_approval = {
+# 					party_type = democratic_party
+# 					value = 5
+# 				}
+# 			}
+# 		}
+
+# 		allow = {
+# 			is_tribal = no
+# 			any_owned_province = {
+# 				has_city_status = yes
+# 			}
+# 		}
+
+# 		modifier = {
+# 			happiness_for_same_culture_modifier = 0.06
+# 			global_monthly_state_loyalty = 0.02
+# 		}
+# 	}
+
+# }
+
+social_welfare_laws = {
+	potential = {
+		always = yes
+	}
+
+	social_welfare_laws_0 = { #default - no social welfare
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = 10
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = 5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = -10
+				}
+			}
+		}
+	}
+
+	social_welfare_laws_1 = { #help orphans and found orphanages
+		allow = {}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = 10
+				}
+			}
+		}
+
+		modifier = {
+			global_population_growth = 0.1 #they'd die otherwise
+			global_tax_income = -8
+		}
+	}
+
+	social_welfare_laws_2 = { #support the elderly
+		allow = {}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = 5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = 5
+				}
+			}
+		}
+
+		modifier = {
+			monthly_military_experience_modifier = 0.1 #teaching the youths for longer (bcs not dead)
+			global_tax_income = -8
+		}
+	}
+
+	social_welfare_laws_3 = { #feed the poor
+		allow = {}
+
+		on_enact = {
+			if = {
+				limit = {
+					is_republic = yes
+				}
+				add_party_approval = {
+					party_type = oligarchic_party
+					value = -10
+				}
+				add_party_approval = {
+					party_type = traditionalist_party
+					value = -5
+				}
+				add_party_approval = {
+					party_type = democratic_party
+					value = 10
+				}
+			}
+		}
+
+		modifier = {
+			global_freemen_output = 0.05
+			global_freemen_happyness = 0.05
+			global_monthly_food_modifier = -0.05
+		}
+	}
+}
+
+
+
+#################
+### Law Ideas ###
+#################
+
+### NOTE: We CANNOT have this many sets of laws it would just be awful for the player to manage them. I would say that adding a MAX of like 5 new sets of laws is all that we should do, any more than that is just unncessary bloat and becomes annoying to manage for players. It's also not possible to balance so there's that too.
+# If you want to make this many new laws you have to hide them behind potentials so a single nation doesn't have 25 different law sets because that would be awful.
+
+
+###These are done/being worked on
+
+#minting
+#education
+#social welfare 
+
+#moral laws (prostitution f.ex.) 
+#holdings laws
+#colonisation - Dementive
+
+#eunuchs/governors
+#justicial/due proceedings in court - investigation, interragion, oaths etc
+
+###ruled out - for now
+
+#ownership of weapons (I don't like these laws they don't make sense to me and feel unnessesary)
+#contracts (I don't like this as a law, it should be something else if it exists at all)
+
+### Should be Economic Policies or the like
+
+#taxes more defined; probably multiple sets 
+#maintenance 
+#prices and monopolies 

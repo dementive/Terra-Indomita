@@ -56,11 +56,25 @@
 						}
 					}
 				}
-				NAND = { # Legislative Body
-					has_law = republic_corruption_4 # Abolish Assemblies
-					trigger_if = {
-						limit = { has_variable = party_law_change_cooldown }
-						var:party_law_change_cooldown = 6
+				trigger_if = {
+					NAND = { # Legislative Body
+						has_law = republic_corruption_4 # Abolish Assemblies
+						trigger_if = {
+							limit = { has_variable = party_law_change_cooldown }
+							var:party_law_change_cooldown = 6
+						}
+					}
+				}
+				trigger_if = {
+					NAND = { # Minting
+						OR = {
+							has_law = minting_laws_4 # privatised minting
+							has_law = minting_laws_2 # decentralised
+						}
+						trigger_if = {
+							limit = { has_variable = party_law_change_cooldown }
+							var:party_law_change_cooldown = 7
+						}
 					}
 				}
 			}
@@ -183,6 +197,24 @@
 						}
 					}
 				}
+				2 = { # minting
+						trigger = {
+							NAND = { 
+								OR = {
+									has_law = minting_laws_4 # privatised minting
+									has_law = minting_laws_2 # decentralised
+								}
+								trigger_if = {
+    								limit = { has_variable = party_law_change_cooldown }
+									var:party_law_change_cooldown = 7
+								}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_oli_target
+							value = 7 # minting
+						}
+					}
 			}
 		}
 	}
@@ -233,6 +265,13 @@
 				limit = { var:sen_obj_cha_law_oli_target = 6 }
 				custom_tooltip = {
 					text = senate_objective_change_law_oli_generic_tt_6
+					has_law = republic_corruption_4 # Abolish Assemblies
+				}
+			}
+			trigger_else_if = { #minting
+				limit = { var:sen_obj_cha_law_oli_target = 7 }
+				custom_tooltip = {
+					text = senate_objective_change_law_oli_generic_tt_7
 					has_law = republic_corruption_4 # Abolish Assemblies
 				}
 			}
@@ -356,11 +395,22 @@ senate_objective_change_law_dem_generic = { # Change Law Generic - Democratic
 						}
 					}
 				}
-				NAND = { # Legislative Body
-					has_law = republic_corruption_2 # Assembly of Residents
-					trigger_if = {
-						limit = { has_variable = party_law_change_cooldown }
-						var:party_law_change_cooldown = 6
+				trigger_if = {
+						NAND = { # Legislative Body
+						has_law = republic_corruption_2 # Assembly of Residents
+						trigger_if = {
+							limit = { has_variable = party_law_change_cooldown }
+							var:party_law_change_cooldown = 6
+						}
+					}
+				}
+				trigger_if = {
+						NAND = { # minting
+						has_law = minting_laws_3 #autonomous coinage
+						trigger_if = {
+							limit = { has_variable = party_law_change_cooldown }
+							var:party_law_change_cooldown = 7
+						}
 					}
 				}
 			}
@@ -482,6 +532,21 @@ senate_objective_change_law_dem_generic = { # Change Law Generic - Democratic
 							value = 6
 						}
 					}
+					2 = { # minting
+						trigger = {
+							NAND = {
+								has_law = minting_laws_3 # coinage
+								trigger_if = {
+									limit = { has_variable = party_law_change_cooldown }
+									var:party_law_change_cooldown = 7
+								}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_dem_target
+							value = 7
+						}
+					}
 				}
 			}
 		}
@@ -535,6 +600,13 @@ senate_objective_change_law_dem_generic = { # Change Law Generic - Democratic
 					custom_tooltip = {
 						text = senate_objective_change_law_tra_generic_tt_5
 						has_law = republic_corruption_2 # Assembly of Residents
+					}
+				}
+				trigger_else_if = { # minting
+					limit = { var:sen_obj_cha_law_dem_target = 7 }
+					custom_tooltip = {
+						text = senate_objective_change_law_dem_generic_tt_7
+						has_law = minting_laws_3 # autonomous coinage
 					}
 				}
 			}
@@ -660,13 +732,26 @@ senate_objective_change_law_tra_generic = { # Change Law Generic - Traditionalis
 						}
 					}
 				}
-				AND = { # Legislative Body
-					NOT = {
-						has_law = republic_corruption_1 # Assembly of Citizens
+				trigger_if = {
+					AND = { # Legislative Body
+						NOT = {
+							has_law = republic_corruption_1 # Assembly of Citizens
+						}
+						trigger_if = {
+							limit = { has_variable = party_law_change_cooldown }
+							var:party_law_change_cooldown = 6
+						}
 					}
-					trigger_if = {
-						limit = { has_variable = party_law_change_cooldown }
-						var:party_law_change_cooldown = 6
+				}
+				trigger_if = {
+					AND = { # minting
+						NOT = {
+							has_law = minting_laws_1 # state monopoly
+						}
+						trigger_if = {
+							limit = { has_variable = party_law_change_cooldown }
+							var:party_law_change_cooldown = 7
+						}
 					}
 				}
 			}
@@ -758,7 +843,7 @@ senate_objective_change_law_tra_generic = { # Change Law Generic - Traditionalis
 						}
 						set_variable = {
 							name = sen_obj_cha_law_tra_target
-							value = 4
+							value = 5
 						}
 					}
 					2 = {
@@ -773,7 +858,22 @@ senate_objective_change_law_tra_generic = { # Change Law Generic - Traditionalis
 						}
 						set_variable = {
 							name = sen_obj_cha_law_tra_target
-							value = 5
+							value = 6
+						}
+					}
+					2 = {
+						trigger = {
+							NOT = {
+								has_law = republic_corruption_1 # state monopoly
+							}
+							trigger_if = {
+								limit = { has_variable = party_law_change_cooldown }
+								NOT = { var:party_law_change_cooldown = 7 }
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_tra_target
+							value = 7
 						}
 					}
 				}
@@ -811,17 +911,24 @@ senate_objective_change_law_tra_generic = { # Change Law Generic - Traditionalis
 					}
 				}
 				trigger_else_if = {
-					limit = { var:sen_obj_cha_law_tra_target = 4 } # Institute Wealth Levy
+					limit = { var:sen_obj_cha_law_tra_target = 5 } # Institute Wealth Levy
 					custom_tooltip = {
 						text = senate_objective_change_law_tra_generic_tt_4
 						has_law = republican_mediterranean_3
 					}
 				}
 				trigger_else_if = {
-					limit = { var:sen_obj_cha_law_tra_target = 5 } # Assembly of Citizens
+					limit = { var:sen_obj_cha_law_tra_target = 6 } # Assembly of Citizens
 					custom_tooltip = {
 						text = senate_objective_change_law_dem_generic_tt_6
 						has_law = republic_corruption_1
+					}
+				}
+				trigger_else_if = {
+					limit = { var:sen_obj_cha_law_tra_target = 7 } # minting state monopoly
+					custom_tooltip = {
+						text = senate_objective_change_law_dem_generic_tt_7
+						has_law = minting_laws_1
 					}
 				}
 			}
