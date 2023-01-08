@@ -10,7 +10,7 @@ types WarOverViewTypes
 widget = {
 	name = "wars_overview"
 	size = { 800 124 }
-	position = { -420 2 }
+	position = { -380 2 }
 	parentanchor = bottom|right
 	widgetanchor = bottom|right
 	layer = middle
@@ -74,30 +74,12 @@ widget = {
 						}
 					}
 
-					#textbox = {
-					#	position = { 55 96 }
-					#	widgetanchor = top|hcenter
-					#	text = "[WarsOverviewWar.GetWarScore]"
-					#	autoresize = yes
-					#}
-
 					button = {
 						position = { 20 20 }
 						size = { 70 100 }
 						onclick = "[WarsOverviewWar.OnClick]"
 						onrightclick = "[WarsOverviewWar.OnClick]"
 						onrightclick = "[PdxGuiTriggerAllAnimations('sue_for_peace')]"
-						# tooltipwidget = {
-						# 	using = double_tooltip_vert
-						# 	blockoverride "line" {}
-						# 	blockoverride "TopText"
-						# 	{
-						# 		text = "[WarsOverviewWar.GetWar.GetName]"
-						# 	}
-						# 	blockoverride "BotText" {
-						# 		text = "rmb_sue_for_peace"
-						# 	}
-						# }
 						tooltip = "[WarsOverviewWar.GetWar.GetName]"
 						clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_tab"
 						oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
@@ -115,6 +97,63 @@ widget = {
 						oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
 					}
 				}
+			}
+		}
+		widget = {}
+		button = {
+			size = { 84 126 }
+			datacontext = "[GetScriptedGui('is_valid_chinese_unifier_trigger')]"
+			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			
+			icon = {
+				position = { 0 0 }
+				texture = "gfx/interface/china/chinese_mandate_war.dds"
+				size = { 90 124 }
+			}
+			# icon = {
+			#	parentanchor = right|bottom
+			#	size = { 74 31 }
+			#	position = { 14 0 }
+				#using = flat_background_white
+				#modify_texture = {
+				#	name = "Alpha"
+				#	texture = "gfx/interface/base_parts/header_l_x20bd_alpha1.dds"
+				#	blend_mode = alphamultiply
+				#	spriteType = Corneredtiled
+				#	spriteborder = { 60 36 }
+				#}
+
+			#}
+
+			#china_open_button = {
+			#	position = { 48 25 }
+			#    size = { 37 37 }
+			#    datacontext = "[GetScriptedGui('is_valid_chinese_unifier_trigger')]"
+			#    visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			#    blockoverride "Icon" {
+			#        texture = "gfx/interface/china/mandate_of_heaven_icon.dds"
+			#        size = { 50 50 }
+			#        position = { 4 5 }
+			#    }
+			#}
+			textbox = {
+				parentanchor = bottom|hcenter
+				position = { 3 2 }
+				using = BaseFontM
+				minimumsize = { 50 36 }
+				resizeparent = no
+				align = center|nobaseline
+				elide = right
+				text = "#Y [Player.MakeScope.Var('unification_points').GetValue|0]#!"
+			}
+			button = {
+				position = { 20 20 }
+				size = { 70 100 }
+				onclick = "[ExecuteConsoleCommand('gui.createwidget gui/chinese_unification.gui chinese_unification')]"
+				tooltip = "#T Chinese Unification#!"
+				clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_tab"
+				oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
+				visible = "[Not(WarsOverviewWar.GetWar.IsCivilWar)]"
 			}
 		}
 		### ERROR PLATYPUS!

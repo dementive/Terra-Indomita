@@ -4,6 +4,58 @@
     }
 }
 
+is_valid_chinese_unifier_trigger = {
+    is_shown = {
+        NOT = { has_global_variable = china_unified }
+        NOT = { has_variable = unification_war_launched }
+        country_culture_group = chinese
+    }
+}
+
+unify_china_war_button = {
+    scope = country
+    is_valid = {
+        trigger_if = {
+            limit = {
+                has_variable = unification_points
+            }
+            custom_tooltip = {
+                text = unification_requirement_tt
+                var:unification_points >= 100
+            }
+        }
+        trigger_else = {
+            always = no
+        }
+    }
+
+    effect = {
+        custom_tooltip = unification_war_declare_tt
+        set_variable = unification_war_launched
+        every_country = {
+            limit = {
+                country_culture_group = chinese
+                NOR = {
+                    this = root
+                    alliance_with = root
+                    is_subject_of = root
+                }
+            }
+            root = {
+                declare_war_with_wargoal = {
+                    war_goal = chinese_unification_wargoal
+                    target = prev
+                }
+            }
+        }
+        add_country_modifier = {
+            name = unification_of_china_mod
+            duration = 3650
+        }
+        remove_all_chinese_unification_vars_effect = yes
+    }
+}
+
 open_chinese_empire_window = {
     scope = country
     is_valid = {

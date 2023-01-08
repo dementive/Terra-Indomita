@@ -75,16 +75,17 @@ chinese_flavor.2 = { # A New Emperor
 
 #    option = { #The Celestial Empire will last for Eternity
 #        name = add_20_mandate
-#        p:1 = {
-#            every_pops_in_province = { kill_pop = yes}
+#        change_variable = {
+#            name = unification_points
+#            add = 90
 #        }
 #    }
-#    #option = { #The Celestial Empire will last for Eternity
-#    #    name = add_10_mandate
-#    #    change_mandate_effect = {
-#    #        VALUE = mandate_great_event
-#    #    }
-#    #}
+#    option = { #The Celestial Empire will last for Eternity
+#        name = add_10_mandate
+#        change_mandate_effect = {
+#            VALUE = mandate_great_event
+#        }
+#    }
 #}
 
 chinese_flavor.4 = {
@@ -116,6 +117,17 @@ chinese_flavor.5 = { # Turmoil in China
         country_culture_group = chinese
     }
 
+    immediate = {
+        # Set unification var for all potential unifiers
+        set_variable = {
+            name = unification_points
+            value = 0
+        }
+        # TI
+        check_chinese_unification_provs_effect = yes
+        check_chinese_unification_subjects_effect = yes
+    }
+
     option = { #China will be ours!
         name = chinese_flavor.5.a
         custom_tooltip = chinese_flavor.5.tt
@@ -144,12 +156,12 @@ chinese_flavor.5 = { # Turmoil in China
         }
     }
     after = {
-        c:QIN = {
-            trigger_event = {
-                id = chinese_flavor.7
-                days = { 30 90 }
-            }
-        }
+        #c:QIN = {
+        #    trigger_event = {
+        #        id = chinese_flavor.7
+        #        days = { 30 90 }
+        #    }
+        #}
         c:YEZ = { set_variable = horde_invasion_origin }
         c:XNU = {
             set_variable = horde_invasion_origin

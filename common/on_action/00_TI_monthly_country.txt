@@ -1,0 +1,22 @@
+﻿monthly_country_pulse = {
+	on_actions = {
+		ti_monthly_chinese_unification_pulse
+		delay = { days = { 1 30 } }
+	}
+}
+
+ti_monthly_chinese_unification_pulse = {
+	trigger = {
+		num_of_cities >= 1
+		NOR = {
+			tag = REB
+			tag = BAR
+		}
+		country_culture_group = chinese
+		NOT = { has_global_variable = china_unified }
+	}
+	effect = {
+		check_chinese_unification_provs_effect = yes
+		check_chinese_unification_subjects_effect = yes
+	}
+}
