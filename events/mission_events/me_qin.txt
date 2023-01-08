@@ -692,6 +692,89 @@ me_qin_li_si.6 = {
 		}
     }
 }
+
+me_qin_li_si.600 = {
+    type = country_event
+
+    title = me_qin_li_si_600_title
+    desc = me_qin_li_si_600_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_600.a"
+		current_ruler = {
+			add_corruption = 10
+		}
+        #something bad
+    }
+}
+
+me_qin_li_si.601 = {
+    type = country_event
+
+    title = me_qin_li_si_601_title
+    desc = me_qin_li_si_601_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:upset_official_qin
+	
+	immediate = {
+		random_character = {
+			limit = {
+				has_any_office = yes
+			}
+			save_scope_as = upset_official_qin
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_601.a"
+		scope:upset_official_qin = {
+			add_loyalty = loyalty_picked_other_side
+		}
+        #something bad
+    }
+}
+
+me_qin_li_si.602 = {
+    type = country_event
+
+    title = me_qin_li_si_602_title
+    desc = me_qin_li_si_602_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_602.a"
+		current_ruler = {
+			add_popularity = -10
+		}
+        #something bad
+    }
+}
+
+me_qin_li_si.603 = {
+    type = country_event
+
+    title = me_qin_li_si_603_title
+    desc = me_qin_li_si_603_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_603.a"
+        add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 5
+		}
+    }
+}
+
 me_qin_li_si.7 = {
     type = country_event
 
@@ -709,7 +792,120 @@ me_qin_li_si.7 = {
 		}
     }
 }
-me_qin_li_si.8 = {
+
+me_qin_li_si.700 = {
+    type = country_event
+
+    title = me_qin_li_si_700_title
+    desc = me_qin_li_si_700_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:upset_minority_char_qin
+	
+	immediate = {
+		random_character = {
+			NOT = {
+				has_culture = root.culture
+			}
+			save_scope_as = upset_minority_char_qin
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_700.a"
+		scope:upset_minority_char_qin = {
+			add_loyalty = loyalty_picked_other_side
+		}
+        #something bad
+    }
+}
+
+me_qin_li_si.701 = {
+    type = country_event
+
+    title = me_qin_li_si_701_title
+    desc = me_qin_li_si_701_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	
+	immediate = {
+		random_owned_province = {
+			limit = {
+				NOT = {
+					dominant_province_culture = root.culture
+				}
+				NOT = {
+					has_province_modifier = qin_upset_minority_province_mod
+				}
+			}
+			save_scope_as = upset_minority_province
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_701.a"
+		scope:upset_minority_province = {
+			add_province_modifier = {
+				name = qin_upset_minority_province_mod
+				duration = 3650
+			}
+		}
+        #something bad
+    }
+}
+
+me_qin_li_si.702 = {
+    type = country_event
+
+    title = me_qin_li_si_702_title
+    desc = me_qin_li_si_702_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	
+	immediate = {
+		random_country_culture = {
+			limit = {
+				is_integrated = no
+				NOT = {
+					has_country_culture_modifier = qin_upset_minority_culture_mod
+				}
+			}
+			save_scope_as = qin_upset_culture
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_702.a"
+		scope:qin_upset_culture = {
+			add_country_culture_modifier = {
+				 name = qin_upset_minority_culture_mod
+				 duration = 3650
+			}
+		}
+        #something bad
+    }
+}
+
+me_qin_li_si.703 = {
+    type = country_event
+
+    title = me_qin_li_si_703_title
+    desc = me_qin_li_si_703_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_703.a"
+		add_aggressive_expansion = 2.5
+        #something bad
+    }
+}
+
+me_qin_li_si.8 = { #Chu scholar
     type = country_event
 
     title = me_qin_li_si_8_title
@@ -717,17 +913,218 @@ me_qin_li_si.8 = {
     picture = great_library
 	
 	left_portrait = root.current_ruler
+	right_portrait = scope:seduced_chu_scholar
+	
+	immediate = {
+		if = {
+			limit = {
+				c:CHU = {
+					has_land = yes
+				}
+			}
+			c:CHU = {
+				random_character = {
+					limit = {
+						OR = {
+							has_any_office = yes
+							has_tech_office = yes
+						}
+						is_ruler = no
+						is_primary_heir = no
+						charisma >= 10
+					}
+					save_scope_as = seduced_chu_scholar
+				}
+			}
+		}
+	}
 
     option = {
         name = "me_qin_li_si_8.a"
+		trigger = {
+			exists = scope:seduced_chu_scholar
+		}
+		scope:seduced_chu_scholar = {
+			move_country = root
+			add_gold = 200
+		}
+		add_treasury = -200
     }
 	option = {
         name = "me_qin_li_si_8.b"
-    }
-	option = {
-        name = "me_qin_li_si_8.c"
+		trigger = {
+			NOT = {
+				exists = scope:seduced_chu_scholar
+			}
+		}
+		create_character = {
+			culture = chu
+			religion = root.religion
+			age = 30
+			no_stats = yes
+			hidden_effect = {
+				good_martial_effect = yes
+				good_finesse_effect = yes
+				amazing_charisma_effect = yes
+				good_zeal_effect = yes
+			}
+		}
+		add_treasury = -200
     }
 }
+
+me_qin_li_si.800 = {
+    type = country_event
+
+    title = me_qin_li_si_800_title
+    desc = me_qin_li_si_800_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_800.a"
+        #trigger event saying something about starting to seduce scholars
+    }
+}
+
+me_qin_li_si.801 = { #Qi scholar
+    type = country_event
+
+    title = me_qin_li_si_801_title
+    desc = me_qin_li_si_801_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:seduced_qii_scholar
+	
+	immediate = {
+		if = {
+			limit = {
+				c:QII = {
+					has_land = yes
+				}
+			}
+			c:QII = {
+				random_character = {
+					limit = {
+						OR = {
+							has_any_office = yes
+							has_tech_office = yes
+						}
+						is_ruler = no
+						is_primary_heir = no
+						zeal >= 8
+					}
+					save_scope_as = seduced_qii_scholar
+				}
+			}
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_801.a"
+		trigger = {
+			exists = scope:seduced_qii_scholar
+		}
+		scope:seduced_qii_scholar = {
+			move_country = root
+			add_gold = 200
+		}
+		add_treasury = -200
+    }
+	option = {
+        name = "me_qin_li_si_801.b"
+		trigger = {
+			NOT = {
+				exists = scope:seduced_qii_scholar
+			}
+		}
+		create_character = {
+			culture = qilu
+			religion = root.religion
+			age = 30
+			no_stats = yes
+			hidden_effect = {
+				good_martial_effect = yes
+				good_finesse_effect = yes
+				good_charisma_effect = yes
+				amazing_zeal_effect = yes
+			}
+		}
+		add_treasury = -200
+    }
+}
+
+me_qin_li_si.802 = { #Zhou scholar
+    type = country_event
+
+    title = me_qin_li_si_802_title
+    desc = me_qin_li_si_802_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:seduced_zhou_scholar
+	
+	immediate = {
+		if = {
+			limit = {
+				c:ZHO = {
+					has_land = yes
+				}
+			}
+			c:ZHO = {
+				random_character = {
+					limit = {
+						OR = {
+							has_any_office = yes
+							has_tech_office = yes
+						}
+						is_ruler = no
+						is_primary_heir = no
+						finesse >= 8
+					}
+					save_scope_as = seduced_zhou_scholar
+				}
+			}
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_802.a"
+		trigger = {
+			exists = scope:seduced_zhou_scholar
+		}
+		scope:seduced_zhou_scholar = {
+			move_country = root
+			add_gold = 200
+		}
+		add_treasury = -200
+    }
+	option = {
+        name = "me_qin_li_si_802.b"
+		trigger = {
+			NOT = {
+				exists = scope:seduced_zhou_scholar
+			}
+		}
+		create_character = {
+			culture = zhongyuan
+			religion = root.religion
+			age = 30
+			no_stats = yes
+			hidden_effect = {
+				good_martial_effect = yes
+				amazing_finesse_effect = yes
+				good_charisma_effect = yes
+				good_zeal_effect = yes
+				add_gold=200
+			}
+		}
+		add_treasury = -200
+    }
+}
+
 me_qin_li_si.9 = {
     type = country_event
 
@@ -764,10 +1161,130 @@ me_qin_li_si.10 = {
 
     option = {
         name = "me_qin_li_si_10.a"
-        custom_tooltip = me_qin_li_si_10_tooltip
-
+        add_country_modifier = {
+			name = freedom_from_confucian_values_mod
+			duration = 5475
+		}
     }
 }
+
+me_qin_li_si.1000 = {
+    type = country_event
+
+    title = me_qin_li_si_1000_title
+    desc = me_qin_li_si_1000_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	
+	immediate = {
+		random_owned_province = {
+			limit = {
+				any_pops_in_province = {
+					pop_religion = root.religion
+				}
+			}
+			save_scope_as = buried_province_qin
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_1000.a"
+		scope:buried_province_qin = {
+			ordered_pops_in_province = {
+				limit = {
+					pop_religion = root.religion
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 5
+				kill_pop = yes
+			}
+		}
+        add_tyranny = tyranny_medium
+    }
+}
+
+me_qin_li_si.1001 = {
+    type = country_event
+
+    title = me_qin_li_si_1001_title
+    desc = me_qin_li_si_1001_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:buried_confucian_char
+	
+	immediate = {
+		random_character = {
+			limit = {
+				has_any_office = yes
+				is_primary_heir = no
+				is_ruler = no
+				zeal >= 5
+				has_religion = root.religion
+			}	
+			save_scope_as = buried_confucian_char
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_1001.a"
+		trigger = {
+			exists = scope:buried_confucian_char
+		}
+		scope:buried_confucian_char = {
+			death = { 
+				death_reason = death_buried_confucian
+			}
+		}
+        add_tyranny = tyranny_medium
+    }
+	option = { #just bury some minor not existing chars 
+        name = "me_qin_li_si_1001.b"
+		trigger = {
+			trigger = {
+				exists = scope:buried_confucian_char
+			}
+		}
+        add_tyranny = tyranny_medium
+    }
+}
+
+me_qin_li_si.1002 = {
+    type = country_event
+
+    title = me_qin_li_si_1002_title
+    desc = me_qin_li_si_1002_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_10002.a"
+		add_stability = -5
+        #something bad
+    }
+}
+
+me_qin_li_si.1003 = {
+    type = country_event
+
+    title = me_qin_li_si_1003_title
+    desc = me_qin_li_si_1003_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_10003.a"
+		add_political_influence = -25
+        #something bad
+    }
+}
+
 me_qin_li_si.11 = {
     type = country_event
 
@@ -779,10 +1296,101 @@ me_qin_li_si.11 = {
 
     option = {
         name = "me_qin_li_si_11.a"
-        custom_tooltip = me_qin_li_si_11_tooltip
-
+        add_country_modifier = {
+			name = qin_assimiliation_mod
+			duration = -1
+		}
     }
 }
+
+
+me_qin_li_si.1100 = {
+    type = country_event
+
+    title = me_qin_li_si_1100_title
+    desc = me_qin_li_si_1100_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_1100.a"
+        #something bad
+		add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 5
+		}
+    }
+}
+
+me_qin_li_si.1101 = {
+    type = country_event
+
+    title = me_qin_li_si_1101_title
+    desc = me_qin_li_si_1101_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:sealed_official_qin
+	
+	immediate = {
+		random_character = {
+			limit = {
+				has_any_office = yes
+			}
+			save_scope_as = sealed_official_qin
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_1101.a"
+		scope:sealed_official_qin = {
+			add_loyalty = loyalty_picked_other_side
+		}
+        #something bad
+    }
+}
+
+me_qin_li_si.1102 = {
+    type = country_event
+
+    title = me_qin_li_si_1102_title
+    desc = me_qin_li_si_1102_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+	
+	immediate = {
+		random_owned_province = {
+			save_scope_as = sealed_province_qin
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_1102.a"
+		scope:sealed_province_qin = {
+			add_state_loyalty = -30
+		}
+        #something bad
+    }
+}
+
+me_qin_li_si.1103 = {
+    type = country_event
+
+    title = me_qin_li_si_1103_title
+    desc = me_qin_li_si_1103_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_1103.a"
+		add_political_influence = -25
+        #something bad
+    }
+}
+
 me_qin_li_si.12 = {
     type = country_event
 
@@ -919,6 +1527,12 @@ me_qin_li_si.15 = {
     option = {
         name = "me_qin_li_si_15.a"
         add_military_experience = 15
+		random_legion = {
+			limit = {
+				has_distinction = distinction_legio_primagena
+			}
+			add_distinction = distinction_great_army_of_qin
+		}
     }
 }
 me_qin_li_si.16 = {
@@ -1534,8 +2148,38 @@ me_qin_empire.14 = {
 			name = new_mandate_mod #stability_monthly_change = 0.05
 			duration = -1
 		}
+		random_list = {
+			50 = {
+				p:8379 = {
+					every_province_treasure = { 
+						transfer_treasure_to_country = root 
+					}
+				}
+			}
+			50 = {
+				trigger_event = me_qin_empire.1400
+				treasure:treasure_jiuding = { destroy_treasure = yes }
+			}
+		}
     }
 }
+
+me_qin_empire.1400 = {
+    type = country_event
+
+    title = me_qin_empire_1400_title
+    desc = me_qin_empire_1400_desc
+    picture = great_library
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_empire_1400.a"
+		#tripod ded
+    }
+}
+
+
 me_qin_empire.15 = {
     type = country_event
 
