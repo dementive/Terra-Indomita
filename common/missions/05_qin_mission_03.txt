@@ -25,6 +25,16 @@
     }
     on_completion = {
         #Form qin empire country, get empire gov
+		change_government = chinese_empire
+		add_country_modifier = {
+			name = formable_country_huge_modifier_china
+			duration = 7600
+		}
+		capital_scope = {
+			capital_formable_large_effect = yes
+			formable_capital_modifier_large_effect = yes
+		}
+		trigger_event = chinese_flavor.2
     }
     qin_03_empire_task_1 = { #Wei Liao
         icon = "task_political"
@@ -126,7 +136,10 @@
         on_completion = {
             trigger_event = me_qin_empire.4
             show_as_tooltip = {
-
+				add_country_modifier = {
+					name = wang_jian_promoted #land_morale_modifier = 0.1
+					duration = 7300
+				}
             }
         }
     }
@@ -396,8 +409,12 @@
 		}
         on_completion = {
             trigger_event = me_qin_empire.12
+			custom_tooltip = qin_03_empire_task_12_reward_tt #We will be able to choose which province becomes a city
             show_as_tooltip = {
-
+				add_country_modifier = {
+					name = yue_conquest_qin #global_pop_assimilation_speed = 0.1
+					duration = -1
+				}
             }
         }
     }
@@ -566,19 +583,8 @@
 					duration = -1
 				}
 				add_political_influence = 50
-				change_government = chinese_empire
-				add_country_modifier = {
-					name = formable_country_huge_modifier_china
-					duration = 7600
-				}
-				capital_scope = {
-					capital_formable_large_effect = yes
-					formable_capital_modifier_large_effect = yes
-				}
 				add_4_free_province_investments = yes
-				#trigger_event = chinese_flavor.2 #trigger it a few days after .17
             }
-			
         }
     }
 }
