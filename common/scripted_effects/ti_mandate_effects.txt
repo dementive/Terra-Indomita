@@ -252,6 +252,39 @@
 			add = 5
 		}
 	}
+	if = {
+		limit = {
+			owns_or_subject_owns = 9006
+			NOT = { has_variable = chinese_prov_24_owned }
+		}
+		set_variable = chinese_prov_24_owned
+		change_variable = {
+			name = unification_points
+			add = 5
+		}
+	}
+	if = {
+		limit = {
+			owns_or_subject_owns = 9651
+			NOT = { has_variable = chinese_prov_25_owned }
+		}
+		set_variable = chinese_prov_25_owned
+		change_variable = {
+			name = unification_points
+			add = 5
+		}
+	}
+	if = {
+		limit = {
+			owns_or_subject_owns = 9049
+			NOT = { has_variable = chinese_prov_26_owned }
+		}
+		set_variable = chinese_prov_26_owned
+		change_variable = {
+			name = unification_points
+			add = 5
+		}
+	}
 }
 
 check_chinese_unification_subjects_effect = {
@@ -259,6 +292,7 @@ check_chinese_unification_subjects_effect = {
 	if = {
 		limit = {
 			exists = c:WZO
+			NOT = { has_variable = wzo_subject_var }
 		}
 		if = {
 			limit = {
@@ -274,6 +308,7 @@ check_chinese_unification_subjects_effect = {
 	if = {
 		limit = {
 			exists = c:ZHO
+			NOT = { has_variable = zho_subject_var }
 		}
 		if = {
 			limit = {
@@ -289,6 +324,7 @@ check_chinese_unification_subjects_effect = {
 	if = {
 		limit = {
 			exists = c:EZO
+			NOT = { has_variable = ezo_subject_var }
 		}
 		if = {
 			limit = {
@@ -330,6 +366,9 @@ remove_all_chinese_unification_vars_effect = {
 	remove_variable = chinese_prov_21_owned
 	remove_variable = chinese_prov_22_owned
 	remove_variable = chinese_prov_23_owned
+	remove_variable = chinese_prov_24_owned
+	remove_variable = chinese_prov_25_owned
+	remove_variable = chinese_prov_26_owned
 }
 
 declare_china_war_effect = {
