@@ -110,32 +110,6 @@ widget = {
 				texture = "gfx/interface/china/chinese_mandate_war.dds"
 				size = { 90 124 }
 			}
-			# icon = {
-			#	parentanchor = right|bottom
-			#	size = { 74 31 }
-			#	position = { 14 0 }
-				#using = flat_background_white
-				#modify_texture = {
-				#	name = "Alpha"
-				#	texture = "gfx/interface/base_parts/header_l_x20bd_alpha1.dds"
-				#	blend_mode = alphamultiply
-				#	spriteType = Corneredtiled
-				#	spriteborder = { 60 36 }
-				#}
-
-			#}
-
-			#china_open_button = {
-			#	position = { 48 25 }
-			#    size = { 37 37 }
-			#    datacontext = "[GetScriptedGui('is_valid_chinese_unifier_trigger')]"
-			#    visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
-			#    blockoverride "Icon" {
-			#        texture = "gfx/interface/china/mandate_of_heaven_icon.dds"
-			#        size = { 50 50 }
-			#        position = { 4 5 }
-			#    }
-			#}
 			textbox = {
 				parentanchor = bottom|hcenter
 				position = { 3 2 }
@@ -151,6 +125,26 @@ widget = {
 				size = { 70 100 }
 				onclick = "[ExecuteConsoleCommand('gui.createwidget gui/chinese_unification.gui chinese_unification')]"
 				tooltip = "#T Chinese Unification#!"
+				clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_tab"
+				oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
+				visible = "[Not(WarsOverviewWar.GetWar.IsCivilWar)]"
+			}
+		}
+		button = {
+			size = { 84 126 }
+			datacontext = "[GetScriptedGui('is_chinese_emperor_scripted_gui')]"
+			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			
+			icon = {
+				position = { 0 0 }
+				texture = "gfx/interface/china/chinese_mandate_war.dds"
+				size = { 90 124 }
+			}
+			button = {
+				position = { 20 20 }
+				size = { 70 100 }
+				tooltip = "#T Celestial Empire View#!"
+				onclick = "[ExecuteConsoleCommand('gui.createwidget gui/chinese_empire.gui chinese_empire')]"
 				clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_tab"
 				oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
 				visible = "[Not(WarsOverviewWar.GetWar.IsCivilWar)]"
