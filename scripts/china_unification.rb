@@ -1,5 +1,5 @@
 li_five = [8433,8533,8435,8344,8636,8686,8488,8693,8553,8510,8477,8408,8344,8527,8997,9006,9651,9049]
-li_ten = [8313,8504,8972,8446,8638,8742,8384,8379]
+li_ten = [8313,8504,8972,8446,8681,8742,8384,8379]
 subjects = ["ZHO", "WZO", "EZO"]
 
 def print_unification_scripts(li, num, subjects=[])
@@ -29,13 +29,23 @@ def print_unification_scripts(li, num, subjects=[])
     text = {
     	localization_key = CHINA_CUSTOM_SUBJECT_#{i}_LOC\n\t
     	trigger = {\t
+    		exists = c:#{i}
     		c:#{i} = { is_subject_of = ROOT }
+    	}
+    }
+    text = {
+    	localization_key = CHINA_CUSTOM_DEAD_TAG_#{i}_LOC\n\t
+    	trigger = {\t
+    		OR = {
+    			NOT = { exists = c:#{i} }
+    			c:#{i} = { num_of_cities < 1 }
+    		}
     	}
     }
     text = {
     	localization_key = CHINA_CUSTOM_NOT_SUBJECT_#{i}_LOC\n\t
     	trigger = {\t
-    		always = yes
+    		NOT = { c:#{i} = { is_subject_of = ROOT } }
     	}
     }
 }\n";
@@ -51,8 +61,9 @@ def print_unification_scripts(li, num, subjects=[])
 	end
 
 	for i in subjects
-		print "CHINA_CUSTOM_SUBJECT_#{i}_LOC:0 \"@trigger_yes! #Y [GetCountry('#{i}').GetName]#! is a subject of #Y [Player.GetName]#!.\"\n"
-		print "CHINA_CUSTOM_NOT_SUBJECT_#{i}_LOC:0 \"@trigger_no! #Y [GetCountry('#{i}').GetName]#! is a subject of #Y [Player.GetName]#!.\"\n"
+		print "CHINA_CUSTOM_SUBJECT_#{i}_LOC:0 \"@trigger_yes! #Y [GetCountry('#{i}').GetName]#! is a subject of #Y [Player.GetName]#!.\\n\"\n"
+		print "CHINA_CUSTOM_NOT_SUBJECT_#{i}_LOC:0 \"@trigger_no! #Y [GetCountry('#{i}').GetName]#! is a subject of #Y [Player.GetName]#!.\\n\"\n"
+		print "CHINA_CUSTOM_DEAD_TAG_#{i}_LOC:0 \"\"\n"
 	end
 
 	print "\n--------------\n"
@@ -60,7 +71,7 @@ def print_unification_scripts(li, num, subjects=[])
 	# Print tooltip for UI
 	print "#{num}_POINT_PROVINCES_UNIFICATION_UI:0 \"Actions that give #{num} points:\\n\\n"
 	for i in subjects
-		print "[Player.Custom('china_unify_#{i}_custom_loc')]\\n"
+		print "[Player.Custom('china_unify_#{i}_custom_loc')]"
 	end
 	for i in li
 		print "[Player.Custom('china_unify_#{i}_custom_loc')]\\n"
