@@ -92,6 +92,7 @@ base_window = {
 
     text_button_square = {
         position = { 0 -15 }
+        parentanchor = bottom|hcenter
         datacontext = "[GetScriptedGui('unify_china_war_button')]"
         blockoverride "Center_text" { text = "Unify China" }
         blockoverride "On_click" { 
@@ -99,8 +100,44 @@ base_window = {
             onclick = "[ExecuteConsoleCommand('GUI.ClearWidgets chinese_unification')]"
         }
         enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
-        tooltip = "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( Player.MakeScope ).End )]"
-        parentanchor = bottom|hcenter
+        tooltip = "UNIFY_CHINA_TOOLTIP_UI"
         size = { 250 24 }
+    }
+    flowcontainer = {
+        spacing = 50
+        position = { 0 -135 }
+        parentanchor = bottom|hcenter
+        icon_and_text = {
+            size = { 100 0 }
+            tooltip = "5_POINT_PROVINCES_UNIFICATION_UI"
+            blockoverride "Icon"
+            {
+                texture = "gfx/interface/icons/shared_icons/age.dds"
+                size = { 0 0 }
+            }
+            blockoverride "Text"
+            {
+                text = "5 Points"
+                font = BaseFont
+                fontsize = 25
+                using = Black_FontColor
+            }
+        }
+        icon_and_text = {
+            size = { 100 0 }
+            tooltip = "10_POINT_PROVINCES_UNIFICATION_UI"
+            blockoverride "Icon"
+            {
+                texture = "gfx/interface/icons/shared_icons/age.dds"
+                size = { 0 0 }
+            }
+            blockoverride "Text"
+            {
+                text = "10 Points"
+                font = BaseFont
+                fontsize = 25
+                using = Black_FontColor
+            }
+        }
     }
 }
