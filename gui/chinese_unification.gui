@@ -35,6 +35,14 @@ base_window = {
         datacontext = "[Player.GetRuler]"
         blockoverride "ShowIcons" { visible = no }
     }
+    cpt_button = {
+        visible = "[GetCountry('ZHO').Exists]"
+        position = { -10 54 }
+        parentanchor = top|right
+        size = { 76 113 }
+        datacontext = "[GetCountry('ZHO').GetRuler]"
+        blockoverride "ShowIcons" { visible = no }
+    }
     icon = {
         maximumsize = { 999 33 }
         texture = "gfx/interface/base_parts/background_noninteractable_texture.dds"
@@ -68,13 +76,13 @@ base_window = {
             margin_bottom = 3
         }
         parentanchor = top|hcenter
-        position = { 0 182 }
+        position = { 0 192 }
         tooltip = "Current Unification Progress"
     }
 
     flowcontainer = {
         parentanchor = center
-        position = { 20 0 }
+        position = { 20 20 }
         icon_and_text_progress_war_score = {
             blockoverride "TotalSize" { 
                 size = { 570 81 }
@@ -105,7 +113,7 @@ base_window = {
     }
     flowcontainer = {
         spacing = 50
-        position = { 0 -135 }
+        position = { 0 -125 }
         parentanchor = bottom|hcenter
         icon_and_text = {
             size = { 100 0 }
