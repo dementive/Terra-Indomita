@@ -1,5 +1,5 @@
-﻿
-
+﻿#Added the remove_subject_focus_effect to all on_enable and on_disable fields to get rid of focuses when subjects are no longer subjects.
+#This could also be in an on_action but this is much better
 
 vassal_tribe = { #Tribal Vassal
 	subject_pays = subject_pays_vassal
@@ -38,6 +38,7 @@ vassal_tribe = { #Tribal Vassal
 	}
 	
 	on_enable = {
+		remove_subject_focus_effect = yes
 		add_opinion = {
 			modifier = is_client_protectorate_status
 			target = scope:future_overlord
@@ -50,6 +51,7 @@ vassal_tribe = { #Tribal Vassal
 		}
 	}
 	on_disable = {
+		remove_subject_focus_effect = yes
 		#add_opinion = {
 			#modifier = broke_tributary_status
 			#target = scope:former_overlord
@@ -125,8 +127,8 @@ tributary = {
 		}
 	}
 	
-	# on_enable = {}
-	# on_disable = {}
+	 on_enable = { remove_subject_focus_effect = yes }
+	 on_disable = { remove_subject_focus_effect = yes }
 	# on_monthly = {}
 	
 	diplo_chance = {
@@ -190,8 +192,9 @@ feudatory = { #Latin Allies
         }
     }
     
-    # on_enable = {}
+     on_enable = { remove_subject_focus_effect = yes }
      on_disable = {
+     	remove_subject_focus_effect = yes
          root = {
              trigger_event = {
                  id = country_diplomacy.8
@@ -230,19 +233,24 @@ feudatory = { #Latin Allies
                  }
              }
          }
-         if = {
-             limit = {
-                 has_variable = hebrew_egypt_variable
-             }
-             overlord = {
-                 if = {
-                     limit = {
-                         has_country_modifier = judea_modifier_15
-                     }
-                     remove_country_modifier = judea_modifier_15
-                 }
-             }
-         }
+        if = {
+        	limit = {
+        		has_global_variable = is_playing_invictus
+        	}
+	         if = {
+	             limit = {
+	                 has_variable = hebrew_egypt_variable
+	             }
+	             overlord = {
+	                 if = {
+	                     limit = {
+	                         has_country_modifier = judea_modifier_15
+	                     }
+	                     remove_country_modifier = judea_modifier_15
+	                 }
+	             }
+	         }
+	    }
      }
     # on_monthly = {}
     
@@ -306,8 +314,8 @@ satrapy = {
 		}
 	}
 	
-	# on_enable = {}
-	# on_disable = {}
+	 on_enable = { remove_subject_focus_effect = yes }
+	 on_disable = { remove_subject_focus_effect = yes }
 	# on_monthly = {}
 	
 	diplo_chance = {
@@ -353,7 +361,7 @@ client_state = {
 	only_trade_with_overlord=  yes
 	
 	overlord_modifier = {
-		
+
 	}
 	subject_modifier = {
 		ruler_popularity_gain = -0.05
@@ -369,8 +377,9 @@ client_state = {
 		}
 	}
 	
-	# on_enable = {}
+	on_enable = { remove_subject_focus_effect = yes }
 	on_disable = {
+		remove_subject_focus_effect = yes
 		hidden_effect = {
 			if = {
 				limit = {
@@ -380,7 +389,7 @@ client_state = {
 			}
 		}
 	}
-	# on_monthly = {}
+	#on_monthly = {}
 	
 	diplo_chance = {
 		base = {
@@ -436,8 +445,9 @@ subject_colony = {
 		always = no
 	}
 	
-	# on_enable = {}
+	on_enable = { remove_subject_focus_effect = yes }
 	on_disable = {
+		remove_subject_focus_effect = yes
 		if = {
 	 		limit = {
 	 			has_country_modifier = athenian_mission_04_loyalist_path
@@ -501,9 +511,9 @@ subject_mercenary_city_state = {
 		always = no
 	}
 	
-	# on_enable = {}
+	on_enable = { remove_subject_focus_effect = yes }
 	on_disable = {
-		
+		remove_subject_focus_effect = yes
 	}
 	# on_monthly = {}
 	
@@ -563,9 +573,11 @@ subject_league_city_state = {
 		always = no
 	}
 	
-	# on_enable = {}
+	on_enable = {
+		remove_subject_focus_effect = yes
+	}
 	on_disable = {
-		
+		remove_subject_focus_effect = yes
 	}
 	# on_monthly = {}
 	
@@ -596,7 +608,6 @@ subject_league_city_state = {
 		}
 	}
 }
-
 kushite_client = {
 	subject_pays = subject_pays_satrapy
 	
@@ -625,8 +636,12 @@ kushite_client = {
 		always = no
 	}
 	
-	# on_enable = {}
-	# on_disable = {}
+	on_enable = {
+		remove_subject_focus_effect = yes
+	}
+	on_disable = {
+		remove_subject_focus_effect = yes
+	}
 	# on_monthly = {}
 	
 	diplo_chance = {
@@ -684,8 +699,12 @@ indian_client = {
 		always = no
 	}
 	
-	# on_enable = {}
-	# on_disable = {}
+	on_enable = {
+		remove_subject_focus_effect = yes
+	}
+	on_disable = {
+		remove_subject_focus_effect = yes
+	}
 	# on_monthly = {}
 	
 	diplo_chance = {

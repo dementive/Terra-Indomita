@@ -1,0 +1,112 @@
+﻿namespace = hidden_events
+
+hidden_events.1 = {
+    type = character_event
+    hidden = yes
+
+    immediate = {
+        add_trait = veteran_warrior_trait
+    }
+}
+
+hidden_events.2 = {
+    type = character_event
+    hidden = yes
+
+    immediate = {
+        add_trait = philosopher_king_trait
+    }
+}
+
+hidden_events.3 = {
+    type = character_event
+    hidden = yes
+
+    immediate = {
+        add_trait = master_of_trade_trait
+    }
+}
+
+hidden_events.4 = {
+    type = character_event
+    hidden = yes
+
+    immediate = {
+        add_trait = master_of_diplomacy_trait
+    }
+}
+hidden_events.5 = {
+    type = character_event
+    hidden = yes
+
+    immediate = {
+        add_trait = original_thinker
+    }
+}
+hidden_events.6 = {
+    type = character_event
+    hidden = yes
+
+    immediate = {
+        random_list = {
+            1 = { add_trait = oarmaster }
+            1 = { add_trait = seadog }
+            1 = { add_trait = daring }
+            1 = { add_trait = coastal_raider }
+        }
+    }
+}
+
+namespace = character_focus_events
+#Testing events
+character_focus_events.1 = {
+    type = minor_country_event
+    title = character_focus_events.1.t
+    desc = character_focus_events.1.desc
+    picture = aqueducts
+    interface_lock = no
+
+    immediate = {
+
+    }
+
+    option = {      
+        name = character_focus_events.1.a
+    }
+}
+character_focus_events.2 = {
+    type = country_event
+    title = character_focus_events.2.t
+    desc = character_focus_events.2.desc
+    picture = aqueducts
+    
+    left_portrait = current_ruler
+
+    trigger = {
+    
+    }
+
+    immediate = {
+        current_ruler = {
+            if = {
+                limit = {
+                    NOT = { has_variable = character_focus_experience }
+                }
+                set_variable = {
+                    name = character_focus_experience
+                    value = 0
+                }
+            }
+        }
+    }
+
+    option = {      
+        name = character_focus_events.2.a
+        current_ruler = {
+            change_variable = {
+                name = character_focus_experience
+                add = 100
+            }
+        }
+    }
+}

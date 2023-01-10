@@ -1,0 +1,98 @@
+﻿yearly_country_pulse = {
+	on_actions	 = {
+		ti_january_pulse
+		FMO_diplo_stance_effects
+	}
+}
+
+ti_january_pulse = {
+	effect = {
+		#TI mandate
+		if = {
+			limit = {
+				has_variable = mandate_variable
+			}
+			change_variable = {
+				name = mandate_variable
+				add = mandate_yearly_real_change
+			}
+			mandate_yearly_effects = yes
+		}
+	}
+}
+
+FMO_diplo_stance_effects = {
+	trigger = {
+		is_ai = no # ai never takes these stances
+	}
+	effect = {
+		if = {
+			limit = {
+				diplomatic_stance = supremacist_stance
+			}
+			random = {
+				chance = 75
+				capital_scope.governorship = {
+					random_governorship_state = {
+						limit = {
+							any_state_province = {
+								any_pops_in_province = {
+									pop_culture != root.culture
+								}
+							}
+						}
+						random_state_province = {
+							limit = {
+								any_pops_in_province = {
+									pop_culture != root.culture
+								}
+							}
+							random_pops_in_province = {
+								limit = {
+									pop_culture != root.culture
+								}
+								set_pop_culture = root.culture
+							}
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				diplomatic_stance = domination_stance
+			}
+			every_country = {
+				add_opinion = {
+					modifier = domination_stance_opmod
+					target = root
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { diplomatic_stance = domination_stance }
+				any_country = {
+					NOT = { this = root }
+					has_opinion = {
+						modifier = domination_stance_opmod
+						target = root
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					NOT = { this = root }
+					has_opinion = {
+						modifier = domination_stance_opmod
+						target = root
+					}
+				}
+				remove_opinion = {
+					modifier = domination_stance_opmod
+					target = root
+				}
+			}
+		}
+	}
+}

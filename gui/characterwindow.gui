@@ -18,17 +18,16 @@ template character_experience_bar
 
 base_window = {
 	name = "character_window"
-	
+
 	parentanchor = top|left
 	size = { 755 930 }
 	movable = no
 	using = main_window_template
-	
 	vbox = {
 		using = MainWindowHeaderBox
-		
+
 		blockoverride "Title_text" { text = "[CharacterWindow.GetCharacter.GetName]"  }
-		
+
 		blockoverride "White_buttons"
 		{
 			container = {
@@ -49,26 +48,27 @@ base_window = {
 				name = "previous_button"
 				shortcut = "previous_window"
 				onclick = "[CharacterWindow.OnPrevious]"
+				onclick = "[GetVariableSystem.Set( 'show_focus', 'no' )]"
 				tooltip = "PREVIOUS_CHARACTER_WINDOW"
 			}
-			
+
 			button_close = {
 				name = "close_button"
 				onclick = "[CharacterWindow.OnClose]"
-				onclick = "[ExecuteConsoleCommand('GUI.ClearWidgets bloodline_window')]"
+				onclick = "[GetVariableSystem.Set( 'show_focus', 'no' )]"
 				tooltip = "CLOSE"
 			}
-		}	
+		}
 		hbox = {
 			layoutpolicy_vertical = expanding
 			layoutpolicy_horizontal = expanding
-			
-			margin_widget = { 
+
+			margin_widget = {
 				size = { 0 0 }
 				layoutpolicy_vertical = expanding
 				layoutpolicy_horizontal = expanding
 				margin_left = 4
-				
+
 				margin_top = 10
 				hbox = {
 					layoutpolicy_horizontal = expanding
@@ -90,7 +90,7 @@ base_window = {
 								blockoverride "Context" { datacontext = "[CharacterWindow.GetCharacter]" }
 								blockoverride "BottomPortraitPosition" { position = { -10 45 } }
 								blockoverride "portrait_button_template_tooltip" {}
-								blockoverride "PartyIconVisibility" 
+								blockoverride "PartyIconVisibility"
 								{
 									visible = no
 								}
@@ -107,7 +107,7 @@ base_window = {
 											texture = "[TraitItem.GetIcon]"
 											tooltip = "[TraitItem.GetTooltip]"
 										}
-										
+
 									}
 								}
 							}
@@ -166,9 +166,9 @@ base_window = {
 								#blockoverride "Margins" { margin = { 9 3 } margin_bottom = 7 }
 								parentanchor = bottom
 								position = { 184 -2 }
-								blockoverride "Icon" 
-								{ 
-									texture = "gfx/interface/icons/shared_icons/senate_seat.dds" 
+								blockoverride "Icon"
+								{
+									texture = "gfx/interface/icons/shared_icons/senate_seat.dds"
 									size = { 29 29 }
 								}
 								blockoverride "Text" { text = "[CharacterWindow.GetCharacter.GetSenatorialInfluence|1]" }
@@ -178,7 +178,7 @@ base_window = {
 
 							dynamicgridbox = {
 								datamodel = "[CharacterWindow.GetConvictions]"
-								visible = "[CharacterWindow.GetCharacter.GetEmployer.GetGovernment.IsRepublic]"
+								visible = "[Not(CharacterWindow.GetCharacter.IsRuler)]"
 								flipdirection = yes
 								parentanchor = bottom
 								using = NoninteractableBG
@@ -191,9 +191,9 @@ base_window = {
 											size = { 80 0 }
 											parentanchor = center
 											position = { 0 0 }
-											blockoverride "Icon" 
-											{ 
-												texture = "[GetPartyIcon( ConvictionGlue.GetType )]" 
+											blockoverride "Icon"
+											{
+												texture = "[GetPartyIcon( ConvictionGlue.GetType )]"
 												size = { 31 31 }
 												glow = {
 													glow_radius = 3
@@ -201,12 +201,12 @@ base_window = {
 													visible = "[EqualTo_string( ConvictionGlue.GetType.GetName, CharacterWindow.GetCharacter.GetParty.GetName )]"
 												}
 											}
-											blockoverride "Text" 
-											{ 
-												text = "[ConvictionGlue.GetValue]" 
+											blockoverride "Text"
+											{
+												text = "[ConvictionGlue.GetValue]"
 											}
 											tooltip = "[ConvictionGlue.GetTooltip]"
-											
+
 										}
 									}
 								}
@@ -214,16 +214,16 @@ base_window = {
 
 							icon_and_text_progress = {
 								parentanchor = bottom|right
-								position = { -2 0 }
+								position = { 5 0 }
 								blockoverride "Icon" { using = icon_statesmanship }
 								blockoverride "Value" { value = "[FixedPointToFloat( CharacterWindow.GetCharacter.GetExperience )]" }
 								blockoverride "Text" { text = "[CharacterWindow.GetCharacter.GetExperience|1]%" }
 								tooltip = "[CharacterWindow.GetCharacter.GetExperienceInformation]"
 							}
-							
+
 						}
-					
-						
+
+
 						margin_widget = {
 							size = { 0 538 }
 							layoutpolicy_horizontal = expanding
@@ -236,7 +236,7 @@ base_window = {
 									position = { -2 0 }
 									blockoverride "Title_text" { text = "FAMILY" }
 								}
-								
+
 								margin_widget = {
 									size = { 478 106 }
 									position = { 0 32 }
@@ -309,7 +309,7 @@ base_window = {
 										datamodel = "[CharacterWindow.GetCharacter.GetChildren]"
 										size = { 238 80 }
 										spacing = 6
-										
+
 										item = {
 											cpt_button = {
 												name = "Child"
@@ -400,7 +400,7 @@ base_window = {
 										datamodel = "[CharacterWindow.GetSiblings]"
 										size = { 168 80 }
 										spacing = 6
-										
+
 										item = {
 											cpt_button = {
 												blockoverride "ShowIcons" { visible = no }
@@ -409,7 +409,7 @@ base_window = {
 											}
 										}
 									}
-									
+
 								}
 								margin_widget = {
 									size = { 478 106 }
@@ -445,9 +445,9 @@ base_window = {
 									overlappingitembox = {
 										size = { 146 86 }
 										position = { 76 23 }
-										
+
 										datamodel = "[CharacterWindow.GetCharacter.GetFriends]"
-										
+
 										item = {
 											cpt_button = {
 												size = { @rival_portrait_width @rival_portrait_height }
@@ -489,7 +489,7 @@ base_window = {
 										position = { 306 23 }
 										spacing = 6
 										datamodel = "[CharacterWindow.GetCharacter.GetRivals]"
-										
+
 										item = {
 											cpt_button = {
 												size = { @rival_portrait_width @rival_portrait_height }
@@ -497,16 +497,16 @@ base_window = {
 											}
 										}
 									}
-									
+
 								}
 							}
-							
+
 							margin_widget = {
 								size = { 478 170 }
 								parentanchor = bottom
 								margin_top = 6
 								#margin_left = 10
-								
+
 								sub_header_v = {
 									size = { 100% 100% }
 									position = { -2 0 }
@@ -525,68 +525,68 @@ base_window = {
 											position = { 0 0 }
 											tooltip = "[CharacterWindow.GetCharacter.GetAmbitionInformation]"
 										}
-										
+
 										cpt_button = {
-											visible = "[And(CharacterWindow.GetCharacter.HasCheckedAmbition, GreaterThan_int32(CharacterWindow.GetCharacter.GetAge, '(int32)15'))]" 
+											visible = "[And(CharacterWindow.GetCharacter.HasCheckedAmbition, GreaterThan_int32(CharacterWindow.GetCharacter.GetAge, '(int32)15'))]"
 											size = { @rival_portrait_width @rival_portrait_height }
 											position = { 0 30 }
 											datacontext = "[CharacterWindow.GetCharacter.MakeScope.GetVariable('ongoing_scheme_target').GetCharacter]"
 											blockoverride "ShowIcons" { visible = no }
 										}
-										
+
 										flowcontainer = {
 											position = { 68 54 }
 											spacing = 6
 											ignoreinvisible = yes
 											visible = "[CharacterWindow.GetCharacter.HasCheckedAmbition]"
 											icon_button_square = {
-												datacontext = "[GetScriptedGui('scheme_assist')]" 
+												datacontext = "[GetScriptedGui('scheme_assist')]"
 												visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 												enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 												tooltip = "ASSIST_SCHEME_BUTTON_TOOLTIP"
-												blockoverride "On_click" { 
+												blockoverride "On_click" {
 													onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 												}
-												blockoverride "Icon" 
+												blockoverride "Icon"
 												{
-													texture = "gfx/interface/icons/shared_icons/assist_with_scheme.dds" 
+													texture = "gfx/interface/icons/shared_icons/assist_with_scheme.dds"
 													size = { 34 34 }
-												}							
+												}
 											}
 											icon_button_square = {
 												datacontext = "[GetScriptedGui('scheme_interfere')]"
 												visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 												enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 												tooltip = "SCHEME_INTERFERE_BUTTON_TOOLTIP"
-												blockoverride "On_click" { 
+												blockoverride "On_click" {
 													onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 												}
-												blockoverride "Icon" 
+												blockoverride "Icon"
 												{
-													texture = "gfx/interface/icons/shared_icons/interfere_in_scheme.dds"  
+													texture = "gfx/interface/icons/shared_icons/interfere_in_scheme.dds"
 													size = { 34 34 }
-												}							
+												}
 											}
 											icon_button_square = {
 												datacontext = "[GetScriptedGui('scheme_abort')]"
 												visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 												enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 												tooltip = "SCHEME_ABORT_TOOLTIP"
-												blockoverride "On_click" { 
+												blockoverride "On_click" {
 													onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 												}
-												blockoverride "Icon" 
-												{ 
-													texture = "gfx/interface/icons/shared_icons/persuade_to_drop_scheme.dds" 
+												blockoverride "Icon"
+												{
+													texture = "gfx/interface/icons/shared_icons/persuade_to_drop_scheme.dds"
 													size = { 34 34 }
-												}							
+												}
 											}
 										}
-										
+
 										container = {
 											position = { 64 100 }
 											visible = "[And(CharacterWindow.GetCharacter.HasCheckedAmbition, GreaterThan_int32(CharacterWindow.GetCharacter.GetAge, '(int32)15'))]"
-											
+
 											fixed_size_progressbar = {
 												blockoverride "size" { size = { 138 7 } }
 												blockoverride "Value" { value = "[FixedPointToFloat( CharacterWindow.GetCharacter.GetAmbitionProgress )]" }
@@ -599,7 +599,7 @@ base_window = {
 										#texture = "gfx/interface/base_parts/start_menu_vertical_line.dds"
 										alpha = 0.7
 									}
-										
+
 									widget = {
 										size = { 256 130 }
 
@@ -608,22 +608,22 @@ base_window = {
 											datacontext = "[CharacterWindow]"
 											text = "TARGETED_BY_SCHEME"
 										}
-										
+
 										overlappingitembox = {
 											size = { 218 78 }
 											position = { 2 30 }
 											datamodel = "[CharacterWindow.GetCharacter.MakeScope.GetList('targeted_by')]"
-											
+
 											item = {
 												cpt_button = {
 													size = { @rival_portrait_width @rival_portrait_height }
-													blockoverride "Context" 
-													{ 
-														datacontext = "[Scope.Char]" 
+													blockoverride "Context"
+													{
+														datacontext = "[Scope.Char]"
 													}
-													blockoverride "ShowIcons" 
-													{ 
-													visible = no 
+													blockoverride "ShowIcons"
+													{
+													visible = no
 													}
 												}
 											}
@@ -631,7 +631,6 @@ base_window = {
 									}
 								}
 							}
-							
 							container = {
 								parentanchor = right
 								position = { -8 0 }
@@ -640,25 +639,24 @@ base_window = {
 									widgetanchor = right
 									position = { 0 0 }
 									size = { 250 0 }
-									blockoverride "Title_text" 
+									blockoverride "Title_text"
 									{
 										text = CHARACTER_INTERACTIONS_SUBTITLE
-									} 
+									}
 								}
-								margin_widget = { 
+								margin_widget = {
 									size = { 256 462 }
 									parentanchor = left
 									position = { 0 30 }
-									
 									vbox = {
 										using = vbox_item_grid_button
 										margin_bottom = 8
 										margin_top = 8
 										margin_left = 8
 										margin_right = 0
-										
+
 										blockoverride "DataModel" { datamodel = "[CharacterWindow.GetInteractions]" }
-										
+
 										blockoverride "On_click" {
 											onclick = "[InteractionItem.OnClick]"
 											enabled = "[InteractionItem.IsEnabled]"
@@ -675,10 +673,9 @@ base_window = {
 											text = "[InteractionItem.GetName]"
 										}
 									}
-									
 								}
 							}
-							
+
 							margin_widget = {
 								size = { 222 34 }
 								position = { -22 -8 }
@@ -692,19 +689,19 @@ base_window = {
 									using = border_slightly_torn_alpha
 									margin = { 10 4 }
 								}
-								
+
 								overlappingitembox = {
 									size = { 100% 100% }
 									position = { 0 0 }
 									datamodel = "[CharacterWindow.GetCharacter.GetTemporaryModifiers]"
-									
+
 									item = {
 										container = {
 											icon = {
-												texture = "[TimedModifier.GetModifier.GetIcon]"  
+												texture = "[TimedModifier.GetModifier.GetIcon]"
 												size = { 32 32 }
 											}
-											
+
 											tooltip = "[TimedModifier.GetTooltip]"
 										}
 									}
@@ -715,66 +712,3167 @@ base_window = {
 					}
 				}
 			}
-		}	
+		}
 	}
 	main_bloodline_button = {
 		size = { 40 40 }
 		position = { -225 336 }
 		parentanchor = top|right
-		blockoverride "Icon" 
-		{ 
+		blockoverride "Icon"
+		{
 			size = { 35 45 }
 			alpha = 0.95
 			texture = "gfx/interface/icons/shared_icons/bloodline_icon.dds"
 			using = RedGlowEffect
 		}
-		blockoverride "On_click" 
-		{ 
+		blockoverride "On_click"
+		{
 			onclick = "[ExecuteConsoleCommand('gui.createwidget gui/bloodlines.gui bloodline_window')]"
 			onclick = "[CharacterWindow.OnClose]"
 		}
 		tooltip = "SHOW_ALL_BLOODLINES__TT"
 	}
-	dynamicgridbox = {
-		datamodel = "[CharacterWindow.GetHeirSupport]"
-		size = { 200 83 }
-		parentanchor = left
-		position = { 74 57 }
-		flipdirection = yes
-		item = {
-			widget = {
-				size = { 54 90 }
-				
-				cpt_button = {
-					size = { 38 55 }
-					datacontext = "[HeirSupportGlue.GetHeir]"
-					position = { 0 24 }
-				}
-				textbox = {
-					autoresize = yes
-					using = BaseFontM
-					using = Black_FontColor
-					text = "[HeirSupportGlue.GetValue|0]"
-					parentanchor = hcenter|top
-					align = center
-					alpha = 0.6
-					position = { -7 1 }
-					tooltip = "[HeirSupportGlue.GetTooltip]"
-				}
-				textbox = {
-					autoresize = yes
-					using = BaseFontM
-					text = "[HeirSupportGlue.GetValue|0]"
-					parentanchor = hcenter|top
-					align = center
-					alpha = 0.9
-					position = { -6 0 }
-					tooltip = "[HeirSupportGlue.GetTooltip]"
+	#Open/Close Focus Buttons
+	open_focus_button = {
+		size = { 200 26 }
+		parentanchor = bottom|hcenter
+		position = { 10 -557 }
+		blockoverride "Text" { text = "Character Focus" }
+		blockoverride "On_click"
+		{
+			onclick = "[GetVariableSystem.Set( 'show_focus', 'yes' )]"
+			onclick = "[GetVariableSystem.Set( 'show_martial_focus', 'no' )]"
+			onclick = "[GetVariableSystem.Set( 'show_oratory_focus', 'no' )]"
+			onclick = "[GetVariableSystem.Set( 'show_civic_focus', 'no' )]"
+			onclick = "[GetVariableSystem.Set( 'show_zeal_focus', 'no' )]"
+		}
+		datacontext = "[GetScriptedGui('is_old_enough_for_focus_trigger')]"
+		##Need to write these two visible statements into
+		#visible = "[Not( GetVariableSystem.HasValue( 'show_focus', 'yes' ) )]"
+		visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+	}
+
+	open_focus_button = {
+		size = { 200 26 }
+		parentanchor = bottom|hcenter
+		position = { 13 -557 }
+		blockoverride "Text" { text = "Character Focus" }
+		blockoverride "On_click"
+		{
+			onclick = "[GetVariableSystem.Set( 'show_focus', 'no' )]"
+			onclick = "[GetVariableSystem.Set( 'show_martial_focus', 'no' )]"
+			onclick = "[GetVariableSystem.Set( 'show_oratory_focus', 'no' )]"
+			onclick = "[GetVariableSystem.Set( 'show_civic_focus', 'no' )]"
+			onclick = "[GetVariableSystem.Set( 'show_zeal_focus', 'no' )]"
+		}
+		blockoverride "Right" { visible = no }
+		blockoverride "Down" { visible = yes }
+		datacontext = "[GetScriptedGui('is_old_enough_for_focus_trigger')]"
+		visible = "[And(CharacterWindow.GetCharacter.IsRuler, GetVariableSystem.HasValue( 'show_focus', 'yes' ))]"
+	}
+
+	#Main Focus Window
+	base_window = {
+		size = { 500 555 }
+		movable = no
+		position = { 0 375 }
+		visible = "[GetVariableSystem.HasValue( 'show_focus', 'yes' )]"
+		datacontext = "[GetScriptedGui('is_old_enough_for_focus_trigger')]"
+		sub_header = {
+			size = { 100% 32 }
+			blockoverride "Title_text" { text = "CHARACTER_FOCUS" }
+		}
+		alwaystransparent = no
+		flowcontainer = {
+			parentanchor = top|right
+			position = { -40 5 }
+
+			button_close = {
+				name = "close_button"
+				onclick = "[GetVariableSystem.Set( 'show_focus', 'no' )]"
+				tooltip = "CLOSE"
+			}
+		}
+		#Focus Tree Window Buttons
+		vbox = {
+			position = { 5 -50 }
+			margin_widget = {
+				size = { 0 36 }
+				layoutpolicy_horizontal = expanding
+				hbox = {
+					layoutpolicy_vertical = preferred
+					layoutpolicy_horizontal = expanding
+					spacing = 0
+					margin_top = 10
+					@mincategorybuttonwidth = 150
+					@maxcategorybuttonwidth = 150
+					@mincategorybuttonheight = 28
+					@maxcategorybuttonheight = 34
+
+					category_tab = {
+						name = "martial_focus_tab"
+						blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+						blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+						blockoverride "MinVisible" { visible = "[Not( GetVariableSystem.HasValue( 'show_martial_focus', 'yes' ) )]" }
+						blockoverride "MaxVisible" { visible = "[GetVariableSystem.HasValue( 'show_martial_focus', 'yes' )]" }
+						blockoverride "Center_text" { text = "Martial Focus" }
+						blockoverride "Icon" { visible = no }
+						blockoverride "ClickFunction"
+						{
+							onclick = "[GetVariableSystem.Set( 'show_martial_focus', 'yes' )]"
+							onclick = "[GetVariableSystem.Set( 'show_focus', 'no' )]"
+						}
+					}
+					widget = {
+						size = { 50 0 }
+					}
+					category_tab = {
+						name = "oratory_focus_tab"
+						blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+						blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+						blockoverride "MinVisible" { visible = "[Not( GetVariableSystem.HasValue( 'show_oratory_focus', 'yes' ) )]" }
+						blockoverride "MaxVisible" { visible = "[GetVariableSystem.HasValue( 'show_oratory_focus', 'yes' )]" }
+						blockoverride "Center_text" { text = "Oratory Focus" }
+						blockoverride "Icon" { visible = no }
+						blockoverride "ClickFunction"
+						{
+							onclick = "[GetVariableSystem.Set( 'show_oratory_focus', 'yes' )]"
+							onclick = "[GetVariableSystem.Set( 'show_focus', 'no' )]"
+						}
+					}
 				}
 			}
 		}
-		visible = "[And( And( CharacterWindow.GetCharacter.CanHavePreferredHeir, LessThanOrEqualTo_CFixedPoint( CharacterWindow.GetCharacter.GetSuccessionScore, '(CFixedPoint)3' ) ), CharacterWindow.GetCharacter.IsAlive )]"
+		vbox = {
+			position = { 5 120 }
+			margin_widget = {
+				size = { 0 36 }
+				layoutpolicy_horizontal = expanding
+				hbox = {
+					layoutpolicy_vertical = preferred
+					layoutpolicy_horizontal = expanding
+					spacing = 0
+					margin_top = 10
+					##@mincategorybuttonwidth = 150
+					##@maxcategorybuttonwidth = 150
+					##@mincategorybuttonheight = 28
+					##@maxcategorybuttonheight = 34
+					category_tab = {
+						name = "civic_focus_tab"
+						blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+						blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+						blockoverride "MinVisible" { visible = "[Not( GetVariableSystem.HasValue( 'show_civic_focus', 'yes' ) )]" }
+						blockoverride "MaxVisible" { visible = "[GetVariableSystem.HasValue( 'show_civic_focus', 'yes' )]" }
+						blockoverride "Center_text" { text = "Civic Focus" }
+						blockoverride "Icon" { visible = no }
+						blockoverride "ClickFunction"
+						{
+							onclick = "[GetVariableSystem.Set( 'show_civic_focus', 'yes' )]"
+							onclick = "[GetVariableSystem.Set( 'show_focus', 'no' )]"
+						}
+					}
+					widget = {
+						size = { 50 0 }
+					}
+					category_tab = {
+						name = "zeal_focus_tab"
+						blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+						blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+						blockoverride "MinVisible" { visible = "[Not( GetVariableSystem.HasValue( 'show_zeal_focus', 'yes' ) )]" }
+						blockoverride "MaxVisible" { visible = "[GetVariableSystem.HasValue( 'show_zeal_focus', 'yes' )]" }
+						blockoverride "Center_text" { text = "Zeal Focus" }
+						blockoverride "Icon" { visible = no }
+						blockoverride "ClickFunction"
+						{
+							onclick = "[GetVariableSystem.Set( 'show_zeal_focus', 'yes' )]"
+							onclick = "[GetVariableSystem.Set( 'show_focus', 'no' )]"
+						}
+					}
+				}
+			}
+		}
+		#Experience progress Bar
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 60 }
+			icon_and_text_progress_char_experience = {
+				parentanchor = bottom|right
+				##size = { -120 0 }
+				position = { 0 0 }
+				blockoverride "Icon" { using = icon_roman_eagle size = { 35 35 } }
+				blockoverride "Value" { value = "[FixedPointToFloat( CharacterWindow.GetCharacter.MakeScope.Var('character_focus_experience').GetValue )]" }
+				blockoverride "Text" { text = "[CharacterWindow.GetCharacter.MakeScope.Var('character_focus_experience').GetValue|0]  /  100" }
+				tooltip = "CHARACTER_FOCUS_XP_TT"
+			}
+		}
+		#Available Perks
+		container = {
+			parentanchor = right
+			position = { -20 65 }
+			icon = {
+				parentanchor = vcenter
+				size = { 50 50 }
+				texture = "gfx/interface/buttons/button_square_42.dds"
+				tooltip = "#T Available Perks#!: #Y [CharacterWindow.GetCharacter.MakeScope.Var('character_focus_perk_available').GetValue|0]#!"
+			}
+			textbox = {
+				position = { 18 15 }
+				size = { 0 5 }
+				#autoresize = yes
+				text = "[CharacterWindow.GetCharacter.MakeScope.Var('character_focus_perk_available').GetValue|0]"
+				font = HeaderFont
+				fontsize = 40
+				using = BaseFontS
+				using = Black_FontColor
+				alpha = 0.999
+			}
+		}
+		#Icons
+		flowcontainer = {
+			parentanchor = left
+			position = { 75 155 }
+			icon = {
+				parentanchor = vcenter
+				size = { 60 60 }
+				using = icon_military
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 375 155 }
+			icon = {
+				parentanchor = vcenter
+				size = { 60 60 }
+				using = icon_oratory
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 72 325 }
+			icon = {
+				parentanchor = vcenter
+				size = { 60 60 }
+				using = icon_civic
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 375 325 }
+			icon = {
+				parentanchor = vcenter
+				size = { 60 60 }
+				using = icon_religious
+			}
+		}
 	}
-	
-}
+	#Martial Window (USES: texture = "gfx/interface/missions/mission_image_rome.dds")
+	base_window = {
+		size = { 100% 930 }
+		movable = no
+		state = {
+			name = _show
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Actions/sfx_ui_action_unlock_military_tradition"
+			}
+		}
+		state = {
+			name = _hide
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_tab_close"
+			}
+		}
+		position = { 0 0 }
+		visible = "[GetVariableSystem.HasValue( 'show_martial_focus', 'yes' )]"
+		using = main_window_template
+		vbox = {
+			position = { 0 -440 }
+			using = MainWindowHeaderBox
 
+			blockoverride "Title_text" { text = "[CharacterWindow.GetCharacter.GetName]"  }
+			blockoverride "White_buttons"
+			{
+				button_close = {
+					name = "close_button"
+					onclick = "[GetVariableSystem.Set( 'show_martial_focus', 'no' )]"
+					onclick = "[GetVariableSystem.Set( 'show_focus', 'yes' )]"
+					tooltip = "CLOSE"
+				}
+			}
+		}
+		#Focus header Image (same as mission trees)
+		flowcontainer = {
+			position = { 3 50 }
+			icon = {
+				texture = "gfx/interface/missions/mission_image_rome.dds"
+				size = { 748 142 }
+				icon = {
+					parentanchor = hcenter|top
+					maximumsize = { 999 28 }
+					position = { 0 112 }
+					using = flat_background_white
+					alpha = 0.95
+					modify_texture = {
+						name = "Alpha"
+						texture = "gfx/interface/base_parts/header_l_x60bd_right_cut_alpha.dds"
+						blend_mode = alphamultiply
+						spriteType = Corneredtiled
+						spriteborder = { 60 -10 }
+					}
+
+					blockoverride "Margins"
+					{
+						alpha = 0.95
+					}
+
+					textbox = {
+						position = { 0 0 }
+						using = HeaderFont
+						using = Black_FontColor
+						parentanchor = top|left
+						autoresize = yes
+						minimumsize = { -1 34 }
+						resizeparent = yes
+						align = center|nobaseline
+						elide = right
+						text = "Martial Focus"
+						margin_left = 30
+						margin_right = 30
+						margin_bottom = 3
+					}
+				}
+			}
+		}
+		#Big Lines
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 0 195 }
+			icon = {
+				parentanchor = vcenter
+				size = { 735 2 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+				alpha = 0.5
+			}
+		}
+		#A Million Arrow Containers
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 295 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 405 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 430 }
+			icon = {
+				parentanchor = vcenter
+				size = { 105 5 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 430 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 430 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 540 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 540 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 650 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 650 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 760 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 40 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 760 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 40 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 805 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 25 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 800 }
+			icon = {
+				parentanchor = vcenter
+				size = { 105 5 }
+				texture = "gfx/interface/missions/arrow_texture.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 315 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/missions/arrow_tip_d.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 450 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/missions/arrow_tip_d.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 450 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/missions/arrow_tip_d.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 560 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/missions/arrow_tip_d.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 560 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/missions/arrow_tip_d.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 670 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/missions/arrow_tip_d.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 670 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/missions/arrow_tip_d.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 820 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/missions/arrow_tip_d.dds"
+			}
+		}
+		alwaystransparent = no
+		#Big Focus Containers
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 210 }
+			icon_button_square_red = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/event_games_in_an_arena_gladiators_or_athletes.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('martial_prowess_focus_button')]"
+				tooltip = "PROWESS_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 210 }
+			icon_button_square_red = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/event_games_in_an_arena_gladiators_or_athletes.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('martial_prowess_focus_button_selected')]"
+				tooltip = "PROWESS_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = red_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 340 }
+			icon_button_square_red = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_phalanx_engagement_battle.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('martial_strategy_focus_button')]"
+				tooltip = "STRATEGY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 340 }
+			icon_button_square_red = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_phalanx_engagement_battle.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('martial_strategy_focus_button_selected')]"
+				tooltip = "STRATEGY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = red_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 210 }
+			icon_button_square_red = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_walled_city_under_siege.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('martial_siegecraft_focus_button')]"
+				tooltip = "SIEGECRAFT_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 210 }
+			icon_button_square_red = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_walled_city_under_siege.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('martial_siegecraft_focus_button_selected')]"
+				tooltip = "SIEGECRAFT_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = red_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 340 }
+			icon_button_square_red = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_roman_legions_marching_in_formation.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('martial_command_focus_button')]"
+				tooltip = "COMMAND_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 340 }
+			icon_button_square_red = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_roman_legions_marching_in_formation.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('martial_command_focus_button_selected')]"
+				tooltip = "COMMAND_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = red_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		#Tree Completion Containers (same order as tree containers)
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 -205 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_loyalty_and_respect_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_martial_ethos.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 -95 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_loyal_generals_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_conscription.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 40 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_inspiring_commander_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_triumph.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 40 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_naval_expansion_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_thalassocracy.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 150 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_naval_construction_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_permanent_shipyards.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 150 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_siege_training_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_siege_training.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 260 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_strict_organization_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_elite_soldiers.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 260 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_military_values_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_military_society.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 410 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_veteran_warrior_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_retreat.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		#Tree Containers
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 -205 }
+			icon_button_square_small_red = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_loyalty_and_respect_button')]"
+				tooltip = "LOYALTY_AND_RESPECT_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_martial_ethos.dds"
+					size = { 65 65 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 -95 }
+			icon_button_square_small_red = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_loyal_generals_button')]"
+				tooltip = "LOYAL_GENERALS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_conscription.dds"
+					size = { 65 65 }
+				}
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 40 }
+			icon_button_square_small_red = {
+				size = { 70 70 }
+				#datacontext = "[GetScriptedGui('scheme_interfere')]"
+				datacontext = "[GetScriptedGui('martial_inspiring_commander_button')]"
+				tooltip = "INSPIRING_COMMANDER_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_triumph.dds"
+					size = { 65 65 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 40 }
+			icon_button_square_small_red = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_naval_expansion_button')]"
+				tooltip = "NAVAL_EXPANSION_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_thalassocracy.dds"
+					size = { 65 65 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 150 }
+			icon_button_square_small_red = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_naval_construction_button')]"
+				tooltip = "NAVAL_CONSTRUCTION_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_permanent_shipyards.dds"
+					size = { 67 67 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 150 }
+			icon_button_square_small_red = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_siege_training_button')]"
+				tooltip = "SIEGE_TRAINING_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_siege_training.dds"
+					size = { 67 67 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 260 }
+			icon_button_square_small_red = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_military_values_button')]"
+				tooltip = "MILITARY_VALUES_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_military_society.dds"
+					size = { 67 67 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 260 }
+			icon_button_square_small_red = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_strict_organization_button')]"
+				tooltip = "STRICT_ORGANIZATION_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_elite_soldiers.dds"
+					size = { 65 65 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 410 }
+			icon_button_square_small_red = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('martial_veteran_warrior_button')]"
+				tooltip = "VETERAN_WARRIOR_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_retreat.dds"
+					size = { 67 67 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+	}
+	#Oratory Window (USES: texture = "gfx/interface/missions/mission_image_syracuse.dds")
+	base_window = {
+		size = { 100% 930 }
+		movable = no
+		state = {
+			name = _show
+
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Actions/sfx_ui_action_select_idea_oratory"
+			}
+		}
+
+		state = {
+			name = _hide
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_tab_close"
+			}
+		}
+		position = { 0 0 }
+		visible = "[GetVariableSystem.HasValue( 'show_oratory_focus', 'yes' )]"
+		using = main_window_template
+		vbox = {
+			position = { 0 -440 }
+			using = MainWindowHeaderBox
+
+			blockoverride "Title_text" { text = "[CharacterWindow.GetCharacter.GetName]"  }
+			blockoverride "White_buttons"
+			{
+				button_close = {
+					name = "close_button"
+					onclick = "[GetVariableSystem.Set( 'show_oratory_focus', 'no' )]"
+					onclick = "[GetVariableSystem.Set( 'show_focus', 'yes' )]"
+					tooltip = "CLOSE"
+				}
+			}
+		}
+		#Focus header Image (same as mission trees)
+		flowcontainer = {
+			position = { 3 50 }
+			icon = {
+				texture = "gfx/interface/missions/mission_image_syracuse.dds"
+				size = { 748 142 }
+				icon = {
+					parentanchor = hcenter|top
+					maximumsize = { 999 28 }
+					position = { 0 112 }
+					using = flat_background_white
+					alpha = 0.95
+					modify_texture = {
+						name = "Alpha"
+						texture = "gfx/interface/base_parts/header_l_x60bd_right_cut_alpha.dds"
+						blend_mode = alphamultiply
+						spriteType = Corneredtiled
+						spriteborder = { 60 -10 }
+					}
+
+					blockoverride "Margins"
+					{
+						alpha = 0.95
+					}
+
+					textbox = {
+						position = { 0 0 }
+						using = HeaderFont
+						using = Black_FontColor
+						parentanchor = top|left
+						autoresize = yes
+						minimumsize = { -1 34 }
+						resizeparent = yes
+						align = center|nobaseline
+						elide = right
+						text = "Oratory Focus"
+						margin_left = 30
+						margin_right = 30
+						margin_bottom = 3
+					}
+				}
+			}
+		}
+		#Big Lines
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 0 195 }
+			icon = {
+				parentanchor = vcenter
+				size = { 735 2 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+				alpha = 0.5
+			}
+		}
+		#A Million Arrow Containers
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 290 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 290 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 400 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 400 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 505 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 505 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 615 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 615 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 640 }
+			icon = {
+				parentanchor = vcenter
+				size = { 95 5 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 640 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 310 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 310 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 420 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 420 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 525 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 525 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_blue.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 660 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_blue.dds"
+			}
+		}
+		#Focus Containers
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 210 }
+			icon_button_square_blue = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_senator_talking_to_commoner.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('oratory_populist_focus_button')]"
+				tooltip = "POPULIST_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 210 }
+			icon_button_square_blue = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_senator_talking_to_commoner.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('oratory_populist_focus_button_selected')]"
+				tooltip = "POPULIST_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = blue_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 340 }
+			icon_button_square_blue = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_senate_debate.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('oratory_oration_focus_button')]"
+				tooltip = "ORATION_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 340 }
+			icon_button_square_blue = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_senate_debate.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('oratory_oration_focus_button_selected')]"
+				tooltip = "ORATION_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = blue_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 210 }
+			icon_button_square_blue = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/event_scribe_writing.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('oratory_foreign_affairs_focus_button')]"
+				tooltip = "FOREIGN_AFFAIRS_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 210 }
+			icon_button_square_blue = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/event_scribe_writing.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('oratory_foreign_affairs_focus_button_selected')]"
+				tooltip = "FOREIGN_AFFAIRS_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = blue_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 340 }
+			icon_button_square_blue = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_throneroom_king_on_throne_a_few_councilors_nearby.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('oratory_family_focus_button')]"
+				tooltip = "FAMILY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 340 }
+			icon_button_square_blue = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_throneroom_king_on_throne_a_few_councilors_nearby.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('oratory_family_focus_button_selected')]"
+				tooltip = "FAMILY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = blue_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		#Completion Containers
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -205 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_assert_authority_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_casus_belli.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -205 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_ambassadors_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_ambassadors.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -100 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_hospitality_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_hospitality.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -100 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_head_of_administration_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_functional_admin.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 10 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_wise_advisors_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_patron_scholars.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 10 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_true_ruler_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_mil_admin.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 115 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_sound_foundations_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_legislative_reform.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 115 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_bribery_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_bribery.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 250 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_diplomatic_master_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_smear.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		#Perk Buttons
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -205 }
+			icon_button_square_small_blue = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_assert_authority_button')]"
+				tooltip = "ASSERT_AUTHORITY_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_casus_belli.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -205 }
+			icon_button_square_small_blue = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_ambassadors_button')]"
+				tooltip = "AMBASSADORS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_ambassadors.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -100 }
+			icon_button_square_small_blue = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_hospitality_button')]"
+				tooltip = "HOSPITALITY_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_hospitality.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -100 }
+			icon_button_square_small_blue = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_head_of_administration_button')]"
+				tooltip = "HEAD_OF_ADMINISTRATION_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_functional_admin.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 10 }
+			icon_button_square_small_blue = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_wise_advisors_button')]"
+				tooltip = "WISE_ADVISORS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_patron_scholars.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 10 }
+			icon_button_square_small_blue = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_true_ruler_button')]"
+				tooltip = "TRUE_RULER_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_mil_admin.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 115 }
+			icon_button_square_small_blue = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_sound_foundations_button')]"
+				tooltip = "SOUND_FOUNDATIONS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_legislative_reform.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 115 }
+			icon_button_square_small_blue = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_bribery_button')]"
+				tooltip = "BRIBERY_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_bribery.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 250 }
+			icon_button_square_small_blue = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('oratory_diplomatic_master_button')]"
+				tooltip = "DIPLOMATIC_MASTER_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_smear.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+	}
+	#Civic Window (USES: texture = "gfx/interface/missions/mission_image_carthage.dds")
+	base_window = {
+		size = { 100% 930 }
+		movable = no
+		state = {
+			name = _show
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Character/Generic/sfx_ui_character_economy"
+			}
+		}
+		state = {
+			name = _hide
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_tab_close"
+			}
+		}
+		position = { 0 0 }
+		visible = "[GetVariableSystem.HasValue( 'show_civic_focus', 'yes' )]"
+		using = main_window_template
+		vbox = {
+			position = { 0 -440 }
+			using = MainWindowHeaderBox
+
+			blockoverride "Title_text" { text = "[CharacterWindow.GetCharacter.GetName]"  }
+			blockoverride "White_buttons"
+			{
+				button_close = {
+					name = "close_button"
+					onclick = "[GetVariableSystem.Set( 'show_civic_focus', 'no' )]"
+					onclick = "[GetVariableSystem.Set( 'show_focus', 'yes' )]"
+					tooltip = "CLOSE"
+				}
+			}
+		}
+		#Focus header Image (same as mission trees)
+		flowcontainer = {
+			position = { 3 50 }
+			icon = {
+				texture = "gfx/interface/missions/mission_image_carthage.dds"
+				size = { 748 142 }
+				icon = {
+					parentanchor = hcenter|top
+					maximumsize = { 999 28 }
+					position = { 0 112 }
+					using = flat_background_white
+					alpha = 0.95
+					modify_texture = {
+						name = "Alpha"
+						texture = "gfx/interface/base_parts/header_l_x60bd_right_cut_alpha.dds"
+						blend_mode = alphamultiply
+						spriteType = Corneredtiled
+						spriteborder = { 60 -10 }
+					}
+
+					blockoverride "Margins"
+					{
+						alpha = 0.95
+					}
+
+					textbox = {
+						position = { 0 0 }
+						using = HeaderFont
+						using = Black_FontColor
+						parentanchor = top|left
+						autoresize = yes
+						minimumsize = { -1 34 }
+						resizeparent = yes
+						align = center|nobaseline
+						elide = right
+						text = "Civic Focus"
+						margin_left = 30
+						margin_right = 30
+						margin_bottom = 3
+					}
+				}
+			}
+		}
+		#Big Line
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 0 195 }
+			icon = {
+				parentanchor = vcenter
+				size = { 735 2 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+				alpha = 0.5
+			}
+		}
+		#Arrows
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 295 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 35 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 295 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 35 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 410 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 410 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 520 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 520 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 545 }
+			icon = {
+				parentanchor = vcenter
+				size = { 100 5 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 550 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 40 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 660 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 40 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 775 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 40 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 320 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 320 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 430 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 430 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 580 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 690 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_green.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 800 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_green.dds"
+			}
+		}
+		#Focus Containers
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 210 }
+			icon_button_square_green = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_construction_work_roman_city_under_construction.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('civic_construction_focus_button')]"
+				tooltip = "CONSTRUCTION_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 210 }
+			icon_button_square_green = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_construction_work_roman_city_under_construction.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('civic_construction_focus_button_selected')]"
+				tooltip = "CONSTRUCTION_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = green_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 340 }
+			icon_button_square_green = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/event_aqueducts_in_the_distance.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('civic_holding_focus_button')]"
+				tooltip = "HOLDING_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 340 }
+			icon_button_square_green = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/event_aqueducts_in_the_distance.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('civic_holding_focus_button_selected')]"
+				tooltip = "HOLDING_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = green_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 210 }
+			icon_button_square_green = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_everyday_scene_at_pertsepolis.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('civic_commerce_focus_button')]"
+				tooltip = "COMMERCE_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 210 }
+			icon_button_square_green = {
+				position = { 0 210 }
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_everyday_scene_at_pertsepolis.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('civic_commerce_focus_button_selected')]"
+				tooltip = "COMMERCE_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = green_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 340 }
+			icon_button_square_green = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_open_chest.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('civic_wealth_focus_button')]"
+				tooltip = "WEALTH_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 340 }
+			icon_button_square_green = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_open_chest.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('civic_wealth_focus_button_selected')]"
+				tooltip = "WEALTH_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = green_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		#Completion Containers
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -205 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_construction_leader_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_standard_construction.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -205 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_land_appropriation_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_land_appropriation.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -90 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_holding_organization_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_city_plan.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -90 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_local_forums_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_forums.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 20 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_increased_tariffs_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_tariff_exceptions.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 20 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_taxation_policies_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_tax_farming.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 280 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_grain_distribution_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_grain_admin.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 390 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_master_of_trade_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_trading_posts.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 170 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_local_administrators_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_complex_tariffs.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		#Tree Containers
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -205 }
+			icon_button_square_small_green = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_construction_leader_button')]"
+				tooltip = "CONSTRUCTION_LEADER_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_standard_construction.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -205 }
+			icon_button_square_small_green = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_land_approptiation_button')]"
+				tooltip = "LAND_APPROPRIATION_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_land_appropriation.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -90 }
+			icon_button_square_small_green = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_holding_organization_button')]"
+				tooltip = "HOLDING_ORGANIZATION_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_city_plan.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -90 }
+			icon_button_square_small_green = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_local_forums_button')]"
+				tooltip = "LOCAL_FORUMS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_forums.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 20 }
+			icon_button_square_small_green = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_increased_tariffs_button')]"
+				tooltip = "INCREASED_TARIFFS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_tariff_exceptions.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 20 }
+			icon_button_square_small_green = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_taxation_policies_button')]"
+				tooltip = "TAXATION_POLICIES_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_tax_farming.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 280 }
+			icon_button_square_small_green = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_grain_distribution_button')]"
+				tooltip = "GRAIN_DISTIBUTION_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_grain_admin.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 390 }
+			icon_button_square_small_green = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_master_of_trade_button')]"
+				tooltip = "MASTER_OF_TRADE_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_trading_posts.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 170 }
+			icon_button_square_small_green = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('civic_local_administrators_button')]"
+				tooltip = "LOCAL_ADMINISTRATORS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_complex_tariffs.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+	}
+	#Religious Window (USES: texture = "gfx/interface/missions/mission_image_generic_greek.dds")
+	base_window = {
+		size = { 100% 930 }
+		movable = no
+		state = {
+			name = _show
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Actions/sfx_ui_action_select_idea_religious"
+			}
+		}
+
+		state = {
+			name = _hide
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_tab_close"
+			}
+		}
+		position = { 0 0 }
+		visible = "[GetVariableSystem.HasValue( 'show_zeal_focus', 'yes' )]"
+		using = main_window_template
+		vbox = {
+			position = { 0 -440 }
+			using = MainWindowHeaderBox
+
+			blockoverride "Title_text" { text = "[CharacterWindow.GetCharacter.GetName]"  }
+			blockoverride "White_buttons"
+			{
+				button_close = {
+					name = "close_button"
+					onclick = "[GetVariableSystem.Set( 'show_zeal_focus', 'no' )]"
+					onclick = "[GetVariableSystem.Set( 'show_focus', 'yes' )]"
+					tooltip = "CLOSE"
+				}
+			}
+		}
+		#Focus header Image (same as mission trees)
+		flowcontainer = {
+			position = { 3 50 }
+			icon = {
+				texture = "gfx/interface/missions/mission_image_generic_greek.dds"
+				size = { 748 142 }
+				icon = {
+					parentanchor = hcenter|top
+					maximumsize = { 999 28 }
+					position = { 0 112 }
+					using = flat_background_white
+					alpha = 0.95
+					modify_texture = {
+						name = "Alpha"
+						texture = "gfx/interface/base_parts/header_l_x60bd_right_cut_alpha.dds"
+						blend_mode = alphamultiply
+						spriteType = Corneredtiled
+						spriteborder = { 60 -10 }
+					}
+
+					blockoverride "Margins"
+					{
+						alpha = 0.95
+					}
+
+					textbox = {
+						position = { 0 0 }
+						using = HeaderFont
+						using = Black_FontColor
+						parentanchor = top|left
+						autoresize = yes
+						minimumsize = { -1 34 }
+						resizeparent = yes
+						align = center|nobaseline
+						elide = right
+						text = "Religious Focus"
+						margin_left = 30
+						margin_right = 30
+						margin_bottom = 3
+					}
+				}
+			}
+		}
+		#Big Line
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 0 195 }
+			icon = {
+				parentanchor = vcenter
+				size = { 735 2 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_black.dds"
+				alpha = 0.5
+			}
+		}
+		#Arrows
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 295 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 295 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 405 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 405 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 505 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 505 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 615 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 40 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 615 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 40 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 650 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 650 }
+			icon = {
+				parentanchor = vcenter
+				size = { 100 5 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 760 }
+			icon = {
+				parentanchor = vcenter
+				size = { 5 30 }
+				texture = "gfx/interface/icons/arrows/arrow_texture_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 315 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 315 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 420 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 420 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { 40 525 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -60 525 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 670 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_yellow.dds"
+			}
+		}
+		flowcontainer = {
+			parentanchor = hcenter
+			position = { -10 780 }
+			icon = {
+				parentanchor = vcenter
+				size = { 20 20 }
+				texture = "gfx/interface/icons/arrows/arrow_tip_d_yellow.dds"
+			}
+		}
+		#Focus Containers
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 210 }
+			icon_button_square_yellow = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_religious_festival.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('zeal_divinity_focus_button')]"
+				tooltip = "DIVINITY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 210 }
+			icon_button_square_yellow = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_religious_festival.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('zeal_divinity_focus_button_selected')]"
+				tooltip = "DIVINITY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = yellow_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 340 }
+			icon_button_square_yellow = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_greek_philosopher_talking.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('zeal_philosophy_focus_button')]"
+				tooltip = "PHILOSOPHY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = left
+			position = { 10 340 }
+			icon_button_square_yellow = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_greek_philosopher_talking.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('zeal_philosophy_focus_button_selected')]"
+				tooltip = "PHILOSOPHY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = yellow_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 210 }
+			icon_button_square_yellow = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_close_up_of_altar_with_ongoing_religious_ceremony.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('zeal_preistly_support_focus_button')]"
+				tooltip = "PREISTLY_SUPPORT_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 210 }
+			icon_button_square_yellow = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_close_up_of_altar_with_ongoing_religious_ceremony.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('zeal_preistly_support_focus_button_selected')]"
+				tooltip = "PREISTLY_SUPPORT_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = yellow_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 340 }
+			icon_button_square_yellow = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_ascetic_sitting_by_a_pillar.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('zeal_piety_focus_button')]"
+				tooltip = "PIETY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = right
+			position = { -10 340 }
+			icon_button_square_yellow = {
+				size = { 256 110 }
+				blockoverride "Icon" { texture = "gfx/interface/event_window/Event_ascetic_sitting_by_a_pillar.dds" size = { 256 110 } }
+				datacontext = "[GetScriptedGui('zeal_piety_focus_button_selected')]"
+				tooltip = "PIETY_FOCUS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				blockoverride "button_type" {
+					focus_main_button_selected = {
+						blockoverride "button_color"
+						{
+							using = yellow_button_tiled_texture
+						}
+					}
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		#Completion Containers
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -205 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_patronize_temples_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_state_religion.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -205 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_observe_rituals_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_tolerance.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -95 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_divine_mandate_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_divine_mandate.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -95 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_religous_calendar_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_calendar.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 10 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_mandatory_practice_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_mandate_observe.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 115 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_divine_offerings_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_haruspex.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 10 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_conversion_policies_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_proselytism.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 115 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_legendary_ancestors_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_origin_myth.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 260 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_prosperity_for_all_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/deities/deity_love.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 370 }
+			icon_button_square_completed = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_head_of_faith_trigger')]"
+				tooltip = "#G Completed#!"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_loyalty.dds"
+					size = { 58 58 }
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			}
+		}
+		#Tree Containers
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -205 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_patronize_temples_button')]"
+				tooltip = "PATRONIZE_TEMPLES_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_state_religion.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -205 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_observe_rituals_button')]"
+				tooltip = "OBSERVE_RITUALS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_tolerance.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 -95 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_divine_mandate_button')]"
+				tooltip = "DIVINE_MANDATE_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_divine_mandate.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 -95 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_religous_calendar_button')]"
+				tooltip = "RELIGOUS_CALENDAR_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_calendar.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 10 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_mandatory_practice_button')]"
+				tooltip = "RELIGOUS_MANDATE_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_mandate_observe.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { 40 115 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_divine_offerings_button')]"
+				tooltip = "DIVINE_OFFERINGS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_haruspex.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 10 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_conversion_policies_button')]"
+				tooltip = "CONVERSION_POLICIES_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_proselytism.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -60 115 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_legendary_ancestors_button')]"
+				tooltip = "LEGENDARY_ANCESTORS_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_origin_myth.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 260 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_prosperity_for_all_button')]"
+				tooltip = "PROSPERITY_FOR_ALL_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/deities/deity_love.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+		flowcontainer = {
+			parentanchor = center
+			position = { -10 370 }
+			icon_button_square_small_yellow = {
+				size = { 70 70 }
+				datacontext = "[GetScriptedGui('zeal_head_of_faith_button')]"
+				tooltip = "HEAD_OF_FAITH_TOOLTIP"
+				blockoverride "On_click" {
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				}
+				visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( CharacterWindow.GetCharacter.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+				blockoverride "Icon"
+				{
+					texture = "gfx/interface/icons/ideas/idea_loyalty.dds"
+					size = { 67 67 }
+				}
+			}
+		}
+	}
+}

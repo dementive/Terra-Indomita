@@ -1,0 +1,876 @@
+﻿remove_all_character_focuses_effect = {
+	hidden_effect = {
+		switch = {
+			trigger = has_triggered_character_modifier
+
+			prowess_focus_triggered_mod = {
+				remove_triggered_character_modifier = prowess_focus_triggered_mod
+			}
+			strategy_focus_triggered_mod = {
+				remove_triggered_character_modifier = strategy_focus_triggered_mod
+			}
+			siegecraft_focus_triggered_mod = {
+				remove_triggered_character_modifier = siegecraft_focus_triggered_mod
+			}
+			command_focus_triggered_mod = {
+				remove_triggered_character_modifier = command_focus_triggered_mod
+			}
+			populist_focus_triggered_mod = {
+				remove_triggered_character_modifier = populist_focus_triggered_mod
+			}
+			oration_focus_triggered_mod = {
+				remove_triggered_character_modifier = oration_focus_triggered_mod
+			}
+			foreign_affairs_focus_triggered_mod = {
+				remove_triggered_character_modifier = foreign_affairs_focus_triggered_mod
+			}
+			family_focus_triggered_mod = {
+				remove_triggered_character_modifier = family_focus_triggered_mod
+			}
+			construction_focus_triggered_mod = {
+				remove_triggered_character_modifier = construction_focus_triggered_mod
+			}
+			holding_focus_triggered_mod = {
+				remove_triggered_character_modifier = holding_focus_triggered_mod
+			}
+			commerce_focus_triggered_mod = {
+				remove_triggered_character_modifier = commerce_focus_triggered_mod
+			}
+			wealth_focus_triggered_mod = {
+				remove_triggered_character_modifier = wealth_focus_triggered_mod
+			}
+			divinity_focus_triggered_mod = {
+				remove_triggered_character_modifier = divinity_focus_triggered_mod
+			}
+			philosophy_focus_triggered_mod = {
+				remove_triggered_character_modifier = philosophy_focus_triggered_mod
+			}
+			priestly_support_focus_triggered_mod = {
+				remove_triggered_character_modifier = priestly_support_focus_triggered_mod
+			}
+			piety_focus_triggered_mod = {
+				remove_triggered_character_modifier = piety_focus_triggered_mod
+			}
+		}
+	}
+}
+remove_focus_tree_variables = {
+	hidden_effect = {
+		switch = {
+			trigger = has_variable
+
+			martial_focus_tree_enabled = {
+				remove_variable = martial_focus_tree_enabled
+			}
+			oratory_focus_tree_enabled = {
+				remove_variable = oratory_focus_tree_enabled
+			}
+			civic_focus_tree_enabled = {
+				remove_variable = civic_focus_tree_enabled
+			}
+			zeal_focus_tree_enabled = {
+				remove_variable = zeal_focus_tree_enabled
+			}
+		}
+	}
+}
+remove_1_available_perk_effect = {
+    if = {
+       	limit = {
+           	has_variable = character_focus_perk_available
+        }
+        if = {
+        	limit = {
+        		root.var:character_focus_perk_available > 1
+        	}
+        	change_variable = {
+        		name = character_focus_perk_available
+        		subtract = 1
+        	}
+        }
+        else = {
+        	limit = {
+        		root.var:character_focus_perk_available <= 1
+        	}
+        	remove_variable = character_focus_perk_available
+        	set_variable = {
+        		name = character_focus_perk_available
+        		value = 0
+        	}
+        }
+    }
+}
+
+monthly_perk_distribution_effect = {
+	if = {
+		limit = {
+		    root.current_ruler.var:character_focus_experience = 100
+		}
+		root.current_ruler = {
+			remove_variable = character_focus_experience
+			set_variable = {
+			    name = character_focus_experience
+			    value = 0
+			}
+			if = {
+			   	limit = {
+			        has_variable = character_focus_perk_available
+			    }
+			    #If it is non-negative then add 1 to it. If it is somehow negative remove it and make it 1
+			    if = {
+			        limit = {
+			        	root.current_ruler.var:character_focus_perk_available >= 0 
+			        }
+			        change_variable = {
+			        	name = character_focus_perk_available
+			        	add = 1
+			        }
+			    }
+			    else_if = {
+			        remove_variable = character_focus_perk_available
+			        set_variable = {
+			        	name = character_focus_perk_available
+			        	value = 1
+			        }
+			    }
+			}
+			else_if = {
+			    limit = {
+			    	NOT = { has_variable = character_focus_perk_available }
+			    }
+			    set_variable = {
+			        name = character_focus_perk_available
+			        value = 1
+			   	}
+			}
+		}
+	}
+	if = {
+		limit = {
+		    root.current_ruler.var:character_focus_experience > 100
+		}
+		root.current_ruler = {
+			change_variable = {
+			    name = character_focus_experience
+			    subtract = 100
+			}
+			if = {
+				limit = {
+				   	has_variable = character_focus_perk_available
+				}
+				#If it is non-negative then add 1 to it. If it is somehow negative remove it and make it 1
+				if = {
+				    limit = {
+				        root.current_ruler.var:character_focus_perk_available >= 0 
+				    }
+				    change_variable = {
+				        name = character_focus_perk_available
+				        add = 1
+				    }
+				}
+				else_if = {
+				    remove_variable = character_focus_perk_available
+				    set_variable = {
+					    name = character_focus_perk_available
+					    value = 1
+				    }
+				}
+			}
+			else_if = {
+			    limit = {
+			       	NOT = { has_variable = character_focus_perk_available }
+			    }
+			    set_variable = {
+			       	name = character_focus_perk_available
+			        value = 1
+			    }
+			}
+		}
+	}
+}
+
+add_random_martial_focus_effect = {
+	random_list = {
+		1 = {
+			add_triggered_character_modifier = {
+				name = prowess_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = strategy_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = siegecraft_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = command_focus_triggered_mod
+				duration = -1
+			} 
+		}
+	}
+}
+add_random_oratory_focus_effect = {
+	random_list = {
+		1 = {
+			add_triggered_character_modifier = {
+				name = populist_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = oration_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = foreign_affairs_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = family_focus_triggered_mod
+				duration = -1
+			} 
+		}
+	}
+}
+add_random_civic_focus_effect = {
+	random_list = {
+		1 = {
+			add_triggered_character_modifier = {
+				name = construction_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = holding_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = commerce_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = wealth_focus_triggered_mod
+				duration = -1
+			} 
+		}
+	}
+}
+add_random_zeal_focus_effect = {
+	random_list = {
+		1 = {
+			add_triggered_character_modifier = {
+				name = divinity_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = philosophy_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = priestly_support_focus_triggered_mod
+				duration = -1
+			} 
+		}
+		1 = {
+			add_triggered_character_modifier = {
+				name = piety_focus_triggered_mod
+				duration = -1
+			} 
+		}
+	}
+}
+#################################################################################
+#AI effects: This script allows ai to get focus perks just like the player can  #
+#################################################################################
+
+ai_martial_take_focus_perk_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_variable = loyalty_and_respect_var
+			}
+		}
+        family = { add_prestige = 50 }
+        add_popularity = 10
+        set_variable = loyalty_and_respect_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = loyal_generals_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = loyal_generals_country_mod
+                duration = -1
+            }
+        }
+        set_variable = loyal_generals_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = inspiring_commander_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = inspired_commanders_country_mod
+                duration = 1080
+            }
+            ordered_character = {
+                limit = {
+                    is_governor = yes
+                    is_ruler = no
+                }
+                order_by = martial
+                max = 1
+                add_martial = 1
+            }
+        }
+        set_variable = inspiring_commander_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = naval_expansion_var
+			}
+		}
+		trigger_event = hidden_events.6
+		set_variable = naval_expansion_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = naval_construction_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = naval_construction_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = naval_construction_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = siege_training_var
+			}
+		}
+        trigger_event = hidden_events.5
+        #country mod
+        #assault_ability = 0.05
+        employer = {
+            add_country_modifier = {
+                name = siege_training_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = siege_training_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = strict_organization_var
+			}
+		}
+        employer = {
+            capital_scope = {
+                state = {
+                    add_state_modifier = {
+                        name = strict_organization_state_mod
+                        duration = 3650
+                    }
+                }
+            }
+        }
+        set_variable = strict_organization_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = military_values_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = military_values_country_mod
+                duration = -1                
+            }
+        }
+        set_variable = military_values_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = vetern_warrior_var
+			}
+		}
+		trigger_event = hidden_events.1
+		set_variable = vetern_warrior_var
+		set_variable = ai_martial_tree_completed_var
+	}
+}
+
+ai_oratory_take_focus_perk_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_variable = assert_authority_var
+			}
+		}
+        add_popularity = 10
+        add_prominence = 10
+        employer = {
+            add_legitimacy = 5
+        }
+        set_variable = assert_authority_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = ambassadors_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = ambassadors_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = ambassadors_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = hospitality_var
+			}
+		}
+        add_charisma = 1
+        set_variable = hospitality_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = head_of_admin_var
+			}
+		}
+        add_character_modifier = {
+            name = head_of_administration_char_mod
+            duration = -1
+        }
+        set_variable = head_of_admin_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = wise_advisors_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = wise_advisors_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = wise_advisors_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = true_ruler_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = true_ruler_country_modifier
+                duration = -1 
+            }
+        }
+        set_variable = true_ruler_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = sound_foundations_var
+			}
+		}
+        family = { add_prestige = 50 }
+        hidden_effect = {
+            every_child = {
+                random_list = {
+                    1 = { add_martial = 1 }
+                    1 = { add_martial = 2 }
+                    1 = { add_martial = 3 }
+                    1 = { add_finesse = 1 }
+                    1 = { add_finesse = 2 }
+                    1 = { add_finesse = 3 }
+                    1 = { add_zeal = 1 }
+                    1 = { add_zeal = 2 }
+                    1 = { add_zeal = 3 }
+                    1 = { add_charisma = 1 }
+                    1 = { add_charisma = 2 }
+                    1 = { add_charisma = 3 }
+                    1 = {
+                        add_charisma = 1
+                        add_martial = 1
+                    }
+                    1 = {
+                        add_zeal = 1
+                        add_finesse = 1
+                    }
+                    1 = {
+                        add_zeal = 2
+                        add_martial = 1
+                    }
+                }
+            }
+        }
+        set_variable = sound_foundations_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = bribery_var
+			}
+		}
+        add_charisma = 1
+        employer = {
+            add_country_modifier = {
+                name = bribery_country_mod
+                duration = 3650
+            }
+        }      	
+        set_variable = bribery_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = diplomatic_master_var
+			}
+		}
+        trigger_event = hidden_events.4
+        set_variable = diplomatic_master_var
+        set_variable = ai_oratory_tree_completed_var		
+	}
+}
+ai_civic_take_focus_perk_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_variable = construction_leader_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = construction_leader_country_mod
+                duration = 1825
+            }
+        }
+        set_variable = construction_leader_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = land_appropriation_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = land_appropration_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = land_appropriation_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = holding_organization_var
+			}
+		}
+        add_character_modifier = {
+            name = organized_holdings_char_mod
+            duration = -1
+        }
+        set_variable = holding_organization_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = local_forums_var
+			}
+		}
+        add_finesse = 1
+        employer = {
+            random_owned_province = {
+                limit = {
+                    free_building_slots > 0
+                    has_city_status = yes
+                    NOT = {
+                        has_building = forum_building
+                    }
+                }
+                add_building_level = forum_building
+            }
+        }
+        set_variable = local_forums_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = increased_tariffs_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = increased_tariffs_country_mod
+                duration = -1
+            }
+        }
+        set_variable = increased_tariffs_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = taxation_policies_var
+			}
+		}
+        employer.capital_scope = {
+            governorship = {
+                every_governorship_state = {
+                    add_state_modifier = {
+                        name = taxation_policies_state_mod
+                        duration = 3650
+                    }
+                }
+            }
+        }
+        set_variable = taxation_policies_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = grain_distribution_var
+			}
+		}
+        employer = {
+            ordered_country_state = {
+                order_by = state_monthly_food_income
+                max = 2
+                add_state_modifier = {
+                    name = grain_distribution_state_mod
+                    duration = 3650
+                }
+            }
+            ordered_owned_province = {
+                limit = {
+                    NOT = {
+                        has_province_modifier = grain_production_province_mod
+                    }
+                    trade_goods = grain
+                }
+                order_by = num_goods_produced
+                max = 2
+                add_province_modifier = {
+                    name = grain_production_province_mod
+                    duration = 9125
+                }
+            }
+        }
+        set_variable = grain_distribution_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = local_administrators_var
+			}
+		}
+        add_finesse = 1
+        employer = {
+            ordered_character = {
+                limit = {
+                    is_governor = yes
+                    is_ruler = no
+                }
+                max = 2
+                add_finesse = 1
+            }
+        }
+        set_variable = local_administrators_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = master_of_trade_var
+			}
+		}
+        trigger_event = hidden_events.3
+        set_variable = master_of_trade_var
+        set_variable = ai_civic_tree_completed_var
+	}
+}
+
+ai_zeal_take_focus_perk_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_variable = patronize_temples_var
+			}
+		}
+        add_popularity = 5
+        employer = {
+            add_1_free_province_investments = yes
+            random_owned_province = {
+                limit = {
+                    is_holy_site = yes
+                }
+                add_province_modifier = {
+                    name = patronize_temples_province_mod
+                    duration = 3650
+                }
+            }
+        }
+        set_variable = patronize_temples_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = observe_rituals_var
+			}
+		}
+        add_zeal = 1
+        set_variable = observe_rituals_var	
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = divine_mandate_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = divine_mandate_country_mod
+                duration = -1
+            }
+        }
+        set_variable = divine_mandate_var
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = religous_calendar_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = religous_calendar_country_mod
+                duration = 1925
+            }
+        }
+        set_variable = religous_calendar_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = mandatory_practice_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = mandatory_practice_country_mod
+                duration = -1
+            }
+        }
+        set_variable = mandatory_practice_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = divine_offerings_var
+			}
+		}
+        employer = {
+            add_stability = 5
+            add_legitimacy = 10
+        }
+        set_variable = divine_offerings_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = conversion_policies_var
+			}
+		}
+        employer = {
+            capital_scope = {
+                state = {
+                    add_state_modifier = {
+                        name = conversion_policies_state_mod
+                        duration = 3650
+                    }
+                }
+            }
+        }
+        set_variable = conversion_policies_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = legendary_ancestors_var
+			}
+		}
+        add_zeal = 1
+        family = { add_prestige = 50 }
+        set_variable = legendary_ancestors_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = prosperity_for_all_var
+			}
+		}
+        employer = {
+            add_country_modifier = {
+                name = prosperity_for_all_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = prosperity_for_all_var		
+	}
+	else_if = {
+		limit = {
+			NOT = {
+				has_variable = head_of_faith_var
+			}
+		}
+        trigger_event = hidden_events.2
+        set_variable = head_of_faith_var
+        set_variable = ai_zeal_tree_completed_var		
+	}
+}

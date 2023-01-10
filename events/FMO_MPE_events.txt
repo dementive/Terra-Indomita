@@ -1,0 +1,201 @@
+﻿namespace = mpe_pop_events
+
+mpe_pop_events.1 = {
+    type = province_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = {
+                has_variable = priest_in_territory
+            }
+            change_variable = {
+                name = priest_in_territory
+                subtract = 1
+            }
+            if = {
+               limit = { var:priest_in_territory > 0 }
+               add_special_pop_province_modifier_effect = yes
+            }
+            else = {
+                limit = { var:priest_in_territory <= 0 }
+                remove_variable = priest_in_territory
+                if = {
+                    limit = {
+                        has_province_modifier = priests_converting_population_mod
+                    }
+                    remove_province_modifier = priests_converting_population_mod
+                }
+            }
+        }
+
+    }
+}
+
+mpe_pop_events.2 = {
+    type = country_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = { has_variable = num_of_priests_var }
+            change_variable = {
+                name = num_of_priests_var
+                subtract = 1
+            }
+            if = {
+                limit = { var:num_of_priests_var <= 0 }
+                remove_variable = num_of_priests_var
+            }
+        }
+    }
+}
+
+mpe_pop_events.3 = {
+    type = province_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = {
+                has_variable = merchant_in_territory
+            }
+            change_variable = {
+                name = merchant_in_territory
+                subtract = 1
+            }
+            if = {
+               limit = { var:merchant_in_territory > 0 }
+               add_special_pop_province_modifier_effect = yes
+            }
+            else = {
+                limit = { var:merchant_in_territory <= 0 }
+                remove_variable = merchant_in_territory
+                if = {
+                    limit = {
+                        has_province_modifier = merchants_in_province_mod
+                    }
+                    remove_province_modifier = merchants_in_province_mod
+                }
+            }
+        }
+    }
+}
+
+mpe_pop_events.4 = {
+    type = country_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = { has_variable = num_of_merchants_var }
+            change_variable = {
+                name = num_of_merchants_var
+                subtract = 1
+            }
+            if = {
+                limit = { var:num_of_merchants_var <= 0 }
+                remove_variable = num_of_merchants_var
+            }
+        }
+    }
+}
+mpe_pop_events.5 = {
+    type = province_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = {
+                has_variable = architects_in_territory
+            }
+            change_variable = {
+                name = architects_in_territory
+                subtract = 1
+            }
+            if = {
+               limit = { var:architects_in_territory > 0 }
+               add_special_pop_province_modifier_effect = yes
+            }
+            else = {
+                limit = { var:architects_in_territory <= 0 }
+                remove_variable = architects_in_territory
+                if = {
+                    limit = {
+                        has_province_modifier = architects_in_province_mod
+                    }
+                    remove_province_modifier = architects_in_province_mod
+                }
+            }
+        }
+    }
+}
+
+mpe_pop_events.6 = {
+    type = country_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = { has_variable = num_of_architects_var }
+            change_variable = {
+                name = num_of_architects_var
+                subtract = 1
+            }
+            if = {
+                limit = { var:num_of_architects_var <= 0 }
+                remove_variable = num_of_architects_var
+            }
+        }
+    }
+}
+
+mpe_pop_events.7 = {
+    type = province_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = {
+                has_variable = artists_in_territory
+            }
+            change_variable = {
+                name = artists_in_territory
+                subtract = 1
+            }
+            if = {
+               limit = { var:artists_in_territory > 0 }
+               add_special_pop_province_modifier_effect = yes
+            }
+            else = {
+                limit = { var:artists_in_territory <= 0 }
+                remove_variable = artists_in_territory
+                if = {
+                    limit = {
+                        has_province_modifier = artists_in_province_mod
+                    }
+                    remove_province_modifier = artists_in_province_mod
+                }
+            }
+        }
+    }
+}
+
+mpe_pop_events.8 = {
+    type = country_event
+    hidden = yes
+
+    immediate = {
+        if = {
+            limit = { has_variable = num_of_artists_var }
+            change_variable = {
+                name = num_of_artists_var
+                subtract = 1
+            }
+            if = {
+                limit = { var:num_of_artists_var <= 0 }
+                remove_variable = num_of_artists_var
+            }
+        }
+    }
+}

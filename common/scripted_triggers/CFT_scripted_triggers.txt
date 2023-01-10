@@ -1,0 +1,124 @@
+﻿focus_scripted_gui_is_valid = {
+    trigger_if = {
+        limit = { employer = scope:player }
+        is_valid_for_focus_selection_trigger = yes
+        trigger_if = {
+            limit = {
+                has_variable = character_focus_cooldown_var
+            }
+            custom_tooltip = {
+                text = recently_selected_char_focus_tt
+                NOT = {
+                    root = {
+                        has_variable = character_focus_cooldown_var
+                    }
+                }
+            }
+        }
+    }
+    is_player_for_buttons_check_trigger = yes
+}
+
+is_valid_for_focus_selection_trigger = {
+	trigger_if = {
+		limit = {
+			is_ruler = no
+		}
+		custom_tooltip = {
+			text = can_only_change_rulers_focus_tt
+			is_ruler = yes
+		}
+	}
+	trigger_if = {
+		limit = {
+			age < 16
+		}
+		custom_tooltip = {
+			text = must_be_an_adult_to_choose_tt
+			age >= 16
+		}
+	}
+}
+is_valid_for_martial_focus_selection_trigger = {
+    trigger_if = {
+        limit = {
+            NOT = { has_variable = martial_focus_tree_enabled }
+        }
+         custom_tooltip = {
+            text = does_not_have_a_martial_focus_tt
+            has_variable = martial_focus_tree_enabled
+        }
+    }
+}
+is_valid_for_oratory_focus_selection_trigger = {
+    trigger_if = {
+        limit = {
+            NOT = { has_variable = oratory_focus_tree_enabled }
+        }
+         custom_tooltip = {
+            text = does_not_have_a_oratory_focus_tt
+            has_variable = oratory_focus_tree_enabled
+        }
+    }
+}
+is_valid_for_civic_focus_selection_trigger = {
+    trigger_if = {
+        limit = {
+            NOT = { has_variable = civic_focus_tree_enabled }
+        }
+         custom_tooltip = {
+            text = does_not_have_a_civic_focus_tt
+            has_variable = civic_focus_tree_enabled
+        }
+    }
+}
+is_valid_for_zeal_focus_selection_trigger = {
+    trigger_if = {
+        limit = {
+            NOT = { has_variable = zeal_focus_tree_enabled }
+        }
+         custom_tooltip = {
+            text = does_not_have_a_zeal_focus_tt
+            has_variable = zeal_focus_tree_enabled
+        }
+    }
+}
+is_player_for_buttons_check_trigger = {
+	trigger_if = {
+		limit = {
+			NOT = {
+				employer = scope:player
+			}
+		}
+		custom_tooltip = {
+			text = dont_cheat_you_monkey_tooltip
+			employer = scope:player
+		}		
+	}
+}
+character_can_take_perk_trigger = {
+    trigger_if = {
+        limit = {
+            has_variable = character_focus_perk_available
+        }
+        trigger_if = {
+            limit = {
+                NOT = { root.var:character_focus_perk_available >= 1 }
+            }
+            #Not sure why this would ever should up but it might
+           	custom_tooltip = {
+                text = does_not_have_enough_experience_tt
+                root.var:character_focus_perk_available >= 1
+            }
+        }
+    }
+    trigger_else = {
+    	limit = {
+    		NOT = { has_variable = character_focus_perk_available }
+    	}
+        custom_tooltip = {
+            text = does_not_have_enough_experience_tt
+            has_variable = character_focus_perk_available
+        }    	
+    }
+}

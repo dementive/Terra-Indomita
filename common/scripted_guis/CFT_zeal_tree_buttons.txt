@@ -1,0 +1,487 @@
+﻿zeal_patronize_temples_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = patronize_temples_var
+            }
+            NOT = {
+                root = {
+                    has_variable = patronize_temples_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_popularity = 5
+        employer = {
+            add_1_free_province_investments = yes
+            random_owned_province = {
+                limit = {
+                    is_holy_site = yes
+                }
+                add_province_modifier = {
+                    name = patronize_temples_province_mod
+                    duration = 3650
+                }
+            }
+        }
+        set_variable = patronize_temples_var
+        remove_1_available_perk_effect = yes
+    }
+}
+zeal_observe_rituals_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = observe_rituals_var
+            }
+            NOT = {
+                root = {
+                    has_variable = observe_rituals_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_zeal = 1
+        set_variable = observe_rituals_var
+        remove_1_available_perk_effect = yes
+    }
+}
+zeal_divine_mandate_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = divine_mandate_var
+            }
+            NOT = {
+                root = {
+                    has_variable = divine_mandate_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = observe_rituals_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_observe_rituals_tt
+                    has_variable = observe_rituals_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        custom_tooltip = while_character_is_ruler_tooltip
+        employer = {
+            add_country_modifier = {
+                name = divine_mandate_country_mod
+                duration = -1
+            }
+        }
+        set_variable = divine_mandate_var
+        remove_1_available_perk_effect = yes
+    }
+}
+zeal_religous_calendar_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = religous_calendar_var
+            }
+            NOT = {
+                root = {
+                    has_variable = religous_calendar_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = patronize_temples_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_patronize_temples_tt
+                    has_variable = patronize_temples_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            add_country_modifier = {
+                name = religous_calendar_country_mod
+                duration = 1925
+            }
+        }
+        set_variable = religous_calendar_var
+        remove_1_available_perk_effect = yes
+    }
+}
+zeal_mandatory_practice_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = mandatory_practice_var
+            }
+            NOT = {
+                root = {
+                    has_variable = mandatory_practice_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = divine_mandate_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_divine_mandate_tt
+                    has_variable = divine_mandate_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        custom_tooltip = while_character_is_ruler_tooltip
+        employer = {
+            add_country_modifier = {
+                name = mandatory_practice_country_mod
+                duration = -1
+            }
+        }
+        set_variable = mandatory_practice_var
+        remove_1_available_perk_effect = yes
+    }
+}
+zeal_divine_offerings_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = divine_offerings_var
+            }
+            NOT = {
+                root = {
+                    has_variable = divine_offerings_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = mandatory_practice_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_mandatory_practice_tt
+                    has_variable = mandatory_practice_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            add_stability = 5
+            add_legitimacy = 10
+        }
+        set_variable = divine_offerings_var
+        remove_1_available_perk_effect = yes
+    }
+}
+zeal_conversion_policies_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = conversion_policies_var
+            }
+            NOT = {
+                root = {
+                    has_variable = conversion_policies_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = religous_calendar_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_religous_calendar_tt
+                    has_variable = religous_calendar_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            capital_scope = {
+                state = {
+                    add_state_modifier = {
+                        name = conversion_policies_state_mod
+                        duration = 3650
+                    }
+                }
+            }
+        }
+        set_variable = conversion_policies_var
+        remove_1_available_perk_effect = yes
+    }
+}
+zeal_legendary_ancestors_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = legendary_ancestors_var
+            }
+            NOT = {
+                root = {
+                    has_variable = legendary_ancestors_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = conversion_policies_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_conversion_policies_tt
+                    has_variable = conversion_policies_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_zeal = 1
+        family = { add_prestige = 50 }
+        set_variable = legendary_ancestors_var
+        remove_1_available_perk_effect = yes
+    }
+}
+zeal_prosperity_for_all_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = prosperity_for_all_var
+            }
+            NOT = {
+                root = {
+                    has_variable = prosperity_for_all_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = legendary_ancestors_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_legendary_ancestors_tt
+                    has_variable = legendary_ancestors_var
+                }
+            }
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = divine_offerings_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_divine_offerings_tt
+                    has_variable = divine_offerings_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            add_country_modifier = {
+                name = prosperity_for_all_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = prosperity_for_all_var
+        remove_1_available_perk_effect = yes
+    }
+}
+zeal_head_of_faith_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = head_of_faith_var
+            }
+            NOT = {
+                root = {
+                    has_variable = head_of_faith_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_zeal_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = prosperity_for_all_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_prosperity_for_all_tt
+                    has_variable = prosperity_for_all_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        #Put in a hidden event to prevent the game from fucking crashing
+        # add_trait = philosopher_king_trait
+        custom_tooltip = add_zeal_trait_tooltip
+        trigger_event = hidden_events.2
+        set_variable = head_of_faith_var
+        if = {
+            limit = {
+                has_variable = character_focus_cooldown_var
+            }
+            remove_variable = character_focus_cooldown_var
+        }
+        remove_1_available_perk_effect = yes
+    }
+}

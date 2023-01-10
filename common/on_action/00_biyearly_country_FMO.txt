@@ -1,0 +1,48 @@
+﻿biyearly_country_pulse = {
+	on_actions = {
+		ai_take_focus_perks_action
+	}
+}
+ai_take_focus_perks_action = {
+	effect = {
+		#This is what allows the ai to take character focus perks. This will "guide" the ai through finishing the tree of their highest skill.
+		#It will take an ai character 37.5-39.5 continuous years as ruler to finish a focus tree 
+		if = {
+			limit = { is_ai = yes }
+			every_ruler_with_perk_available = {
+				change_variable = {
+					name = character_focus_perk_available
+					subtract = 1
+				}
+				if = {
+					limit = {
+						has_variable = martial_focus_tree_enabled
+						NOT = { has_variable = ai_martial_tree_completed_var }
+					}
+					ai_martial_take_focus_perk_effect = yes
+				}
+				else_if = {
+					limit = {
+						has_variable = oratory_focus_tree_enabled
+						NOT = { has_variable = ai_oratory_tree_completed_var }
+					}
+					ai_oratory_take_focus_perk_effect = yes
+				}
+				else_if = {
+					limit = {
+						has_variable = civic_focus_tree_enabled
+						NOT = { has_variable = ai_civic_tree_completed_var }
+					}
+					ai_civic_take_focus_perk_effect = yes
+				}
+				else_if = {
+					limit = {
+						has_variable = zeal_focus_tree_enabled
+						NOT = { has_variable = ai_zeal_tree_completed_var }
+					}
+					ai_zeal_take_focus_perk_effect = yes
+				}
+			}
+		}
+	}
+}
