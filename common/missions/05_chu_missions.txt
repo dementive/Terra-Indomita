@@ -16,6 +16,7 @@
         ai_mission_back_out_trigger = yes
     }
     on_start = {
+        trigger_event = me_chu.27
         start_mission_ai_effect = yes
     }
     on_abort = {
@@ -44,25 +45,25 @@
         }
 
         on_start = {
-            char:474 = {
-                save_scope_as = poor_kui_ying
-            }
-            any_character = {
-                is_primary_heir = yes
-                save_scope_as = next_king
-            }
-            
         }
 
         on_completion = {
+            char:474 = {
+                death = {
+                    killer = char:486
+                    death_reason = death_murder
+                }
+            }
             add_political_influence = -15
         	add_treasury = -25
             trigger_event = me_chu.1
+            
             show_as_tooltip = {
-
+                
+            }
             }
         }
-    }
+    
     01_chu_missions_task_2 = { #War Refugees
         icon = "task_diplomatic"
         duration = 60
@@ -91,33 +92,21 @@
             }
         }
     }
-    01_chu_missions_task_3 = { #Harsh Realities
+    01_chu_missions_task_3 = { #Glorious Combat
         icon = "task_battle"
 
-        highlight = {
-			scope:province = {
-				OR = {
-                    province_id = 5589
-				}
-			}
-        }
 
         requires = { 01_chu_missions_task_1}
 
         allow = {
-            political_influence >= 50
-            treasury >= 100
-            stability >= 70
-            war = no
+            political_influence >= 15
         }
         on_completion = {
-            add_political_influence = -50
-        	add_treasury = -100
-            add_stability = -10
             add_country_modifier = {
-                name = chu_mil_gov_reform
-                duration = 7300	# 20 years
+                name = chu_glorious_combat
+			    duration = 1825	# 5 years
             }
+            add_political_influence = -15
             trigger_event = me_chu.3
             show_as_tooltip = {
 
@@ -171,27 +160,6 @@
                     province_id = 9089
 				}
 			}
-        }
-
-        hidden:immediate = {
-                c:CHU= {
-                    create_character = {
-                        first_name = "Qu"
-                        family_name = "Yuan"
-                        age = 32
-                        female = no
-                        culture = chu
-                        religion = chinese_religions
-                        save_scope_as = qu_yuan
-                    }
-                    scope:qu_yuan = {
-                        add_martial = 1
-                        add_charisma = 1
-                        add_finesse = 1
-                        add_zeal = 1
-                        add_trait = steadfast
-                    }
-            }
         }
 
         allow = {
@@ -360,7 +328,7 @@
             capital_scope = {
                 num_of_theathre_building >= 3
                 has_province_rank = city_metropolis
-                has_holy_site = yes
+                is_holy_site = yes
             }
             invention = scientific_patronage_inv
             political_influence >= 30
@@ -684,6 +652,7 @@
             manpower >= 25
         }
         on_completion = {
+            add_manpower = -25
             area:yingchuan_area = {
                 add_provincial_claim_effect = yes
 			}
