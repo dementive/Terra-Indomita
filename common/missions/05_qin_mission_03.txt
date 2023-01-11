@@ -352,6 +352,14 @@
 					}
 				}
 			}
+			custom_tooltip = qin_03_empire_task_10_claims_tt_2
+			hidden_effect = {
+				c:QII = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
             show_as_tooltip = {
 				p:8681 = {
 					ordered_pops_in_province = {
@@ -532,7 +540,7 @@
     }
     qin_03_empire_task_16 = { #Extinguish Qi
         icon = "task_political"
-        requires = { qin_03_empire_task_15 }
+        requires = { qin_03_empire_task_10 }
 		highlight = {
 			scope:province = {
 				owned_or_subject_owned = c:QII
@@ -566,7 +574,7 @@
     }
     qin_03_empire_task_17 = { #One Nation Under Qin
         icon = "task_atlas"
-        requires = { qin_03_empire_task_16 }
+        requires = { qin_03_empire_task_15 qin_03_empire_task_16 }
         final = yes
 		highlight = {
 			scope:province = {
