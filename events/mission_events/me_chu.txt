@@ -19,44 +19,46 @@ me_chu.1 = {
         }
         custom_tooltip = me_chu_1_tooltip
         c:QIN = {
-            hidden:p:8828 = { add_claim = QIN }
-            declare_war_with_wargoal = {
-                war_goal = conquer_wargoal
-                province = 8828 # Wuling
-                target = CHU
+            if = {
+                limit = {
+                    NOT = { war_with = ROOT }
+                }
+                hidden_effect = { p:8828 = { add_claim = QIN } }
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = 8828 # Wuling
+                    target = CHU
+                }
             }
         }
+    
         c:HAN = {
-            hidden:p:8393 = { add_claim = HAN }
+            if = {
+                limit = {
+                        NOT = { war_with = ROOT }
+                    }
+                }
+            hidden_effect = { p:8393 = { add_claim = HAN } }
             declare_war_with_wargoal = {
                 war_goal = conquer_wargoal
                 province = 8393 # Yangdi
                 target = CHU
             }
         }
+    
         c:WEI = {
-            hidden:p:8457= { add_claim = WEI }
-            declare_war_with_wargoal = {
-                war_goal = conquer_wargoal
-                province = 8457 # Chen
-                target = CHU
+            if = {
+                limit = {
+                    NOT = { war_with = ROOT }
+                }
+                hidden_effect = { p:8457 = { add_claim = WEI } }
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = 8457 # Chen
+                    target = CHU
+                }
             }
         }
-        c:QIN = {
-			trigger_event = {
-				id = me_chu.1
-			}
-		}
-        c:HAN = {
-			trigger_event = {
-				id = me_chu.1
-			}
-		}
-        c:WEI = {
-			trigger_event = {
-				id = me_chu.1
-			}
-		}
     }
 }
 me_chu.2 = {
