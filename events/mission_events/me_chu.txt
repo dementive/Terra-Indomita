@@ -24,10 +24,18 @@ me_chu.1 = {
                     NOT = { war_with = ROOT }
                 }
                 hidden_effect = { p:8828 = { add_claim = QIN } }
-                declare_war_with_wargoal = {
-                    war_goal = conquer_wargoal
-                    province = 8828 # Wuling
-                    target = CHU
+                if = {
+                    limit = {
+                        is_ai = no
+                    }
+                    trigger_event = me_chu.1000
+                }
+                else = {
+                    declare_war_with_wargoal = {
+                        war_goal = conquer_wargoal
+                        province = 8828 # Wuling
+                        target = CHU
+                    }
                 }
             }
         }
@@ -39,10 +47,18 @@ me_chu.1 = {
                     }
                 }
             hidden_effect = { p:8393 = { add_claim = HAN } }
-            declare_war_with_wargoal = {
-                war_goal = conquer_wargoal
-                province = 8393 # Yangdi
-                target = CHU
+            if = {
+                limit = {
+                    is_ai = no
+                }
+                trigger_event = me_chu.1000
+            }
+            else = {
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = 8393 # Yangdi
+                    target = CHU
+                }
             }
         }
     
@@ -52,6 +68,53 @@ me_chu.1 = {
                     NOT = { war_with = ROOT }
                 }
                 hidden_effect = { p:8457 = { add_claim = WEI } }
+                if = {
+                    limit = {
+                        is_ai = no
+                    }
+                    trigger_event = me_chu.1000
+                }
+                else = {
+                    declare_war_with_wargoal = {
+                        war_goal = conquer_wargoal
+                        province = 8457 # Chen
+                        target = CHU
+                    }
+                }
+            }
+        }
+    }
+}
+me_chu.1000 = { # Declare war on Chu - (event for player choice)
+    type = country_event
+    title = me_chu.1000.t
+    desc = me_chu.1000.desc
+    picture = aqueducts
+    
+    left_portrait = current_ruler
+
+
+    option = {  # I am human I have free will
+        name = me_chu.1000.a
+        switch = {
+            trigger = tag
+
+            c:QIN = {
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = 8828 # Wuling
+                    target = CHU
+                }
+            }
+
+            c:HAN = {
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = 8393 # Yangdi
+                    target = CHU
+                }
+            }
+            c:WEI = {
                 declare_war_with_wargoal = {
                     war_goal = conquer_wargoal
                     province = 8457 # Chen
@@ -59,6 +122,10 @@ me_chu.1 = {
                 }
             }
         }
+    }
+    option = {  # Im a fucking robot - beepBoOp
+        name = me_chu.1000.b
+        # do nothing
     }
 }
 me_chu.2 = {
