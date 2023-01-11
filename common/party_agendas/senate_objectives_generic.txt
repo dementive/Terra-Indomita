@@ -2150,10 +2150,10 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
 				OR = {
 					state = {
     					NAND = { 
-    						has_state_modifier = state_improvement_military
-    						has_state_modifier = state_improvement_civic
-    						has_state_modifier = state_improvement_oratory
-    						has_state_modifier = state_improvement_religious
+			        		state_improvement_military_trigger = yes 
+	                        state_improvement_civic_trigger = yes
+	                        state_improvement_oratory_trigger = yes
+			        		state_improvement_religious_trigger = yes
     					}
     				}
 					is_capital = yes
@@ -2168,10 +2168,10 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
     		factor = 3
     		party_country.capital_scope.state = {
     			NAND = { 
-					has_state_modifier = state_improvement_military
-					has_state_modifier = state_improvement_civic
-					has_state_modifier = state_improvement_oratory
-					has_state_modifier = state_improvement_religious
+	        		state_improvement_military_trigger = yes 
+	                state_improvement_civic_trigger = yes
+	                state_improvement_oratory_trigger = yes
+	        		state_improvement_religious_trigger = yes
 				}
     		}
     	}
@@ -2187,10 +2187,10 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
 	    			OR = {
 		    			state = {
 	    					NAND = { 
-	    						has_state_modifier = state_improvement_military
-	    						has_state_modifier = state_improvement_civic
-	    						has_state_modifier = state_improvement_oratory
-	    						has_state_modifier = state_improvement_religious
+				        		state_improvement_military_trigger = yes 
+		                        state_improvement_civic_trigger = yes
+		                        state_improvement_oratory_trigger = yes
+				        		state_improvement_religious_trigger = yes
 	    					}
 		    			}
 		    			is_capital = yes
@@ -2202,10 +2202,10 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
 	    				is_capital = yes
 	    				state = {
 	    					NAND = { 
-	    						has_state_modifier = state_improvement_military
-	    						has_state_modifier = state_improvement_civic
-	    						has_state_modifier = state_improvement_oratory
-	    						has_state_modifier = state_improvement_religious
+				        		state_improvement_military_trigger = yes 
+		                        state_improvement_civic_trigger = yes
+		                        state_improvement_oratory_trigger = yes
+				        		state_improvement_religious_trigger = yes
 	    					}
 	    				}
 	    			}
@@ -2225,7 +2225,7 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
 	    		2 = {
 	    			trigger = {
 	    				scope:sen_obj_inv_gen_target = {
-	    					NOT = { has_state_modifier = state_improvement_military }
+	    					NOT = { state_improvement_military_trigger = yes }
 	    				}
 	    			}
 	    			set_variable = {
@@ -2236,7 +2236,7 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
 	    		2 = {
 	    			trigger = {
 	    				scope:sen_obj_inv_gen_target = {
-	    					NOT = { has_state_modifier = state_improvement_civic }
+	    					NOT = { state_improvement_civic_trigger = yes }
 	    				}
 	    			}
 	    			set_variable = {
@@ -2247,7 +2247,7 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
 	    		2 = {
 	    			trigger = {
 	    				scope:sen_obj_inv_gen_target = {
-	    					NOT = { has_state_modifier = state_improvement_oratory }
+	    					NOT = { state_improvement_oratory_trigger = yes }
 	    				}
 	    			}
 	    			set_variable = {
@@ -2258,7 +2258,7 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
 	    		2 = {
 	    			trigger = {
 	    				scope:sen_obj_inv_gen_target = {
-	    					NOT = { has_state_modifier = state_improvement_religious }
+	    					NOT = { state_improvement_oratory_trigger = yes }
 	    				}
 	    			}
 	    			set_variable = {
@@ -2270,10 +2270,10 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
 	    			trigger = {
 	    				scope:sen_obj_inv_gen_target = {
 	    					AND = { 
-	    						has_state_modifier = state_improvement_military
-	    						has_state_modifier = state_improvement_civic
-	    						has_state_modifier = state_improvement_oratory
-	    						has_state_modifier = state_improvement_religious
+				        		state_improvement_military_trigger = yes 
+		                        state_improvement_civic_trigger = yes
+		                        state_improvement_oratory_trigger = yes
+				        		state_improvement_religious_trigger = yes
 	    					}
 	    				}
 	    			}
@@ -2301,19 +2301,19 @@ senate_objective_state_investment_generic = { # Invest - Traditionalist
     			}
     			trigger_if = {
 		    		limit = { var:sen_obj_inv_gen_type = 1 }
-		    		hidden:scope:sen_obj_inv_gen_target = { has_state_modifier = state_improvement_military }
+		    		hidden:scope:sen_obj_inv_gen_target = { state_improvement_military_trigger = yes }
 		    	}
 		    	trigger_else_if = {
 		    		limit = { var:sen_obj_inv_gen_type = 2 }
-		    		hidden:scope:sen_obj_inv_gen_target = { has_state_modifier = state_improvement_civic }
+		    		hidden:scope:sen_obj_inv_gen_target = { state_improvement_civic_trigger = yes }
 		    	}
 		    	trigger_else_if = {
 		    		limit = { var:sen_obj_inv_gen_type = 3 }
-		    		hidden:scope:sen_obj_inv_gen_target = { has_state_modifier = state_improvement_oratory }
+		    		hidden:scope:sen_obj_inv_gen_target = { state_improvement_oratory_trigger = yes }
 		    	}
 		    	trigger_else_if = {
 		    		limit = { var:sen_obj_inv_gen_type = 4 }
-		    		hidden:scope:sen_obj_inv_gen_target = { has_state_modifier = state_improvement_religious }
+		    		hidden:scope:sen_obj_inv_gen_target = { state_improvement_religious_trigger = yes }
 		    	}
     		}
     		trigger_else = {
