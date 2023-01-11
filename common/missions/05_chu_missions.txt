@@ -48,12 +48,6 @@
         }
 
         on_completion = {
-            char:474 = {
-                death = {
-                    killer = char:486
-                    death_reason = death_murder
-                }
-            }
             add_political_influence = -15
         	add_treasury = -25
             trigger_event = me_chu.1
@@ -99,14 +93,13 @@
         requires = { 01_chu_missions_task_1}
 
         allow = {
-            political_influence >= 15
+            war = yes
         }
         on_completion = {
             add_country_modifier = {
                 name = chu_glorious_combat
 			    duration = 1825	# 5 years
             }
-            add_political_influence = -15
             trigger_event = me_chu.3
             show_as_tooltip = {
 
@@ -163,13 +156,11 @@
         }
 
         allow = {
-            political_influence >= 30
             treasury >=50
             owns = 9089
         }
 
         on_completion = {
-            add_political_influence = -30
         	add_treasury = -50
             c:QII = {
 				add_opinion = {
@@ -251,9 +242,6 @@
 
         allow = {
             military_experience >= 40
-            current_ruler = {
-				martial >= 6
-			}
         }
         on_completion = {
             add_military_experience = -40
@@ -326,16 +314,14 @@
 
         allow = {
             capital_scope = {
-                num_of_theathre_building >= 3
+                num_of_theathre_building >= 1
                 has_province_rank = city_metropolis
                 is_holy_site = yes
             }
             invention = scientific_patronage_inv
-            political_influence >= 30
             treasury >= 75
         }
         on_completion = {
-            add_political_influence = -30
         	add_treasury = -75
             trigger_event = me_chu.10
             show_as_tooltip = {
@@ -401,6 +387,7 @@
             capital_scope = {
                 is_importing_trade_good = stone
                 num_of_port_building >= 5
+                num_of_forum_building >= 1
                 }
             }
         on_completion = {
@@ -442,7 +429,6 @@
                 }
             }
             }
-            political_influence >= 50
             treasury >= 100
         }
         on_completion = {
@@ -450,7 +436,6 @@
                 name = chu_jungle_modifier
                 duration = -1
             }
-            add_political_influence = -50
         	add_treasury = -100
             trigger_event = me_chu.13
             show_as_tooltip = {
@@ -480,12 +465,10 @@
                 is_importing_trade_good = jade
                 is_importing_trade_good = base_metals
             }
-            political_influence >= 50
             treasury >= 250
             has_military_bonus = yue_legendary_swords_mil_trad
         }
         on_completion = {
-            add_political_influence = -15
         	add_treasury = -25
             create_country_treasure = {
                 key = "sword_of_goujian"
@@ -529,7 +512,6 @@
             area:pingyuan_area = {
                 add_provincial_claim_effect = yes
 			}
-            add_political_influence = -15
         	add_treasury = -25
             trigger_event = me_chu.15
             show_as_tooltip = {
@@ -712,8 +694,6 @@
 				}
             }
             trigger_event = me_chu.20
-            add_political_influence = -75
-            trigger_event = me_chu.20
             show_as_tooltip = {
 
             }
@@ -765,6 +745,7 @@
         }
 
         allow = {
+            treasury >= 100
             p:9505 = {
                 num_of_fortress_building >= 1
             }
@@ -785,7 +766,6 @@
                     duration = -1
                 }
             }
-            add_political_influence = -50
             add_treasury = -100
             trigger_event = me_chu.22
             show_as_tooltip = {
@@ -861,7 +841,7 @@
                 name = chu_royal_river
                 duration = -1
             }
-            add_political_influence = 100
+            add_political_influence = 50
             add_treasury = 500
             trigger_event = me_chu.24
             show_as_tooltip = {
