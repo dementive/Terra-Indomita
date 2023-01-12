@@ -197,7 +197,6 @@
         icon = "task_happiness"
         requires = {sogdia_missions_task_3}
         allow = {
-            political_influence >= 25
             treasury >= 40
             hidden:capital_scope = {
                 has_building = population_building
@@ -210,7 +209,6 @@
                 name = heavenly_horses
                 duration = -1
             }
-            add_political_influence = -25
             add_treasury = -40
             trigger_event = me_sogdia.6
             show_as_tooltip = {
@@ -224,14 +222,12 @@
     duration = 365
     allow = {
         treasury >= 35
-        political_influence >= 20
         manpower >= 1
     }
 
     
     on_completion = {
         add_treasury = -35
-        add_political_influence = -20
         add_manpower = -1
         add_country_modifier = {
             name = steppe_trading
@@ -272,7 +268,6 @@
         requires = {sogdia_missions_task_8}
         allow = {
             religion = eastern_animism
-            political_influence >= 30
             current_ruler = {
                 zeal >= 7
             }
@@ -318,7 +313,6 @@
         requires = {sogdia_missions_task_2}
         allow = {
             owns = 7254
-            political_influence >= 25
             treasury >= 30
         }
 
@@ -330,7 +324,6 @@
 			}
         }
         on_completion = {
-            add_political_influence = -25
             add_treasury = -30
             add_military_experience = 20
             trigger_event = me_sogdia.11
@@ -354,7 +347,6 @@
 
         allow = {
             owns = 7254
-            political_influence >= 15
             treasury >= 25
         }
         on_completion = {
@@ -372,7 +364,6 @@
         allow = {
             owns = 7260
             treasury >= 200
-            political_influence >= 25
             manpower >= 2
         }
 
@@ -389,7 +380,6 @@
                 add_building_level = fortress_building
             }
             add_treasury = -200
-            add_political_influence = -25
             add_manpower = -2
             trigger_event = me_sogdia.13
             show_as_tooltip = {
@@ -524,11 +514,9 @@
                 has_building = fortress_building
             }
             treasury >= 100
-            political_influence >= 40
         }
         on_completion = {
             add_treasury = -100
-            add_political_influence = -40
             p:6787 = {
                 add_province_modifier = {
 					name = "narin_fort"
@@ -688,7 +676,6 @@
         requires = {sogdia_missions_task_22}
         allow = {
             owns = 6694
-            political_influence >= 15
             treasury >= 25
         }
 
@@ -906,13 +893,13 @@
 			}
         }
         allow = {
-            political_influence >= 30
             treasury >= 75
             hidden:p:7261 = {
                 has_building = latifundia_building
             }
         }
         on_completion = {
+            add_treasury = -75
             p:7261 = {
                 add_province_modifier = {
                     name = "horse_farms"
