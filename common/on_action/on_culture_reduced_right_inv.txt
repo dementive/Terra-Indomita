@@ -310,6 +310,22 @@
                         }
                     }
                     remove_variable = tibetan_influence
+                }
+                if = {
+                    limit = {
+                        scope:target_culture = {
+                            is_south_east_asian_trigger = yes
+                        }
+                        has_variable = south_east_asian_influence
+                        NOT = {
+                            any_country_culture = {
+                                is_integrated = yes
+                                num_pops_same_group_mil_trads >= percent_size_culture_group_comparison
+                                is_south_east_asian_trigger = yes
+                            }
+                        }
+                    }
+                    remove_variable = south_east_asian_influence
                 }          
             }
             
