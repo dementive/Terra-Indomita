@@ -66,6 +66,32 @@ widget = {
 		alert = {
 			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( AlertManager.GetPlayer.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 			enabled = "[ScriptedGui.IsShown( GuiScope.SetRoot( AlertManager.GetPlayer.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			datacontext = "[GetScriptedGui('ruler_has_big_focus_perk_available_trigger')]"
+			tooltip = "BIG_FOCUS_AVAILABLE_TOOLTIP"
+			blockoverride "Color"
+			{
+				frame = 2
+			}
+			using = green_alert
+			blockoverride "On_click"
+			{
+				onclick = "[AlertManager.OpenRuler]"
+				onclick = "[GetVariableSystem.Set( 'show_focus', 'yes' )]"
+				onclick = "[GetVariableSystem.Set( 'show_martial_focus', 'no' )]"
+				onclick = "[GetVariableSystem.Set( 'show_oratory_focus', 'no' )]"
+				onclick = "[GetVariableSystem.Set( 'show_civic_focus', 'no' )]"
+				onclick = "[GetVariableSystem.Set( 'show_zeal_focus', 'no' )]"
+			}
+			
+			blockoverride "Icon"
+			{
+				using = icon_military_experience
+				size = { 45 45 }
+			}
+		}
+		alert = {
+			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( AlertManager.GetPlayer.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
+			enabled = "[ScriptedGui.IsShown( GuiScope.SetRoot( AlertManager.GetPlayer.MakeScope ).AddScope('player', Player.MakeScope ).End )]"
 			datacontext = "[GetScriptedGui('ruler_has_martial_focus_perk_available_trigger')]"
 			tooltip = "MARTIAL_FOCUS_AVAILABLE_TOOLTIP"
 			blockoverride "Color"

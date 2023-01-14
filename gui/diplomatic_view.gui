@@ -1075,7 +1075,23 @@ base_window = {
 							parentanchor = bottom|hcenter
 							visible = "[And(DiplomaticView.GetTargetCountry.GetGovernment.IsRepublic, Not(EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'chinese')))]"
 							datacontext = "[DiplomaticView]"
-							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
+							tooltipwidget = {
+								object_tooltip_pop_out = {
+									datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage]"
+									blockoverride "title_text" {
+										text = "[Heritage.GetNameWithNoTooltip]"
+									}
+									blockoverride "concept_link" {
+										text = [heritage|E]
+									}
+									blockoverride "description_text" {
+										text = "MOD_HERITAGE_TOOLTIP"
+									}
+									blockoverride "Cull" {
+										visible = no
+									}
+								}
+							}
 							alpha = 0.92
 						} 
 					
@@ -1086,7 +1102,23 @@ base_window = {
 							parentanchor = bottom|hcenter
 							visible = "[And(DiplomaticView.GetTargetCountry.GetGovernment.IsMonarchy, Not(EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'chinese')))]"
 							datacontext = "[DiplomaticView]"
-							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
+							tooltipwidget = {
+								object_tooltip_pop_out = {
+									datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage]"
+									blockoverride "title_text" {
+										text = "[Heritage.GetNameWithNoTooltip]"
+									}
+									blockoverride "concept_link" {
+										text = [heritage|E]
+									}
+									blockoverride "description_text" {
+										text = "MOD_HERITAGE_TOOLTIP"
+									}
+									blockoverride "Cull" {
+										visible = no
+									}
+								}
+							}
 							alpha = 0.92
 						} 
 					
@@ -1097,7 +1129,23 @@ base_window = {
 							parentanchor = bottom|hcenter
 							visible = "[And(DiplomaticView.GetTargetCountry.GetGovernment.IsTribal, Not(EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'chinese')))]"
 							datacontext = "[DiplomaticView]"
-							tooltip = "TARGET_GOVTYPE_DIPLO_TT" 
+							tooltipwidget = {
+								object_tooltip_pop_out = {
+									datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage]"
+									blockoverride "title_text" {
+										text = "[Heritage.GetNameWithNoTooltip]"
+									}
+									blockoverride "concept_link" {
+										text = [heritage|E]
+									}
+									blockoverride "description_text" {
+										text = "MOD_HERITAGE_TOOLTIP"
+									}
+									blockoverride "Cull" {
+										visible = no
+									}
+								}
+							}
 							alpha = 0.92
 						}
 
@@ -1108,7 +1156,23 @@ base_window = {
 							parentanchor = bottom|hcenter
 							visible = "[EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'chinese')]"
 							datacontext = "[DiplomaticView]"
-							tooltip = "TARGET_GOVTYPE_DIPLO_TT" 
+							tooltipwidget = {
+								object_tooltip_pop_out = {
+									datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage]"
+									blockoverride "title_text" {
+										text = "[Heritage.GetNameWithNoTooltip]"
+									}
+									blockoverride "concept_link" {
+										text = [heritage|E]
+									}
+									blockoverride "description_text" {
+										text = "MOD_HERITAGE_TOOLTIP"
+									}
+									blockoverride "Cull" {
+										visible = no
+									}
+								}
+							}
 							alpha = 0.92
 						} 
 					
