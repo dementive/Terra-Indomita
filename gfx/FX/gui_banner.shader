@@ -77,8 +77,8 @@ VertexShader =
 		{
 
 			// CONSTANT BUFFER VALUES
-			float SmallWaveScale = 2.0;
-			float WaveScale = 2.0;
+			float SmallWaveScale = 1.5;
+			float WaveScale = 1.5;
 			float AnimationSpeed = 1.4;
 
 			float AnimSeed = UV.x;
@@ -107,21 +107,6 @@ VertexShader =
 			Normal = normalize( lerp( Normal, WaveNormal, 0.65f ) ); // Wave normal strength
 		}
 	]]
-	
-	MainCode VS_standard
-	{
-		Input = "VS_INPUT_PDXMESHSTANDARD"
-		Output = "VS_OUTPUT"
-		Code
-		[[
-			PDX_MAIN
-			{
-				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShaderStandard( Input ) );
-				Out.InstanceIndex = Input.InstanceIndices.y;
-				return Out;
-			}
-		]]
-	}
 	MainCode VS_animated
 	{
 		Input = "VS_INPUT_PDXMESHSTANDARD"
@@ -130,8 +115,10 @@ VertexShader =
 		[[
 			PDX_MAIN
 			{
-				float2 AnimUV = saturate( Input.Position.xy / float2( 9.0f, 6.0f ) + vec2( 0.5f ) );
-				CalculateSineAnimation( AnimUV, Input.Position, Input.Normal, Input.Tangent );
+				#ifndef FLAG_WAVES_DISABLED
+					float2 AnimUV = saturate( Input.Position.xy / float2( 9.0f, 6.0f ) + vec2( 0.5f ) );
+					CalculateSineAnimation( AnimUV, Input.Position, Input.Normal, Input.Tangent );
+				#endif
 				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShaderStandard( Input ) );
 				Out.InstanceIndex = Input.InstanceIndices.y;
 				return Out;
@@ -164,9 +151,6 @@ PixelShader =
 				#ifdef FLAG
 					Diffuse.rgb *= PdxTex2D( FlagTexture, Input.UV1 ).rgb;
 				#endif
-
-				Diffuse *= 0.9;
-
 				return Diffuse;
 			}
 		]]

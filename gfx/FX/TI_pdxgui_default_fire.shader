@@ -4,7 +4,7 @@
 Includes = {
 	"cw/pdxgui.fxh"
 	"cw/pdxgui_sprite.fxh"
-	"standardfuncsgfx.fxh"
+	"TI_pdxgui_default_fire.fxh"
 }
 
 VertexStruct VS_INDOMITA_GUI_FIRE_INPUT
@@ -33,14 +33,6 @@ VertexShader =
 		{
 			VS_INDOMITA_GUI_FIRE_OUTPUT Out;
 
-			float frameTime = GlobalTime / 70;
-			float speed1 = frameTime * 0.95;
-			float speed2 = frameTime * 0.9;
-			float speed3 = frameTime * 0.85;
-			float3 scrollSpeeds = float3(speed1, speed2, speed3);
-			float3 scales = float3(1,2,3);
-			float padding = 0.0f;
-
 			// This part comes straight from VS_OUTPUT_PDX_GUI, it sets position for the gui elements correctly, I think
 			float2 PixelPos = WidgetLeftTop + Input.LeftTop_WidthHeight.xy + Input.Position * Input.LeftTop_WidthHeight.zw;
 			Out.Position = PixelToScreenSpace( PixelPos );
@@ -49,16 +41,16 @@ VertexShader =
 			// END VS_OUTPUT_PDX_GUI copy
 
 		    // Compute texture coordinates for first noise texture using the first scale and upward scrolling speed values.
-		    Out.texCoords1 = (Input.LeftTop_WidthHeight * scales.x);
-		    Out.texCoords1.y = Out.texCoords1.y + (frameTime * scrollSpeeds.x);
+		    Out.texCoords1 = (Input.LeftTop_WidthHeight * SCALES.x);
+		    Out.texCoords1.y = Out.texCoords1.y + (FRAME_TIME * SCROLL_SPEEDS.x);
 
 		    // Compute texture coordinates for second noise texture using the second scale and upward scrolling speed values.
-		    Out.texCoords2 = (Input.LeftTop_WidthHeight * scales.y);
-		    Out.texCoords2.y = Out.texCoords2.y + (frameTime * scrollSpeeds.y);
+		    Out.texCoords2 = (Input.LeftTop_WidthHeight * SCALES.y);
+		    Out.texCoords2.y = Out.texCoords2.y + (FRAME_TIME * SCROLL_SPEEDS.y);
 
 		    // Compute texture coordinates for third noise texture using the third scale and upward scrolling speed values.
-		    Out.texCoords3 = (Input.LeftTop_WidthHeight * scales.z);
-		    Out.texCoords3.y = Out.texCoords3.y + (frameTime * scrollSpeeds.z);
+		    Out.texCoords3 = (Input.LeftTop_WidthHeight * SCALES.z);
+		    Out.texCoords3.y = Out.texCoords3.y + (FRAME_TIME * SCROLL_SPEEDS.z);
 
 			return Out;
 		}
@@ -165,12 +157,6 @@ PixelShader =
 				float4 fireColor;
 				float4 alphaColor;
 
-				float2 distortion1 = float2(0.1f, 0.2f);
-				float2 distortion2 = float2(0.1f, 0.3f);
-				float2 distortion3 = float2(0.1f, 0.1f);
-				float distortionScale = 0.1f;
-				float distortionBias = 0.05f;
-
 				// Sample the same noise texture using the three different texture coordinates to get three different noise scales.
 				noise1 = PdxTex2D( FireTex, Input.texCoords1);
 				noise2 = PdxTex2D( NoiseTex, Input.texCoords2);
@@ -186,16 +172,16 @@ PixelShader =
 				noise3 = (noise3 - 0.5f) * 2.0f;
 
 				// Distort the three noise x and y coordinates by the three different distortion x and y values.
-				noise1.xy = noise1.xy * distortion1.xy;
-				noise2.xy = noise2.xy * distortion2.xy;
-				noise3.xy = noise3.xy * distortion3.xy;
+				noise1.xy = noise1.xy * DISTORTION1.xy;
+				noise2.xy = noise2.xy * DISTORTION2.xy;
+				noise3.xy = noise3.xy * DISTORTION3.xy;
 
 				// Combine all three distorted noise results into a single noise result.
 				finalNoise = noise1 + noise2 + noise3;
 
 				// Perturb the input texture Y coordinates by the distortion scale and bias values.  
 				// The perturbation gets stronger as you move up the texture which creates the flame flickering at the top effect.
-				perturb = ((1.0f - Input.UV0.y) * distortionScale) + distortionBias;
+				perturb = ((1.0f - Input.UV0.y) * DISTORTION_SCALE) + DISTORTION_BIAS;
 
 				// Now create the perturbed and distorted texture sampling coordinates that will be used to sample the fire color texture.
 				noiseCoords.xy = (finalNoise.xy * perturb) + Input.UV0.xy;
@@ -217,13 +203,9 @@ PixelShader =
 				OutColor *= Input.Color;
 				
 				#ifdef DISABLED
-					//float3 OutCross = cross(OutColor.rgb, fireColor.rgb);
 					float OutAlpha = (OutColor.a * fireColor.a);
-					//OutColor = float4(OutCross.r, OutCross.g, OutCross.b, OutAlpha);
-					//OutColor = lerp(OutColor.rgb, fireColor.rgb, 0.1f);
 					float3 OutCross = lerp(OutColor.rgb, fireColor.rgb, 0.9f );
 					OutColor = float4(OutCross.r, OutCross.g, OutCross.b, OutAlpha);
-					//OutColor = fireColor;
 				#endif
 
 				return OutColor;
