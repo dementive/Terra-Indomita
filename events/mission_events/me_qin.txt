@@ -1547,16 +1547,585 @@ me_qin_li_si.16 = {
     picture = road_construction
 	
 	left_portrait = root.current_ruler
+	right_portrait = scope:library_builder
 
-    option = {
-        name = "me_qin_li_si_16.a"
-        custom_tooltip = me_qin_li_si_16_tooltip
+	immediate = {
 		create_character = {
 			age = 28
 			add_finesse = 5
 			add_trait = great_builder
 			save_scope_as = library_builder 
 		}
+    	if = {
+    		limit = {
+    			capital_scope = {
+    				free_building_slots >= 1
+    				has_great_work = no
+    			}
+    		}
+    		capital_scope = {
+    			save_scope_as = library_province_1
+    		}
+    	}
+    	else = {
+    		random_owned_province = {
+    			limit = {
+    				free_building_slots >= 1
+    				has_great_work = no
+    			}
+	    		weight = {
+					modifier = {
+						factor = 10000
+						total_population > 40
+					}    			
+	    		}
+	    		save_scope_as = library_province_1		
+    		}
+    	}
+    	if = {
+    		limit = {
+    			exists = scope:library_province_1
+    		}
+    		random_owned_province = {
+    			limit = {
+    				NOT = { this = scope:library_province_1 }
+    				free_building_slots >= 1
+    				has_great_work = no
+    			}
+	    		weight = {
+					modifier = {
+						factor = 10000
+						total_population > 40
+					}    			
+	    		}
+	    		save_scope_as = library_province_2	    			
+    		}
+    	}
+    	if = {
+    		limit = {
+    			exists = scope:library_province_1
+    			exists = scope:library_province_2
+    		}
+    		random_owned_province = {
+    			limit = {
+    				NOR = {
+    					this = scope:library_province_1
+    					this = scope:library_province_2
+    				}
+    				free_building_slots >= 1
+    				has_great_work = no
+    			}
+	    		weight = {
+					modifier = {
+						factor = 10000
+						total_population > 40
+					}    			
+	    		}
+	    		save_scope_as = library_province_3 			
+    		}
+    	}
+    	if = {
+    		limit = {
+    			exists = scope:library_province_1
+    			exists = scope:library_province_2
+    			exists = scope:library_province_3
+    		}
+    		random_owned_province = {
+    			limit = {
+    				NOR = {
+    					this = scope:library_province_1
+    					this = scope:library_province_2
+    					this = scope:library_province_3
+    				}
+    				free_building_slots >= 1
+    				has_great_work = no
+    			}
+	    		weight = {
+					modifier = {
+						factor = 10000
+						total_population > 40
+					}    			
+	    		}
+	    		save_scope_as = library_province_4	
+    		}
+    	}
+	}
+
+	option = {      
+	    name = me_qin_li_si_16.a
+	    trigger = {
+	    	exists = scope:library_province_1
+	    }
+	    set_variable = {
+	    	name = library_province_flag
+	    	value = scope:library_province_1
+	    }
+	    custom_tooltip = choose_the_kind_of_library_to_build
+	    trigger_event = {
+	    	id = rel_flavor_kemetic.36
+	    	days = 5
+	    }
+	}
+	option = {      
+	    name = me_qin_li_si_16.b
+	    trigger = {
+	    	exists = scope:library_province_2
+	    }
+	    set_variable = {
+	    	name = library_province_flag
+	    	value = scope:library_province_2
+	    }
+	    custom_tooltip = choose_the_kind_of_library_to_build
+	    trigger_event = {
+	    	id = rel_flavor_kemetic.36
+	    	days = 5
+	    }
+	}
+	option = {      
+	    name = me_qin_li_si_16.c
+	    trigger = {
+	    	exists = scope:library_province_3
+	    }	
+	    set_variable = {
+	    	name = library_province_flag
+	    	value = scope:library_province_3
+	    }
+	    custom_tooltip = choose_the_kind_of_library_to_build
+	    trigger_event = {
+	    	id = rel_flavor_kemetic.36
+	    	days = 5
+	    }
+	}
+	option = {      
+	    name = me_qin_li_si_16.d
+	    trigger = {
+	    	exists = scope:library_province_4
+	    }
+	    set_variable = {
+	    	name = library_province_flag
+	    	value = scope:library_province_4
+	    }
+	    custom_tooltip = choose_the_kind_of_library_to_build
+	    trigger_event = {
+	    	id = rel_flavor_kemetic.36
+	    	days = 5
+	    }
+	}
+	option = {	#We don't need to build a library!    
+	    name = me_qin_li_si_16.e
+	    current_ruler = {
+	    	add_popularity = -25
+	    }
+	}
+	option = {	#What an awful idea, kill this man immediately!!! 
+	    name = me_qin_li_si_16.f
+	    trigger = {
+	    	current_ruler = {
+	    		has_trait = lunatic
+	    	}
+	    }
+	    highlight = yes
+	    add_tyranny = 15
+	    scope:library_builder = {
+	    	death = {
+	    		death_reason = death_execution
+	    	}
+	    }
+	}
+}
+
+me_qin_li_si.1600 = {	#Library Materials
+    type = country_event
+    title = me_qin_li_si.1600.t
+    desc = me_qin_li_si.1600.desc
+    picture = quarry
+    goto_location = var:library_province_flag
+    right_portrait = scope:library_builder
+    left_portrait = current_ruler
+
+
+    option = {	#A small stone pyramid will be enough 
+        name = me_qin_li_si.1600.a
+        add_treasury = -250
+        if = {
+        	limit = {
+        		treasury < 250
+        	}
+        	custom_tooltip = this_will_put_us_into_debt_tt
+        }
+        hidden_effect = {
+			var:library_province_flag = {
+				begin_great_work_construction = {
+					great_work = "library_template_1"
+					locator = primary_great_work
+					is_ancient = yes #Have to be ancient or materials and leader are required.						
+				}
+			}
+		}
+		set_variable = library_1_construction
+    	custom_tooltip = begin_library_construction_tt
+    	set_variable = {
+    		name = library_progress
+    		value = 0
+    	}
+    	trigger_event = {
+    		id = me_qin_li_si.1601 #Maintenance
+    		days = { 150 300 }
+    	}
+    }
+    option = {	#Marble and silver will be exquisite
+        name = me_qin_li_si.1600.b
+        add_treasury = -500
+        if = {
+        	limit = {
+        		treasury < 500
+        	}
+        	custom_tooltip = this_will_put_us_into_debt_tt
+        }
+        hidden_effect = {
+			var:library_province_flag = {
+				begin_great_work_construction = {
+					great_work = "library_template_2"
+					locator = primary_great_work
+					is_ancient = yes					
+				}
+			}
+		}
+		set_variable = library_2_construction
+    	custom_tooltip = begin_library_construction_tt
+    	set_variable = {
+    		name = library_progress
+    		value = 0
+    	}
+    	trigger_event = {
+    		id = me_qin_li_si.1601 #Maintenance
+    		days = { 150 300 }
+    	}
+    }
+    option = {	#Ebony and Ivory will do fine
+        name = me_qin_li_si.1600.c
+        add_treasury = -1000
+        if = {
+        	limit = {
+        		treasury < 1000
+        	}
+        	custom_tooltip = this_will_put_us_into_debt_tt
+        }
+        hidden_effect = {
+			var:library_province_flag = {
+				begin_great_work_construction = {
+					great_work = "library_template_3"
+					locator = primary_great_work
+					is_ancient = yes						
+				}
+			}
+		}
+		set_variable = library_3_construction
+    	custom_tooltip = begin_library_construction_tt
+    	set_variable = {
+    		name = library_progress
+    		value = 0
+    	}
+    	trigger_event = {
+    		id = me_qin_li_si.1601 #Maintenance
+    		days = { 150 300 }
+    	}
+    }
+    option = {	#A fully gold pyramid is the only option for [ruler]
+        name = me_qin_li_si.1600.d
+        add_treasury = -1500
+        if = {
+        	limit = {
+        		treasury < 1500
+        	}
+        	custom_tooltip = this_will_put_us_into_debt_tt
+        }
+        hidden_effect = {
+			var:library_province_flag = {
+				begin_great_work_construction = {
+					great_work = "library_template_4"
+					locator = primary_great_work
+					is_ancient = yes						
+				}
+			}
+		}
+		set_variable = library_4_construction
+    	custom_tooltip = begin_library_construction_tt
+    	set_variable = {
+    		name = library_progress
+    		value = 0
+    	}
+    	trigger_event = {
+    		id = me_qin_li_si.1601 #Maintenance
+    		days = { 150 300 }
+    	}
+    }
+}
+
+me_qin_li_si.1601 = {	#Maintenance Event
+    type = country_event
+    hidden = yes
+
+    immediate = {
+    	if = {
+    		limit = {
+    			has_variable = library_progress
+    			owns = var:library_province_flag
+    		}
+    		if = {
+    			limit = {
+    				var:library_progress < 3
+    			}
+    			random_list = {
+    				1 = {	# Building progresses without any event
+    					change_variable = {
+    						name = library_progress
+    						add = 1
+    					}
+    				}
+					2 = { # Complication event - materials misplaced
+						trigger = {
+							any_owned_province = {
+								is_coastal = yes
+							}
+						}
+						trigger_event = {
+							id = "me_qin_li_si.1602"
+						}
+					}
+					2 = { # Complication event - Uninspired workers
+						trigger_event = {
+							id = "me_qin_li_si.1603"
+						}
+					}
+					2 = { #Complication Event - Theft and sabotage
+						trigger_event = {
+							id = "me_qin_li_si.1604"
+						}
+					}
+    			}
+				trigger_event = { # Trigger next event
+					id = "rme_qin_li_si.1601"
+					days = { 100 200 }
+				}
+    		}
+    		else_if = {
+    			limit = { var:library_progress >= 3 }
+    			trigger_event = {
+					id = "me_qin_li_si.1605" #Constuction in Finished
+				}
+    		}
+    	}
+    	else = {
+    		remove_variable = library_province_flag
+    		remove_variable = library_progress
+    		remove_variable = library_1_construction
+    		remove_variable = library_2_construction
+    		remove_variable = library_3_construction
+    		remove_variable = library_4_construction
+    	}
+    }
+}
+
+me_qin_li_si.1602 = {	#Complication event - materials misplaced
+    type = country_event
+    title = me_qin_li_si.1602.t
+    desc = me_qin_li_si.1602.desc
+    picture = quarry
+    goto_location = var:library_province_flag
+    right_portrait = scope:library_builder
+    left_portrait = current_ruler
+
+    immediate = {
+		random_owned_province = {
+			limit = {
+				is_coastal = yes
+			}
+			save_scope_as = coastal_province
+		}
+    }
+
+    option = {      
+        name = me_qin_li_si.1602.a
+        custom_tooltip = "progress_continues_unhindered_tt"
+		add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 6
+			min = -500
+			max = -50
+		}
+		change_variable = {
+			name = library_progress
+			add = 1
+		}
+    }
+    option = {      
+        name = me_qin_li_si.1602.b
+        custom_tooltip = progress_materials_tt
+    }
+}
+me_qin_li_si.1603 = {	#Complication event - Uninspired workers
+    type = country_event
+    title = me_qin_li_si.1603.t
+    desc = me_qin_li_si.1603.desc
+    picture = quarry
+    goto_location = var:library_province_flag
+    right_portrait = scope:library_builder
+    left_portrait = current_ruler
+
+    option = {      
+        name = me_qin_li_si.1603.a
+        custom_tooltip = "progress_continues_unhindered_tt"
+		add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 4
+			min = -400
+			max = -40
+		}
+		change_variable = {
+			name = library_progress
+			add = 1
+		}
+    }
+    option = {      
+        name = me_qin_li_si.1603.b
+        custom_tooltip = "progress_continues_unhindered_tt"
+        add_political_influence = subtract_influence_medium
+        add_tyranny = 5
+		change_variable = {
+			name = library_progress
+			add = 1
+		}
+    }
+    option = {      
+        name = me_qin_li_si.1603.c
+        custom_tooltip = progress_bad_workers_tt
+        current_ruler = { add_popularity = -5 }
+    }
+}
+me_qin_li_si.1604 = {	#Complication Event - Theft and sabotage
+    type = country_event
+    title = me_qin_li_si.1604.t
+    desc = me_qin_li_si.1604.desc
+    picture = quarry
+    goto_location = var:library_province_flag
+    right_portrait = scope:library_builder
+    left_portrait = current_ruler
+
+    option = {      
+        name = me_qin_li_si.1604.a
+        custom_tooltip = "progress_continues_unhindered_tt"
+		add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 3
+			min = -300
+			max = -30
+		}
+		change_variable = {
+			name = library_progress
+			add = 1
+		}
+    }
+    option = {      
+        name = me_qin_li_si.1604.b
+        custom_tooltip = "progress_continues_unhindered_tt"
+        add_manpower = -5
+		change_variable = {
+			name = library_progress
+			add = 1
+		}
+    }
+    option = {      
+        name = me_qin_li_si.1604.c
+        custom_tooltip = progress_sabatoge_tt
+        current_ruler = { add_popularity = -5 }
+
+    }
+}
+me_qin_li_si.1605 = {	#Library Construction Finished
+    type = country_event
+    title = me_qin_li_si.1605.t
+    desc = me_qin_li_si.1605.desc
+    picture = persepolis
+    goto_location = var:library_province_flag
+    right_portrait = scope:library_builder
+    left_portrait = current_ruler
+
+    immediate = {
+    	random_deity = {
+    		limit = {
+    			deity_religion = root.religion
+    		}
+    		save_scope_as = deity_to_deify
+    	}
+    }
+
+    option = {      
+        name = me_qin_li_si.1605.a
+    	scope:library_builder = {
+    		add_finesse = 2
+    		add_popularity = 15
+    	}
+    	if = {
+    		limit = { exists = scope:deity_to_deify }
+	    	current_ruler = {
+	    		if = {
+	    			limit = {
+	    				is_deified = no
+	    			}
+		            deify_character = {
+		                deity = scope:deity_to_deify
+		                country = ROOT
+		            }
+	    		}
+	    	}
+	    	custom_tooltip = deify_ruler_tooltip_k
+	    }
+        switch = {
+        	trigger = has_variable
+
+        	library_1_construction = {
+        		var:library_province_flag = {
+	        		finish_great_work_construction = {
+						great_work = "library_template_1"
+						locator = primary_great_work
+	        		}
+	        	}
+        	}
+
+        	library_2_construction = {
+				var:library_province_flag = {        	
+	        		finish_great_work_construction = {
+						great_work = "library_template_2"
+						locator = primary_great_work
+	        		}
+        		}
+        	}
+
+        	library_3_construction = {
+       			var:library_province_flag = {
+	        		finish_great_work_construction = {
+						great_work = "library_template_3"
+						locator = primary_great_work
+	        		}
+        		}
+        	}
+
+        	library_4_construction = {
+        		var:library_province_flag = {
+	        		finish_great_work_construction = {
+						great_work = "library_template_4"
+						locator = primary_great_work
+	        		}
+        		}
+        	}
+        }
+        remove_variable = library_province_flag
+        remove_variable = library_progress
+        remove_variable = library_1_construction
+        remove_variable = library_2_construction
+        remove_variable = library_3_construction
+        remove_variable = library_4_construction
     }
 }
 
