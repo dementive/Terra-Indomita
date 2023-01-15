@@ -1,52 +1,91 @@
 ﻿TI_generic_mission_block = {
-	trigger_if = { #Yamato
-		limit = {
-			ROOT = {
-				tag = YMT
-			}
-		}
-		AND = {
-			ROOT = {
-				NOR = {
-					has_completed_mission = yamato_01_heartland
-					has_completed_mission = yamato_02_consolidate
+	NOR = {
+		trigger_if = { #Yamato
+			limit = {
+				ROOT = {
+					tag = YMT
 				}
 			}
-			is_in_region = wa_region
+			AND = {
+				ROOT = {
+					NOR = {
+						has_completed_mission = yamato_01_heartland
+						has_completed_mission = yamato_02_consolidate
+					}
+				}
+				is_in_region = wa_region
+			}
+		}
+		trigger_if = { #Chu
+			limit = {
+				ROOT = {
+					tag = CHU
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = 01_chu_missions
+					}
+				}
+				OR = {
+					is_in_region = yi_region
+					is_in_region = jing_region
+					is_in_region = yang_region
+					is_in_region = bing_region
+					is_in_region = ji_region
+					is_in_region = you_region
+					is_in_region = qing_region
+					is_in_region = xu_region
+					is_in_region = shuofang_region
+					is_in_region = yong_region
+					is_in_region = yu_region
+				}
+			}
+		}
+		trigger_if = { #Qin
+			limit = {
+				ROOT = {
+					tag = QIN
+				}
+			}
+			AND = {
+				ROOT = {
+					NOR = {
+						has_completed_mission = qin_01_shan_yang
+						has_completed_mission = qin_02_li_si
+						has_completed_mission = qin_03_empire
+					}
+				}
+				OR = {
+					is_in_region = yi_region
+					is_in_region = jing_region
+					is_in_region = yang_region
+					is_in_region = bing_region
+					is_in_region = ji_region
+					is_in_region = you_region
+					is_in_region = qing_region
+					is_in_region = xu_region
+					is_in_region = shuofang_region
+					is_in_region = yong_region
+					is_in_region = yu_region
+				}
+			}
 		}
 	}
-	trigger_if = { #Chu
+}
+
+TI_generic_infrastructure_mission_block = {
+	trigger_if = {
 		limit = {
-			ROOT = {
+			OR = {
+				tag = YMT
+				tag = QIN
 				tag = CHU
 			}
 		}
-		AND = {
-			ROOT = {
-				NOT = {
-					has_completed_mission = 01_chu_missions
-				}
-			}
-			is_in_region = jing_region
-		}
+		current_date > 452.1.1
 	}
-	trigger_if = { #Qin
-		limit = {
-			ROOT = {
-				tag = QIN
-			}
-		}
-		AND = {
-			ROOT = {
-				NOR = {
-					has_completed_mission = qin_01_shan_yang
-					has_completed_mission = qin_02_li_si
-					has_completed_mission = qin_03_empire
-				}
-			}
-			is_in_region = jing_region
-		}
-	}		
 }
 
 has_100_chinese_unification_points = {
