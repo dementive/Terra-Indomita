@@ -1,4 +1,55 @@
-﻿has_100_chinese_unification_points = {
+﻿TI_generic_mission_block = {
+	trigger_if = { #Yamato
+		limit = {
+			ROOT = {
+				tag = YMT
+			}
+		}
+		AND = {
+			ROOT = {
+				NOR = {
+					has_completed_mission = yamato_01_heartland
+					has_completed_mission = yamato_02_consolidate
+				}
+			}
+			is_in_region = wa_region
+		}
+	}
+	trigger_if = { #Chu
+		limit = {
+			ROOT = {
+				tag = CHU
+			}
+		}
+		AND = {
+			ROOT = {
+				NOT = {
+					has_completed_mission = 01_chu_missions
+				}
+			}
+			is_in_region = jing_region
+		}
+	}
+	trigger_if = { #Qin
+		limit = {
+			ROOT = {
+				tag = QIN
+			}
+		}
+		AND = {
+			ROOT = {
+				NOR = {
+					has_completed_mission = qin_01_shan_yang
+					has_completed_mission = qin_02_li_si
+					has_completed_mission = qin_03_empire
+				}
+			}
+			is_in_region = jing_region
+		}
+	}		
+}
+
+has_100_chinese_unification_points = {
 	# ruby lists, if changed update chinaUnify.rb and rerun.
 	# li_ten = [8313,8504,8972,8446,8681,8742,8384,8379]
 	# li_five = [8433,8533,8435,8344,8636,8686,8488,8693,8553,8510,8477,8408,8344,8527,8997,9006,9651,9049]
