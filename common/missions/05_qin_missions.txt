@@ -42,6 +42,12 @@
            treasury > 25
         }
         on_start = { add_treasury = -25 }
+		highlight = {
+			scope:province = {
+				exists = c:YQI
+				owner = c:YQI
+			}
+        }
         on_completion = {
             #claim anding_area and tianshui_area areas and yiqu lose 50 opinion
             trigger_event = me_qin_shan_yang.2
@@ -429,6 +435,8 @@
 			}
 		}
         allow = {
+			custom_tooltip = {
+				text = end_of_the_rong_yang_10_tt
 			OR = {
 				c:YQI = {
 					has_land = no
@@ -436,6 +444,7 @@
 				any_subject = {
 					tag = YQI
 				}
+			}
 			}
 			#Yiqu is has no land or is vassalized
         }

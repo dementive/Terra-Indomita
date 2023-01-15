@@ -261,6 +261,13 @@
 
         requires = { 01_chu_missions_task_7 }
 
+        highlight = {
+			scope:province = {
+				exists = c:QIN
+				owner = c:QIN
+			}
+        }
+
         allow = {
             trigger_if = {
                 limit = {
@@ -445,15 +452,8 @@
     }
     01_chu_missions_task_14 = { #A Blade Birds And Worm Style
         icon = "task_battle"
-        duration = 90
-        highlight = {
-			scope:province = {
-				OR = {
-                    province_id = 6756
-				}
-			}
-        }
 
+        duration = 90
         
         requires = { 01_chu_missions_task_9 01_chu_missions_task_12 }
 
@@ -468,6 +468,14 @@
             treasury >= 250
             has_military_bonus = yue_legendary_swords_mil_trad
         }
+
+        highlight = {
+			scope:province = {
+				province_id = 8972
+			}
+        }
+
+
         on_completion = {
         	add_treasury = -25
             create_country_treasure = {
@@ -626,6 +634,13 @@
         icon = "task_battle"
 
         requires = { 01_chu_missions_task_5 }
+
+        highlight = {
+			scope:province = {
+				exists = c:QII
+				owner = c:QII
+			}
+        }
 
         allow = {
             hidden:c:QII = {
