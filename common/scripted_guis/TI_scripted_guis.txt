@@ -1,10 +1,94 @@
-﻿is_chinese_emperor_scripted_gui = {
+﻿set_diplo_view_disabled_var = {
+    scope = country
+    effect = {
+        set_variable = {
+            name = diplo_view_disabled
+            value = 10
+        }
+    }
+}
+
+clear_diplo_view_disabled_var = {
+    scope = country
+    effect = {
+        remove_variable = diplo_view_disabled
+    }
+}
+
+diplomatic_UI_is_republic = {
+    scope = country
+    is_valid = {
+        is_republic = yes
+        does_not_have_unique_diplo_view_gfx = yes
+    }
+}
+
+diplomatic_UI_is_monarchy = {
+    scope = country
+    is_valid = {
+        is_monarchy = yes
+        does_not_have_unique_diplo_view_gfx = yes
+    }
+}
+
+diplomatic_UI_is_tribal = {
+    scope = country
+    is_valid = {
+        is_tribal = yes
+        does_not_have_unique_diplo_view_gfx = yes
+    }
+}
+
+diplomatic_UI_is_eastern_steppe = {
+    scope = country
+    is_valid = {
+        OR = {
+            this.culture.culture_group = culture_group:di
+            this.culture.culture_group = culture_group:saka_g
+            this.culture.culture_group = culture_group:xiyu
+            this.culture.culture_group = culture_group:huimo
+            this.culture.culture_group = culture_group:hu
+        }
+    }
+}
+
+diplomatic_UI_is_indian_tribal = {
+    scope = country
+    is_valid = {
+        is_tribal = yes
+        OR = {
+            this.culture.culture_group = culture_group:pu
+            this.culture.culture_group = culture_group:austronesian
+            this.culture.culture_group = culture_group:aryan
+            this.culture.culture_group = culture_group:indian
+            this.culture.culture_group = culture_group:pracyan
+        }
+    }
+}
+
+diplomatic_UI_is_indian_not_tribal = {
+    scope = country
+    is_valid = {
+        is_tribal = no
+        OR = {
+            this.culture.culture_group = culture_group:pu
+            this.culture.culture_group = culture_group:austronesian
+            this.culture.culture_group = culture_group:aryan
+            this.culture.culture_group = culture_group:indian
+            this.culture.culture_group = culture_group:pracyan
+        }
+    }
+}
+
+is_chinese_emperor_scripted_gui = {
+    scope = country
     is_shown = {
         has_variable = mandate_variable
     }
 }
 
 is_valid_chinese_unifier_trigger = {
+    scope = country
     is_shown = {
         NOT = { has_global_variable = china_unified }
         NOT = { has_variable = unification_war_launched }
