@@ -224,12 +224,123 @@ chinese_flavor.2 = { # A New Emperor
 #}
 
 chinese_flavor.4 = {
-    type = country_event
+    type = major_country_event
     title = chinese_flavor.4.t
     desc = chinese_flavor.4.desc
-    picture = greek_city_market
+    picture = latin_philosophy_start_bonus_event
     
     left_portrait = current_ruler
+    left_portrait = scope:char2
+    left_portrait = scope:char3
+
+    right_portrait = scope:char1
+    right_portrait = scope:char5
+    right_portrait = scope:char6
+
+    immediate = {
+        if = {
+            limit = {
+                current_ruler = { is_married = yes }
+            }
+            current_ruler.spouse = {
+                save_scope_as = char1
+            }
+        }
+        else = {
+            ordered_character = {
+                limit = {
+                    is_adult = yes
+                    is_ruler = no
+                    has_same_family = root.current_ruler
+                }
+                order_by = prominence
+                save_scope_as = char1
+            }
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                NOT = { this = scope:char1 }
+            }
+            order_by = prominence
+            save_scope_as = char2
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                }
+            }
+            order_by = prominence
+            save_scope_as = char3
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                exists = scope:char3
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                    this = scope:char3
+                }
+            }
+            order_by = prominence
+            save_scope_as = char4
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                exists = scope:char3
+                exists = scope:char4
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                    this = scope:char3
+                    this = scope:char4
+                }
+            }
+            order_by = prominence
+            save_scope_as = char5
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                exists = scope:char3
+                exists = scope:char4
+                exists = scope:char5
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                    this = scope:char3
+                    this = scope:char4
+                    this = scope:char5
+                }
+            }
+            order_by = prominence
+            save_scope_as = char6
+        }
+    }
 
     option = { # An Empire like this can't last long...
         name = chinese_flavor.4.a
