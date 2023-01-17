@@ -108,6 +108,10 @@ widget = {
 				position = { 0 0 }
 				texture = "gfx/interface/china/chinese_mandate_war.dds"
 				size = { 90 124 }
+				glow = {
+					glow_radius = 1
+					color = { 0.16 0.04 0.04 0.6 } #black
+				}
 			}
 			textbox = {
 				parentanchor = bottom|hcenter
@@ -123,30 +127,52 @@ widget = {
 				position = { 20 20 }
 				size = { 70 100 }
 				onclick = "[ExecuteConsoleCommand('gui.createwidget gui/chinese_unification.gui chinese_unification')]"
+				onclick = "[GetVariableSystem.Toggle('show_unify_window')]"
 				tooltip = "#T Chinese Unification#!"
-				clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_tab"
+				clicksound = "event:/SFX/UI/Character/Generic/sfx_ui_character_punishment"
 				oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
 				visible = "[Not(WarsOverviewWar.GetWar.IsCivilWar)]"
+				enabled = "[Not(GetVariableSystem.Exists('show_unify_window'))]"
 			}
 		}
 		button = {
 			size = { 84 126 }
 			datacontext = "[GetScriptedGui('is_chinese_emperor_scripted_gui')]"
 			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
-			
+			alpha = 1
+			state = {
+				name = _mouse_hierarchy_enter
+				animation = {
+					alpha = 0.85
+				}
+				duration = 0.08
+			}			
+			state = {
+				name = _mouse_hierarchy_leave
+				animation = {
+					alpha = 1
+				}
+				duration = 0.08
+			}
 			icon = {
 				position = { 0 0 }
 				texture = "gfx/interface/china/chinese_mandate_war.dds"
 				size = { 90 124 }
+				glow = {
+					glow_radius = 1
+					color = { 0.16 0.04 0.04 0.6 } #black
+				}
 			}
 			button = {
 				position = { 20 20 }
 				size = { 70 100 }
 				tooltip = "#T Celestial Empire View#!"
 				onclick = "[ExecuteConsoleCommand('gui.createwidget gui/chinese_empire.gui chinese_empire')]"
-				clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_tab"
+				onclick = "[GetVariableSystem.Toggle('show_chinese_empire_window')]"
+				clicksound = "event:/SFX/Events/Generic/sfx_event_generic_happy"
 				oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
 				visible = "[Not(WarsOverviewWar.GetWar.IsCivilWar)]"
+				enabled = "[Not(GetVariableSystem.Exists('show_chinese_empire_window'))]"
 			}
 		}
 		### ERROR PLATYPUS!

@@ -12,8 +12,8 @@ base_window = {
 	state = {
 		name = _show
 		
-		on_start = "[PdxGuiTriggerAllAnimations('instantiate_then_hide_subwindow')]"
 		on_start = "[GetVariableSystem.Set( 'diplomatic_tabs', 'diplomatic' )]"
+		onclick = "[GetScriptedGui('clear_diplo_view_disabled_var').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
 		start_sound = {
 			soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_tab_close"
 		}
@@ -25,6 +25,7 @@ base_window = {
 		start_sound = {
 			soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_tab_close"
 		}
+		onclick = "[GetScriptedGui('clear_diplo_view_disabled_var').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
 		on_start = "[GetVariableSystem.Set( 'diplomatic_tabs', 'diplomatic' )]"
 		on_start = "[GetScriptedGui('remove_player_subjects_variables_button').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
 	}
@@ -73,6 +74,7 @@ base_window = {
 			button_close = {
 				onclick = "[DiplomaticView.OnClose]"
 				onclick = "[GetVariableSystem.Set( 'diplomatic_tabs', 'diplomatic' )]"
+				onclick = "[GetScriptedGui('clear_diplo_view_disabled_var').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
 				onclick = "[GetScriptedGui('remove_player_subjects_variables_button').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
 				tooltip = "CLOSE"
 				shortcut = "close_window"
@@ -678,7 +680,6 @@ base_window = {
 												{
 													enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).AddScope('recipient', Country.MakeScope).End )]"
 													onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).AddScope('recipient', Country.MakeScope).End )]"
-													onclick = "[PdxGuiTriggerAllAnimations('on_details_hidden')]"
 												}
 												tooltip = "TAKE_SUBJECTS_MANPOWER_TT"
 												#tooltip = "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( SelectTargetCountryView.Player.MakeScope ).AddScope('player', SelectTargetCountryView.GetCountry.MakeScope ).End )]"
@@ -945,61 +946,9 @@ base_window = {
 			
 							blockoverride "On_click"
 							{
-								onclick = "[PdxGuiTriggerAllAnimations('on_details_shown')]"
-							}
-						
-							state = {
-								name = "on_details_shown"
-								on_start = "[PdxGuiWidget.Hide]"
-							}
-						
-							state = {
-								name = instantiate_then_hide_subwindow
-								on_finish = "[PdxGuiWidget.Show]"
-							}
-						
-							state = {
-								name = "on_details_hidden"
-								on_start = "[PdxGuiWidget.Show]"
-							
+								onclick = "[GetScriptedGui('set_diplo_view_disabled_var').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
 							}
 						}	
-					
-						text_button_square_highlighted = {
-							size = { 100% 28 }
-							position = { 0 -10 }
-							parentanchor = bottom
-							visible = no	 
-							blockoverride "Center_text" 
-							{ 
-								text = "OVERVIEW_BUTTON_TITLE" 
-							}
-						
-							blockoverride "On_click"
-							{
-								onclick = "[PdxGuiTriggerAllAnimations('on_details_hidden')]"
-							}
-						
-							state = {
-								name = instantiate_then_hide_subwindow
-							
-								on_finish = "[PdxGuiWidget.Hide]"
-							}
-						
-							state = {
-								name = "on_details_shown"
-							
-								on_start = "[PdxGuiWidget.Show]"
-							
-							}
-						
-							state = {
-								name = "on_details_hidden"
-							
-								on_start = "[PdxGuiWidget.Hide]"
-							
-							}		
-						}
 					}
 				} 
 			}
@@ -1073,25 +1022,9 @@ base_window = {
 							scale = 0.33
 							position = { 0 6 }
 							parentanchor = bottom|hcenter
-							visible = "[And(DiplomaticView.GetTargetCountry.GetGovernment.IsRepublic, Not(EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'chinese')))]"
+							visible = "[GetScriptedGui('diplomatic_UI_is_republic').IsValid( GuiScope.SetRoot( DiplomaticView.GetTargetCountry.MakeScope ).End )]"
 							datacontext = "[DiplomaticView]"
-							tooltipwidget = {
-								object_tooltip_pop_out = {
-									datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage]"
-									blockoverride "title_text" {
-										text = "[Heritage.GetNameWithNoTooltip]"
-									}
-									blockoverride "concept_link" {
-										text = [heritage|E]
-									}
-									blockoverride "description_text" {
-										text = "MOD_HERITAGE_TOOLTIP"
-									}
-									blockoverride "Cull" {
-										visible = no
-									}
-								}
-							}
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
 							alpha = 0.92
 						} 
 					
@@ -1100,25 +1033,9 @@ base_window = {
 							scale = 0.33
 							position = { -6 4 }
 							parentanchor = bottom|hcenter
-							visible = "[And(DiplomaticView.GetTargetCountry.GetGovernment.IsMonarchy, Not(EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'chinese')))]"
+							visible = "[GetScriptedGui('diplomatic_UI_is_monarchy').IsValid( GuiScope.SetRoot( DiplomaticView.GetTargetCountry.MakeScope ).End )]"
 							datacontext = "[DiplomaticView]"
-							tooltipwidget = {
-								object_tooltip_pop_out = {
-									datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage]"
-									blockoverride "title_text" {
-										text = "[Heritage.GetNameWithNoTooltip]"
-									}
-									blockoverride "concept_link" {
-										text = [heritage|E]
-									}
-									blockoverride "description_text" {
-										text = "MOD_HERITAGE_TOOLTIP"
-									}
-									blockoverride "Cull" {
-										visible = no
-									}
-								}
-							}
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
 							alpha = 0.92
 						} 
 					
@@ -1127,25 +1044,9 @@ base_window = {
 							scale = 0.33
 							position = { -6 4 }
 							parentanchor = bottom|hcenter
-							visible = "[And(DiplomaticView.GetTargetCountry.GetGovernment.IsTribal, Not(EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'chinese')))]"
+							visible = "[GetScriptedGui('diplomatic_UI_is_tribal').IsValid( GuiScope.SetRoot( DiplomaticView.GetTargetCountry.MakeScope ).End )]"
 							datacontext = "[DiplomaticView]"
-							tooltipwidget = {
-								object_tooltip_pop_out = {
-									datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage]"
-									blockoverride "title_text" {
-										text = "[Heritage.GetNameWithNoTooltip]"
-									}
-									blockoverride "concept_link" {
-										text = [heritage|E]
-									}
-									blockoverride "description_text" {
-										text = "MOD_HERITAGE_TOOLTIP"
-									}
-									blockoverride "Cull" {
-										visible = no
-									}
-								}
-							}
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
 							alpha = 0.92
 						}
 
@@ -1153,36 +1054,121 @@ base_window = {
 							texture = "gfx/interface/event_window/event_chinese_path_recruiting_talented_people.dds"
 							scale = 0.33
 							position = { -6 4 }
-							parentanchor = bottom|hcenter
-							visible = "[EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'chinese')]"
+							parentanchor = bottom|hcenter					
+							visible = "[Or( Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'chinese'), EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'yi')), Or(EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'yue'), EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'miao')))]"
+
 							datacontext = "[DiplomaticView]"
-							tooltipwidget = {
-								object_tooltip_pop_out = {
-									datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage]"
-									blockoverride "title_text" {
-										text = "[Heritage.GetNameWithNoTooltip]"
-									}
-									blockoverride "concept_link" {
-										text = [heritage|E]
-									}
-									blockoverride "description_text" {
-										text = "MOD_HERITAGE_TOOLTIP"
-									}
-									blockoverride "Cull" {
-										visible = no
-									}
-								}
-							}
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
 							alpha = 0.92
-						} 
-					
+						}
+						icon = {
+							texture = "gfx/interface/icons/military_traditions/ea_tribal_path_civilization.dds"
+							modify_texture = {
+								texture = "gfx/interface/base_parts/event_picture_alpha.dds"
+								blend_mode = alphamultiply
+							}
+							scale = 0.9
+							position = { -15 4 }
+							parentanchor = bottom|hcenter					
+							visible = "[Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'ainu'), Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'samhan'), EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'japan') )))]"
+
+							datacontext = "[DiplomaticView]"
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
+							alpha = 0.92
+						}
+
+						icon = {
+							texture = "gfx/interface/icons/military_traditions/mauryan_mauryas_path_2.dds"
+							modify_texture = {
+								texture = "gfx/interface/base_parts/event_picture_alpha_big.dds"
+								blend_mode = alphamultiply
+							}
+							scale = 0.8
+							position = { -20 4 }
+							parentanchor = bottom|hcenter					
+							visible = "[GetScriptedGui('diplomatic_UI_is_indian_tribal').IsValid( GuiScope.SetRoot( DiplomaticView.GetTargetCountry.MakeScope ).End )]"
+
+							datacontext = "[DiplomaticView]"
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
+							alpha = 0.92
+						}
+						
+						icon = {
+							texture = "gfx/interface/event_window/Event_city_center_in_indian_city.dds"
+							scale = 0.33
+							position = { -17 4 }
+							parentanchor = bottom|hcenter					
+							visible = "[GetScriptedGui('diplomatic_UI_is_indian_not_tribal').IsValid( GuiScope.SetRoot( DiplomaticView.GetTargetCountry.MakeScope ).End )]"
+
+							datacontext = "[DiplomaticView]"
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
+							alpha = 0.92
+						}
+
+						icon = {
+							texture = "gfx/interface/icons/military_traditions/tibetan_guerrilla_path_1.dds"
+							modify_texture = {
+								texture = "gfx/interface/base_parts/event_picture_alpha_big.dds"
+								blend_mode = alphamultiply
+							}
+							scale = 0.8
+							position = { -20 4 }
+							parentanchor = bottom|hcenter					
+							visible = "[Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'tibetan'), EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'rong') )]"
+
+							datacontext = "[DiplomaticView]"
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
+							alpha = 0.92
+						}
+
+						icon = {
+							texture = "gfx/interface/icons/military_traditions/persian_bactrian_path_6.dds"
+							modify_texture = {
+								texture = "gfx/interface/base_parts/event_picture_alpha_big.dds"
+								blend_mode = alphamultiply
+							}
+							scale = 0.8
+							position = { -15 4 }
+							parentanchor = bottom|hcenter					
+							visible = "[GetScriptedGui('diplomatic_UI_is_eastern_steppe').IsValid( GuiScope.SetRoot( DiplomaticView.GetTargetCountry.MakeScope ).End )]"
+
+							datacontext = "[DiplomaticView]"
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
+							alpha = 0.92
+						}
+
+						icon = {
+							texture = "gfx/interface/icons/military_traditions/levantine_greco_path_1.dds"
+							modify_texture = {
+								texture = "gfx/interface/base_parts/event_picture_alpha_big.dds"
+								blend_mode = alphamultiply
+							}
+							scale = 0.8
+							position = { -20 4 }
+							parentanchor = bottom|hcenter					
+							visible = "[Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'meroitic_group'), Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'nilotic_group'), EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'north_african') )))]"
+
+							datacontext = "[DiplomaticView]"
+							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
+							alpha = 0.92
+						}
+
 						widget = { 
 							size = { 100% 100% }
 							datacontext = "[DiplomaticView.GetTargetCountry]"
-						
+							allow_outside = yes
+							icon = {
+								position = { 118 2 }
+								parentanchor = bottom
+								using = flat_background_white
+								size = { 240 55 }
+								alpha = 0.8
+								using = border_very_torn_alpha
+							}
 							container = {
 								visible = "[Not(DiplomaticView.GetTargetCountry.IsBarbarian)]"
 								position = { 118 78 }
+
 								container = {
 									flowcontainer = {
 										position = { 0 3 }
@@ -1299,24 +1285,46 @@ base_window = {
 					}
 				
 					margin_widget = {
-						size = { 150 134 }
+						#position = { 20 20 }
+						size = { 160 144 }
 						allow_outside = yes
-					
+						
 						flowcontainer = {
 							direction = vertical
 							spacing = 10
 							using = NoninteractableBG
 							ignoreinvisible = yes
 							parentanchor = bottom|right
-							position = { -12 0 }
+							position = { -7 0 }
 							blockoverride "Margins" 
 							{
 								margin_top = 8
 								margin_left = 12
 								margin_right = 12
-								margin_bottom = 2
+								margin_bottom = 0
 							}
-							@military_icon_width = 120
+							@military_icon_width = 160
+							icon_and_text = {
+								#position = { 10 3 }
+								tooltip = "[DiplomaticView.GetTargetCountry.GetHeritage.GetTooltip]"
+								visible = "[Not(DiplomaticView.GetTargetCountry.IsBarbarian)]"
+								size = { 160 0 }
+								blockoverride "Icon" {
+									modifier_icon = {
+										position = { -5 5 }
+										datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage.GetModifier]"
+										size = { 34 34 }
+									}
+								}
+								blockoverride "Text" {
+
+									text = "#bold [DiplomaticView.GetTargetCountry.GetHeritage.GetNameWithNoTooltip]"
+									align = left|nobaseline
+									#fontsize = 14
+									autoresize = yes
+									max_width = 125
+								}
+							}
 							icon_and_text = { 
 								size = { @military_icon_width 0 }
 								visible = "[Not(DiplomaticView.GetTargetCountry.IsBarbarian)]"
@@ -2016,82 +2024,26 @@ base_window = {
 							{ 
 								text = "OVERVIEW_BUTTON_TITLE" 
 							}
-
 							blockoverride "On_click"
 							{
-								onclick = "[PdxGuiTriggerAllAnimations('on_details_shown')]"
+								onclick = "[GetScriptedGui('set_diplo_view_disabled_var').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
 							}
-						
-							state = {
-								name = "on_details_shown"
-								on_start = "[PdxGuiWidget.Hide]"
-							}
-						
-							state = {
-								name = instantiate_then_hide_subwindow
-								on_finish = "[PdxGuiWidget.Show]"
-							}
-						
-							state = {
-								name = "on_details_hidden"
-								on_start = "[PdxGuiWidget.Show]"
-							
-							}
-						}	
-					
-						text_button_square_highlighted = {
-							size = { 100% 28 }
-							position = { 0 -10 }
-							parentanchor = bottom
-							visible = no	 
-							blockoverride "Center_text" 
-							{ 
-								text = "OVERVIEW_BUTTON_TITLE" 
-							}
-						
-							blockoverride "On_click"
-							{
-								onclick = "[PdxGuiTriggerAllAnimations('on_details_hidden')]"
-							}
-						
-							state = {
-								name = instantiate_then_hide_subwindow
-							
-								on_finish = "[PdxGuiWidget.Hide]"
-							}
-						
-							state = {
-								name = "on_details_shown"
-							
-								on_start = "[PdxGuiWidget.Show]"
-							
-							}
-						
-							state = {
-								name = "on_details_hidden"
-							
-								on_start = "[PdxGuiWidget.Hide]"
-							
-							}		
 						}
 					}
 				} 
 			}
 		}
 	}
-	widgetid = "right_attach"
-	widgetanchor = top
-	
+
 	base_sub_window = {
 		gfxtype = windowgfx
 		name = "diplo_view_inherited"
 		size = { 380 892 }
-		visible = "[Not( GetVariableSystem.HasValue('diplomatic_tabs', 'subjects'))]"
+		visible = "[Not(LessThan_CFixedPoint( Player.MakeScope.Var('diplo_view_disabled').GetValue, '(CFixedPoint)5' ))]"
 		movable = no
 		allow_outside = yes
 		minimumsize = { 380 540 } 
-		position = { 0 8 }
-
+		position = { 640 8 }
 		blockoverride "Title_text"
 		{
 			text = "FOREIGN_POWERS_LIST"
@@ -2100,43 +2052,9 @@ base_window = {
 		{
 		
 			button_close = {
-				onclick = "[PdxGuiTriggerAllAnimations('on_details_hidden')]"
+				onclick = "[GetScriptedGui('clear_diplo_view_disabled_var').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
 				tooltip = "CLOSE"
 			}
-		}
-	
-		attachto = { 
-			widgetid = "right_attach" 
-			parentanchor = right
-		} 
-	
-		state = {
-			name = diplo_reset_size
-		
-			animation = {
-				size = { 340 740 }
-			}
-		
-		}
-	
-		state = {
-			name = instantiate_then_hide_subwindow
-		
-			on_finish = "[PdxGuiWidget.Hide]"
-		}
-	
-		state = {
-			name = "on_details_shown"
-		
-			on_start = "[PdxGuiWidget.Show]"
-		
-		}
-	
-		state = {
-			name = "on_details_hidden"
-		
-			on_start = "[PdxGuiWidget.Hide]"
-		
 		}
 	
 		vbox = {
