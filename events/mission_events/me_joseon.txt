@@ -1,10 +1,10 @@
 ﻿namespace = me_joseon
 
-me_joseon.19 = {
+me_joseon.1 = {
     type = country_event
 
-    title = me_joseon_19_title
-    desc = me_joseon_19_desc
+    title = me_joseon_1_title
+    desc = me_joseon_1_desc
     picture = chinese_emperor
 	
 	left_portrait = root.current_ruler
@@ -13,7 +13,7 @@ me_joseon.19 = {
 
 
     option = {
-        name = "me_joseon_19.a"
+        name = "me_joseon_1.a"
         current_ruler = {
 			add_trait = ambitious
 		}
@@ -41,12 +41,16 @@ me_joseon.3 = {
 
     title = me_joseon_3_title
     desc = me_joseon_3_desc
-    picture = steppe_cavalry
+    picture = great_library
 	
 	left_portrait = root.current_ruler
 
     option = {
         name = "me_joseon_3.a"
+		set_capital = p:8801
+		capital_scope = {
+			establish_city_effect = yes
+		}
     }
 }
 
@@ -62,6 +66,9 @@ me_joseon.4 = {
     option = {
         name = "me_joseon_4.a"
         add_treasury = -100
+		p:8781 = {
+			remove_building_level = fortress_building
+		}
     }
 }
 
@@ -87,7 +94,7 @@ me_joseon.6 = {
 
     title = me_joseon_6_title
     desc = me_joseon_6_desc
-    picture = assassination
+    picture = steppe_cavalry
 	
 	left_portrait = root.current_ruler
 
@@ -267,6 +274,57 @@ me_joseon.15 = {
     picture = looting
 	
 	left_portrait = root.current_ruler
+	
+	immediate = {
+		if = {
+			limit = {
+				p:9597 = {
+					owner = {
+						is_ai = yes
+					}
+				}
+			}
+			p:9597 = {
+				set_conquered_by = ROOT
+			}
+		}
+		if = {
+			limit = {
+				p:9283 = {
+					owner = {
+						is_ai = yes
+					}
+				}
+			}
+			p:9283 = {
+				set_conquered_by = ROOT
+			}
+		}
+		if = {
+			limit = {
+				p:9596 = {
+					owner = {
+						is_ai = yes
+					}
+				}
+			}
+			p:9596 = {
+				set_conquered_by = ROOT
+			}
+		}
+		if = {
+			limit = {
+				p:9608 = {
+					owner = {
+						is_ai = yes
+					}
+				}
+			}
+			p:9608 = {
+				set_conquered_by = ROOT
+			}
+		}
+	}
 
     option = {
         name = "me_joseon_15.a"
