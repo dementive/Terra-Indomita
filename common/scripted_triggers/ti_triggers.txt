@@ -16,6 +16,24 @@
 				is_in_region = wa_region
 			}
 		}
+		trigger_if = { #Joseon
+			limit = {
+				ROOT = {
+					tag = JSN
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = joseon_mission_tree
+					}
+				}
+				OR = {
+					is_in_region = jin_region
+					is_in_region = you_region
+				}
+			}
+		}
 		trigger_if = { #Chu
 			limit = {
 				ROOT = {
@@ -82,6 +100,7 @@ TI_generic_infrastructure_mission_block = {
 				tag = YMT
 				tag = QIN
 				tag = CHU
+				tag = JSN
 			}
 		}
 		current_date > 452.1.1
