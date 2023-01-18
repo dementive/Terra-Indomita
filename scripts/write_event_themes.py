@@ -12,7 +12,7 @@ def write_themes_in_dir(path, outfile, outfile2):
 
 	with open(outfile, "w") as file:
 		for i in pic_li:
-			file.write(f"{i}_event_theme = {{\n\ticon = \"gfx/interface/icons/military_traditions/{i}.dds\"\n\tsoundeffect = \"event:/SFX/UI/Character/Unique/sfx_ui_character_arrange_marriage\"\n}}\n")
+			file.write(f"{i}_event_theme = {{\n\ticon = \"gfx/interface/icons/military_traditions/{i}.dds\"\n\tsoundeffect = \"event:/SFX/Events/Generic/sfx_event_generic_uncategorized\"\n}}\n")
 
 	with open(outfile2, "w") as file:
 		for i in pic_li:

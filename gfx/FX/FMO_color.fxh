@@ -13,10 +13,10 @@ Code
 	}
 	float3 FMO_SelectedColor( float3 Color )
 	{
-		static const float LocalTime = (GlobalTime / 4);
+		static const float LocalTime = (GlobalTime / 20);
 		static const float LerpFactor = 0.25;
 		static const float LerpY = 0.4;
-		Color.rgb *= 1.0f + pow( sin( GlobalTime * 2 ) * 0.5f + 0.8f, 0.5 ) * 0.75f;
+		Color.rgb *= 1.0f + pow( sin( GlobalTime * 2 ) * 0.5f + 0.8f, 0.5 ) * 0.5f;
 		Color.rgb = lerp( Color.rgb, LerpY, LerpFactor );
 		return Color;
 	}
