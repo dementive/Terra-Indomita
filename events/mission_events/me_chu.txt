@@ -1,0 +1,513 @@
+﻿namespace = me_chu
+
+me_chu.1 = {
+    type = country_event
+
+    title = me_chu_1_title
+    desc = me_chu_1_desc
+    picture = interesting_histories_asia_mountains
+    left_portrait = current_heir
+    right_portrait = char:474
+
+    option = {
+        name = "me_chu_1.a"
+        char:474 = {
+            death = {
+                killer = char:486
+                death_reason = death_murder
+            }
+        }
+        custom_tooltip = me_chu_1_tooltip
+        c:QIN = {
+            if = {
+                limit = {
+                    NOT = { war_with = ROOT }
+                }
+                hidden_effect = { p:8828 = { add_claim = QIN } }
+                if = {
+                    limit = {
+                        is_ai = no
+                    }
+                    trigger_event = me_chu.1000
+                }
+                else = {
+                    declare_war_with_wargoal = {
+                        war_goal = conquer_wargoal
+                        province = 8828 # Wuling
+                        target = CHU
+                    }
+                }
+            }
+        }
+    
+        c:HAN = {
+            if = {
+                limit = {
+                        NOT = { war_with = ROOT }
+                    }
+                }
+            hidden_effect = { p:8393 = { add_claim = HAN } }
+            if = {
+                limit = {
+                    is_ai = no
+                }
+                trigger_event = me_chu.1000
+            }
+            else = {
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = 8393 # Yangdi
+                    target = CHU
+                }
+            }
+        }
+    
+        c:WEI = {
+            if = {
+                limit = {
+                    NOT = { war_with = ROOT }
+                }
+                hidden_effect = { p:8457 = { add_claim = WEI } }
+                if = {
+                    limit = {
+                        is_ai = no
+                    }
+                    trigger_event = me_chu.1000
+                }
+                else = {
+                    declare_war_with_wargoal = {
+                        war_goal = conquer_wargoal
+                        province = 8457 # Chen
+                        target = CHU
+                    }
+                }
+            }
+        }
+    }
+}
+me_chu.1000 = { # Declare war on Chu - (event for player choice)
+    type = country_event
+    title = me_chu.1000.t
+    desc = me_chu.1000.desc
+    picture = interesting_histories_asia_mountains
+    
+    left_portrait = current_ruler
+
+
+    option = {  # I am human I have free will
+        name = me_chu.1000.a
+        switch = {
+            trigger = tag
+
+            c:QIN = {
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = 8828 # Wuling
+                    target = CHU
+                }
+            }
+
+            c:HAN = {
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = 8393 # Yangdi
+                    target = CHU
+                }
+            }
+            c:WEI = {
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = 8457 # Chen
+                    target = CHU
+                }
+            }
+        }
+    }
+    option = {  # Im a fucking robot - beepBoOp
+        name = me_chu.1000.b
+        # do nothing
+    }
+}
+me_chu.2 = {
+    type = country_event
+
+    title = me_chu_2_title
+    desc = me_chu_2_desc
+    picture = celtic_village
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_2.a"
+        custom_tooltip = me_chu_2_tooltip
+
+    }
+}
+me_chu.3 = {
+    type = country_event
+
+    title = me_chu_3_title
+    desc = me_chu_3_desc
+    picture = greeks_marching
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_3.a"
+        custom_tooltip = me_chu_3_tooltip
+
+    }
+}
+me_chu.4 = {
+    type = country_event
+
+    title = me_chu_4_title
+    desc = me_chu_4_desc
+    picture = road_construction
+
+    option = {
+        name = "me_chu_4.a"
+        custom_tooltip = me_chu_4_tooltip
+
+    }
+}
+me_chu.5 = {
+    type = country_event
+
+    title = me_chu_5_title
+    desc = me_chu_5_desc
+    picture = war_council
+    left_portrait = current_ruler
+    right_portrait = char:567
+
+    immediate = {
+        create_character = {
+            first_name = "Qu"
+            family_name = "Yuan"
+            age = 32
+            female = no
+            culture = chu
+            religion = chinese_religions
+            save_scope_as = qu_yuan
+        }
+    }
+
+
+    option = {
+        name = "me_chu_5.a"
+        custom_tooltip = me_chu_5_tooltip
+
+    }
+}
+me_chu.6 = {
+    type = country_event
+
+    title = me_chu_6_title
+    desc = me_chu_6_desc
+    picture = catafalc_damaged
+
+    option = {
+        name = "me_chu_6.a"
+        custom_tooltip = me_chu_6_tooltip
+
+    }
+}
+me_chu.7 = {
+    type = country_event
+
+    title = me_chu_7_title
+    desc = me_chu_7_desc
+    picture = grand_ship
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_7.a"
+        custom_tooltip = me_chu_7_tooltip
+
+    }
+}
+me_chu.8 = {
+    type = country_event
+
+    title = me_chu_8_title
+    desc = me_chu_8_desc
+    picture = interesting_histories_southern_india
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_8.a"
+        custom_tooltip = me_chu_8_tooltip
+
+    }
+}
+me_chu.9 = {
+    type = country_event
+
+    title = me_chu_9_title
+    desc = me_chu_9_desc
+    picture = chinese_talented_people
+
+    option = {
+        name = "me_chu_9.a"
+        custom_tooltip = me_chu_9_tooltip
+
+    }
+}
+me_chu.10 = {
+    type = country_event
+
+    title = me_chu_10_title
+    desc = me_chu_10_desc
+    picture = celtic_chiefs
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_10.a"
+        custom_tooltip = me_chu_10_tooltip
+
+    }
+}
+me_chu.11 = {
+    type = country_event
+
+    title = me_chu_11_title
+    desc = me_chu_11_desc
+    picture = hellenic_marketplace
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_11.a"
+        custom_tooltip = me_chu_11_tooltip
+
+    }
+}
+me_chu.12 = {
+    type = country_event
+
+    title = me_chu_12_title
+    desc = me_chu_12_desc
+    picture = interesting_histories_hellenic_dock
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_12.a"
+        custom_tooltip = me_chu_12_tooltip
+
+    }
+}
+me_chu.13 = {
+    type = country_event
+
+    title = me_chu_13_title
+    desc = me_chu_13_desc
+    picture = elephant_battle
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_13.a"
+        custom_tooltip = me_chu_13_tooltip
+
+    }
+}
+me_chu.14 = {
+    type = country_event
+
+    title = me_chu_14_title
+    desc = me_chu_14_desc
+    picture = shrine_city
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_14.a"
+        custom_tooltip = me_chu_14_tooltip
+
+    }
+}
+me_chu.15 = {
+    type = country_event
+
+    title = me_chu_15_title
+    desc = me_chu_15_desc
+    picture = war_council
+    left_portrait = current_ruler
+    right_portrait = c:QII.current_ruler
+
+    option = {
+        name = "me_chu_15.a"
+        custom_tooltip = me_chu_15_tooltip
+
+    }
+}
+me_chu.16 = {
+    type = country_event
+
+    title = me_chu_16_title
+    desc = me_chu_16_desc
+    picture = celtic_village
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_16.a"
+        custom_tooltip = me_chu_16_tooltip
+
+    }
+}
+me_chu.17 = {
+    type = country_event
+
+    title = me_chu_17_title
+    desc = me_chu_17_desc
+    picture = army_desert
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_17.a"
+        custom_tooltip = me_chu_17_tooltip
+
+    }
+}
+me_chu.18 = {
+    type = country_event
+
+    title = me_chu_18_title
+    desc = me_chu_18_desc
+    picture = steppe_cavalry
+    left_portrait = current_ruler
+
+
+    option = {
+        name = "me_chu_18.a"
+        custom_tooltip = me_chu_18_tooltip
+
+    }
+}
+me_chu.19 = {
+    type = country_event
+
+    title = me_chu_19_title
+    desc = me_chu_19_desc
+    picture = council_country
+    left_portrait = current_ruler
+    right_portrait = char:567
+    right_portrait = c:QII.current_ruler
+
+    option = {
+        name = "me_chu_19.a"
+        custom_tooltip = me_chu_19_tooltip
+
+    }
+}
+me_chu.20 = {
+    type = country_event
+
+    title = me_chu_20_title
+    desc = me_chu_20_desc
+    picture = grand_ship
+
+    option = {
+        name = "me_chu_20.a"
+        custom_tooltip = me_chu_20_tooltip
+
+    }
+}
+me_chu.21 = {
+    type = country_event
+
+    title = me_chu_21_title
+    desc = me_chu_21_desc
+    picture = interesting_histories_punic_ship_city
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_21.a"
+        custom_tooltip = me_chu_21_tooltip
+
+    }
+}
+me_chu.22 = {
+    type = country_event
+
+    title = me_chu_22_title
+    desc = me_chu_22_desc
+    picture = greek_siege
+
+    option = {
+        name = "me_chu_22.a"
+        custom_tooltip = me_chu_22_tooltip
+
+    }
+}
+me_chu.23 = {
+    type = country_event
+
+    title = me_chu_23_title
+    desc = me_chu_23_desc
+    picture = senator_conversing
+
+    immediate = {
+        c:CHU = {
+            remove_country_modifier = chu_mil_gov_reform  
+        }  
+    }
+
+    option = {
+        name = "me_chu_23.a"
+        custom_tooltip = me_chu_23_tooltip 
+    }
+}
+me_chu.24 = {
+    type = country_event
+
+    title = me_chu_24_title
+    desc = me_chu_24_desc
+    picture = interesting_histories_southern_india
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_24.a"
+        custom_tooltip = me_chu_24_tooltip
+
+    }
+}
+me_chu.25 = {
+    type = country_event
+
+    title = me_chu_25_title
+    desc = me_chu_25_desc
+    picture = interesting_histories_fish_market
+    left_portrait = current_ruler
+
+    option = {
+        name = "me_chu_25.a"
+        custom_tooltip = me_chu_25_tooltip
+
+    }
+}
+me_chu.26 = {
+    type = country_event
+
+    title = me_chu_26_title
+    desc = me_chu_26_desc
+    picture = interesting_histories_asia_mountains
+
+    option = {
+        name = "me_chu_26.a"
+        custom_tooltip = me_chu_26_tooltip
+
+    }
+}
+
+me_chu.27 = {
+    type = country_event
+
+    title = me_chu_27_title
+    desc = me_chu_27_desc
+    picture = war_council
+
+    option = {
+        name = "me_chu_27.a"
+        custom_tooltip = me_chu_27_tooltip
+        add_country_modifier = {
+            name = chu_mil_gov_reform
+            duration = -1
+        }
+    }
+}

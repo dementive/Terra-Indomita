@@ -1,0 +1,501 @@
+﻿martial_loyalty_and_respect_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = loyalty_and_respect_var
+            }
+            custom_tooltip = {
+                text = has_taken_this_already_tooltip
+                NOT = {
+                    root = {
+                        has_variable = loyalty_and_respect_var
+                    }
+                }
+            }
+        }        
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_martial_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        family = { add_prestige = 50 }
+        add_popularity = 10
+        set_variable = loyalty_and_respect_var
+        remove_1_available_perk_effect = yes
+    }
+}
+martial_loyal_generals_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = loyal_generals_var
+            }
+            custom_tooltip = {
+                text = has_taken_this_already_tooltip
+                NOT = {
+                    root = {
+                        has_variable = loyal_generals_var
+                    }
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_martial_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = loyalty_and_respect_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_loyalty_and_respect_tt
+                    has_variable = loyalty_and_respect_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        custom_tooltip = while_character_is_ruler_tooltip
+        employer = {
+            add_country_modifier = {
+                name = loyal_generals_country_mod
+                duration = -1
+            }
+        }
+        set_variable = loyal_generals_var
+        remove_1_available_perk_effect = yes
+    }
+}
+martial_inspiring_commander_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = inspiring_commander_var
+            }
+            custom_tooltip = {
+                text = has_taken_this_already_tooltip
+                NOT = {
+                    root = {
+                        has_variable = inspiring_commander_var
+                    }
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_martial_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = loyal_generals_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_loyal_generals_tt
+                    has_variable = loyal_generals_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            add_country_modifier = {
+                name = inspired_commanders_country_mod
+                duration = 1080
+            }
+            ordered_character = {
+                limit = {
+                    is_governor = yes
+                    is_ruler = no
+                }
+                order_by = martial
+                max = 1
+                add_martial = 1
+            }
+        }
+        set_variable = inspiring_commander_var
+        remove_1_available_perk_effect = yes
+    }
+}
+martial_naval_expansion_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = naval_expansion_var
+            }
+            custom_tooltip = {
+                text = has_taken_this_already_tooltip
+                NOT = {
+                    root = {
+                        has_variable = naval_expansion_var
+                    }
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = yes
+    }
+    ai_chance = {
+        base = 0
+        modifier = {
+            factor = 50
+            character_can_take_perk_trigger = yes
+        }
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_martial_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = loyal_generals_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_loyal_generals_tt
+                    has_variable = loyal_generals_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        custom_tooltip = add_random_ass_naval_trait_tt
+        trigger_event = hidden_events.6
+        set_variable = naval_expansion_var
+        remove_1_available_perk_effect = yes
+    }
+}
+martial_naval_construction_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = naval_construction_var
+            }
+            custom_tooltip = {
+                text = has_taken_this_already_tooltip
+                NOT = {
+                    root = {
+                        has_variable = naval_construction_var
+                    }
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_martial_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = naval_expansion_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_naval_expansion_tt
+                    has_variable = naval_expansion_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            add_country_modifier = {
+                name = naval_construction_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = naval_construction_var
+        remove_1_available_perk_effect = yes
+    }
+}
+martial_siege_training_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = siege_training_var
+            }
+            NOT = {
+                root = {
+                    has_variable = siege_training_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_martial_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = inspiring_commander_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_inspiring_commander_tt
+                    has_variable = inspiring_commander_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        #add_trait = original_thinker
+        custom_tooltip = add_og_thinker_trait_tooltip
+        trigger_event = hidden_events.5
+        #country mod
+        #assault_ability = 0.05
+        employer = {
+            add_country_modifier = {
+                name = siege_training_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = siege_training_var
+        remove_1_available_perk_effect = yes
+    }
+}
+martial_strict_organization_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = strict_organization_var
+            }
+            NOT = {
+                root = {
+                    has_variable = strict_organization_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = yes
+    }
+    ai_chance = {
+        base = 0
+        modifier = {
+            factor = 50
+            character_can_take_perk_trigger = yes
+        }
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_martial_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = siege_training_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_siege_training_tt
+                    has_variable = siege_training_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            capital_scope = {
+                state = {
+                    add_state_modifier = {
+                        name = strict_organization_state_mod
+                        duration = 3650
+                    }
+                }
+            }
+        }
+        set_variable = strict_organization_var
+        remove_1_available_perk_effect = yes
+    }
+}
+martial_military_values_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = military_values_var
+            }
+            NOT = {
+                root = {
+                    has_variable = military_values_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = yes
+    }
+    ai_chance = {
+        base = 0
+        modifier = {
+            factor = 50
+            character_can_take_perk_trigger = yes
+        }
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_martial_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = naval_construction_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_naval_construction_tt
+                    has_variable = naval_construction_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        #max_war_exhaustion
+        #war_score_cost
+        employer = {
+            add_country_modifier = {
+                name = military_values_country_mod
+                duration = -1                
+            }
+        }
+        set_variable = military_values_var
+        remove_1_available_perk_effect = yes
+    }
+}
+martial_veteran_warrior_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = vetern_warrior_var
+            }
+            NOT = {
+                root = {
+                    has_variable = vetern_warrior_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = yes
+    }
+    ai_chance = {
+        base = 0
+        modifier = {
+            factor = 50
+            character_can_take_perk_trigger = yes
+        }
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_martial_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = military_values_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_military_values_tt
+                    has_variable = military_values_var
+                }
+            }
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = strict_organization_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_strict_organization_tt
+                    has_variable = strict_organization_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        set_variable = vetern_warrior_var
+        #Traits cannot be added in scripted guis or the game will FUCKING CRASH, try to uncomment this next line...I dare you
+        #add_trait = veteran_warrior_trait
+        custom_tooltip = add_martial_trait_tooltip
+        trigger_event = hidden_events.1
+        if = {
+            limit = {
+                has_variable = character_focus_cooldown_var
+            }
+            remove_variable = character_focus_cooldown_var
+        }
+        remove_1_available_perk_effect = yes
+    }
+}

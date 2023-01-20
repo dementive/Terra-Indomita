@@ -32,7 +32,8 @@
 	PIRATE_PLUNDER_DURATION = 730
 	
 	EVENT_TIMEOUT_DAYS = 90
-	AUTOPEACE_DAYS_SINCE_LAST_BATTLE = 1080 # No automatic whitepeace if there's been a battle in the war within this defined amount
+	# FMO - added a year
+	AUTOPEACE_DAYS_SINCE_LAST_BATTLE = 1460 # No automatic whitepeace if there's been a battle in the war within this defined amount
 
 	STARTING_COHORTS_PER_MANPOWER = 0.2
 	STARTING_SHIPS_PER_PORT_POPULATION = 0.06
@@ -150,7 +151,8 @@ NCountry = {
 
 	CHANGE_PANTHEON_OMEN_COOLDOWN_MONTHS = 36 # Cooldown period in months after a country changes it's pantheon. No omens can be called on that deity during this cooldown period. 
 	
-	DEIFIED_RULERS_EXPIRE = 20 # Years before a deified ruler that has not been in a pantheon is forgotten and removed
+	# FMO - changed to 75 because this is stupid
+	DEIFIED_RULERS_EXPIRE = 75 # Years before a deified ruler that has not been in a pantheon is forgotten and removed
 
 	CULTURAL_INTEGRATION_MIN_SPEED = 0.0005
 	CULTURAL_INTEGRATION_MAX_SPEED = 0.004
@@ -533,7 +535,8 @@ NCharacter = {
 	
 	MIN_HOLDINGS_FOR_POWER_BASE = 5
 
-	HOLDING_BASE_MULTIPLIER = 0.25 # % of Provincial income that a holding will grant to its owner
+	# FMO - made holdings slightly more profitable
+	HOLDING_BASE_MULTIPLIER = 0.3 # % of Provincial income that a holding will grant to its owner
 	
 	BASE_LOYALTY_GAIN_CHANCE = 0.5
 	LOYALTY_GAIN_OUTSIDE_COMBAT = 0.1
@@ -562,10 +565,12 @@ NCharacter = {
 	ADDITIONAL_CHILDREN_FOR_KING = 2
 	ADDITIONAL_CHILDREN_FOR_HEIR = 1
 	
-	IDEAL_CHILD_PER_FAMILY = 4
+	# FMO - changed from 4 to 3 because less characters = better performance
+	IDEAL_CHILD_PER_FAMILY = 3
 	
 	# If court isze is bigger than threshold, reduce the number of children per couple by the define below
-	COURT_SIZE_CHILD_PENALTY_THRESHOLD = 120
+	# FMO - changed from 120 to 110 because less characters = better performance
+	COURT_SIZE_CHILD_PENALTY_THRESHOLD = 110
 	SUBTRACTION_CHILDREN_COURT_SIZE_PENALTY = 1
 
 	# Make sure we always have a base minimum of characters for each gender. Only creates new characters however if the number of children is below the threshold
@@ -581,8 +586,11 @@ NCharacter = {
 	LOYAL_COHORT_INHERITANCE_CHARISMA_CHECK = 8 # A random number modulo this define to check if the primary heir inherits loyal cohorts. Basically if the heir's charisma is equal to this number, it will never fail this check
 	
 	COURT_SIZE_AGE_FILL = { 16 60 } #when filling the initial court, characters get created using this age range
+
+	# FMO - Reduced from 0.07 to 0.06, less fertility = less characters which = better performance
 	BASE_FERTILITY = 0.07
-	MAX_FERTILITY = 0.15
+	# FMO - Reduced from 0.15 to 0.12, less fertility = less characters which = better performance
+	MAX_FERTILITY = 0.12
 	INHERIT_CHANCE_COUNTRY_CHARISMA = 20
 	MAX_TOOLTIP_SIZE_FAMILY_LIST = 25
 	
@@ -617,7 +625,8 @@ NFamily = {
 	GRATEFUL_JOB_PERCENTAGE = 2 #current jobs > (expected jobs * GRATEFUL_JOBS_PERCENTAGE)
 
 	MIN_SIZE = 4; #below this size the family will look desperately into adopting minor characters
-	MAX_SIZE = 18; #above this size the family won't look into adopting minor characters anymore
+	# FMO - changed from 18 to 16 for performance
+	MAX_SIZE = 16; #above this size the family won't look into adopting minor characters anymore
 
 	# FAMILY COUNT
 	FAMILY_COUNT_MIGRANT_HORDE	= 3;
@@ -737,24 +746,28 @@ NJominiMap = {
 
 NAI = {
 	# Map
-	MAX_AREA_INNER_DEPTH = 15 # This value denotes the maximum depth needed to go from any one province to another within the same area. It is used for the optimization of certain pathfinding. If your mod changes the map, do make sure to change this value. It can be obtained by running `Map.CalcAreaInnerDepth` in the console
+	# INDOMITA - updated 15 -> 13
+	MAX_AREA_INNER_DEPTH = 13 # This value denotes the maximum depth needed to go from any one province to another within the same area. It is used for the optimization of certain pathfinding. If your mod changes the map, do make sure to change this value. It can be obtained by running `Map.CalcAreaInnerDepth` in the console
 	MAX_AREA_INNER_PATH = 22 # This value denotes the longest distance from any one province to another within the same area. It is used for the optimization of certain pathfinding. If your mod changes the map, do make sure to change this value. It can be obtained by running `Map.CalcAreaInnerPath` in the console
 	MAX_DEPTH_SEARCH_FOR_NAVAL_INVASION = 5 # How far the AI will search for a shore from land for naval invasions to reachable targets
 	
-	#Buildings
-	BUILD_DURING_WAR_DELAY = 4					# Months the AI will wait before building buildings while at war
+	#Buildings (improved buildings defines), makes AI spend money on builings better
+	BUILD_DURING_WAR_DELAY = 6					# Months the AI will wait before building buildings while at war
 	BUILD_MONTHS_AWAY_FROM_WAR_THRESHOLD = 2	# If the AI is less than this number of months away from declaring war they will hold building construction	
-	BUILD_TROOPS_DELAY = 60						# Delay added to the build counter if the AI wants to build troops, effectively prioritizing troop construction
-	BUILD_REPEAT_TIME = 100						# Time window ( in days ) since last build date that the AI has to quickly queue another building to the front of the plan ( if it can afford it etc. ), else it will be queued at the end
-	BUILD_INSTANT_GOLD_THRESHOLD = 800			# If the AI has more than this much gold left after construction it will try to instantly queue another build
-	BUILD_DELAY = 30							# Default time the AI will wait before trying to build another building unless it decides to do so instantly
+	BUILD_TROOPS_DELAY = 10						# Delay added to the build counter if the AI wants to build troops, effectively prioritizing troop construction
+	BUILD_REPEAT_TIME = 30						# Time window ( in days ) since last build date that the AI has to quickly queue another building to the front of the plan ( if it can afford it etc. ), else it will be queued at the end
+	BUILD_INSTANT_GOLD_THRESHOLD = 750.0		# If the AI has more than this much gold left after construction it will try to instantly queue another build
+	BUILD_DELAY = 10							# Default time the AI will wait before trying to build another building unless it decides to do so instantly
 	DESTROY_THRESHOLD = 0.0						# If the AI weight of any building is less than or equal to this the AI might destroy it
 	PORT_BUILDING_COASTAL_NO_PORTS_WEIGHT = 0	# If the Country has coastal provinces but no ports this will be added
 
 	#Performance and search
-	MAX_UNITS_PER_TURN = 125 #Higher => more responsive unit AI on average, more CPU. Use "ai.pawns" and "timing show" console commands to tune.
+
+	# FMO - 125 -> 118, performance
+	MAX_UNITS_PER_TURN = 118 #Higher => more responsive unit AI on average, more CPU. Use "ai.pawns" and "timing show" console commands to tune.
 	TACTICAL_DEPTH = 60 #Depth of tactical search.
-	IDLE_DEPTH = 12 #Depth of tactical search while idle can be reducd to this.
+	# FMO - 12 -> 10, performance
+	IDLE_DEPTH = 10 #Depth of tactical search while idle can be reducd to this.
 	FRIEND_DEPTH_COST = 2 #Depth cost in friendly territory.
 	ENEMY_DEPTH_COST = 3 #Depth cost in enemy territory.
 	DEFAULT_DEPTH_COST = 5 #Depth cost in other cases.
@@ -768,7 +781,9 @@ NAI = {
 	STRAIT_CROSS_COST = 3.2 #In tactical only (not A*).
 	ENEMY_CROSS_COST = 4 #In tactical only (not A*). Multiplier for river/strait cost when an enemy is across river or strait.
 	ALLY_NEIGHBOR_ORDER = 3 #Separate check: Recursively iterate of neighbors this many time to generate a list of permitted allies. Countries with ports or adjacent to countries with ports are excluded.
-	DEFENSIVE_LEAGUE_NEIGHBOR_ORDER = 2
+
+	# FMO - Ai doesn't make enough defensive leagues
+	DEFENSIVE_LEAGUE_NEIGHBOR_ORDER = 3
 	STRIKE_TEAM_DEPTH = 8 #How far strike teams can be composed.
 	STRIKE_TEAM_ADVANTAGE = 2 #Advantage over enemy before AI contemplates splitting up strike teams into more.
 	STRIKE_TEAM_SUPPORT_RANGE = 100 #Max range a strike team leader is allowed to count friendly units for purposes of attacking.
@@ -790,8 +805,10 @@ NAI = {
 	FAST_PLANNED_WAR_MONTHS = 24 #Increasing this makes AI more tolerant of choosing long wars.
 	MAX_PLANNED_WAR_MONTHS = 70 #AI will not plan for wars that are expected to take longer than this to be able to declare. It is also the deadline for the war declaration.
 	MAX_WAR_DIFFICULTY_INCREASE = 100 #% more difficult the war is allowed to be at the deadline than at its inception.
-	TRADITION_LOOKAHEAD = 4 #How many traditions ahead does AI look when weighting their effects multiplicatively (also applies to script weights).
-	REPICK_IDEAS_INTERVAL_MONTHS = 60 # How often the ai will reconsider its current national ideas. Does not affect filling empty idea slots which is done as soon as possible.
+	# FMO - 4 -> 3, performance
+	TRADITION_LOOKAHEAD = 3 #How many traditions ahead does AI look when weighting their effects multiplicatively (also applies to script weights).
+	# FMO - 60 -> 100, performance
+	REPICK_IDEAS_INTERVAL_MONTHS = 100 # How often the ai will reconsider its current national ideas. Does not affect filling empty idea slots which is done as soon as possible.
 	WAR_LATENCY_WEIGHT = 100 #Delaying planned wars is typically undesirable. This is an actual multiplier to latency.
 	PREDICTED_AT_WAR_THRESHOLD = 3 #Months before the AI believes it will be in a planned war. AI will raise levies and take precautions below this threshold
 
@@ -866,12 +883,14 @@ NAI = {
 	AE_CARE = 25 #AI usually waits for around this AE or a somewhat higher value before declaring a war.
 	ALLIANCE_BREAK_WARNING_MONTHS = 6 #Months of warning prior to alliances/defensive leagues breaking.
 	TRADE_REQUEST_ACCEPTANCE = 200 #Scaling of AI's "good/bad for us" acceptances.
-	DEFENSIVE_LEAGUE_COMMON_THREAT_THRESHOLD = 1.1 #AI will only form defensive leagues when the common threat factor is at least this big (not same scale as common threat acceptance, 1 = "as scary as us").
+	# FMO - 1.1 -> 1.5, better defensive leagues
+	DEFENSIVE_LEAGUE_COMMON_THREAT_THRESHOLD = 1.5 #AI will only form defensive leagues when the common threat factor is at least this big (not same scale as common threat acceptance, 1 = "as scary as us").
 	EXPANSION_CONSTRICTION_RANGE = 34 #因地图比例而修改. AI is extra careful about allying within this border distance.
 	
 	#Peace
 	MAX_CALL_FOR_PEACE = 20 #Start worrying about peacing ASAP above this value. 0-100 value, tho WE from it is capped at usual level.
-	PEACE_RESPITE_MONTHS = 6 #Anti-ragequit device applied to human player on Easy and Normal; don't DOW them if they had no time to rest.
+	# FMO - 6 -> 1, this mechanic is stupid. get fucked
+	PEACE_RESPITE_MONTHS = 1 #Anti-ragequit device applied to human player on Easy and Normal; don't DOW them if they had no time to rest.
 	PEACE_ACCEPTANCE_SEPARATE_PEACE = -25 #Modifier for peacing out separatately in the cases that's despicable.
 	PEACE_ACCEPTANCE_MONTHS_OF_WAR = 48 #Maximum months of war (and coincidentally, maximum modifier).
 	PEACE_ACCEPTANCE_MONTHS_OF_WAR_GW = 100 #Max months of war for Great Conquests
@@ -905,6 +924,7 @@ NAI = {
 	OPINION_REASONS_FOR_NEIGHBOR_MILITARY_ACCESS = 40 #Acceptance reasons AI can choose to reach with opinion to gain military access in immediate neighbors.
 	
 	#Personality
+	# FMO - 50 -> 40, ai is less trustworthy
 	NO_TREACHERY_TRUSTWORTHINESS = 50 #Above this trustworthiness, AI may not even insult you to reduce their opinion of you or support rebellion, etc.
 	
 	#Spam
@@ -912,7 +932,8 @@ NAI = {
 	OFFER_EMISSION_BASE = 0.01
 	OFFER_EMISSION_ADAPT = 0.15
 	OFFER_EMISSION_DECAY = 0.07
-	START_DATE_DIPLOMACY_REDUCTION_MONTHS = 12 #AI does war declarations and some other diplo actions less frequently during these months.
+	# FMO - 12 -> 6, this mechanic is stupid
+	START_DATE_DIPLOMACY_REDUCTION_MONTHS = 6 #AI does war declarations and some other diplo actions less frequently during these months.
 	
 	#War declarations
 	WAR_NEIGHBOR_FACTOR = 10 #Scaled weight to declare war on neighbors.
@@ -952,8 +973,10 @@ NAI = {
 	# Challenge modifiers
 	ANTAGONIST_BONUS_ON_HARD = 0.25
 	ANTAGONIST_BONUS_ON_VERY_HARD = 0.5
-	ANTAGONIST_VERSUS_OTHER_AI_DICE_BONUS = 2
-	ANTAGONISM_PEACE_ACCEPT_BONUS_VS_OTHER_AI = 25
+	# FMO - 2 -> 1, this is dumb
+	ANTAGONIST_VERSUS_OTHER_AI_DICE_BONUS = 1
+	# FMO - 25 -> 10, this is dumb
+	ANTAGONISM_PEACE_ACCEPT_BONUS_VS_OTHER_AI = 10
 
 	# Job assignment weights
 	ASSIGN_OFFICE_SCORNED_WEIGHT = 4.0 # Multiplicative: How much more important is it to fill an office position with a scorned character? The inverse is also true.
@@ -972,8 +995,10 @@ NAI = {
 
 	#Culture:
 	CULTURE_CHANGE_HAPPINESS_THRESHOLD = 0.25 # dont change if primary culture happiness modifier is beneath this
-	CULTURE_CHANGE_POPCOUNT_THRESHOLD = 85 # cultures beneath this pop count will be ignored for integration
-	CULTURE_CHANGE_THRESHOLD = 0.08 # how large amount of the population a culture needs to be considered for integration
+	# FMO - 85 -> 75, performance
+	CULTURE_CHANGE_POPCOUNT_THRESHOLD = 75 # cultures beneath this pop count will be ignored for integration
+	# FMO - 0.08 -> 0.09, slower integration
+	CULTURE_CHANGE_THRESHOLD = 0.09 # how large amount of the population a culture needs to be considered for integration
 	REVOKE_CULTURE_CHANGE_THRESHOLD = 0.04 # how large amount of the population a culture needs to be considered for revoking integration
 	
 	MINIMUM_RECRUIT_NEW_UNIT_IN_EMPTY_LEGIONS_SIZE = 4
@@ -981,7 +1006,8 @@ NAI = {
 
 	OPTIMAL_LEGION_SUBUNIT_COUNT = 60
 	WARS_IN_PLAN_BEFORE_INTEGRATION = 1 #How many wars can we have in our action plan and still consider integrating subjects? 0 = Let's leave this until we have some downtime.
-	MAX_PLANNED_WARS = 3 #How many wars can we plan at any one time? clamped between 1 and Min( Aggressivesness / 50, MAX_PLANNED_WARS )
+	# FMO - 3 -> 2, performance
+	MAX_PLANNED_WARS = 2 #How many wars can we plan at any one time? clamped between 1 and Min( Aggressivesness / 50, MAX_PLANNED_WARS )
 	AI_UNIT_SPLIT_WILLINGNESS = 1.22 #DO not change this by large degrees if you still want AI to split units.
 }
 

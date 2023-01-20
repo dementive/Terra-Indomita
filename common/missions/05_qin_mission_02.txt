@@ -1,0 +1,703 @@
+﻿qin_02_li_si = {
+    header = "mission_image_china"
+    icon = "general_4"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var_2 }
+        tag = QIN
+        has_completed_mission = qin_01_shan_yang
+        #always = no
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var_2
+            days = 7300
+        }
+    }
+    on_completion = {}
+    qin_02_li_si_task_1 = { #Recruit Li Si
+        icon = "task_diplomatic"
+        duration = 180
+        allow = {}
+        on_completion = {
+            #Li Si appears with high stats
+            trigger_event = me_qin_li_si.1
+            show_as_tooltip = {
+				create_character = {
+					first_name = "Li"
+					family_name = "Si"
+					culture = root.culture
+					religion = root.religion
+					age = 33
+					no_stats = yes
+					no_traits = yes
+					#amazing_martial_effect = yes
+					#amazing_finesse_effect = yes
+					#amazing_charisma_effect = yes
+					#amazing_zeal_effect = yes
+				}
+            }
+        }
+    }
+    qin_02_li_si_task_2 = { #Promote Li Si
+        icon = "task_happiness"
+        requires = { qin_02_li_si_task_1 }
+        duration = 100
+		allow = {
+            treasury >= 100
+			trigger_if = {
+                limit = {
+                    is_ai = no
+                    has_variable = li_si_character_scope_variable
+                    var:li_si_character_scope_variable = {
+                        is_alive = yes
+                    }
+                }
+				hidden:var:li_si_character_scope_variable = {
+					has_any_office = yes
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = qin_02_li_si_task_2_trigger_tt #Li Si has office
+					always = no
+				}
+            }
+        }
+        on_start = {
+            add_treasury = -100
+        }
+        on_completion = {
+            trigger_event = me_qin_li_si.2
+			custom_tooltip = qin_02_li_si_task_2_claims_tt
+			hidden_effect = {
+				area:yueyang_area = { mission_area_claim_effect = yes }
+				area:hedong_area = { mission_area_claim_effect = yes }
+				area:changan_area = { mission_area_claim_effect = yes }
+				area:daliang_area = { mission_area_claim_effect = yes }
+				area:yuexi_area = { mission_area_claim_effect = yes }
+				area:hanjia_area = { mission_area_claim_effect = yes }
+			}
+            #Claims on Yueyang, Hedong, Changan, Weishi, and Hanjia
+        }
+    }
+    qin_02_li_si_task_3 = { #Reach the Yellow River
+        icon = "task_expansion"
+        requires = { qin_02_li_si_task_2 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = hedong_area
+					is_in_area = yueyang_area
+					is_in_area = changan_area
+				}
+			}
+		}
+        allow = {
+            owns_area = area:hedong_area
+			owns_area = area:yueyang_area
+			owns_area = area:changan_area
+			#Control Yueyang, Hedong, and Changan.
+        }
+        on_completion = {
+            #Claims on Xine, Shangdang, Henei, and Henan
+            trigger_event = me_qin_li_si.3
+            custom_tooltip = qin_02_li_si_task_3_claims_tt
+			hidden_effect = {
+				area:xihe_area = { mission_area_claim_effect = yes }
+				area:shangdang_area = { mission_area_claim_effect = yes }
+				area:henei_area = { mission_area_claim_effect = yes }
+				area:daliang_area = { mission_area_claim_effect = yes }
+				area:henan_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+    qin_02_li_si_task_4 = { #Southern Suppression
+        icon = "task_conquest"
+        requires = { qin_02_li_si_task_2 }
+		highlight = {
+			scope:province = {
+				OR = {
+					owned_or_subject_owned = RAN
+					owned_or_subject_owned = ZUO
+				}
+			}
+		}
+        allow = {
+            c:RAN = {
+				has_land = no
+			}
+			c:ZUO = {
+				has_land = no
+			}
+			 #Ranmang and Zuo owned -> guanghan_area, shu_area, hanjia_area + 8898
+        }
+        on_completion = {
+            #Choose a province to get a good modifier in both of these areas
+            #add_state_loyalty = state_province_loyalty_medium
+            trigger_event = me_qin_li_si.4
+            show_as_tooltip = {
+				p:8866 = {
+					add_state_loyalty = state_province_loyalty_medium
+				}
+				p:8879 = {
+					add_state_loyalty = state_province_loyalty_medium
+				}
+            }
+        }
+    }
+    qin_02_li_si_task_5 = { #Centralize Qin Law
+        icon = "task_calm"
+        requires = { qin_02_li_si_task_2 }
+        allow = {
+            #Bureacratic centrilization laws, whatever that means
+        }
+        on_completion = {
+            trigger_event = me_qin_li_si.5
+			custom_tooltip = qin_02_li_si_task_5_reward_tt #All characters lose 10 corruption
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = centralised_qin_law #global_tax_modifier = 0.1
+					duration = 3650
+				}
+            }
+			hidden_effect = {
+				every_character = {
+					add_corruption = -10
+				}
+			}
+        }
+    }
+    qin_02_li_si_task_6 = { #Weights & Measures
+        icon = "task_political"
+        duration = 365
+		monthly_on_action = qin_02_li_si_task_6_monthly_pulse
+        requires = { qin_02_li_si_task_5 }
+        allow = {
+            political_influence >= 25
+        }
+        on_start = {
+            add_political_influence = -25
+			set_variable = {
+				name = ongoing_mission_pulse_flag
+				days = 365
+			}
+            #Trigger character loyalty/corruption events throughout
+        }
+        on_completion = {
+            trigger_event = me_qin_li_si.6
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = qin_weights_measures_mod #global_import_commerce_modifier = 0.1
+					duration = 7300
+				}
+            }
+        }
+    }
+    qin_02_li_si_task_7 = { #Burning Books
+        icon = "task_religion"
+        duration = 730
+		monthly_on_action = qin_02_li_si_task_7_monthly_pulse
+        requires = { qin_02_li_si_task_6 }
+        allow = {
+            political_influence >= 25
+        }
+        on_start = {
+            add_political_influence = -25
+			set_variable = {
+				name = ongoing_mission_pulse_flag
+				days = 730
+			}
+            # Events with negatives hurting loyalty w/ religious and cultural
+            # minority characters, nations, and vassals.
+        }
+        on_completion = {
+            
+            trigger_event = me_qin_li_si.7
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = qin_burning_books #global_pop_assimilation_speed = 0.05
+					duration = -1
+				}
+            }
+        }
+    }
+    qin_02_li_si_task_8 = { #Seduce Scholars
+        icon = "task_diplomatic"
+        duration = 730
+        requires = { qin_02_li_si_task_6 }
+        allow = {
+            treasury >= 200
+        }
+        on_start = {
+            add_treasury = -200
+			trigger_event = me_qin_li_si.800 #trigger event saying something about starting to seduce scholars
+			trigger_event = {
+				id = me_qin_li_si.801 #Qi scholar
+				days = { 130 230 }
+			}
+			trigger_event = {
+				id = me_qin_li_si.802 #Zhou scholar
+				days = { 315 415 }
+			}
+            #trigger event saying something about starting to seduce scholars
+         }
+        on_completion = {
+            trigger_event = me_qin_li_si.8 #Chu scholar
+            custom_tooltip = qin_02_li_si_task_8_reward_tt
+			# Take some high skilled characters from Zhou states (qi, chu, zhou)
+            # If they don't have land just get some characters
+        }
+    }
+    qin_02_li_si_task_9 = { #State Sanctioned Scholars
+        icon = "task_economical"
+        requires = { qin_02_li_si_task_8 }
+        allow = {
+            treasury >= 300
+            political_influence >= 50
+            #Royal tutor has at least 9 oratory
+			any_character = {
+				has_office = office_royal_tutor
+				charisma >= 9
+			}
+        }
+        on_completion = {
+            #5% research for 20 years
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = state_sanctioned_scholars_country_mod
+					duration = 7300
+				}
+			}
+            trigger_event = me_qin_li_si.9
+        }
+    }
+    qin_02_li_si_task_10 = { #Burying Confucianists
+        icon = "task_calm"
+        duration = 730
+		monthly_on_action = qin_02_li_si_task_10_monthly_pulse
+        requires = { qin_02_li_si_task_7 }
+        allow = {
+            stability >= 40
+        }
+        on_start = {
+            add_stability = -10
+			set_variable = {
+				name = ongoing_mission_pulse_flag
+				days = 730
+			}
+            #Do the events for killing confucian characters
+        }
+        on_completion = {
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = freedom_from_confucian_values_mod
+					duration = 5475
+				}
+			}
+            trigger_event = me_qin_li_si.10
+        }
+    }
+    qin_02_li_si_task_11 = { #Seal Script
+        icon = "task_political"
+        duration = 730
+		monthly_on_action = qin_02_li_si_task_11_monthly_pulse
+        requires = { qin_02_li_si_task_7 }
+        allow = {
+            treasury >= 50
+			political_influence >= 50
+        }
+        on_start = {
+			set_variable = {
+				name = ongoing_mission_pulse_flag
+				days = 730
+			}
+            #Negative events for loyalty, areas, characters, PI, and cash
+        }
+        on_completion = {
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = qin_assimiliation_mod
+					duration = -1
+				}
+			}
+            trigger_event = me_qin_li_si.11
+        }
+    }
+    qin_02_li_si_task_12 = { #Great Wall of Qin
+        icon = "task_heracles"
+        requires = { qin_02_li_si_task_3 }
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 8313
+					province_id = 8276
+					province_id = 8592
+				}
+			}
+		}
+        allow = {
+			p:8313 = {
+				OR = {
+					has_province_rank = city
+					has_province_rank = city_metropolis
+				}
+				fort_level >= 3
+			}
+			p:8276 = {
+				OR = {
+					has_province_rank = city
+					has_province_rank = city_metropolis
+				}
+				fort_level >= 3
+			}
+			p:8592 = {
+				OR = {
+					has_province_rank = city
+					has_province_rank = city_metropolis
+				}
+				fort_level >= 3
+			}
+            # City status of Guyuan, Yulm, and Xiangang. Level 3 forts in these 3 cities.
+        }
+        on_completion = {
+            trigger_event = me_qin_li_si.12
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = great_wall_of_qin
+					duration = -1
+				}
+            }
+        }
+    }
+    qin_02_li_si_task_13 = { #Weaken the Jins
+        icon = "task_political"
+        requires = { qin_02_li_si_task_3 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = henan_area
+					is_in_area = henei_area
+					is_in_area = changan_area
+					is_in_area = xihe_area
+					is_in_area = shangdang_area
+				}
+			}
+		}
+        allow = {
+			custom_tooltip = {
+				text = qin_02_li_si_task_13_henan_area
+				area:henan_area = {
+					NOT = {
+						any_area_province = {
+							NOR = {
+								owner = c:ZHO
+								owner = root
+							}
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				text = qin_02_li_si_task_13_henei_area
+				area:henei_area = {
+					NOT = {
+						any_area_province = {
+							NOR = {
+								owner = c:ZHO
+								owner = root
+							}
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				text = qin_02_li_si_task_13_changan_area
+				area:changan_area = {
+					NOT = {
+						any_area_province = {
+							NOR = {
+								owner = c:ZHO
+								owner = root
+							}
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				text = qin_02_li_si_task_13_xihe_area
+				area:xihe_area = {
+					NOT = {
+						any_area_province = {
+							NOR = {
+								owner = c:ZHO
+								owner = root
+							}
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				text = qin_02_li_si_task_13_shangdang_area
+				area:shangdang_area = {
+					NOT = {
+						any_area_province = {
+							NOR = {
+								owner = c:ZHO
+								owner = root
+							}
+						}
+					}
+				}
+			}
+            # Control all provinces in xine, changdong, henei, henan, and Changan
+            # EXCEPT the provinces owned by the Zhou kings IF they exist still.
+        }
+        on_completion = {
+            #Give province loyalty mods to all these areas as state mods
+            # Gain claims on Nan and Wuling area
+			custom_tooltip = qin_02_li_si_task_13_claims_tt
+			hidden_effect = {
+				area:nan_area = { mission_area_claim_effect = yes }
+				area:wuling_area = { mission_area_claim_effect = yes }
+			}
+            trigger_event = me_qin_li_si.13
+            show_as_tooltip = {
+				p:8589 = {
+					add_state_loyalty = state_province_loyalty_medium
+				}
+				p:8335 = {
+					add_state_loyalty = state_province_loyalty_medium
+				}
+				p:8380 = {
+					add_state_loyalty = state_province_loyalty_medium
+				}
+				p:8367 = {
+					add_state_loyalty = state_province_loyalty_medium
+				}
+				p:8626 = {
+					add_state_loyalty = state_province_loyalty_medium
+				}
+            }
+        }
+    }
+    qin_02_li_si_task_14 = { #Tame Tibetan Tribes
+        icon = "task_battle"
+        requires = { qin_02_li_si_task_4 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = hanjia_area
+					is_in_area = yuexi_area
+				}
+			}
+		}
+        allow = {
+			custom_tooltip = {
+				text = qin_02_li_si_task_14_hanjia_area
+				area:hanjia_area = {
+					any_area_province = {
+						has_building = temple_building
+						has_building = theathre_building
+						has_building = court_building
+					}
+				}
+			}
+            custom_tooltip = {
+				text = qin_02_li_si_task_14_yuexi_area
+				area:yuexi_area = {
+					any_area_province = {
+						has_building = temple_building
+						has_building = theathre_building
+						has_building = court_building
+					}
+				}
+			}
+			#Temple, Theater and court in at least 1 city in the areas of Hanjia and Weishi
+        }
+        on_completion = {	
+            # +0.1 assimilation in these 2 areas. Auto convert 5-10 pops.
+            trigger_event = me_qin_li_si.14
+			custom_tooltip = qin_02_li_si_task_14_reward_tt #All provinces in those 2 areas get the following modifier:
+            show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = hanjia_area
+							is_in_area = yuexi_area
+						}
+					}
+					add_permanent_province_modifier = {
+						name = tamed_tibetans_qin #local_pop_assimilation_speed = 0.1
+					}
+				}
+				random_owned_province = {
+					limit = {
+						is_in_area = hanjia_area
+
+					}
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+						set_pop_religion = root.religion
+					}
+				}
+				random_owned_province = {
+					limit = {
+						is_in_area = yuexi_area
+					}
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+						set_pop_religion = root.religion
+					}
+				}
+            }
+        }
+    }
+    qin_02_li_si_task_15 = { #Great Army of Qin
+        icon = "task_conquest"
+        requires = {
+            qin_02_li_si_task_13
+            qin_02_li_si_task_14
+        }
+        allow = {
+			custom_tooltip = {
+				text = qin_02_li_si_task_15_trigger_tt # have legion with >= 25 units
+				any_legion = {
+					any_legion_unit = {		
+						unit_size >= 25
+					}
+				}
+			}
+			#Capital region has a legion
+        }
+        on_completion = {
+            #Give that legion a 5% disipline perma mod --> need a distinction
+			show_as_tooltip = {
+				add_military_experience = 15
+				random_legion = {
+					limit = {
+						has_distinction = distinction_legio_primagena
+					}
+					add_distinction = distinction_great_army_of_qin
+				}
+			}
+            trigger_event = me_qin_li_si.15
+        }
+    }
+    qin_02_li_si_task_16 = { #Great Library of Qin
+        icon = "task_atlas"
+        duration = 18250
+		highlight = {
+			scope:province = {
+				province_id = 8313
+			}
+		}
+        requires = {
+            qin_02_li_si_task_12
+            qin_02_li_si_task_11
+        }
+        final = yes
+        allow = {
+            stability >= 40
+			treasury >= 1000
+			political_influence >= 50
+        }
+        on_completion = {
+            # Start the construction of the "Great Library of Qin"
+            custom_tooltip = begin_library_construction_tttt
+            trigger_event = me_qin_li_si.16
+        }
+    }
+    qin_02_li_si_task_17 = { #Recruit Bai Qi
+        icon = "task_political"
+        duration = 180
+
+        allow = {
+            political_influence >= 15
+        }
+        on_completion = {
+            trigger_event = me_qin_li_si.17
+            #Bai Qi Appears in the Court (VERY high martial)
+			show_as_tooltip = {
+				create_character = {
+					first_name = "Bai"
+					family_name = "Qi"
+					culture = qin
+					religion = chinese_religions
+					age = 39
+					no_stats = yes
+					no_traits = yes
+					#positive_martial_trait_effect = yes
+					#amazing_martial_effect = yes
+					#average_finesse_effect = yes
+					#average_charisma_effect = yes
+					#average_zeal_effect = yes
+				}
+            }
+
+        }
+    }
+    qin_02_li_si_task_18 = { #Promote Bai Qi
+        icon = "task_battle"
+        requires = { qin_02_li_si_task_17 }
+        allow = {
+            #Bai Qi is the commander of a legion
+			trigger_if = {
+                limit = {
+                    is_ai = no
+                    has_variable = bai_qi_character_scope_variable
+                    var:bai_qi_character_scope_variable = {
+                        is_alive = yes
+                    }
+                }
+				hidden:var:bai_qi_character_scope_variable = {
+					is_general = yes
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = qin_02_li_si_task_18_trigger_tt #Bai Qi is general
+					always = no
+				}
+            }
+        }
+        on_completion = {
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = leadership_of_bai_qi
+					duration = 7300
+				}
+			}
+            trigger_event = me_qin_li_si.18
+        }
+    }
+}

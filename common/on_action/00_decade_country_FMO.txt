@@ -1,7 +1,8 @@
 ﻿decade_country_pulse = {
 	on_actions = {
-		delay = { days = { 7300 18250 } }
 		chinese_ruler_assigment_pulse
+		delay = { days = { 7300 18250 } }
+		ai_place_special_pops_pulse
 	}
 }
 
@@ -11,5 +12,55 @@ chinese_ruler_assigment_pulse = {
 	}
 	events = {
 		chinese_flavor.1
+	}
+}
+
+ai_place_special_pops_pulse = {
+	effect = {
+		if = {
+			limit = { 
+				is_ai = yes
+				political_influence > 15
+			}
+			add_political_influence = -15
+			random_list = {
+				1 = {
+					random_owned_province = {
+						add_province_modifier = {
+							name = priests_converting_population_mod
+							duration = 9125
+							mode = add_and_extend
+						}
+					}
+				}
+				1 = {
+					random_owned_province = {
+						add_province_modifier = {
+							name = merchants_in_province_mod
+							duration = 9125
+							mode = add_and_extend
+						}
+					}
+				}
+				1 = {
+					random_owned_province = {
+						add_province_modifier = {
+							name = architects_in_province_mod
+							duration = 9125
+							mode = add_and_extend
+						}
+					}
+				}
+				1 = {
+					random_owned_province = {
+						add_province_modifier = {
+							name = architects_in_province_mod
+							duration = 9125
+							mode = add_and_extend
+						}
+					}
+				}
+			}
+		}
 	}
 }

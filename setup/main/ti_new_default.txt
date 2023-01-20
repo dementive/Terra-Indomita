@@ -5,6 +5,8 @@ diplomacy = {
 
 #Carthage New
 	dependency = { first = CAR second = GIN subject_type = vassal_tribe } # Gindanes
+	dependency = { first = CAR second = THA subject_type = feudatory } # New Vassal on Mauretanian Coast
+	dependency = { first = CAR second = AGG subject_type = feudatory } # New Vassal on Mauretanian Coast
 
 #Mauretania New
 	dependency = { first = MAU  second = SOC subject_type = tributary } #Socosia
@@ -14,9 +16,173 @@ diplomacy = {
 
 #Seleukid New
 	dependency = { first = SEL second = GED subject_type = satrapy } #Gedrosia
+	
+#Circle of the Strait
+	defensive_league = {
+		member = GAD
+		member = KUS
+		member = LIX
+		member = RSS
+		member = MGD
+	}
+
 
 }
 
+provinces = {
+
+	8636 = {
+		fortress_building = 1
+	}
+	9006 = {
+		fortress_building = 1
+	} 
+	9101 = {
+		port_building = 1
+	}
+	9105 = {
+		port_building = 1
+	}
+	9168 = {
+		port_building = 1
+	}
+	9188 = {
+		port_building = 1
+	}
+	9783 = {
+		port_building = 1
+	}
+	9791 = {
+		port_building = 1
+	}
+	9797 = {
+		port_building = 1
+	}
+	9800 = {
+		port_building = 1
+	}
+	9811 = {
+		port_building = 1
+	}
+	9828 = {
+		port_building = 1
+	}
+	10833 = {
+		port_building = 1
+	}
+	10839 = {
+		port_building = 1
+	}
+	10840 = {
+		port_building = 1
+	}
+	10963 = {
+		port_building = 1
+	}
+	11016 = {
+		port_building = 1
+	}
+	11017 = {
+		port_building = 1
+	}
+	11027 = {
+		port_building = 1
+	}
+	11041 = {
+		fortress_building = 1
+	}
+	11042 = {
+		port_building = 1
+	}
+	11045 = {
+		port_building = 1
+	}
+	11048 = {
+		port_building = 1
+	}
+	11050 = {
+		port_building = 1
+	}
+	11096 = {
+		port_building = 1
+	}
+	11099 = {
+		port_building = 1
+	}
+	
+	#Barbarians
+	8130 = {
+		modifier = {
+			modifier = generic_barbarian_spawn_place
+		}
+	}
+	8132 = {
+		modifier = {
+			modifier = generic_barbarian_spawn_place
+		}
+	}
+	8135 = {
+		modifier = {
+			modifier = generic_barbarian_spawn_place
+		}
+	}
+	8136 = {
+		modifier = {
+			modifier = generic_barbarian_spawn_place
+		}
+	}
+	8138 = {
+		modifier = {
+			modifier = generic_barbarian_spawn_place
+		}
+	}
+	9115 = {
+		modifier = {
+			modifier = major_barbarian_spawn_place
+		}
+	}
+	9133= {
+		modifier = {
+			modifier = generic_barbarian_spawn_place
+		}
+	}
+	9134= {
+		modifier = {
+			modifier = generic_barbarian_spawn_place
+		}
+	}
+	9849 = {
+		modifier = {
+			modifier = minor_barbarian_spawn_place
+		}
+	}
+	11057 = {
+		modifier = {
+			modifier = major_barbarian_spawn_place
+		}
+	}
+	11059 = {
+		modifier = {
+			modifier = generic_barbarian_spawn_place
+		}
+	}
+
+	
+	#Pirates
+	
+	9101 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Dong'ou
+	9105 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Dongye
+	10839 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Pinghu
+	10966 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Meteuk
+	11021 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Talat Yai
+	11024 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Nang Riam
+	11036 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Kota Gelanggi
+	11083 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Nagsabaran
+	11089 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Tondo
+	11096 = { modifier = { modifier = pirate_haven_modifier always = yes } } #Palawan
+	
+
+}
 
 country = {
 	countries = {
@@ -458,10 +624,25 @@ country = {
 
 			own_control_core = {
 				7642 10211 10212 10213 10214 10215 10216 10217 10218 10219 10220 10221 #volyn
-				6237 6089 #bassetia
-				6240 6241 7828 #amodocia occidentalis
-				10222 10223 10224 10225 10226 10227 10228 10229 10230 10231 10232 10233 #milograd
+				6089 #bassetia
+				10222 10223 10224 10225 10226 10227 10228 10229 10230 10231 10232 10233 #milograd 
 				10237 10243 #desna
+			}
+		}
+		
+		X62 = { #Androphagia
+			government = tribal_chiefdom
+			primary_culture = androphagian
+			religion = matrist_religion
+			centralization=-75
+
+			capital = 10319
+
+			own_control_core = 	{
+				10311 10312 10313 10314 10315 10316 10317 10318 10319 10320 10321
+				10322 10323 10324 10325 10326 10327 10328 10329 10330 10331
+				10303 10304 10305 10306 10307 10308 10309 10310
+				10286 10289
 			}
 		}
 
@@ -1098,7 +1279,7 @@ country = {
 				}
 			}
 			own_control_core = {
-				9785
+				9785 11081
 			}
 		}
 		
@@ -1210,13 +1391,13 @@ country = {
 				}
 			}
 			own_control_core = {
-				9792
+				9792 11080
 			}
 		}
 		
 		PEG = {
 			government = despotic_monarchy
-			primary_culture = suvarnabhumi
+			primary_culture = mon
 			religion = baiyue_religions
 			capital = 9800
 			technology = {
@@ -1244,7 +1425,7 @@ country = {
 		
 		THT = {
 			government = despotic_monarchy
-			primary_culture = suvarnabhumi
+			primary_culture = mon
 			religion = baiyue_religions
 			capital = 9797
 			technology = {
@@ -1802,6 +1983,1233 @@ country = {
 				8214
 			}
 		}
+		
+		#Shihsanhang
+		AU0 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10825
+		 
+			own_control_core = 	{ 
+				10825 10826
+			}
+		}
+		
+		#Fanzaiyuan
+		AU1 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10827
+		 
+			own_control_core = 	{ 
+				10827 10828
+			}
+		}
+		
+		#Daqiuyuan
+		AU2 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10829
+		 
+			own_control_core = 	{ 
+				10829
+			}
+		}
+		
+		#Tahu
+		AU3 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10831
+		 
+			own_control_core = 	{ 
+				10830 10831
+			}
+		}
+		
+		#Fengbitou
+		AU4 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10832
+		 
+			own_control_core = 	{ 
+				10832
+			}
+		}
+		
+		#Jiuxianlan
+		AU5 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10833
+		 
+			own_control_core = 	{ 
+				10833 10834
+			}
+		}
+		
+		#Hanben
+		AU6 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10836
+		 
+			own_control_core = 	{ 
+				10835 10836
+			}
+		}
+		
+		#Huagangshan
+		AU7 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10837
+		 
+			own_control_core = 	{ 
+				10837
+			}
+		}
+		
+		#Pinglin
+		AU8 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10838
+		 
+			own_control_core = 	{ 
+				10838
+			}
+		}
+		
+		#Pingu
+		AU9 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10839
+		 
+			own_control_core = 	{ 
+				10839
+			}
+		}
+		
+		#Anaro
+		A10 = {
+			government = tribal_federation
+			primary_culture = yizhou
+			religion = baiyue_religions
+
+			capital = 10840
+		 
+			own_control_core = 	{ 
+				10840
+			}
+		}
+		
+		#Kedah
+		A11 = {
+			government = tribal_kingdom
+			primary_culture = malayan
+			religion = baiyue_religions
+
+			capital = 11027
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11026 11027
+			}
+			
+		}
+		
+		#Panpan
+		A12 = {
+			government = tribal_kingdom
+			primary_culture = malayan
+			religion = baiyue_religions
+
+			capital = 11025
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11025
+			}
+			
+		}
+		
+		#Langkashuka
+		A13 = {
+			government = tribal_kingdom
+			primary_culture = malayan
+			religion = baiyue_religions
+
+			capital = 11028
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11028
+			}
+			
+		}
+		
+		#Gangga Negara
+		A14 = {
+			government = tribal_kingdom
+			primary_culture = malayan
+			religion = baiyue_religions
+
+			capital = 11030
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11030
+			}
+			
+		}
+		
+		#Selangor
+		A15 = {
+			government = tribal_kingdom
+			primary_culture = malayan
+			religion = baiyue_religions
+
+			capital = 11031
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11031 11037
+			}
+			
+		}
+		
+		#Kota Gelanggi
+		A16 = {
+			government = tribal_kingdom
+			primary_culture = malayan
+			religion = baiyue_religions
+
+			capital = 11036
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11036
+			}
+			
+		}
+		
+		#Kelantan
+		A17 = {
+			government = tribal_kingdom
+			primary_culture = malayan
+			religion = baiyue_religions
+
+			capital = 11029
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11029
+			}
+			
+		}
+		
+		#Pahang
+		A18 = {
+			government = tribal_kingdom
+			primary_culture = malayan
+			religion = baiyue_religions
+
+			capital = 11033
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11033
+			}
+			
+		}
+		
+		#Kandis
+		A19 = {
+			government = tribal_kingdom
+			primary_culture = minangkabau
+			religion = baiyue_religions
+
+			capital = 11042
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11039 11040 11041 11042 11056 11060 11061
+			}
+			
+		}
+		
+		#Panai
+		A20 = {
+			government = tribal_kingdom
+			primary_culture = minangkabau
+			religion = baiyue_religions
+
+			capital = 11045
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11045 
+			}
+			
+		}
+		
+		#Aru
+		A21 = {
+			government = tribal_kingdom
+			primary_culture = minangkabau
+			religion = baiyue_religions
+
+			capital = 11046
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11046 
+			}
+			
+		}
+		
+		#Barus
+		A22 = {
+			government = tribal_kingdom
+			primary_culture = minangkabau
+			religion = baiyue_religions
+
+			capital = 11050
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11044 11050 
+			}
+			
+		}
+		
+		#Lamuri
+		A23 = {
+			government = tribal_kingdom
+			primary_culture = minangkabau
+			religion = baiyue_religions
+
+			capital = 11048
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11047 11048 11049
+			}
+			
+		}
+
+		#Chansen
+		SA0 = {
+			government = tribal_kingdom
+			primary_culture = suvarnabhumi
+			religion = baiyue_religions
+
+			capital = 10977
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10977 10980
+			}
+			
+		}
+		
+		#Chaibadan
+		SA1 = {
+			government = tribal_kingdom
+			primary_culture = suvarnabhumi
+			religion = baiyue_religions
+
+			capital = 10975
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10975
+			}
+			
+		}
+		
+		#Sab Champa
+		SA2 = {
+			government = tribal_kingdom
+			primary_culture = suvarnabhumi
+			religion = baiyue_religions
+
+			capital = 10973
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10973
+			}
+			
+		}
+		
+		#Pong Manao
+		SA3 = {
+			government = tribal_kingdom
+			primary_culture = suvarnabhumi
+			religion = baiyue_religions
+
+			capital = 10974
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10974
+			}
+			
+		}
+		
+		#Ban Lum Khao
+		SA4 = {
+			government = tribal_kingdom
+			primary_culture = phnom
+			religion = baiyue_religions
+
+			capital = 10982
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10982 10987 10988 10989 10990 10991
+			}
+			
+		}
+		
+		#Snay
+		SA5 = {
+			government = tribal_kingdom
+			primary_culture = phnom
+			religion = baiyue_religions
+
+			capital = 10971
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10968 9820 10971 10972 11004
+			}
+			
+		}
+		
+		#Non Nok That
+		SA6 = {
+			government = tribal_kingdom
+			primary_culture = ban
+			religion = baiyue_religions
+
+			capital = 10993
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10993
+			}
+			
+		}
+		
+		#Kok Charoen
+		SA7 = {
+			government = tribal_kingdom
+			primary_culture = suvarnabhumi
+			religion = baiyue_religions
+
+			capital = 10976
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10976 10995
+			}
+			
+		}
+		
+		#Ban Chiang
+		SA8 = {
+			government = tribal_kingdom
+			primary_culture = ban
+			religion = baiyue_religions
+
+			capital = 10984
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10983 10984 10992 10998 11009
+			}
+			
+		}
+		
+		#Phu Lon
+		SA9 = {
+			government = tribal_kingdom
+			primary_culture = ban
+			religion = baiyue_religions
+
+			capital = 10985
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10985
+			}
+			
+		}
+		
+		#Petchabun
+		S10 = {
+			government = tribal_kingdom
+			primary_culture = ban
+			religion = baiyue_religions
+
+			capital = 10994
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10994
+			}
+			
+		}
+		
+		#Xiangkhoang
+		S11 = {
+			government = tribal_kingdom
+			primary_culture = xiangkhoang
+			religion = baiyue_religions
+
+			capital = 10986
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				10986 10999 11000
+			}
+			
+		}
+		
+		#Khao Sam Kaeo
+		S12 = {
+			government = tribal_kingdom
+			primary_culture = chaiya
+			religion = baiyue_religions
+
+			capital = 11016
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11016 11017 11018 11019
+			}
+			
+		}
+		
+		#Khuan Lukpad
+		S13 = {
+			government = tribal_kingdom
+			primary_culture = chaiya
+			religion = baiyue_religions
+
+			capital = 11020
+			
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+		 
+			own_control_core = 	{ 
+				11020 11021 11023
+			}
+			
+		}
+		
+		SHT = {
+			government = tribal_kingdom
+			primary_culture = shan
+			religion = baiyue_religions
+			capital = 11079
+			technology = {
+				military_tech = {
+					level = 1
+					progress = 0
+				}
+				civic_tech = {
+					level = 1
+					progress = 0
+				}
+				oratory_tech = {
+					level = 1
+					progress = 0
+				}
+				religious_tech = {
+					level = 1
+					progress = 0
+				}
+			}
+			own_control_core = {
+				11076 11077 11078 11079
+			}
+		}
+		
+		P00 = {
+			government = tribal_kingdom
+			primary_culture = igorot
+			religion = baiyue_religions
+
+			capital = 11083
+			
+		 
+			own_control_core = 	{ 
+				11083
+			}
+			
+		}
+		
+		P01 = {
+			government = tribal_kingdom
+			primary_culture = igorot
+			religion = baiyue_religions
+
+			capital = 11085
+			
+		 
+			own_control_core = 	{ 
+				11085
+			}
+			
+		}
+		
+		P02 = {
+			government = tribal_kingdom
+			primary_culture = tagalog
+			religion = baiyue_religions
+
+			capital = 11089
+			
+		 
+			own_control_core = 	{ 
+				11088 11089 11093
+			}
+			
+		}
+		
+		P03 = {
+			government = tribal_kingdom
+			primary_culture = bisaya
+			religion = baiyue_religions
+
+			capital = 11099
+			
+		 
+			own_control_core = 	{ 
+				11099
+			}
+			
+		}
+		
+		P04 = {
+			government = tribal_kingdom
+			primary_culture = tagbanwa
+			religion = baiyue_religions
+
+			capital = 11096
+			
+		 
+			own_control_core = 	{ 
+				11096
+			}
+			
+		}
+		
+		P05 = {
+			government = tribal_kingdom
+			primary_culture = igorot
+			religion = baiyue_religions
+
+			capital = 11084
+			
+		 
+			own_control_core = 	{ 
+				11084
+			}
+			
+		}
+		
+		# New Punic Tags
+		
+		LIX = {
+			government = plutocratic_republic
+			primary_culture = carthaginian
+			religion = carthaginian_pantheon
+			diplomatic_stance=trading_stance
+			
+			capital = 3062
+			
+			own_control_core = {
+				3062 3065 3066
+			}
+		}
+		
+		KUS = {
+			government = plutocratic_republic
+			primary_culture = carthaginian
+			religion = carthaginian_pantheon
+			diplomatic_stance=trading_stance
+			
+			capital = 3064
+			
+			own_control_core = {
+				3064
+			}
+		}
+		
+		RSS = {
+			government = plutocratic_republic
+			primary_culture = carthaginian
+			religion = carthaginian_pantheon
+			diplomatic_stance=trading_stance
+			
+			capital = 3080
+			
+			own_control_core = {
+				3080
+			}
+		}
+		
+		THA = {
+			government = plutocratic_republic
+			primary_culture = carthaginian
+			religion = carthaginian_pantheon
+			diplomatic_stance=trading_stance
+			
+			capital = 3063
+			
+			own_control_core = {
+				3063 3068 3070
+			}
+		}
+		
+		MGD = {
+			government = plutocratic_republic
+			primary_culture = carthaginian
+			religion = carthaginian_pantheon
+			diplomatic_stance=trading_stance
+			
+			capital = 10076
+			
+			own_control_core = {
+				10076
+			}
+		}
+		
+		AGG = {
+			government = plutocratic_republic
+			primary_culture = carthaginian
+			religion = carthaginian_pantheon
+			diplomatic_stance=trading_stance
+			
+			capital = 10067
+			
+			own_control_core = {
+				10067
+			}
+		}
+		
 
 	}
 	

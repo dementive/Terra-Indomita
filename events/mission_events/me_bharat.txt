@@ -223,9 +223,19 @@ me_bharat.3 = {     #NOT Apotheosis ##Maybe make a treasure or add a modifier
             add_popularity = 20            
         }
         show_as_tooltip = {
-            set_primary_culture = kuru
+            if = {
+                limit = {
+                    NOT = {
+                        primary_culture = kuru
+                    }
+                }
+                set_primary_culture_cleanup_effect = {
+                    NEW_PRIMARY_CULTURE = kuru
+                    MAKE_OLD_CULTURE_INTEGRATED = yes
+                }
+            }
         }
-            hidden_effect = {
+        hidden_effect = {
             every_character = {
                 limit = {
                     OR = {
@@ -448,7 +458,6 @@ me_bharat.6 = {     #Tibet and Bactria Clients
                     OR = {
                     is_in_region = sogdiana_region
                     is_in_region = tibet_region
-                    is_in_region = himalayan_region
                     is_in_region = bactriana_region
                     }
                     NOR = {
@@ -576,10 +585,7 @@ me_bharat.6 = {     #Tibet and Bactria Clients
             }           
             every_owned_province = {
                 limit = {
-                    OR = {
-                    is_in_region = himalayan_region
                     is_in_region = tibet_region
-                    }
                     NOR = {
                     province_id = 5573
                     province_id = 5584
@@ -787,10 +793,7 @@ me_bharat.7 = {     #Tibet and Bactria Clients 2
             }           
             every_owned_province = {
                 limit = {
-                    OR = {
-                       is_in_region = himalayan_region
-                       is_in_region = sogdiana_region 
-                    }
+                    is_in_region = sogdiana_region 
                     NOT = { province_id = 5573 } 
                 }
                 set_owned_by = scope:himalaya_bactria_client
@@ -979,7 +982,7 @@ me_bharat.7 = {     #Tibet and Bactria Clients 2
             }            
             every_owned_province = {
                 limit = {
-                       is_in_region = himalayan_region
+                       is_in_region = tibet_region
                        NOT = { province_id = 5573 }  
                 }
                 set_owned_by = scope:himalaya_bactria_client
@@ -4801,7 +4804,6 @@ me_bharat.28 = {     #Tibet and Bactria Colonies Focus
                 OR = {
                 is_in_region = sogdiana_region
                 is_in_region = tibet_region
-                is_in_region = himalayan_region
                 is_in_region = bactriana_region
                 }            
             }
@@ -4824,7 +4826,6 @@ me_bharat.28 = {     #Tibet and Bactria Colonies Focus
                 OR = {
                 is_in_region = sogdiana_region
                 is_in_region = tibet_region
-                is_in_region = himalayan_region
                 is_in_region = bactriana_region
                 }            
             }
@@ -4847,7 +4848,6 @@ me_bharat.28 = {     #Tibet and Bactria Colonies Focus
                 OR = {
                 is_in_region = sogdiana_region
                 is_in_region = tibet_region
-                is_in_region = himalayan_region
                 is_in_region = bactriana_region
                 }            
             }
@@ -4870,7 +4870,6 @@ me_bharat.28 = {     #Tibet and Bactria Colonies Focus
                 OR = {
                 is_in_region = sogdiana_region
                 is_in_region = tibet_region
-                is_in_region = himalayan_region
                 is_in_region = bactriana_region
                 }            
             }

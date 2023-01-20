@@ -49,6 +49,10 @@ fortress_ramparts_building = {
 				multiply = 8
 			}
 		}
+		modifier = {
+			has_expensive_trade_good = yes
+			add = -50
+		}
 	}
 
 	modification_display = {
@@ -198,6 +202,10 @@ foundry_building = { #Foundry
 				multiply = num_of_freemen
 			}
 		}
+		modifier = {
+			has_expensive_trade_good = yes
+			add = 5
+		}
 	}
 }
 
@@ -240,6 +248,10 @@ military_building = { #Conscription Camp
 				value = 3
 				multiply = num_of_freemen_building_sv
 			}
+		}
+		modifier = {
+			has_expensive_trade_good = yes
+			add = -50
 		}
 	}
 }
@@ -522,6 +534,10 @@ workshop_building = { #Production District
 		modifier = {
 			add = 3
 			num_of_slaves > 18
+		}
+		modifier = {
+			add = -20
+			num_of_slaves < 7
 		}
 		modifier = {
 			add = {
@@ -1337,6 +1353,11 @@ villa_building = { #Villa Estate
 				multiply = num_of_citizen
 			}
 		}
+		modifier = {
+			num_of_citizen < 2
+			num_of_nobles < 2
+			add = -50
+		}
 	}
 
 }
@@ -1395,6 +1416,9 @@ barracks_building = { #Barracks
 				trade_goods = camel
 			}
 			add = 2
+		}
+		modifier = {
+			add = -15
 		}
 	}
 }
@@ -1483,6 +1507,10 @@ latifundia_building = { #Slave Estate
 				multiply = num_of_slaves
 			}
 		}
+		modifier = {
+			num_of_slaves < 7
+			add = -20
+		}
 	}
 }
 
@@ -1527,6 +1555,16 @@ local_forum_building = { #Provincial Legation (Colonia)
 			NOT = {dominant_province_religion = owner.religion}
 			add = 3
 		}
+		modifier = {
+			# Don't build in homogenous areas
+			dominant_province_culture_group = owner.culture_group
+			dominant_province_religion = owner.religion
+			add = -20
+		}
+		modifier = {
+			total_population <= 7
+			add = -10
+		}
 	}
 }
 
@@ -1552,6 +1590,16 @@ crafts_workshop_building = {
 	modification_display = {
 		0 = local_base_trade_routes_modifier
 		1 = value_income
+	}
+	chance = {
+		modifier = {
+			province_unrest > 1
+			add = 1
+		}
+		modifier = {
+			NOT = { has_expensive_trade_good = yes }
+			add = -20
+		}
 	}
 }
 
@@ -1588,12 +1636,22 @@ commons_building = {
 			add = 3
 		}
 		modifier = {
+			total_population <= 7
+			add = -20
+		}
+		modifier = {
 			NOT = { dominant_province_culture_group = owner.culture_group }
 			add = 3
 		}
 		modifier = {
 			NOT = {dominant_province_religion = owner.religion}
 			add = 3
+		}
+		modifier = {
+			# Don't build in homogenous areas
+			dominant_province_culture_group = owner.culture_group
+			dominant_province_religion = owner.religion
+			add = -20
 		}
 	}
 }
@@ -1626,7 +1684,7 @@ council_of_elders_building = {
 			owner = {
 				is_tribal = yes
 			}
-			add = 3
+			add = 1
 		}
 		modifier = {
 			owner = {
@@ -1692,6 +1750,11 @@ settlement_entertainment_complex = {
 	time = 730
 
 	max_amount = 1
+	chance = {
+		modifier = {
+			add = -10
+		}
+	}
 }
 
 settlement_market = {
@@ -1711,6 +1774,12 @@ settlement_market = {
 	time = 730
 
 	max_amount = 1
+	chance = {
+		modifier = {
+			has_expensive_trade_good = yes
+			add = 5
+		}
+	}
 }
 
 #Conditional
@@ -1958,7 +2027,7 @@ basic_settlement_infratructure_building = { #Farming Settlement
 	chance = {
 		modifier = {
 			has_food_trade_good_trigger = yes
-			add = 10
+			add = 15
 		}
 		modifier = {
 			add = 15
@@ -1969,6 +2038,10 @@ basic_settlement_infratructure_building = { #Farming Settlement
 				value = 0.5
 				multiply = num_of_slaves
 			}
+		}
+		modifier = {
+			has_expensive_trade_good = yes
+			add = 5
 		}
 	}
 
@@ -2041,13 +2114,6 @@ hunting_camps = { #Hunting Camps
 
 	chance = {
 		modifier = {
-			OR = {
-			trade_goods = wild_game
-			trade_goods = fur
-			}
-			add = 2
-		}
-		modifier = {
 			owner = {
 				is_tribal = yes
 			}
@@ -2099,12 +2165,12 @@ logging_camps = {
 
 	chance = {
 		modifier = {
-			trade_goods = wood
-			add = 3
-		}
-		modifier = {
 			add = 5
 			num_of_slaves >= 8
+		}
+		modifier = {
+			total_population > 15
+			add = -25
 		}
 	}
 

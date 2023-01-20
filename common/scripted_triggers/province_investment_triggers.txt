@@ -12,31 +12,54 @@
 		}
 		OR = {
 			has_state_modifier = state_improvement_military_SPA
-			any_state_province = {
-				has_province_modifier = state_improvement_manpower
+			custom_tooltip = {
+				text = state_improvement_military_trigger_tooltip
+				any_state_province = {
+					has_province_modifier = state_improvement_manpower
+				}
 			}
 		}
 	}
 	trigger_else = {
-		has_state_modifier = state_improvement_military
+		custom_tooltip = {
+			text = state_improvement_military_trigger_tooltip
+			OR = {
+				has_state_modifier = state_improvement_military
+				any_state_province = {
+					has_province_modifier = state_improvement_manpower
+				}
+			}
+		}
 	}
 }
 
 state_improvement_civic_trigger = {
-	any_state_province = {
+	custom_tooltip = {
+		text = state_improvement_civic_trigger_tooltip
 		OR = {
-			has_province_modifier = state_improvement_civic
-			has_province_modifier = state_improvement_admin
-			has_province_modifier = state_improvement_civ
+			has_state_modifier = state_improvement_civic
+			any_state_province = {
+				OR = {
+					has_province_modifier = state_improvement_civic
+					has_province_modifier = state_improvement_admin
+					has_province_modifier = state_improvement_civ
+				}
+			}
 		}
 	}
 }
 
 state_improvement_oratory_trigger = {
-	any_state_province = {
+	custom_tooltip = {
+		text = state_improvement_oratory_trigger_tooltip
 		OR = {
-			has_province_modifier = state_improvement_oratory
-			has_province_modifier = state_improvement_academic
+			has_state_modifier = state_improvement_oratory
+			any_state_province = {
+				OR = {
+					has_province_modifier = state_improvement_oratory
+					has_province_modifier = state_improvement_academic
+				}
+			}
 		}
 	}
 }
@@ -53,13 +76,25 @@ state_improvement_religious_trigger = {
 				}
 			}
 		}
-		any_state_province = {
-			has_province_modifier = state_improvement_religious_SPA
+		custom_tooltip = {
+			text = state_improvement_religious_trigger_SPA_tt
+			OR = {
+				has_state_modifier = state_improvement_religious_SPA
+				any_state_province = {
+					has_province_modifier = state_improvement_religious_SPA
+				}
+			}
 		}
 	}
 	trigger_else = {
-		any_state_province = {
-			has_province_modifier = state_improvement_religious
+		custom_tooltip = {
+			text = state_improvement_religious_trigger_tt
+			OR = {
+				has_state_modifier = state_improvement_religious
+				any_state_province = {
+					has_province_modifier = state_improvement_religious
+				}
+			}
 		}
 	}
 }

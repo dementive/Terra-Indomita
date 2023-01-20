@@ -1,0 +1,42 @@
+﻿country_decisions = {
+	form_golden_chersonese = {
+		potential = {
+			num_of_cities >= 1
+			this.culture.culture_group = culture_group:hellenic
+			NOT = {
+				any_country = {
+					tag = GCS
+				}
+			}
+			any_owned_province = {
+				is_in_region = suvarnabhumi_region
+			}
+		}
+		highlight = {
+			scope:province = {
+				is_in_region = suvarnabhumi_region
+			}
+		}
+		allow = {
+			can_form_nation_trigger = yes
+			owns_or_subject_owns_region = suvarnabhumi_region
+		}
+		effect = {
+			custom_tooltip = "tier_2_formable_tooltip"
+			change_country_name = "GCS_NAME"
+			hidden_effect = {
+				change_country_adjective = "GCS_ADJ"
+				change_country_color = "fulvous_orange"
+				change_country_tag = GCS
+			}
+			capital_scope = {
+				capital_formable_medium_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			add_4_free_province_investments = yes
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+}

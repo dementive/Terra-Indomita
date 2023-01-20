@@ -1,0 +1,488 @@
+﻿civic_construction_leader_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = construction_leader_var
+            }
+            NOT = {
+                root = {
+                    has_variable = construction_leader_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_civic_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            add_country_modifier = {
+                name = construction_leader_country_mod
+                duration = 1825
+            }
+        }
+        set_variable = construction_leader_var
+        remove_1_available_perk_effect = yes
+    }
+}
+civic_land_approptiation_button = { #spelling go brr
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = land_appropriation_var
+            }
+            NOT = {
+                root = {
+                    has_variable = land_appropriation_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_civic_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            add_country_modifier = {
+                name = land_appropration_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = land_appropriation_var
+        remove_1_available_perk_effect = yes
+    }
+}
+civic_holding_organization_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = holding_organization_var
+            }
+            NOT = {
+                root = {
+                    has_variable = holding_organization_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_civic_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = land_appropriation_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_land_appropriation_tt
+                    has_variable = land_appropriation_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_character_modifier = {
+            name = organized_holdings_char_mod
+            duration = -1
+        }
+        set_variable = holding_organization_var
+        remove_1_available_perk_effect = yes
+    }
+}
+civic_local_forums_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = local_forums_var
+            }
+            NOT = {
+                root = {
+                    has_variable = local_forums_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_civic_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = construction_leader_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_construction_leader_tt
+                    has_variable = construction_leader_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_finesse = 1
+        employer = {
+            random_owned_province = {
+                limit = {
+                    free_building_slots > 0
+                    has_city_status = yes
+                    NOT = {
+                        has_building = forum_building
+                    }
+                }
+                add_building_level = forum_building
+            }
+        }
+        set_variable = local_forums_var
+        remove_1_available_perk_effect = yes
+    }
+}
+civic_increased_tariffs_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = increased_tariffs_var
+            }
+            NOT = {
+                root = {
+                    has_variable = increased_tariffs_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_civic_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = holding_organization_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_holding_organization_tt
+                    has_variable = holding_organization_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        custom_tooltip = while_character_is_ruler_tooltip
+        employer = {
+            add_country_modifier = {
+                name = increased_tariffs_country_mod
+                duration = -1
+            }
+        }
+        set_variable = increased_tariffs_var
+        remove_1_available_perk_effect = yes
+    }
+}
+civic_taxation_policies_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = taxation_policies_var
+            }
+            NOT = {
+                root = {
+                    has_variable = taxation_policies_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_civic_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = local_forums_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_local_forums_tt
+                    has_variable = local_forums_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer.capital_scope = {
+            governorship = {
+                every_governorship_state = {
+                    add_state_modifier = {
+                        name = taxation_policies_state_mod
+                        duration = 3650
+                    }
+                }
+            }
+        }
+        set_variable = taxation_policies_var
+        remove_1_available_perk_effect = yes
+    }
+}
+civic_grain_distribution_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = grain_distribution_var
+            }
+            NOT = {
+                root = {
+                    has_variable = grain_distribution_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = yes
+    }
+    ai_chance = {
+        base = 0
+        modifier = {
+            factor = 50
+            character_can_take_perk_trigger = yes
+        }
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_civic_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = local_administrators_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_local_administrators_tt
+                    has_variable = local_administrators_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            ordered_country_state = {
+                order_by = state_monthly_food_income
+                max = 2
+                add_state_modifier = {
+                    name = grain_distribution_state_mod
+                    duration = 3650
+                }
+            }
+            ordered_owned_province = {
+                limit = {
+                    NOT = {
+                        has_province_modifier = grain_production_province_mod
+                    }
+                    trade_goods = grain
+                }
+                order_by = num_goods_produced
+                max = 2
+                add_province_modifier = {
+                    name = grain_production_province_mod
+                    duration = 9125
+                }
+            }
+        }
+        set_variable = grain_distribution_var
+        remove_1_available_perk_effect = yes
+    }
+}
+civic_local_administrators_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = local_administrators_var
+            }
+            NOT = {
+                root = {
+                    has_variable = local_administrators_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = yes
+    }
+    ai_chance = {
+        base = 0
+        modifier = {
+            factor = 50
+            character_can_take_perk_trigger = yes
+        }
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_civic_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = taxation_policies_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_taxation_policies_tt
+                    has_variable = taxation_policies_var
+                }
+            }
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = increased_tariffs_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_increased_tariffs_tt
+                    has_variable = increased_tariffs_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_finesse = 1
+        employer = {
+            ordered_character = {
+                limit = {
+                    is_governor = yes
+                    is_ruler = no
+                }
+                max = 2
+                add_finesse = 1
+            }
+        }
+        set_variable = local_administrators_var
+        remove_1_available_perk_effect = yes
+    }
+}
+civic_master_of_trade_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = master_of_trade_var
+            }
+            NOT = {
+                root = {
+                    has_variable = master_of_trade_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = yes
+    }
+    ai_chance = {
+        base = 0
+        modifier = {
+            factor = 50
+            character_can_take_perk_trigger = yes
+        }
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_civic_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = grain_distribution_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_grain_distribution_tt
+                    has_variable = grain_distribution_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        custom_tooltip = add_civic_trait_tooltip
+        trigger_event = hidden_events.3
+        set_variable = master_of_trade_var
+        if = {
+            limit = {
+                has_variable = character_focus_cooldown_var
+            }
+            remove_variable = character_focus_cooldown_var
+        }
+        remove_1_available_perk_effect = yes
+    }
+}

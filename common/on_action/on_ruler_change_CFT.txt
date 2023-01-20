@@ -1,0 +1,78 @@
+﻿
+#scope:former_ruler, root = country,
+#same as on_ruler_change, but called before switching
+on_reign_ending = { 
+	on_actions = {
+		on_reign_end_focus_stuff
+	}
+}
+on_reign_end_focus_stuff = {
+	effect = {
+		if = {
+			limit = { has_country_modifier = loyal_generals_country_mod }
+			remove_country_modifier = loyal_generals_country_mod
+		}
+		if = {
+			limit = { has_country_modifier = military_values_country_mod }
+			remove_country_modifier = military_values_country_mod
+		}
+		if = {
+			limit = { has_country_modifier = increased_tariffs_country_mod }
+			remove_country_modifier = increased_tariffs_country_mod
+		}
+		if = {
+			limit = { has_country_modifier = true_ruler_country_modifier }
+			remove_country_modifier = true_ruler_country_modifier
+		}
+		if = {
+			limit = { has_country_modifier = mandatory_practice_country_mod }
+			remove_country_modifier = mandatory_practice_country_mod
+		}
+		if = {
+			limit = { has_country_modifier = divine_mandate_country_mod }
+			remove_country_modifier = divine_mandate_country_mod
+		}
+	}
+}
+on_ruler_change = {
+	on_actions = {
+		on_ruler_changing_focus_stuff
+	}
+}
+
+on_ruler_changing_focus_stuff = {
+	effect = {
+		if = {
+			limit = {
+				scope:former_ruler = {
+					has_variable = character_focus_experience
+				}
+			}
+			scope:former_ruler = { remove_variable = character_focus_experience }
+			if = {
+				limit = { has_country_modifier = loyal_generals_country_mod }
+				remove_country_modifier = loyal_generals_country_mod
+			}
+			if = {
+				limit = { has_country_modifier = military_values_country_mod }
+				remove_country_modifier = military_values_country_mod
+			}
+			if = {
+				limit = { has_country_modifier = increased_tariffs_country_mod }
+				remove_country_modifier = increased_tariffs_country_mod
+			}
+			if = {
+				limit = { has_country_modifier = true_ruler_country_modifier }
+				remove_country_modifier = true_ruler_country_modifier
+			}
+			if = {
+				limit = { has_country_modifier = mandatory_practice_country_mod }
+				remove_country_modifier = mandatory_practice_country_mod
+			}
+			if = {
+				limit = { has_country_modifier = divine_mandate_country_mod }
+				remove_country_modifier = divine_mandate_country_mod
+			}
+		}
+	}
+}

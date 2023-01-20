@@ -30,14 +30,122 @@ chinese_flavor.1 = {
 }
 
 chinese_flavor.2 = { # A New Emperor
-    type = country_event
+    type = major_country_event
     title = chinese_flavor.2.t
     desc = chinese_flavor.2.desc
-    picture = greek_city_market
+    picture = chinese_emperor
 
     left_portrait = current_ruler
+    left_portrait = scope:char2
+    left_portrait = scope:char3
+
+    right_portrait = scope:char1
+    right_portrait = scope:char5
+    right_portrait = scope:char6
 
     immediate = {
+        if = {
+            limit = {
+                current_ruler = { is_married = yes }
+            }
+            current_ruler.spouse = {
+                save_scope_as = char1
+            }
+        }
+        else = {
+            ordered_character = {
+                limit = {
+                    is_adult = yes
+                    is_ruler = no
+                    has_same_family = root.current_ruler
+                }
+                order_by = prominence
+                save_scope_as = char1
+            }
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                NOT = { this = scope:char1 }
+            }
+            order_by = prominence
+            save_scope_as = char2
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                }
+            }
+            order_by = prominence
+            save_scope_as = char3
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                exists = scope:char3
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                    this = scope:char3
+                }
+            }
+            order_by = prominence
+            save_scope_as = char4
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                exists = scope:char3
+                exists = scope:char4
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                    this = scope:char3
+                    this = scope:char4
+                }
+            }
+            order_by = prominence
+            save_scope_as = char5
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                exists = scope:char3
+                exists = scope:char4
+                exists = scope:char5
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                    this = scope:char3
+                    this = scope:char4
+                    this = scope:char5
+                }
+            }
+            order_by = prominence
+            save_scope_as = char6
+        }
         set_global_variable = china_unified
         set_variable = {
             name = mandate_variable
@@ -62,38 +170,177 @@ chinese_flavor.2 = { # A New Emperor
 }
 
 #chinese_flavor.3 = { # testing
-#    type = country_event
+#    type = major_country_event
 #    title = chinese_flavor.3.t
 #    desc = chinese_flavor.3.desc
-#    picture = greek_city_market
+#    picture = chinese_emperor
 
 #    left_portrait = current_ruler
+#    left_portrait = scope:char1
+#    left_portrait = scope:char2
+
+#    right_portrait = scope:char3
+#    right_portrait = scope:char4
+#    right_portrait = scope:char5
 
 #    immediate = {
-
-#    }
-
-#    option = { #The Celestial Empire will last for Eternity
-#        name = add_20_mandate
-#        p:1 = {
-#            every_pops_in_province = { kill_pop = yes}
+#        random_living_character = {
+#            save_scope_as = char1
+#        }
+#        random_living_character = {
+#            save_scope_as = char2
+#        }
+#        random_living_character = {
+#            save_scope_as = char3
+#        }
+#        random_living_character = {
+#            save_scope_as = char4
+#        }
+#        random_living_character = {
+#            save_scope_as = char5
 #        }
 #    }
-#    #option = { #The Celestial Empire will last for Eternity
-#    #    name = add_10_mandate
-#    #    change_mandate_effect = {
-#    #        VALUE = mandate_great_event
-#    #    }
-#    #}
+
+#    option = { #
+#        name = add_20_mandate
+#        add_treasury = 999
+#    }
+#    option = { #
+#        name = add_14_mandate
+#        add_treasury = 3094
+#    }
+#    option = { #
+#        name = add_13_mandate
+#        add_treasury = 3094
+#    }
+#    option = { #
+#        name = add_15_mandate
+#        add_treasury = 3094
+#    }
+#    option = { #
+#        name = add_19_mandate
+#        add_treasury = 3094
+#    }
 #}
 
 chinese_flavor.4 = {
     type = country_event
     title = chinese_flavor.4.t
     desc = chinese_flavor.4.desc
-    picture = greek_city_market
+    picture = throneroom
     
     left_portrait = current_ruler
+    left_portrait = scope:char2
+    left_portrait = scope:char3
+
+    right_portrait = scope:char1
+    right_portrait = scope:char5
+    right_portrait = scope:char6
+
+    immediate = {
+        if = {
+            limit = {
+                current_ruler = { is_married = yes }
+            }
+            current_ruler.spouse = {
+                save_scope_as = char1
+            }
+        }
+        else = {
+            ordered_character = {
+                limit = {
+                    is_adult = yes
+                    is_ruler = no
+                    has_same_family = root.current_ruler
+                }
+                order_by = prominence
+                save_scope_as = char1
+            }
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                NOT = { this = scope:char1 }
+            }
+            order_by = prominence
+            save_scope_as = char2
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                }
+            }
+            order_by = prominence
+            save_scope_as = char3
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                exists = scope:char3
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                    this = scope:char3
+                }
+            }
+            order_by = prominence
+            save_scope_as = char4
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                exists = scope:char3
+                exists = scope:char4
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                    this = scope:char3
+                    this = scope:char4
+                }
+            }
+            order_by = prominence
+            save_scope_as = char5
+        }
+        ordered_character = {
+            limit = {
+                is_adult = yes
+                is_ruler = no
+                has_same_family = root.current_ruler
+                exists = scope:char1
+                exists = scope:char2
+                exists = scope:char3
+                exists = scope:char4
+                exists = scope:char5
+                NOR = {
+                    this = scope:char1
+                    this = scope:char2
+                    this = scope:char3
+                    this = scope:char4
+                    this = scope:char5
+                }
+            }
+            order_by = prominence
+            save_scope_as = char6
+        }
+    }
 
     option = { # An Empire like this can't last long...
         name = chinese_flavor.4.a
@@ -101,10 +348,10 @@ chinese_flavor.4 = {
 }
 
 chinese_flavor.5 = { # Turmoil in China
-    type = country_event
+    type = major_country_event
     title = chinese_flavor.5.t
     desc = chinese_flavor.5.desc
-    picture = council_country
+    picture = chinese_favorable_conditions
     left_portrait = c:CHU.current_ruler
     right_portrait = c:QIN.current_ruler
     right_portrait = c:ZHO.current_ruler
@@ -114,6 +361,17 @@ chinese_flavor.5 = { # Turmoil in China
 
     trigger = {
         country_culture_group = chinese
+    }
+
+    immediate = {
+        # Set unification var for all potential unifiers
+        set_variable = {
+            name = unification_points
+            value = 0
+        }
+        # TI
+        check_chinese_unification_provs_effect = yes
+        check_chinese_unification_subjects_effect = yes
     }
 
     option = { #China will be ours!
@@ -144,12 +402,12 @@ chinese_flavor.5 = { # Turmoil in China
         }
     }
     after = {
-        c:QIN = {
-            trigger_event = {
-                id = chinese_flavor.7
-                days = { 30 90 }
-            }
-        }
+        #c:QIN = {
+        #    trigger_event = {
+        #        id = chinese_flavor.7
+        #        days = { 30 90 }
+        #    }
+        #}
         c:YEZ = { set_variable = horde_invasion_origin }
         c:XNU = {
             set_variable = horde_invasion_origin
@@ -249,20 +507,20 @@ chinese_flavor.6 = {
                     declare_china_war_effect = { COUNTRY = c:HAN }
                 }
             }
-            if = {
-                limit = {
-                    NOT = { has_global_variable = china_war_count }
-                }
-                set_global_variable = {
-                    name = china_war_count
-                    value = 1
-                }
+        }
+        if = {
+            limit = {
+                NOT = { has_global_variable = china_war_count }
             }
-            else = {
-                change_global_variable = {
-                    name = china_war_count
-                    add = 1
-                }
+            set_global_variable = {
+                name = china_war_count
+                value = 1
+            }
+        }
+        else = {
+            change_global_variable = {
+                name = china_war_count
+                add = 1
             }
         }
     }
@@ -271,13 +529,13 @@ chinese_flavor.6 = {
             1 = {
                 trigger_event = {
                     id = chinese_flavor.6
-                    days = { 365 700 }
+                    days = { 700 1200 }
                 }
             }
             1 = {
                 trigger_event = {
                     id = chinese_flavor.6
-                    days = { 700 1200 }
+                    days = { 1200 2500 }
                 }
             }
         }

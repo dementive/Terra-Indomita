@@ -772,107 +772,6 @@ gm_4_hub_trigger = {
 	}
 }
 
-state_improvement_military_trigger = {
-	trigger_if = {
-		limit = {
-			exists = owner
-			owner = {
-				has_dlc = "Magna Graecia"
-				OR = {
-					tag = SPA
-					has_variable = spa_unique_mech
-				}
-			}
-		}
-		OR = {
-			has_state_modifier = state_improvement_military_SPA
-			custom_tooltip = {
-				text = state_improvement_military_trigger_tooltip
-				any_state_province = {
-					has_province_modifier = state_improvement_manpower
-				}
-			}
-		}
-	}
-	trigger_else = {
-		custom_tooltip = {
-			text = state_improvement_military_trigger_tooltip
-			OR = {
-				has_state_modifier = state_improvement_military
-				any_state_province = {
-					has_province_modifier = state_improvement_manpower
-				}
-			}
-		}
-	}
-}
-
-state_improvement_civic_trigger = {
-	custom_tooltip = {
-		text = state_improvement_civic_trigger_tooltip
-		OR = {
-			has_state_modifier = state_improvement_civic
-			any_state_province = {
-				OR = {
-					has_province_modifier = state_improvement_civic
-					has_province_modifier = state_improvement_admin
-					has_province_modifier = state_improvement_civ
-				}
-			}
-		}
-	}
-}
-
-state_improvement_oratory_trigger = {
-	custom_tooltip = {
-		text = state_improvement_oratory_trigger_tooltip
-		OR = {
-			has_state_modifier = state_improvement_oratory
-			any_state_province = {
-				OR = {
-					has_province_modifier = state_improvement_oratory
-					has_province_modifier = state_improvement_academic
-				}
-			}
-		}
-	}
-}
-
-state_improvement_religious_trigger = {
-	trigger_if = {
-		limit = {
-			exists = owner
-			owner = {
-				has_dlc = "Magna Graecia"
-				OR = {
-					tag = SPA
-					has_variable = spa_unique_mech
-				}
-			}
-		}
-		custom_tooltip = {
-			text = state_improvement_religious_trigger_SPA_tt
-			OR = {
-				has_state_modifier = state_improvement_religious_SPA
-				any_state_province = {
-					has_province_modifier = state_improvement_religious_SPA
-				}
-			}
-		}
-	}
-	trigger_else = {
-		custom_tooltip = {
-			text = state_improvement_religious_trigger_tt
-			OR = {
-				has_state_modifier = state_improvement_religious
-				any_state_province = {
-					has_province_modifier = state_improvement_religious
-				}
-			}
-		}
-	}
-}
-
 me_gre_1_2_argo_trigger = {
 	is_port = yes
 	has_city_status = yes
@@ -957,8 +856,6 @@ generic_block_trigger = {
 						NOT = { has_completed_mission = roman_6_conquest_africa }
 					}
 					OR = {
-						is_in_region = tripolitania_occidentalis_area
-						is_in_region = tripolitania_centralis_area
 						is_in_region = mauretainia_region
 						is_in_region = numidia_region
 						is_in_region = africa_region
@@ -980,10 +877,7 @@ generic_block_trigger = {
 					ROOT = {
 						NOT = { has_completed_mission = roman_mission_08_greece }
 					}
-					OR = {
-						is_in_region = illyria_region
-						is_in_region = greece_region
-					}
+					is_in_region = greece_region
 				}
 				AND = {
 					ROOT = {
@@ -993,6 +887,27 @@ generic_block_trigger = {
 						is_in_region = thrace_region
 						is_in_region = asia_region
 						is_in_region = bithynia_region
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { has_completed_mission = roman_10_invading_britannia }
+					}
+					is_in_region = britain_region
+				}
+				AND = {
+					ROOT = {
+						NOT = { has_completed_mission = roman_11_rhaetia_vindelicia }
+					}
+					is_in_region = rhaetia_region
+				}
+				AND = {
+					ROOT = {
+						NOT = { has_completed_mission = roman_12_illyria_pannonia }
+					}
+					OR = {
+						is_in_region = pannonia_region
+						is_in_region = illyria_region
 					}
 				}
 			}
@@ -1011,6 +926,8 @@ generic_block_trigger = {
 		                is_in_region = africa_region
 		                is_in_region = numidia_region
 		                is_in_region = mauretainia_region
+						is_in_region = atlas_region
+						is_in_region = fezzan_region
 		            }
 				}
 				AND = {
@@ -1199,10 +1116,6 @@ generic_block_trigger = {
 						tag = SYR
 						tag = ATH
 						tag = SPA
-					}
-					NAND = {
-						primary_culture = cretan
-						NOT = { tag = 1KR }
 					}
 				}
 			}
@@ -1419,12 +1332,16 @@ generic_block_trigger = {
 						tag = JUD
 						tag = ISR #formable
 						tag = KOD #formable
+						heritage = samaria_heritage
 					}
 				}
 			}
 			AND = {
 				ROOT = {
-					NOT = { has_completed_mission = judea_inv_mission }
+					NOR = { 
+						has_completed_mission = judea_inv_mission 
+						has_completed_mission = samaria_inv_mission
+					}
 				}
 				OR = {
 					is_in_region = palestine_region
@@ -1436,7 +1353,7 @@ generic_block_trigger = {
 					is_in_region = syria_region
 					is_in_region = mesopotamia_region
 				}
-			}
+			}		
 		}
 		trigger_if = { #Tamils
 			limit = {
@@ -1451,7 +1368,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = {
+					NOR = { 
 						has_completed_mission = tamil_king_missions
 						has_completed_mission = tamilakam_missions_01_unity
 					}
@@ -1461,7 +1378,7 @@ generic_block_trigger = {
 					is_in_region = karnata_region
 					is_in_region = vindhyaprstha_region
 				}
-			}
+			}		
 		}
 		trigger_if = { #Thebes
 			limit = {
@@ -1471,12 +1388,12 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = {
+					NOR = { 
 						has_completed_mission = thebes_missions_01_restoration
 					}
 				}
 				is_in_region = greece_region
-			}
+			}		
 		}
 		trigger_if = { #Bithynia
 			limit = {
@@ -1486,7 +1403,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = {
+					NOR = { 
 						has_completed_mission = bithynia_missions
 					}
 				}
@@ -1494,7 +1411,7 @@ generic_block_trigger = {
 					is_in_region = thrace_region
 					is_in_region = bithynia_region
 				}
-			}
+			}		
 		}
 		trigger_if = { #Rhodes
 			limit = {
@@ -1504,7 +1421,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = {
+					NOR = { 
 						has_completed_mission = rhodes_01_aegean
 						has_completed_mission = rhodes_02_asia
 					}
@@ -1513,25 +1430,21 @@ generic_block_trigger = {
 					is_in_region = greece_region
 					is_in_region = asia_region
 				}
-			}
+			}		
 		}
 		trigger_if = { #Maurya
 			limit = {
 				ROOT = {
-					is_ai = no
 					tag = MRY
 				}
 			}
-			#AND = {
-				ROOT = {
-					#NOR = {
-					#	has_completed_mission = rhodes_01_aegean
-					#	has_completed_mission = rhodes_02_asia
-					#}
-				}
-				current_date > 465.1.1
-				current_date < 500.1.1
-			#}
+			current_date > 455.3.5
+			ROOT = {
+				NOR = {
+					has_global_variable = mauryan_collapse_prevented
+					has_global_variable = maurya_collapse_happened
+				}	
+			}	
 		}
 		trigger_if = { #Bharat
 			limit = {
@@ -1539,17 +1452,41 @@ generic_block_trigger = {
 					tag = BHA
 				}
 			}
-			#AND = {
+			AND = {
 				ROOT = {
-					NOT = {
+					NOT = { 
 						has_completed_mission = bharat_missions
 					}
 				}
-			#	OR = {
-			#		is_in_region = greece_region
-			#		is_in_region = asia_region
-			#	}
-			#}
+				OR = {
+					is_in_region = sogdiana_region
+					is_in_region = tibet_region
+					is_in_region = bactriana_region
+					is_in_region = gedrosia_region
+					is_in_region = ariana_region
+					is_in_region = parthia_region
+					is_in_region = persis_region
+					is_in_region = media_region
+					is_in_region = assyria_region
+					is_in_region = mesopotamia_region
+					is_in_region = armenia_region
+					is_in_region = lower_egypt_region
+					is_in_region = upper_egypt_region
+					is_in_region = syria_region
+					is_in_region = palestine_region
+					is_in_region = arabia_region
+					is_in_region = arabia_felix_region
+					is_in_region = cappadocia_pontica_region
+					is_in_region = cappadocia_region
+					is_in_region = cilicia_region
+					is_in_region = galatia_region
+					is_in_region = asia_region
+					is_in_region = bithynia_region
+					is_in_region = macedonia_region
+					is_in_region = thrace_region
+					is_in_region = greece_region
+				}
+			}		
 		}
 		trigger_if = { #Rhodes
 			limit = {
@@ -1559,7 +1496,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = {
+					NOR = { 
 						has_completed_mission = rhodes_01_aegean
 						has_completed_mission = rhodes_02_asia
 					}
@@ -1568,7 +1505,7 @@ generic_block_trigger = {
 					is_in_region = greece_region
 					is_in_region = asia_region
 				}
-			}
+			}		
 		}
 		trigger_if = { #Lanka
 			limit = {
@@ -1578,7 +1515,7 @@ generic_block_trigger = {
 			}
 			AND = {
 				ROOT = {
-					NOR = {
+					NOR = { 
 						has_completed_mission = lankan_missions
 						has_completed_mission = lankan_missions_reclamation
 					}
@@ -1590,22 +1527,929 @@ generic_block_trigger = {
 					is_in_region = vindhyaprstha_region
 					is_in_region = maru_region
 				}
-			}
-		}
-		trigger_if = { #Yamato
+			}		
+		}	
+		trigger_if = { #Aremorica
 			limit = {
 				ROOT = {
-					tag = YMT
+					primary_culture = aremorican
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = barbaricum_aremorica_mission
+					}
+				}
+				OR = {
+					is_in_region = armorica_region
+					is_in_region = britain_region
+					is_in_region = caledonia_region
+					is_in_region = aquitaine_region
+				}
+			}		
+		}
+		trigger_if = { #Numidians
+			limit = {
+				ROOT = {
+					OR = {
+						tag = MSS
+            			tag = MAU
+						tag = NUM
+					}
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = numidian_mission_01
+					}
+				}
+				OR = {
+					is_in_region = mauretainia_region
+					is_in_region = numidia_region
+					is_in_region = fezzan_region
+					is_in_region = atlas_region
+					is_in_region = africa_region
+				}
+			}		
+		}
+		trigger_if = { #Fezzani
+			limit = {
+				ROOT = {
+					OR = {
+						tag = MKA # MAKAE
+						tag = PSY # PSYLLI
+						tag = NAS # NASAMONES
+						tag = GAR # GARAMANTES
+						tag = MHY # MACHYLES
+						tag = PHZ # PHAZANI
+					}
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = fezzani_mission_01
+					}
+				}
+				OR = {
+					is_in_region = fezzan_region
+					is_in_region = cyrenaica_region
+					is_in_region = africa_region				
+					is_in_region = magna_graecia_region
+					is_in_region = numidia_region
+				}
+			}		
+		}
+		trigger_if = { #Aksum
+			limit = {
+				ROOT = {
+					primary_culture = aksumite
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = aksum_mission_1_ethiopia
+					}
+				}
+				is_in_region = punt_region
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = aksum_mission_2_nubia
+					}
+				}
+				OR = {
+					is_in_region = nubia_region
+					is_in_region = lower_nubia_region
+				}
+			}	
+		}
+		trigger_if = { #Kush
+			limit = {
+				ROOT = {
+					tag = KSH
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = kush_missions
+					}
+				}
+				OR = {
+					is_in_region = arabia_region
+					is_in_region = arabia_felix_region
+					is_in_region = nubia_region
+					is_in_region = lower_nubia_region
+					is_in_region = upper_egypt_region
+					is_in_region = lower_egypt_region
+					is_in_region = cyrenaica_region
+					is_in_region = palestine_region
+					is_in_region = syria_region
+					is_in_region = cilicia_region
+					is_in_region = cappadocia_pontica_region
+					is_in_region = cappadocia_region
+					is_in_region = bithynia_region
+					is_in_region = asia_region
+					is_in_region = galatia_region
+					is_in_region = greece_region
+					is_in_region = armenia_region
+					is_in_region = mesopotamia_region
+					is_in_region = assyria_region
+				}
+			}	
+		}
+		trigger_if = { #Kalinga
+			limit = {
+				ROOT = {
+					OR = {
+						tag = KAL
+						AND = {
+							root.capital_scope = {
+								is_in_area = kalinga_area
+							}
+							primary_culture = kalingan
+						}
+					}
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = kalinga_missions
+					}
+				}
+				OR = {
+					is_in_region = vindhyaprstha_region
+					is_in_region = dravida_region
+					is_in_region = karnata_region
+					is_in_region = pracya_region
+				}
+			}		
+		}
+		trigger_if = { #Cisalpine Gaul
+			limit = {
+				ROOT = {
+					primary_culture = lepontic
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = barbaricum_gallia_cisalpina_mission
+					}
+				}
+				is_in_region = cisalpine_gaul_region
+				is_in_region = central_italy_region
+				is_in_region = magna_graecia_region
+			}	
+		}
+		trigger_if = {
+			limit = {
+				ROOT = {
+					tag = PES
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = persis_mission_1_freedom
+					}
+				}
+				OR = {
+					is_in_region = ariana_region
+					is_in_region = media_region
+					is_in_region = gedrosia_region
+					is_in_region = mesopotamia_region
+					is_in_region = persis_region
+				}
+			}
+		}
+		trigger_if = { #Atropatene
+			limit = {
+				ROOT = {
+					tag = MAP
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = atropatene_mission_01
+					}
+				}
+				OR = {
+					is_in_region = albania_region
+					is_in_region = media_region
+					is_in_region = armenia_region
+					is_in_region = parthia_region
+					is_in_region = persis_region
+					is_in_region = ariana_region
+					is_in_region = assyria_region
+				}
+			}
+		}
+		trigger_if = { #Sardinians
+			limit = {
+				ROOT = {
+					primary_culture = nuragic
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = nuragic_mission_01_inv
+					}
+				}
+				is_in_region = central_italy_region
+			}
+		}
+		trigger_if = { #Gymnaesia
+			limit = {
+				ROOT = {
+					primary_culture = talaiotic
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = gymnaesian_mission_01
+					}
+				}
+				OR = {
+					is_in_region = contestania_region
+					is_in_region = central_italy_region
+				}
+			}
+		}
+		trigger_if = { #Sardinians + Gymnaesians
+			limit = {
+				ROOT = {
+					OR = {
+						primary_culture = talaiotic
+						primary_culture = nuragic
+					}
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = nuragic_mission_02_inv
+					}
+				}
+				OR = {
+					is_in_region = magna_graecia_region
+					is_in_region = central_italy_region
+				}
+			}
+		}
+		trigger_if = { #Sogdia
+			limit = {
+				ROOT = {
+					primary_culture = sogdian
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = sogdia_missions
+					}
+				}
+				OR = {
+					is_in_region = sogdiana_region
+					is_in_region = bactriana_region
+					is_in_region = scythia_region
+					is_in_region = parthia_region
+				}
+			}
+		}
+		trigger_if = { #Zhangzhung
+			limit = {
+				ROOT = {
+					tag = ZHZ
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = sogdia_missions
+					}
+				}
+				OR = {
+					is_in_region = tibet_region
+					is_in_region = madhyadesa_region
+					is_in_region = gandhara_region
+					is_in_region = pracya_region
+				}
+			}
+		}
+		trigger_if = { #Bastarnae
+			limit = {
+				ROOT = {
+					primary_culture = bastarnae
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_bastarnia_mission
+					}
+				}
+				OR = {
+					is_in_region = venedia_region
+					is_in_region = vistulia_region
+				}
+			}
+		}
+		trigger_if = { #Saxons
+			limit = {
+				ROOT = {
+					OR = {
+						primary_culture = ingvaeonic
+						primary_culture = cimbrian						
+					}
+					
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_saxonia_form_mission
+					}
+				}
+				OR = {
+					is_in_region = germania_region
+					is_in_region = scandinavia_region
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_saxonia_anglia_mission
+					}
+				}
+				is_in_region = britain_region
+			}
+		}
+		trigger_if = { #Bohemia
+			limit = {
+				ROOT = {
+					tag = BOA
+					
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_bohemia_mission
+					}
+				}
+				OR = {
+					is_in_region = bohemia_region
+					is_in_region = rhaetia_region
+				}
+			}
+		}
+		trigger_if = { #Istvaeonic
+			limit = {
+				ROOT = {
+					primary_culture = istvaeonic
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_form_francia_mission
+					}
+				}
+				is_in_region = germania_region
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_francia_austria_mission
+					}
+				}
+				OR = {
+					is_in_region = belgica_region
+					is_in_region = germania_superior_region
+				}
+			}
+		}
+		trigger_if = { #Irminonic
+			limit = {
+				ROOT = {
+					primary_culture = irminonic
+					
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_suebi_boiohaemia_mission
+					}
+				}
+				is_in_region = bohemia_region
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_suebi_gallia_mission
+					}
+				}
+				OR = {
+					is_in_region = belgica_region
+					is_in_region = germania_superior_region
+					is_in_region = central_gaul_region
 				}
 			}
 			AND = {
 				ROOT = {
 					NOR = {
-						has_completed_mission = yamato_01_heartland
-						has_completed_mission = yamato_02_consolidate
+						has_completed_mission = barbaricum_suebi_gallia_mission
+						has_completed_mission = barbaricum_suebi_boiohaemia_mission
 					}
 				}
-				is_in_region = wa_region
+				OR = {
+					is_in_region = germania_region
+					is_in_region = venedia_region
+				}
+			}
+		}
+		trigger_if = { #Treveria
+			limit = {
+				ROOT = {
+					tag = TVI
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_treveria_mission
+					}
+				}
+				OR = {
+					is_in_region = belgica_region
+					is_in_region = germania_superior_region
+					is_in_region = central_gaul_region
+					is_in_region = germania_region
+					is_in_region = rhaetia_region
+				}
+			}
+		}
+		trigger_if = { #Vandal
+			limit = {
+				ROOT = {
+					primary_culture = vandal
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_vandalia_lugia_mission
+					}
+				}
+				OR = {
+					is_in_region = vistulia_region
+					is_in_region = bohemia_region
+					is_in_region = venedia_region
+					is_in_region = germania_region
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = fezzani_mission_01
+					}
+				}
+				OR = {
+					is_in_region = fezzan_region
+					is_in_region = cyrenaica_region
+					is_in_region = africa_region				
+					is_in_region = magna_graecia_region
+					is_in_region = numidia_region
+				}
+			}		
+		}
+		trigger_if = { #Aksum
+			limit = {
+				ROOT = {
+					primary_culture = aksumite
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = aksum_mission_1_ethiopia
+					}
+				}
+				is_in_region = punt_region
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = aksum_mission_2_nubia
+					}
+				}
+				OR = {
+					is_in_region = nubia_region
+					is_in_region = lower_nubia_region
+				}
+			}	
+		}
+		trigger_if = { #Kush
+			limit = {
+				ROOT = {
+					tag = KSH
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = kush_missions
+					}
+				}
+				OR = {
+					is_in_region = arabia_region
+					is_in_region = arabia_felix_region
+					is_in_region = nubia_region
+					is_in_region = lower_nubia_region
+					is_in_region = upper_egypt_region
+					is_in_region = lower_egypt_region
+					is_in_region = cyrenaica_region
+					is_in_region = palestine_region
+					is_in_region = syria_region
+					is_in_region = cilicia_region
+					is_in_region = cappadocia_pontica_region
+					is_in_region = cappadocia_region
+					is_in_region = bithynia_region
+					is_in_region = asia_region
+					is_in_region = galatia_region
+					is_in_region = greece_region
+					is_in_region = armenia_region
+					is_in_region = mesopotamia_region
+					is_in_region = assyria_region
+				}
+			}	
+		}
+		trigger_if = { #Kalinga
+			limit = {
+				ROOT = {
+					OR = {
+						tag = KAL
+						AND = {
+							root.capital_scope = {
+								is_in_area = kalinga_area
+							}
+							primary_culture = kalingan
+						}
+					}
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = kalinga_missions
+					}
+				}
+				OR = {
+					is_in_region = vindhyaprstha_region
+					is_in_region = dravida_region
+					is_in_region = karnata_region
+					is_in_region = pracya_region
+				}
+			}		
+		}
+		trigger_if = { #Cisalpine Gaul
+			limit = {
+				ROOT = {
+					primary_culture = lepontic
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = { 
+						has_completed_mission = barbaricum_gallia_cisalpina_mission
+					}
+				}
+				is_in_region = cisalpine_gaul_region
+				is_in_region = central_italy_region
+				is_in_region = magna_graecia_region
+			}
+		}
+		trigger_if = {
+			limit = {
+				ROOT = {
+					tag = PES
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = persis_mission_1_freedom
+					}
+				}
+				OR = {
+					is_in_region = ariana_region
+					is_in_region = media_region
+					is_in_region = gedrosia_region
+					is_in_region = mesopotamia_region
+					is_in_region = persis_region
+				}
+			}
+		}
+		trigger_if = { #Atropatene
+			limit = {
+				ROOT = {
+					tag = MAP
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = atropatene_mission_01
+					}
+				}
+				OR = {
+					is_in_region = albania_region
+					is_in_region = media_region
+					is_in_region = armenia_region
+					is_in_region = parthia_region
+					is_in_region = persis_region
+					is_in_region = ariana_region
+					is_in_region = assyria_region
+				}
+			}
+		}
+		trigger_if = { #Sardinians
+			limit = {
+				ROOT = {
+					primary_culture = nuragic
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = nuragic_mission_01_inv
+					}
+				}
+				is_in_region = central_italy_region
+			}
+		}
+		trigger_if = { #Gymnaesia
+			limit = {
+				ROOT = {
+					primary_culture = talaiotic
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = gymnaesian_mission_01
+					}
+				}
+				OR = {
+					is_in_region = contestania_region
+					is_in_region = central_italy_region
+				}
+			}
+		}
+		trigger_if = { #Sardinians + Gymnaesians
+			limit = {
+				ROOT = {
+					OR = {
+						primary_culture = talaiotic
+						primary_culture = nuragic
+					}
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = nuragic_mission_02_inv
+					}
+				}
+				OR = {
+					is_in_region = magna_graecia_region
+					is_in_region = central_italy_region
+				}
+			}
+		}
+		trigger_if = { #Sogdia
+			limit = {
+				ROOT = {
+					primary_culture = sogdian
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = sogdia_missions
+					}
+				}
+				OR = {
+					is_in_region = sogdiana_region
+					is_in_region = bactriana_region
+					is_in_region = scythia_region
+					is_in_region = parthia_region
+				}
+			}
+		}
+		trigger_if = { #Zhangzhung
+			limit = {
+				ROOT = {
+					tag = ZHZ
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = sogdia_missions
+					}
+				}
+				OR = {
+					is_in_region = tibet_region
+					is_in_region = madhyadesa_region
+					is_in_region = gandhara_region
+					is_in_region = pracya_region
+				}
+			}
+		}
+		trigger_if = { #Bastarnae
+			limit = {
+				ROOT = {
+					primary_culture = bastarnae
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_bastarnia_mission
+					}
+				}
+				OR = {
+					is_in_region = venedia_region
+					is_in_region = vistulia_region
+				}
+			}
+		}
+		trigger_if = { #Saxons
+			limit = {
+				ROOT = {
+					OR = {
+						primary_culture = ingvaeonic
+						primary_culture = cimbrian						
+					}
+					
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_saxonia_form_mission
+					}
+				}
+				OR = {
+					is_in_region = germania_region
+					is_in_region = scandinavia_region
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_saxonia_anglia_mission
+					}
+				}
+				is_in_region = britain_region
+			}
+		}
+		trigger_if = { #Bohemia
+			limit = {
+				ROOT = {
+					tag = BOA
+					
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_bohemia_mission
+					}
+				}
+				OR = {
+					is_in_region = bohemia_region
+					is_in_region = rhaetia_region
+				}
+			}
+		}
+		trigger_if = { #Istvaeonic
+			limit = {
+				ROOT = {
+					primary_culture = istvaeonic
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_form_francia_mission
+					}
+				}
+				is_in_region = germania_region
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_francia_austria_mission
+					}
+				}
+				OR = {
+					is_in_region = belgica_region
+					is_in_region = germania_superior_region
+				}
+			}
+		}
+		trigger_if = { #Irminonic
+			limit = {
+				ROOT = {
+					primary_culture = irminonic
+					
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_suebi_boiohaemia_mission
+					}
+				}
+				is_in_region = bohemia_region
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_suebi_gallia_mission
+					}
+				}
+				OR = {
+					is_in_region = belgica_region
+					is_in_region = germania_superior_region
+					is_in_region = central_gaul_region
+				}
+			}
+			AND = {
+				ROOT = {
+					NOR = {
+						has_completed_mission = barbaricum_suebi_gallia_mission
+						has_completed_mission = barbaricum_suebi_boiohaemia_mission
+					}
+				}
+				OR = {
+					is_in_region = germania_region
+					is_in_region = venedia_region
+				}
+			}
+		}
+		trigger_if = { #Treveria
+			limit = {
+				ROOT = {
+					tag = TVI
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_treveria_mission
+					}
+				}
+				OR = {
+					is_in_region = belgica_region
+					is_in_region = germania_superior_region
+					is_in_region = central_gaul_region
+					is_in_region = germania_region
+					is_in_region = rhaetia_region
+				}
+			}
+		}
+		trigger_if = { #Vandal
+			limit = {
+				ROOT = {
+					primary_culture = vandal
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = barbaricum_vandalia_lugia_mission
+					}
+				}
+				OR = {
+					is_in_region = vistulia_region
+					is_in_region = bohemia_region
+					is_in_region = venedia_region
+					is_in_region = germania_region
+				}
 			}
 		}
 	}

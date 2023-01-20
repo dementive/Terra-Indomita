@@ -1,0 +1,249 @@
+﻿TI_generic_mission_block = {
+	NOR = {
+		trigger_if = { #Yamato
+			limit = {
+				ROOT = {
+					tag = YMT
+				}
+			}
+			AND = {
+				ROOT = {
+					NOR = {
+						has_completed_mission = yamato_01_heartland
+						has_completed_mission = yamato_02_consolidate
+					}
+				}
+				is_in_region = wa_region
+			}
+		}
+		trigger_if = { #Joseon
+			limit = {
+				ROOT = {
+					tag = JSN
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = joseon_mission_tree
+					}
+				}
+				OR = {
+					is_in_region = jin_region
+					is_in_region = you_region
+				}
+			}
+		}
+		trigger_if = { #Chu
+			limit = {
+				ROOT = {
+					tag = CHU
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = 01_chu_missions
+					}
+				}
+				OR = {
+					is_in_region = yi_region
+					is_in_region = jing_region
+					is_in_region = yang_region
+					is_in_region = bing_region
+					is_in_region = ji_region
+					is_in_region = you_region
+					is_in_region = qing_region
+					is_in_region = xu_region
+					is_in_region = shuofang_region
+					is_in_region = yong_region
+					is_in_region = yu_region
+				}
+			}
+		}
+		trigger_if = { #Qin
+			limit = {
+				ROOT = {
+					tag = QIN
+				}
+			}
+			AND = {
+				ROOT = {
+					NOR = {
+						has_completed_mission = qin_01_shan_yang
+						has_completed_mission = qin_02_li_si
+						has_completed_mission = qin_03_empire
+					}
+				}
+				OR = {
+					is_in_region = yi_region
+					is_in_region = jing_region
+					is_in_region = yang_region
+					is_in_region = bing_region
+					is_in_region = ji_region
+					is_in_region = you_region
+					is_in_region = qing_region
+					is_in_region = xu_region
+					is_in_region = shuofang_region
+					is_in_region = yong_region
+					is_in_region = yu_region
+				}
+			}
+		}
+	}
+}
+
+TI_generic_infrastructure_mission_block = {
+	trigger_if = {
+		limit = {
+			OR = {
+				tag = YMT
+				tag = QIN
+				tag = CHU
+				tag = JSN
+			}
+		}
+		current_date > 452.1.1
+	}
+}
+
+does_not_have_unique_diplo_view_gfx = {
+	NOR = {
+	    # Chinese gfx
+	    this.culture.culture_group = culture_group:chinese
+	    this.culture.culture_group = culture_group:yi
+	    this.culture.culture_group = culture_group:yue
+	    this.culture.culture_group = culture_group:miao
+
+	    # Japanese gfx
+	    this.culture.culture_group = culture_group:ainu
+	    this.culture.culture_group = culture_group:samhan
+	    this.culture.culture_group = culture_group:japan
+
+	    #Indian gfx
+	    this.culture.culture_group = culture_group:pu
+	    this.culture.culture_group = culture_group:austronesian
+	    this.culture.culture_group = culture_group:aryan
+	    this.culture.culture_group = culture_group:indian
+	    this.culture.culture_group = culture_group:pracyan
+
+	    # Tibetan gfx
+	    this.culture.culture_group = culture_group:tibetan
+	    this.culture.culture_group = culture_group:rong
+	    
+	    # Eastern Steppe
+	    this.culture.culture_group = culture_group:di
+	    this.culture.culture_group = culture_group:saka_g
+	    this.culture.culture_group = culture_group:xiyu
+	    this.culture.culture_group = culture_group:huimo
+	    this.culture.culture_group = culture_group:hu
+
+	    # Egyptian
+	    this.culture.culture_group = culture_group:meroitic_group
+	    this.culture.culture_group = culture_group:nilotic_group
+	    this.culture.culture_group = culture_group:north_african
+	}
+}
+
+has_100_chinese_unification_points = {
+	# ruby lists, if changed update chinaUnify.rb and rerun.
+	# li_ten = [8313,8504,8972,8446,8681,8742,8384,8379]
+	# li_five = [8433,8533,8435,8344,8636,8686,8488,8693,8553,8510,8477,8408,8344,8527,8997,9006,9651,9049]
+	weighted_calc_true_if = {
+	    amount = 100
+	    # Capitals
+	    10 = { owns_or_subject_owns = 8313 } # Qin Capital
+	    10 = { owns_or_subject_owns = 8504 } # Qi Capital
+	    10 = { owns_or_subject_owns = 8972 } # Chu Capital
+	    10 = { owns_or_subject_owns = 8446 } # Wei Capital
+	    10 = { owns_or_subject_owns = 8681 } # Zhao Capital
+	    10 = { owns_or_subject_owns = 8742 } # Yan Capital
+	    10 = { owns_or_subject_owns = 8384 } # Han Capital
+	    10 = { owns_or_subject_owns = 8379 } # Zhou Capital
+	    # Other Provinces
+	    5 = { owns_or_subject_owns = 8433 } # Suiyang
+	    5 = { owns_or_subject_owns = 8533 } # Qufu
+	    5 = { owns_or_subject_owns = 8435 } # Puyang
+	    5 = { owns_or_subject_owns = 8344 } # Anyi
+	    5 = { owns_or_subject_owns = 8636 } # Jinyang
+	    5 = { owns_or_subject_owns = 8686 } # Lingshou
+	    5 = { owns_or_subject_owns = 8488 } # Pingyuan
+	    5 = { owns_or_subject_owns = 8693 } # Qingyang
+	    5 = { owns_or_subject_owns = 8553 } # Xu
+	    5 = { owns_or_subject_owns = 8510 } # Pingshou
+	    5 = { owns_or_subject_owns = 8477 } # Pinglu
+	    5 = { owns_or_subject_owns = 8408 } # Shangcai
+	    5 = { owns_or_subject_owns = 8344 } # Anyi
+	    5 = { owns_or_subject_owns = 8527 } # Langya
+	    5 = { owns_or_subject_owns = 8997 } # E (really)
+	    5 = { owns_or_subject_owns = 9006 } # Linyuan
+	    5 = { owns_or_subject_owns = 9651 } # Wu
+	    5 = { owns_or_subject_owns = 9049 } # Shouchun
+	    # Subjects
+	    5 = {
+	    	exists = c:WZO
+	    	c:WZO = { is_subject_of = ROOT }
+	    }
+	    5 = {
+	    	exists = c:ZHO
+	    	c:ZHO = { is_subject_of = ROOT }
+	    }
+	    5 = {
+	    	exists = c:EZO
+	    	c:EZO = { is_subject_of = ROOT }
+	    }
+	}
+}
+
+has_expensive_trade_good = {
+	# Anything above gold = 0.3
+	OR = {
+		trade_goods = amber
+		trade_goods = spices
+		trade_goods = elephants
+		trade_goods = papyrus
+		trade_goods = cloth
+		trade_goods = precious_metals
+		trade_goods = earthware
+		trade_goods = dye
+		trade_goods = woad
+		trade_goods = marble
+		trade_goods = incense
+		trade_goods = gems
+		trade_goods = glass
+		trade_goods = silk
+		trade_goods = sugar
+		trade_goods = myrrh
+		trade_goods = cinnabar
+		trade_goods = lapis
+		trade_goods = jade
+		trade_goods = silphium
+		trade_goods = dates
+	}
+}
+
+has_cheap_trade_good = {
+	# Anything <= gold = 0.3
+	OR = {
+		trade_goods = grain
+		trade_goods = salt
+		trade_goods = iron
+		trade_goods = horses
+		trade_goods = wine
+		trade_goods = wood
+		trade_goods = stone
+		trade_goods = fish
+		trade_goods = wild_game
+		trade_goods = steppe_horses
+		trade_goods = cattle
+		trade_goods = fur
+		trade_goods = olive
+		trade_goods = leather
+		trade_goods = base_metals
+		trade_goods = hemp
+		trade_goods = vegetables
+		trade_goods = camel
+		trade_goods = cedar
+		trade_goods = fruits
+	}
+}

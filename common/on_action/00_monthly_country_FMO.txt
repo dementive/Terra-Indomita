@@ -1,0 +1,61 @@
+﻿monthly_country_pulse = {
+	on_actions = {		
+		monthly_check_for_100_experience
+	}
+}
+monthly_check_for_100_experience = {
+	#This uses multiple scripted lists for performance. It also assigns focus for ai because they cant use buttons.
+	#Other ai stuff is in the bi-yearly action because perks aren't gained very often.
+	effect = {
+		if = {
+			limit = {
+				is_ai = yes
+			}
+			every_ruler_without_focus = {
+				if = {
+					limit = {
+						highest_skill = martial 
+					}
+					add_random_martial_focus_effect = yes
+			        set_variable = martial_focus_tree_enabled
+				}
+				else_if = {
+					limit = {
+						highest_skill = charisma
+					}
+					add_random_oratory_focus_effect = yes
+			        set_variable = oratory_focus_tree_enabled
+				}
+				else_if = {
+					limit = {
+						highest_skill = finesse
+					}
+					add_random_civic_focus_effect = yes
+			        set_variable = civic_focus_tree_enabled
+				}
+				else_if = {
+					limit = {
+						highest_skill = zeal
+					}
+					add_random_zeal_focus_effect = yes
+			        set_variable = zeal_focus_tree_enabled
+				}
+			}
+		}
+		every_ruler_with_focus = {
+	        change_variable = {
+	            name = character_focus_experience
+	            add = 2
+	       	}
+		}
+		every_ruler_without_focus = {
+			set_variable = {
+				name = character_focus_experience
+				value = 2
+			}
+		}
+		every_ruler_with_perk = {
+			monthly_perk_distribution_effect = yes
+		}
+	}
+}

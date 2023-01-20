@@ -1332,24 +1332,6 @@ base_window = {
 								blockoverride "Text" { text = "[GovernmentView.GetPlayer.GetRuler.GetCorruption|/0]" }
 								tooltip = "[GovernmentView.GetPlayer.GetRuler.GetCorruptionToolTip]"
 							}
-							china_open_button = {
-								position = { 50 50 }
-							    size = { 37 37 }
-							    datacontext = "[GetScriptedGui('is_chinese_emperor_scripted_gui')]"
-							    visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
-							    #enabled = ""
-							    blockoverride "Icon" {
-							        texture = "gfx/interface/china/mandate_of_heaven_icon.dds"
-							        size = { 39 39 }
-							        position = { 4 5 }
-							    }
-							    blockoverride "On_click" {
-							        onclick = "[ExecuteConsoleCommand('gui.createwidget gui/chinese_empire.gui chinese_empire')]"
-							        onclick = "[GovernmentView.OnClose]"
-							    }
-
-							    tooltip = "#T Celestial Empire View#!"
-							}
 						}
 						flowcontainer = {
 							visible = [GovernmentView.GetPlayer.GetGovernment.IsRepublic]

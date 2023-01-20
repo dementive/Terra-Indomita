@@ -1813,7 +1813,17 @@ rel_flavor_kemetic.21 = {	#King Priests declare independence
     		p:569 = {
     			create_country = {
                     set_country_religion = egyptian_pantheon
-                    set_primary_culture = egyptian
+                    if = {
+						limit = {
+							NOT = {
+								primary_culture = egyptian
+							}
+						}
+						set_primary_culture_cleanup_effect = {
+							NEW_PRIMARY_CULTURE = egyptian
+							MAKE_OLD_CULTURE_INTEGRATED = yes
+						}
+					}
                     change_country_name = "UPPER_EGYPT_NAME"
                     change_country_color = "lombard_red"
                     change_government = theocratic_monarchy
@@ -3176,6 +3186,12 @@ rel_flavor_kemetic.41 = {	#Pyramid Construction Finished
         		}
         	}
         }
+        remove_variable = pyramid_province_flag
+        remove_variable = pyramid_progress
+        remove_variable = pyramid_1_construction
+        remove_variable = pyramid_2_construction
+        remove_variable = pyramid_3_construction
+        remove_variable = pyramid_4_construction
     }
 }
 rel_flavor_kemetic.42 = {	#White Crocodile of Krokolipolis p:539

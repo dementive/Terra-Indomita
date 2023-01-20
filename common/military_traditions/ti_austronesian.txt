@@ -1,0 +1,209 @@
+﻿ti_austronesian_philosophy = {
+	color = hsv { 1.75 0.65 0.7 }
+	image = yue_coastal_warfare_mil_trad
+
+	allow = {
+		trigger_if = {
+			limit = { country_culture_group = austronesian }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = austronesian
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = pu }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = pu
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = south_east_asian_influence
+			}
+		}
+	}
+
+	ti_austronesian_path_1 = {
+		icon = celtic_gallic_path_6
+		modifier = {
+			light_infantry_defensive = 0.1
+		}
+	}
+
+	ti_austronesian_path_2 = {
+		icon = chinese_path_way_of_command
+		requires = { ti_austronesian_path_1 }
+		modifier = {
+			light_infantry_offensive = 0.1
+		}
+	}
+
+	ti_austronesian_path_3 = {
+		icon = japan_tribal_ways
+		requires = { ti_austronesian_path_2 }
+		modifier = {
+			light_infantry_discipline = 0.1
+		}
+	}
+
+	ti_austronesian_path_4 = {
+		icon = ea_tribal_path_all_hands_on_deck
+		requires = { ti_austronesian_path_3 }
+		modifier = {
+			light_infantry_morale = 0.15
+		}
+	}
+
+	ti_austronesian_path_5 = {
+		icon = ea_tribal_path_looting_in_all_directions
+		requires = { ti_austronesian_path_4 }
+		modifier = {
+			global_manpower_modifier = 0.05
+			experience_decay = -0.005
+		}
+	}
+
+	ti_austronesian_path_6 = {
+		icon = north_african_naval_path_7
+		allow_unit_type = octere
+		modifier = {
+			ship_cost = -0.2
+			global_ship_recruit_speed = 0.2
+		}
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					is_coastal = yes
+					can_build_building = port_building
+				}
+				add_building_level = port_building
+				add_building_level = port_building
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = octere
+						add_subunit = octere
+					}
+				}
+			}
+		}
+	}
+
+	ti_austronesian_path_7 = {
+		icon = latin_tribal_path_6
+		requires = { ti_austronesian_path_6 }
+		modifier = {
+			navy_movement_speed = 0.1
+			navy_maintenance_cost = -0.1
+		}
+	}
+
+	ti_austronesian_path_8 = {
+		icon = levantine_greco_path_7
+		requires = { ti_austronesian_path_10 }
+		modifier = {
+			naval_damage_taken = -0.1
+			ship_capture_chance = 0.05
+		}
+	}
+
+	ti_austronesian_path_9 = {
+		icon = chinese_path_recruiting_talented_people
+		requires = { ti_austronesian_path_8 ti_austronesian_path_4 }
+		modifier = {
+			ship_repair_at_sea = 0.03
+			naval_morale_modifier = 0.1
+			naval_range = 0.25
+		}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = oarmaster
+				}
+			}
+		}
+	}
+
+	ti_austronesian_path_10 = {
+		icon = yue_one_with_the_water
+		requires = { ti_austronesian_path_7 }
+		modifier = {
+			naval_damage_done = 0.1
+		}
+		enable_ability = naval_raiding
+	}
+
+	ti_austronesian_path_11 = {
+		icon = greek_seleucid_path_3
+		requires = { ti_austronesian_path_7 }
+		#allow_unit_type = mega_galley #I am unsure if they should have access to those 
+		modifier = {
+			ocean_combat_bonus = 0.1
+			octere_discipline = 0.1
+		}
+		on_activate = { #replace octere down below with mega_galley if they are allowed
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = octere
+						add_subunit = octere
+						add_subunit = octere
+					}
+				}
+			}
+		}
+	}
+
+	ti_austronesian_path_12 = {
+		icon = levantine_arabian_path_5
+		requires = { ti_austronesian_path_11 }
+		modifier = {
+			hexere_discipline = 0.1 
+			tetrere_discipline = 0.1
+			liburnian_discipline = 0.1
+			trireme_discipline = 0.1
+		}
+	}
+
+	ti_austronesian_path_13 = {
+		icon = ea_tribal_path_avoid_the_shortcomings
+		requires = { ti_austronesian_path_7 }
+		modifier = {
+			coastal_terrain_combat_bonus = 0.15
+			riverine_terrain_combat_bonus = 0.05
+		}
+	}
+
+	ti_austronesian_path_14 = {
+		icon = north_african_naval_path_end_bonus
+		requires = { ti_austronesian_path_12 }
+		modifier = {
+			hexere_morale = 0.1 
+			tetrere_morale = 0.1
+			liburnian_morale = 0.1
+			trireme_morale = 0.1
+		}
+	}
+
+	ti_austronesian_path_15 = {
+		icon = north_african_philosophy_start_bonus
+		requires = { ti_austronesian_path_14 }
+		modifier = {
+			octere_morale = 0.1
+			octere_discipline = 0.05
+			#mega_galley_discipline = 0.1 #allow if enabled
+			#mega_galley_morale = 0.1
+		}
+	}
+
+}

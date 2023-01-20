@@ -1,0 +1,152 @@
+# OPEN WITH: gui.createwidget gui/chinese_unification.gui chinese_unification
+
+base_window = {
+	name = "chinese_unification" #name used in console command to open widget
+    gfxtype = windowgfx
+    parentanchor = center
+    size = { 635 510 }
+    vbox = {
+        using = MainWindowHeaderBoxCentered
+
+        blockoverride "Title_text" { text = "Unification of China" }
+
+        vbox = {
+            layoutpolicy_vertical = expanding
+        }
+
+    }
+    button_close = {
+        onclick = "[ExecuteConsoleCommand('GUI.ClearWidgets chinese_unification')]"
+        onclick = "[GetVariableSystem.Clear('show_unify_window')]"
+        tooltip = "CLOSE"
+        shortcut = "close_window"
+        parentanchor = top|right
+        position = { -7 10 }
+    }
+
+    icon = {
+        position = { -5 60 }
+        parentanchor = top|hcenter
+        size = { 270 110 }
+        texture = "gfx/interface/china/emperor_of_china_dragon.dds"
+    }
+    cpt_button = {
+        position = { 10 54 }
+        size = { 76 113 }
+        datacontext = "[Player.GetRuler]"
+        blockoverride "ShowIcons" { visible = no }
+    }
+    cpt_button = {
+        visible = "[GetCountry('ZHO').Exists]"
+        position = { -10 54 }
+        parentanchor = top|right
+        size = { 76 113 }
+        datacontext = "[GetCountry('ZHO').GetRuler]"
+        blockoverride "ShowIcons" { visible = no }
+    }
+    icon = {
+        maximumsize = { 999 33 }
+        texture = "gfx/interface/base_parts/background_noninteractable_texture.dds"
+        alpha = 0.95
+        modify_texture = {
+            name = "Alpha"
+            texture = "gfx/interface/base_parts/header_l_x60bd_right_cut_alpha.dds"
+            blend_mode = alphamultiply
+            spriteType = Corneredtiled
+            spriteborder = { 60 -10 }
+        }
+        
+        blockoverride "Margins"
+        {
+            alpha = 0.95
+        }
+        
+        textbox = {
+            position = { 0 0 }
+            using = BaseFontL
+            using = Black_FontColor
+            parentanchor = top|left
+            autoresize = yes
+            minimumsize = { -1 34 }
+            resizeparent = yes
+            align = center|nobaseline
+            elide = right
+            text = "[Player.MakeScope.Var('unification_points').GetValue|0]"
+            margin_left = 30
+            margin_right = 30
+            margin_bottom = 3
+        }
+        parentanchor = top|hcenter
+        position = { 0 192 }
+        tooltip = "Current Unification Progress"
+    }
+
+    flowcontainer = {
+        parentanchor = center
+        position = { 20 20 }
+        icon_and_text_progress_war_score = {
+            blockoverride "TotalSize" { 
+                size = { 570 81 }
+            }
+            blockoverride "Icon" { 
+                texture = "gfx/interface/icons/shared_icons/warscore_cost.dds"
+                size = { 0 0 } 
+                position = { 245 -73 }
+            }
+            blockoverride "Value" { value = "[FixedPointToFloat(Player.MakeScope.Var('unification_points').GetValue)]" }
+            blockoverride "Text" { text = "" }
+            tooltip = "Current progress towards unification."
+        }
+    }
+
+    text_button_square = {
+        position = { 0 -15 }
+        parentanchor = bottom|hcenter
+        datacontext = "[GetScriptedGui('unify_china_war_button')]"
+        blockoverride "Center_text" { text = "Unify China" }
+        blockoverride "On_click" { 
+            onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+            onclick = "[ExecuteConsoleCommand('GUI.ClearWidgets chinese_unification')]"
+        }
+        enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+        tooltip = "UNIFY_CHINA_TOOLTIP_UI"
+        size = { 250 24 }
+    }
+    flowcontainer = {
+        spacing = 50
+        position = { 0 -125 }
+        parentanchor = bottom|hcenter
+        icon_and_text = {
+            size = { 100 0 }
+            tooltip = "5_POINT_PROVINCES_UNIFICATION_UI"
+            blockoverride "Icon"
+            {
+                texture = "gfx/interface/icons/shared_icons/age.dds"
+                size = { 0 0 }
+            }
+            blockoverride "Text"
+            {
+                text = "5 Points"
+                font = BaseFont
+                fontsize = 25
+                using = Black_FontColor
+            }
+        }
+        icon_and_text = {
+            size = { 100 0 }
+            tooltip = "10_POINT_PROVINCES_UNIFICATION_UI"
+            blockoverride "Icon"
+            {
+                texture = "gfx/interface/icons/shared_icons/age.dds"
+                size = { 0 0 }
+            }
+            blockoverride "Text"
+            {
+                text = "10 Points"
+                font = BaseFont
+                fontsize = 25
+                using = Black_FontColor
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+﻿#All used in on_actions. 
+#I don't know how but this increases performance by a lot
+ruler_with_perk = {	#Creates any/every/random/ordered_ruler_with_perk that functions as every ruler with at least 100 experience
+	base = character
+	conditions = {
+		is_ruler = yes
+		has_variable = character_focus_experience
+		trigger_if = {
+			limit = {
+				has_variable = character_focus_experience
+			}
+			var:character_focus_experience >= 100
+		}
+	}
+}
+ruler_with_focus = { #Creates any/every/random/ordered_with_focus that functions as every ruler 
+	base = character
+	conditions = {
+		is_ruler = yes
+		has_variable = character_focus_experience
+	}
+}
+ruler_without_focus = { #Creates any/every/random/ordered_without_focus that functions as every ruler 
+	base = character
+	conditions = {
+		is_ruler = yes
+		NOT = { has_variable = character_focus_experience }
+	} 
+}
+ruler_with_perk_available = {
+	base = character
+	conditions = {
+		is_ruler = yes
+		has_variable = character_focus_perk_available
+		trigger_if = {
+			limit = {
+				has_variable = character_focus_perk_available
+			}
+			var:character_focus_perk_available >= 1
+		}
+	}	
+}

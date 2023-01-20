@@ -1,0 +1,462 @@
+﻿oratory_assert_authority_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = assert_authority_var
+            }
+            NOT = {
+                root = {
+                    has_variable = assert_authority_var
+                }
+            }
+        }         
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_oratory_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_popularity = 10
+        add_prominence = 10
+        employer = {
+            add_legitimacy = 5
+        }
+        set_variable = assert_authority_var
+        remove_1_available_perk_effect = yes
+    }
+}
+oratory_ambassadors_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = ambassadors_var
+            }
+            NOT = {
+                root = {
+                    has_variable = ambassadors_var
+                }
+            }
+        }        
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_oratory_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            add_country_modifier = {
+                name = ambassadors_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = ambassadors_var
+        remove_1_available_perk_effect = yes
+    }
+}
+
+oratory_hospitality_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = hospitality_var
+            }
+            custom_tooltip = {
+                text = has_taken_this_already_tooltip
+                NOT = {
+                    root = {
+                        has_variable = hospitality_var
+                    }
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_oratory_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = assert_authority_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_assert_authority_tt
+                    has_variable = assert_authority_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_charisma = 1
+        set_variable = hospitality_var
+        remove_1_available_perk_effect = yes
+    }
+}
+oratory_head_of_administration_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = head_of_admin_var
+            }
+            NOT = {
+                root = {
+                    has_variable = head_of_admin_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_oratory_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = ambassadors_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_ambassadors_tt
+                    has_variable = ambassadors_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_character_modifier = {
+            name = head_of_administration_char_mod
+            duration = -1
+        }
+        set_variable = head_of_admin_var
+        remove_1_available_perk_effect = yes
+    }
+}
+oratory_wise_advisors_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = wise_advisors_var
+            }
+            NOT = {
+                root = {
+                    has_variable = wise_advisors_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_oratory_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = head_of_admin_var }
+                }
+                custom_tooltip = {
+                    text = does_not_head_of_admin_tt
+                    has_variable = head_of_admin_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        employer = {
+            add_country_modifier = {
+                name = wise_advisors_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = wise_advisors_var
+        remove_1_available_perk_effect = yes
+    }
+}
+oratory_true_ruler_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = true_ruler_var
+            }
+            NOT = {
+                root = {
+                    has_variable = true_ruler_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_oratory_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = hospitality_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_hospitality_tt
+                    has_variable = hospitality_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        custom_tooltip = while_character_is_ruler_tooltip
+        employer = {
+            add_country_modifier = {
+                name = true_ruler_country_modifier
+                duration = -1 
+            }
+        }
+        set_variable = true_ruler_var
+        remove_1_available_perk_effect = yes
+    }
+}
+oratory_sound_foundations_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = sound_foundations_var
+            }
+            NOT = {
+                root = {
+                    has_variable = sound_foundations_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_oratory_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = true_ruler_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_true_ruler_tt
+                    has_variable = true_ruler_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        #All Children receive 1-3 extra skill points.
+        family = { add_prestige = 50 }
+        custom_tooltip = all_children_get_3_skill_points_tt
+        hidden_effect = {
+            every_child = {
+                random_list = {
+                    1 = { add_martial = 1 }
+                    1 = { add_martial = 2 }
+                    1 = { add_martial = 3 }
+                    1 = { add_finesse = 1 }
+                    1 = { add_finesse = 2 }
+                    1 = { add_finesse = 3 }
+                    1 = { add_zeal = 1 }
+                    1 = { add_zeal = 2 }
+                    1 = { add_zeal = 3 }
+                    1 = { add_charisma = 1 }
+                    1 = { add_charisma = 2 }
+                    1 = { add_charisma = 3 }
+                    1 = {
+                        add_charisma = 1
+                        add_martial = 1
+                    }
+                    1 = {
+                        add_zeal = 1
+                        add_finesse = 1
+                    }
+                    1 = {
+                        add_zeal = 2
+                        add_martial = 1
+                    }
+                }
+            }
+        }
+
+        set_variable = sound_foundations_var
+        remove_1_available_perk_effect = yes
+    }
+}
+oratory_bribery_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = bribery_var
+            }
+            NOT = {
+                root = {
+                    has_variable = bribery_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_oratory_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = wise_advisors_var }
+                }
+                custom_tooltip = {
+                    text = does_not_wise_advisors_tt
+                    has_variable = wise_advisors_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        add_charisma = 1
+        employer = {
+            add_country_modifier = {
+                name = bribery_country_mod
+                duration = 3650
+            }
+        }
+        set_variable = bribery_var
+        remove_1_available_perk_effect = yes
+    }
+}
+oratory_diplomatic_master_button = {
+    scope = character
+    saved_scopes = {
+        player
+    }
+    is_shown = {
+        trigger_if = {
+            limit = {
+                has_variable = diplomatic_master_var
+            }
+            NOT = {
+                root = {
+                    has_variable = diplomatic_master_var
+                }
+            }
+        }
+    }
+    ai_is_valid = {
+        always = no
+    }
+    is_valid = {
+        trigger_if = {
+            limit = { employer = scope:player }
+            is_valid_for_focus_selection_trigger = yes
+            is_valid_for_oratory_focus_selection_trigger = yes
+            character_can_take_perk_trigger = yes
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = bribery_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_bribery_tt
+                    has_variable = bribery_var
+                }
+            }
+            trigger_if = {
+                limit = {
+                    NOT = { has_variable = sound_foundations_var }
+                }
+                custom_tooltip = {
+                    text = does_not_have_sound_foundations_tt
+                    has_variable = sound_foundations_var
+                }
+            }
+        }
+        is_player_for_buttons_check_trigger = yes
+    }
+    effect = {
+        #Add trait with hidden event 
+        # add_trait = master_of_diplomacy_trait
+        custom_tooltip = add_oratory_trait_tooltip
+        trigger_event = hidden_events.4
+        set_variable = diplomatic_master_var
+        if = {
+            limit = {
+                has_variable = character_focus_cooldown_var
+            }
+            remove_variable = character_focus_cooldown_var
+        }
+        remove_1_available_perk_effect = yes
+    }
+}

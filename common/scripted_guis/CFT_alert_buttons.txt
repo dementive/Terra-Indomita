@@ -1,0 +1,163 @@
+﻿#Alert Triggers
+ruler_has_big_focus_perk_available_trigger = {
+    scope = country
+    saved_scopes = { player }
+    is_shown = {
+        is_ai = no
+        current_ruler = {
+            NOR = {
+                has_variable = martial_focus_tree_enabled
+                has_variable = oratory_focus_tree_enabled
+                has_variable = civic_focus_tree_enabled
+                has_variable = zeal_focus_tree_enabled
+            }
+        }
+    }
+    is_valid = {
+        current_ruler = {
+            custom_tooltip = {
+                text = has_1_big_perk_tooltip
+                NOR = {
+                    has_variable = martial_focus_tree_enabled
+                    has_variable = oratory_focus_tree_enabled
+                    has_variable = civic_focus_tree_enabled
+                    has_variable = zeal_focus_tree_enabled
+                }
+            }
+        }
+    }
+}
+
+ruler_has_martial_focus_perk_available_trigger = {
+    scope = country
+    saved_scopes = { player }
+    is_shown = {
+        is_ai = no
+        current_ruler = {
+            trigger_if = {
+                limit = {
+                    has_variable = character_focus_perk_available
+                    has_variable = martial_focus_tree_enabled
+                }
+                NOT = { has_variable = vetern_warrior_var }
+                var:character_focus_perk_available >= 1
+            }
+            trigger_else = {
+                always = no
+            }
+        }
+    }
+    is_valid = {
+        current_ruler = {
+            trigger_if = {
+                limit = {
+                    has_variable = character_focus_perk_available
+                }
+                custom_tooltip = {
+                    text = has_1_martial_perk_tooltip
+                    var:character_focus_perk_available >= 1
+                }
+            }
+        }
+    }
+}
+
+ruler_has_oratory_focus_perk_available_trigger = {
+    scope = country
+    saved_scopes = { player }
+    is_shown = {
+        is_ai = no
+        current_ruler = {
+            trigger_if = {
+                limit = {
+                    has_variable = character_focus_perk_available
+                    has_variable = oratory_focus_tree_enabled
+                }
+                NOT = { has_variable = diplomatic_master_var }
+                var:character_focus_perk_available >= 1
+            }
+            trigger_else = {
+                always = no
+            }
+        }
+    }
+    is_valid = {
+        current_ruler = {
+            trigger_if = {
+                limit = {
+                    has_variable = character_focus_perk_available
+                }
+                custom_tooltip = {
+                    text = has_1_oratory_perk_tooltip
+                    var:character_focus_perk_available >= 1
+                }
+            }
+        }
+    }
+}
+ruler_has_civic_focus_perk_available_trigger = {
+    scope = country
+    saved_scopes = { player }
+    is_shown = {
+        is_ai = no
+        current_ruler = {
+            trigger_if = {
+                limit = {
+                    has_variable = character_focus_perk_available
+                    has_variable = civic_focus_tree_enabled
+                }
+                NOT = { has_variable = master_of_trade_var }
+                var:character_focus_perk_available >= 1
+            }
+            trigger_else = {
+                always = no
+            }
+        }
+    }
+    is_valid = {
+        current_ruler = {
+            trigger_if = {
+                limit = {
+                    has_variable = character_focus_perk_available
+                }
+                custom_tooltip = {
+                    text = has_1_civic_perk_tooltip
+                    var:character_focus_perk_available >= 1
+                }
+            }
+        }
+    }
+}
+ruler_has_zeal_focus_perk_available_trigger = {
+    scope = country
+    saved_scopes = { player }
+    is_shown = {
+        is_ai = no
+        current_ruler = {
+            trigger_if = {
+                limit = {
+                    has_variable = character_focus_perk_available
+                    has_variable = zeal_focus_tree_enabled
+                }
+                NOT = { has_variable = head_of_faith_var }
+                var:character_focus_perk_available >= 1
+            }
+            trigger_else = {
+                always = no
+            }
+        }
+    }
+    is_valid = {
+        current_ruler = {
+            trigger_if = {
+                limit = {
+                    has_variable = character_focus_perk_available
+                }
+                custom_tooltip = {
+                    text = has_1_zeal_perk_tooltip
+                    var:character_focus_perk_available >= 1
+                }
+            }
+        }
+    }    
+}
