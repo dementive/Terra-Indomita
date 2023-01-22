@@ -12,7 +12,6 @@ base_window = {
 		start_sound = {
 			soundeffect = "event:/SFX/UI/Generic/2.0/sfx_ui_window_tab_close"
 		}
-		on_start = "[ExecuteConsoleCommand('GUI.ClearWidgets chinese_empire')]"
 	}
 	state = {
 		name = _hide
@@ -329,21 +328,33 @@ base_window = {
 						scale = 0.32
 						parentanchor = right
 						position = { -12 -18 }
-						visible = "[GovernmentView.GetPlayer.GetGovernment.IsRepublic]"
+						visible = "[And(GovernmentView.GetPlayer.GetGovernment.IsRepublic, Not(GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( Player.MakeScope ).End )))]"
 					}
 					icon = {
 						texture = "gfx/interface/event_window/Event_picture_of_a_doorway_from_the_outside.dds"
 						scale = 0.28
 						parentanchor = right
 						position = { -6 -18 }
-						visible = "[GovernmentView.GetPlayer.GetGovernment.IsMonarchy]"
+						visible = "[And(GovernmentView.GetPlayer.GetGovernment.IsMonarchy, Not(GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( Player.MakeScope ).End )))]"
 					}
 					icon = {
 						texture = "gfx/interface/event_window/Event_sacrifice.dds"
 						scale = 0.33
 						parentanchor = right
 						position = { -6 -18 }
-						visible = "[GovernmentView.GetPlayer.GetGovernment.IsTribal]"
+						visible = "[And(GovernmentView.GetPlayer.GetGovernment.IsTribal, Not(GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( Player.MakeScope ).End )))]"
+					}
+					never_disabled_icon_selected = {
+						enabled = no
+						texture = "gfx/interface/icons/military_traditions/chinese_path_junxian_system.dds"
+						scale = 0.7
+						parentanchor = right
+						position = { -19 -9 }
+						visible = "[GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+						modify_texture = {
+							texture = "gfx/interface/base_parts/event_picture_alpha_big.dds"
+							blend_mode = alphamultiply
+						}
 					}
 				}
 				
@@ -1673,12 +1684,24 @@ base_window = {
 					size = { 0 360 }
 					layoutpolicy_horizontal = expanding
 					#using = NoninteractableBG
-					visible = "[GovernmentView.GetPlayer.GetGovernment.IsMonarchy]"
 					icon = {
+						visible = "[And(GovernmentView.GetPlayer.GetGovernment.IsMonarchy, Not(GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( Player.MakeScope ).End )))]"
 						texture = "gfx/interface/event_window/Event_throneroom_king_on_throne_a_few_councilors_nearby.dds"
 						scale = 0.46
 						parentanchor = top|hcenter
 						position = { 0 26 }
+					}
+
+					icon = {
+						texture = "gfx/interface/china/finished_art/china_art_1.dds"
+						scale = 0.9
+						parentanchor = top|hcenter
+						position = { 0 26 }
+						visible = "[And(GovernmentView.GetPlayer.GetGovernment.IsMonarchy, GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( Player.MakeScope ).End ))]"
+						modify_texture = {
+							texture = "gfx/interface/base_parts/event_picture_alpha_big.dds"
+							blend_mode = alphamultiply
+						}
 					}
 					flowcontainer = {
 						parentanchor = left

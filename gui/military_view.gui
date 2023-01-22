@@ -706,9 +706,21 @@ base_window = {
 
 					icon = {
 						texture = "gfx/interface/event_window/Event_local_life.dds"
+						visible = "[Not(GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( Player.MakeScope ).End ))]"
 						scale = 0.32
 						alpha = 0.87
 						position = { 12 0 }
+					}
+					icon = {
+						texture = "gfx/interface/icons/military_traditions/ea_tribal_path_attacking_the_city.dds"
+						visible = "[GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+						scale = 0.85
+						alpha = 0.87
+						position = { 0 2 }
+						modify_texture = {
+							texture = "gfx/interface/base_parts/event_picture_alpha.dds"
+							blend_mode = alphamultiply
+						}
 					}
 					widget = {
 						size = { 132 48 }

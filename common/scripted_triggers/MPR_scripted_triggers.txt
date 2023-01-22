@@ -1,0 +1,31 @@
+﻿country_has_special_pop = {
+    # SCOPE = country
+    # type = priest/merchant/architect/artist
+    # count = number of special pops to check for
+    trigger_if = {
+        limit = {
+            has_variable = number_of_$type$_var
+        }
+        var:number_of_$type$_var >= $count$
+    }
+    trigger_else = {
+        # if there is no var there are no pops
+        always = no
+    }
+}
+
+province_has_special_pop = {
+    # SCOPE = province
+    # type = priest/merchant/architect/artist
+    # count = number of special pops to check for
+    trigger_if = {
+        limit = {
+            has_variable = $type$_in_territory
+        }
+        var:$type$_in_territory >= $count$
+    }
+    trigger_else = {
+        # if there is no var there are no pops
+        always = no
+    }
+}

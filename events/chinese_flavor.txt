@@ -46,6 +46,30 @@ chinese_flavor.2 = { # A New Emperor
     immediate = {
         if = {
             limit = {
+                # Should check that there are not 5 merchants already, if there are the effects would do nothing.
+                NOT = {
+                    country_has_special_pop = {
+                        type = merchant # Type of special pop to check for
+                        count = 5 # checks if >= 5
+                    }
+                }
+                # Check if there is at least 1 merchant special pop in the capital
+                capital_scope = {
+                    province_has_special_pop = {
+                        type = merchant # Type of special pop to check for
+                        count = 1 # checks if >= 5
+                    }
+                }
+            }
+            capital_scope = {
+                add_special_pop = {
+                    type = merchant
+                    count = 2
+                }
+            }
+        }
+        if = {
+            limit = {
                 current_ruler = { is_married = yes }
             }
             current_ruler.spouse = {
@@ -351,7 +375,7 @@ chinese_flavor.5 = { # Turmoil in China
     type = major_country_event
     title = chinese_flavor.5.t
     desc = chinese_flavor.5.desc
-    picture = chinese_favorable_conditions
+    picture = Wang_Hui_3_event
     left_portrait = c:CHU.current_ruler
     right_portrait = c:QIN.current_ruler
     right_portrait = c:ZHO.current_ruler

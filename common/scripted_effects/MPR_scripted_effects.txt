@@ -1,410 +1,472 @@
-﻿add_special_pop_province_modifier_effect = {
+﻿add_special_pop = {
+    # SCOPE = province
+    # type = priest/merchant/architect/artist
+    # count = number of special pops to add (max is 5)
+    if = {
+        limit = {
+            NOT = { has_variable = $type$_in_territory }
+        }
+        set_variable = {
+            name = $type$_in_territory
+            value = 0
+        }
+    }
+
+    if = {
+        limit = {
+            owner = {
+                NOT = { has_variable = number_of_$type$_var }
+            }
+        }
+        owner = {
+            set_variable = {
+                name = number_of_$type$_var
+                value = 0
+            }
+        }
+    }
+
+    while = {
+        count = $count$
+        limit = {
+            owner.var:number_of_$type$_var < 5
+            var:$type$_in_territory > 0
+        }
+        add_permanent_province_modifier = {
+            name = $type$_in_province_mod
+            mode = add
+        }
         if = {
             limit = {
-                has_variable = priest_in_territory
+                NOT = { has_variable = $type$_in_territory }
             }
+            set_variable = {
+                name = $type$_in_territory
+                value = 1
+            }
+        }
+        else = {
+            change_variable = {
+                name = $type$_in_territory
+                add = 1
+            }
+        }
+        owner = {
+            change_variable = {
+                name = number_of_$type$_var
+                add = 1
+            }
+        }
+    }
+}
 
-            if = {
-                limit = {
-                    NOT = {
-                        has_province_modifier = priests_converting_population_mod
-                    }
-                }
-                add_permanent_province_modifier = {
-                    name = priests_converting_population_mod
-                    mode = add
+add_special_pop_province_modifier_effect = {
+    if = {
+        limit = {
+            has_variable = priest_in_territory
+        }
+
+        if = {
+            limit = {
+                NOT = {
+                    has_province_modifier = priest_in_province_mod
                 }
             }
-            if = {
-                limit = {
-                    has_province_modifier = priests_converting_population_mod
-                }
-                if = {
-                    limit = { var:priest_in_territory = 1 }
-                    remove_province_modifier = priests_converting_population_mod
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                }
-                else_if = {
-                    limit = { var:priest_in_territory = 2 }
-                    remove_province_modifier = priests_converting_population_mod
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }   
-                }
-                else_if = {
-                    limit = { var:priest_in_territory = 3 }
-                    remove_province_modifier = priests_converting_population_mod
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                }
-                else_if = {
-                    limit = { var:priest_in_territory = 4 }
-                    remove_province_modifier = priests_converting_population_mod
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                }
-                else_if = {
-                    limit = { var:priest_in_territory = 5 }
-                    remove_province_modifier = priests_converting_population_mod
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = priests_converting_population_mod
-                        mode = add
-                    }
-                }
+            add_permanent_province_modifier = {
+                name = priest_in_province_mod
+                mode = add
             }
         }
         if = {
             limit = {
-                has_variable = merchant_in_territory
+                has_province_modifier = priest_in_province_mod
             }
-
             if = {
-                limit = {
-                    NOT = {
-                        has_province_modifier = merchants_in_province_mod
-                    }
-                }
+                limit = { var:priest_in_territory = 1 }
+                remove_province_modifier = priest_in_province_mod
                 add_permanent_province_modifier = {
-                    name = merchants_in_province_mod
+                    name = priest_in_province_mod
                     mode = add
                 }
             }
-            if = {
-                limit = {
-                    has_province_modifier = merchants_in_province_mod
+            else_if = {
+                limit = { var:priest_in_territory = 2 }
+                remove_province_modifier = priest_in_province_mod
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
                 }
-                if = {
-                    limit = { var:merchant_in_territory = 1 }
-                    remove_province_modifier = merchants_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
+                }   
+            }
+            else_if = {
+                limit = { var:priest_in_territory = 3 }
+                remove_province_modifier = priest_in_province_mod
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:merchant_in_territory = 2 }
-                    remove_province_modifier = merchants_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }   
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:merchant_in_territory = 3 }
-                    remove_province_modifier = merchants_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:merchant_in_territory = 4 }
-                    remove_province_modifier = merchants_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
+            }
+            else_if = {
+                limit = { var:priest_in_territory = 4 }
+                remove_province_modifier = priest_in_province_mod
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:merchant_in_territory = 5 }
-                    remove_province_modifier = merchants_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = merchants_in_province_mod
-                        mode = add
-                    }
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
                 }
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
+                }
+            }
+            else_if = {
+                limit = { var:priest_in_territory = 5 }
+                remove_province_modifier = priest_in_province_mod
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = priest_in_province_mod
+                    mode = add
+                }
+            }
+        }
+    }
+    if = {
+        limit = {
+            has_variable = merchant_in_territory
+        }
+
+        if = {
+            limit = {
+                NOT = {
+                    has_province_modifier = merchant_in_province_mod
+                }
+            }
+            add_permanent_province_modifier = {
+                name = merchant_in_province_mod
+                mode = add
             }
         }
         if = {
             limit = {
-                has_variable = architects_in_territory
+                has_province_modifier = merchant_in_province_mod
             }
-
             if = {
-                limit = {
-                    NOT = {
-                        has_province_modifier = architects_in_province_mod
-                    }
-                }
+                limit = { var:merchant_in_territory = 1 }
+                remove_province_modifier = merchant_in_province_mod
                 add_permanent_province_modifier = {
-                    name = architects_in_province_mod
+                    name = merchant_in_province_mod
                     mode = add
                 }
             }
-            if = {
-                limit = {
-                    has_province_modifier = architects_in_province_mod
+            else_if = {
+                limit = { var:merchant_in_territory = 2 }
+                remove_province_modifier = merchant_in_province_mod
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
                 }
-                if = {
-                    limit = { var:architects_in_territory = 1 }
-                    remove_province_modifier = architects_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
+                }   
+            }
+            else_if = {
+                limit = { var:merchant_in_territory = 3 }
+                remove_province_modifier = merchant_in_province_mod
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:architects_in_territory = 2 }
-                    remove_province_modifier = architects_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }   
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:architects_in_territory = 3 }
-                    remove_province_modifier = architects_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:architects_in_territory = 4 }
-                    remove_province_modifier = architects_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
+            }
+            else_if = {
+                limit = { var:merchant_in_territory = 4 }
+                remove_province_modifier = merchant_in_province_mod
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:architects_in_territory = 5 }
-                    remove_province_modifier = architects_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = architects_in_province_mod
-                        mode = add
-                    }
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
                 }
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
+                }
+            }
+            else_if = {
+                limit = { var:merchant_in_territory = 5 }
+                remove_province_modifier = merchant_in_province_mod
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = merchant_in_province_mod
+                    mode = add
+                }
+            }
+        }
+    }
+    if = {
+        limit = {
+            has_variable = architect_in_territory
+        }
+
+        if = {
+            limit = {
+                NOT = {
+                    has_province_modifier = architect_in_province_mod
+                }
+            }
+            add_permanent_province_modifier = {
+                name = architect_in_province_mod
+                mode = add
             }
         }
         if = {
             limit = {
-                has_variable = artists_in_territory
+                has_province_modifier = architect_in_province_mod
             }
-
             if = {
-                limit = {
-                    NOT = {
-                        has_province_modifier = artists_in_province_mod
-                    }
-                }
+                limit = { var:architect_in_territory = 1 }
+                remove_province_modifier = architect_in_province_mod
                 add_permanent_province_modifier = {
-                    name = artists_in_province_mod
+                    name = architect_in_province_mod
                     mode = add
                 }
             }
-            if = {
-                limit = {
-                    has_province_modifier = artists_in_province_mod
+            else_if = {
+                limit = { var:architect_in_territory = 2 }
+                remove_province_modifier = architect_in_province_mod
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
                 }
-                if = {
-                    limit = { var:artists_in_territory = 1 }
-                    remove_province_modifier = artists_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
+                }   
+            }
+            else_if = {
+                limit = { var:architect_in_territory = 3 }
+                remove_province_modifier = architect_in_province_mod
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:artists_in_territory = 2 }
-                    remove_province_modifier = artists_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }   
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:artists_in_territory = 3 }
-                    remove_province_modifier = artists_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:artists_in_territory = 4 }
-                    remove_province_modifier = artists_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
+            }
+            else_if = {
+                limit = { var:architect_in_territory = 4 }
+                remove_province_modifier = architect_in_province_mod
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
                 }
-                else_if = {
-                    limit = { var:artists_in_territory = 5 }
-                    remove_province_modifier = artists_in_province_mod
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
-                    add_permanent_province_modifier = {
-                        name = artists_in_province_mod
-                        mode = add
-                    }
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
+                }
+            }
+            else_if = {
+                limit = { var:architect_in_territory = 5 }
+                remove_province_modifier = architect_in_province_mod
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = architect_in_province_mod
+                    mode = add
                 }
             }
         }
+    }
+    if = {
+        limit = {
+            has_variable = artist_in_territory
+        }
+
+        if = {
+            limit = {
+                NOT = {
+                    has_province_modifier = artist_in_province_mod
+                }
+            }
+            add_permanent_province_modifier = {
+                name = artist_in_province_mod
+                mode = add
+            }
+        }
+        if = {
+            limit = {
+                has_province_modifier = artist_in_province_mod
+            }
+            if = {
+                limit = { var:artist_in_territory = 1 }
+                remove_province_modifier = artist_in_province_mod
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+            }
+            else_if = {
+                limit = { var:artist_in_territory = 2 }
+                remove_province_modifier = artist_in_province_mod
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }   
+            }
+            else_if = {
+                limit = { var:artist_in_territory = 3 }
+                remove_province_modifier = artist_in_province_mod
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+            }
+            else_if = {
+                limit = { var:artist_in_territory = 4 }
+                remove_province_modifier = artist_in_province_mod
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+            }
+            else_if = {
+                limit = { var:artist_in_territory = 5 }
+                remove_province_modifier = artist_in_province_mod
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+                add_permanent_province_modifier = {
+                    name = artist_in_province_mod
+                    mode = add
+                }
+            }
+        }
+    }
 }
