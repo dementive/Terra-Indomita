@@ -17,6 +17,26 @@
 	}
 }
 
+add_focus_perk = {
+	# Scope = character
+	# amount = number of perks to add (don't do too many when using this, it will be more unbalanced the more you do)
+	if = {
+		limit = {
+			has_variable = character_focus_perk_available
+		}
+		change_variable = {
+			name = character_focus_perk_available
+			add = 1
+		}
+	}
+	else = {
+		set_variable = {
+			name = character_focus_perk_available
+			value = 1
+		}
+	}
+}
+
 remove_all_character_focuses_effect = {
 	hidden_effect = {
 		switch = {
