@@ -1,5 +1,34 @@
-﻿add_focus_experience = {
-	# Scope = character, specifically a ruler.
+﻿set_character_focus = {
+	# Scope = ruler to set focus on
+	# Sets a focus for a character.
+	# Make sure the type matches with the focus being changed to
+	# $focus_type$ = type of focus tree, can be: martial, oratory, civic, or zeal
+	# $focus$ = focus to set can be:
+	# martial - prowess, strategy, siegecraft, command
+	# oratory - populist, oration, foreign_affairs, family
+	# civic - construction, holding, commerce, wealth
+	# zeal - divinity, philosophy, priestly_support, piety
+
+	remove_all_character_focuses_effect = yes
+	add_triggered_character_modifier = {
+	    name = $focus$_focus_triggered_mod
+	    duration = -1
+	}
+	if = {
+		limit = {
+			has_variable = character_focus_cooldown_var
+		}
+		remove_variable = character_focus_cooldown_var
+	}
+	set_variable = {
+	    name = character_focus_cooldown_var
+	    days = 1825
+	}
+	remove_focus_tree_variables = yes
+	set_variable = $focus_type$_focus_tree_enabled
+}
+add_focus_experience = {
+	# Scope = ruler
 	if = {
 	    limit = {
 	        has_variable = character_focus_experience
@@ -18,7 +47,7 @@
 }
 
 add_focus_perk = {
-	# Scope = character
+	# Scope = ruler
 	# amount = number of perks to add (don't do too many when using this, it will be more unbalanced the more you do)
 	if = {
 		limit = {
