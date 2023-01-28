@@ -1,4 +1,23 @@
-﻿remove_all_character_focuses_effect = {
+﻿add_focus_experience = {
+	# Scope = character, specifically a ruler.
+	if = {
+	    limit = {
+	        has_variable = character_focus_experience
+	    }
+	    change_variable = {
+	        name = character_focus_experience
+	        add = $amount$
+	    }
+	}
+	else = {
+	    set_variable = {
+	        name = character_focus_experience
+	        value = $amount$
+	    }
+	}
+}
+
+remove_all_character_focuses_effect = {
 	hidden_effect = {
 		switch = {
 			trigger = has_triggered_character_modifier
