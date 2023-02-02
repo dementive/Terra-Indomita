@@ -371,11 +371,35 @@ types MultiplayerLobby
 							alwaystransparent = no
 							filter_mouse = left|right
 							icon = {
+								visible = "[And(Not(GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( LobbyView.GetSelectedPlayable.GetCountry.MakeScope ).End )), Not(GetScriptedGui('UI_is_indian').IsValid( GuiScope.SetRoot( LobbyView.GetSelectedPlayable.GetCountry.MakeScope ).End )))]"
 								texture = "gfx/interface/event_window/Event_great_thriving_city_seen_slightly_from_a_distance.dds"
 								scale = 0.22
 								parentanchor = right
 								position = { -12 -2 }
 							}
+							icon = {
+								visible = "[GetScriptedGui('UI_is_eastern_culture').IsValid( GuiScope.SetRoot( LobbyView.GetSelectedPlayable.GetCountry.MakeScope ).End )]"
+								texture = "gfx/interface/icons/military_traditions/chinese_path_favorable_geographical_conditions.dds"
+								scale = 0.60
+								parentanchor = right
+								position = { -12 -2 }
+								modify_texture = {
+									texture = "gfx/interface/base_parts/event_picture_alpha.dds"
+									blend_mode = alphamultiply
+								}
+							}
+							icon = {
+								visible = "[GetScriptedGui('UI_is_indian').IsValid( GuiScope.SetRoot( LobbyView.GetSelectedPlayable.GetCountry.MakeScope ).End )]"
+								texture = "gfx/interface/icons/military_traditions/mauryan_coastal_path_1.dds"
+								scale = 0.60
+								parentanchor = right
+								position = { -12 -2 }
+								modify_texture = {
+									texture = "gfx/interface/base_parts/event_picture_alpha.dds"
+									blend_mode = alphamultiply
+								}
+							}
+
 							banner_migrant_horde = {
 								datacontext = "[LobbyView.GetSelectedPlayable.GetCountry]"
 
