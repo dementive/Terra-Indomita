@@ -13,7 +13,7 @@
         OR = {
             tag = MKA # MAKAE
             tag = PSY # PSYLLI
-            tag = NAS # NASAMONES
+            tag = NSM # NASAMONES
             tag = GAR # GARAMANTES
             tag = MHY # MACHYLES
             tag = PHZ # PHAZANI
@@ -215,7 +215,7 @@
         icon = "task_conquest"
         potential = {
             is_ai = no 
-            tag = NAS 
+            tag = NSM 
         }
         allow = {
             political_influence >= 50
@@ -238,7 +238,7 @@
             hidden:c:GAR = { # Garamantes still exist
                 has_land = yes
                 is_subject = no # they are not a subject
-                opinion = { target = NAS value >= 100 }
+                opinion = { target = NSM value >= 100 }
             }
         }
 
@@ -246,7 +246,7 @@
 
         highlight = {
             scope:province = {
-                province_id = 8168
+                province_id = 9984
             }
         }
 
@@ -276,7 +276,7 @@
             }
             trigger_if = {
                 limit = {
-                    tag = NAS
+                    tag = NSM
                 }
                 owns_or_subject_owns_area = soda_area
                 owns_or_subject_owns_area = tripolitania_orientalis_area
@@ -395,7 +395,7 @@
 
     fezzani_mission_01_task_09 = { # The Nasamones
         icon = "task_diplomatic"
-        potential = { tag = NAS }
+        potential = { tag = NSM }
         allow = {
             political_influence >= 25
         }
@@ -419,7 +419,7 @@
     }
 
     fezzani_mission_01_task_10 = { # Conquer our neighbors - Garamantes
-        #          |      GAR                   |     NAS                  |  MHY PSY PHZ
+        #          |      GAR                   |     NSM                  |  MHY PSY PHZ
         requires = { fezzani_mission_01_task_08 fezzani_mission_01_task_09 fezzani_mission_01_task_01 }
         icon = "task_expansion"
         #potential = { tag = GAR }
@@ -596,8 +596,8 @@
         icon = "task_diplomatic"
         potential = {  tag = GAR }
         allow = {
-            owns = 8168 # Garama
-            hidden:p:8168 = {
+            owns = 9984 # Garama
+            hidden:p:9984 = {
                 has_building = forum_building
                 has_building = foundry_building
                 has_building = commerce_building
@@ -607,7 +607,7 @@
 
         highlight = {
             scope:province = {
-                province_id = 8168
+                province_id = 9984
             }
         }
 
@@ -625,14 +625,14 @@
         allow = {
             treasury >= 150
 
-            owns = 8162 # SABHA
-            hidden:p:8162 = {
+            owns = 9980 # SABHA
+            hidden:p:9980 = {
                 has_city_status = no
                 NOT = { has_building = fortress_building }
             }
 
-            owns = 8154 # Wanin
-            hidden:p:8154 = {
+            owns = 9978 # Wanin
+            hidden:p:9978 = {
                 has_city_status = no
                 NOT = { has_building = fortress_building }
             }
@@ -643,8 +643,8 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8162 # SABHA
-                    province_id = 8154 # WANIN
+                    province_id = 9980 # SABHA
+                    province_id = 9978 # WANIN
                 }
             }
         }
@@ -659,11 +659,11 @@
 
             show_as_tooltip = {
                 add_2_free_province_investments = yes
-                p:8162 = {
+                p:9980 = {
                     set_city_status = city
                     add_building_level = fortress_building
                 }
-                p:8154 = {
+                p:9978 = {
                     add_building_level = fortress_building
                 }
                 add_country_modifier = {
@@ -779,7 +779,7 @@
         potential = {  tag = GAR }
 
         allow = {
-            hidden:p:8152 = { # brak
+            hidden:p:9972 = { # brak
                 AND = {
                     has_city_status = yes
                     has_building = forum_building
@@ -787,7 +787,7 @@
                     has_building = workshop_building # mill
                 }
             }
-            hidden:p:8169 = { # Zinchekra
+            hidden:p:9985 = { # Zinchekra
                 AND = {
                     has_city_status = yes
                     has_building = population_building # granary
@@ -799,8 +799,8 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8152
-                    province_id = 8169
+                    province_id = 9972
+                    province_id = 9985
                 }
             }
         }
@@ -820,16 +820,16 @@
         potential = {  tag = GAR }
 
         allow = {
-            hidden:p:8164 = {
+            hidden:p:9982 = {
                 has_building = basic_settlement_infratructure_building # farming settlement
             }
-            hidden:p:8175 = {
+            hidden:p:9994 = {
                 has_building = basic_settlement_infratructure_building
             }
-            hidden:p:8154 = {
+            hidden:p:9978 = {
                 has_building = fortress_building
             }
-            hidden:p:8166 = {
+            hidden:p:9983 = {
                 has_building = latifundia_building # slave estate
             }
         }
@@ -837,10 +837,10 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8164
-                    province_id = 8175
-                    province_id = 8154
-                    province_id = 8166
+                    province_id = 9982
+                    province_id = 9994
+                    province_id = 9978
+                    province_id = 9983
                 }
             }
         }
@@ -861,10 +861,10 @@
         allow = {
             owns_area = soda_area
 
-            hidden:p:8145 = {
+            hidden:p:9965 = {
                 has_building = slave_mine_building
             }
-            hidden:p:8142 = {
+            hidden:p:9962 = {
                 has_city_status = yes
                 has_building = forum_building
                 has_building = foundry_building
@@ -877,8 +877,8 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8142
-                    province_id = 8145
+                    province_id = 9962
+                    province_id = 9965
                 }
             }
         }
@@ -890,10 +890,10 @@
         }
     }
 
-    fezzani_mission_01_task_40 = { # Building within the conquered NAS lands
+    fezzani_mission_01_task_40 = { # Building within the conquered NSM lands
         requires = { fezzani_mission_01_task_41 }
         icon = "task_happiness"
-        potential = { NOT = { tag = NAS } }
+        potential = { NOT = { tag = NSM } }
 
         allow = {
             owns_area = nasamonia_area
@@ -905,10 +905,10 @@
                 has_building = commerce_building
                 has_building = workshop_building
             }
-            hidden:p:8137 = {
+            hidden:p:9957 = {
                 has_building = basic_settlement_infratructure_building # farming settlement
             }
-            hidden:p:8125 = {
+            hidden:p:9946 = {
                 has_building = hill_fort # tribal settlement
             }
             
@@ -917,15 +917,15 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8137
-                    province_id = 8125
-                    province_id = 8128
+                    province_id = 9957
+                    province_id = 9946
+                    province_id = 9949
                 }
             }
         }
 
         on_completion = {
-            p:8128 = {
+            p:9949 = {
                 while = {
                     count = 5
 					limit = {
@@ -951,18 +951,18 @@
             owns_area = soffegin_area
             owns_area = zamzam_area
             # Owns a few territories within psyllia_area
-            owns = 8195
-            owns = 8196
-            owns = 8197
+            owns = 10004
+            owns = 10005
+            owns = 10006
             owns = 3329
             
-            hidden:p:8207 = {
+            hidden:p:10016 = {
                 has_building = basic_settlement_infratructure_building
             }
-            hidden:p:8196 = {
+            hidden:p:10005 = {
                 has_building = basic_settlement_infratructure_building # slave estate
             }
-            hidden:p:8217 = {
+            hidden:p:10026 = {
                 has_building = slave_mine_building
             }
             hidden:p:3329 = {
@@ -975,9 +975,9 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8207
-                    province_id = 8196
-                    province_id = 8217
+                    province_id = 10016
+                    province_id = 10005
+                    province_id = 10026
                     province_id = 3329
                 }
             }
@@ -1055,13 +1055,13 @@
 
         allow = {
             owns_area = phazania_area
-            hidden:p:8234 = {
+            hidden:p:10043 = {
                 has_building = basic_settlement_infratructure_building # farming settlement
             }
-            hidden:p:8229 = {
+            hidden:p:10038 = {
                 has_building = slave_mine_building
             }
-            hidden:p:8238 = {
+            hidden:p:10047 = {
                 has_building = slave_mine_building
             }
         }
@@ -1069,9 +1069,9 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8234
-                    province_id = 8229
-                    province_id = 8238
+                    province_id = 10043
+                    province_id = 10038
+                    province_id = 10047
                 }
             }
         }
@@ -1082,7 +1082,7 @@
             }
             custom_tooltip = fezzani_task_43_phazania_land_tooltip
             show_as_tooltip = {
-                p:8233 = {
+                p:10042 = {
                     add_permanent_province_modifier = { name = thriving_slaves_phazania }
                 }
             }
@@ -1104,8 +1104,8 @@
         icon = "task_diplomatic"
         potential = {  tag = MHY }
         allow = {
-            owns = 8142 # Waddan
-            hidden:p:8142 = {
+            owns = 9962 # Waddan
+            hidden:p:9962 = {
                 AND = {
                     has_city_status = yes
                     has_building = forum_building
@@ -1119,7 +1119,7 @@
 
         highlight = {
             scope:province = {
-                province_id = 8142
+                province_id = 9962
             }
         }
 
@@ -1137,16 +1137,16 @@
         potential = {  tag = MHY }
 
         allow = {
-            hidden:p:8145 = {
+            hidden:p:9965 = {
                 has_building = slave_mine_building # mine
             }
-            hidden:p:8140 = {
+            hidden:p:9960 = {
                 has_building = latifundia_building
             }
-            hidden:p:8147 = {
+            hidden:p:9967 = {
                 has_building = fortress_building
             }
-            hidden:p:8144 = {
+            hidden:p:9964 = {
                 has_building = latifundia_building # slave estate
             }
         }
@@ -1154,10 +1154,10 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8145
-                    province_id = 8140
-                    province_id = 8147
-                    province_id = 8144
+                    province_id = 9965
+                    province_id = 9960
+                    province_id = 9967
+                    province_id = 9964
                 }
             }
         }
@@ -1181,11 +1181,11 @@
             owns_area = murzuq_area
             owns_area = himka_area
 
-            hidden:p:8154 = {
+            hidden:p:9978 = {
                 has_city_status = yes
                 has_building = fortress_building
             }
-            hidden:p:8152 = { # brak
+            hidden:p:9972 = { # brak
                 AND = {
                     has_city_status = yes
                     has_building = forum_building
@@ -1193,7 +1193,7 @@
                     has_building = workshop_building # mill
                 }
             }
-            hidden:p:8169 = { # Zinchekra
+            hidden:p:9985 = { # Zinchekra
                 AND = {
                     has_city_status = yes
                     has_building = population_building # granary
@@ -1205,15 +1205,15 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8154
-                    province_id = 8152
-                    province_id = 8169
+                    province_id = 9978
+                    province_id = 9972
+                    province_id = 9985
                 }
             }
         }
 
         on_completion = {
-            p:8168 = {
+            p:9984 = {
                 while = {
                     count = 6
                     random_pops_in_province = {
@@ -1231,10 +1231,10 @@
 
     fezzani_mission_01_task_30 = { # The Crown Capital
         icon = "task_diplomatic"
-        potential = {  tag = NAS }
+        potential = {  tag = NSM }
         allow = {
-            owns = 8128 # Augila
-            hidden:p:8128 = {
+            owns = 9949 # Augila
+            hidden:p:9949 = {
                 has_building = forum_building
                 has_building = foundry_building
                 has_building = commerce_building
@@ -1244,7 +1244,7 @@
 
         highlight = {
             scope:province = {
-                province_id = 8128
+                province_id = 9949
             }
         }
 
@@ -1259,10 +1259,10 @@
     fezzani_mission_01_task_31 = { # Preparing the cities
         requires = { fezzani_mission_01_task_30 }
         icon = "task_conquest"
-        potential = {  tag = NAS }
+        potential = {  tag = NSM }
 
         allow = {
-            hidden:p:8127 = { # Gialo
+            hidden:p:10036 = { # Gialo
                 AND = {
                     has_city_status = yes
                     has_building = forum_building
@@ -1270,7 +1270,7 @@
                     has_building = workshop_building # mill
                 }
             }
-            hidden:p:8126 = { # Gicherra
+            hidden:p:10035 = { # Gicherra
                 AND = {
                     has_city_status = yes
                     has_building = population_building # granary
@@ -1282,8 +1282,8 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8126
-                    province_id = 8127
+                    province_id = 10035
+                    province_id = 10036
                 }
             }
         }
@@ -1300,19 +1300,19 @@
     fezzani_mission_01_task_32 = { # Preparing the Troops from the settlements
         requires = { fezzani_mission_01_task_31 }
         icon = "task_conquest"
-        potential = {  tag = NAS }
+        potential = {  tag = NSM }
 
         allow = {
-            hidden:p:8137 = {
+            hidden:p:9957 = {
                 has_building = basic_settlement_infratructure_building # farming settlement
             }
-            hidden:p:8133 = {
+            hidden:p:9954 = {
                 has_building = latifundia_building
             }
-            hidden:p:8138 = {
+            hidden:p:10047 = {
                 has_building = fortress_building
             }
-            hidden:p:8125 = {
+            hidden:p:9946 = {
                 has_building = hill_fort # tribal settlement
             }
         }
@@ -1320,10 +1320,10 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8138
-                    province_id = 8137
-                    province_id = 8133
-                    province_id = 8125
+                    province_id = 10047
+                    province_id = 9957
+                    province_id = 9954
+                    province_id = 9946
                 }
             }
         }
@@ -1342,8 +1342,8 @@
         icon = "task_diplomatic"
         potential = {  tag = MKA }
         allow = {
-            owns = 8218 # Mesphe
-            hidden:p:8218 = {
+            owns = 10027 # Mesphe
+            hidden:p:10027 = {
                 AND = {
                     has_city_status = yes
                     num_of_forum_building = 1
@@ -1357,7 +1357,7 @@
 
         highlight = {
             scope:province = {
-                province_id = 8218
+                province_id = 10027
             }
         }
 
@@ -1375,19 +1375,19 @@
         potential = {  tag = MKA }
 
         allow = {
-            hidden:p:8214 = {
+            hidden:p:10023 = {
                 has_building = fortress_building
             }
-            hidden:p:8203 = {
+            hidden:p:10012 = {
                 has_building = fortress_building
             }
-            hidden:p:8207 = {
+            hidden:p:10016 = {
                 has_building = basic_settlement_infratructure_building
             }
-            hidden:p:8196 = {
+            hidden:p:10005 = {
                 has_building = basic_settlement_infratructure_building # slave estate
             }
-            hidden:p:8217 = {
+            hidden:p:10026 = {
                 has_building = slave_mine_building
             }
         }
@@ -1395,11 +1395,11 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8214
-                    province_id = 8203
-                    province_id = 8207
-                    province_id = 8196
-                    province_id = 8217
+                    province_id = 10023
+                    province_id = 10012
+                    province_id = 10016
+                    province_id = 10005
+                    province_id = 10026
                 }
             }
         }
@@ -1418,8 +1418,8 @@
         icon = "task_diplomatic"
         potential = {  tag = PHZ }
         allow = {
-            owns = 8128 # Garama
-            hidden:p:8128 = {
+            owns = 10042 # Cydamus
+            hidden:p:10042 = {
                 has_building = forum_building
                 has_building = foundry_building
                 has_building = court_building
@@ -1429,7 +1429,7 @@
 
         highlight = {
             scope:province = {
-                province_id = 8128
+                province_id = 10042
             }
         }
 
@@ -1447,19 +1447,19 @@
         potential = {  tag = PHZ }
 
         allow = {
-            hidden:p:8234 = {
+            hidden:p:10043 = {
                 has_building = basic_settlement_infratructure_building # farming settlement
             }
-            hidden:p:8229 = {
+            hidden:p:10038 = {
                 has_building = slave_mine_building
             }
-            hidden:p:8238 = {
+            hidden:p:10047 = {
                 has_building = slave_mine_building
             }
-            hidden:p:8236 = {
+            hidden:p:10045 = {
                 has_building = fortress_building
             }
-            hidden:p:8231 = {
+            hidden:p:10040 = {
                 has_building = barracks_building # tribal settlement
             }
         }
@@ -1467,11 +1467,11 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8234
-                    province_id = 8236
-                    province_id = 8238
-                    province_id = 8229
-                    province_id = 8231
+                    province_id = 10043
+                    province_id = 10045
+                    province_id = 10047
+                    province_id = 10038
+                    province_id = 10040
                 }
             }
         }
@@ -1525,10 +1525,10 @@
             hidden:p:3332 = {
                 has_building = basic_settlement_infratructure_building # farming settlement
             }
-            hidden:p:8200 = {
+            hidden:p:10009 = {
                 has_building = basic_settlement_infratructure_building
             }
-            hidden:p:8202 = {
+            hidden:p:10011 = {
                 has_building = fortress_building
             }
             hidden:p:3334 = {
@@ -1542,8 +1542,8 @@
                     province_id = 3336
                     province_id = 3332
                     province_id = 3337
-                    province_id = 8200
-                    province_id = 8202
+                    province_id = 10009
+                    province_id = 10011
                     province_id = 3334
                 }
             }
