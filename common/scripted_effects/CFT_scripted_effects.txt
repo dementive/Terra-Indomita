@@ -2,66 +2,78 @@
 	# Scope = ruler to set focus on
 	# Sets a focus for a character.
 	# Make sure the type matches with the focus being changed to
+	# $text$ = tooltip to use - can be: set_prowess_focus, set_strategy_focus, set_siegecraft_focus, set_command_focus, set_populist_focus, set_oration_focus, set_foreign_affairs_focus, set_family_focus, set_construction_focus, set_holding_focus, set_commerce_focus, set_wealth_focus, set_divinity_focus, set_philosophy_focus, set_priestly_support_focus, set_piety_focus
 	# $focus_type$ = type of focus tree, can be: martial, oratory, civic, or zeal
 	# $focus$ = focus to set can be:
 	# martial - prowess, strategy, siegecraft, command
 	# oratory - populist, oration, foreign_affairs, family
 	# civic - construction, holding, commerce, wealth
 	# zeal - divinity, philosophy, priestly_support, piety
-
-	remove_all_character_focuses_effect = yes
-	add_triggered_character_modifier = {
-	    name = $focus$_focus_triggered_mod
-	    duration = -1
-	}
-	if = {
-		limit = {
-			has_variable = character_focus_cooldown_var
+	custom_tooltip = $text$
+	hidden_effect = {
+		remove_all_character_focuses_effect = yes
+		add_triggered_character_modifier = {
+		    name = $focus$_focus_triggered_mod
+		    duration = -1
 		}
-		remove_variable = character_focus_cooldown_var
+		if = {
+			limit = {
+				has_variable = character_focus_cooldown_var
+			}
+			remove_variable = character_focus_cooldown_var
+		}
+		set_variable = {
+		    name = character_focus_cooldown_var
+		    days = 1825
+		}
+		remove_focus_tree_variables = yes
+		set_variable = $focus_type$_focus_tree_enabled
 	}
-	set_variable = {
-	    name = character_focus_cooldown_var
-	    days = 1825
-	}
-	remove_focus_tree_variables = yes
-	set_variable = $focus_type$_focus_tree_enabled
 }
 add_focus_experience = {
 	# Scope = ruler
-	if = {
-	    limit = {
-	        has_variable = character_focus_experience
-	    }
-	    change_variable = {
-	        name = character_focus_experience
-	        add = $amount$
-	    }
-	}
-	else = {
-	    set_variable = {
-	        name = character_focus_experience
-	        value = $amount$
-	    }
+	# text = tooltip to use - add_10_focus_xp, add_25_focus_xp, add_50_focus_xp, add_100_focus_xp
+	# amount = focus points to add
+	custom_tooltip = $text$
+	hidden_effect = {
+		if = {
+		    limit = {
+		        has_variable = character_focus_experience
+		    }
+		    change_variable = {
+		        name = character_focus_experience
+		        add = $amount$
+		    }
+		}
+		else = {
+		    set_variable = {
+		        name = character_focus_experience
+		        value = $amount$
+		    }
+		}
 	}
 }
 
 add_focus_perk = {
 	# Scope = ruler
+	# text = tooltip to use - add_1_char_perk, add_2_char_perk, add_3_char_perk
 	# amount = number of perks to add (don't do too many when using this, it will be more unbalanced the more you do)
-	if = {
-		limit = {
-			has_variable = character_focus_perk_available
+	custom_tooltip = $text$
+	hidden_effect = {
+		if = {
+			limit = {
+				has_variable = character_focus_perk_available
+			}
+			change_variable = {
+				name = character_focus_perk_available
+				add = $amount$
+			}
 		}
-		change_variable = {
-			name = character_focus_perk_available
-			add = $amount$
-		}
-	}
-	else = {
-		set_variable = {
-			name = character_focus_perk_available
-			value = $amount$
+		else = {
+			set_variable = {
+				name = character_focus_perk_available
+				value = $amount$
+			}
 		}
 	}
 }
