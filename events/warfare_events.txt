@@ -217,7 +217,9 @@ warfare.1 = {
 			}
 			modifier = {
 				add = 100000
-				country_culture_group = japan
+				employer = {
+					country_culture_group = japan
+				}
 				current_date < 550.1.1
 			}
 		}
@@ -227,9 +229,11 @@ warfare.1 = {
 		name = "warfare.1.b" #normal looting
 		trigger = {
 			NOT = {
-				country_culture_group = japan
-				current_date < 550.1.1
-				is_ai = yes
+				employer = {
+					country_culture_group = japan
+					current_date < 550.1.1
+					is_ai = yes
+				}
 			}
 		}
 		if = { limit = { is_minor_character = no } family = { add_prestige = prestige_small } }
@@ -386,9 +390,11 @@ warfare.1 = {
 	option = {
 		trigger = {
 			NOT = {
-				country_culture_group = japan
-				current_date < 550.1.1
-				is_ai = yes
+				employer = {
+					country_culture_group = japan
+					current_date < 550.1.1
+					is_ai = yes
+				}
 			}
 		}
 		name = "warfare.1.c" #megalooting
