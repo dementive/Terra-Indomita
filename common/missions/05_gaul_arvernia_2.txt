@@ -1,0 +1,884 @@
+﻿gaul_arvernia_2 = {
+    header = "mssion_gaul"
+    icon = "general_1"
+
+    repeatable = no
+	
+    chance = {
+        factor = 5
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var_avn_2 }
+		is_subject = no
+        has_civil_war = no
+		OR = {
+			has_completed_mission = gaul_arvernia_1
+			has_completed_mission = gaul_haeduia_1
+		}
+		#always = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+	
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+	
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var_avn_2
+            days = 7300
+        }
+    }
+	
+	on_completion = {
+        complete_mission_effect = yes
+    }
+	
+    gaul_arvernia_task_15 = {
+        icon = "task_political"
+		duration = 180
+		
+        allow = {
+			political_influence >= 30
+		}
+		
+		on_start = {
+			trigger_event = me_gaul_arvernia_ti.1500
+			show_as_tooltip = {
+				add_political_influence = -30
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.15
+			custom_tooltip = gaul_arvernia_task_15_claims_tt
+            hidden_effect = {
+				region:aquitaine_region = { formable_region_province_effect = yes }
+				region:armorica_region = { formable_region_province_effect = yes }
+				region:belgica_region = { formable_region_province_effect = yes }
+				region:central_gaul_region = { formable_region_province_effect = yes }
+				area:leucia_area = { mission_area_claim_effect = yes }
+				area:tribocia_area = { mission_area_claim_effect = yes }
+				area:mediomatricia_area = { mission_area_claim_effect = yes }
+				area:sentonia_maioris_area = { mission_area_claim_effect = yes }
+				area:pictonia_meridionalis_area = { mission_area_claim_effect = yes }
+				area:celtica_occidentalis_area = { mission_area_claim_effect = yes }
+				area:lemovicia_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+    gaul_arvernia_task_16 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_15 }
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = cadurcia_area
+					is_in_area = sentonia_maioris_area
+					is_in_area = pictonia_meridionalis_area
+					is_in_area = celtica_occidentalis_area
+					is_in_area = lemovicia_area
+				}
+			}
+		}
+		
+        allow = {
+			owns_or_subject_owns_area = cadurcia_area
+			owns_or_subject_owns_area = sentonia_maioris_area
+			owns_or_subject_owns_area = pictonia_meridionalis_area
+			owns_or_subject_owns_area = celtica_occidentalis_area
+			owns_or_subject_owns_area = lemovicia_area
+		}
+		
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.16
+            show_as_tooltip = {
+				p:2345 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:2229 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:2270 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+            }
+        }
+    }
+	
+    gaul_arvernia_task_17 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_15 }
+		
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = narbonensis_orientalis_area
+					is_in_area = narbonensis_centralis_area
+					is_in_area = central_massif_area
+					is_in_area = narbonensis_occidentalis_area
+					is_in_area = alpes_maritimae_two_area
+					is_in_area = alpes_maritimae_area
+					is_in_area = allobrogia_area
+				}
+			}
+		}
+		
+        allow = {
+			owns_or_subject_owns_area = narbonensis_orientalis_area
+			owns_or_subject_owns_area = narbonensis_centralis_area
+			owns_or_subject_owns_area = central_massif_area
+			owns_or_subject_owns_area = narbonensis_occidentalis_area
+			owns_or_subject_owns_area = alpes_maritimae_two_area
+			owns_or_subject_owns_area = alpes_maritimae_area
+			owns_or_subject_owns_area = allobrogia_area
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.17
+            show_as_tooltip = {
+				p:2265 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:2256 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:3527 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+            }
+        }
+    }
+	
+    gaul_arvernia_task_18 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_15 }
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = sequania_area
+					is_in_area = lingonia_area
+					is_in_area = leucia_area
+					is_in_area = tribocia_area
+					is_in_area = mediomatricia_area
+				}
+			}
+		}
+		
+        allow = {
+			owns_or_subject_owns_area = sequania_area
+			owns_or_subject_owns_area = lingonia_area
+			owns_or_subject_owns_area = leucia_area
+			owns_or_subject_owns_area = tribocia_area
+			owns_or_subject_owns_area = mediomatricia_area
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.18
+            show_as_tooltip = {
+				p:3701 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:2240 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:2355 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+            }
+        }
+    }
+	
+    gaul_arvernia_task_19 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_15 }
+		
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = armorica_minoris_area
+					is_in_area = armorica_maioris_area
+					is_in_area = armorica_centralis_area
+					is_in_area = pictonia_septentrionalis_area
+					is_in_area = cenomannia_area
+					is_in_area = bituriga_occidentalis_area
+					is_in_area = carnutia_area
+				}
+			}
+		}
+		
+        allow = {
+			owns_or_subject_owns_area = armorica_minoris_area
+			owns_or_subject_owns_area = armorica_maioris_area
+			owns_or_subject_owns_area = armorica_centralis_area
+			owns_or_subject_owns_area = pictonia_septentrionalis_area
+			owns_or_subject_owns_area = cenomannia_area
+			owns_or_subject_owns_area = bituriga_occidentalis_area
+			owns_or_subject_owns_area = carnutia_area
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.19
+            show_as_tooltip = {
+				p:2350 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:2151 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:2134 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+            }
+        }
+    }
+	
+    gaul_arvernia_task_20 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_19 }
+		
+        allow = {
+			num_of_ships >= 50
+			num_of_ports >= 5
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.20
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = gaul_arvernia_sea_mod
+					duration = 7300
+				}
+            }
+        }
+    }
+	
+    gaul_arvernia_task_21 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_16 gaul_arvernia_task_17 gaul_arvernia_task_18 }
+		
+        allow = {
+			stability >= 50
+			current_ruler = {
+				custom_tooltip = {
+                    text = does_not_have_local_administrators_tt
+                    has_variable = local_administrators_var
+                }
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.21
+			custom_tooltip = "tier_3_formable_tooltip"
+            show_as_tooltip = {
+				change_country_name = "GAUL_NAME"
+				hidden_effect = {
+					change_country_adjective = "GAUL_ADJECTIVE"
+					change_country_color =  "desaturated_green"
+					change_country_tag = GAU
+					change_country_flag = GAUL_FLAG
+				}
+				capital_scope = {
+					capital_formable_large_effect = yes
+					formable_capital_modifier_large_effect = yes
+				}
+				add_country_modifier = {
+					name = formable_country_huge_modifier
+					duration = 7600
+				}
+            }
+			custom_tooltip = "form_gaul_claims_tooltip"
+			hidden_effect = {
+				region:aquitaine_region = { formable_region_province_effect = yes }
+				region:armorica_region = { formable_region_province_effect = yes }
+				region:belgica_region = { formable_region_province_effect = yes }
+				region:central_gaul_region = { formable_region_province_effect = yes }
+				region:transalpine_gaul_region = { formable_region_province_effect = yes }
+				region:germania_superior_region = { formable_region_province_effect = yes }
+				area:helvetia_inferioris_area = { formable_area_province_effect = yes }
+				area:tigurinia_area = { formable_area_province_effect = yes }
+				area:alpes_graiae_area = { formable_area_province_effect = yes }
+				area:transpadana_area = { formable_area_province_effect = yes }
+				area:west_insubria_area = { formable_area_province_effect = yes }
+			}
+        }
+    }
+	
+    gaul_arvernia_task_22 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_21 }
+		
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = east_insubria_area
+					is_in_area = pisae_area
+					is_in_area = liguria_area
+					is_in_area = aemilla_area
+					is_in_area = transpadana_area
+					is_in_area = west_insubria_area
+				}
+			}
+		}
+		
+        allow = {
+			owns_or_subject_owns_area = east_insubria_area
+			owns_or_subject_owns_area = pisae_area
+			owns_or_subject_owns_area = liguria_area
+			owns_or_subject_owns_area = aemilla_area
+			owns_or_subject_owns_area = transpadana_area
+			owns_or_subject_owns_area = west_insubria_area
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.22
+            show_as_tooltip = {
+				p:3571 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:146 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:3551 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:3584 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+            }
+        }
+    }
+	
+    gaul_arvernia_task_23 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_21 }
+		
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = morinia_area
+					is_in_area = bellovacia_area
+					is_in_area = veliocassia_area
+					is_in_area = suaeuconia_area
+					is_in_area = parisia_area
+					is_in_area = remia_area
+					is_in_area = treveria_area
+					is_in_area = nervia_area
+					is_in_area = menapia_orientalis
+					is_in_area = ganuenta_area
+					is_in_area = biggeronia_area
+					is_in_area = aquitania_occidentalis_area
+					is_in_area = aquitania_orientalis_area
+				}
+			}
+		}
+		
+        allow = {
+			owns_or_subject_owns_area = morinia_area
+			owns_or_subject_owns_area = bellovacia_area
+			owns_or_subject_owns_area = veliocassia_area
+			owns_or_subject_owns_area = suaeuconia_area
+			owns_or_subject_owns_area = parisia_area
+			owns_or_subject_owns_area = remia_area
+			owns_or_subject_owns_area = treveria_area
+			owns_or_subject_owns_area = nervia_area
+			owns_or_subject_owns_area = menapia_orientalis
+			owns_or_subject_owns_area = ganuenta_area
+			owns_or_subject_owns_area = biggeronia_area
+			owns_or_subject_owns_area = aquitania_occidentalis_area
+			owns_or_subject_owns_area = aquitania_orientalis_area
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.23
+            show_as_tooltip = {
+				add_5_free_province_investments = yes
+				current_ruler = {
+					add_trait = conqueror
+				}
+				p:2248 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:3712 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:3690 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:2475 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+            }
+        }
+    }
+	gaul_arvernia_task_24 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_23 }
+		final = yes
+		
+        allow = {
+			current_ruler = {
+				custom_tooltip = {
+                    text = does_not_have_divine_mandate_tt
+                    has_variable = divine_mandate_var
+                }
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.24
+            show_as_tooltip = {
+				if = {
+					limit = { has_completed_mission = gaul_headuia_1 }
+					current_ruler = {
+						deify_character = {
+							deity = deity:omen_segomo
+							country = root
+						}
+					}
+				}
+				else = {
+					current_ruler = {
+						deify_character = {
+							deity = deity:omen_arvernus
+							country = root
+						}
+					}
+				}
+				monarchy_republic_into_imperium_formable_effect = yes
+            }
+        }
+    }
+	
+	gaul_arvernia_task_25 = {
+        icon = "task_political"
+		
+        allow = {
+			any_owned_province = {
+				count >= 3
+				has_building = sanctuary_building
+			}
+			capital_scope = {
+				is_holy_site = yes
+			}
+			p:2350 = {
+				is_holy_site = yes
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.25
+            show_as_tooltip = {
+				capital_scope = {
+					add_special_pop = {
+						text = "add_1_priest_tt"
+						type = priest
+						count = 1
+					}
+				}
+				p:2350 = {
+					add_province_modifier = {
+						name = "seat_of_druids_mod"
+						duration = -1
+					}
+				}
+				current_ruler = {
+					add_trait = pious
+				}
+            }
+        }
+    }
+	
+	gaul_arvernia_task_26 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_16 gaul_arvernia_task_17 gaul_arvernia_task_18 }
+		
+        allow = {
+			any_owned_province = {
+				count >= 7
+				has_city_status = yes
+			}
+			capital_scope = {
+				free_building_slots = 0
+			}
+			hidden:capital_scope.state = {
+                calc_true_if = {
+                    amount >= 2
+                    state_improvement_military_trigger = yes 
+                    state_improvement_civic_trigger = yes
+                    state_improvement_oratory_trigger = yes
+                    state_improvement_religious_trigger = yes 
+                }
+            }
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.26
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = gaul_arvernia_land_of_oppida_mod
+					duration = 7300
+				}
+				capital_scope = {
+					add_special_pop = {
+						text = "add_1_merchant_tt"
+						type = merchant
+						count = 1
+					}
+					add_special_pop = {
+						text = "add_1_architect_tt"
+						type = architect
+						count = 1
+					}
+				}
+            }
+        }
+    }
+	
+	gaul_arvernia_task_27 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_26 }
+		duration = 365
+		
+        allow = {
+			treasury >= 500
+			capital_scope = {
+				province_has_special_pop = {
+					type = architect
+					count = 1
+				}
+				province_has_special_pop = {
+					type = artist
+					count = 1 
+				}
+			}
+		}
+		
+		on_start = {
+			trigger_event = me_gaul_arvernia_ti.2700
+			show_as_tooltip = {
+				add_treasury = -500
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.27
+            show_as_tooltip = {
+				add_legitimacy = 20
+				capital_scope = {
+					add_permanent_province_modifier = {
+						name = gaul_arvernia_capital_forum
+					}
+					set_city_status = city_metropolis
+				}
+				create_country_treasure = {
+					key = "gaul_arvernia_treasure"
+					icon = "treasure_chest"
+					modifier = {
+						local_population_happiness = 0.1
+						local_tax_modifier = 0.15
+					}
+				}
+            }
+        }
+    }
+	
+	gaul_arvernia_task_28 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_26 }
+		
+        allow = {
+			custom_tooltip = {
+				text = qin_02_li_si_task_15_trigger_tt # have legion with >= 25 units
+				any_legion = {
+					any_legion_unit = {		
+						unit_size >= 25
+					}
+				}
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.28
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = gaul_arvernia_army_mod
+					duration = 7300
+				}
+				add_military_experience = 10
+            }
+        }
+    }
+	gaul_arvernia_task_29 = {
+        icon = "task_political"
+		requires = { gaul_arvernia_task_22 }
+		
+        highlight = {
+			scope:province = {
+				is_in_area = roma_area
+			}
+		}
+		
+        allow = {
+			owns_or_subject_owns_area = roma_area
+		}
+		
+        on_completion = {
+            trigger_event = me_gaul_arvernia_ti.29
+            show_as_tooltip = {
+				change_government = imperium
+            }
+        }
+    }
+}
+
+
