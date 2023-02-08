@@ -55,6 +55,7 @@ base_window = {
 			button_close = {
 				onclick = "[ReligionView.OnClose]"
 				onclick = "[PdxGuiTriggerAllAnimations('close_reliquary')]"
+				onclick = "[GetVariableSystem.Clear('religious_mechanics')]"
 				tooltip = "CLOSE"
 				shortcut = "close_window"
 			}
@@ -70,17 +71,16 @@ base_window = {
 				layoutpolicy_horizontal = expanding
 				margin_top = 6
 				hbox = {
-					spacing = 14
 					vbox = {
 						layoutpolicy_vertical = expanding
 						margin_widget = {
 							name = "frame"
-							size = { 316 0 }
+							size = { 226 0 }
 							layoutpolicy_vertical = expanding
 							using = NoninteractableBG
 							blockoverride "Margins" { margin = { 0 0 } }
 							dynamicgridbox = {
-								position = { 12 10 }
+								position = { 12 5 }
 								name = "pop_religion_grid"
 								datamodel_wrap = 4
 								datamodel = "[ReligionView.GetPopReligionsInPantheon]"
@@ -206,7 +206,10 @@ base_window = {
 							#blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/national_treasure.dds" }
 							blockoverride "Icon" { visible = no }
 							tooltip = "[ReligionView.GetReliquaryTooltip]"
-							blockoverride "On_click" { onclick = "[ReligionView.ToggleReliquaryView]" }
+							blockoverride "On_click" {
+								onclick = "[ReligionView.ToggleReliquaryView]"
+								onclick = "[GetVariableSystem.Clear('religious_mechanics')]"
+							}
 							size = { 80 80 }
 
 							flowcontainer = {
@@ -232,6 +235,51 @@ base_window = {
 								}
 							}
 						}
+					}
+					####################
+					# Chinese buttons
+					####################
+					button = {
+						visible = "[And(EqualTo_string(Player.GetReligion.GetNameWithNoTooltip, 'Chinese'), Not(GetVariableSystem.Exists('religious_mechanics')))]"
+						size = { 90 90 }
+						texture = "gfx/interface/religion_icons/chinese_ruler.dds"
+						tooltip = "Hundred Schools of Thought"
+						onclick = "[PdxGuiTriggerAllAnimations('close_reliquary')]"
+						onclick = "[ExecuteConsoleCommand('gui.createwidget gui/religion_chinese.gui religion_chinese')]"
+						onclick = "[GetVariableSystem.Toggle('religious_mechanics')]"
+					}
+					button = {
+						visible = "[And(EqualTo_string(Player.GetReligion.GetNameWithNoTooltip, 'Chinese'), GetVariableSystem.Exists('religious_mechanics'))]"
+						size = { 90 90 }
+						texture = "gfx/interface/religion_icons/chinese_ruler.dds"
+						tooltip = "Hundred Schools of Thought"
+						onclick = "[PdxGuiTriggerAllAnimations('close_reliquary')]"
+						onclick = "[ExecuteConsoleCommand('GUI.ClearWidgets religion_chinese')]"
+						onclick = "[GetVariableSystem.Clear('religious_mechanics')]"
+					}
+					####################
+					# Kemetic buttons
+					####################
+					button = {
+						visible = "[And(EqualTo_string(Player.GetReligion.GetNameWithNoTooltip, 'Kemetic'),Not( GetVariableSystem.Exists('religious_mechanics')))]"
+						size = { 90 90 }
+						texture = "gfx/interface/religion_icons/egypt_pyramids.dds"
+						tooltip = "The Ways of Ma'at"
+						onclick = "[PdxGuiTriggerAllAnimations('close_reliquary')]"
+						onclick = "[ExecuteConsoleCommand('gui.createwidget gui/religion_egyptian.gui religion_egyptian')]"
+						onclick = "[GetVariableSystem.Toggle('religious_mechanics')]"
+					}
+					button = {
+						visible = "[And(EqualTo_string(Player.GetReligion.GetNameWithNoTooltip, 'Kemetic'), GetVariableSystem.Exists('religious_mechanics'))]"
+						size = { 90 90 }
+						texture = "gfx/interface/religion_icons/egypt_pyramids.dds"
+						tooltip = "The Ways of Ma'at"
+						onclick = "[PdxGuiTriggerAllAnimations('close_reliquary')]"
+						onclick = "[ExecuteConsoleCommand('GUI.ClearWidgets religion_egyptian')]"
+						onclick = "[GetVariableSystem.Clear('religious_mechanics')]"
+					}
+					widget = { 
+						size = { 5 0 }
 					}
 				}
 			}

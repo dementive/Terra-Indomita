@@ -120,6 +120,84 @@ template flat_background_dark
 
 types Base_GUI_Types
 {
+	# Base window for religious mechanics
+	type religion_window = base_sub_window {
+		# Override when used:
+		# Title_text
+		# On_close
+		# button_one
+		# button_two
+		# button_three
+		# button_four
+		
+		visible = "[GetVariableSystem.Exists('religious_mechanics')]"
+		size = { 412 420 }
+		position = { 700 146 } 
+		movable = yes
+		state = {
+			name = _show
+			
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Religion/sfx_ui_religion_treasure_view"
+			}
+		}
+
+		#blockoverride "Title_text"
+		#{
+		#	text = "RELIQUARY_HEADER"
+		#}
+		
+		blockoverride "White_buttons"
+		{
+			spacing = 4
+			button_close = {
+				block "On_close" {
+					# onclick = "[SelectTreasureWindow.OnClose]"
+				}
+				onclick = "[GetVariableSystem.Clear('religious_mechanics')]"
+				tooltip = "CLOSE"
+				shortcut = "close_window"
+			}
+		}
+		block "Content" {
+			flowcontainer = {
+				parentanchor = center
+				position = { 0 12 }
+				spacing = 30
+				direction = vertical
+				flowcontainer = {
+					spacing = 50
+					button = {
+						size = { 160 160 }
+						block "button_one" {
+
+						}
+					}
+					button = {
+						size = { 160 160 }
+						block "button_two" {
+						
+						}
+					}
+				}
+				flowcontainer = {
+					spacing = 50
+					button = {
+						size = { 160 160 }
+						block "button_three" {
+						
+						}
+					}
+					button = {
+						size = { 160 160 }
+						block "button_four" {
+						
+						}
+					}
+				}
+			}
+		}
+	}
 	# Icon Button with a sound block
 	type icon_button_square_sound = widget {
 		size = { @Icon_button_size_M @Icon_button_size_M }		
