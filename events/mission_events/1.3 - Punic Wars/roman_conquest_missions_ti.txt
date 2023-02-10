@@ -1,0 +1,1501 @@
+﻿namespace = me_roman_missions_ti
+
+me_roman_missions_ti.1 = {							# Trouble at the Hellespontus - Startup (robbed merchant)
+    type = country_event
+    title = me_roman_missions_ti.1.t
+	desc = me_roman_missions_ti.1.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = { #support robbed merchant
+		name = me_roman_missions_ti.1.a
+		capital_scope = {
+			add_special_pop = {
+				text = "add_1_merchant_tt"
+				type = merchant
+				count = 1
+			}
+		}
+		add_treasury = -50
+	}
+	
+	option = {
+		name = me_roman_missions_ti.1.b
+		custom_tooltip = no_effect_tooltip
+	}
+	
+}
+
+me_roman_missions_ti.2 = {							# Trouble at the Hellespontus - End (finally peace)
+    type = country_event
+    title = me_roman_missions_ti.2.t
+	desc = me_roman_missions_ti.2.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.2.a
+		current_ruler = {
+			add_martial = 1
+			add_popularity = 20
+		}
+		add_stability = 5
+	}
+
+}
+
+me_roman_missions_ti.3 = {							#Fall of Diadochi - Start
+    type = country_event
+    title = me_roman_missions_ti.3.t
+	desc = me_roman_missions_ti.3.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.3.a
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+	}
+	
+	option = {
+		name = me_roman_missions_ti.3.b
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_100_focus_xp"
+				amount = 100
+			}
+		}
+		add_tyranny = 5
+	}
+
+}
+
+me_roman_missions_ti.4 = {							#Fall of Diadochi - End
+    type = country_event
+    title = me_roman_missions_ti.4.t
+	desc = me_roman_missions_ti.4.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.4.a
+		current_ruler = {
+			add_focus_perk = {
+				text = "add_3_char_perk"
+				amount = 3
+			}
+			add_popularity = 20
+		}
+	}
+
+}
+
+me_roman_missions_ti.5 = {							# Imperium Sine Fine - Start
+    type = country_event
+    title = me_roman_missions_ti.5.t
+	desc = me_roman_missions_ti.5.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.5.a
+		current_ruler = {
+			add_martial = 1
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+		add_military_experience = 10
+		add_tyranny = 10
+	}
+	
+	option = {
+		name = me_roman_missions_ti.5.b
+		custom_tooltip = no_effect_tooltip
+	}
+
+}
+
+me_roman_missions_ti.6 = {							# Imperium Sine Fine - End
+    type = country_event
+    title = me_roman_missions_ti.6.t
+	desc = me_roman_missions_ti.6.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = { #rever the current emperor's genius
+		name = me_roman_missions_ti.6.a
+		trigger = {
+			has_variable = deity_unlocked_sol_invictus
+		}
+		current_ruler = {
+			deify_character = {
+				deity = deity:deity_sol_invictus
+				country = root
+			}
+			add_focus_perk = {
+				text = "add_3_char_perk"
+				amount = 3
+			}
+		}
+		add_political_influence = -50
+	}
+	
+	option = {
+		name = me_roman_missions_ti.6.b
+		custom_tooltip = no_effect_tooltip
+	}
+	
+
+}
+
+me_roman_missions_ti.7 = {							#Eastern Glory - Start 
+    type = country_event
+    title = me_roman_missions_ti.7.t
+	desc = me_roman_missions_ti.7.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.7.a
+		add_tyranny = 5
+		add_treasury = -200
+		current_ruler = {
+			add_trait = ambitious
+		}
+		create_country_treasure = {
+			key = "roman_statue_alexandros_pompeius" 
+			icon = "treasure_armor_hoa"
+			modifier = {
+				local_manpower_modifier = 0.25
+				local_freemen_happyness = 0.15
+				local_cohort_start_experience = 25
+			}
+		}
+	}
+	
+	option = {
+		name = me_roman_missions_ti.7.b
+		custom_tooltip = no_effect_tooltip
+	}
+
+}
+
+me_roman_missions_ti.8 = {							#Eastern Glory - End
+    type = country_event
+    title = me_roman_missions_ti.8.t
+	desc = me_roman_missions_ti.8.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.8.a
+		current_ruler = {
+			add_popularity = 20
+		}
+		p:1 = {
+			add_permanent_province_modifier = {
+				name = rome_theatre_of_pompeius
+			}
+			add_building_level = theathre_building
+			add_special_pop = {
+				text = "add_2_artist_tt"
+				type = artist
+				count = 2
+			}
+		}
+	}
+	
+	option = {
+		name = me_roman_missions_ti.8.b
+		current_ruler = {
+			add_popularity = -10
+			add_gold = 1000
+		}
+	}
+
+}
+
+me_roman_missions_ti.9 = {							#Egyptian Trade
+    type = country_event
+    title = me_roman_missions_ti.9.t
+	desc = me_roman_missions_ti.9.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.9.a
+		p:580 = {
+			add_province_modifier = {
+				name = "rome_egyptian_havens_to_india"
+				duration = -1
+			}
+			add_special_pop = {
+				text = "add_1_merchant_tt"
+				type = merchant
+				count = 1
+			}
+		}
+		p:583 = {
+			add_province_modifier = {
+				name = "rome_egyptian_havens_to_india"
+				duration = -1
+			}
+			add_special_pop = {
+				text = "add_1_merchant_tt"
+				type = merchant
+				count = 1
+			}
+		}
+	}
+}
+
+me_roman_missions_ti.10 = {							# Independent Judea
+    type = country_event
+    title = me_roman_missions_ti.10.t
+	desc = me_roman_missions_ti.10.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	right_portrait = c:JUD.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.10.a
+		custom_tooltip = roman_mission_09_eastern_glory_task_12_effect_tt
+		add_aggressive_expansion = -10
+	}
+}
+
+me_roman_missions_ti.11 = {							# Raising the Decapolian League
+    type = country_event
+    title = me_roman_missions_ti.11.t
+	desc = me_roman_missions_ti.11.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	right_portrait = c:DCP.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.11.a
+		custom_tooltip = roman_mission_09_eastern_glory_task_13_effect_tt
+		add_aggressive_expansion = -10
+	}
+}
+
+me_roman_missions_ti.12 = {							# Raising the Decapolian League
+    type = country_event
+    title = me_roman_missions_ti.12.t
+	desc = me_roman_missions_ti.12.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	right_portrait = c:DCP.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.12.a
+		every_country_state = {
+			limit = {
+				any_state_province = {
+					OR = {
+						is_in_area = philistia_area
+						is_in_area = judea_area
+						is_in_area = samaria_area
+						is_in_area = galilee_area
+					}
+				}
+			}
+			custom = roman_mission_13_fall_of_diadochoi_ti_task_2_modifier_tt
+			add_state_modifier = {
+				name = what_have_the_romans_ever_done_for_us_mod
+				duration = 7300 
+			}
+		}
+		custom_tooltip = roman_mission_09_eastern_glory_task_12_ti_tt
+	}
+}
+
+me_roman_missions_ti.13 = {							# Island of Cyprus
+    type = country_event
+    title = me_roman_missions_ti.13.t
+	desc = me_roman_missions_ti.13.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.12.a
+		p:331 = { roman_mission_colonia_effect = yes }
+	}
+}
+
+me_roman_missions_ti.15 = {							# Ultimatum to Armenia
+    type = country_event
+    title = me_roman_missions_ti.15.t
+	desc = me_roman_missions_ti.15.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.15.a
+		c:ROM = {
+			trigger_event = { id = me_roman_missions_ti.16 }
+		}
+		ai_chance = {
+			factor = 5
+			modifier = {
+				c:ARM.current_ruler = {
+					OR = {
+						has_trait = submissive
+						has_trait = coward
+					}
+				}
+				factor = 2
+			}
+			modifier = {
+				c:ARM = { num_of_cities < 100 }
+				factor = 4
+			}
+			modifier = {
+				c:ARM = { num_of_cities < 50 }
+				factor = 5
+			}
+			modifier = {
+				c:ARM = { num_of_cities < 25 }
+				factor = 10
+			}
+		}
+	}
+	option = {
+		name = me_roman_missions_ti.15.b
+		c:ROM = {
+			trigger_event = { id = me_roman_missions_ti.17 }
+		}
+		ai_chance = {
+			factor = 5
+		}
+	}
+}
+
+me_roman_missions_ti.16 = {							# Armenian Yes
+    type = country_event
+    title = me_roman_missions_ti.16.t
+	desc = me_roman_missions_ti.16.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.16.a
+		c:ROM = {
+			make_subject = {
+    			target = c:ARM
+    			type = client_state
+    		}
+		}
+	}
+	
+}
+
+me_roman_missions_ti.17 = {							# Armenian No
+    type = country_event
+    title = me_roman_missions_ti.17.t
+	desc = me_roman_missions_ti.17.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.17.a
+		custom_tooltip = roman_mission_09_eastern_glory_ti_task_4_armenia_dead_tt #gain claims on below regions
+		hidden_effect = {
+			region:armenia_region = {
+				every_region_province = { add_claim = ROOT }
+			}
+			region:colchis_region = {
+				every_region_province = { add_claim = ROOT }
+			}
+			area:arran_area = { mission_area_claim_effect = yes }
+			area:caucasian_albania_area = { mission_area_claim_effect = yes }
+			area:paytankert_area = { mission_area_claim_effect = yes }
+			area:artshak_area = { mission_area_claim_effect = yes }
+			area:kahetia_area = { mission_area_claim_effect = yes }
+		}
+	}
+}
+
+me_roman_missions_ti.18 = {							# Thracian Client
+    type = country_event
+    title = me_roman_missions_ti.18.t
+	desc = me_roman_missions_ti.18.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.18.a
+		custom_tooltip = roman_mission_14_trouble_at_hellespontus_ti_task_3_effect_tt #client state created
+		hidden_effect = {
+			p:4314 = {
+				create_country = {
+					name = {
+						name = "TRE"
+						adjective = "TRE_ADJ"
+					}
+					change_government = despotic_monarchy
+					set_primary_culture = odrysi
+					set_country_religion = roman_pantheon
+					set_country_heritage = odrysian_heritage
+					change_country_flag = ODR
+					change_country_color = odrysia_yellow
+					save_scope_as = new_thracian_client
+					add_opinion = {
+						modifier = opinion_liberated_us
+						target = root
+					}
+				}
+			}
+			every_owned_province = {
+				limit = {
+					OR = {
+						is_in_area = thracia_area
+						is_in_area = europa_area
+						is_in_area = rhodope_area
+						is_in_area = haemimontus_area
+					}
+				}
+				set_owned_by = scope:new_thracian_client
+			}
+			make_subject = {
+				target = scope:new_thracian_client
+				type = client_state
+			}
+		}
+	}
+	
+}
+
+me_roman_missions_ti.19 = {							# Pannonian Cient
+    type = country_event
+    title = me_roman_missions_ti.19.t
+	desc = me_roman_missions_ti.19.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.19.a
+
+		custom_tooltip = roman_mission_14_trouble_at_hellespontus_ti_task_3_effect_tt #client state created
+		hidden_effect = { #create it via event
+			p:4850 = {
+				create_country = {
+					name = {
+						name = "BUF_DAC_ROM" # Pannonia Terminus
+						adjective = "BUF_DAC_ROM_ADJ"
+					}
+					change_government = tribal_kingdom
+					save_scope_as = new_buffer_state_dacia
+					add_opinion = {
+						modifier = opinion_liberated_us
+						target = root
+					}
+				}
+			}
+			every_owned_province = {
+				limit = {
+					OR = {
+						is_in_area = iazygia_minoris_area
+						is_in_area = iazygia_majoris_area
+						is_in_area = pannonia_terminus_area
+					}
+				}
+				set_owned_by = scope:new_buffer_state_dacia
+			}
+			make_subject = {
+				target = scope:new_buffer_state_dacia
+				type = vassal_tribe
+			}
+		}
+	}
+	
+}
+
+me_roman_missions_ti.20 = {							# Bosporus
+    type = country_event
+    title = me_roman_missions_ti.20.t
+	desc = me_roman_missions_ti.20.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.20.a 
+		p:1453 = {
+			add_province_modifier = {
+				name = "roman_bosporus" #2 trade routes, 2 building slots, 0.5 migration attraction
+				duration = -1
+			}
+		}
+	}
+}
+
+me_roman_missions_ti.21 = {							# Dacian Triumph
+    type = country_event
+    title = me_roman_missions_ti.21.t
+	desc = me_roman_missions_ti.21.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.21.a
+		p:1 = {
+			add_province_modifier = {
+				name = "trajan_dacian_column"
+				duration = -1
+			}
+		}
+		current_ruler = {
+			add_popularity = popularity_large
+		}
+	}
+}
+
+me_roman_missions_ti.22 = {							# Ultimatum to Bosporans
+    type = country_event
+    title = me_roman_missions_ti.22.t
+	desc = me_roman_missions_ti.22.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.22.a
+		c:ROM = {
+			trigger_event = { id = me_roman_missions_ti.23 }
+		}
+		ai_chance = {
+			factor = 7
+			modifier = {
+				c:BPK.current_ruler = {
+					OR = {
+						has_trait = submissive
+						has_trait = coward
+					}
+				}
+				factor = 2
+			}
+			modifier = {
+				c:BPK = { num_of_cities < 100 }
+				factor = 4
+			}
+			modifier = {
+				c:BPK = { num_of_cities < 50 }
+				factor = 5
+			}
+			modifier = {
+				c:BPK = { num_of_cities < 25 }
+				factor = 10
+			}
+		}
+	}
+	option = {
+		name = me_roman_missions_ti.22.b
+		c:ROM = {
+			trigger_event = { id = me_roman_missions_ti.24 }
+		}
+		ai_chance = {
+			factor = 3
+		}
+	}
+}
+
+me_roman_missions_ti.23 = {							# BPK Yes
+    type = country_event
+    title = me_roman_missions_ti.23.t
+	desc = me_roman_missions_ti.23.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.23.a
+		c:ROM = {
+			make_subject = {
+    			target = c:BPK
+    			type = client_state
+    		}
+		}
+	}
+	
+}
+
+me_roman_missions_ti.24 = {							# BPK No
+    type = country_event
+    title = me_roman_missions_ti.24.t
+	desc = me_roman_missions_ti.24.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.24.a
+		custom_tooltip = no_effect_tooltip
+	}
+}
+
+me_roman_missions_ti.25 = {							# Egyptian Protectorate
+    type = country_event
+    title = me_roman_missions_ti.25.t
+	desc = me_roman_missions_ti.25.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	right_portrait = c:EGY.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.25.a
+		add_political_influence = -150
+		root = {
+			add_guarantee = c:EGY 
+		}
+	}
+}
+
+me_roman_missions_ti.26 = {							# Roman Pharaoh
+    type = country_event
+    title = me_roman_missions_ti.26.t
+	desc = me_roman_missions_ti.26.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	right_portrait = c:EGY.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.26.a
+		
+		if = {
+			limit = {
+				OR = {
+					government = dictatorship
+					government = imperium
+				}
+			}
+			add_stability = 10
+		}
+		else = {
+			change_government = dictatorship
+			add_stability = -20
+			every_character = {
+				limit = {
+					OR = {
+						party_type = optimates_party
+						party_type = boni_party
+					}
+				}
+				add_loyalty = loyalty_opposed_politician	
+			}
+		}
+		
+	}
+	option = {
+		name = me_roman_missions_ti.26.b
+		trigger = {
+			NOR = {
+				government = dictatorship
+				government = imperium
+			}
+		}
+		change_law = lex_antonia
+		add_stability = -10
+		every_character = {
+			limit = {
+				party_type = populares_party
+			}
+			add_loyalty = loyalty_opposed_politician	
+		}
+	}
+}
+
+me_roman_missions_ti.27 = {							# Emissaries
+    type = country_event
+    title = me_roman_missions_ti.27.t
+	desc = me_roman_missions_ti.27.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	right_portrait = c:EGY.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.27.a
+		c:EGY = {
+			trigger_event = { 
+				id = me_roman_missions_ti.28	
+				days = { 55 60 }
+			}
+		}
+	}
+}
+
+me_roman_missions_ti.28 = {							# Egyptian Response
+    type = country_event
+    title = me_roman_missions_ti.28.t
+	desc = me_roman_missions_ti.28.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	left_portrait = scope:egyptian_heir_roman_mission
+	right_portrait = c:ROM.current_ruler
+	
+	immediate = {
+		random_character = {
+			limit = { is_primary_heir = yes }
+			save_scope_as = egyptian_heir_roman_mission
+		}
+	}
+	
+	option = { #no
+		name = me_roman_missions_ti.28.a
+		c:ROM = {
+			trigger_event = { id = me_roman_missions_ti.29 }
+		}
+		c:EGY.current_ruler = {
+			death = {
+				killer = scope:egyptian_heir_roman_mission
+				death_reason = death_murder
+			}
+		}
+		declare_war_with_wargoal = {
+            war_goal = independence_wargoal
+            province = c:EGY.capital_scope
+            target = c:ROM
+        }
+		set_global_variable  = {
+			name = egyptian_annexation_rome
+		}
+		ai_chance = {
+			factor = 7
+			modifier = {
+				c:EGY = { num_of_cities >= 200 }
+				factor = 5
+			}
+		}
+				
+	}
+	option = { #yes
+		name = me_roman_missions_ti.28.a
+		c:ROM = {
+			trigger_event = { id = me_roman_missions_ti.30 }
+		}
+		c:ROM = {
+			make_subject = {
+    			target = c:EGY
+    			type = client_state
+    		}
+		}
+		scope:egyptian_heir_roman_mission = {
+			death = {
+				killer = c:EGY.current_ruler
+				death_reason = death_murder
+			}
+		}
+		set_global_variable  = {
+			name = egyptian_last_will_rome
+		} 
+		ai_chance = {
+			factor = 3
+			modifier = {
+				c:EGY.current_ruler = {
+					OR = {
+						has_trait = submissive
+						has_trait = coward
+					}
+				}
+				factor = 2
+			}
+			modifier = {
+				c:EGY = { stability <= 45 }
+				factor = 2
+			}
+			modifier = {
+				c:EGY = { num_of_cities <= 100 }
+				factor = 2
+			}
+			modifier = {
+				c:EGY = { num_of_cities <= 50 }
+				factor = 4
+			}
+			modifier = {
+				c:EGY = { num_of_cities <= 25 }
+				factor = 10
+			}
+		}
+	}
+}
+
+me_roman_missions_ti.29 = {							# Egyptian No
+    type = country_event
+    title = me_roman_missions_ti.29.t
+	desc = me_roman_missions_ti.29.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	right_portrait = c:EGY.current_ruler
+	
+
+	
+	option = { #no
+		name = me_roman_missions_ti.29.a
+
+	}
+
+}
+
+me_roman_missions_ti.30 = {							# Egyptian Yes
+    type = country_event
+    title = me_roman_missions_ti.31.t
+	desc = me_roman_missions_ti.31.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	right_portrait = c:EGY.current_ruler
+	
+
+	
+	option = { 
+		name = me_roman_missions_ti.31.a
+		c:ROM = {
+			make_subject = {
+    			target = c:EGY
+    			type = client_state
+    		}
+		}
+	}
+
+}
+
+me_roman_missions_ti.31 = {							# Egyptian Last Will - EGY
+    type = country_event
+    title = me_roman_missions_ti.31.t
+	desc = me_roman_missions_ti.31.desc
+    picture = romans_marching
+    
+	
+	trigger = {
+		tag = EGY
+		has_global_variable = egyptian_last_will_rome
+	}
+	
+
+	
+	option = { #no
+		name = me_roman_missions_ti.31.a
+		c:ROM = {
+			trigger_event = me_roman_missions_ti.32
+		}
+		custom_tooltip = roman_mission_13_fall_of_diadochoi_ti_annex_egypt_tt #annex all Egyptian lands
+		hidden_effect = {
+			c:EGY = {
+				every_owned_province = {
+					set_owned_by = c:ROM
+				}
+			}
+		}
+	}
+
+}
+
+me_roman_missions_ti.32 = {							# Egyptian Last Will - ROM
+    type = country_event
+    title = me_roman_missions_ti.32.t
+	desc = me_roman_missions_ti.32.desc
+    picture = romans_marching
+	
+	option = { #no
+		name = me_roman_missions_ti.32.a
+		custom_tooltip = roman_mission_13_fall_of_diadochoi_ti_annex_egypt_tt #annex all Egyptian lands
+		hidden_effect = {
+			c:EGY = {
+				every_owned_province = {
+					set_conquered_by = c:ROM
+				}
+			}
+		}
+	}
+
+}
+
+me_roman_missions_ti.33 = {							# Egyptian Annexation
+    type = country_event
+    title = me_roman_missions_ti.33.t
+	desc = me_roman_missions_ti.33.desc
+    picture = romans_marching
+	left_portrait = root.current_ruler
+	right_portrait = scope:suicidal_egyptian_ptolemaioi
+    
+	
+	trigger = {
+		tag = ROM
+		c:EGY = {
+			has_global_variable = egyptian_annexation_rome
+		}
+		c:EGY.capital_scope = {
+			controller = c:ROM
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			c:EGY.current_ruler = {
+				death = {
+					death_reason = suicide_asp
+				}
+				save_scope_as = suicidal_egyptian_ptolemaioi
+			}
+			c:EGY = {
+				every_owned_province = {
+					set_conquered_by = c:ROM
+				}
+			}
+		}
+	}
+	
+
+	
+	option = { #no
+		name = me_roman_missions_ti.33.a
+		custom_tooltip = roman_mission_13_fall_of_diadochoi_ti_annex_egypt_tt #annex all Egyptian lands
+	}
+
+}
+
+me_roman_missions_ti.34 = {							# Conquer Germania Magna
+    type = country_event
+    title = me_roman_missions_ti.34.t
+	desc = me_roman_missions_ti.34.desc
+    picture = romans_marching
+	
+	option = {
+		name = me_roman_missions_ti.34.a
+		add_country_modifier = {
+			name = hastened_city_construction_rome_ger
+			duration = 7300
+		}
+		add_tyranny = 10
+	}
+	
+	option = {
+		name = me_roman_missions_ti.34.b
+		add_tyranny = -5
+	}
+
+}
+
+me_roman_missions_ti.35 = {							# Burn Angrivarian Wall
+    type = country_event
+    title = me_roman_missions_ti.35.t
+	desc = me_roman_missions_ti.35.desc
+    picture = revolt
+	
+	option = {
+		name = me_roman_missions_ti.35.a
+		add_manpower = -20
+		p:3829 = {
+			add_province_modifier = {
+				name = angrivarian_wall_burnt_rome
+				duration = 7300
+			}
+		}
+		p:3962 = {
+			add_province_modifier = {
+				name = angrivarian_wall_burnt_rome
+				duration = 7300
+			}
+		}
+	}
+}
+
+me_roman_missions_ti.36 = {							# Prevented Germanic Collapse
+    type = country_event
+    title = me_roman_missions_ti.36.t
+	desc = me_roman_missions_ti.36.desc
+    picture = romans_marching
+	
+	option = {
+		name = me_roman_missions_ti.36.a
+		custom_tooltip = roman_mission_15_arminius_task_9_tooltip #prevented collapse
+		#set_global_variable = rome_master_of_germania
+	}
+}
+
+me_roman_missions_ti.37 = {							# Triumph in Germania
+    type = country_event
+    title = me_roman_missions_ti.37.t
+	desc = me_roman_missions_ti.37.desc
+    picture = romans_marching
+	
+	option = {
+		name = me_roman_missions_ti.37.a
+		if = {
+			limit = {
+				current_ruler = { is_minor_character = no }
+			}
+			current_ruler.family = { add_prestige = prestige_huge }
+		}
+		add_2_free_province_tiestments = yes
+		capital_scope = { rm_triumphal_arch_effect = yes }
+	}
+}
+
+me_roman_missions_ti.38 = {							# Imperium Romanum
+    type = country_event
+    title = me_roman_missions_ti.38.t
+	desc = me_roman_missions_ti.38.desc
+    picture = romans_marching
+	
+	option = {
+		name = me_roman_missions_ti.38.a
+		if = {
+			limit = { government = dictatorship }
+			change_government = imperium
+			add_political_influence = -50
+		}
+		custom_tooltip = roman_mission_16_imperium_sine_fine_task_2_tt
+		hidden_effect = {
+			region:assyria_region = {
+				every_region_province = { add_claim = ROOT }
+			}
+			region:armenia_region = {
+				every_region_province = { add_claim = ROOT }
+			}
+		}
+	}
+}
+
+me_roman_missions_ti.39 = {							# Defended against Parthians and secured new Provinces
+    type = country_event
+    title = me_roman_missions_ti.39.t
+	desc = me_roman_missions_ti.39.desc
+    picture = romans_marching
+	
+	option = {
+		name = me_roman_missions_ti.39.a
+		every_owned_province = {
+			limit = {
+				OR = {
+					is_in_region = assyria_region
+					is_in_region = mesopotamia_region
+				}
+				has_city_status = yes
+				fort_level >= 3
+			}
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+		}
+	}
+}
+
+me_roman_missions_ti.40 = {							# Imperium Sine Fine
+    type = country_event
+    title = me_roman_missions_ti.40.t
+	desc = me_roman_missions_ti.40.desc
+    picture = romans_marching
+	
+	option = {
+		name = me_roman_missions_ti.40.a
+		add_country_modifier = {
+			name = rome_imperium_sine_fine_ti
+			duration = -1
+		}
+	}
+}
+
+me_roman_missions_ti.41 = {							# Rome Indian Trade - Start
+    type = country_event
+    title = me_roman_missions_ti.41.t
+	desc = me_roman_missions_ti.41.desc
+    picture = romans_marching
+	
+	option = {
+		name = me_roman_missions_ti.41.a
+		add_treasury = -250
+	}
+}
+
+me_roman_missions_ti.42 = {							# Rome Indian Trade - End
+    type = country_event
+    title = me_roman_missions_ti.42.t
+	desc = me_roman_missions_ti.42.desc
+    picture = romans_marching
+	
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				50 = {
+					set_variable = {
+						name = great_trade
+						days = 90
+					}
+				}
+				50 = {
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = me_roman_missions_ti.42.a
+		add_country_modifier = {
+			name = "rome_indian_trade" #diplo reach
+			duration = -1
+		}
+	}
+	
+	option = {
+		name = me_roman_missions_ti.42.b
+		trigger = {
+			has_variable = great_trade
+		}
+		add_treasury = 500
+		add_country_modifier = {
+			name = "rome_indian_trade" #diplo reach
+			duration = -1
+		}
+	}
+}
+
+me_roman_missions_ti.43 = {							# Enovy to Parthia
+    type = country_event
+    title = me_roman_missions_ti.43.t
+	desc = me_roman_missions_ti.43.desc
+    picture = romans_marching
+    
+    left_portrait = c:PTH.current_ruler
+	right_portrait = c:ROM.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.43.a
+		c:ROM = {
+			trigger_event = { id = me_roman_missions_ti.44 }
+		}
+		add_truce = {
+			target = c:ROM
+			duration = 5475
+		}
+		ai_chance = {
+			factor = 5
+			modifier = {
+				c:PTH.current_ruler = {
+					OR = {
+						has_trait = submissive
+						has_trait = coward
+					}
+				}
+				factor = 2
+			}
+			modifier = {
+				c:PTH = { num_of_cities < 100 }
+				factor = 4
+			}
+			modifier = {
+				c:PTH = { num_of_cities < 50 }
+				factor = 5
+			}
+			modifier = {
+				c:PTH = { num_of_cities < 25 }
+				factor = 10
+			}
+		}
+	}
+	option = {
+		name = me_roman_missions_ti.43.b
+		c:ROM = {
+			trigger_event = { id = me_roman_missions_ti.45 }
+		}
+		ai_chance = {
+			factor = 5
+		}
+	}
+}
+
+me_roman_missions_ti.44 = {							# Truce
+    type = country_event
+    title = me_roman_missions_ti.44.t
+	desc = me_roman_missions_ti.44.desc
+    picture = romans_marching
+    
+    right_portrait = c:PTH.current_ruler
+	left_portrait = c:ROM.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.44.a
+		add_truce = {
+			target = c:PTH
+			duration = 5475
+		}
+	}
+}
+
+me_roman_missions_ti.45 = {							# No Truce
+    type = country_event
+    title = me_roman_missions_ti.45.t
+	desc = me_roman_missions_ti.45.desc
+    picture = romans_marching
+    
+    right_portrait = c:PTH.current_ruler
+	left_portrait = c:ROM.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.45.a
+
+	}
+}
+
+me_roman_missions_ti.46 = {							# Rome African Expedition - Start
+    type = country_event
+    title = me_roman_missions_ti.46.t
+	desc = me_roman_missions_ti.46.desc
+    picture = romans_marching
+	
+	option = {
+		name = me_roman_missions_ti.46.a
+		add_treasury = -250
+	}
+}
+
+me_roman_missions_ti.47 = {							# Rome African Expedition - End
+    type = country_event
+    title = me_roman_missions_ti.47.t
+	desc = me_roman_missions_ti.47.desc
+    picture = romans_marching
+	
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				50 = {
+					set_variable = {
+						name = found_treasure
+						days = 90
+					}
+				}
+				50 = {
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = me_roman_missions_ti.47.a
+		custom_tooltip = no_effect_tooltip
+	}
+	
+	option = {
+		name = me_roman_missions_ti.47.b
+		trigger = {
+			has_variable = found_treasure
+		}
+		create_country_treasure = {
+			key = "rome_african_treasure" #probably some elephant stuff
+			icon = "treasure_chest"
+			modifier = {
+				local_nobles_desired_pop_ratio = 0.1
+				local_nobles_happyness = 0.15
+			}
+		}
+	}
+}
+
+me_roman_missions_ti.48 = {							# Sol Invictus Activation
+    type = country_event
+    title = me_roman_missions_ti.48.t
+	desc = me_roman_missions_ti.48.desc
+    picture = hellenic_temple
+	
+	option = {
+		name = me_roman_missions_ti.48.a
+		custom_tooltip = rome_imperium_sine_fine_sol_invictus_activation #activate Sol Invictus deity 
+		add_political_influence = -25
+		current_ruler = {
+			add_zeal = 2
+		}
+		capital_scope = {
+			add_special_pop = {
+				text = "add_1_priest_tt"
+				type = priest
+				count = 1
+			}
+		}
+	}
+}			
+
+me_roman_missions_ti.49 = {							# Sol Invictus Random
+    type = country_event
+	hidden = yes
+	
+	trigger = {
+		OR = {
+			has_this_omen = deity:sol_invictus
+			deity:sol_invictus = {
+				has_holy_site = yes
+				holy_site = {
+					owner = root
+				}
+			}
+		}
+		religion = roman_pantheon
+	}
+
+	immediate = {
+		random_list = {
+			33 = {
+				trigger_event = {
+					id = me_roman_missions_ti.50
+					days = 239
+				}
+			}
+			33 = {
+				trigger_event = {
+					id = me_roman_missions_ti.51
+					days = { 291 294 }
+				}
+			}
+			33 = {
+				trigger_event = {
+					id = me_roman_missions_ti.52
+					days = 358
+				}
+			}
+		}
+	}
+}
+
+me_roman_missions_ti.50 = {							# Sol Invictus - 28th of August - Sol and Luna temple anniversary, circus games
+    type = country_event
+    title = me_roman_missions_ti.50.t
+	desc = me_roman_missions_ti.50.desc
+    picture = hellenic_temple
+	
+	option = {
+		name = me_roman_missions_ti.50.a
+		current_ruler = {
+			add_zeal = 1
+			add_popularity = 5
+		}
+		add_treasury = -100
+	}
+	option = {
+		name = me_roman_missions_ti.50.b
+		current_ruler = {
+			add_zeal = -1
+			add_popularity = -5
+		}
+	}
+}
+
+me_roman_missions_ti.51 = {							# Sol Invictus - 19th-22nd of October - Ludi Solis, theatre performances, circus games, gladiatorial games, hunts and naumachiae, culminating with 36 chariot races on last day;
+    type = country_event
+    title = me_roman_missions_ti.51.t
+	desc = me_roman_missions_ti.51.desc
+    picture = hellenic_temple
+	
+	option = {
+		name = me_roman_missions_ti.51.a
+		add_military_experience = 5
+		current_ruler = {
+			add_popularity = 10
+		}
+		add_treasury = -100
+	}
+	option = {
+		name = me_roman_missions_ti.51.b
+		current_ruler = {
+			add_popularity = -20
+		}
+	}
+}
+
+me_roman_missions_ti.52 = {							# Sol Invictus - 25th of December - Dies Natalis Solis Invicti, temple festival, 30 chariot races
+    type = country_event
+    title = me_roman_missions_ti.52.t
+	desc = me_roman_missions_ti.52.desc
+    picture = hellenic_temple
+	
+	option = {
+		name = me_roman_missions_ti.52.a
+		add_stability = 5
+		current_ruler = {
+			add_popularity = 5
+		}
+		add_treasury = -100
+	}
+	option = {
+		name = me_roman_missions_ti.52.b
+		add_stability = -5
+		current_ruler = {
+			add_popularity = -5
+		}
+	}
+}
+
+me_roman_missions_ti.53 = {							# Egyptian Annexation - For Rome
+    type = country_event
+    title = me_roman_missions_ti.53.t
+	desc = me_roman_missions_ti.53.desc
+    picture = romans_marching	
+
+	
+	option = {
+		name = me_roman_missions_ti.53.a
+		custom_tooltip = roman_mission_13_fall_of_diadochoi_ti_annex_egypt_tt #annex all Egyptian lands
+	}
+
+}
+
+me_roman_missions_ti.54 = {							# Begin of Aurelian Walls
+    type = country_event
+    title = me_roman_missions_ti.54.t
+	desc = me_roman_missions_ti.54.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.54.a
+		add_treasury = -500
+	}
+}
+
+me_roman_missions_ti.55 = {							# End of Aurelian Walls
+    type = country_event
+    title = me_roman_missions_ti.55.t
+	desc = me_roman_missions_ti.55.desc
+    picture = romans_marching
+    
+    left_portrait = root.current_ruler
+	
+	option = {
+		name = me_roman_missions_ti.55.a
+		p:1 = {
+			add_permanent_province_modifer = {
+				name = "aurelian_walls_ti"
+			}
+		}
+		add_war_exhaustion = -5
+	}
+}
