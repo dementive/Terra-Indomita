@@ -9,7 +9,6 @@
         NOT = { has_variable = mission_cooldown_var_2 }
         tag = QIN
         has_completed_mission = qin_01_shan_yang
-        #always = no
     }
 
     abort = {}
@@ -614,30 +613,6 @@
             trigger_event = me_qin_li_si.15
         }
     }
-    qin_02_li_si_task_16 = { #Great Library of Qin
-        icon = "task_atlas"
-        duration = 18250
-		highlight = {
-			scope:province = {
-				province_id = 8313
-			}
-		}
-        requires = {
-            qin_02_li_si_task_12
-            qin_02_li_si_task_11
-        }
-        final = yes
-        allow = {
-            stability >= 40
-			treasury >= 1000
-			political_influence >= 50
-        }
-        on_completion = {
-            # Start the construction of the "Great Library of Qin"
-            custom_tooltip = begin_library_construction_tttt
-            trigger_event = me_qin_li_si.16
-        }
-    }
     qin_02_li_si_task_17 = { #Recruit Bai Qi
         icon = "task_political"
         duration = 180
@@ -699,6 +674,39 @@
 				}
 			}
             trigger_event = me_qin_li_si.18
+        }
+    }
+	qin_02_li_si_task_19 = { #Legalist Unity
+        icon = "task_political"
+        duration = 1460
+		monthly_on_action = qin_02_li_si_task_19_monthly_pulse
+		final = yes
+        requires = {
+            qin_02_li_si_task_12
+            qin_02_li_si_task_11
+        }
+        allow = {
+			political_influence >= 50
+        }
+        on_start = {
+			set_variable = {
+				name = ongoing_mission_pulse_flag
+				days = 1460
+			}
+			add_political_influence = -50
+			add_country_modifier = {
+				name = qin_2_legalist_pulse_mod
+				duration = 1460
+			}
+        }
+        on_completion = {
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = qin_2_legalist_perma_mod
+					duration = -1
+				}
+			}
+            trigger_event = me_qin_li_si.19
         }
     }
 }

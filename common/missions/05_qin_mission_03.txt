@@ -9,7 +9,6 @@
         NOT = { has_variable = mission_cooldown_var_3 }
         has_completed_mission = qin_02_li_si
         tag = QIN
-        #always = no
     }
 
     abort = {}
@@ -623,6 +622,28 @@
 				add_political_influence = 50
 				add_4_free_province_investments = yes
             }
+        }
+    }
+	qin_02_li_si_task_16 = { #Great Library of Qin
+        icon = "task_atlas"
+        duration = 18250
+		highlight = {
+			scope:province = {
+				province_id = 8313
+			}
+		}
+        requires = {
+            qin_03_empire_task_13
+        }
+        allow = {
+            stability >= 40
+			treasury >= 1000
+			political_influence >= 50
+        }
+        on_completion = {
+            # Start the construction of the "Great Library of Qin"
+            custom_tooltip = begin_library_construction_tttt
+            trigger_event = me_qin_li_si.16
         }
     }
 }
