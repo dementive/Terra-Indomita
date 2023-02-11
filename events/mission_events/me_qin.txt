@@ -413,7 +413,6 @@ me_qin_shan_yang.7 = {
 					is_in_area = qianwei_area
 				}
 				has_city_status = yes
-				total_population >= 25
 				free_building_slots = 0
 			}
 			ordered_pops_in_province = {
@@ -2192,7 +2191,88 @@ me_qin_li_si.18 = {
     }
 }
 
+me_qin_li_si.19 = {
+    type = country_event
 
+    title = me_qin_li_si_19_title
+    desc = me_qin_li_si_19_desc
+    picture = greek_siege
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_19.a"
+        add_country_modifier = {
+			name = qin_2_legalist_perma_mod
+			duration = -1
+		}
+    }
+}
+
+me_qin_li_si.1900 = {
+    type = country_event
+
+    title = me_qin_li_si_1900_title
+    desc = me_qin_li_si_1900_desc
+    picture = greek_siege
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:corrupt_official_qin
+	
+	immediate = {
+		random_character = {
+			limit = {
+				has_any_office = yes
+			}
+			save_scope_as = corrupt_official_qin
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_1900.a"
+		scope:corrupt_official_qin = {
+			add_corruption = 20
+		}
+    }
+}
+
+me_qin_li_si.1901 = {
+    type = country_event
+
+    title = me_qin_li_si_1901_title
+    desc = me_qin_li_si_1901_desc
+    picture = greek_siege
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_qin_li_si_1901.a"
+        add_treasury = -100
+    }
+}
+
+me_qin_li_si.1902 = { 
+    type = country_event
+
+    title = me_qin_li_si_1902_title
+    desc = me_qin_li_si_1902_desc
+    picture = greek_siege
+	
+	left_portrait = root.current_ruler
+
+	immediate = {
+		random_owned_province = {
+			save_scope_as = legalist_province_qin
+		}
+	}
+
+    option = {
+        name = "me_qin_li_si_1902.a"
+		scope:legalist_province_qin = {
+			add_state_loyalty = -30
+		}
+    }
+}
 
 namespace = me_qin_empire
 
