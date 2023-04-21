@@ -1,1 +1,209 @@
 ### General Deity Check ###
+
+deity_fuchi = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = ainu_religion
+			}
+			deity:omen_fuchi = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_1
+	passive_modifier = { happiness_for_same_religion_modifier = deity_happiness_for_same_religion_modifier }
+	omen = { stability_monthly_change = omen_stability_monthly_change_svalue } #Bonus from Omen
+	religion = ainu_religion
+	deity_category = culture #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_rel_tech_effect = yes
+	}
+}
+
+deity_kanna = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = ainu_religion
+			}
+			deity:omen_kanna = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_2
+	passive_modifier = { global_population_growth = omen_global_population_growth_svalue }
+	omen = { navy_maintenance_cost = deity_navy_maintenance_cost_svalue } #Bonus from Omen
+	religion = ainu_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+}
+
+deity_cikap = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = ainu_religion
+			}
+			deity:omen_cikap = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_3
+	passive_modifier = { research_points_modifier = omen_research_points_modifier_svalue }
+	omen = { global_commerce_modifier = deity_global_commerce_modifier_svalue } #Bonus from Omen
+	religion = ainu_religion
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_income_effect = yes
+	}
+}
+
+deity_kandakoro = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = ainu_religion
+			}
+			deity:omen_kandakoro = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_4
+	passive_modifier = { global_monthly_civilization = deity_global_monthly_civilization_svalue }
+	omen = { global_monthly_state_loyalty = omen_global_monthly_state_loyalty } #Bonus from Omen
+	religion = ainu_religion
+	deity_category = culture #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+}
+
+deity_waka = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = ainu_religion
+			}
+			deity:omen_waka = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_5
+	passive_modifier = { global_monthly_food_modifier = deity_global_monthly_food_modifier_svalue }
+	omen = { global_citizen_happyness = omen_global_citizen_happiness_svalue } #Bonus from Omen
+	religion = ainu_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+}
+
+deity_kunnecup = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = ainu_religion
+			}
+			deity:omen_kunnecup = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_6
+	passive_modifier = { fort_maintenance_cost = omen_fort_maintenance_cost_svalue }
+	omen = { global_tax_modifier = omen_global_tax_modifier_svalue } #Bonus from Omen
+	religion = ainu_religion
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+}
+
+deity_tokapcup = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = ainu_religion
+			}
+			deity:omen_tokapcup = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_7
+	passive_modifier = { land_morale_modifier = omen_land_morale_modifier_svalue }
+	omen = { war_score_cost = omen_war_score_cost_svalue } #Bonus from Omen
+	religion = ainu_religion
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_manpower_effect = yes
+	}
+}
+
+deity_kimun = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = ainu_religion
+			}
+			deity:omen_kimun = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_8
+	passive_modifier = { hostile_attrition = omen_hostile_attrition_svalue }
+	omen = { global_defensive = omen_global_defensive_svalue } #Bonus from Omen
+	religion = ainu_religion
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_defensive_effect = yes
+	}
+}
