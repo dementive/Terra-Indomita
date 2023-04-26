@@ -145,55 +145,101 @@ base_window = {
 								margin_widget = {
 									size = { 306 150 }
 									datacontext = "[OfficeHolderItem.GetCharacter]"
-									cpt_button = {
-										position = { 4 36 }
-										size = { 70 105 }
-									}
 									sub_header = {
 										size = { 294 32 }
 										position = { 0 0 }
 										blockoverride "Title_text" { text = "[OfficeHolderItem.GetName]" }
 										tooltip = "[OfficeHolderItem.GetNameDesc]"
 									}
-									tag = {
-										position = { 80 28 }
-										text = "[OfficeHolderItem.GetCharacter.GetName]"
-										maximumsize = { 208 32 }
-										visible = "[OfficeHolderItem.HasHolder]"
-										align = left
-										using = BaseFontS
-										using = Black_FontColor
-									}
-									icon_and_text = {
-										name = "loyalty"
-										size = { 80 0 }
-										visible = "[OfficeHolderItem.HasHolder]"
-										position = { 74 60 }
+									widget = {
+										size = { 100% 100% }
+										position = { 25 0 }
 
-										tooltipwidget = { 
-											datacontext = "[OfficeHolderItem.GetCharacter]"
-											using = character_loyalty_tooltip 
+										flowcontainer = {
+											position = { -20 36 }
+											ignoreinvisible = yes
+											widget = {
+												size = { 25 0 }
+												visible = "[OfficeHolderItem.HasHolder]"
+											}
+
+											cpt_button = {
+												size = { 70 105 }
+
+												blockoverride "stats" { visible = "[OfficeHolderItem.HasHolder]" }
+											}
 										}
-										blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/loyalty.dds" }
-										blockoverride "Text" { text = "[OfficeHolderItem.GetCharacter.GetLoyalty|0]" }
+
+
+										tag = {
+											position = { 80 28 }
+											text = "[OfficeHolderItem.GetCharacter.GetName]"
+											maximumsize = { 180 32 }
+											visible = "[And( OfficeHolderItem.HasHolder, OfficeHolderItem.GetCharacter.GetFamily.IsMinor)]"
+											fontsize_min = 15
+											align = left
+											using = BaseFontS
+											using = Black_FontColor
+										}
+
+										tag = {
+											position = { 80 28 }
+											text = "[OfficeHolderItem.GetCharacter.GetName]"
+											maximumsize = { 145 32 }
+											visible = "[And( OfficeHolderItem.HasHolder, Not(OfficeHolderItem.GetCharacter.GetFamily.IsMinor))]"
+											fontsize_min = 15
+											align = left
+											using = BaseFontS
+											using = Black_FontColor
+										}
+
+										tag = {
+											position = { 242 28 }
+											text = "[OfficeHolderItem.GetCharacter.GetFamily.GetNumberOfJobs]/[OfficeHolderItem.GetCharacter.GetFamily.GetNumberOfExpectedJobs]"
+											maximumsize = { 145 32 }
+											visible = "[And( OfficeHolderItem.HasHolder, Not(OfficeHolderItem.GetCharacter.GetFamily.IsMinor))]"
+											fontsize_min = 15
+											align = left
+											using = BaseFontS
+											using = Black_FontColor
+											alpha = 0.7
+										}
+
+										icon_and_text = {
+											name = "loyalty"
+											size = { 75 0 }
+											visible = "[OfficeHolderItem.HasHolder]"
+											position = { 70 60 }
+											blockoverride "position"
+											{
+												position = { 0 10 }
+											}
+
+											tooltipwidget = {
+												datacontext = "[OfficeHolderItem.GetCharacter]"
+												using = character_loyalty_tooltip
+											}
+											blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/loyalty.dds" }
+											blockoverride "Text" { text = "[OfficeHolderItem.GetCharacter.GetLoyalty|0]" }
+										}
+										icon_button_square = {
+											size = { 35 35 }
+											position = { 80 -10 }
+											parentanchor = bottom
+											blockoverride "On_click"
+											{
+												onclick = "[OfficeHolderItem.ChangeHolder]"
+												enabled = "[OfficeHolderItem.CanChange]"
+											}
+											blockoverride "Icon"
+											{
+												texture = "gfx/interface/icons/shared_icons/change.dds"
+												size = { 30 30 }
+											}
+
+											tooltip = "[OfficeHolderItem.GetChangeTooltip]"
+										}
 									}
-									icon_button_square = {
-										size = { 36 36 }
-										position = { 80 -10 }
-										parentanchor = bottom
-										blockoverride "On_click"
-										{
-											onclick = "[OfficeHolderItem.ChangeHolder]"
-											enabled = "[OfficeHolderItem.CanChange]"
-										}
-										blockoverride "Icon"
-										{
-											texture = "gfx/interface/icons/shared_icons/change.dds"
-											size = { 30 30 }
-										}
-										
-										tooltip = "[OfficeHolderItem.GetChangeTooltip]"
-									} 
 								
 									icon_and_text_progress_S = {
 										name = "statesmanship"
@@ -230,9 +276,30 @@ base_window = {
 											tooltip = "[OfficeHolderItem.GetTooltip]"
 											scale = 0.9
 										}
-										
 									}
 
+									textbox = {
+										visible = "[And(OfficeHolderItem.GetCharacter.IsValid, EqualTo_int32( OfficeHolderItem.GetCharacter.GetEffectiveModifiedAttribute(OfficeHolderItem.GetOffice.GetRequiredSkill), '(int32)0'))]"
+										using = BaseFontXS
+										using = Black_FontColor
+										position = { 150 108 }
+										autoresize = yes
+										elide = right
+										max_width = 135
+										text = "[OfficeHolderItem.GetOffice.GetSkillDescription]"
+										alpha = 0.5
+										tooltipwidget = {
+											using = double_tooltip_vert
+											blockoverride "TopText" {
+												text = "zero_skill"
+											}
+											blockoverride "line" {}
+											blockoverride "BotText" {
+												text = "[OfficeHolderItem.GetOffice.GetSkillDescription]"
+											}
+										}
+									}
+									
 									textbox = {
 										using = BaseFontS
 										using = Black_FontColor
