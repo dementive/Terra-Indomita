@@ -1,6 +1,60 @@
 ﻿monthly_country_pulse = {
 	on_actions = {		
 		monthly_check_for_100_experience
+		monthly_reparation_payments_on_action
+		monthly_imperial_power
+	}
+
+	effect = {
+		if = {
+			limit = {
+				OR = {
+					has_variable = me_ant_start_flag
+					has_variable = me_mac_start_flag
+					tag = EGY
+					tag = SEL
+				}
+				war_with = c:TRE
+			}
+			trigger_event = me_thrace_3_new_philhellene_policy.201
+		}
+	}
+	events = {
+		imperial_events.1
+	}
+}
+monthly_imperial_power = {
+	trigger = {
+		has_variable = imperial_power
+	}
+	effect = {
+		if = {
+			limit = {
+				num_of_cities < 600
+			}
+			remove_variable = imperial_power
+		}
+		else = {
+			set_imperial_power = yes
+		}
+	}
+}
+
+monthly_reparation_payments_on_action = {
+	effect = {
+		#Add income for reparations...
+		if = {
+			limit = { has_variable = paying_5_year_reparations }
+			save_scope_as = rep_country
+			add_treasury = {
+				value = subtract_10_percent_monthly_income
+			}
+			var:paying_5_year_reparations = {
+				add_treasury = {
+					value = add_10_percent_monthly_income
+				}
+			}
+		}
 	}
 }
 monthly_check_for_100_experience = {

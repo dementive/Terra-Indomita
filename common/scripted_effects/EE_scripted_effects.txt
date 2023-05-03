@@ -1,0 +1,280 @@
+﻿remove_all_imperial_modifier = {
+    remove_country_modifier = imperial_military_mod_1
+    remove_country_modifier = imperial_military_mod_2
+    remove_country_modifier = imperial_military_mod_3
+    remove_country_modifier = imperial_military_mod_4
+    remove_country_modifier = imperial_military_mod_5
+    remove_country_modifier = imperial_economic_mod_1
+    remove_country_modifier = imperial_economic_mod_2
+    remove_country_modifier = imperial_economic_mod_3
+    remove_country_modifier = imperial_economic_mod_4
+    remove_country_modifier = imperial_economic_mod_5
+    remove_country_modifier = imperial_political_mod_1
+    remove_country_modifier = imperial_political_mod_2
+    remove_country_modifier = imperial_political_mod_3
+    remove_country_modifier = imperial_political_mod_4
+    remove_country_modifier = imperial_political_mod_5
+}
+
+add_imperial_political_mods = {
+    remove_all_imperial_modifier = yes
+    if = {
+        limit = {
+            num_of_cities >= 3000
+        }
+        add_country_modifier = {    
+            name = imperial_political_mod_1
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 5
+        }
+    }
+    else_if = {
+        limit = {
+            num_of_cities >= 2000
+            num_of_cities < 3000
+        }
+        add_country_modifier = {    
+            name = imperial_political_mod_2
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 4
+        }
+    }
+    else_if = {
+        limit = {
+            num_of_cities >= 1500
+            num_of_cities < 2000
+        }
+        add_country_modifier = {    
+            name = imperial_political_mod_3
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 3
+        }
+    }
+    else_if = {
+        limit = {
+            num_of_cities >= 1000
+            num_of_cities < 1500
+        }
+        add_country_modifier = {    
+            name = imperial_political_mod_4
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 2
+        }
+    }
+    else = {
+        add_country_modifier = {    
+            name = imperial_political_mod_5
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 1
+        }
+    }
+}
+
+add_imperial_military_mods = {
+    remove_all_imperial_modifier = yes
+    if = {
+        limit = {
+            num_of_cities >= 3000
+        }
+        add_country_modifier = {    
+            name = imperial_military_mod_1
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 5
+        }
+    }
+
+    else_if = {
+        limit = {
+            num_of_cities >= 2000
+            num_of_cities < 3000
+        }
+        add_country_modifier = {    
+            name = imperial_military_mod_2
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 4
+        }
+    }
+    else_if = {
+        limit = {
+            num_of_cities >= 1500
+            num_of_cities < 2000
+        }
+        add_country_modifier = {    
+            name = imperial_military_mod_3
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 3
+        }
+    }
+    else_if = {
+        limit = {
+            num_of_cities >= 1000
+            num_of_cities < 1500
+        }
+        add_country_modifier = {    
+            name = imperial_military_mod_4
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 2
+        }
+    }
+    else = {
+        add_country_modifier = {    
+            name = imperial_military_mod_5
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 1
+        }
+    }
+}
+
+add_imperial_economic_mods = {
+    remove_all_imperial_modifier = yes
+    if = {
+        limit = {
+            num_of_cities >= 3000
+        }
+        add_country_modifier = {    
+            name = imperial_economic_mod_1
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 5
+        }
+    }
+    else_if = {
+        limit = {
+            num_of_cities >= 2000
+            num_of_cities < 3000
+        }
+        add_country_modifier = {    
+            name = imperial_economic_mod_2
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 4
+        }
+    }
+    else_if = {
+        limit = {
+            num_of_cities >= 1500
+            num_of_cities < 2000
+        }
+        add_country_modifier = {    
+            name = imperial_economic_mod_3
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 3
+        }
+    }
+    else_if = {
+        limit = {
+            num_of_cities >= 1000
+            num_of_cities < 1500
+        }
+        add_country_modifier = {    
+            name = imperial_economic_mod_4
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 2
+        }
+    }
+    else = {
+        add_country_modifier = {    
+            name = imperial_economic_mod_5
+            duration = -1
+        }
+        remove_variable = imperial_power_level
+        set_variable = {
+            name = imperial_power_level
+            value = 1
+        }
+    }
+}
+
+set_imperial_power = {
+    if = {
+        limit = {
+            has_variable = imperial_power
+        }
+        if  = {
+            limit = {
+                var:imperial_power = flag:political
+            }
+            add_imperial_political_mods = yes
+        }
+        if  = {
+            limit = {
+                var:imperial_power = flag:warfare
+            }
+            add_imperial_military_mods = yes
+        }
+        if  = {
+            limit = {
+                var:imperial_power = flag:economic
+            }
+            add_imperial_economic_mods = yes
+        }
+    }
+}
+
+change_imperial_power_cost = {
+    add_political_influence = -75
+    add_legitimacy = -10
+    add_stability = -10
+    add_tyranny = 5
+}
+
+fix_variable_error = { 
+    if = { 
+        limit = {has_variable = $X$ var:$X$ = flag:$X$ exists = scope:$X$ scope:$X$ = flag:$X$} 
+        set_variable = {name = $X$ value = flag:$X$} flag:$X$ = {save_scope_as = $X$} 
+    } 
+}
