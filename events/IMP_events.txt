@@ -1,0 +1,223 @@
+﻿namespace = imperial_events
+
+imperial_events.1 = {
+    type = country_event
+    title = imperial_events.1.t
+    desc = imperial_events.1.desc
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+
+    trigger = {
+        num_of_cities >= 600
+        NOT = { has_variable = imperial_power }
+    }
+
+    option = {      
+        # political
+        name = imperial_events.1.a
+        set_variable = {
+            name = imperial_power
+            value = flag:political
+        }
+        show_as_tooltip = {
+            add_country_modifier = {
+                name = imperial_political_mod_5
+                duration = -1
+            }
+        }
+    }
+    option = {      
+        # warfare
+        name = imperial_events.1.b
+        set_variable = {
+            name = imperial_power
+            value = flag:warfare
+        }
+        show_as_tooltip = {
+            add_country_modifier = {
+                name = imperial_military_mod_5
+                duration = -1
+            }
+        }
+    }
+    option = {      
+        # economic
+        name = imperial_events.1.c
+        set_variable = {
+            name = imperial_power
+            value = flag:economic
+        }
+        show_as_tooltip = {
+            add_country_modifier = {
+                name = imperial_economic_mod_5
+                duration = -1
+            }
+        }
+    }
+    after = {
+        set_imperial_power = yes
+    }
+}
+
+imperial_events.2 = {
+    type = country_event
+    title = imperial_events.2.t
+    desc = imperial_events.2.desc
+    picture = romans_marching
+    left_portrait = current_ruler
+
+    trigger = {
+        has_variable = imperial_power
+        has_variable = imperial_power_level
+    }
+
+    option = {
+        # political
+        trigger = {
+            NOT = { var:imperial_power = flag:political }
+        }
+        name = imperial_events.2.a
+        change_imperial_power_cost = yes
+        remove_variable = imperial_power
+        set_variable  = {
+            name = recently_changed_imperial_power
+            days = 1825
+        }
+        set_variable = {
+            name = imperial_power
+            value = flag:political
+        }
+        #custom_tooltip = imperial_events_2_tt_political
+        if = {
+            limit = {
+                var:imperial_power_level = 5
+            }
+            custom_tooltip = imperial_power_level_political_one_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 4
+            }
+            custom_tooltip = imperial_power_level_political_two_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 3
+            }
+            custom_tooltip = imperial_power_level_political_three_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 2
+            }
+            custom_tooltip = imperial_power_level_political_four_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 1
+            }
+            custom_tooltip = imperial_power_level_political_five_tt
+        }
+    }
+    option = {      
+        # warfare
+        trigger = {
+            NOT = { var:imperial_power = flag:warfare }
+        }
+        name = imperial_events.2.b
+        change_imperial_power_cost = yes
+        remove_variable = imperial_power
+        set_variable  = {
+            name = recently_changed_imperial_power
+            days = 1825
+        }
+        set_variable = {
+            name = imperial_power
+            value = flag:warfare
+        }
+        #custom_tooltip = imperial_events_2_tt_warfare
+        if = {
+            limit = {
+                var:imperial_power_level = 5
+            }
+            custom_tooltip = imperial_power_level_mil_one_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 4
+            }
+            custom_tooltip = imperial_power_level_mil_two_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 3
+            }
+            custom_tooltip = imperial_power_level_mil_three_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 2
+            }
+            custom_tooltip = imperial_power_level_mil_four_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 1
+            }
+            custom_tooltip = imperial_power_level_mil_five_tt
+        }
+    }
+    option = {      
+        # economic
+        trigger = {
+            NOT = { var:imperial_power = flag:economic }
+        }
+        name = imperial_events.2.c
+        change_imperial_power_cost = yes
+        remove_variable = imperial_power
+        set_variable = {
+            name = imperial_power
+            value = flag:economic
+        }
+        #custom_tooltip = imperial_events_2_tt_economic
+        if = {
+            limit = {
+                var:imperial_power_level = 5
+            }
+            custom_tooltip = imperial_power_level_economic_one_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 4
+            }
+            custom_tooltip = imperial_power_level_economic_two_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 3
+            }
+            custom_tooltip = imperial_power_level_economic_three_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 2
+            }
+            custom_tooltip = imperial_power_level_economic_four_tt
+        }
+        if = {
+            limit = {
+                var:imperial_power_level = 1
+            }
+            custom_tooltip = imperial_power_level_economic_five_tt
+        }
+    }
+    option = {
+        name = imperial_events.2.d
+    }
+    after = {
+        hidden_effect = {
+            set_imperial_power = yes
+        }
+    }
+}

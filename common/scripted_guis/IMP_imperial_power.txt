@@ -1,0 +1,252 @@
+﻿has_warfare_imperial_power = {
+	scope = country
+	is_shown = {
+		trigger_if = {
+			limit = {
+				has_variable = imperial_power
+			}
+			var:imperial_power = flag:warfare
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+}
+
+has_money_imperial_power = {
+	scope = country
+	is_shown = {
+		trigger_if = {
+			limit = {
+				has_variable = imperial_power
+			}
+			var:imperial_power = flag:economic
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+}
+
+has_political_imperial_power = {
+	scope = country
+	is_shown = {
+		trigger_if = {
+			limit = {
+				has_variable = imperial_power
+			}
+			var:imperial_power = flag:political
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+}
+
+is_imperial_power = {
+	scope = country
+	is_shown = {
+		has_variable = imperial_power
+	}
+}
+
+imperial_power_level_one = {
+	scope = country
+	is_valid = {
+		trigger_if = {
+			limit = {
+				has_variable = imperial_power_level
+			}
+			var:imperial_power_level = 1
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				var:imperial_power = flag:political
+			}
+			custom_tooltip = imperial_power_level_political_one_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:warfare
+			}
+			custom_tooltip = imperial_power_level_mil_one_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:economic
+			}
+			custom_tooltip = imperial_power_level_economic_one_tt
+		}
+	}
+}
+
+imperial_power_level_two = {
+	scope = country
+	is_valid = {
+		trigger_if = {
+			limit = {
+				has_variable = imperial_power_level
+			}
+			var:imperial_power_level = 2
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				var:imperial_power = flag:political
+			}
+			custom_tooltip = imperial_power_level_political_two_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:warfare
+			}
+			custom_tooltip = imperial_power_level_mil_two_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:economic
+			}
+			custom_tooltip = imperial_power_level_economic_two_tt
+		}
+	}
+}
+
+imperial_power_level_three = {
+	scope = country
+	is_valid = {
+		trigger_if = {
+			limit = {
+				has_variable = imperial_power_level
+			}
+			var:imperial_power_level = 3
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				var:imperial_power = flag:political
+			}
+			custom_tooltip = imperial_power_level_political_three_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:warfare
+			}
+			custom_tooltip = imperial_power_level_mil_three_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:economic
+			}
+			custom_tooltip = imperial_power_level_economic_three_tt
+		}
+	}
+}
+
+imperial_power_level_four = {
+	scope = country
+	is_valid = {
+		trigger_if = {
+			limit = {
+				has_variable = imperial_power_level
+			}
+			var:imperial_power_level = 4
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				var:imperial_power = flag:political
+			}
+			custom_tooltip = imperial_power_level_political_two_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:warfare
+			}
+			custom_tooltip = imperial_power_level_mil_two_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:economic
+			}
+			custom_tooltip = imperial_power_level_economic_two_tt
+		}
+	}
+}
+
+imperial_power_level_five = {
+	scope = country
+	is_valid = {
+		trigger_if = {
+			limit = {
+				has_variable = imperial_power_level
+			}
+			var:imperial_power_level = 5
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				var:imperial_power = flag:political
+			}
+			custom_tooltip = imperial_power_level_political_one_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:warfare
+			}
+			custom_tooltip = imperial_power_level_mil_one_tt
+		}
+		if = {
+			limit = {
+				var:imperial_power = flag:economic
+			}
+			custom_tooltip = imperial_power_level_economic_one_tt
+		}
+	}
+}
+
+change_imperial_power_button = {
+	scope = country
+	is_shown = {
+		has_variable = imperial_power
+	}
+	is_valid = {
+		trigger_if = {
+			limit = {
+				has_variable = recently_changed_imperial_power
+			}
+			custom_tooltip = {
+				text = change_imp_power_trigger_tt
+				NOT = {
+					has_variable = recently_changed_imperial_power
+				}
+			}
+		}
+	}
+	effect = {
+		show_as_tooltip = {
+			change_imperial_power_cost = yes
+		}
+		trigger_event = imperial_events.2
+	}
+}
