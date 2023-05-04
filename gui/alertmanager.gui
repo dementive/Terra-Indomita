@@ -1,3 +1,122 @@
+types ModAlertTypes
+{
+	type colonization_popup = message_window {
+		visible = "[GetVariableSystem.Exists('show_colonization_popup')]"
+		size = { 248 145 }
+		movable = no
+		state = {
+			name = _show
+			
+			start_sound = {
+				soundeffect = "event:/SFX/UI/Notifications/sfx_ui_notification_message_appears"
+			}
+		}
+		state = {
+			name = close_anim
+			duration = 0.05
+			trigger_when = "[IsDataModelEmpty( Player.MakeScope.GetList('player_colonization_list'))]" 
+			on_start = "[GetVariableSystem.Toggle('show_colonization_popup')]"
+		}
+
+		blockoverride "Title_text"
+		{
+			text = "  Colonizable Provinces      " # dont worry about it
+			fontsize = 22
+		}
+		button_close = {
+			parentanchor = right
+			position = { 0 4 }
+			onclick = "[GetVariableSystem.Toggle('show_colonization_popup')]"
+			onclick = "[GetScriptedGui('remove_colonization_list_sgui').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			tooltip = "CLOSE"
+		}
+		scrollbox = {
+			visible = "[And(Not(IsDataModelEmpty( Player.MakeScope.GetList('player_colonization_list') )), GreaterThan_int32( GetDataModelSize( Player.MakeScope.GetList('player_colonization_list') ), '(int32)1' ))]"
+			position = { -47 32 }
+			blockoverride "area_size" {
+				size = { 287 105 }
+			}
+			blockoverride "scrollbox_background" {
+
+			}
+			blockoverride "scrollbox_replace_vbox" {
+				dynamicgridbox = {
+					block "data" {}
+					datamodel = "[Player.MakeScope.GetList('player_colonization_list')]"
+					datamodel_wrap = 2
+					flipdirection = yes
+					allow_outside = yes
+					ignoreinvisible = yes
+					item = {
+						text_button_square = {
+							datacontext = "[Scope.Province]"
+							parentanchor = top|center
+							size = { 110 35 }
+							onmousehierarchyenter = "[SetHighlightProvince( Province.GetId )]"
+							onmousehierarchyleave = "[ClearHighlightColors]"
+							blockoverride "On_click" {
+								onclick = "[OnClickOnProvince( Scope.Province )]"
+								onclick = "[PanToProvince( Scope.Province )]"
+								onrightclick = "[GetScriptedGui('colonization_sgui').Execute( GuiScope.SetRoot( Player.MakeScope ).AddScope('colonizing_province', Province.MakeScope ).End )]"
+							}
+							enabled = "[GetScriptedGui('colonization_popup_isvalid_sgui').IsValid( GuiScope.SetRoot(Player.MakeScope ).End )]"
+							blockoverride "Center_text" {
+								text = "[Province.GetNameWithNoTooltip]"
+								fontsize = 15
+								max_width = 70
+								elide = right
+							}
+							tooltip = "COLONIZE_ALERT_POPUP_TT"
+						}
+					}
+				}
+			}
+		}
+		scrollbox = {
+			visible = "[And(Not(IsDataModelEmpty( Player.MakeScope.GetList('player_colonization_list') )), LessThanOrEqualTo_int32( GetDataModelSize( Player.MakeScope.GetList('player_colonization_list') ), '(int32)1' ))]"
+			position = { 8 32 }
+			blockoverride "area_size" {
+				size = { 287 105 }
+			}
+			blockoverride "scrollbox_background" {
+
+			}
+			blockoverride "scrollbox_replace_vbox" {
+				dynamicgridbox = {
+					block "data" {}
+					datamodel = "[Player.MakeScope.GetList('player_colonization_list')]"
+					datamodel_wrap = 2
+					flipdirection = yes
+					allow_outside = yes
+					ignoreinvisible = yes
+					item = {
+						text_button_square = {
+							datacontext = "[Scope.Province]"
+							parentanchor = top|center
+							size = { 110 35 }
+							onmousehierarchyenter = "[SetHighlightProvince( Province.GetId )]"
+							onmousehierarchyleave = "[ClearHighlightColors]"
+							blockoverride "On_click" {
+								onclick = "[OnClickOnProvince( Scope.Province )]"
+								onclick = "[PanToProvince( Scope.Province )]"
+								onrightclick = "[GetScriptedGui('colonization_sgui').Execute( GuiScope.SetRoot( Player.MakeScope ).AddScope('colonizing_province', Province.MakeScope ).End )]"
+							}
+							enabled = "[GetScriptedGui('colonization_popup_isvalid_sgui').IsValid( GuiScope.SetRoot(Player.MakeScope ).End )]"
+							blockoverride "Center_text" {
+								text = "[Province.GetNameWithNoTooltip]"
+								fontsize = 15
+								max_width = 70
+								elide = right
+							}
+							tooltip = "COLONIZE_ALERT_POPUP_TT"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 template alert_icon_size
 {
 	size = { 48 48 }
@@ -53,7 +172,7 @@ template green_alert
 widget = {
 	name = "alert_manager"
 	position = { 144 43 }
-	size = { 1460 116 }
+	size = { 1460 145 }
 	layer = middle_top
 	scissor = yes
 	flowcontainer = {		
@@ -1290,17 +1409,31 @@ widget = {
 		# Colonize Province
 		###########################
 		alert = {
-			visible = "[And(AlertManager.CanColonizeProvince, AlertManager.ShowAlert('can_colonize_province'))]"
-			tooltip = "[AlertManager.GetColonizeProvinceInformation]"
+
+			state = {
+				name = _show
+				onclick = "[GetScriptedGui('colonization_alert_sgui').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+				start_sound = {
+					soundeffect = "event:/SFX/UI/Notifications/sfx_ui_notification_alert"
+					soundparam = {
+						name = AlertLevel
+						value = 1.0
+					}
+				}
+			}
+
+			datacontext = "[GetScriptedGui('colonization_alert_sgui')]"
+			visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			tooltip = "COL_colonizable_alert_tooltip"
 			blockoverride "Color"
 			{
 				frame = 8
 			}
-			using = green_alert
 			blockoverride "On_click"
 			{
-				onclick = "[AlertManager.NextColonizableProvince]"
-				onrightclick = "[AlertManager.ToggleShowAlert('can_colonize_province')]"
+				onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+				onclick = "[GetVariableSystem.Toggle('show_colonization_popup')]"
+				onrightclick = "[GetScriptedGui('colonization_alert_rightclick_sgui').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
 			}
 			
 			blockoverride "Icon"
@@ -1378,5 +1511,6 @@ widget = {
 				}
 			}
 		}
+		colonization_popup = {}
 	}	
 }

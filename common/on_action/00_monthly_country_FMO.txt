@@ -3,6 +3,7 @@
 		monthly_check_for_100_experience
 		monthly_reparation_payments_on_action
 		monthly_imperial_power
+		monthly_colonization_pulse
 	}
 
 	effect = {
@@ -21,6 +22,86 @@
 	}
 	events = {
 		imperial_events.1
+	}
+}
+monthly_colonization_pulse = {
+	effect = {
+		if = {
+			limit = {
+				has_variable = colonization_mod_one_var
+				NOT = { has_country_modifier = colonization_mod_one }
+			}
+			var:colonization_mod_one_var = {
+				remove_variable = province_is_being_colonized
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_one_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = colonization_mod_two_var
+				NOT = { has_country_modifier = colonization_mod_two }
+			}
+			var:colonization_mod_two_var = {
+				remove_variable = province_is_being_colonized
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_two_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = colonization_mod_three_var
+				NOT = { has_country_modifier = colonization_mod_three }
+			}
+			var:colonization_mod_three_var = {
+				remove_variable = province_is_being_colonized
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_three_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = colonization_mod_four_var
+				NOT = { has_country_modifier = colonization_mod_four }
+			}
+			var:colonization_mod_four_var = {
+				remove_variable = province_is_being_colonized
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_four_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = colonization_mod_five_var
+				NOT = { has_country_modifier = colonization_mod_five }
+			}
+			var:colonization_mod_five_var = {
+				remove_variable = province_is_being_colonized
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_five_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		fix_colonization_amount = yes
 	}
 }
 monthly_imperial_power = {

@@ -3731,13 +3731,18 @@ window = {
                     }
 
                     icon_button_province = {
+                    	datacontext = "[GetScriptedGui('colonization_sgui')]"
                         size = { 144 66 }
                         name = "ColonizeButton"
-                        visible = "[Not( ProvinceWindow.GetProvince.HasOwner )]"
-                        enabled = "[ProvinceWindow.CanBeColonized]"
-                        blockoverride "On_click" { onclick = "[ProvinceWindow.QuickColonize]" }
+                        visible = "[And(Not( ProvinceWindow.GetProvince.HasOwner ), ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).AddScope('colonizing_province', ProvinceWindow.GetProvince.MakeScope ).End ))]"
+                        #enabled = "[ProvinceWindow.CanBeColonized]"
+                        #blockoverride "On_click" { onclick = "[ProvinceWindow.QuickColonize]" }
+                        enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).AddScope('colonizing_province', ProvinceWindow.GetProvince.MakeScope ).End )]"
+                        blockoverride "On_click" {
+                        	onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).AddScope('colonizing_province', ProvinceWindow.GetProvince.MakeScope ).End )]"
+                        }
                         blockoverride "Icon" { texture = "gfx/interface/icons/shared_icons/alert_colonize_province.dds" }
-                        tooltip = "[ProvinceWindow.GetColonizeTooltip]"
+                        tooltip = "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( Player.MakeScope ).AddScope('colonizing_province', ProvinceWindow.GetProvince.MakeScope ).End )]"
                         layoutpolicy_horizontal = fixed
                     }
                     icon_button_province = {

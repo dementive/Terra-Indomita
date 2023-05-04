@@ -5,6 +5,7 @@
 		cappadocia_gamestart_pulse
 		delay = { days = { 10 30 } }
 		fix_succession_on_action
+		COL_on_game_initialized
 	}
 
 	events = {
@@ -610,6 +611,20 @@
 				NOT = { has_global_variable = is_playing_invictus }
 			}
 			set_global_variable = is_playing_invictus #For other mods to check for Invictus stuff without errors plz don't remove
+		}
+		set_variable = {
+			name = colonization_count
+			value = 0
+		}
+	}
+}
+
+
+COL_on_game_initialized = {
+	effect = {
+		set_variable = {
+			name = colonization_count
+			value = 0
 		}
 	}
 }
