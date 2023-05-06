@@ -63,7 +63,7 @@ deity_al_kutbay = {
 			}
 		}
 	}
-	icon = deity_eloquence
+	icon = deity_wisdom
 	passive_modifier = { research_points_modifier = deity_research_points_modifier_svalue }
 	omen = { global_citizen_happyness = omen_global_citizen_happiness_svalue } #Bonus from Omen
 	religion = arabian_pantheon
@@ -458,16 +458,42 @@ deity_haukim = {
 			rare_deity_trigger = {
 				RELIGION = arabian_pantheon
 			}
-			deity:omen_maher = {
+			deity:omen_haukim = {
 				holy_site_deity_check_trigger = yes
 			}
 		}
 	}
-	icon = deity_war
+	icon = deity_justice
 	passive_modifier = { experience_decay = deity_experience_decay_svalue }
+	omen = { stability_monthly_change = omen_stability_monthly_change_svalue } #Bonus from Omen
+	religion = arabian_pantheon
+	deity_category = justice #This Deity uses a Justice slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+
+	on_activate = {
+		military_apotheosis_military_experience_effect = yes
+	 }
+}
+
+deity_anbay = {
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = arabian_pantheon
+			}
+			deity:omen_anbay = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { monthly_corruption = deity_monthly_corruption_svalue }
 	omen = { naval_damage_done = omen_naval_damage_done_svalue } #Bonus from Omen
 	religion = arabian_pantheon
-	deity_category = war #This Deity uses a War slot.
+	deity_category = justice #This Deity uses a Justice slot.
 	deification_trigger = {
 		can_deify_trigger = yes
 	}
