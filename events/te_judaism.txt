@@ -1,0 +1,464 @@
+﻿namespace = te_judaism
+
+#Jewish Diaspora to India
+
+te_judaism.1 = {
+    type = country_event
+    title = "te_judaism.1.t"
+    desc = "te_judaism.1.desc"
+    picture = te_jewish_emigration
+    fire_only_once = yes
+
+    trigger = {
+        current_date >= 800.6.21
+        owns = 6895
+    }
+
+    option = {
+        name = "te_judaism.1.a"
+        p:6895 = {
+            ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_religion = christianity
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 6
+				}
+				check_range_bounds = no
+				set_pop_religion = judaism
+			}
+        }
+    }
+}
+
+#Jerusalem conquered?
+te_judaism.2 = {
+    type = country_event
+    hidden = yes
+
+   fire_only_once = yes
+
+    trigger = {
+        current_date > 753.3.25
+        NOT = {
+            has_global_variable = jewish_diaspora
+        }
+        NOR = {
+            c:JUD = {
+                has_land = yes
+            }
+            c:SMA = {
+                has_land = yes
+            }
+            c:ISR = {
+                has_land = yes
+            }
+            p:687 = {
+                dominant_province_religion = judaism
+            }
+        }           
+   } 
+
+    immediate = {
+       set_global_variable = {
+            name = jewish_diaspora
+        }
+    }
+}
+
+#Indian emigration
+te_judaism.21 = {
+    type = country_event
+    title = "te_judaism.21.t"
+    desc = "te_judaism.21.desc"
+    picture = te_jewish_emigration
+
+    goto_location = scope:jewish_emigration_target
+
+    trigger = {
+        has_global_variable = jewish_diaspora
+        NOR = {
+            religion = christianity
+            religion = judaism
+            has_country_modifier = cursed_by_elohim
+        }
+        any_owned_province = {
+            OR = {
+                province_id = 6898 
+                province_id = 6899 
+                province_id = 6900 
+                province_id = 6911 
+                province_id = 6901 
+                province_id = 6902 
+                province_id = 6909 
+                province_id = 6897 
+                province_id = 6896 
+                province_id = 6904 
+                province_id = 6895 
+                province_id = 6916      
+            }
+            any_pops_in_province = {
+                NOT = {
+                    pop_religion = judaism
+                }
+            }
+        }                   
+    }
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                OR = {
+                    province_id = 6898 
+                    province_id = 6899 
+                    province_id = 6900 
+                    province_id = 6911 
+                    province_id = 6901 
+                    province_id = 6902 
+                    province_id = 6909 
+                    province_id = 6897 
+                    province_id = 6896 
+                    province_id = 6904 
+                    province_id = 6895 
+                    province_id = 6916 
+                }    
+                any_pops_in_province = {
+                    NOT = {
+                        pop_religion = judaism
+                    }
+                } 
+            }
+            save_scope_as = jewish_emigration_target
+        }
+    }
+
+    option = {
+        name = "te_judaism.21.a"
+        trigger = {
+            NAND = {
+                is_ai = yes
+                owns = 4440
+                p:4440 = {
+                    is_capital = yes
+                }   
+            }
+        }
+        scope:jewish_emigration_target = {               
+            ordered_pops_in_province = {
+                limit = {
+                    NOR = {
+                        pop_religion = christianity
+                        pop_religion = judaism
+                    }
+                }   
+                order_by = pop_hapiness
+                    max = {
+                        value = total_population
+                        divide = 6
+                    }
+                check_range_bounds = no
+                set_pop_religion = judaism          
+            }
+        }           
+    } 
+    option = {
+        name = "te_judaism.21.b"
+        trigger = {
+            OR = {
+                tag = MRY
+                is_ai = no
+                AND = {
+                    owns = 4440
+                    p:4440 = {
+                        is_capital = yes
+                    }
+                }       
+            }
+        }
+        hidden_effect = {
+            add_country_modifier = {
+                name = "cursed_by_elohim"
+                duration = 2500
+            }
+        } 
+        if = {
+            limit = {
+                is_ai = no
+            }
+            add_stability = 5 
+        } 
+    } 
+}    
+
+#Levantines convert to Judaism
+te_judaism.3 = {
+    type = country_event
+    title = "te_judaism.3.t"
+    desc = "te_judaism.3.desc"
+    picture = te_jewish_emigration
+	
+	trigger = {
+		has_global_variable = jewish_diaspora
+        any_owned_province = {
+            OR = {
+                dominant_province_culture_group = culture_group:west_levantine
+                dominant_province_culture_group = culture_group:east_levantine
+                dominant_province_culture_group = culture_group:south_levantine
+            }
+            NOT = {
+                dominant_province_religion = judaism
+            }	
+            any_pops_in_province = {
+                NOR = {
+                    pop_religion = christianity
+                    pop_religion = judaism
+                    pop_religion = manichaeism
+                }
+            }
+        }        
+	}
+	
+	option = {
+        name = "te_judaism.3.a"
+        random_owned_province = {
+            limit = {
+                OR = {
+                    dominant_province_culture_group = culture_group:west_levantine
+                    dominant_province_culture_group = culture_group:east_levantine
+                    dominant_province_culture_group = culture_group:south_levantine
+                }
+                NOT = {
+                    dominant_province_religion = judaism
+                }
+                any_pops_in_province = {
+                    NOR = {
+                        pop_religion = christianity
+                        pop_religion = judaism
+                        pop_religion = manichaeism
+                    }
+                }
+            }        
+            ordered_pops_in_province = {
+                limit = {
+                        NOR = {
+                            pop_religion = christianity
+                            pop_religion = manichaeism
+                        }	
+                }
+                order_by = pop_hapiness
+                max = {
+                    value = total_population
+                    divide = 3
+                }
+                check_range_bounds = no
+                set_pop_religion = judaism
+            }
+        }    
+	}
+}
+
+#####Hebrews resist conversion!#####
+te_judaism.31 = {
+    type = country_event
+    hidden = yes
+	
+	trigger = {
+		has_global_variable = jewish_diaspora
+        any_owned_province = {
+            OR = {
+                AND = {
+                    dominant_province_culture = hebrew
+                    NOT = {
+                        dominant_province_religion = judaism
+                    }
+                } 
+                any_pops_in_province = {
+                    AND = {
+                        pop_culture = hebrew
+                        NOT = {
+                            pop_religion = judaism
+                        }
+                    }    
+                }	
+            }
+        }        
+	}
+	
+	immediate = {
+        random_owned_province = {
+            limit = {
+                AND = {
+                    dominant_province_culture = hebrew
+                    NOT = {
+                        dominant_province_religion = judaism
+                    }
+                }    
+            }        
+            ordered_pops_in_province = {
+                limit = {
+                    NOT = {
+                        pop_religion = christianity
+                    }	
+                }
+                order_by = pop_hapiness
+                max = {
+                    value = total_population
+                    divide = 1
+                }
+                check_range_bounds = no
+                set_pop_religion = judaism
+            }
+        }
+        random_owned_province = {
+            limit = {
+                NOT = {
+                    dominant_province_culture = hebrew
+                }
+                any_pops_in_province = {
+                    AND = {
+                        pop_culture = hebrew
+                        NOT = {
+                            pop_religion = judaism
+                        }
+                    }
+                }
+            }
+            ordered_pops_in_province = {
+                limit = {
+                    AND = {
+                        pop_culture = hebrew
+                        NOT = {
+                            pop_religion = judaism
+                        }
+                    }	
+                }
+                order_by = pop_hapiness
+                max = {
+                    value = total_population
+                    divide = 1
+                }
+                check_range_bounds = no
+                set_pop_religion = judaism
+            }
+        }    
+	}
+}
+
+#Ethiopians convert to Judaism
+te_judaism.4 = {
+    type = country_event
+    title = "te_judaism.4.t"
+    desc = "te_judaism.4.desc"
+    picture = te_jewish_emigration
+	
+	trigger = {
+		has_global_variable = jewish_diaspora
+        any_owned_province = {
+            OR = {
+                dominant_province_culture = puntic
+                dominant_province_culture = blemmyan
+                dominant_province_culture = aksumite
+            }
+            NOT = {
+                dominant_province_religion = judaism
+            }
+            any_pops_in_province = {
+                NOR = {
+                    pop_religion = christianity
+                    pop_religion = judaism
+                    pop_religion = manichaeism
+                }
+            }	
+        }        
+	}
+	
+	option = {
+        name = "te_judaism.4.a"
+        random_owned_province = {
+            limit = {
+                OR = {
+                    dominant_province_culture = puntic
+                    dominant_province_culture = blemmyan
+                    dominant_province_culture = aksumite
+                }
+                NOT = {
+                    dominant_province_religion = judaism
+                }
+                any_pops_in_province = {
+                    NOR = {
+                        pop_religion = christianity
+                        pop_religion = judaism
+                        pop_religion = manichaeism
+                    }
+                }
+            }        
+            ordered_pops_in_province = {
+                limit = {
+                        NOT = {
+                            pop_religion = christianity
+                        }	
+                }
+                order_by = pop_hapiness
+                max = {
+                    value = total_population
+                    divide = 3
+                }
+                check_range_bounds = no
+                set_pop_religion = judaism
+            }
+        }    
+	}
+}
+
+#Hellenes convert to Judaism
+te_judaism.5 = {
+    type = country_event
+    hidden = yes
+	
+	trigger = {
+		has_global_variable = jewish_diaspora
+        any_owned_province = {
+            dominant_province_culture = macedonian
+            any_pops_in_province = {
+                NOR = {
+                    pop_religion = judaism
+                    pop_religion = manichaeism
+                }
+            }
+        }        
+	}
+	
+	option = {
+        random_owned_province = {
+            limit = {
+                dominant_province_culture = macedonian
+                any_pops_in_province = {
+                    NOR = {
+                        pop_religion = judaism
+                        pop_religion = manichaeism
+                    }
+                }
+            } 
+            weight = {
+                base = 1
+                modifier = {
+                    add = 10
+                    is_port = yes
+                }
+            }
+            random_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = judaism
+						pop_religion = manichaeism
+					}
+				}
+				set_pop_religion = judaism
+			}       
+        }    
+	}
+}

@@ -1,0 +1,477 @@
+﻿inv_te_on_game_initialized = {
+	effect = {
+		p:5278 = {
+			while = {
+                limit = {
+                    any_pops_in_province = {
+                        count < 5
+                    }
+                }
+                create_pop = tribesmen
+            }
+			every_pops_in_province = { 
+				limit = { 
+					pop_type = tribesmen 
+				} 
+				set_pop_culture = saka
+			}	
+		}
+		#
+		p:5299 = {
+			while = {
+                limit = {
+                    any_pops_in_province = {
+                        count < 5
+                    }
+                }
+                create_pop = tribesmen
+            }
+			every_pops_in_province = { 
+				limit = { 
+					pop_type = tribesmen 
+				} 
+				set_pop_culture = harpii
+				set_pop_religion = shamanism
+			}	
+		}
+		#
+		p:5380 = {
+			while = {
+                limit = {
+                    any_pops_in_province = {
+                        count < 5
+                    }
+                }
+                create_pop = tribesmen
+            }
+			every_pops_in_province = { 
+				limit = { 
+					pop_type = tribesmen 
+				} 
+				set_pop_culture = sattagydian
+				set_pop_religion = zoroaster
+			}	
+		}
+		#
+		p:5970 = {
+			while = {
+                limit = {
+                    any_pops_in_province = {
+                        count < 5
+                    }
+                }
+                create_pop = tribesmen
+            }
+			every_pops_in_province = { 
+				limit = { 
+					pop_type = tribesmen 
+				} 
+				set_pop_culture = sarmatian
+				set_pop_religion = indo_iranian_religion
+			}	
+		}
+		#
+		p:5971 = {
+			while = {
+                limit = {
+                    any_pops_in_province = {
+                        count < 5
+                    }
+                }
+                create_pop = tribesmen
+            }
+			every_pops_in_province = { 
+				limit = { 
+					pop_type = tribesmen 
+				} 
+				set_pop_culture = scythian
+				set_pop_religion = indo_iranian_religion
+			}
+		}
+		#
+		p:5981 = {
+			while = {
+                limit = {
+                    any_pops_in_province = {
+                        count < 5
+                    }
+                }
+                create_pop = tribesmen
+            }
+			every_pops_in_province = { 
+				limit = { 
+					pop_type = tribesmen 
+				} 
+				set_pop_culture = sarmatian
+				set_pop_religion = indo_iranian_religion
+			}
+		}
+		#
+		p:7296 = {
+			while = {
+				limit = {
+					any_pops_in_province = {
+						count < 5
+					}
+				}
+				create_pop = tribesmen
+			}
+			every_pops_in_province = {
+				limit = {
+					pop_type = tribesmen
+				}
+				set_pop_culture = dardic
+				set_pop_religion = hindu
+			}
+		}
+	}
+}
+
+te_custom_on_action_yearly_country_xian = {
+
+	trigger = {
+		current_date > 750.3.1
+		num_of_cities >= 1
+	}
+	events = {
+		te_christianity.1
+		te_christianity.2
+		te_christianity.3
+		te_christianity.4
+		te_christianity.41
+		te_christianity.5
+		te_christianity.6
+		te_christianity.7
+		te_christianity.70
+		te_christianity.71 
+		te_christianity.72 
+		te_christianity.8
+		te_christianity.9
+		te_christianity.10
+		te_christianity.25
+		te_christianity.98
+	}
+
+	random_events = {
+		20 = 0
+		40 = te_christianity.95
+		40 = te_christianity.94
+		40 = te_christianity.93
+		40 = te_christianity.92
+		40 = te_christianity.91
+	}
+}	
+
+te_custom_on_action_yearly_country_rel_flavor = {
+	trigger = {
+		is_ai = no
+		current_date > 854.6.24
+		num_of_cities >= 1
+	}
+
+	events = {
+		te_rel_flavor.1
+	}
+
+}
+
+te_custom_on_action_yearly_country_jewish = {
+
+	trigger = {
+		current_date > 750.3.1
+		num_of_cities >= 1
+	}
+
+	events = {
+		te_judaism.1
+		te_judaism.2
+	}	
+
+	random_events = {
+		45 = 0
+		25 = te_judaism.31
+		10 = te_judaism.3
+		10 = te_judaism.4
+		5 = te_judaism.21
+		5 = te_judaism.5
+	}
+
+}	
+
+te_custom_on_action_yearly_country_plagues = {
+	trigger = {
+		current_date > 916.1.1
+		current_date < 1354.12.31
+		#OR = {
+		#	AND = {
+		#		current_date > 916.1.1
+		#		current_date < 933.12.31
+		#	}
+		#	AND = {
+		#		current_date > 1000.1.1
+		#		current_date < 1016.12.31
+		#	}	
+		#}	
+		NOR = {
+			tag = BAR
+			tag = REB
+			tag = PIR
+			tag = MER
+		}
+		num_of_cities >= 1
+	}
+
+	events = {
+		te_plagues.1
+		te_plagues.11
+		te_plagues.12
+		te_plagues.2
+		te_plagues.21
+		te_plagues.22
+		te_plagues.30
+		te_plagues.31
+		te_plagues.32
+		te_plagues.33
+		te_plagues.34
+		te_plagues.35
+		te_plagues.40
+		te_plagues.41
+		te_plagues.42
+		te_plagues.43
+		te_plagues.44
+		te_plagues.45
+	}
+
+	random_events = {
+		
+	}
+}
+
+te_custom_on_action_yearly_country_manichees = {
+
+	trigger = {
+		current_date > 1030.2.26
+		num_of_cities >= 1
+	}
+
+	events = {
+		te_manichees.1
+		te_manichees.10
+		te_manichees.3
+		te_manichees.30
+	}
+
+	random_events = {
+		40 = 0
+		20 = te_manichees.11
+		20 = te_manichees.12
+		20 = te_manichees.13
+		10 = te_manichees.14
+		10 = te_manichees.15
+	}
+}
+
+te_custom_on_action_yearly_country_barbarians = {
+	trigger = {
+		current_date > 1053.3.15
+		num_of_cities >= 1
+		NOR = {
+			tag = BAR
+			tag = REB
+			tag = PIR
+			tag = MER
+		}
+	}
+
+	events = {
+		te_barbarians.1
+		te_barbarians.10
+		te_barbarians.11
+		te_barbarians.12
+		te_barbarians.13
+		te_barbarians.14
+		te_barbarians.15
+		te_barbarians.2
+		te_barbarians.3
+		te_barbarians.4
+		te_barbarians.5
+		te_barbarians.60
+		te_barbarians.6
+		te_barbarians.70
+		te_barbarians.7
+		te_barbarians.98
+		te_barbarians.99
+	}
+
+	random_events = {
+		
+	}
+}
+
+te_custom_on_action_barbarians_morale_pulse = {
+	trigger = {
+		NOR = {
+			tag = BAR
+			tag = REB
+			tag = PIR
+			tag = MER
+		}
+		OR = {
+			AND = {
+				has_global_variable = huns_second_wave
+				current_date > 1148.3.15
+				current_date < 1208.11.15
+				num_of_cities >= 100
+			}
+			AND = {
+				has_variable = huna_invasion
+				current_date > 1104.04.11
+				current_date < 1144.12.15
+				num_of_cities >= 10
+			}
+			AND = {		
+				has_variable = huna_invasion_again
+				current_date > 1208.12.07
+				num_of_cities >= 100
+			}
+		}		
+	}
+
+	events = {
+
+	}
+
+	random_events = {
+		50 = 0
+		50 = te_barbarians.50
+	}
+
+}
+
+###STOP-BRAKE pulse for runaway tribesmen###
+te_custom_on_action_yearly_country_tribesmen = {
+	trigger = {
+		has_global_variable = germanic_migration
+		num_of_cities >= 1
+	}
+
+	events = {
+		te_barbarians.51
+		te_barbarians.52
+		te_barbarians.53
+		te_barbarians.54
+		te_barbarians.55
+		#te_barbarians.56
+	}
+
+}
+############################################
+
+te_custom_on_action_yearly_province_antonine = {
+	trigger = {
+		current_date > 917.1.1
+		current_date < 932.12.31
+		has_global_variable = antonine_plague_pandemic
+	}
+
+	random_events = {
+		50 = 0
+		50 = te_plagues.10
+	}
+}	
+
+te_custom_on_action_yearly_province_cyprian = {
+	trigger = {
+		current_date > 1001.1.1
+		current_date < 1014.12.31
+		has_global_variable = cyprian_plague_pandemic
+	}
+
+	random_events = {
+		50 = 0
+		50 = te_plagues.20
+	}
+}
+
+te_custom_on_action_yearly_province_churches = {
+
+	trigger = {
+		current_date > 850.4.25
+		has_global_variable = christianity_expands
+	}
+	
+	events = {
+		
+	}
+
+	random_events = {
+		40 = 0
+		30 = te_christianity.96
+		30 = te_christianity.97
+	}
+}
+
+te_custom_on_action_canonizations = {
+
+	events = {
+		te_saints.1
+		te_saints.2
+		te_saints.3
+		te_saints.4
+		te_saints.5
+		te_saints.6
+		te_saints.7
+		te_saints.8
+		te_saints.9
+		te_saints.10
+		te_saints.11
+		te_saints.12
+		te_saints.13
+		te_saints.14
+	}
+
+}
+
+te_custom_on_action_yearly_country_migrations = {
+
+	trigger = {
+		current_date > 1054.6.21
+		num_of_cities >= 1
+		OR = {
+			country_culture_group = germanic
+			country_culture_group = latin
+		}
+		#NOT = {
+		#	has_variable = eastern_roman_empire
+		#}	
+		#country_culture_group = germanic
+		#is_tribal = yes
+		#is_ai = yes
+	}
+
+	events = {
+		te_migrations.1
+		te_migrations.10
+		te_migrations.11
+		te_migrations.3
+	}
+
+	random_events = {
+		50 = 0
+		50 = te_migrations.2
+	}
+}
+
+te_late_antiquity_deurbanization = {
+
+	trigger = {
+		current_date > 973.11.3
+		is_tribal = no
+		num_of_cities >= 1
+	}	
+
+	events = {
+		te_plagues.50
+		te_plagues.51
+	}
+}

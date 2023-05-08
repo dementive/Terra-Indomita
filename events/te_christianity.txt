@@ -1,0 +1,1749 @@
+﻿namespace = te_christianity
+
+
+#Early spread of Christianity
+
+#Early churches
+#Tarsus
+te_christianity.1 = {
+	type = country_event
+	hidden = yes
+
+	fire_only_once = yes
+
+	trigger = { 
+		current_date > 792.11.21 #AD 39	
+		current_date < 802.11.21
+		has_global_variable = christianity_expands
+		p:1883 = {
+				has_owner = yes
+		}
+	}
+
+	immediate = {
+		p:1883 = {
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}	
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				add_permanent_province_modifier = {
+					name = "early_christian_community"
+				}				
+		}		
+	}					
+}
+
+#Colossae
+te_christianity.2 = {
+	type = country_event
+	hidden = yes
+
+	fire_only_once = yes
+
+	trigger = {
+		current_date > 793.2.20 #AD 40
+		current_date < 803.2.20
+		has_global_variable = christianity_expands
+		p:1945 = { has_owner = yes
+		}
+	}
+
+	immediate = {
+		p:1945 = {
+			random_pops_in_province = {
+				set_pop_religion = christianity
+			}
+			random_pops_in_province = {
+				set_pop_religion = christianity
+			}
+			random_pops_in_province = {
+				set_pop_religion = christianity
+			}
+			add_permanent_province_modifier = {
+				name = "early_christian_church" 
+			}
+			if = {
+				limit = {
+					has_province_modifier = early_christian_community
+				}
+				remove_province_modifier = early_christian_community
+			}
+		}		
+	}
+}
+
+#Ephesus
+te_christianity.3 = {
+	type = country_event
+	hidden = yes
+
+	fire_only_once = yes
+
+	trigger = {
+		current_date > 798.9.20 #AD 45
+		current_date < 808.9.20 
+		has_global_variable = christianity_expands
+		p:290 = { has_owner = yes
+		}
+	}
+
+	immediate = {
+		p:290 = {		
+			random_pops_in_province = {
+				set_pop_religion = christianity
+			}
+			random_pops_in_province = {
+				set_pop_religion = christianity
+			}
+			random_pops_in_province = {
+				set_pop_religion = christianity
+			}
+			add_permanent_province_modifier = {
+				name = "early_christian_church" 
+			}
+			if = {
+				limit = {
+					has_province_modifier = early_christian_community
+				}
+				remove_province_modifier = early_christian_community
+			}	
+		}	
+	}
+}
+
+#Corinth
+te_christianity.4 = {
+	type = country_event
+	hidden = yes
+
+	fire_only_once = yes
+
+	trigger = {
+		current_date > 803.7.31 #AD 50
+		current_date < 813.7.31 
+		has_global_variable = christianity_expands
+		p:418 = { has_owner = yes
+		}
+	}
+
+	immediate = {
+		
+			p:418 = {
+				ordered_pops_in_province = {
+					limit = {
+						NOT = {
+							pop_religion = christianity
+						}
+					}
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					check_range_bounds = no
+					set_pop_religion = christianity
+				}
+				add_permanent_province_modifier = {
+					name = "early_christian_church" 
+				}
+				if = {
+					limit = {
+						has_province_modifier = early_christian_community
+					}
+					remove_province_modifier = early_christian_community
+				}
+			}
+
+	}
+}
+
+#Muziris – Kerala
+te_christianity.41 = {
+	type = country_event
+	title = "te_christianity.41.t"
+	desc = "te_christianity.41.desc"
+	picture = crucifixion
+
+	fire_only_once = yes
+
+	goto_location = p:6895
+
+	trigger = {
+		current_date >= 804.12.21 #AD 51
+		p:6895 = {
+			owner = root
+			any_pops_in_province = {
+				pop_religion = judaism
+			}
+		}
+	}
+
+	immediate = {
+		p:7530 = {
+			add_permanent_province_modifier = {
+				name = "early_christian_community"
+			}
+		}
+	}
+
+	option = {
+		name = "te_christianity.41.a"
+		p:6895 = {
+			random_pops_in_province = {
+				set_pop_religion = christianity
+			}
+			add_permanent_province_modifier = {
+				name = "early_christian_community"
+			}	
+		}
+	}
+}
+
+#Thessalonica
+te_christianity.5 = {
+	type = country_event
+	hidden = yes
+
+	fire_only_once = yes
+
+	trigger = {
+		current_date > 808.8.11 #AD 55
+		current_date < 818.8.11
+		has_global_variable = christianity_expands
+		p:373 = {
+			has_owner = yes
+		}
+	}
+
+	immediate = {
+		
+			p:373 = {
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				add_permanent_province_modifier = {
+					name = "early_christian_church" 
+				}
+				if = {
+					limit = {
+						has_province_modifier = early_christian_community
+					}
+					remove_province_modifier = early_christian_community
+				}
+			}
+		
+	}
+}
+
+#Philippi
+te_christianity.6 = {
+	type = country_event
+	hidden = yes
+
+	fire_only_once = yes
+
+	trigger = {
+		current_date > 813.1.20 #AD 60
+		current_date < 823.1.20
+		has_global_variable = christianity_expands
+		p:364 = {
+			has_owner = yes
+		}
+	}
+
+	immediate = {
+		
+			p:364 = {
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				add_permanent_province_modifier = {
+					name = "early_christian_church" 
+				}
+				if = {
+					limit = {
+						has_province_modifier = early_christian_community
+					}
+					remove_province_modifier = early_christian_community
+				}
+			}
+
+	}
+}
+
+#Malta and Rome
+te_christianity.7 = {
+	type = country_event
+	title = "te_christianity.7.t"
+	desc = {
+		first_valid = {
+			triggered_desc = { # Rome
+				trigger = { tag = ROM }	
+				desc = "te_christianity.7.desc_1"
+			}
+			triggered_desc = { # Ruma?
+				trigger = {
+					NOT = {
+						tag = ROM
+					}
+				}
+				desc = "te_christianity.7.desc_2"
+			}
+		}
+	}	
+	picture = crucifixion
+
+	fire_only_once = yes
+
+	goto_location = p:1
+
+	trigger = {
+		current_date > 818.12.25 #AD 65
+		current_date < 828.12.25
+		has_global_variable = christianity_expands
+		p:1471 = {
+			has_owner = yes
+		}
+		p:1 = {
+			owner = root
+		}
+	}
+
+	immediate = {
+		
+			p:1471 = {
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				add_permanent_province_modifier = {
+					name = "early_christian_community"
+				}
+			}
+			p:1 = {
+				save_scope_as = rome_church_province 
+			}	
+			
+	}
+
+	option = {
+		name = "te_christianity.7.a"
+		p:1 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_religion = christianity
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 4
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+			add_permanent_province_modifier = {
+				name = "early_christian_church" 
+			}
+			if = {
+				limit = {
+					has_province_modifier = early_christian_community
+				}
+				remove_province_modifier = early_christian_community
+			}
+		}
+	}
+}
+
+#Mediolanum/Milan
+te_christianity.70 = {
+	type = country_event
+	hidden = yes
+
+	fire_only_once = yes
+
+	trigger = {
+		current_date > 823.6.11 #AD 70
+		current_date < 833.6.11 
+		has_global_variable = christianity_expands
+		p:3571 = {
+			has_owner = yes
+		}
+	}
+
+	immediate = {
+		
+			p:3571 = {
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				random_pops_in_province = {
+					set_pop_religion = christianity
+				}
+				add_permanent_province_modifier = {
+					name = "early_christian_community" 
+				}
+			}
+
+	}
+}
+
+#In hoc signo vinces
+te_christianity.71 = {
+	type = country_event
+	title = "te_christianity.71.t"
+	desc = "te_christianity.71.desc"
+	picture = crucifixion
+	#hidden = yes
+
+	goto_location = p:1
+
+	left_portrait = current_ruler
+	#right_portrait = current_ruler
+
+	trigger = {
+		current_date >= 1064.10.28
+		current_date <= 1133.2.27
+		has_global_variable = christianity_spreads_locally
+		num_of_cities >= 100
+		p:1 = {
+			owner = root
+		}
+		OR = {
+			tag = ROM
+			current_ruler = {
+				has_culture_group = latin
+			}
+		}	
+		NOT = {
+			religion = christianity
+		}
+		OR = {
+			AND = {
+				is_ai = yes
+				any_owned_province = {
+					dominant_province_culture_group = culture_group:latin
+					NOT = {
+						has_variable = roman_evangelization_toggle
+					}	
+				}
+			}	
+			current_ruler = {
+				is_adult = yes
+				NOR = {
+					has_religion = christianity
+					has_character_modifier = switched_char_religion
+					has_variable = roman_ruler_evangelization_toggle
+					has_variable = will_not_convert
+					has_variable = ruler_rel_switch_toggle
+				}	
+			}
+		}		
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				is_ai = yes
+				current_ruler = {
+					NOR = {
+						has_religion = christianity
+						has_character_modifier = switched_char_religion
+						has_variable = roman_ruler_evangelization_toggle
+						has_variable = will_not_convert
+						has_variable = ruler_rel_switch_toggle
+					}
+				}
+			}	
+			current_ruler = {
+				set_character_religion = christianity
+				set_variable = {
+					name = roman_ruler_evangelization_toggle
+					value = this
+					days = 1080
+				}
+			}	
+		}
+	}
+
+	option = { #Yes
+		name = "te_christianity.71.a"
+		custom_tooltip = "embrace_gospel"
+		trigger = {
+			is_ai = no
+		}
+		highlight = yes
+		current_ruler = {
+			set_character_religion = christianity
+		}
+		while = {
+			limit = {
+				political_influence < 500
+			}	
+			add_political_influence = 1
+		}
+	}
+
+	option = { #Never
+		name = "te_christianity.71.b"
+		custom_tooltip = "never_abandon_idols"
+		trigger = {
+			is_ai = no
+		}
+		current_ruler = {
+			set_variable = roman_ruler_evangelization_toggle
+			add_trait = stubborn
+		}
+	}
+
+	option = { #Maybe
+		name = "te_christianity.71.c"
+		custom_tooltip = "uncertain_evangel"
+		trigger = {
+			is_ai = no
+		}
+		current_ruler = {
+			set_variable = {
+				name = roman_ruler_evangelization_toggle
+				value = this
+				days = 1080
+			}	
+		}
+	}
+
+	option = {
+		trigger = {
+			is_ai = yes
+		}
+		exclusive = yes
+		random_owned_province = {
+			limit = {
+				dominant_province_culture_group = culture_group:latin
+				NOT = {
+					has_variable = roman_evangelization_toggle
+				}
+				total_population > 3
+			}
+			weight = {
+				base = 1
+				modifier = {
+					factor = 2
+					total_population > 20
+				}
+				modifier = {
+					factor = 5
+					total_population > 80
+				}
+				modifier = {
+					add = 3
+					OR = {
+						is_in_region = central_italy_region
+						is_in_region = cisalpine_gaul_region
+						is_in_region = magna_graecia_region
+					}	
+				}
+			}	
+			ordered_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = judaism
+						pop_religion = christianity
+						pop_religion = manichaeism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 3
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+			set_variable = {
+				name = roman_evangelization_toggle
+				value = this
+				days = 1080
+			}
+		}
+		random_owned_province = {
+			limit = {
+				dominant_province_culture_group = culture_group:latin
+				NOT = {
+					has_variable = roman_evangelization_toggle
+				}
+				total_population > 3
+			}
+			weight = {
+				base = 1
+				modifier = {
+					factor = 2
+					total_population > 20
+				}
+				modifier = {
+					factor = 5
+					total_population > 80
+				}
+				modifier = {
+					add = 3
+					OR = {
+						is_in_region = central_italy_region
+						is_in_region = cisalpine_gaul_region
+						is_in_region = magna_graecia_region
+					}	
+				}
+			}	
+			ordered_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = judaism
+						pop_religion = christianity
+						pop_religion = manichaeism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 3
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+			set_variable = {
+				name = roman_evangelization_toggle
+				value = this
+				days = 1080
+			}
+		}
+		random_owned_province = {
+			limit = {
+				dominant_province_culture_group = culture_group:latin
+				NOT = {
+					has_variable = roman_evangelization_toggle
+				}
+				total_population > 3
+			}
+			weight = {
+				base = 1
+				modifier = {
+					factor = 2
+					total_population > 20
+				}
+				modifier = {
+					factor = 5
+					total_population > 80
+				}	
+				modifier = {
+					add = 3
+					OR = {
+						is_in_region = central_italy_region
+						is_in_region = cisalpine_gaul_region
+						is_in_region = magna_graecia_region
+					}	
+				}
+			}	
+			ordered_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = judaism
+						pop_religion = christianity
+						pop_religion = manichaeism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 3
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+			set_variable = {
+				name = roman_evangelization_toggle
+				value = this
+				days = 1080
+			}
+		}
+	}
+
+	after = {
+		random_owned_province = {
+			limit = {
+				dominant_province_culture_group = culture_group:latin
+				is_in_region = cisalpine_gaul_region
+				NOT = {
+					has_variable = roman_evangelization_toggle
+				}
+			}
+			weight = {
+				base = 1
+				modifier = {
+					add = 2
+					total_population > 20
+				}
+				modifier = {
+					add = 3
+					total_population > 80
+				}
+			}
+			ordered_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = judaism
+						pop_religion = christianity
+						pop_religion = manichaeism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 3
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+			set_variable = {
+				name = roman_evangelization_toggle
+				value = this
+				days = 1080
+			}
+		}	
+	}
+}
+
+te_christianity.72 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date >= 1133.2.27 #Edict of Thessalonica
+		has_global_variable = christianity_expands
+		OR = {
+			tag = ROM
+			tag = MAC
+			tag = TRE
+			tag = EGY
+			tag = PRY
+			tag = SEL
+			tag = ERE
+			tag = WRE
+		}
+		OR = {	
+			government = imperium
+			government = dictatorship
+		}	
+		is_ai = yes
+		religion = roman_pantheon
+		NOT = {
+			has_variable = imperial_evangelization_toggle
+		}
+	}
+
+	immediate = {
+		capital_scope = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_religion = judaism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 2
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+		}
+	}
+
+	option = {	
+		if = { 
+			limit = {
+				current_ruler = {
+					has_religion = christianity
+				}
+			}
+			add_political_influence = 200
+			add_legitimacy = 70
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					current_ruler = {
+						has_religion = christianity
+					}
+				}
+			}
+			current_ruler = {
+				set_character_religion = christianity
+			}
+		}
+		set_variable = {
+			name = imperial_evangelization_toggle
+			days = 1800
+		}
+	}
+
+	after = {
+		random_owned_province = {
+			limit = {
+				NOT = {
+					dominant_province_religion = christianity
+				}
+			}
+			ordered_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = judaism
+						pop_religion = christianity
+						pop_religion = manichaeism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 2
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+		}
+	}
+}
+
+#Antioch
+te_christianity.8 = {
+	type = country_event
+	title = "te_christianity.8.t"
+	desc = "te_christianity.8.desc"
+	picture = crucifixion
+
+	fire_only_once = yes
+
+	goto_location = p:790
+
+	trigger = {
+		current_date > 828.10.28
+		current_date < 838.10.28
+		has_global_variable = christianity_expands
+		p:790 = {
+			owner = root
+		}
+	}
+
+	immediate = {
+		p:790 = {
+			save_scope_as = antioch_church_province
+			add_permanent_province_modifier = {
+				name = "early_christian_church"
+			}
+			if = {
+				limit = {
+					has_province_modifier = early_christian_community
+				}
+				remove_province_modifier = early_christian_community
+			}
+		}	
+	}
+
+	option = {
+		name = "te_christianity.8.a"
+		p:790 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_religion = christianity
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 2
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+		}
+	}
+}
+
+#Alexandria
+te_christianity.9 = {
+	type = country_event
+	title = "te_christianity.9.t"
+	desc = "te_christianity.9.desc"
+	picture = crucifixion
+
+	fire_only_once = yes
+
+	goto_location = p:516
+
+	trigger = {
+		current_date > 838.2.15
+		current_date < 848.2.15
+		has_global_variable = christianity_expands
+		p:516 = {
+			owner = root
+		}
+	}
+
+	immediate = {
+		p:516 = {
+			save_scope_as = alexandria_church_province
+			add_permanent_province_modifier = {
+				name = "early_christian_church"
+			}
+			if = {
+				limit = {
+					has_province_modifier = early_christian_community
+				}
+				remove_province_modifier = early_christian_community
+			}
+		}
+	}
+
+	option = {
+		name = "te_christianity.9.a"
+			p:516 = {
+				ordered_pops_in_province = {
+					limit = {
+						NOT = {
+							pop_religion = christianity
+						}
+					}
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					check_range_bounds = no
+					set_pop_religion = christianity
+				}
+			}
+	}
+}
+
+#Edessa
+te_christianity.10 = {
+	type = country_event
+	title = "te_christianity.10.t"
+	desc = "te_christianity.10.desc"
+	picture = crucifixion
+
+	fire_only_once = yes
+
+	goto_location = p:818
+
+	trigger = {
+		current_date > 848.8.15
+		current_date < 858.8.15
+		has_global_variable = christianity_expands
+		p:818 = {
+			owner = root
+		}
+	}
+
+	immediate = {
+		p:818 = {
+			save_scope_as = edessa_church_province
+			add_permanent_province_modifier = {
+				name = "early_christian_church"
+			}
+			if = {
+				limit = {
+					has_province_modifier = early_christian_community
+				}
+				remove_province_modifier = early_christian_community
+			}
+		}	
+	}
+
+	option = {
+		name = "te_christianity.10.a"
+		custom_tooltip = "church_of_edessa"
+		p:818 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_religion = christianity
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 2
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+		}
+	}
+}
+
+##########
+#Ho Ho Ho!
+te_christianity.25 = {
+	type = country_event
+	title = "te_christianity.25.t"
+	desc = "te_christianity.25.desc"
+	picture = natural_disaster
+
+	fire_only_once = yes
+
+	trigger = {
+		current_date >= 751.1.25
+		current_date <= 754.12.25
+		NOT = {
+			has_variable = merry_xmas
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = merry_xmas
+			days = 500
+		}
+	}
+	option = {
+		name = "te_christianity.25.a"
+		add_stability = -25
+	}
+#!add to on_action yearly_country
+}
+
+
+##########Ecumenical Councils########
+#Council of Nicaea #AD 325
+#####################################
+
+#Christianity spreads in Africa and Arabia
+te_christianity.91 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 999.12.12
+		has_global_variable = christianity_expands
+		any_owned_province = {
+			OR = {
+				is_in_region = arabia_region
+				is_in_region = arabia_felix_region
+				is_in_region = gedrosia_region
+				is_in_region = nubia_region
+				is_in_region = lower_nubia_region
+				is_in_region = punt_region
+				is_in_region = upper_egypt_region
+			}
+			NOR = {
+				has_province_modifier = early_christian_church
+				has_province_modifier = early_christian_community
+				has_variable = early_xian_persecution
+			}
+		}
+		NOT = {
+			religion = manichaeism
+		}
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					is_in_region = arabia_region
+					is_in_region = arabia_felix_region
+					is_in_region = gedrosia_region
+					is_in_region = nubia_region
+					is_in_region = lower_nubia_region
+					is_in_region = punt_region
+					is_in_region = upper_egypt_region
+				}
+				any_pops_in_province = {
+					NOR = { 
+						pop_religion = christianity
+						pop_religion = judaism 
+						pop_religion = manichaeism
+					}
+				}
+				NOR = {
+					has_province_modifier = early_christian_church
+					has_province_modifier = early_christian_community
+					has_variable = early_xian_persecution
+				}
+			}
+			weight = {
+				base = 1
+				modifier = {
+					add = 4
+					is_in_region = punt_region
+				}	
+				modifier = {
+					add = 2
+					is_in_region = nubia_region
+				}
+				modifier = {
+					add = 1
+					is_in_region = upper_egypt_region
+				}
+			}
+			ordered_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = christianity
+						pop_religion = manichaeism
+						pop_religion = judaism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 3
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+			if = {
+				limit = {
+					OR = {
+						total_population > 80
+						AND = {
+							province_id = 7506
+							total_population > 20
+						}	
+					}	
+				}	
+				add_permanent_province_modifier = {
+					name = "early_christian_church"
+				}
+			}
+			else = {
+				add_province_modifier = {
+					name = "early_christian_community"
+					duration = 144000
+				}
+			}
+		}
+	}
+}
+
+#Christianity reaches Gaul and Spain
+te_christianity.92 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 930.09.30
+		has_global_variable = christianity_expands
+		any_owned_province = {
+			OR = {
+				OR = {
+					is_in_region = central_gaul_region
+					AND = {
+						is_in_area = parisia_area 
+						any_neighbor_province = {
+							dominant_province_religion = christianity
+						} 
+					}
+				}		
+				is_in_region = baetica_region
+				is_in_region = contestania_region
+				is_in_region = gallaecia_region
+				is_in_region = illyria_region
+				is_in_region = magna_graecia_region
+			}
+			NOR = {
+				has_province_modifier = early_christian_church
+				has_province_modifier = early_christian_community
+				has_variable = early_xian_persecution
+			}
+		}
+		NOT = {
+			religion = manichaeism
+		}
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					OR = {
+						is_in_region = central_gaul_region
+						AND = {
+							is_in_area = parisia_area 
+							any_neighbor_province = {
+								dominant_province_religion = christianity
+							} 
+						}
+					}
+					is_in_region = baetica_region
+					is_in_region = contestania_region
+					is_in_region = gallaecia_region
+					is_in_region = illyria_region
+					is_in_region = magna_graecia_region
+				}
+				any_pops_in_province = {
+					NOR = { 
+						pop_religion = christianity 
+						pop_religion = judaism
+					}
+				}
+				NOT = {
+					OR = {
+						has_province_modifier = early_christian_church
+						has_province_modifier = early_christian_community
+						has_variable = early_xian_persecution
+					}
+				}
+			}
+			ordered_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = christianity
+						pop_religion = judaism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 3
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+			if = {
+				limit = {
+					OR = {
+						total_population > 80
+						AND = {
+							province_id = 2475
+							total_population > 20
+						}
+					}	
+				}	
+				add_permanent_province_modifier = {
+					name = "early_christian_church"
+				}
+			}
+			else = {
+				add_province_modifier = {
+					name = "early_christian_community"
+					duration = 144000
+				}
+			}
+		}	
+	}
+}
+
+#Christianity Spreads East — Media, Persia, Parthia and Bactria
+te_christianity.93 = {
+	type = country_event
+	hidden = yes
+	
+	#left_portrait = current_ruler
+	
+	#
+	
+	trigger = {
+		current_date > 890.09.08
+		has_global_variable = christianity_expands
+		any_owned_province = {
+			OR = {
+				is_in_region = mesopotamia_region
+				is_in_region = persis_region
+				is_in_region = media_region
+				is_in_region = bactriana_region
+				is_in_region = parthia_region
+				is_in_region = mauretainia_region
+			}
+			NOR = {
+				has_province_modifier = early_christian_church
+				has_province_modifier = early_christian_community
+				has_variable = early_xian_persecution
+			}
+		}
+		NOT = {
+			religion = manichaeism
+		}
+	}
+	
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					is_in_region = mesopotamia_region
+					is_in_region = persis_region
+					is_in_region = media_region
+					is_in_region = bactriana_region
+					is_in_region = parthia_region
+					is_in_region = mauretainia_region
+				}
+				any_pops_in_province = {
+					NOR = { 
+						pop_religion = christianity 
+						pop_religion = manichaeism
+					}
+				}
+				NOR = {
+					has_province_modifier = early_christian_church
+					has_province_modifier = early_christian_community
+					has_variable = early_xian_persecution
+				}
+			}
+			weight = {
+				base = 1
+				modifier = {
+					add = 4
+					is_in_region = mesopotamia_region
+				}
+				modifier = {
+					add = 2
+					is_in_region = persis_region
+				}
+			}	
+			ordered_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = christianity
+						pop_religion = manichaeism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 3
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+
+			if = {
+				limit = {
+					OR = {
+						total_population > 80
+						AND = {
+							province_id = 912
+							total_population > 20
+						}
+					}		
+				}	
+				add_permanent_province_modifier = {
+					name = "early_christian_church"
+				}
+			}
+			else = {
+				add_province_modifier = {
+					name = "early_christian_community"
+					duration = 144000
+				}
+			}	 
+		}
+	}
+}
+
+#Christianity Expands — Italy, Africa, Assyria
+te_christianity.94 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 843.4.30
+		has_global_variable = christianity_expands
+		any_owned_province = {
+			OR = {
+				is_in_region = transalpine_gaul_region
+				is_in_region = central_italy_region
+				is_in_region = africa_region
+				is_in_region = numidia_region
+				is_in_region = cyrenaica_region
+				is_in_region = assyria_region
+				is_in_region = macedonia_region
+			}	
+			NOR = {
+				has_province_modifier = early_christian_church
+				has_province_modifier = early_christian_community
+				has_variable = early_xian_persecution
+			}
+		}
+		NOT = {
+			religion = manichaeism
+		}
+	}
+
+	option = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					is_in_region = transalpine_gaul_region
+					is_in_region = central_italy_region
+					is_in_region = africa_region
+					is_in_region = numidia_region
+					is_in_region = cyrenaica_region
+					is_in_region = assyria_region
+					is_in_region = macedonia_region
+				}
+				any_pops_in_province = {
+					NOR = { 
+						pop_religion = christianity 
+						pop_religion = judaism
+					}
+				}
+				NOT = {
+					OR = {
+						has_province_modifier = early_christian_church
+						has_province_modifier = early_christian_community
+						has_variable = early_xian_persecution
+					}
+				}
+			}
+			ordered_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = christianity
+						pop_religion = judaism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 4
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+			if = {
+				limit = {
+					total_population > 80		
+				}	
+				add_permanent_province_modifier = {
+					name = "early_christian_church"
+				}
+			}
+			else = {
+				add_province_modifier = {
+					name = "early_christian_community"
+					duration = 144000
+				}
+			}
+		}	
+	}	
+}
+
+#Christianity Expands — Anatolia 
+te_christianity.95 = {
+	type = country_event
+	hidden = yes
+	
+	#left_portrait = current_ruler
+	
+	#
+	
+	trigger = {
+		has_global_variable = christianity_expands
+		any_owned_province = {
+			OR = {
+				is_in_region = armenia_region
+				is_in_region = asia_region
+				is_in_region = cilicia_region
+				is_in_region = galatia_region
+				is_in_region = bithynia_region
+				is_in_region = cappadocia_pontica_region
+				is_in_region = thrace_region
+			}
+			NOR = {
+				has_province_modifier = early_christian_church
+				has_province_modifier = early_christian_community
+				has_variable = early_xian_persecution
+			}
+		}
+		NOT = {
+			religion = manichaeism
+		}
+	}
+	
+	immediate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					is_in_region = armenia_region
+					is_in_region = asia_region
+					is_in_region = cilicia_region
+					is_in_region = galatia_region
+					is_in_region = bithynia_region
+					is_in_region = cappadocia_pontica_region
+					is_in_region = thrace_region
+				}
+				any_pops_in_province = {
+					NOT = { 
+						pop_religion = christianity 
+					}
+				}
+				NOT = {
+					OR = {
+						has_province_modifier = early_christian_church
+						has_province_modifier = early_christian_community
+						has_variable = early_xian_persecution
+					}
+				}
+			}
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_religion = christianity
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 4
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+			if = {
+				limit = {
+					total_population > 80
+				}	
+				add_permanent_province_modifier = {
+					name = "early_christian_church"
+				}
+			}
+			else = {
+				add_province_modifier = {
+					name = "early_christian_community"
+					duration = 144000
+				}
+			}	 
+		}
+	}
+}
+
+#Smaller church or community
+te_christianity.96 = {
+	type = province_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = christianity_expands
+		current_date > 792.10.31 #AD 39
+		#current_date < 1133.2.27 #AD 380 Edict of Thessalonica	
+		has_province_modifier = early_christian_community
+		has_owner = yes	
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NAND = {
+					current_date < 1066.2.2
+					dominant_province_religion = christianity
+				}
+			}
+			random_pops_in_province = {
+				limit = {
+					NOR = {
+						pop_religion = judaism
+						pop_religion = manichaeism
+					}
+				}
+				set_pop_religion = christianity
+			}
+			random_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_religion = judaism
+					}
+				}
+				set_pop_religion = christianity
+			}
+		}
+	}
+}
+
+#Large church or cosmopolitan
+te_christianity.97 = {
+	type = province_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = christianity_expands
+		current_date > 803.10.31 #AD 50
+		#current_date < 1133.2.27 #AD 380 Edict of Thessalonica
+		has_province_modifier = early_christian_church
+		has_owner = yes
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				NAND = {
+					current_date < 1066.2.2
+					#province_id = 1
+					dominant_province_religion = christianity
+				}	
+			}
+			#random_pops_in_province = {
+			#	set_pop_religion = christianity
+			#}
+		#}
+		#else = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_religion = judaism
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 8
+				}
+				check_range_bounds = no
+				set_pop_religion = christianity
+			}
+		}		
+	}
+}	
+
+te_christianity.98 = {
+	type = country_event
+	hidden = yes
+		
+	trigger = {
+		current_date > 854.1.1
+		has_global_variable = christianity_expands
+		is_ai = no
+		NOT = {
+			religion = christianity
+		} 
+		NOR = {
+			any_character = {
+				has_religion = christianity
+			}
+			any_character = {
+				has_variable = new_minor_xian
+			}
+		}
+		religion_pops_in_country = {
+			target = christianity
+			value >= 20
+		}
+	}
+
+	immediate = {
+		#hidden_effect = {
+			create_character = {
+				religion = christianity
+				culture = root.current_ruler.culture
+				female = no
+				set_variable = new_minor_xian
+			}
+		#}
+	}
+
+	option = {
+		trigger_event = {
+			id = te_christianity.99
+			days = 1
+		}
+	}
+}	
+
+te_christianity.99 = {
+	type = minor_country_event
+	title = "te_christianity.99.t"
+	desc = {
+		first_valid = {
+			triggered_desc = { 
+				trigger = {
+					NOT = {
+					#	tag = JUD
+					#	tag = SMA
+						religion = judaism
+					}
+				}
+				desc = "te_christianity.99.desc_1"
+			}
+			triggered_desc = { # Judea or Samaria
+				trigger = { 
+					#OR = {
+					#	tag = JUD
+					#	tag = SMA
+					#	tag = ISR
+						religion = judaism
+					#}
+				}	
+				desc = "te_christianity.99.desc_2"
+			}
+		}
+	}	
+	#picture = crucifixion
+	interface_lock = no
+	#left_portrait = current_ruler
+	left_portrait = scope:newly_baptized
+
+	goto_location = capital_scope
+
+	trigger = {
+		current_date > 854.1.1
+		has_global_variable = christianity_expands
+		is_ai = no
+		NOT = {
+			religion = christianity
+		} 
+		#NOR = {
+		#	any_character = {
+		#		has_religion = christianity
+		#	}
+		#	any_character = {
+		#		has_variable = new_minor_xian
+		#	}
+		#}
+		#religion_pops_in_country = {
+		#	target = christianity
+		#	value >= 20
+		#}
+	}
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_variable = new_minor_xian
+			}
+			save_scope_as = newly_baptized
+		}
+	}
+
+	option = {
+		name = "te_christianity.99.a"
+		custom_tooltip = "minor_xian_char_create"
+		#scope:new_minor_xian = {
+		#	set_variable = new_minor_xian
+		#}
+	}
+}
