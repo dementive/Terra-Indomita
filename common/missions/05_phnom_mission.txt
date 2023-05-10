@@ -1,0 +1,581 @@
+﻿phnom_mission_tree = {
+    header = "mission_image_china"
+    icon = "cde_gallic_village"
+
+    repeatable = no
+	
+    chance = {
+        factor = 5
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = PHN
+		is_subject = no
+        has_civil_war = no
+		#always = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+	
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_phnom.1
+    }
+	
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+	
+    on_completion = {
+		capital_scope = {
+            capital_formable_small_effect = yes
+        }
+        complete_mission_effect = yes
+    }
+	
+    phnom_mission_tree_task_1 = { #A Defensible Capital
+        icon = "task_happiness"
+		duration = 180
+		
+		highlight = {
+            scope:province = {
+                province_id = 8801
+            }
+        }
+		
+        allow = {
+            political_influence >= 40
+        }
+		
+		on_start = {
+			trigger_event = me_phnom.2
+			show_as_tooltip = {
+				add_political_influence = -40
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_phnom.3
+            show_as_tooltip = {
+				capital_scope = {
+					establish_city_effect = yes
+				}
+				set_capital = p:8801
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_2 = { #Protection Against Yan
+        icon = "task_battle"
+		requires = { phnom_mission_tree_task_1 }
+		duration = 550
+		
+		highlight = {
+            scope:province = {
+                province_id = 8773
+            }
+        }
+		
+        allow = {
+			treasury >= 100
+            p:8781 = {
+				owner = root
+			}
+			capital_scope = {
+				is_importing_trade_good = stone
+				owner = root
+			}
+        }
+		
+		on_start = {
+			trigger_event = me_phnom.4
+			show_as_tooltip = {
+				add_treasury = -100
+				p:8781 = {
+					remove_building_level = fortress_building
+				}
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_phnom.5
+            show_as_tooltip = {
+                p:8773 = {
+					add_building_level = fortress_building
+				}
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_3 = { #Patrolling the Borders
+        icon = "task_battle"
+		
+        allow = {
+            manpower >= 2
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.6
+            show_as_tooltip = {
+				add_manpower = -2
+                add_country_modifier = {
+                    name = phnom_border_patrols #global_defensive = 0.05 horse_archers_hills_combat_bonus = 0.05 light_cavalry_hills_combat_bonus = 0.05 
+                    duration = 3650
+                }
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_4 = { #The New Capital
+        icon = "task_zeus_cornucopia"
+        requires = { phnom_mission_tree_task_1 phnom_mission_tree_task_3 }
+		
+		highlight = {
+            scope:province = {
+                province_id = 8801
+            }
+        }
+		
+        allow = {
+            hidden:p:8801 = {
+				has_building = port_building
+				has_building = population_building
+				has_building = military_building
+				has_province_modifier = architect_in_province_mod
+			}
+			p:8801.state = {
+				state_improvement_civic_trigger = yes
+			}
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.7
+            show_as_tooltip = {
+                add_2_free_province_investments = yes
+				p:8801 = {
+					add_province_modifier = {
+						name = phnom_bustling_capital
+						duration = 7300
+					}
+				}
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_5 = { #Court of phnom
+        icon = "task_diplomatic"
+        requires = { phnom_mission_tree_task_4 }
+		
+        highlight = {
+            scope:province = {
+                province_id = 8801
+            }
+        }
+		
+        allow = {
+            hidden:p:8801 = {
+				has_building = forum_building
+				has_province_modifier = artist_in_province_mod
+			}
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.8
+            show_as_tooltip = {
+                p:8801 = {
+                    add_permanent_province_modifier = {
+                        name = court_of_phnom_mod
+                    }
+                }
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_6 = { #Wanggeom Harbor - harboUUUUUUUUUUr
+        icon = "task_expansion"
+        requires = { phnom_mission_tree_task_5 }
+		
+        allow = {
+			num_of_ships >= 50
+			p:8801.state = {
+				state_improvement_oratory_trigger = yes
+			}
+			hidden:p:8801 = {
+				has_building = military_harbor_building
+				has_province_modifier = merchant_in_province_mod
+				num_of_port_building >= 3
+			}
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.9
+            show_as_tooltip = {
+                p:8801 = {
+                    add_permanent_province_modifier = {
+                        name = wanggeom_harbour_mod
+                    }
+                }
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_7 = { # Chinese Trade Connections
+        icon = "task_calm"
+        requires = { phnom_mission_tree_task_5 }
+		
+        allow = {
+            hidden:c:QII = {
+        		opinion = {
+        			value >= 100
+        			target = root
+        		}
+        	}
+        }
+		
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:QII
+			}
+		}
+		
+		bypass = {
+			c:QII = {
+				has_land = no
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_phnom.10
+            show_as_tooltip = {
+                add_treasury = 300
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_8 = { #A Modernising Influence
+        requires = { phnom_mission_tree_task_6 phnom_mission_tree_task_7 }
+        icon = "task_apollo"
+		
+        allow = {
+            political_influence >= 60
+			stability >= 50
+        }
+		
+        on_completion = {
+			set_variable = eastern_steppe_influence
+            trigger_event = me_phnom.11
+            show_as_tooltip = {
+				add_stability = -10
+				add_political_influence = -60
+				add_country_modifier = {
+					name = phnom_chinese_influence
+					duration = 18250
+				}
+                add_country_modifier = {
+					name = "recent_convert_modifier"
+					duration = 3650
+				}
+				set_country_religion = chinese_religions
+				current_ruler = {
+					if = {
+						limit = {
+							NOT = { has_religion = chinese_religions }
+						}
+						set_character_religion = chinese_religions
+					}
+				}
+				custom_tooltip = phnom_mission_tree_task_8_unlocked_trads_tt
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_9 = { #Eastern Tension
+        icon = "task_religion"
+		duration = 180
+		
+        allow = {
+            political_influence >= 30
+        }
+		
+		on_start = {
+			add_political_influence = -30
+		}
+		
+        on_completion = {
+            trigger_event = me_phnom.12
+            custom_tooltip = phnom_mission_tree_task_9_claims_tt
+			hidden_effect = {
+				c:GAY = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				c:WOJ = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				c:DWI = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+	
+    phnom_mission_tree_task_10 = { #Southern Confederacies
+        icon = "task_conquest"
+		requires = { phnom_mission_tree_task_9 }
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					owned_or_subject_owned = c:GAY
+					province_id = 8798
+				}
+			}
+		}
+		
+        allow = {
+            c:GAY = {
+				has_land = no
+			}
+			owns = 8798
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.13
+            custom_tooltip = phnom_mission_tree_task_10_claims_tt
+			hidden_effect = {
+				c:SOB = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				c:BAE = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				c:GRI = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				c:MSU = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+	
+    phnom_mission_tree_task_11 = { #Passage to the Jinghai Sea
+        icon = "task_expansion"
+        requires = { phnom_mission_tree_task_9 }
+		
+        highlight = {
+			scope:province = {
+				OR = {
+					owned_or_subject_owned = c:DWI
+					owned_or_subject_owned = c:WOJ
+					province_id = 8812
+					province_id = 8807
+				}
+			}
+		}
+		
+        allow = {
+            c:WOJ = {
+				has_land = no
+			}
+			c:DWI = {
+				has_land = no
+			}
+			owns = 8812
+			owns = 8807
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.14
+            show_as_tooltip = {
+				current_ruler = {
+					add_martial = 1
+					add_popularity = 10
+				}
+				add_legitimacy = 10
+			}
+        }
+    }
+	
+    phnom_mission_tree_task_12 = { #The End
+        icon = "task_calm"
+		
+        requires = { phnom_mission_tree_task_10 phnom_mission_tree_task_11 }
+		
+		highlight = {
+			scope:province = {
+				province_id = 9595
+			}
+		}
+		
+        allow = {
+			owns = 9595
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.15
+            custom_tooltip = phnom_mission_tree_task_12_claims_tt
+			hidden_effect = {
+				area:jinhan_area = { mission_area_claim_effect = yes }
+				area:byeonhan_area = { mission_area_claim_effect = yes }
+				area:mahan_south_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+	phnom_mission_tree_task_13 = { #The Beginning
+        icon = "task_atlas"
+		
+        requires = { phnom_mission_tree_task_5 phnom_mission_tree_task_12 }
+		
+		final = yes
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 9592
+					province_id = 9599
+					province_id = 9285
+				}
+			}
+		}
+		
+        allow = {
+			owns = 9595
+			owns = 9599
+			owns = 9285
+			has_law = religious_integration_efforts
+			invention = agressive_expansion_monthly_decay_inv_1
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.16
+            custom_tooltip = phnom_mission_tree_task_13_reward_tt #pick a city
+			hidden_effect = {
+				every_country = {
+					limit = {
+						capital_scope = {
+							OR = {
+								is_in_area = jinhan_area
+								is_in_area = byeonhan_area
+							}
+						}
+						country_culture_group = samhan
+						is_ai = yes
+					}
+					trigger_event = {
+						id = me_phnom.17
+					}
+				}
+			}
+			custom_tooltip = phnom_mission_tree_task_13_reward_tt_2 #Every province in areas will get:
+			show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = jinhan_area
+							is_in_area = byeonhan_area
+							is_in_area = mahan_south_area
+						}
+					}
+					add_province_modifier = {
+						name = phnom_the_end_mod
+						duration = 7300
+					}
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = jinhan_area
+							is_in_area = byeonhan_area
+							is_in_area = mahan_south_area
+						}
+					}
+					add_province_modifier = {
+						name = phnom_the_end_mod
+						duration = 7300
+					}
+				}
+			}
+        }
+    }
+	
+	phnom_mission_tree_task_14 = { #Prosperous Hinterlands
+        icon = "task_artemis"
+        requires = { phnom_mission_tree_task_4 phnom_mission_tree_task_11 }
+		
+		highlight = {
+            scope:province = {
+				OR = {
+					is_in_area = lelang_area
+					province_id = 8805
+					province_id = 9669
+				}
+            }
+        }
+		
+        allow = {
+            p:8805 = {
+				owner = root
+				has_building = workshop_building
+			}
+			p:9669 = {
+				owner = root
+				has_building = slave_mine_building
+			}
+			any_owned_province = {
+				is_in_area = lelang_area
+				has_building = basic_settlement_infratructure_building
+			}
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.18
+            show_as_tooltip = {
+				p:8805 = {
+					add_permanent_province_modifier = {
+						name = phnom_prosperous_hinterland
+					}
+				}
+				p:9669 = {
+					add_permanent_province_modifier = {
+						name = phnom_prosperous_hinterland
+					}
+				}
+				every_owned_province = {
+					limit = {
+						is_in_area = lelang_area
+						has_building = basic_settlement_infratructure_building
+					}
+					add_permanent_province_modifier = {
+						name = phnom_prosperous_hinterland
+					}
+				}
+            }
+        }
+    }
+
+	
+}
