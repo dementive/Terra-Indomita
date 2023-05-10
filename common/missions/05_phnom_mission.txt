@@ -40,34 +40,22 @@
         complete_mission_effect = yes
     }
 	
-    phnom_mission_tree_task_1 = { #A Defensible Capital
-        icon = "task_happiness"
+    phnom_mission_tree_task_1 = { #Colonizing The Mekong Delta
+        icon = "task_political"
 		duration = 180
 		
-		highlight = {
-            scope:province = {
-                province_id = 8801
-            }
-        }
-		
         allow = {
-            political_influence >= 40
+            political_influence >= 25
         }
-		
-		on_start = {
-			trigger_event = me_phnom.2
-			show_as_tooltip = {
-				add_political_influence = -40
-			}
-		}
 		
         on_completion = {
+			add_political_influence = -25
             trigger_event = me_phnom.3
             show_as_tooltip = {
-				capital_scope = {
-					establish_city_effect = yes
+				add_country_modifier = {
+					name = phnom_cheaper_slaves_cost
+					duration = 7300 #20 years
 				}
-				set_capital = p:8801
             }
         }
     }
@@ -114,27 +102,33 @@
         }
     }
 	
-    phnom_mission_tree_task_3 = { #Patrolling the Borders
+    phnom_mission_tree_task_3 = { #The Province of Funan
         icon = "task_battle"
-		
+		duration = 180
+
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 9833
+					province_id = 9827
+				}
+			}
+		} 
+
         allow = {
-            manpower >= 2
+            political_influence >= 15
         }
 		
         on_completion = {
+			add_political_influence = -15
             trigger_event = me_phnom.6
-            show_as_tooltip = {
-				add_manpower = -2
-                add_country_modifier = {
-                    name = phnom_border_patrols #global_defensive = 0.05 horse_archers_hills_combat_bonus = 0.05 light_cavalry_hills_combat_bonus = 0.05 
-                    duration = 3650
-                }
-            }
+            p:9833 = { set_owned_by = root }
+			p:9827 = { add_claim = root }
         }
     }
 	
     phnom_mission_tree_task_4 = { #The New Capital
-        icon = "task_zeus_cornucopia"
+        icon = "task_artemis"
         requires = { phnom_mission_tree_task_1 phnom_mission_tree_task_3 }
 		
 		highlight = {
@@ -296,37 +290,36 @@
         }
     }
 	
-    phnom_mission_tree_task_9 = { #Eastern Tension
-        icon = "task_religion"
-		duration = 180
+    phnom_mission_tree_task_9 = { #Markets of [ROOT.GetCountry.GetCapital.GetName]
+        icon = "task_economical"
+
+		highlight = {
+			scope:province = {
+				has_owner = yes
+				owner = ROOT
+				is_capital = yes
+			}
+		}
 		
         allow = {
-            political_influence >= 30
+            capital_scope = {
+				num_of_slave_building >= 1
+				num_of_commerce_building >= 1
+				civilization_value >= 25
+			}
         }
-		
-		on_start = {
-			add_political_influence = -30
-		}
 		
         on_completion = {
             trigger_event = me_phnom.12
-            custom_tooltip = phnom_mission_tree_task_9_claims_tt
-			hidden_effect = {
-				c:GAY = {
-					every_owned_province = {
-						add_claim = root
-					}
-				}
-				c:WOJ = {
-					every_owned_province = {
-						add_claim = root
-					}
-				}
-				c:DWI = {
-					every_owned_province = {
-						add_claim = root
-					}
-				}
+			capital_scope = {
+				create_state_pop = tribesmen
+				create_state_pop = tribesmen
+				create_state_pop = slaves
+				create_state_pop = slaves
+			}
+			add_country_modifier = {
+				name = phnom_renowned_architects
+				duration = 7300
 			}
         }
     }
@@ -379,67 +372,87 @@
         }
     }
 	
-    phnom_mission_tree_task_11 = { #Passage to the Jinghai Sea
-        icon = "task_expansion"
-        requires = { phnom_mission_tree_task_9 }
+    phnom_mission_tree_task_11 = { #Sugar Farms Of The South
+        icon = "task_happiness"
+        requires = { phnom_mission_tree_task_3 phnom_mission_tree_task_9 }
 		
         highlight = {
 			scope:province = {
 				OR = {
-					owned_or_subject_owned = c:DWI
-					owned_or_subject_owned = c:WOJ
-					province_id = 8812
-					province_id = 8807
+					province_id = 9833
+					province_id = 9834
+					province_id = 9835
 				}
 			}
 		}
 		
         allow = {
-            c:WOJ = {
-				has_land = no
+			p:9833 = {
+				num_of_latifundia_building >= 1
+				total_population >= 10
 			}
-			c:DWI = {
-				has_land = no
+            p:9834 = {
+				num_of_latifundia_building >= 1
+				total_population >= 10
 			}
-			owns = 8812
-			owns = 8807
+			p:9835 = {
+				num_of_latifundia_building >= 1
+				total_population >= 10
+			}
+			owns = 9833
+			owns = 9834
+			owns = 9835
         }
 		
         on_completion = {
+			add_2_free_province_investments = yes
             trigger_event = me_phnom.14
             show_as_tooltip = {
-				current_ruler = {
-					add_martial = 1
-					add_popularity = 10
+				p:9834 = {
+					add_province_modifier = {
+						name = phnom_sugar_farms_mod
+						duration = -1
+					}
 				}
-				add_legitimacy = 10
+				p:9835 = {
+					add_province_modifier = {
+						name = phnom_sugar_farms_mod
+						duration = -1
+					}
+				}
 			}
         }
     }
 	
-    phnom_mission_tree_task_12 = { #The End
+    phnom_mission_tree_task_12 = { #The Port of Oc Eo
         icon = "task_calm"
-		
+		duration = 730
+
         requires = { phnom_mission_tree_task_10 phnom_mission_tree_task_11 }
 		
 		highlight = {
 			scope:province = {
-				province_id = 9595
+				province_id = 10963
 			}
 		}
 		
         allow = {
-			owns = 9595
+			political_influence >= 40
+			treasury >= 150
+			invention = capital_trade_inv_2
+			hidden:capital_scope.state = {
+				trade_good_surplus = {
+					target = stone
+					value >= 2
+				}
+			}
         }
 		
         on_completion = {
+			p:10963 = {set_city_status = city}
             trigger_event = me_phnom.15
-            custom_tooltip = phnom_mission_tree_task_12_claims_tt
-			hidden_effect = {
-				area:jinhan_area = { mission_area_claim_effect = yes }
-				area:byeonhan_area = { mission_area_claim_effect = yes }
-				area:mahan_south_area = { mission_area_claim_effect = yes }
-			}
+			add_political_influence = -40
+			add_treasury = -150
         }
     }
 	
