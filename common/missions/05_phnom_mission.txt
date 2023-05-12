@@ -106,15 +106,6 @@
         icon = "task_battle"
 		duration = 180
 
-		highlight = {
-			scope:province = {
-				OR = {
-					province_id = 9833
-					province_id = 9827
-				}
-			}
-		} 
-
         allow = {
             political_influence >= 15
         }
@@ -122,6 +113,9 @@
         on_completion = {
 			add_political_influence = -15
             trigger_event = me_phnom.6
+			area:chenla_area = {
+                add_provincial_claim_effect = yes
+			}
             p:9833 = { set_owned_by = root }
 			p:9827 = { add_claim = root }
         }
@@ -324,50 +318,39 @@
         }
     }
 	
-    phnom_mission_tree_task_10 = { #Southern Confederacies
+    phnom_mission_tree_task_10 = { #A System of Canals
         icon = "task_conquest"
 		requires = { phnom_mission_tree_task_9 }
-		
+		duration = 730
 		highlight = {
 			scope:province = {
 				OR = {
-					owned_or_subject_owned = c:GAY
-					province_id = 8798
+					province_id = 9828
+					province_id = 9830
+					province_id = 9831
+					province_id = 10963
 				}
 			}
 		}
 		
         allow = {
-            c:GAY = {
-				has_land = no
-			}
-			owns = 8798
+			manpower >= 2
+			treasury >= 75
+			invention = capital_trade_inv_2
         }
 		
         on_completion = {
+			add_manpower = -2
+			add_treasury = -75
             trigger_event = me_phnom.13
-            custom_tooltip = phnom_mission_tree_task_10_claims_tt
-			hidden_effect = {
-				c:SOB = {
-					every_owned_province = {
-						add_claim = root
-					}
-				}
-				c:BAE = {
-					every_owned_province = {
-						add_claim = root
-					}
-				}
-				c:GRI = {
-					every_owned_province = {
-						add_claim = root
-					}
-				}
-				c:MSU = {
-					every_owned_province = {
-						add_claim = root
-					}
-				}
+			p:9828 = {
+				add_road_towards = 9830
+			}
+			p:9830 = {
+				add_road_towards = 9831
+			}
+			p:9831 = {
+				add_road_towards = 10963
 			}
         }
     }
