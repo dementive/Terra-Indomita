@@ -1,0 +1,27 @@
+﻿is_being_colonized = {
+	has_province_modifier = province_is_being_colonized_modifier
+}
+
+can_send_colony = {
+	total_population >= 7
+	any_pops_in_province = {
+		percent >= 0.50
+		OR = {
+			this.culture = root.culture
+			AND = {
+				exists = country_culture
+				country_culture = {
+					is_integrated = yes
+				}
+			}
+		}
+	}
+}
+
+can_be_colonized = {
+	NOT = { has_province_modifier = province_is_being_colonized_modifier }
+	is_uninhabitable = no
+	is_sea = no
+	total_population > 0
+	has_owner = no
+}

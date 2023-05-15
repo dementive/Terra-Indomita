@@ -1,0 +1,17 @@
+﻿owned_province_that_can_colonize = { #Creates any/every/random/ordered_owned_province_that_can_colonize
+	base = owned_province
+	conditions = {
+		can_send_colony = yes
+		any_neighbor_province = {
+			OR = {
+				can_be_colonized = yes
+				AND = {
+					is_sea = yes
+					any_neighbor_province = {
+						can_be_colonized = yes
+					}
+				}
+			}
+		}
+	}
+}
