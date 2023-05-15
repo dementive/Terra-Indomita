@@ -212,20 +212,32 @@ me_phnom.16 = {
 
     title = me_phnom_16_title
     desc = me_phnom_16_desc
-    picture = great_library
+    picture = road_construction
 	
 	left_portrait = root.current_ruler
 
     option = {
-        name = "me_phnom_16.a" 
+        name = "me_phnom_16.a"
+        p:9828 = {
+            add_province_modifier = {
+                name = capital_phnom_trade_boost_mod
+                duration = -1
+            }
+        }
+        add_treasury = -50 
     }
 	
 	option = {
-        name = "me_phnom_16.b" 
+        name = "me_phnom_16.b"
+        add_country_modifier = {
+            name = phnom_boosted_global_trade_mod
+            duration = 3650
+        } 
     }
 	
 	option = {
         name = "me_phnom_16.c" 
+        add_treasury = 125
     }
 }
 
@@ -259,5 +271,19 @@ me_phnom.18 = {
 
     option = {
         name = "me_phnom_18.a"
+    }
+}
+
+me_phnom.19 = {
+    type = country_event
+
+    title = me_phnom_19_title
+    desc = me_phnom_19_desc
+    picture = farming
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_phnom_19.a"
     }
 }
