@@ -1,0 +1,909 @@
+﻿country_decisions = {
+	#####FOR INVICTUS MAP CHANGES — USES is_in_pars_occidentalis_inv_trigger#####
+	divide_roman_empire_invictus = { # Divide the Roman Empire - East-West 'Theodosius' division
+		potential = {
+			NOT = { has_global_variable = roman_empire_divided }
+			has_global_variable = is_playing_invictus
+			current_date >= 1148.1.1 # Historical date 1148.1.17
+			num_of_cities >= 2
+			OR = { 
+				government = imperium
+				government = dictatorship
+				government = imperial_cult
+			}	
+			tag = ROM
+			any_owned_province = {
+				is_in_pars_occidentalis_inv_trigger = yes
+			}
+			current_ruler = {
+				has_religion = christianity
+			}
+		}
+		allow = {
+			OR = {
+				AND = {
+					OR = {
+						government = imperium
+						government = imperial_cult
+					}	
+					num_of_cities >= 600
+				}
+				AND = {
+					government = dictatorship
+					num_of_cities >= 1200
+				}	
+			}	
+			owns = 1 # Rome
+			owns = 1453 # Byzantion/Constantinople
+			#OR = {
+			#	owns = 3571 # Mediolanum / Milan
+			#	owns = 142 # Ravenna
+			#}
+			has_civil_war = no
+			war = no
+			religion = christianity
+			any_owned_province = {
+				is_in_pars_occidentalis_inv_trigger = no
+				count >= 100	
+			}
+		}
+		effect = {
+			custom_tooltip = "divide_roman_empire_tooltip"
+			if = {
+				limit = {
+					capital_scope = { is_in_pars_occidentalis_inv_trigger = yes }
+				}
+				set_variable = western_roman_senior_pars
+				#p:1453 = {
+				#	set_owned_by = ERE
+				#}
+				hidden_effect = {
+					p:1453 = { ## Constantinople
+						create_country = {
+							change_country_color = "eastern_roman_color"
+							change_country_flag = ERE
+							change_country_name = "ERE"
+							change_country_adjective = "ERE_ADJ"
+							set_country_heritage = roman_heritage
+							##set_country_religion = christianity
+							##change_government = imperium
+							##set_as_ruler = root.random_successor
+							save_scope_as = new_ERE
+						}
+					}
+					every_owned_province = {
+						limit = { is_in_pars_occidentalis_inv_trigger = no }
+						set_owned_by = scope:new_ERE
+					}
+				}	
+				
+				random_successor = {
+					save_scope_as = new_ERE_ruler
+				}
+
+				#scope:new_ERE_ruler = {
+				#	move_country = ERE
+				#	every_holdings = {
+				#		limit = { 
+				#			is_in_pars_occidentalis_inv_trigger = yes 
+				#		}
+				#		holding_owner = {
+				#			remove_holding = PREV	
+				#		}	
+				#	}
+				#}
+				
+				hidden_effect = {
+					scope:new_ERE_ruler = {
+						remove_all_positions = yes
+						move_country = scope:new_ERE
+						remove_character_modifier = foreign_citizen
+						if = {
+							limit = {
+								exists = spouse
+								spouse = { 
+									is_alive = yes
+									is_ruler = no
+									prisoner = no
+									#employer = PREV.employer
+								}
+							}
+							spouse = {
+								remove_all_positions = yes
+								move_country = scope:new_ERE
+								remove_character_modifier = foreign_citizen
+								every_holdings = {
+									limit = { 
+										is_in_pars_occidentalis_inv_trigger = yes 
+									}
+									holding_owner = {
+										remove_holding = PREV	
+									}	
+								}
+							}
+						}
+						if = {
+							limit = { num_of_children >= 1 }
+							every_child = {
+								limit = { 
+									is_alive = yes 
+									is_ruler = no
+									prisoner = no
+									OR = {
+										is_adult = no
+										employer = ROOT
+									}
+								}	
+								remove_all_positions = yes
+								move_country = scope:new_ERE
+								remove_character_modifier = foreign_citizen
+								every_holdings = {
+									limit = { 
+										is_in_pars_occidentalis_inv_trigger = yes 
+									}
+									holding_owner = {
+										remove_holding = PREV	
+									}	
+								}
+							}	
+						}
+					}
+					scope:new_ERE = {
+						change_country_tag = ERE
+						#set_capital = 1453 # Constantinople
+						#hidden_effect = {
+						#	p:1453.state = {
+						#		set_state_capital = 1453
+						#	}
+						#}
+						capital_scope = {
+							increase_province_rank_effect = yes
+						}
+						#change_country_name = "Eastern Roman Empire"
+						#change_country_adjective = "Eastern Roman"
+						set_country_religion = christianity
+						change_government = imperium
+						set_as_ruler = scope:new_ERE_ruler
+						while = {
+							limit = {
+								civic_tech < 40
+							}
+							add_research = {
+								technology = civic_tech
+								value = {
+									add = 1
+									multiply = 100
+									min = 100
+									max = 4000
+								}	
+							}
+						}
+						while = {
+							limit = {
+								military_tech < 40 
+							}
+							add_research = {
+								technology = military_tech
+								value = {
+									add = 1
+									multiply = 100
+									min = 100
+									max = 4000
+								}	
+							}
+						}
+						while = {
+							limit = {
+								oratory_tech < 40
+							}
+							add_research = {
+								technology = oratory_tech
+								value = {
+									add = 1
+									multiply = 100
+									min = 100
+									max = 4000
+								}
+							}
+						}
+						while = {
+							limit = {
+								religious_tech < 40
+							}
+							add_research = {
+								technology = religious_tech
+								value = {
+									add = 1
+									multiply = 100
+									min = 100
+									max = 4000
+								}
+							}
+						}
+						add_military_experience = 200
+						add_opinion = {
+							modifier = te_other_half_roman_empire
+							target = root
+						}
+						reverse_add_opinion = {
+							modifier = te_other_half_roman_empire	
+							target = root
+						}
+						if = {
+							limit = {
+								is_ai = yes
+							}
+							add_treasury = 1000
+						}	
+						if = {
+							limit = {
+								NOT = {
+									primary_culture = roman
+								}
+							}
+							set_primary_culture_cleanup_effect = {
+								NEW_PRIMARY_CULTURE = roman
+								MAKE_OLD_CULTURE_INTEGRATED = yes
+							}
+						}
+						add_truce = {
+							target = root
+							duration = 14600
+						}
+						set_variable = severed_roman_half_traditions
+					}
+				}	
+				
+				#change_country_tag = WRE
+				change_country_flag = WRE
+				change_country_color = "roman_red"
+				change_country_name = "WRE"
+				change_country_adjective = "WRE_ADJ"
+				change_government = imperium
+				save_scope_as = senior_pars
+				hidden_effect = {
+					add_truce = {
+						target = scope:new_ERE
+						duration = 14600
+					}
+					every_character = {
+						limit = {
+							any_holdings = { is_in_pars_occidentalis_inv_trigger = no }
+						}
+						every_holdings = {
+							limit = { 
+								is_in_pars_occidentalis_inv_trigger = no 
+							}
+							holding_owner = {
+								remove_holding = PREV	
+							}	
+						}
+					}
+					every_subject = {
+						limit = { 
+							capital_scope = {
+								is_in_pars_occidentalis_inv_trigger = no
+							}		
+						}
+						overlord = {
+							release_subject = PREV	
+						}
+					}
+					if = {
+						limit = {
+							has_country_modifier = embellished_temple_jupiter_optimus_maximus
+						}
+						remove_country_modifier = embellished_temple_jupiter_optimus_maximus
+					}
+				}	
+			}
+
+			else_if = {
+				limit = {
+					capital_scope = { is_in_pars_occidentalis_inv_trigger = no }
+				}
+				set_variable = eastern_roman_senior_pars
+				if = {
+					limit = {
+						owns = 3571
+					}
+					p:3571 = {
+						set_owned_by = WRE
+						remove_province_modifier = early_christian_community
+						add_permanent_province_modifier = {
+							name = "early_christian_church"
+						}
+					}
+					hidden_effect = {
+						p:3571 = { ## Mediolanum / Milan
+							create_country = {
+								change_country_color = "roman_red"
+								change_country_flag = WRE
+								change_country_name = "WRE"
+								change_country_adjective = "WRE_ADJ"
+								set_country_heritage = roman_heritage
+								#set_country_religion = christianity
+								#change_government = imperium
+								#set_as_ruler = root.random_successor
+								save_scope_as = new_WRE
+							}
+						}
+						every_owned_province = {
+							limit = { is_in_pars_occidentalis_inv_trigger = yes }
+							set_owned_by = scope:new_WRE
+						}	
+					}	
+				}
+				else_if = {
+					limit = {
+						owns = 142
+					}
+					p:142 = {
+						set_owned_by = WRE
+						if = {
+							limit = {
+								has_province_modifier = early_christian_community
+							}
+							remove_province_modifier = early_christian_community
+						}
+						add_permanent_province_modifier = {
+							name = "early_christian_church"
+						}
+					}
+					hidden_effect = {
+						p:142 = { ## Ravenna
+							create_country = {
+								change_country_color = "roman_red"
+								change_country_flag = WRE
+								change_country_name = "WRE"
+								change_country_adjective = "WRE_ADJ"
+								set_country_heritage = roman_heritage
+								#set_country_religion = christianity
+								#change_government = imperium
+								#set_as_ruler = root.random_successor
+								save_scope_as = new_WRE
+							}
+						}
+						every_owned_province = {
+							limit = { is_in_pars_occidentalis_inv_trigger = yes }
+							set_owned_by = scope:new_WRE
+						}
+					}	
+				}
+				else = {
+					p:1 = {
+						set_owned_by = WRE
+					}
+					hidden_effect = {
+						p:1 = { ## Rome
+							create_country = {
+								change_country_color = "roman_red"
+								change_country_flag = WRE
+								change_country_name = "WRE"
+								change_country_adjective = "WRE_ADJ"
+								set_country_heritage = roman_heritage
+								#set_country_religion = christianity
+								#change_government = imperium
+								#set_as_ruler = root.random_successor
+								save_scope_as = new_WRE
+							}
+						}
+						every_owned_province = {
+							limit = { is_in_pars_occidentalis_inv_trigger = yes }
+							set_owned_by = scope:new_WRE
+						}
+					}	
+				}	
+
+				random_successor = {
+					save_scope_as = new_WRE_ruler
+				}
+
+				scope:new_WRE_ruler = {
+					move_country = WRE
+					every_holdings = {
+						limit = { 
+							is_in_pars_occidentalis_inv_trigger = no 
+						}
+						holding_owner = {
+							remove_holding = PREV	
+						}	
+					}
+				}
+				
+				hidden_effect = {
+					scope:new_WRE_ruler = {
+						remove_all_positions = yes
+						move_country = scope:new_WRE
+						remove_character_modifier = foreign_citizen
+						if = {
+							limit = {
+								exists = spouse
+								spouse = { 
+									is_alive = yes
+									is_ruler = no
+									prisoner = no
+									#employer = PREV.employer
+								}
+							}
+							spouse = {
+								remove_all_positions = yes
+								move_country = scope:new_WRE
+								remove_character_modifier = foreign_citizen
+								every_holdings = {
+									limit = { 
+										is_in_pars_occidentalis_inv_trigger = no 
+									}
+									holding_owner = {
+										remove_holding = PREV	
+									}	
+								}
+							}
+						}
+						if = {
+							limit = { num_of_children >= 1 }
+							every_child = {
+								limit = { 
+									is_alive = yes 
+									is_ruler = no
+									prisoner = no
+									OR = {
+										is_adult = no
+										employer = ROOT
+									}
+								}	
+								remove_all_positions = yes
+								move_country = scope:new_WRE
+								remove_character_modifier = foreign_citizen
+								every_holdings = {
+									limit = { 
+										is_in_pars_occidentalis_inv_trigger = no 
+									}
+									holding_owner = {
+										remove_holding = PREV	
+									}	
+								}
+							}	
+						}
+					}
+					scope:new_WRE = {
+						change_country_tag = WRE
+						#set_capital = 1 # Rome
+						#hidden_effect = {
+						#	capital_scope.state = {
+						#		set_state_capital = capital_scope
+						#	}
+						#}
+						capital_scope = {
+							increase_province_rank_effect = yes
+						}
+						#change_country_name = "Western Roman Empire"
+						#change_country_adjective = "Western Roman"
+						set_country_religion = christianity
+						change_government = imperium
+						set_as_ruler = scope:new_WRE_ruler
+						while = {
+							limit = {
+								civic_tech < 35
+							}
+							add_research = {
+								technology = civic_tech
+								value = {
+									add = 1
+									multiply = 100
+									min = 100
+									max = 3500
+								}	
+							}
+						}
+						while = {
+							limit = {
+								military_tech < 35 
+							}
+							add_research = {
+								technology = military_tech
+								value = {
+									add = 1
+									multiply = 100
+									min = 100
+									max = 3500
+								}	
+							}
+						}
+						while = {
+							limit = {
+								oratory_tech < 35
+							}
+							add_research = {
+								technology = oratory_tech
+								value = {
+									add = 1
+									multiply = 100
+									min = 100
+									max = 3500
+								}
+							}
+						}
+						while = {
+							limit = {
+								religious_tech < 35
+							}
+							add_research = {
+								technology = religious_tech
+								value = {
+									add = 1
+									multiply = 100
+									min = 100
+									max = 3500
+								}
+							}
+						}
+						add_military_experience = 200
+						add_opinion = {
+							modifier = te_other_half_roman_empire
+							target = ROOT
+						}
+						reverse_add_opinion = {
+							modifier = te_other_half_roman_empire	
+							target = ROOT
+						}
+						if = {
+							limit = {
+								is_ai = yes
+							}
+							add_treasury = 1000
+						}	
+						if = {
+							limit = {
+								NOT = {
+									primary_culture = roman
+								}
+							}
+							set_primary_culture_cleanup_effect = {
+								NEW_PRIMARY_CULTURE = roman
+								MAKE_OLD_CULTURE_INTEGRATED = yes
+							}
+						}
+						add_truce = {
+							target = ROOT
+							duration = 14600
+						}
+						set_variable = {
+							name = severed_roman_half_traditions
+							value = ROOT
+						}	
+					}
+				}	
+				
+				#change_country_tag = ERE
+				change_country_flag = ERE
+				change_country_color = "eastern_roman_color"
+				change_country_name = "ERE"
+				change_country_adjective = "ERE_ADJ"
+				change_government = imperium
+				save_scope_as = senior_pars
+				hidden_effect = {
+					add_truce = {
+						target = scope:new_WRE
+						duration = 14600
+					}
+					every_character = {
+						limit = {
+							any_holdings = { is_in_pars_occidentalis_inv_trigger = yes }
+						}
+						every_holdings = {
+							limit = { 
+								is_in_pars_occidentalis_inv_trigger = yes 
+							}
+							holding_owner = {
+								remove_holding = PREV	
+							}	
+						}
+					}
+					every_subject = {
+						limit = { 
+							capital_scope = {
+								is_in_pars_occidentalis_inv_trigger = yes
+							}		
+						}
+						overlord = {
+							release_subject = PREV	
+						}
+					}
+					if = {
+						limit = {
+							has_country_modifier = embellished_temple_jupiter_optimus_maximus
+						}
+						remove_country_modifier = embellished_temple_jupiter_optimus_maximus
+					}
+					if = {
+						limit = {
+							has_country_modifier = expanded_campus_martius
+						}
+						remove_country_modifier = expanded_campus_martius
+						scope:new_WRE = {
+							add_country_modifier = {
+								name = expanded_campus_martius
+								duration = -1
+							}
+						}
+					}
+				}	
+			}
+	
+			if = {
+				limit = {
+					is_ai = no
+				}
+				add_5_free_province_investments = yes
+				add_stability = 100
+			}
+			else_if = {
+				limit = {
+					is_ai = yes
+				}
+				scope:senior_pars = {
+					add_treasury = -1000
+				}
+			}
+
+			set_global_variable = roman_empire_divided
+
+		}
+		
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+
+	divided_roman_empire_traditions = {
+		potential = {
+			has_global_variable = roman_empire_divided
+			OR = {
+				has_variable = severed_roman_half_traditions
+				has_variable = severed_roman_half_traditions_1
+				has_variable = severed_roman_half_traditions_2
+				has_variable = severed_roman_half_traditions_3
+				has_variable = severed_roman_half_traditions_4
+				has_variable = severed_roman_half_traditions_5
+				has_variable = severed_roman_half_traditions_6
+				has_variable = severed_roman_half_traditions_7
+				has_variable = severed_roman_half_traditions_8
+				has_variable = severed_roman_half_traditions_9
+				has_variable = severed_roman_half_traditions_10
+				has_variable = severed_roman_half_traditions_11
+				has_variable = severed_roman_half_traditions_12
+			}
+			num_of_cities >= 1
+		}
+
+		highlight = {
+			scope:province = {
+				province_id = 1
+			}
+		}
+
+		allow = {
+			num_of_cities >= 100
+			OR = {
+				owns = 1
+				owns = 1453
+			}		 
+			has_civil_war = no
+			religion = christianity
+			military_experience < 120
+		}
+
+		effect = {
+			custom_tooltip = "restore_roman_military_traditions"
+			add_military_experience = 120
+			if = {
+				limit = {
+					has_variable = severed_roman_half_traditions
+				}
+				remove_variable = severed_roman_half_traditions
+				set_variable = {
+					name = severed_roman_half_traditions_1
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_1
+				}
+				remove_variable = severed_roman_half_traditions_1
+				set_variable = {
+					name = severed_roman_half_traditions_2
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_2
+				}
+				remove_variable = severed_roman_half_traditions_2
+				set_variable = {
+					name = severed_roman_half_traditions_3
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_3
+				}
+				remove_variable = severed_roman_half_traditions_3
+				set_variable = {
+					name = severed_roman_half_traditions_4
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_4
+				}
+				remove_variable = severed_roman_half_traditions_4
+				set_variable = {
+					name = severed_roman_half_traditions_5
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_5
+				}
+				remove_variable = severed_roman_half_traditions_5
+				set_variable = {
+					name = severed_roman_half_traditions_6
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_6
+				}
+				remove_variable = severed_roman_half_traditions_6
+				set_variable = {
+					name = severed_roman_half_traditions_7
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_7
+				}
+				remove_variable = severed_roman_half_traditions_7
+				set_variable = {
+					name = severed_roman_half_traditions_8
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_8
+				}
+				remove_variable = severed_roman_half_traditions_8
+				set_variable = {
+					name = severed_roman_half_traditions_9
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_9
+				}
+				remove_variable = severed_roman_half_traditions_9
+				set_variable = {
+					name = severed_roman_half_traditions_10
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_10
+				}
+				remove_variable = severed_roman_half_traditions_10
+				set_variable = {
+					name = severed_roman_half_traditions_11
+					value = root
+				}
+			}
+			else_if = {
+				limit = {
+					has_variable = severed_roman_half_traditions_11
+				}
+				remove_variable = severed_roman_half_traditions_11
+				set_variable = {
+					name = severed_roman_half_traditions_12
+					value = root
+				}
+			}
+			else = {
+				remove_variable = severed_roman_half_traditions_12
+			}
+		}
+
+		ai_will_do = {
+			factor = 1000
+		}
+
+	}
+
+	##invictus_IRCK3_correction = {
+	#	potential = {
+	#		is_ai = no
+	#		has_global_variable = roman_empire_divided
+	#	}
+	#	allow = {
+	#		capital_scope = {
+	#			OR = {
+	#				province_id = 3571
+	#				province_id = 1453
+	#				province_id = 142
+	#				province_id = 1
+	#			}
+	#		}
+	#		any_owned_province = {
+	#			OR = {
+	#				is_in_region = galatia_region
+	#				is_in_area = macedonia_area
+	#				is_in_area = upper_macedonia_area
+	#				is_in_area = chalkidiki_area
+	#				is_in_area = macedonia_salutaris_area
+	#				is_in_area = thessaly_area
+	#				is_in_area = illyria_graeca_area
+	#			}	
+	#		}
+	#	}
+	#	effect = {
+	#		if = {
+	#			limit = {
+	#				capital_scope = {
+	#					province_id = 1453
+	#				}	
+	#			}
+	#			every_owned_province = {
+	#
+	#				OR = {
+	#						is_in_region = galatia_region
+	#						is_in_area = macedonia_area
+	#						is_in_area = upper_macedonia_area
+	#						is_in_area = chalkidiki_area
+	#						is_in_area = macedonia_salutaris_area
+	#						is_in_area = thessaly_area
+	#						is_in_area = illyria_graeca_area
+	#					}	
+	#				}	
+	#				set_owned_by = ROOT
+	#			}
+	#		}
+	#		else_if = {
+	#			limit = {
+	#				capital_scope = {
+	#					OR = {
+	#						province_id = 3571
+	#						province_id = 142
+	#						province_id = 1
+	#					}
+	#				}
+	#			}
+	#			every_owned_province = {
+	#				limit = {
+	#					OR = {
+	#						is_in_region = galatia_region
+	#						is_in_area = macedonia_area
+	#						is_in_area = upper_macedonia_area
+	#						is_in_area = chalkidiki_area
+	#						is_in_area = macedonia_salutaris_area
+	#						is_in_area = thessaly_area
+	#						is_in_area = illyria_graeca_area
+	#					}	
+	#				}	
+	#				set_owned_by = ROM
+	#			}
+	#		}
+	#	}
+	#	ai_will_do = {
+	#		factor = 1000
+	#	}
+	#}
+}

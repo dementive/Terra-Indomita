@@ -1,0 +1,486 @@
+﻿namespace = te_migrations
+
+te_migrations.1 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 1101.6.21
+		country_culture_group = germanic
+		num_of_cities >= 1
+		#OR = { 
+		#	government = tribal_federation
+			government = tribal_kingdom
+		#}
+		centralization < -25
+		capital_scope = {
+			num_of_tribesmen > num_of_citizen
+			num_of_tribesmen > num_of_freemen
+		}
+		NOT = {
+			any_character = {
+				is_clan_chief = yes
+				loyalty < 33
+			}
+		}
+		is_ai = yes
+	}
+
+	immediate = {
+		add_political_influence = influence_large
+		#if = {
+		#	limit = {
+		#		government = tribal_kingdom
+		#	}
+		#	#add_stability = -10
+		#}
+		#else = {
+		#	add_stability = -30
+		#}
+		change_government = tribal_chiefdom
+		switch_government_type_event_clearup_effect = yes
+		if = {
+			limit = {
+				any_owned_province = { has_province_modifier = tribal_civilization_pmod }
+			}
+			every_owned_province = {
+				limit = { has_province_modifier = tribal_civilization_pmod }
+				remove_province_modifier = tribal_civilization_pmod
+			}
+		}
+	}
+
+	#option = {
+	#	if = {
+	#		limit = {
+	#			NOT = {
+	#				has_country_modifier = germanisch_wanderung
+	#			}
+	#		}
+	#		add_country_modifier = {
+	#			name = "germanisch_wanderung"
+	#			duration = -1
+	#		}
+	#	}
+	#}
+
+}
+
+te_migrations.10 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 1128.6.28 #375 CE
+		country_culture_group = germanic
+		num_of_cities >= 1
+		OR = { 
+			government = tribal_federation
+			government = tribal_kingdom
+			government = tribal_chiefdom
+		}
+		#is_ai = yes # Why not give this to the player also?
+		NOT = {
+			has_country_modifier = germanisch_wanderung
+		}
+	}
+
+	immediate = {
+		add_country_modifier = {
+			name = "germanisch_wanderung"
+			duration = -1
+		}	
+	}
+
+}
+
+te_migrations.11 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 1129.7.21
+		num_of_cities >= 1
+		has_country_modifier = germanisch_wanderung
+		NOT = { 
+			AND = {
+				OR = {
+					government = tribal_federation
+					government = tribal_kingdom
+					government = tribal_chiefdom
+				}
+				country_culture_group = germanic
+			}	
+		}
+	}
+
+	immediate = {
+		remove_country_modifier = germanisch_wanderung	
+	}
+}
+
+##Foederati Events##
+te_migrations.2 = {
+	type = minor_country_event
+	title= "te_migrations.2.t"
+	desc = "te_migrations.2.desc"
+	#picture = romans_marching
+	interface_lock = no
+	#left_portrait = current_ruler
+	left_portrait = scope:foedus_target_chief
+
+	goto_location = scope:foedus_target_province
+
+	trigger = {
+		has_global_variable = germanic_migration_2
+		country_culture_group = latin
+		is_tribal = no
+		num_of_cities > 500
+		any_subject = {
+			count < 10
+			is_subject_type = vassal_tribe
+		}
+		NOT = {
+			has_variable = sirte_foedus_cooldown
+		}
+		is_subject = no
+		war = no
+		has_civil_war = no
+		any_owned_province = {
+			any_neighbor_province = {
+				AND = {
+					has_owner = yes
+					dominant_province_culture_group = culture_group:germanic
+					owner = {
+						AND = {
+							capital_scope = {
+								civilization_value < root.capital_scope.civilization_value
+							}
+							is_ai = yes
+							government = tribal_chiefdom
+							country_culture_group = germanic
+							NOR = {
+								tag = BAR
+								tag = REB
+								tag = PIR
+								tag = MER
+							}
+							#religion = germanic_religion
+							#num_of_cities < 100
+							is_subject = no
+							war = no
+							has_civil_war = no
+						}	
+					}
+					NOR = {
+						is_in_italy_trigger = yes
+						is_in_greece_trigger = yes
+						is_in_area = root.capital_scope
+					}	
+				}
+				area = {
+					any_area_province = {
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				any_neighbor_province = {
+					AND = {
+						has_owner = yes
+						dominant_province_culture_group = culture_group:germanic
+						owner = {
+							AND = {
+								capital_scope = {
+									civilization_value < root.capital_scope.civilization_value
+								}
+								is_ai = yes
+								government = tribal_chiefdom
+								country_culture_group = germanic
+								NOR = {
+									tag = BAR
+									tag = REB
+									tag = PIR
+									tag = MER
+								}
+								#religion = germanic_religion
+								#num_of_cities < 100
+								is_subject = no
+								war = no
+								has_civil_war = no
+							}	
+						}
+						NOR = {
+							is_in_italy_trigger = yes
+							is_in_greece_trigger = yes
+							is_in_area = root.capital_scope
+						}	
+					}
+					area = {
+						any_area_province = {
+							owner = ROOT
+						}
+					}
+				}
+			}
+			random_neighbor_province = {
+				limit = {
+					AND = {
+						has_owner = yes
+						dominant_province_culture_group = culture_group:germanic
+						owner = {
+							AND = {
+								capital_scope = {
+									civilization_value < root.capital_scope.civilization_value
+								}
+								is_ai = yes
+								government = tribal_chiefdom
+								country_culture_group = germanic
+								NOR = {
+									tag = BAR
+									tag = REB
+									tag = PIR
+									tag = MER
+								}
+								#religion = germanic_religion
+								#num_of_cities < 100
+								is_subject = no
+								war = no
+								has_civil_war = no
+							}	
+						}
+						NOR = {
+							is_in_italy_trigger = yes
+							is_in_greece_trigger = yes
+							is_in_area = root.capital_scope
+						}	
+					}
+					area = {
+						any_area_province = {
+							owner = ROOT
+						}
+					}
+				}
+				save_scope_as = foedus_target_province
+				area = {
+					save_scope_as = foedus_target_state
+				}
+				owner = {
+					save_scope_as = foedus_target_country
+					random_successor = {
+						save_scope_as = foedus_target_chief
+					}
+				}
+			}
+		}	
+	}
+
+	option = {
+		name = "te_migrations.2.b"
+		custom_tooltip = "no_foedus_now_thx"
+		add_stability = 1
+	}
+
+	option = {
+		name = "te_migrations.2.a"
+		custom_tooltip = "make_foedus_now_plz"
+		highlight = yes
+		if = {
+			limit = {
+				any_province = {
+					AND = {
+						owner = scope:foedus_target_country
+						NOT = {
+							is_in_area = scope:foedus_target_province
+						}
+					}	
+				}
+			}
+			scope:foedus_target_province = {
+				create_country = {
+					hidden_effect = {
+						#set_country_religion = scope:foedus_target_country.religion
+						change_government = tribal_kingdom
+						set_as_ruler = scope:foedus_target_chief
+					}	
+					save_scope_as = foedus_target_new_vassal
+				}
+			}
+			hidden_effect = {
+				scope:foedus_target_chief = {
+					#move_country_with_close_family_effect = { COUNTRY = scope:foedus_target_new_vassal }
+					#move_country_with_entire_family_effect = { COUNTRY = scope:foedus_target_new_vassal }
+					remove_all_positions = yes
+					move_country = scope:foedus_target_new_vassal
+					remove_character_modifier = foreign_citizen
+					if = {
+						limit = {
+							exists = spouse
+							spouse = { 
+								is_alive = yes
+								is_ruler = no
+								prisoner = no
+								#employer = PREV.employer
+							}
+						}
+						spouse = {
+							remove_all_positions = yes
+							move_country = scope:foedus_target_new_vassal
+							remove_character_modifier = foreign_citizen
+						}
+					}
+					if = {
+						limit = { num_of_children >= 1 }
+						every_child = {
+							limit = {
+								is_alive = yes
+								is_ruler = no
+								prisoner = no
+								OR = {
+									is_adult = no
+									employer = scope:foedus_target_country
+								}
+							}
+							remove_all_positions = yes
+							move_country = scope:foedus_target_new_vassal
+							remove_character_modifier = foreign_citizen
+						}
+					}
+				}
+				make_subject = {
+					target = scope:foedus_target_new_vassal
+					type = vassal_tribe
+				}	
+				every_owned_province = {
+					limit = {
+						is_in_area = scope:foedus_target_province
+					}
+					set_owned_by = scope:foedus_target_new_vassal
+				}
+			}	
+		}	
+		else_if = {
+			limit = { 
+				scope:foedus_target_country = { is_subject = no }
+			}
+			hidden_effect = {
+				make_subject = {
+					target = scope:foedus_target_country
+					type = vassal_tribe
+				}
+			}	
+		}	
+		set_variable = {
+			name = sirte_foedus_cooldown
+			days = 4000
+		}	
+	}
+
+	after = {
+		if = {
+			limit = {
+				scope:foedus_target_country = {
+					is_subject_of = ROOT
+				}
+			}
+			scope:foedus_target_country = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_modifier = sirte_foederatus
+						}
+					}
+					add_country_modifier = {
+						name = "sirte_foederatus"
+						duration = -1
+					}
+				}	
+			}
+			every_owned_province = {
+				limit = {
+					is_in_area = scope:foedus_target_province
+				}
+				set_owned_by = scope:foedus_target_country
+			}
+		}
+		else_if = {
+			limit = {
+				exists = scope:foedus_target_new_vassal
+			}
+			scope:foedus_target_country = {
+				every_owned_province = {
+					limit = {
+						is_in_area = scope:foedus_target_province
+						any_neighbor_province = {
+							owner = scope:foedus_target_new_vassal
+						}
+					}
+					set_owned_by = scope:foedus_target_new_vassal
+				}
+			}
+			scope:foedus_target_new_vassal = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_modifier = sirte_foederatus
+						}
+					}
+					add_country_modifier = {
+						name = "sirte_foederatus"
+						duration = -1
+					}
+				}	
+			}
+		}
+	}
+}
+
+te_migrations.3 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = germanic_migration_2
+		country_culture_group = latin
+		is_tribal = no
+		is_overlord = yes
+		num_of_cities > 500
+		any_subject = {
+			OR = {
+				is_monarchy = yes
+				is_tribal = yes
+			}	
+			country_culture_group = germanic
+			NOT = {
+				has_country_modifier = sirte_foederatus
+			}
+		}
+	}
+
+	immediate = {
+		every_subject = {
+			limit = {
+				AND = {
+					OR = {
+						is_tribal = yes
+						is_monarchy = yes
+					}		
+					country_culture_group = germanic
+					NOT = {
+						has_country_modifier = sirte_foederatus
+					}
+				}
+			}
+			add_country_modifier = {
+				name = sirte_foederatus
+				duration = -1
+			}
+		}
+	}
+
+}	

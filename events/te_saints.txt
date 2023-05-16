@@ -1,0 +1,923 @@
+﻿namespace = te_saints
+
+te_saints.1 = {
+    type = country_event
+    title = "te_saints.1.t"
+    desc = "te_saints.1.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_andrew_canonization
+        NOT = {
+            has_global_variable = st_andrew_theosis
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_andrew_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_andrew_cross"
+                icon = "treasure_architecture"
+                modifier = { local_defensive = 0.25 }
+            }
+        }
+    }
+
+    option = {
+        name = "te_saints.1.a"
+        custom_tooltip = "canonization_st_andrew"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Andrew"
+                nickname="the Apostle"
+                family_name = "Prōtoklētos"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 753.01.01
+                death_date = 813.11.30
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = forgiving
+                add_trait = founder
+                add_charisma = 10
+                add_finesse = 20
+                add_zeal = 20
+                save_scope_as = andrew_protokletos
+            }
+        } 
+    }
+    after = {       
+        hidden_effect = {
+            scope:andrew_protokletos = {
+                deify_character = {
+                    deity = deity:omen_st_andrew
+                    country = ROOT
+                }  
+            } 
+        }    
+    }
+}
+
+te_saints.2 = {
+    type = country_event
+    title = "te_saints.2.t"
+    desc = "te_saints.2.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_thomas_canonization
+        NOT = {
+            has_global_variable = st_thomas_theosis
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_thomas_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_thomas_relics"
+                icon = "treasure_sarcophagus"
+                modifier = { happiness_for_wrong_culture_group_modifier = wrong_culture_group_small }
+            }
+        }
+    }
+
+    option = {
+        name = "te_saints.2.a"
+        custom_tooltip = "canonization_st_thomas"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Thomas"
+                nickname="the Doubter"
+                family_name = "Didymus"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 762.03.07
+                death_date = 825.12.21
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = sceptical
+                add_trait = generous
+                add_charisma = 20
+                add_zeal = 20
+                save_scope_as = doubting_thomas
+            }
+        }
+    }
+    after = {        
+        hidden_effect = {
+            scope:doubting_thomas = {
+                deify_character = {
+                    deity = deity:omen_st_thomas
+                    country = ROOT
+                }  
+            } 
+        }    
+    }
+}
+
+te_saints.3 = {
+    type = country_event
+    title = "te_saints.3.t"
+    desc = "te_saints.3.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_paul_canonization
+        NOT = {
+            has_global_variable = st_paul_theosis
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_paul_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_paul_epistle"
+                icon = "treasure_chest"
+                modifier = { local_happiness_for_same_religion_modifier = 0.15 }
+            }
+        }
+    }
+
+    option = {
+        name = "te_saints.3.a"
+        custom_tooltip = "canonization_st_paul"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Saul"
+                nickname="the Apostle"
+                family_name = "of Tarsus"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 758.01.25
+                death_date = 818.11.18
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = assertive
+                add_trait = founder
+                add_martial = 10
+                add_finesse = 30
+                add_charisma = 20
+                add_zeal = 30
+                save_scope_as = saul_of_tarsus
+            }
+        }
+    }
+    after = {        
+        hidden_effect = {
+            scope:saul_of_tarsus = {
+                deify_character = {
+                    deity = deity:omen_st_paul
+                    country = ROOT
+                }  
+            } 
+        }    
+    }
+}
+
+te_saints.4 = {
+	type = country_event
+    title = "te_saints.4.t"
+    desc = "te_saints.4.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_john_canonization
+        NOT = {
+            has_global_variable = st_john_theosis
+        }
+    }
+
+	immediate = {
+		set_global_variable = {
+			name = st_john_theosis
+		}
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_john_patmos_manuscript"
+                icon = "treasure_chest"
+                modifier = { local_hostile_attrition = 2 } 
+            } 
+        } 
+	}
+
+	option = {
+        name = "te_saints.4.a" 
+        custom_tooltip = "canonization_st_john"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "John"
+                nickname= "the Revelator"
+                family_name = "of Patmos"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 768.05.26
+                death_date = 853.12.27
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = chaste
+                add_trait = honest
+                add_finesse = 20
+                add_zeal = 30
+                save_scope_as = john_of_patmos
+            }
+        } 
+    }
+    after = {      
+        hidden_effect = { 
+            scope:john_of_patmos = {
+                deify_character = {
+                    deity = deity:omen_st_john
+                    country = ROOT
+                }  
+            } 
+        }       
+    }  
+}	  
+
+te_saints.5 = {
+	type = country_event
+    title = "te_saints.5.t"
+    desc = "te_saints.5.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_philip_canonization
+        NOT = {
+            has_global_variable = st_philip_theosis
+        }
+    }
+
+	immediate = {
+		set_global_variable = {
+			name = st_philip_theosis
+		}
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_philip_relics"
+                icon = "treasure_sarcophagus"
+                modifier = { local_freemen_output = 0.15 } 
+            } 
+        } 
+	}
+
+	option = {
+        name = "te_saints.5.a" 
+        custom_tooltip = "canonization_st_philip"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Philip"
+                nickname= "the Apostle"
+                family_name = "of Bethsaida"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 759.05.11
+                death_date = 833.11.14
+                #death_reason = death_execution
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = kindly
+                add_trait = zealous
+                add_zeal = 20
+                save_scope_as = philip_of_bethsaida
+            }
+        }
+    }
+    after = {      
+        hidden_effect = {
+            scope:philip_of_bethsaida = {
+                deify_character = {
+                    deity = deity:omen_st_philip
+                    country = ROOT
+                }  
+            }
+        }          
+    }  
+}	  
+
+te_saints.6 = {
+    type = country_event
+    title = "te_saints.6.t"
+    desc = "te_saints.6.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_nathanael_bartholomew_canonization
+        NOT = {
+            has_global_variable = st_nathanael_bartholomew_theosis
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_nathanael_bartholomew_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_nathanael_bartholomew_relics"
+                icon = "treasure_sarcophagus"
+                modifier = { local_research_points_modifier = 0.15 } 
+            } 
+        }         
+    }
+
+    option = {
+        name = "te_saints.6.a" 
+        custom_tooltip = "canonization_st_nathanael_bartholomew"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Nathanael"
+                nickname= "the Apostle"
+                family_name = "Bartholomew"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 759.12.13
+                death_date = 809.08.24
+                #death_reason = death_execution
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = pious
+                add_trait = scholar
+                add_zeal = 20
+                save_scope_as = nathanael_bartholomew
+            }
+        } 
+    }
+    after = {       
+        hidden_effect = {
+            scope:nathanael_bartholomew = {
+                deify_character = {
+                    deity = deity:omen_st_nathanael_bartholomew
+                    country = ROOT
+                }    
+            }
+        }        
+    }    
+}
+
+te_saints.7 = {
+    type = country_event
+    title = "te_saints.7.t"
+    desc = "te_saints.7.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_matthew_levi_canonization
+        NOT = {
+            has_global_variable = st_matthew_levi_theosis
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_matthew_levi_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_matthew_levi_relics"
+                icon = "treasure_sarcophagus"
+                modifier = { local_tax_modifier = 0.2 } 
+            } 
+        }         
+    }
+
+    option = {
+        name = "te_saints.7.a" 
+        custom_tooltip = "canonization_st_matthew_levi"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Matthew"
+                nickname= "the Evangelist"
+                family_name = "Levi"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 765.09.21
+                death_date = 824.10.22
+                #death_reason = death_execution
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = guileless
+                add_trait = modest
+                add_zeal = 20
+                add_finesse = 20
+                save_scope_as = matthew_levi
+            }
+        } 
+    }
+    after = {     
+        hidden_effect = {  
+            scope:matthew_levi = {
+                deify_character = {
+                    deity = deity:omen_st_matthew_levi
+                    country = ROOT
+                }    
+            } 
+        }       
+    }    
+}
+
+te_saints.8 = {
+    type = country_event
+    title = "te_saints.8.t"
+    desc = "te_saints.8.desc"
+    picture = romans_marching
+
+    trigger = {
+        has_variable = st_cornelius_centurion_canonization
+        NOT = {
+            has_global_variable = st_cornelius_centurion_theosis
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_cornelius_centurion_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_cornelius_centurion_relics"
+                icon = "treasure_armor"
+                modifier = { local_cohort_start_experience = 25 } 
+            } 
+        }         
+    }
+
+    option = {
+        name = "te_saints.8.a" 
+        custom_tooltip = "canonization_st_cornelius_centurion"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Cornelius"
+                nickname= "the Centurion"
+                family_name = "Romanorum"
+                # dna = ""
+                culture = roman # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 746.10.20
+                death_date = 793.02.02
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = trusting
+                add_trait = tolerant
+                add_zeal = 20
+                add_martial = 20
+                save_scope_as = cornelius_centurion
+            }
+        }
+    }
+    after = {        
+        hidden_effect = {
+            scope:cornelius_centurion = {
+                deify_character = {
+                    deity = deity:omen_st_cornelius_centurion
+                    country = ROOT
+                }    
+            } 
+        }     
+    }    
+}
+
+te_saints.9 = {
+    type = country_event
+    title = "te_saints.9.t"
+    desc = "te_saints.9.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_joseph_canonization
+        NOT = {
+            has_global_variable = st_joseph_theosis
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_joseph_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_st_joseph_cloak"
+                icon = "treasure_chest"
+                modifier = { local_monthly_food_modifier = 0.2 } 
+            } 
+        }         
+    }
+
+    option = {
+        name = "te_saints.9.a" 
+        custom_tooltip = "canonization_st_joseph"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Joseph"
+                nickname= "the Foster-Father"
+                family_name = "of Bethlehem"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 662.05.1
+                death_date = 773.03.19
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = wise
+                add_trait = self_controlled
+                add_zeal = 20
+                save_scope_as = joseph_bethlehem
+            }
+        }
+    }
+    after = {     
+        hidden_effect = {   
+            scope:joseph_bethlehem = {
+                deify_character = {
+                    deity = deity:omen_st_joseph
+                    country = ROOT
+                }    
+            } 
+        }       
+    }    
+}
+
+te_saints.10 = {
+    type = country_event
+    title = "te_saints.10.t"
+    desc = "te_saints.10.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_mary_dormition
+        NOT = {
+            has_global_variable = st_mary_assumption
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_mary_assumption
+        }        
+    }
+
+    option = {
+        name = "te_saints.10.a" 
+        custom_tooltip = "assumption_st_mary"
+        #hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_blessed_mary_hair"
+                icon = "treasure_chest"
+                modifier = { local_population_growth = 0.05 }  
+            } 
+        #}    
+    }    
+}
+
+te_saints.11 = {
+    type = country_event
+    title = "te_saints.11.t"
+    desc = "te_saints.11.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_luke_evangelist_canonization
+        NOT = {
+            has_global_variable = st_luke_evangelist_theosis
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_luke_evangelist_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_luke_evangelist_relics"
+                icon = "treasure_sarcophagus"
+                modifier = { local_nobles_output = 0.1 } 
+            } 
+        }         
+    }
+
+    option = {
+        name = "te_saints.11.a"
+        custom_tooltip = "canonization_st_luke_evangelist" 
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Luke"
+                nickname= "the Evangelist"
+                family_name = "of Antioch"
+                # dna = ""
+                culture = hellenistic # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 742.10.18
+                death_date = 817.03.14
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = silver_tongued
+                add_trait = intelligent
+                add_zeal = 20
+                add_finesse = 20
+                add_charisma = 20
+                save_scope_as = luke_evangelist
+            }
+        }
+    }    
+    after = {    
+        hidden_effect = {    
+            scope:luke_evangelist = {
+                deify_character = {
+                    deity = deity:omen_st_luke_evangelist
+                    country = ROOT
+                }    
+            }  
+        }     
+    }    
+}
+
+te_saints.12 = {
+    type = country_event
+    title = "te_saints.12.t"
+    desc = "te_saints.12.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_james_zebedee_canonization
+        NOT = {
+            has_global_variable = st_james_zebedee_theosis
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = st_james_zebedee_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_james_zebedee_relics"
+                icon = "treasure_sarcophagus"
+                modifier = { local_pop_conversion_speed_modifier = 0.3 } 
+            } 
+        }         
+    }
+
+    option = {
+        name = "te_saints.12.a" 
+        custom_tooltip = "canonization_st_james_zebedee"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "James"
+                nickname= "the Greater"
+                family_name = "Zebedee"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 746.04.30
+                death_date = 797.07.25
+                #death_reason = death_execution
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = righteous
+                add_trait = plain_speaking
+                add_martial = 10
+                add_zeal = 20
+                save_scope_as = james_zebedee
+            }
+        }
+    }
+    after = {
+        hidden_effect = {    
+            scope:james_zebedee = {
+                deify_character = {
+                    deity = deity:omen_st_james_zebedee
+                    country = ROOT
+                }    
+            }  
+        }      
+    }    
+}
+
+te_saints.13 = {
+    type = country_event
+    title = "te_saints.13.t"
+    desc = "te_saints.13.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_peter_canonization
+        NOT = {
+            has_global_variable = st_peter_theosis
+        }
+    }    
+
+    immediate = {
+        set_global_variable = {
+            name = st_peter_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_peter_relics"
+                icon = "treasure_sarcophagus"
+                modifier = { local_building_slot = 2 }
+            }
+        }
+    }
+
+    option = {
+        name = "te_saints.13.a"
+        custom_tooltip = "canonization_st_peter"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Simeon"
+                nickname = "the Leader"
+                family_name = "Kepha"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 754.02.22
+                death_date = 820.06.29
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = energetic
+                add_trait = founder
+                add_charisma = 20
+                add_finesse = 20
+                add_zeal = 20
+                save_scope_as = simon_petrus
+            }
+        }
+    }
+    after = { 
+        hidden_effect = {   
+            scope:simon_petrus = {
+                deify_character = {
+                    deity = deity:omen_st_peter
+                    country = ROOT
+                }  
+            }
+        }     
+    }
+}
+
+te_saints.14 = {
+    type = country_event
+    title = "te_saints.14.t"
+    desc = "te_saints.14.desc"
+    picture = te_holyfamily_temple
+
+    trigger = {
+        has_variable = st_mark_canonization
+        NOT = {
+            has_global_variable = st_mark_theosis
+        }
+    }    
+
+    immediate = {
+        set_global_variable = {
+            name = st_mark_theosis
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_mark_relics"
+                icon = "treasure_sarcophagus"
+                modifier = { local_citizen_output = 0.15 }
+            }
+        }
+    }
+
+    option = {
+        name = "te_saints.14.a"
+        custom_tooltip = "canonization_st_mark"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "John Mark"
+                nickname = "the Evangelist"
+                family_name = "of Alexandria"
+                # dna = ""
+                culture = hebrew # or scope
+                religion = christianity # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 759.09.27
+                death_date = 821.04.25
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = devout
+                add_trait = founder
+                add_finesse = 20
+                add_zeal = 20
+                save_scope_as = john_mark
+            }
+        }
+    }
+    after = { 
+        hidden_effect = {   
+            scope:john_mark = {
+                deify_character = {
+                    deity = deity:omen_st_mark
+                    country = ROOT
+                }  
+            } 
+        }    
+    }
+}

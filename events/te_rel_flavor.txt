@@ -1,0 +1,300 @@
+﻿namespace = te_rel_flavor
+
+te_rel_flavor.1 = {
+	type = country_event
+	title = "te_rel_flavor.1.t"
+	desc = {
+		first_valid = {
+			triggered_desc = { 
+				trigger = {
+					NOT = { religion = judaism }
+				}
+				desc = "te_rel_flavor.1.desc_1"
+			}
+			triggered_desc = { # Judea or Samaria
+				trigger = { 
+					religion = judaism
+				}	
+				desc = "te_rel_flavor.1.desc_2"
+			}
+		}	
+	}
+	picture = te_manichaean_cosmology
+	left_portrait = current_ruler
+	goto_location = scope:early_xian_community_target
+
+	trigger = {
+		is_ai = no
+		current_date > 856.6.24
+		any_owned_province = {
+			has_province_modifier = early_christian_community
+		}
+		NOR = {
+			religion = christianity
+			religion = manichaeism
+			has_variable = early_xian_community_cooldown
+		}
+		current_ruler = {
+			NOR = {
+				has_religion = christianity
+				has_religion = manichaeism	
+				has_variable = xian_tolerant
+			}
+		}
+		any_character = {
+			AND = {
+				has_any_religious_office_trigger = yes
+				has_same_religion_as = root.current_ruler
+				is_alive = yes
+				prisoner = no
+			}	
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = early_xian_community_cooldown
+			days = 1500
+		}
+		random_character = {
+			limit = {
+				has_any_religious_office_trigger = yes
+				has_same_religion_as = root.current_ruler
+			}
+			save_scope_as = pagan_or_jewish_official_priest
+		}
+		random_owned_province = {
+			limit = { 
+				has_province_modifier = early_christian_community
+			}
+			save_scope_as = early_xian_community_target
+		}
+		random_character = {
+			limit = {
+				has_religion = christianity
+				is_alive = yes
+			}
+			if = {
+				limit = {
+					exists = THIS
+				}
+				save_scope_as = xian_character
+			}	
+		}	
+	}
+
+	option = {
+		custom_tooltip = "leave_xians_alone"
+		name = "te_rel_flavor.1.a"
+		current_ruler = {
+			add_popularity = -10 
+			if = {
+				limit = {
+					has_variable = xian_community_killer
+				}
+				add_trait = arbitrary
+			}
+			else_if = {
+				limit = {
+					has_trait = tolerant
+				}
+				set_variable = xian_tolerant
+			}
+			else = {
+				add_trait = tolerant
+			}
+			remove_trait = zealous
+		}
+		add_political_influence = -10
+		scope:pagan_or_jewish_official_priest = {
+			add_loyalty = spared_xians_hate
+		}
+		if = {
+			limit = {
+				exists = scope:xian_character
+			}
+			scope:xian_character = {
+				add_loyalty = spared_xians_sympathy 
+			}
+		}
+	}
+
+	option = {
+		custom_tooltip = "destroy_xians"
+		name = "te_rel_flavor.1.b"
+		current_ruler = {
+			add_popularity = 20
+			add_trait = harsh
+			remove_trait = benefactor
+			set_variable = xian_community_killer
+		}
+		add_political_influence = 20
+		add_tyranny = 5
+		scope:pagan_or_jewish_official_priest = {
+			add_loyalty = persecuted_xians_glee
+		}
+		if = {
+			limit = {
+				exists = scope:xian_character
+			}
+			scope:xian_character = {
+				add_loyalty = persecuted_xians_sorrow
+			}
+		}
+		scope:early_xian_community_target = {
+			every_pops_in_province = {
+				limit = {
+					pop_religion = christianity
+				}
+				kill_pop = yes
+			}
+			remove_province_modifier = early_christian_community
+			set_variable = {
+				name = early_xian_persecution
+				days = 3600
+			}
+		}
+		if = {
+			limit = {
+				any_owned_province = {
+					has_province_modifier = early_christian_church
+				}	
+			}
+			trigger_event = {
+				id = te_rel_flavor.2
+				days = 750
+			}
+		}
+	}
+}
+
+te_rel_flavor.2 = {
+	type = country_event
+	title = "te_rel_flavor.2.t"
+	desc = {
+		first_valid = {
+			triggered_desc = { 
+				trigger = {
+					NOT = { religion = judaism }
+				}
+				desc = "te_rel_flavor.2.desc_1"
+			}
+			triggered_desc = { # Judea or Samaria
+				trigger = { 
+					religion = judaism
+				}	
+				desc = "te_rel_flavor.2.desc_2"
+			}
+		}
+	}	
+	picture = te_manichaean_cosmology
+
+	goto_location = scope:early_xian_church_target
+
+	left_portrait = current_ruler
+	right_portrait = scope:pagan_or_jewish_official_priest
+
+	trigger = {
+		is_ai = no
+		any_owned_province = {
+			has_province_modifier = early_christian_church
+		}
+		NOR = {
+			religion = christianity
+			religion = manichaeism
+		}
+		current_ruler = {
+			NOR = {
+				has_religion = manichaeism
+				has_religion = christianity	
+			}
+			has_variable = xian_community_killer
+		}
+		scope:pagan_or_jewish_official_priest = {
+			is_alive = yes
+			prisoner = no
+		}	
+	}
+
+	immediate = {
+		random_owned_province = {
+			limit = {
+				has_province_modifier = early_christian_church
+			}
+			save_scope_as = early_xian_church_target
+		}	
+	}
+
+	option = {
+		name = "te_rel_flavor.2.a"
+		custom_tooltip = "spare_xian_church"
+		current_ruler = {
+			add_popularity = -20 
+			add_trait = lapsed
+			remove_trait = zealous
+			remove_variable = xian_community_killer
+			set_variable = xian_tolerant
+		}
+		add_political_influence = -20
+		every_character = {
+			limit = {
+				has_religion = christianity
+				is_alive = yes
+			}
+			add_loyalty = spared_xians_sympathy 
+		}
+		every_character = {
+			limit = {
+				has_same_religion_as = prev.current_ruler
+				is_alive = yes
+			}
+			add_loyalty = spared_xians_hate
+		}
+	}
+
+	option = {
+		name = "te_rel_flavor.2.b"
+		custom_tooltip = "destroy_xian_church"
+		current_ruler = {
+			add_popularity = 40
+			add_trait = zealous
+			remove_trait = lapsed
+		}
+		add_political_influence = 40
+		add_tyranny = 10
+		every_character = {
+			limit = {
+				has_same_religion_as = prev.current_ruler
+				is_alive = yes
+			}
+			add_loyalty = persecuted_xians_glee
+		}
+		every_character = {
+			limit = {
+				has_religion = christianity
+				is_alive = yes
+			}
+			add_loyalty = persecuted_xians_sorrow
+		}
+		scope:early_xian_church_target = {
+			ordered_pops_in_province = {
+				limit = {
+					pop_religion = christianity
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 2
+				}
+				check_range_bounds = no
+				kill_pop = yes
+			}
+			add_city_smoke_effect = yes	
+			remove_province_modifier = early_christian_church
+			set_variable = {
+				name = early_xian_persecution
+				days = 3600
+			}
+		}
+	}
+}

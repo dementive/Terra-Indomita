@@ -1,0 +1,120 @@
+﻿deity_manichaean_jesus = {
+	trigger = {
+		OR = {
+			religion = manichaeism
+			very_common_deity_trigger = {
+				RELIGION = manichaeism
+			}
+			deity:omen_manichaean_jesus = {
+				holy_site_deity_check_trigger = yes
+			}
+		}	
+	}
+	icon = manichaean_jesus
+	passive_modifier = { global_population_capacity_modifier = deity_global_population_capacity_modifier_svalue }
+	omen = { global_population_happiness = omen_global_population_happiness } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
+	}
+	religion = manichaeism
+	deity_category = fertility #This Deity uses a Fertility Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_manichaean_buddha = {
+	trigger = {
+		OR = {
+			religion = manichaeism
+			very_common_deity_trigger = {
+				RELIGION = manichaeism
+			}
+			deity:omen_manichaean_buddha = {
+				holy_site_deity_check_trigger = yes
+			}
+		}	
+	}
+	icon = manichaean_buddha
+	passive_modifier = { diplomatic_relations = deity_diplomatic_relations_svalue }
+	omen = { monthly_corruption = omen_monthly_corruption } #Bonus from Omen
+	religion = manichaeism
+	deity_category = economy #This Deity uses an Economy Slot
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
+	}
+}
+
+deity_manichaean_zoroaster = {
+	trigger = {
+		OR = {
+			religion = manichaeism
+			very_common_deity_trigger = {
+				RELIGION = manichaeism
+			}
+			deity:omen_manichaean_zoroaster = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = manichaean_zoroaster
+	passive_modifier = { global_monthly_state_loyalty = deity_global_monthly_state_loyalty_svalue }
+	omen = { global_pop_conversion_speed_modifier = omen_global_pop_conversion_speed_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
+	}
+	religion = manichaeism
+	deity_category = culture #This Deity uses a Culture Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_prophet_mani = { # WAR
+	trigger = {
+		OR = {
+			religion = manichaeism
+			very_common_deity_trigger = {
+				RELIGION = manichaeism
+			}
+			deity:omen_prophet_mani = {
+				holy_site_deity_check_trigger = yes
+			}
+		}	
+	}
+	icon = mani_caoan
+	passive_modifier = { war_exhaustion = deity_war_exhaustion_svalue }
+	omen = { global_defensive = omen_global_defensive_svalue } #Bonus from Omen
+	on_activate = {
+		if = {
+			limit = {
+				any_owned_province = {
+					is_in_region = mesopotamia_region
+				}
+				NOT = {
+					has_global_variable = prophet_mani_death	
+				}
+			}
+			set_variable = {
+				name = prophet_mani_execution
+			}
+			trigger_event = { 
+				id = te_manichees.2
+				years = 5
+			}
+		}
+		war_apotheosis_martial_tech_effect = yes
+	}
+	religion = manichaeism
+	deity_category = war
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
