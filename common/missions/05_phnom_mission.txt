@@ -42,11 +42,10 @@
 		duration = 180
 		
         allow = {
-            political_influence >= 25
+            num_of_ships >= 10
         }
 		
         on_completion = {
-			add_political_influence = -25
             trigger_event = me_phnom.3
             show_as_tooltip = {
 				add_country_modifier = {
@@ -216,6 +215,12 @@
             political_influence >= 15
         }
 		
+        highlight = {
+            scope:province = {
+                province_id = 9833
+            }
+        }
+
         on_completion = {
 			add_political_influence = -15
             trigger_event = me_phnom.6
@@ -284,6 +289,7 @@
 					province_id = 11014
 					province_id = 11002
 					province_id = 11003
+                    province_id = 9828
 				}
 			}
 		}
@@ -426,7 +432,7 @@
             capital_scope = {
 				num_of_slave_building >= 1
 				num_of_commerce_building >= 1
-				civilization_value >= 25
+				civilization_value >= 22
 			}
         }
 		
@@ -457,19 +463,22 @@
 					province_id = 9830
 					province_id = 9831
 					province_id = 10963
+                    province_id = 9835
+                    province_id = 10962
+                    province_id = 10964
 				}
 			}
 		}
 		
         allow = {
-			manpower >= 2
-			treasury >= 75
+			manpower >= 4
+			treasury >= 100
 			invention = capital_trade_inv_2
         }
 		
         on_completion = {
-			add_manpower = -2
-			add_treasury = -75
+			add_manpower = -4
+			add_treasury = -100
             trigger_event = me_phnom.13
 			p:9828 = {
 				add_road_towards = 9830
@@ -479,6 +488,18 @@
 			}
 			p:9831 = {
 				add_road_towards = 10963
+			}
+            p:9831 = {
+				add_road_towards = 10963
+			}
+            p:9831 = {
+				add_road_towards = 10964
+			}
+            p:10963 = {
+				add_road_towards = 9835
+			}
+            p:10963 = {
+				add_road_towards = 10962
 			}
         }
     }
@@ -584,13 +605,14 @@
 		
         allow = {
 			manpower >= 3
-			treasury >= 100
+			treasury >= 50
 			invention = capital_trade_inv_1
         }
 		
         on_completion = {
 			add_manpower = -3
-			add_treasury = -100
+			add_treasury = -50
+            add_centralization = 10
 			trigger_event = me_phnom.16
 			p:9828 = {
 				add_road_towards = 9832
