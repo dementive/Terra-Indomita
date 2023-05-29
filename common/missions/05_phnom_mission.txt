@@ -39,7 +39,6 @@
 	
     phnom_mission_tree_task_1 = { #Colonizing The Mekong Delta
         icon = "task_political"
-		duration = 180
 		
         allow = {
             num_of_ships >= 10
@@ -454,7 +453,7 @@
     phnom_mission_tree_task_10 = { #A System of Canals
         icon = "task_conquest"
 		requires = { phnom_mission_tree_task_9 }
-		duration = 730
+		duration = 1825
 
 		highlight = {
 			scope:province = {
@@ -537,7 +536,8 @@
         }
 		
         on_completion = {
-			add_2_free_province_investments = yes
+			add_1_free_province_investments = yes
+            add_innovation = 1
             trigger_event = me_phnom.14
             show_as_tooltip = {
 				p:9834 = {
@@ -665,6 +665,10 @@
     }
     
     allow = {
+        custom_tooltip = {
+            text = phnom_mission_tree_task_15_tt
+            religion = burmese_religion
+        }
         capital_scope = {
             is_holy_site = yes
             has_building = temple_building
