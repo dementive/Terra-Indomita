@@ -53,7 +53,7 @@
 				}
 				add_country_modifier = {
 					name = phnom_expanded_diplo_mod_1
-					duration = -1
+					duration = 9125
 				}
             }
         }
@@ -116,81 +116,80 @@
                     c:MRY = { has_land = yes }
                 }
                 trigger_event = me_phnom.4
+                if = {
+                    limit = {
+                        c:MRY = { has_land = yes }
+                        char:66 = { is_alive = yes }
+                    }
+                    #Marry an Achaemenid character to Zipoetes son if he is alive, otherwise marry a random child.
+                    custom_tooltip  = phnom_missions_task_2_tt
                     if = {
                         limit = {
-                            c:MRY = { has_land = yes }
-                            char:66 = { is_alive = yes }
+                            current_ruler = { is_married = yes }
                         }
-                        #Marry an Achaemenid character to Zipoetes son if he is alive, otherwise marry a random child.
-                        custom_tooltip  = phnom_missions_task_2_tt
-                        if = {
+                        current_ruler = { divorce_character = spouse }
+                    }
+                    c:MRY = {
+                        random_character = {
                             limit = {
-                                char:38024 = { is_married = yes }
+                                has_trait = maurya
+                                is_female = yes
+                                age <= 40
+                                age > 15
                             }
-                            char:38024 = { divorce_character = spouse }
-                        }
-                        c:MRY = {
-                            random_character = {
-                                limit = {
-                                    has_trait = maurya
-                                    is_female = yes
-                                    age <= 40
-                                    age > 15
-                                }
-                                if = {
-                                    limit = { is_married = yes }
-                                    divorce_character = spouse
-                                }
-                                save_scope_as = marriage_partner
+                            if = {
+                                limit = { is_married = yes }
+                                divorce_character = spouse
                             }
+                            save_scope_as = marriage_partner
                         }
-                        char:38024 = { marry_character = scope:marriage_partner }
                     }
-                    else_if = {
-                        limit = {
-                            c:MRY = { has_land = yes }
-                            current_ruler = {
-                                any_child = {
-                                    is_alive = yes
-                                    is_male = yes
-                                    age >= 16
-                                }
-                            }
-                        }
-                        c:MRY = {
-                            random_character = {
-                                limit = {
-                                    has_trait = maurya
-                                    is_female = yes
-                                    age <= 40
-                                    age > 15
-                                }
-                                if = {
-                                    limit = { is_married = yes }
-                                    divorce_character = spouse
-                                }
-                                save_scope_as = marriage_partner
-                            }
-                        }
+                    current_ruler = { marry_character = scope:marriage_partner }
+                }
+                else_if = {
+                    limit = {
+                        c:MRY = { has_land = yes }
                         current_ruler = {
-                            ordered_child = {
-                                limit = {
-                                    age >= 16
-                                    is_male = yes
-                                    is_alive = yes
-                                }
-                                order_by = age
-                                position = end
-                                if = {
-                                    limit = { is_married = yes }
-                                    divorce_character = spouse
-                                }
-                                marry_character = scope:marriage_partner
+                            any_child = {
+                                is_alive = yes
+                                is_male = yes
+                                age >= 16
                             }
                         }
                     }
+                    c:MRY = {
+                        random_character = {
+                            limit = {
+                                has_trait = maurya
+                                is_female = yes
+                                age <= 40
+                                age > 15
+                            }
+                            if = {
+                                limit = { is_married = yes }
+                                divorce_character = spouse
+                            }
+                            save_scope_as = marriage_partner
+                        }
+                    }
+                    current_ruler = {
+                        ordered_child = {
+                            limit = {
+                                age >= 16
+                                is_male = yes
+                                is_alive = yes
+                            }
+                            order_by = age
+                            position = end
+                            if = {
+                                limit = { is_married = yes }
+                                divorce_character = spouse
+                            }
+                            marry_character = scope:marriage_partner
+                        }
+                    }
+                }
             }
-
             else = {
                 add_treasury = 100
                 current_ruler = {
@@ -214,7 +213,10 @@
 		
         highlight = {
             scope:province = {
-                province_id = 9833
+                OR = {
+                    province_id = 9833
+                    is_in_area = chenla_area
+                }
             }
         }
 
@@ -391,7 +393,7 @@
     }
 	
     phnom_mission_tree_task_8 = { #A Modernising Influence
-        requires = { phnom_mission_tree_task_6 phnom_mission_tree_task_7 }
+        requires = { phnom_mission_tree_task_6 phnom_mission_tree_task_7 phnom_mission_tree_task_19 }
         icon = "task_apollo"
 		final = yes
 		
@@ -587,14 +589,14 @@
 	phnom_mission_tree_task_13 = { #Completing the Canals
         icon = "task_atlas"
 		duration = 730
-        requires = { phnom_mission_tree_task_5 phnom_mission_tree_task_12 }
+        requires = { phnom_mission_tree_task_12 }
 		
 		highlight = {
 			scope:province = {
 				OR = {
+					province_id = 9828
 					province_id = 9832
-					province_id = 9834
-					province_id = 9833
+                    province_id = 9834
 				}
 			}
 		}
@@ -610,20 +612,28 @@
 			add_treasury = -50
             add_centralization = 10
 			trigger_event = me_phnom.16
-			p:9828 = {
-				add_road_towards = 9832
-			}
+            p:9828 = {
+                if = {
+                    limit = { NOT = { has_road_towards = 9832 } }
+                    add_road_towards = 9832
+                }
+            }
 			p:9832 = {
-				add_road_towards = 9833
-			}
-			p:9832 = {
-				add_road_towards = 9834
+                if = {
+                    limit = { NOT = { has_road_towards = 9833 } }
+                    add_road_towards = 9833
+                }
+                if = {
+                    limit = { NOT = { has_road_towards = 9834 } }
+                    add_road_towards = 9834
+                }
 			}
 			p:9834 = {
-				add_road_towards = 9833
+                if = {
+                    limit = { NOT = { has_road_towards = 9833 } }
+                    add_road_towards = 9833
+                }
 			}
-			show_as_tooltip = {
-			}	
         }
     }
 	
@@ -651,39 +661,278 @@
     }
 
     phnom_mission_tree_task_15 = { #Embrace The Nats
-    requires = { phnom_mission_tree_task_12 }
-    icon = "task_religion"
+        requires = { phnom_mission_tree_task_12 }
+        icon = "task_religion"
 
-    highlight = {
-        scope:province = {
-            province_id = 9828
+        highlight = {
+            scope:province = {
+                province_id = 9828
+            }
         }
-    }
-    
-    allow = {
-        custom_tooltip = {
-            text = phnom_mission_tree_task_15_tt
-            religion = burmese_religion
+        
+        allow = {
+            custom_tooltip = {
+                text = phnom_mission_tree_task_15_tt
+                religion = burmese_religion
+            }
+            capital_scope = {
+                is_holy_site = yes
+                has_building = temple_building
+            }
+            capital_scope.state = {
+                count >= 1
+                state_improvement_religious_trigger = yes      
+            }
         }
-        capital_scope = {
-            is_holy_site = yes
-            has_building = temple_building
-        }
-        capital_scope.state = {
-            count >= 1
-            state_improvement_religious_trigger = yes      
-        }
-    }
 
-    on_completion = {
-        trigger_event = me_phnom.19
-        capital_scope = {
-            add_permanent_province_modifier = {
-                name = phnom_nat_temple_modifier_reward
+        on_completion = {
+            trigger_event = me_phnom.19
+            capital_scope = {
+                add_permanent_province_modifier = {
+                    name = phnom_nat_temple_modifier_reward
+                }
             }
         }
     }
 
+    phnom_mission_tree_task_16 = { # Merchants of Funan
+        icon = "task_artemis"
+        requires = { phnom_mission_tree_task_9 }
+        
+        allow = {
+            country_has_special_pop = {
+                type = "merchant"
+                text = "country_has_3_merchant_tt"
+                count = "3"
+            }
+        }
+        
+        on_completion = {
+            if = {
+                limit = {
+                    NOT = {
+                        country_has_special_pop = {
+                            type = merchant
+                            text = "country_has_5_merchant_tt"
+                            count = 5
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_merchant_tt"
+                        type = merchant
+                        count = 1
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        country_has_special_pop = {
+                            type = priest
+                            text = "country_has_5_priest_tt"
+                            count = 5
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_priest_tt"
+                        type = priest
+                        count = 1
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        country_has_special_pop = {
+                            type = artist
+                            text = "country_has_5_artist_tt"
+                            count = 5
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_artist_tt"
+                        type = artist
+                        count = 1
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        country_has_special_pop = {
+                            type = architect
+                            text = "country_has_5_architect_tt"
+                            count = 5
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_architect_tt"
+                        type = architect
+                        count = 1
+                    }
+                }
+            }
+            add_2_free_province_investments = yes
+        }
     }
 
+    phnom_mission_tree_task_17 = { # Conquest of Chenla
+        icon = "task_artemis"
+        requires = { phnom_mission_tree_task_3 }
+        
+        highlight = {
+            scope:province = {
+                is_in_area = chenla_area
+            }
+        }
+
+        allow = {
+            owns_percent_of_area = {
+                PROVINCE = "p:9824"
+                PERCENT = "0.75"
+            }
+        }
+        
+        on_completion = {
+            add_2_free_province_investments = yes
+            p:9824.state = {
+                add_state_modifier = {
+                    name = phnom_mission_tree_task_17_state_mod
+                    duration = -1
+                }
+            }
+        }
+    }
+    phnom_mission_tree_task_18 = { # Consolidate the Delta
+        icon = "task_artemis"
+        requires = { phnom_mission_tree_task_17 }
+        
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = chenla_area
+                    is_in_area = funan_area
+                    is_in_area = kompong_area
+                    is_in_area = kualadungun_area
+                }
+            }
+        }
+
+        allow = {
+            custom_tooltip = {
+                text = phnom_mission_tree_task_18_tt
+                any_country = {
+                    count < 1
+                    NOT = { this = root }
+                    any_owned_province = {
+                        OR = {
+                            is_in_area = chenla_area
+                            is_in_area = funan_area
+                            is_in_area = kompong_area
+                            is_in_area = kualadungun_area
+                        }
+                    }
+                }
+            }
+        }
+        
+        on_completion = {
+            add_political_influence = 50
+            add_military_experience = 40
+            current_ruler = {
+                add_focus_perk = {
+                    text = "add_1_char_perk"
+                    amount = "1"
+                }
+            }
+        }
+    }
+    phnom_mission_tree_task_19 = { # Develop the Delta
+        icon = "task_artemis"
+        requires = { phnom_mission_tree_task_18 }
+        
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = chenla_area
+                    is_in_area = funan_area
+                    is_in_area = kompong_area
+                    is_in_area = kualadungun_area
+                }
+            }
+        }
+
+        allow = {
+            custom_tooltip = {
+                text = phnom_mission_tree_task_19_tt
+                any_owned_province = {
+                    count >= 4
+                    OR = {
+                        is_in_area = chenla_area
+                        is_in_area = funan_area
+                        is_in_area = kompong_area
+                        is_in_area = kualadungun_area
+                    }
+                    has_city_status = yes
+                }
+            }
+        }
+        
+        on_completion = {
+            add_2_free_province_investments = yes
+            add_innovation = 2
+            random_owned_province = {
+                limit = {
+                    is_in_area = chenla_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = phnom_developed_delta
+                        duration = 9125
+                    }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    is_in_area = funan_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = phnom_developed_delta
+                        duration = 9125
+                    }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    is_in_area = kompong_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = phnom_developed_delta
+                        duration = 9125
+                    }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    is_in_area = kualadungun_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = phnom_developed_delta
+                        duration = 9125
+                    }
+                }
+            }
+        }
+    }
 }
