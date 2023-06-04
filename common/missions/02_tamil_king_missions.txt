@@ -1,8 +1,8 @@
 ﻿tamil_king_missions = {
 	header = "indian_mission_header"
-	icon = "seleukid_3"
+	icon = india_2
 	chance = {
-	factor= 50000
+		factor = 50000
 	}
 
 	potential = {
@@ -14,8 +14,9 @@
 		}
 	}
 	on_start = {
-	save_scope_as = mission_country
-	trigger_event = { id = me_tamil_king.10 }
+		start_mission_ai_effect = yes
+		save_scope_as = mission_country
+		trigger_event = { id = me_tamil_king.10 }
 	}
 	on_abort = {
 		custom_tooltip = general_mission_cooldown_tt
@@ -28,6 +29,7 @@
 		ai_mission_back_out_trigger = yes
 	}
 	on_completion = {
+		complete_mission_effect = yes
 		show_as_tooltip = {
 			if = {
 				limit = {
@@ -41,7 +43,7 @@
 				}
 			}
 		}
-			hidden_effect = {
+		hidden_effect = {
 			every_character = {
 				limit = {
 					OR = {
@@ -88,8 +90,9 @@
 				}
 			}
 			change_country_tag = TAM
-			change_country_flag = TAMIL_FLAG
-			change_country_color = "phrygia_red"
+			# Maybe put this in the events option?
+			# change_country_flag = TAMIL_FLAG
+			# change_country_color = "phrygia_red"
 			}
 			change_country_name = Tamilakam
 			custom_tooltip = tamil_mission_01_tamil_task_14_effect_tt
@@ -276,7 +279,7 @@
 		}
 	}
 	tamil_king_missions_task_22 = {	#Consider Buddhist values
-		prevented_by = { tamil_king_missions_task_23 }
+		prevented_by = { tamil_king_missions_task_23 tamil_king_missions_task_60 }
 		requires = { tamil_king_missions_task_6 tamil_king_missions_task_10 }
 		icon = "task_shiva"
 
@@ -297,7 +300,7 @@
 		}
 	}
 	tamil_king_missions_task_23 = {	#Consider Jain values
-		prevented_by = { tamil_king_missions_task_22 }
+		prevented_by = { tamil_king_missions_task_22 tamil_king_missions_task_60 }
 		requires = { tamil_king_missions_task_6 tamil_king_missions_task_10 }
 		icon = "task_calm"
 
@@ -315,6 +318,27 @@
 			}
 			custom_tooltip = tamil_mission_01_tamil_task_23_effect_tt
 			trigger_event = { id = me_tamil_king.4 }
+		}
+	}
+	tamil_king_missions_task_60 = {	#Consider Ajivika values
+		prevented_by = { tamil_king_missions_task_22 tamil_king_missions_task_23 }
+		requires = { tamil_king_missions_task_6 tamil_king_missions_task_10 }
+		icon = "task_happiness"
+
+		allow = {
+			political_influence >= 200
+			stability >= 50	
+			any_owned_province = {
+				dominant_province_religion = ajivika
+			}						
+		}
+		on_completion = {
+			add_country_modifier = { ## Copy pasted from Jain
+				name = ajivika_values
+				duration = 3650
+			}
+			custom_tooltip = tamil_mission_01_tamil_task_60_effect_tt
+			trigger_event = { id = me_tamil_king.60 }
 		}
 	}
 	tamil_king_missions_task_7 = {	#Vassalize Lankan Kings
