@@ -52,6 +52,9 @@ samaria_inv.1 = { #Join the Diadochi war
 	}
 	option = { #On Antigonos' side
 		name = samaria_inv.1.b
+		trigger = {
+			always = no
+		}
 		c:PRY = {
 			add_opinion = {
 				modifier = joined_my_war
@@ -764,10 +767,6 @@ samaria_inv.17 = { #Ark of the Covenant
 		NOT = {
 			has_variable = not_paid
 		}
-	}
-
-	after = {
-		trigger_event = ach.5
 	}
 
 	option = {
@@ -1881,24 +1880,6 @@ samaria_inv.35 = { #judea in chains task 36
 				limit = {
 					capital_scope = {
 						area = {
-							region = region:gedrosia_region
-						}
-					}
-					NOT = {
-						heritage = samaria_heritage
-					}
-				}
-				order_by = num_of_cities
-				trigger_event = {
-					id = samaria_inv.36
-					days = { 550 730 }
-				}
-			}
-
-			ordered_country = {
-				limit = {
-					capital_scope = {
-						area = {
 							region = region:ariana_region
 						}
 					}
@@ -2127,6 +2108,7 @@ samaria_inv.35 = { #judea in chains task 36
 				NOR = {
 					has_trait = cruel
 					has_trait = zealous
+					has_trait = pyromaniac
 				}
 			}
 		}
@@ -2985,7 +2967,7 @@ samaria_inv.102 = {
 		p:680 = {
 			add_province_modifier = {
 				name = province_diminishment_starvation_sanctuary
-				duration = 3650
+				duration = 1825
 			}
 		}
 		hidden_effect = {
@@ -3220,7 +3202,7 @@ samaria_inv.106 = {
 samaria_inv.107 = {
 	type = country_event
 	title = "samaria_inv.107.t"
-	desc = "samaria_inv.107.desc.zeal"
+	desc = "samaria_inv.107.desc"
 	picture = religious_rite
 	left_portrait = current_ruler
 

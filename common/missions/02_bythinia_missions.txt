@@ -15,10 +15,15 @@
         ai_mission_back_out_trigger = yes
     }
 
+    on_completion = {
+        complete_mission_effect = yes
+        capital_formable_small_effect = yes
+    }
+
     on_potential = {}
 
     on_start = {
-
+        start_mission_ai_effect = yes
     }
 
     on_abort = {
@@ -147,7 +152,7 @@
                         }
                     }
                 }
-            	c:HCP = {
+            	hidden:c:HCP = {
             		opinion = {
             			target = c:BIT
             			value >= 30
@@ -233,6 +238,7 @@
                                     age >= 16
                                     is_male = yes
                                     is_alive = yes
+
                                 }
                                 order_by = age
                                 position = end

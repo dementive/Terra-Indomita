@@ -712,6 +712,9 @@ shrine_building = { #Shrine
 
 	potential = {
 		has_city_status = yes
+	}
+
+	allow = {
 		is_holy_site = yes
 	}
 
@@ -980,6 +983,7 @@ aqueduct_building = { #Aqueduct // Sanitation Works
 	local_country_civilization_value = 1
 	cost = 160
 	time = 720
+	max_amount = 20
 
 	potential = {
 		has_city_status = yes
@@ -1308,8 +1312,8 @@ villa_building = { #Villa Estate
 	local_country_civilization_value = 5
 	local_migration_speed_modifier = -0.25
 
-	cost = 160
-	time = 720
+	cost = 200
+	time = 180
 
 	max_amount = 1
 
@@ -1334,25 +1338,23 @@ villa_building = { #Villa Estate
 				multiply = num_of_citizen
 			}
 		}
-		modifier = {
-			num_of_citizen < 2
-			num_of_nobles < 2
-			add = -50
-		}
 	}
 
 }
 
 barracks_building = { #Barracks
-	local_manpower_modifier = 0.2
 	local_freemen_desired_pop_ratio = 0.15
-	local_freemen_happyness = happiness_large_svalue
-	local_migration_speed_modifier = -0.25
+	local_freemen_happyness = 0.1
+	local_manpower_modifier = 0.2
+	local_cohort_start_experience = 15
+	local_population_capacity_modifier = 0.25
 	local_country_civilization_value = 5
-	max_amount = 1
+	local_migration_speed_modifier = -0.25
 
-	cost = 160
+	cost = 200
 	time = 180
+
+	max_amount = 1
 
 	potential = {
 		has_city_status = no
@@ -1394,9 +1396,6 @@ barracks_building = { #Barracks
 				trade_goods = camel
 			}
 			add = 2
-		}
-		modifier = {
-			add = -15
 		}
 	}
 }
@@ -1458,7 +1457,7 @@ latifundia_building = { #Slave Estate
 	local_slaves_output = 0.4
 	local_slaves_desired_pop_ratio = 0.05
 	local_population_capacity_modifier = 0.25
-	local_population_growth = 0.1
+	local_population_growth = 0.01
 	local_country_civilization_value = 5
 	local_migration_speed_modifier = -0.25
 
@@ -1484,10 +1483,6 @@ latifundia_building = { #Slave Estate
 				value = 1.5
 				multiply = num_of_slaves
 			}
-		}
-		modifier = {
-			num_of_slaves < 7
-			add = -20
 		}
 	}
 }
@@ -1533,16 +1528,6 @@ local_forum_building = { #Provincial Legation (Colonia)
 			NOT = {dominant_province_religion = owner.religion}
 			add = 3
 		}
-		modifier = {
-			# Don't build in homogenous areas
-			dominant_province_culture_group = owner.culture_group
-			dominant_province_religion = owner.religion
-			add = -20
-		}
-		modifier = {
-			total_population <= 7
-			add = -10
-		}
 	}
 }
 
@@ -1568,16 +1553,6 @@ crafts_workshop_building = {
 	modification_display = {
 		0 = local_base_trade_routes_modifier
 		1 = value_income
-	}
-	chance = {
-		modifier = {
-			province_unrest > 1
-			add = 1
-		}
-		modifier = {
-			NOT = { has_expensive_trade_good = yes }
-			add = -20
-		}
 	}
 }
 
@@ -1614,22 +1589,12 @@ commons_building = {
 			add = 3
 		}
 		modifier = {
-			total_population <= 7
-			add = -20
-		}
-		modifier = {
 			NOT = { dominant_province_culture_group = owner.culture_group }
 			add = 3
 		}
 		modifier = {
 			NOT = {dominant_province_religion = owner.religion}
 			add = 3
-		}
-		modifier = {
-			# Don't build in homogenous areas
-			dominant_province_culture_group = owner.culture_group
-			dominant_province_religion = owner.religion
-			add = -20
 		}
 	}
 }
@@ -1662,7 +1627,7 @@ council_of_elders_building = {
 			owner = {
 				is_tribal = yes
 			}
-			add = 1
+			add = 3
 		}
 		modifier = {
 			owner = {
@@ -1728,11 +1693,6 @@ settlement_entertainment_complex = {
 	time = 730
 
 	max_amount = 1
-	chance = {
-		modifier = {
-			add = -10
-		}
-	}
 }
 
 settlement_market = {
@@ -1752,12 +1712,6 @@ settlement_market = {
 	time = 730
 
 	max_amount = 1
-	chance = {
-		modifier = {
-			has_expensive_trade_good = yes
-			add = 5
-		}
-	}
 }
 
 #Conditional
@@ -1805,15 +1759,12 @@ sacred_enclosure_building = {
 
 	potential = {
 		has_city_status = no
-		trigger_if = {
-			limit = {
-				exists = owner
-			}
+		AND = {
+			exists = owner
 			owner = {
 				is_tribal = yes
 			}
 		}
-		trigger_else = { always = no }
 	}
 
 	allow = {
@@ -1861,6 +1812,12 @@ sanctuary_building = { #Sanctuary
 
 	potential = {
 		has_city_status = no
+		AND = {
+			exists = owner
+			owner = {
+				is_tribal = no
+			}
+		}
 	}
 
 	allow = {
@@ -1910,6 +1867,17 @@ slave_mine_building = { #Mine
 
 	allow = {
 		has_minable_trade_good_trigger = yes
+		trigger_if = {
+			limit = {
+				num_of_settlement_buildings_with_base_resources > 0
+				exists = owner
+				owner = { invention = global_settlement_building_slot_inv }
+			}
+			custom_tooltip = {
+				text = can_only_increase_base_resources_once_tt
+				num_of_settlement_buildings_with_base_resources < 1
+			}
+		}
 	}
 
 	cost = 200
@@ -1935,7 +1903,7 @@ slave_mine_building = { #Mine
 	}
 }
 settlement_blacksmith = { #Blacksmith
-	local_goods_from_slaves = -6
+	local_goods_from_slaves = -3
 	base_resources = 1
 	local_country_civilization_value = 10
 	local_migration_attraction = 3
@@ -1950,6 +1918,17 @@ settlement_blacksmith = { #Blacksmith
 			OR = {
 				trade_goods = iron
 				trade_goods = base_metals
+			}
+		}
+		trigger_if = {
+			limit = {
+				num_of_settlement_buildings_with_base_resources > 0
+				exists = owner
+				owner = { invention = global_settlement_building_slot_inv }
+			}
+			custom_tooltip = {
+				text = can_only_increase_base_resources_once_tt
+				num_of_settlement_buildings_with_base_resources < 1
 			}
 		}
 	}
@@ -1990,10 +1969,21 @@ basic_settlement_infratructure_building = { #Farming Settlement
 
 	allow = {
 		has_food_trade_good_trigger = yes
+		trigger_if = {
+			limit = {
+				num_of_settlement_buildings_with_base_resources > 0
+				exists = owner
+				owner = { invention = global_settlement_building_slot_inv }
+			}
+			custom_tooltip = {
+				text = can_only_increase_base_resources_once_tt
+				num_of_settlement_buildings_with_base_resources < 1
+			}
+		}
 	}
 
-	cost = 160
-	time = 720
+	cost = 200
+	time = 730
 
 	max_amount = 1
 
@@ -2005,7 +1995,7 @@ basic_settlement_infratructure_building = { #Farming Settlement
 	chance = {
 		modifier = {
 			has_food_trade_good_trigger = yes
-			add = 15
+			add = 10
 		}
 		modifier = {
 			add = 15
@@ -2016,10 +2006,6 @@ basic_settlement_infratructure_building = { #Farming Settlement
 				value = 0.5
 				multiply = num_of_slaves
 			}
-		}
-		modifier = {
-			has_expensive_trade_good = yes
-			add = 5
 		}
 	}
 
@@ -2042,10 +2028,23 @@ enclosure_building = {
 			text = enclosure_building_tt
 			trade_goods = cattle
 		}
+		trigger_if = {
+			limit = {
+				num_of_settlement_buildings_with_base_resources > 0
+				exists = owner
+				owner = { invention = global_settlement_building_slot_inv }
+			}
+			custom_tooltip = {
+				text = can_only_increase_base_resources_once_tt
+				num_of_settlement_buildings_with_base_resources < 1
+			}
+		}
 	}
 
 	cost = 200
 	time = 730
+
+	max_amount = 1
 
 	modification_display = {
 		0 = local_manpower_modifier
@@ -2089,6 +2088,13 @@ hunting_camps = { #Hunting Camps
 	}
 
 	chance = {
+		modifier = {
+			OR = {
+			trade_goods = wild_game
+			trade_goods = fur
+			}
+			add = 2
+		}
 		modifier = {
 			owner = {
 				is_tribal = yes
@@ -2144,12 +2150,12 @@ logging_camps = {
 
 	chance = {
 		modifier = {
-			add = 5
-			num_of_slaves >= 8
+			trade_goods = wood
+			add = 3
 		}
 		modifier = {
-			total_population > 15
-			add = -25
+			trade_goods = cedar
+			add = 3
 		}
 	}
 
