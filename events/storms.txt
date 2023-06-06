@@ -56,6 +56,14 @@ storm.1 = {
 			id = storm.42 #Pacific 2
 			days = { 70 250 }
 		}
+		trigger_event = {
+			id = storm.43 #Austronesian 1
+			days = { 10 90 }
+		}
+		trigger_event = {
+			id = storm.44 #Austronesian 2
+			days = { 70 250 }
+		}
 	}
 }
 
@@ -896,6 +904,92 @@ storm.42 = {
 		}
 	}
 }
+storm.43 = {
+	type = country_event
+	hidden = yes
+	immediate = {
+		#Austronesian 1
+		random_sea_and_river_zone = {
+			limit = {
+				is_in_region = austronesian_ocean_region
+				or = {
+					terrain = ocean
+					terrain = true_ocean_terrain
+				}
+				NOT = { has_province_modifier = stormy_seas }
+			}
+			add_vfx = {
+				name = "seastorm"
+				duration = 60
+			}
+			add_province_modifier = {
+				name = "stormy_seas"
+				duration = 60
+			}
+			every_neighbor_province = {
+				limit = {
+					is_in_region = austronesian_ocean_region
+					or = {
+						terrain = ocean
+						terrain = true_ocean_terrain
+					}
+					NOT = { has_province_modifier = stormy_seas }
+				}
+				add_vfx = {
+					name = "seastorm"
+					duration = 60
+				}
+				add_province_modifier = {
+					name = "stormy_seas"
+					duration = 60
+				}
+			}
+		}
+	}
+}
+storm.44 = {
+	type = country_event
+	hidden = yes
+	immediate = {
+		#Austronesian 2
+		random_sea_and_river_zone = {
+			limit = {
+				is_in_region = austronesian_ocean_region
+				or = {
+					terrain = ocean
+					terrain = true_ocean_terrain
+				}
+				NOT = { has_province_modifier = stormy_seas }
+			}
+			add_vfx = {
+				name = "seastorm"
+				duration = 60
+			}
+			add_province_modifier = {
+				name = "stormy_seas"
+				duration = 60
+			}
+			every_neighbor_province = {
+				limit = {
+					is_in_region = austronesian_ocean_region
+					or = {
+						terrain = ocean
+						terrain = true_ocean_terrain
+					}
+					NOT = { has_province_modifier = stormy_seas }
+				}
+				add_vfx = {
+					name = "seastorm"
+					duration = 60
+				}
+				add_province_modifier = {
+					name = "stormy_seas"
+					duration = 60
+				}
+			}
+		}
+	}
+}
 
 #11-20 Sand Storms
 #These are being spawned once a year "from" a random country. This means sometimes there will be no storms, if that country is destroyed before they break out.
@@ -950,7 +1044,7 @@ storm.11 = {
 			days = { 10 90 }
 		}
 		trigger_event = {
-			id = storm.31 #Mongolia
+			id = storm.32 #Mongolia
 			days = { 40 250 }
 		}
 	}
