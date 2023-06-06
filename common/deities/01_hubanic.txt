@@ -1,0 +1,742 @@
+﻿### Imported from Bronze Age ###
+
+deity_inshushinak = { #Inshushinak, City God of Susa, fertility, growth, spring rains, warrior. Main god at Dur Untash after this period. (God, Guardian and Lord of Susa, Judge of the Dead, God of Oaths, "Father of the Weak", "Lord of the Acropole" ("Temti Alimelu"), his symbol is a snake)
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_inshushinak = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_love
+	passive_modifier = { global_food_capacity = deity_global_food_capacity_svalue }
+	omen = { global_monthly_food_modifier = omen_global_monthly_food_modifier }
+	religion = elamite_pantheon
+	deity_category = fertility 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+}
+deity_napirisha = { #Napirisha, City God of Anshan, domains of Earth and fresh water, "Godd of the Earth, Sukkal of Humban"
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_napirisha = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_iberian_fertility
+	passive_modifier = { global_citizen_output = deity_global_citizen_output_svalue }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue }
+	religion = elamite_pantheon
+	deity_category = economy 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+	}
+}
+deity_ishnikarab = { #Ishnikarab, infernal goddess, judge, goddess of oaths, S/he who hears the prayer
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_ishnikarab = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_war
+	passive_modifier = { global_freemen_output = deity_global_freemen_output_svalue }
+	omen = { agressive_expansion_monthly_change = omen_aggressive_expansion_monthly_change_svalue }
+	religion = elamite_pantheon
+	deity_category = justice
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_capital_freemen_effect = yes
+	}
+}
+deity_lagamal = { #Lagamal, infernal goddess,"S/He who has no Mercy" judge
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+
+			deity:omen_lagamal = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_kemetic_eloquence_2
+	passive_modifier = { stability_monthly_change = deity_stability_monthly_change }
+	omen = { global_monthly_state_loyalty = omen_global_monthly_state_loyalty }
+	religion = elamite_pantheon
+	deity_category = justice 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+}
+deity_manzat = { #Manzat, Goddess, Deh-e-now) (A), "Great Lady", wife of Simut
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_manzat = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_iberian_fertility
+	passive_modifier = { build_cost = deity_build_cost_svalue }
+	omen = { monthly_wage_modifier = omen_monthly_wage_modifier_svalue }
+	religion = elamite_pantheon
+	deity_category = economy 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+	}
+}
+deity_susan_inanna = { #Inanna
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_susan_inanna = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_love_2
+	passive_modifier = { global_population_capacity_modifier = deity_global_population_capacity_modifier_svalue }
+	omen = { global_population_growth = omen_global_population_growth }
+	religion = elamite_pantheon
+	deity_category = fertility 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+	}
+}
+deity_susa_ea = { #Ea
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_susa_ea = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_war 
+	passive_modifier = { navy_maintenance_cost = deity_navy_maintenance_cost_svalue }
+	omen = { ship_repair_at_sea = deity_ship_repair_at_sea }
+	religion = elamite_pantheon
+	deity_category = war 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		naval_apotheosis_effect = yes
+	}
+}
+deity_susa_sin = { #Sin
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_susa_sin = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { global_pop_assimilation_speed_modifier = deity_global_pop_assimilation_speed_modifier_svalue }
+	omen = { monthly_political_influence_modifier = deity_monthly_political_influence_modifier_svalue }
+	religion = elamite_pantheon
+	deity_category = wisdom 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+}
+deity_susa_belet_ili = { #Belet-Ili
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_susa_belet_ili = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_kemetic_love 
+	passive_modifier = { global_freemen_happyness = deity_global_freemen_happyness_svalue }
+	omen = { diplomatic_reputation = deity_diplomatic_reputation_svalue  } 
+	religion = elamite_pantheon
+	deity_category = fertility 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+}
+deity_susa_adad = { #Adad
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_susa_adad = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth 
+	passive_modifier = { happiness_for_same_culture_modifier = deity_happiness_for_wrong_culture_modifier_svalue }
+	omen = { naval_damage_taken = deity_naval_damage_taken_svalue }  
+	religion = elamite_pantheon
+	deity_category = economy 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_income_effect = yes
+	}
+}
+deity_susa_enlil = { #Enlil
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_susa_enlil = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_kemetic_war_2
+	passive_modifier = { experience_decay = deity_experience_decay_svalue }
+	omen = { manpower_recovery_speed = omen_manpower_recovery_speed } 
+	religion = elamite_pantheon
+	deity_category = war 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_military_experience_effect = yes
+	}
+}
+deity_susa_shamash = { #Shamash
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_susa_shamash = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_eloquence
+	passive_modifier = { stability_monthly_change = deity_stability_monthly_change }
+	omen = { global_slaves_happyness = omen_global_slaves_happiness_svalue } 
+	religion = elamite_pantheon
+	deity_category = culture 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_rel_tech_effect = yes
+	}
+}
+deity_simut = { #Simut,god of the Country and Patriotism,"God of the Elamites" (nap hatamt-ir), "Mighty Herald" (perir) of the Gods, husband of Manzat
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_simut = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_kemetic_eloquence_2
+	passive_modifier = { happiness_for_same_religion_modifier = deity_happiness_for_same_religion_modifier }
+	omen = { monthly_tyranny = omen_monthly_tyranny_svalue }
+	religion = elamite_pantheon
+	deity_category = culture 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+}
+deity_pinigir = { #Pinigir,Goddess, "Commander of Heaven")
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+
+
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_pinigir = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_iberian_war
+	passive_modifier = { land_morale_modifier = deity_land_morale_modifier_svalue }
+	omen = { discipline = omen_discipline_svalue }
+	religion = elamite_pantheon
+	deity_category = war 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_manpower_effect = yes
+	}
+}
+deity_hutran = { #Hutran, son of Humban and Kiririsha, "Beloved Mother's son" (ruhu hanek)
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_hutran = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth
+	passive_modifier = { global_tax_modifier = deity_global_tax_modifier_svalue }
+	omen = { mercenary_land_maintenance_cost = omen_mercenary_land_maintenance_cost_svalue }
+	religion = elamite_pantheon
+	deity_category = economy 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+}
+deity_kirmashir = { #Kirmashir
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_kirmashir = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_love
+	passive_modifier = { global_tribesmen_happyness = global_tribesmen_happiness_svalue }
+	omen = { army_weight_modifier = omen_army_weight_modifier }
+	religion = elamite_pantheon
+	deity_category = fertility 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_capital_slaves_effect = yes
+	}
+}
+deity_narundi = { #Narundi, Goddess, sister of the Great Goddess, Goddess of Victory), she is accompanied by a lion
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_narundi = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_war
+	passive_modifier = { army_maintenance_cost = deity_army_maintenance_cost_svalue }
+	omen = { manpower_recovery_speed = omen_manpower_recovery_speed }
+	religion = elamite_pantheon
+	deity_category = war 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_manpower_effect = yes
+	}
+}
+deity_nahiti = { #Nahiti, son (sun?) god, God of Justice, God of Trade (fixes rates of interest, standart weights etc.
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_nahiti = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_kemetic_wealth_2
+	passive_modifier = { global_capital_trade_routes = deity_global_capital_trade_routes_svalue }
+	omen = { global_commerce_modifier = omen_global_commerce_modifier_svalue }
+	religion = elamite_pantheon
+	deity_category = justice 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+	}
+}
+deity_humban = { #Humban, Kurangun,"Keeper (kukki) of the Powerful God" (nap-azzak-ri), Great Lord, he who provides kiten for the King, God of the Sky)
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_humban = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_eloquence
+	passive_modifier = { monthly_corruption = deity_monthly_corruption_svalue }
+	omen = { ruler_popularity_gain = omen_ruler_popularity_gain_svalue }
+	religion = elamite_pantheon
+	deity_category = culture 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
+	}
+}
+deity_hishmitik = { #Hishmitik
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_hishmitik = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth
+	passive_modifier = { happiness_for_same_culture_modifier = deity_happiness_for_wrong_culture_modifier_svalue }
+	omen = { global_citizen_output = omen_global_citizen_output_svalue }
+	religion = elamite_pantheon
+	deity_category = economy 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+	}
+}
+deity_ruhurater = { #Ruhurater, Cult centre in Huhunuri, but also Lord of Malamir in Hidali Province, "Nourisher of the Legal Offspring")
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_ruhurater = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_love
+	passive_modifier = { global_population_capacity_modifier = deity_global_population_capacity_modifier_svalue }          
+	omen = { global_population_growth = omen_global_population_growth }
+	religion = elamite_pantheon
+	deity_category = fertility 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+}
+deity_kiririsha = { #Kiririsha, Liyan, Great Wife, wife of Inshushinak and Humban, Great Goddess, "Mother of the Gods", "Mistress of the High Temple, the lady who takes care of all", Goddess of Liyan
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_kiririsha = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_love
+	passive_modifier = { global_food_capacity = deity_global_food_capacity_svalue }
+	omen = { global_monthly_food_modifier = omen_global_monthly_food_modifier }
+	religion = elamite_pantheon
+	deity_category = fertility 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+}
+deity_silir_qatru = { #Silir-Qatru, protector of Elam
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_silir_qatru = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_iberian_war
+	passive_modifier = { diplomatic_relations = deity_diplomatic_relations_svalue }
+	omen = { global_defensive = omen_global_defensive_svalue }
+	religion = elamite_pantheon
+	deity_category = war 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_rel_tech_effect = yes
+	}
+}
+deity_upurkupak = { #Upurkupak. Goddess,""Mistress of the Way of the Nobles" wife of Khaterishni
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_upurkupak = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_eloquence
+	passive_modifier = { global_slaves_happyness = deity_global_slaves_happiness_svalue }
+	omen = { global_citizen_happyness = omen_global_citizen_happiness_svalue }
+	religion = elamite_pantheon
+	deity_category = culture 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
+	}
+}
+
+deity_napir = { #Napir, God of the Moon; etymology probably from "napir" meaning god
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_napir = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_kemetic_eloquence_2
+	passive_modifier = { happiness_for_same_culture_modifier = deity_happiness_for_same_religion_modifier }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue }
+	religion = elamite_pantheon
+	deity_category = culture 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+}
+
+deity_ishmekarab = { #Ishmekarab, god of justice. Closely associtaed with with Lagamal and Insusinak
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_ishmekarab = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_eloquence
+	passive_modifier = { stability_monthly_change = deity_stability_monthly_change }
+	omen = { monthly_corruption = omen_monthly_corruption }
+	religion = elamite_pantheon
+	deity_category = justice 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		if = {
+			limit = {
+				exists = scope:deified_ruler
+			}
+			add_stability = 10
+		}
+	}
+}
+
+deity_shala = { #Shala, goddess of rain, growth, etc; wife of Adad; originally Mesopotamian
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_shala = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_love_2
+	passive_modifier = { global_population_capacity_modifier = deity_global_population_capacity_modifier_svalue }
+	omen = { global_monthly_food_modifier = omen_global_monthly_food_modifier }
+	religion = elamite_pantheon
+	deity_category = fertility
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+}
+
+deity_jabru = { #Jabru, god of the heavens and the sky, father of Humban
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_jabru = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_war
+	passive_modifier = { experience_decay = deity_experience_decay_svalue }
+	omen = { agressive_expansion_monthly_change = omen_aggressive_expansion_monthly_change_svalue }
+	religion = elamite_pantheon
+	deity_category = war
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+}
+
+deity_mashti = { #Mašti, protector of the gods
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = elamite_pantheon
+			}
+			deity:omen_mashti = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_iberian_war
+	passive_modifier = { discipline = deity_discipline_svalue }
+	omen = { garrison_size = 0.1 }
+	religion = elamite_pantheon
+	deity_category = war 
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_military_experience_effect = yes
+	}
+}
