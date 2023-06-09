@@ -1,5 +1,5 @@
 ﻿### General Deities Check ###
-deity_kuntuu = { # CULTURE
+deity_kuntuu = { # WISDOM
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
@@ -11,11 +11,111 @@ deity_kuntuu = { # CULTURE
 			}
 		}
 	}
-	icon = deity_tribal_culture
+	icon = deity_wisdom
 	passive_modifier = { happiness_for_same_culture_modifier = deity_happiness_for_same_culture_modifier_svalue }
 	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue } #Bonus from Omen
 	on_activate = {
 		culture_apotheosis_civic_tech_effect = yes
+	}
+	religion = burmese_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_kndook = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = burmese_religion
+			}
+			deity:omen_kndook = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { research_points_modifier = deity_research_points_modifier_svalue }
+	omen = { civic_tech_investment = omen_civic_tech_investment_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_rel_tech_effect = yes
+	}
+	religion = burmese_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_doon = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = burmese_religion
+			}
+			deity:omen_doon = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { monthly_centralization = 0.05 }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue } #Bonus from Omen
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+	religion = burmese_religion
+	deity_category = justice #This Deity uses a Justice slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_triaa = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = burmese_religion
+			}
+			deity:omen_triaa = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { stability_monthly_change = deity_stability_monthly_change }
+	omen = { governor_loyalty = 5 } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_civic_tech_effect = yes
+	}
+	religion = burmese_religion
+	deity_category = justice #This Deity uses a Justice slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_buul = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = burmese_religion
+			}
+			deity:omen_buul = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_culture
+	passive_modifier = { global_tribesmen_output = omen_global_tribesmen_output_svalue }
+	omen = { global_population_happiness = omen_global_population_happiness } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
 	}
 	religion = burmese_religion
 	deity_category = culture #This Deity uses a Culture slot.
@@ -218,6 +318,7 @@ deity_irrawaddy = { # CULTURE
 				is_in_area = halin_area
 				is_in_area = beikthano_area
 				is_in_area = pubu_area
+				is_in_area = shenli_area
 			}
 		}
 	}
