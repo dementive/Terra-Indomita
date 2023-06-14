@@ -83,7 +83,6 @@ window = {
 		}
 
 		widget = {
-			visible = "[Not(InReleaseMode)]"
 			size = { 100% 90 }
 			background = {
 				using = editor_window
@@ -225,7 +224,6 @@ window = {
 
 
 		window = {
-			visible = "[Not(InReleaseMode)]"
 			name = "toolbars_window"
 			movable = no
 			size = { 100% 80 }
@@ -241,11 +239,11 @@ window = {
 					hbox = {
 						layoutpolicy_vertical = expanding
 						console_button = {
-							text = "AI"
 							size = { 0 0 }
 							blockoverride "icon" {}
-							onclick = "[ExecuteConsoleCommand('ai')]"
-							tooltip = "console_ai"
+							text = "Print Maps"
+							onclick = "[ExecuteConsoleCommandsForced('printmap political;printmap culture;printmap religion;printmap simple_terrain;printmap population;printmap fortifications;printmap civilization')]"
+							tooltip = "Print all maps for province data editor"
 						}
 						console_button = {
 							text = "Yes Men"
