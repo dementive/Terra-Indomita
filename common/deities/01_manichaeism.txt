@@ -118,3 +118,55 @@ deity_prophet_mani = { # WAR
 		can_deify_trigger = yes
 	}
 }
+
+deity_manichaean_bardaisan = { # WISDOM
+	trigger = {
+		OR = {
+			religion = manichaeism
+			rare_deity_trigger = {
+				RELIGION = manichaeism
+			}
+			deity:omen_manichaean_bardaisan = {
+				holy_site_deity_check_trigger = yes
+			}
+		}	
+	}
+	icon = wisdom
+	passive_modifier = { research_points_modifier = deity_research_points_modifier_svalue }
+	omen = { oratory_tech_investment = omen_oratory_tech_investment } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_oratory_tech_effect = yes
+	}
+	religion = manichaeism
+	deity_category = wisdom
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_manichaean_krishna = { # JUSTICE
+	trigger = {
+		OR = {
+			religion = manichaeism
+			common_deity_trigger = {
+				RELIGION = manichaeism
+			}
+			deity:omen_manichaean_bardaisan = {
+				holy_site_deity_check_trigger = yes
+			}
+		}	
+	}
+	icon = deity_hindu_love
+	passive_modifier = { global_pop_assimilation_speed_modifier = deity_global_pop_assimilation_speed_modifier_svalue }
+	omen = { global_monthly_state_loyalty = omen_global_monthly_state_loyalty } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_civic_tech_effect = yes
+	}
+	religion = manichaeism
+	deity_category = justice #This Deity uses a Justice slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
