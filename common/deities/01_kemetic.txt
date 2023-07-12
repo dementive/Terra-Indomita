@@ -655,7 +655,7 @@ deity_nut = { # FERTILITY
 		can_deify_trigger = yes
 	}
 }
-deity_mut = { # CULTURE
+deity_mut = { # FERTILITY
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
@@ -667,14 +667,14 @@ deity_mut = { # CULTURE
 			}
 		}
 	}
-	icon = deity_kemetic_eloquence_2
-	passive_modifier = { global_citizen_output = deity_global_citizen_output_svalue }
+	icon = deity_kemetic_love_2
+	passive_modifier = { global_population_capacity_modifier = deity_global_population_capacity_modifier_svalue }
 	omen = { global_citizen_happyness = deity_global_citizen_happiness_svalue } #Bonus from Omen
 	on_activate = {
 		culture_apotheosis_capital_effect = yes
 	}
 	religion = egyptian_pantheon
-	deity_category = culture #This Deity uses a Culture Slot
+	deity_category = fertility #This Deity uses a Fertility Slot
 
 	deification_trigger = {
 		can_deify_trigger = yes
@@ -1223,5 +1223,30 @@ deity_heryshaf = { # Fertility
 				duration = 100
 			}
 		}
+	}
+}
+deity_nefertem = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_rare_deity_trigger = {
+				RELIGION = egyptian_pantheon
+			}
+			deity:omen_nefertem = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_kemetic_wealth_2
+	passive_modifier = { global_food_capacity = deity_global_food_capacity_svalue }
+	omen = { global_commerce_modifier = omen_global_commerce_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+	religion = egyptian_pantheon
+	deity_category = economy #This Deity uses a Culture Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
 	}
 }
