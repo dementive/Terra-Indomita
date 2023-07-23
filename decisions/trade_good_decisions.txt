@@ -1915,5 +1915,169 @@
 		ai_will_do = {
 			base = 0
 		}
-	}	
+	}
+	#Pearls
+	pearls_province_decision_1 = { # Tylos
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = { has_global_variable = pearls_province_decision_1_var }
+			trade_good_decision_potential = {
+				TIME = 1
+			}
+			owns = 7202
+		}
+
+		highlight = {
+			scope:province = {
+				this = p:7202
+			}
+		}
+
+		allow = {
+			p:7202 = {
+				trade_good_decision_allow = {
+					DIFFICULTY = 1
+				}
+			}
+		}
+		
+		effect = {
+			set_global_variable = pearls_province_decision_1_var
+			p:7202 = {
+				add_permanent_province_modifier = {
+					name = tylos_pearls_mod
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#Tea
+	tea_province_decision_1 = { # Pi
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = { has_global_variable = tea_province_decision_1_var }
+			trade_good_decision_potential = {
+				TIME = 1
+			}
+			owns = 8867
+		}
+
+		highlight = {
+			scope:province = {
+				this = p:8867
+			}
+		}
+
+		allow = {
+			p:8867 = {
+				trade_good_decision_allow = {
+					DIFFICULTY = 1
+				}
+			}
+		}
+		
+		effect = {
+			set_global_variable = tea_province_decision_1_var
+			p:8867 = {
+				add_permanent_province_modifier = {
+					name = sichuan_tea_mod
+				}
+				trade_good_decision_spread_effect = {
+					REGION = yes
+					TRADE_GOOD = tea
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+	tea_province_decision_2 = { # Qiongdu
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = { has_global_variable = tea_province_decision_2_var }
+			trade_good_decision_potential = {
+				TIME = 1
+			}
+			owns = 8895
+		}
+
+		highlight = {
+			scope:province = {
+				this = p:8895
+			}
+		}
+
+		allow = {
+			p:8895 = {
+				trade_good_decision_allow = {
+					DIFFICULTY = 1
+				}
+			}
+		}
+		
+		effect = {
+			set_global_variable = tea_province_decision_2_var
+			p:8895 = {
+				add_permanent_province_modifier = {
+					name = yunnan_tea_mod
+				}
+				trade_good_decision_spread_effect = {
+					REGION = yes
+					TRADE_GOOD = tea
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#Tortoiseshell
+	tortoiseshell_province_decision_1 = { # Apocopa
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = { has_global_variable = tortoiseshell_province_decision_1_var }
+			trade_good_decision_potential = {
+				TIME = 1
+			}
+			owns = 10490
+		}
+
+		highlight = {
+			scope:province = {
+				this = p:10490
+			}
+		}
+
+		allow = {
+			p:10490 = {
+				trade_good_decision_allow = {
+					DIFFICULTY = 2
+				}
+			}
+		}
+		
+		effect = {
+			set_global_variable = tortoiseshell_province_decision_1_var
+			p:10490 = {
+				add_permanent_province_modifier = {
+					name = africa_tortoiseshell_mod
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+		
 }
