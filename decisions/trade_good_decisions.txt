@@ -41,7 +41,6 @@
 	#	Silphium 1 - Serapeion (3344)
 
 	#	Marble 1 - Darabgird (3402)
-	#	Marble 2 - Linzi (8505) #TI NEW
 
 	#	Silk 1 - Madra (4346)
 	#	Silk 2 - Rasht (4985)
@@ -2110,6 +2109,175 @@
 			p:10599 = {
 				add_permanent_province_modifier = {
 					name = huvadhoo_cowrieshell_mod
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+	#Porcelain
+	porcelain_province_decision_1 = { # Chang An
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = { has_global_variable = porcelain_province_decision_1_var }
+			trade_good_decision_potential = {
+				TIME = 2
+			}
+			owns = 8334
+		}
+
+		highlight = {
+			scope:province = {
+				this = p:8334
+			}
+		}
+
+		allow = {
+			p:8334 = {
+				trade_good_decision_allow = {
+					DIFFICULTY = 4
+				}
+			}
+		}
+		
+		effect = {
+			set_global_variable = porcelain_province_decision_1_var
+			p:8334 = {
+				add_permanent_province_modifier = {
+					name = changan_porcelain_mod
+				}
+				trade_good_decision_spread_effect = {
+					REGION = yes
+					TRADE_GOOD = porcelain
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+	porcelain_province_decision_2 = { # Chengzhou
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = { has_global_variable = porcelain_province_decision_2_var }
+			trade_good_decision_potential = {
+				TIME = 2
+			}
+			owns = 8379
+		}
+
+		highlight = {
+			scope:province = {
+				this = p:8379
+			}
+		}
+
+		allow = {
+			p:8379 = {
+				trade_good_decision_allow = {
+					DIFFICULTY = 4
+				}
+			}
+		}
+		
+		effect = {
+			set_global_variable = porcelain_province_decision_2_var
+			p:8379 = {
+				add_permanent_province_modifier = {
+					name = luoyang_porcelain_mod
+				}
+				trade_good_decision_spread_effect = {
+					REGION = yes
+					TRADE_GOOD = porcelain
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+	porcelain_province_decision_3 = { # Linzi
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = { has_global_variable = porcelain_province_decision_3_var }
+			trade_good_decision_potential = {
+				TIME = 2
+			}
+			owns = 8504
+		}
+
+		highlight = {
+			scope:province = {
+				this = p:8504
+			}
+		}
+
+		allow = {
+			p:8504 = {
+				trade_good_decision_allow = {
+					DIFFICULTY = 4
+				}
+			}
+		}
+		
+		effect = {
+			set_global_variable = porcelain_province_decision_3_var
+			p:8504 = {
+				add_permanent_province_modifier = {
+					name = linzi_porcelain_mod
+				}
+				trade_good_decision_spread_effect = {
+					REGION = yes
+					TRADE_GOOD = porcelain
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+	porcelain_province_decision_4 = { # Ying
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = { has_global_variable = porcelain_province_decision_4_var }
+			trade_good_decision_potential = {
+				TIME = 2
+			}
+			owns = 8972
+		}
+
+		highlight = {
+			scope:province = {
+				this = p:8972
+			}
+		}
+
+		allow = {
+			p:8972 = {
+				trade_good_decision_allow = {
+					DIFFICULTY = 4
+				}
+			}
+		}
+		
+		effect = {
+			set_global_variable = porcelain_province_decision_4_var
+			p:8972 = {
+				add_permanent_province_modifier = {
+					name = ying_porcelain_mod
+				}
+				trade_good_decision_spread_effect = {
+					REGION = yes
+					TRADE_GOOD = porcelain
 				}
 			}
 		}
