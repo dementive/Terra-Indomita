@@ -1,0 +1,450 @@
+﻿qi_missions = {
+	header = "mission_image_china"
+	icon = "seleukid_1"
+
+	repeatable = no
+	chance = 1000
+
+	potential = {
+		NOT = { has_variable = mission_cooldown_var }
+		tag = QII
+	}
+
+	abort = {}
+
+	on_start = {
+		start_mission_ai_effect = yes
+	}
+
+	on_abort = {
+		custom_tooltip = general_mission_cooldown_tt
+		set_variable = {
+			name = mission_cooldown_var
+			days = 7300
+		}
+	}
+
+	on_completion = {}
+
+	# Luxuries of Linzi
+	qi_missions_task_1 = {
+		icon = "task_political"
+		allow = {
+			# Capital buildings and investments
+			p:8504 = {
+				num_of_used_building_slots >= 5
+			}
+			p:8504.state = {
+				trigger_if = {
+					limit = {
+						has_variable = num_state_investments
+					}
+					custom_tooltip = {
+						text = state_has_2_investments_tt
+						var:num_state_investments >= 2
+					}
+				}
+				trigger_else = {
+					custom_tooltip = {
+						text = state_has_2_investments_tt
+						always = no
+					}
+				}
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.1
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Center of Chinese Civilization
+	qi_missions_task_2 = {
+		icon = "task_political"
+		requires = { qi_missions_task_1 }
+		allow = {
+			# Capital Buildings, pops, and investments
+			p:8504 = {
+				total_population >= 40
+				num_of_used_building_slots >= 10
+			}
+			p:8504.state = {
+				trigger_if = {
+					limit = {
+						has_variable = num_state_investments
+					}
+					custom_tooltip = {
+						text = state_has_4_investments_tt
+						var:num_state_investments >= 4
+					}
+				}
+				trigger_else = {
+					custom_tooltip = {
+						text = state_has_4_investments_tt
+						always = no
+					}
+				}
+			}
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.2
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Patronage of Scholars
+	qi_missions_task_3 = {
+		icon = "task_political"
+		requires = { qi_missions_task_2 }
+		allow = {
+			# 10 Nobles, 3 academies, and 1 of each special pop in the capital
+			p:8504 = {
+				num_of_nobles >= 10
+				num_of_academy_building >= 3
+				province_has_special_pop = {
+				    text = "prov_has_1_artist_tt"
+				    type = artist
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_priest_tt"
+				    type = priest
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_architect_tt"
+				    type = architect
+				    count = 1
+				}
+			}
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.3
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Supporting the Jixia Academy
+	qi_missions_task_4 = {
+		icon = "task_political"
+		requires = { qi_missions_task_3 }
+		allow = {
+			# Gold and PI for a wonder (build a new wonder in Linzi next to the Jixia Academy that is a BIGGER library)
+			# Copy the qin library construction tasks
+			treasury >= 750
+			political_influence >= 50
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.4
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Great Center of Wisdom
+	qi_missions_task_5 = {
+		icon = "task_political"
+		requires = { qi_missions_task_4 }
+		allow = {
+			# Linzi is a metropolis, has lots of special pops, and has 20 or more buildings
+			p:8504 = {
+				has_province_rank = city_metropolis
+				num_of_used_building_slots >= 20
+				province_has_special_pop = {
+				    text = "prov_has_1_artist_tt"
+				    type = artist
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_priest_tt"
+				    type = priest
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_architect_tt"
+				    type = architect
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_merchant_tt"
+				    type = merchant
+				    count = 1
+				}
+			}
+
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.5
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Great Traders of Qi
+	qi_missions_task_6 = {
+		icon = "task_political"
+		requires = { qi_missions_task_1 }
+		allow = {
+			# 25 commerce OR port buildings in core shandong areas
+			custom_tooltip = {
+				text = qi_missions_task_6_tt
+				qi_missions_task_6_buildings_svalue >= qi_missions_task_6_buildings_max
+			}
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.6
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Shandong Supremacy
+	qi_missions_task_7 = {
+		icon = "task_political"
+		requires = { qi_missions_task_6 }
+		allow = {
+			# Shandong core areas have 10 cities, 3 metropolis, and 500 or more pops
+			any_owned_province = {
+				count >= 3
+				has_province_rank = city_metropolis
+			}
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.7
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Bolster the Great Wall
+	qi_missions_task_8 = {
+		icon = "task_political"
+		requires = { qi_missions_task_3 }
+		allow = {
+			# Build 15 levels of forts along the Qi great wall locations, use svalue to count total.
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.8
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# The Kingdom of Qi
+	qi_missions_task_9 = {
+		icon = "task_political"
+		duration = 60
+		allow = {
+			treasury >= 25
+			political_influence >= 15
+		}
+
+		on_start = {
+			add_treasury = -25
+			add_political_influence = -15
+		}
+
+		on_completion = {
+			trigger_event = me_qi.9
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Secure the South
+	qi_missions_task_10 = {
+		icon = "task_political"
+		allow = {
+			# Own all of Langya and Taishan areas
+			owns_or_subject_owns_area = langya_area
+			owns_or_subject_owns_area = taishan_area
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.10
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Destruction of Yan
+	qi_missions_task_11 = {
+		icon = "task_political"
+		requires = { qi_missions_task_9 qi_missions_task_10 }
+		allow = {
+			# Own Bohai and Yuyang areas
+			owns_or_subject_owns_area = bohai_area
+			owns_or_subject_owns_area = yuyang_area
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.11
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# The Great Tian Bijiang
+	qi_missions_task_12 = {
+		icon = "task_political"
+		allow = {
+			current_ruler = {
+				popularity >= 80
+				corruption < 10
+			}
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.12
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# The Legacy of Sun Bin
+	qi_missions_task_13 = {
+		icon = "task_political"
+		requires = { qi_missions_task_12 }
+		allow = {
+			treasury >= 25
+			political_influence >= 15
+		}
+		on_completion = {
+			add_treasury = -25
+			add_political_influence = -15
+			trigger_event = me_qi.13
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Emperor of the East
+	qi_missions_task_14 = {
+		icon = "task_political"
+		requires = { qi_missions_task_11 qi_missions_task_13 }
+		allow = {
+			# Own Qing and Xu regions
+			owns_or_subject_owns_region = qing_region
+			owns_or_subject_owns_region = xu_region
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.14
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Eastern Prosperity
+	qi_missions_task_15 = {
+		icon = "task_political"
+		requires = { qi_missions_task_14 }
+		allow = {
+			# Qing and Xu regions both have 100 buildings each
+			region:qing_region = {
+				every_region_province = {
+					limit = {
+						owner = root
+					}
+				}
+			}
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.15
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# The End of Wei
+	qi_missions_task_16 = {
+		icon = "task_political"
+		requires = { qi_missions_task_14 }
+		allow = {
+			# Own core Wei lands.
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.16
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# Betray the Zhou
+	qi_missions_task_17 = {
+		icon = "task_political"
+		requires = { qi_missions_task_14 }
+		allow = {
+			# Own core Zhou lands.
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.17
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# The Great War of Unification
+	qi_missions_task_18 = {
+		icon = "task_political"
+		requires = { qi_missions_task_16 qi_missions_task_17 }
+		allow = {
+			# Is in a war with the chinese unification war
+			
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.18
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+	# The Qi Dynasty
+	qi_missions_task_19 = {
+		icon = "task_political"
+		requires = { qi_missions_task_18 }
+		allow = {
+			government = chinese_empire
+		}
+		on_completion = {
+			#
+			trigger_event = me_qi.19
+			show_as_tooltip = {
+
+			}
+		}
+	}
+
+}
