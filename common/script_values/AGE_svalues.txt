@@ -1,0 +1,212 @@
+﻿hellenic_obj_four_svalue = {
+	value = 0
+	capital_scope = {
+		if = {
+			limit = {
+				state = { incoming_trade_routes >= 10 }
+			}
+			add = 1
+		}
+		if = {
+			limit = {
+				state = { outgoing_trade_routes >= 10 }
+			}
+			add = 1
+		}
+		if = {
+			limit = {
+				any_neighbor_province = {
+					count = all
+					is_sea = no
+					is_uninhabitable = no
+					has_road_towards = PREV
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+hellenic_obj_five_svalue = {
+	value = 0
+	every_owned_province = {
+		add = num_of_academy_building
+	}
+	multiply = 10
+	max = 100
+}
+
+hellenic_obj_six_current = {
+	value = 0
+	capital_scope.area = {
+		every_area_province = {
+			every_pops_in_province = {
+				limit = {
+					pop_religion = roman_pantheon
+				}
+				add = 1
+			}
+		}
+	}
+}
+
+hellenic_obj_six_total = {
+	value = 0
+	capital_scope.area = {
+		every_area_province = {
+			add = total_population
+		}
+	}
+}
+
+# Progressbar value in gui
+hellenic_obj_six_svalue = { 
+	value = hellenic_obj_six_current
+	divide = hellenic_obj_six_total
+	multiply = 100
+}
+
+
+hellenic_obj_seven_svalue = {
+	value = 0
+	if = {
+		limit = {
+			any_legion = {
+				count > 0
+			}
+		}
+		ordered_legion = {
+			order_by = unit_count
+			every_legion_unit = {
+			    add = unit_size
+			}
+		}
+	}
+	max = 15
+}
+
+migration_obj_three_svalue = {
+	value = 0
+	if = {
+		limit = {
+			any_owned_province = {
+				fort_level >= 4
+			}
+		}
+		add = 1
+	}
+	every_owned_province = {
+		limit = {
+			fort_level = 3
+		}
+		add = 1
+	}
+	max = 4
+}
+
+migration_obj_four_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			terrain = steppes
+		}
+		add = 1
+	}
+	max = 40
+}
+
+migration_obj_six_svalue = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = num_state_mods
+		}
+		add = var:num_state_mods
+	}
+	max = 20
+}
+
+migration_obj_seven_svalue = {
+	value = 0
+	every_subject = {
+		limit = {
+			is_subject_type = vassal_tribe
+		}
+		add = 1
+	}
+	max = 3
+}
+
+empire_obj_one_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			has_province_rank = city_metropolis
+		}
+		add = 1
+	}
+	max = 10
+}
+
+empire_obj_two_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			has_great_work = yes
+		}
+		add = 1
+	}
+	max = 5
+}
+
+empire_obj_three_svalue = {
+	value = 0
+	every_owned_province = {
+		add = civilization_value
+	}
+	max = 1000
+}
+
+empire_obj_four_svalue = {
+	value = 0
+	every_owned_province = {
+		every_neighbor_province = {
+			limit = {
+				is_sea = no
+				is_uninhabitable = no
+				has_road_towards = PREV
+				exists = owner
+				owner = root
+			}
+			add = 1
+		}
+	}
+	max = 500
+}
+
+empire_obj_five_svalue  = {
+	value = 0
+	every_integrated_culture = {
+		limit = {
+			prev = {
+				culture_pops_in_country = {
+					target = prev
+					value >= 300
+				}
+			}
+		}
+		add = 1
+	}
+	max = 3
+}
+
+empire_obj_six_svalue = {
+	value = 0
+	every_owned_province = {
+		add = num_of_library_building
+		add = num_of_foundry_building
+		add = num_of_port_building
+		add = num_of_aqueduct_building
+	}
+	max = 350
+}

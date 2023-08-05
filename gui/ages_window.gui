@@ -1,0 +1,375 @@
+# onclick = "[ExecuteConsoleCommand('gui.createwidget gui/ages_window.gui ages_window')]"
+
+@ages_window_x = 675
+@ages_window_y = 895
+
+types AgeWindowTypes
+{
+	type golden_age_button = widget {
+		using = DropShadow
+	
+		button = {
+			name = "Button_Outline"
+			using = button_tiled_texture
+			spriteType = Corneredtiled
+			spriteborder = { 200 200 }
+			gfxtype = framedbuttongfx
+			size = { 100% 100% }
+			framesize = { 200 200 }
+			upframe = 1
+			overframe = 2
+			downframe = 3
+			disableframe = 4
+			block "On_click" { }
+			block "Shortcut" { }
+
+			clicksound = "event:/SFX/UI/Generic/2.0/sfx_ui_button_primary"
+			widget = {
+				name = "Decorations"
+				size = { 100% 100% }
+				background = {
+					spriteType = Corneredtiled
+					texture = "gfx/interface/base_parts/button_lines_brown.dds"
+					shaderfile = "gfx/FX/pdxgui_default.shader"
+					alpha = 0.5
+					spriteborder = { 22 0 }
+
+					modify_texture = {
+						name = "Decay"
+						texture = "gfx/interface/base_parts/button_lines_alpha.dds"
+						blend_mode = alphamultiply
+						spriteType = Corneredtiled
+						alpha = 0.4
+					}					
+				}
+				background = {
+					name = "side_pattern"
+					texture = "gfx/interface/ages_window/golden_age_button_pattern.dds"
+					shaderfile = "gfx/FX/pdxgui_default.shader"
+					spriteType = Corneredtiled
+					spriteborder = { 22 0 }
+				}				
+			}
+			textbox = {
+				name = "Text"
+				position = { 0 -1 }
+				widgetanchor = center
+				parentanchor = center				
+				using = BaseFontS
+				using = Button_FontColor
+				autoresize = yes
+				align = center
+				block "Center_text"
+				{
+					text = "Button Text"
+				}
+			}
+		}
+	}
+	type age_objectives = container  {
+		flowcontainer = {
+			name = "hellenic_age_objectives"
+			direction = vertical
+			position = { 0 -49 }
+			spacing = -9
+			visible = "[GetScriptedGui('is_first_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			using = hellenic_objectives
+		}
+		flowcontainer = {
+			name = "migration_age_objectives"
+			direction = vertical
+			position = { 0 -49 }
+			spacing = -9
+			visible = "[GetScriptedGui('is_second_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			using = migration_objectives
+		}
+		flowcontainer = {
+			name = "empire_age_objectives"
+			direction = vertical
+			position = { 0 -47 }
+			spacing = -9
+			visible = "[GetScriptedGui('is_third_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			using = empire_objectives
+		}
+	}
+	type age_objective = margin_widget {
+		size = { @[ages_window_x - 45] 70 }
+		background = {
+			shaderfile = "gfx/FX/pdxgui_default.shader"
+			texture = "gfx/interface/base_parts/background_noninteractable_texture.dds"
+			spriteType = Corneredtiled
+			modify_texture = {
+				name = "Alpha"
+				texture = "gfx/interface/base_parts/background_x60bd_alpha.dds"
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 60 60 }
+			}
+		}
+		icon = {
+			position = { 20 7 }
+			size = { 55 55 }
+			block "Icon" {
+				texture = "gfx/interface/ages_window/icon_empire.dds"
+			}
+		}
+		# Title and desc
+		textbox = {
+			position = { 90 3 }
+			using = BaseFontM
+			using = Black_FontColor
+			autoresize = yes
+			alwaystransparent = no
+			align = left
+			block "objective_title"
+			{
+				text = "hi"
+			}
+		}
+		textbox = {
+			position = { 90 23 }
+			using = BaseFontM
+			using = Black_FontColor
+			fontsize = 14
+			multiline = yes
+			autoresize = yes
+			alwaystransparent = no
+			align = left
+			max_width = 400
+			maximumsize = { 400 -1 }
+			block "objective_desc"
+			{
+				text = "hi"
+			}
+		}
+		container = {
+			parentanchor = vcenter|right
+			position = { -38 6 }
+			textbox = {
+				position = { 8 -21 }
+				widgetanchor = center
+				parentanchor = center				
+				using = BaseFontS
+				using = Black_FontColor
+				autoresize = yes
+				max_width = 120 # todo
+				elide = right
+				align = center
+				block "progress_text"
+				{
+					text = "0 / 5"
+				}
+			}
+			progressbar = {
+				using = progressbar_green_horizontal
+				parentanchor = center
+				position = { 7 2 }
+				size = { 100 20 }
+				block "progress_value"
+				{
+					value = "[FixedPointToFloat(Player.GetProgressTowardsCivilWar)]"
+				}
+			}
+		}
+	}
+	type age_abilities = container {
+		flowcontainer = {
+			name = "hellenic_age_abilities"
+			direction = horizontal
+			spacing = 15
+			visible = "[GetScriptedGui('is_first_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			using = hellenic_abilities
+		}
+		flowcontainer = {
+			name = "migration_age_abilities"
+			direction = horizontal
+			spacing = 15
+			visible = "[GetScriptedGui('is_second_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			using = migration_abilities
+		}
+		flowcontainer = {
+			name = "empire_age_abilities"
+			direction = horizontal
+			spacing = 15
+			visible = "[GetScriptedGui('is_third_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			using = empire_abilities
+		}
+	}
+	type age_ability = icon_button_square {
+		size = { 40 40 }
+		blockoverride "Icon"
+		{
+			block "Texture" {
+				texture = "gfx/interface/icons/modifiers/agressive_expansion_impact.dds"
+			}
+		}
+		blockoverride "On_click" {
+			onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+		}
+		enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+	}
+}
+
+message_window = {
+	name = "ages_window"
+	size = { @ages_window_x @ages_window_y }
+	position = { 531 46 }
+	movable = yes
+
+	state = {
+		name = _show
+		on_start = "[GetScriptedGui('check_age_objectives').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+	}
+
+	blockoverride "Title_text" { text = "AGES_WINDOW_TITLE" }
+
+	blockoverride "White_buttons"
+	{
+		button_close = {
+			tooltip = "CLOSE"
+			onclick = "[ExecuteConsoleCommand('gui.ClearWidgets ages_window')]"
+			onclick = "[GetVariableSystem.Clear('age_window_opened')]"
+		}
+	}
+	container = {
+		name = "top_box"
+		parentanchor = top
+		position = { 0 30 }
+		container = {
+			position = { 65 0 }
+			icon = {
+				visible = "[GetScriptedGui('is_first_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+				size = { 600 239 }
+				texture = "gfx/interface/ages_window/hellenistic_age.dds"
+			}
+			icon = {
+				visible = "[GetScriptedGui('is_second_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+				size = { 600 239 }
+				texture = "gfx/interface/ages_window/age_of_migration.dds"
+			}
+			icon = {
+				visible = "[GetScriptedGui('is_third_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+				size = { 600 239 }
+				texture = "gfx/interface/ages_window/age_of_empires.dds"
+			}
+		}
+		golden_age_button = {
+			datacontext = "[GetScriptedGui('golden_age_button')]"
+			blockoverride "Center_text" {
+				text = "AGES_GOLDEN_AGE_BUTTON"
+			}
+			blockoverride "On_click" {
+				onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+				enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Player.MakeScope ).End )]"
+				tooltip = "[ScriptedGui.BuildTooltip( GuiScope.SetRoot( Player.MakeScope ).End )]"
+			}
+			position = { 210 251 }
+			size = { 260 33 }
+		}
+		flowcontainer = {
+			direction = vertical
+			position = { 7 10 }
+			spacing = 1
+			container = {
+				icon = {
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					datacontext = "[GetScriptedGui('is_first_age')]"
+					texture = "gfx/interface/ages_window/icon_hellenic.dds"
+					tooltip = "current_age_custom_loc_1"
+					size = { 60 60 }
+					state = {
+						trigger_when = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+						size = { 95 95 }
+					}
+				}
+				icon = {
+					visible = "[Not(ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End ))]"
+					datacontext = "[GetScriptedGui('is_first_age')]"
+					texture = "gfx/interface/ages_window/icon_hellenic.dds"
+					tooltip = "current_age_custom_loc_1"
+					size = { 60 60 }
+					state = {
+						trigger_when = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+						size = { 95 95 }
+					}
+				}
+			}
+			container = {
+				icon = {
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					datacontext = "[GetScriptedGui('is_second_age')]"
+					texture = "gfx/interface/ages_window/icon_migration.dds"
+					tooltip = "current_age_custom_loc_2"
+					size = { 60 60 }
+					state = {
+						trigger_when = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+						size = { 95 95 }
+					}
+				}
+				icon = {
+					visible = "[Not(ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End ))]"
+					datacontext = "[GetScriptedGui('is_second_age')]"
+					texture = "gfx/interface/ages_window/icon_migration.dds"
+					tooltip = "current_age_custom_loc_2"
+					size = { 70 70 }
+					state = {
+						trigger_when = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+						size = { 95 95 }
+					}
+				}
+			}
+			container = {
+				icon = {
+					visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					datacontext = "[GetScriptedGui('is_third_age')]"
+					texture = "gfx/interface/ages_window/icon_empire.dds"
+					tooltip = "current_age_custom_loc_3"
+					size = { 60 60 }
+					state = {
+						trigger_when = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+						size = { 95 95 }
+					}
+				}
+				icon = {
+					visible = "[Not(ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End ))]"
+					datacontext = "[GetScriptedGui('is_third_age')]"
+					texture = "gfx/interface/ages_window/icon_empire.dds"
+					tooltip = "current_age_custom_loc_3"
+					size = { 70 70 }
+					state = {
+						trigger_when = "[ScriptedGui.IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+						size = { 95 95 }
+					}
+				}
+			}
+		}
+	}
+	icon_and_text = {
+		size = { 80 25 }
+		parentanchor = vcenter
+		position = { 4 -150 }
+		blockoverride "Icon" { texture = "gfx/interface/ages_window/splendor.dds" }
+		blockoverride "Text" { text = "[Player.MakeScope.Var('splendor').GetValue|0]" }
+		tooltip = "AGES_CURRENT_SPLENDOR_TOOLTIP"
+	}
+	container = {
+		name = "center_box"
+		parentanchor = vcenter
+		position = { 37 -90 }
+		textbox = {
+			text = "CURRENT_AGE_DESCRIPTION_UI"
+			fontsize = 18
+			using = BaseFontM
+			using = Black_FontColor
+			alpha = 0.85
+		}
+	}
+	age_abilities = {
+		parentanchor = vcenter
+		position = { 43 -27 }
+	}
+	age_objectives = {
+		parentanchor = vcenter
+		position = { 22 246 }
+	}
+}

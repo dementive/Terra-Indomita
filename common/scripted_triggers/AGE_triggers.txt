@@ -1,0 +1,45 @@
+﻿age_ability_trigger = {
+    custom_tooltip = {
+        text = ability_requires_splendor_tt
+        var:splendor >= 800
+    }
+}
+
+is_age = {
+    trigger_if = {
+        limit = {
+            $num$ = 1 # hellenic
+        }
+        current_date >= 450.1.1
+        current_date < 550.1.1
+    }
+    trigger_else_if = {
+        limit = {
+            $num$ = 2 # migration
+        }
+        current_date >= 550.1.1
+        current_date < 650.1.1
+    }
+    trigger_else_if = {
+        limit = {
+            $num$ = 3 # empire
+        }
+        current_date >= 650.1.1
+    }
+}
+
+# Hellenic age objective completion triggers
+
+hellenic_obj_one_trigger = {
+    any_owned_province = {
+        has_province_rank = city_metropolis
+    }  
+}
+
+hellenic_obj_two_trigger = {
+    rank = great_power
+}
+
+hellenic_obj_three_trigger = {
+    num_of_ships >= 100
+}
