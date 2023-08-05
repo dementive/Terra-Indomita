@@ -6,7 +6,7 @@
 	chance = 1000
 
 	potential = {
-		NOT = { has_variable = mission_cooldown_var }
+		NOT = { has_variable = qi_mission_cooldown_var }
 		tag = QII
 	}
 
@@ -19,12 +19,22 @@
 	on_abort = {
 		custom_tooltip = general_mission_cooldown_tt
 		set_variable = {
-			name = mission_cooldown_var
+			name = qi_mission_cooldown_var
 			days = 7300
 		}
 	}
 
-	on_completion = {}
+	on_completion = {
+		add_4_free_province_investments = yes
+		add_legitimacy = 25
+		capital_scope = {
+		    add_special_pop = {
+		        text = "add_2_merchant_tt"
+		        type = merchant
+		        count = 2
+		    }
+		}
+	}
 
 	# Luxuries of Linzi
 	qi_missions_task_1 = {
@@ -55,7 +65,12 @@
 		on_completion = {
 			trigger_event = me_qi.1
 			show_as_tooltip = {
-
+				p:8504 = {
+					add_permanent_province_modifier = {
+					    name = great_city_of_linzi_mod
+					    mode = add
+					}
+				}
 			}
 		}
 	}
@@ -89,10 +104,14 @@
 			}
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.2
 			show_as_tooltip = {
-
+				p:8504 = {
+					add_permanent_province_modifier = {
+					    name = great_city_of_linzi_mod
+					    mode = add
+					}
+				}
 			}
 		}
 	}
@@ -124,30 +143,43 @@
 			}
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.3
 			show_as_tooltip = {
-
+				current_ruler = {
+					add_focus_perk = {
+					    text = "add_1_char_perk"
+					    amount = 1
+					}
+				}
+				add_2_free_province_investments = yes
 			}
 		}
 	}
 
-	# Supporting the Jixia Academy
+	# Expanding Academies of Jixia
 	qi_missions_task_4 = {
 		icon = "task_political"
 		requires = { qi_missions_task_3 }
 		allow = {
 			# Gold and PI for a wonder (build a new wonder in Linzi next to the Jixia Academy that is a BIGGER library)
-			# Copy the qin library construction tasks
 			treasury >= 750
 			political_influence >= 50
+			p:8504 = {
+				free_building_slots >= 1
+				great_work_locator_is_free = secondary_great_work
+			}
+		}
+		bypass = {
+			p:8504 = {
+				NAND = {
+					free_building_slots >= 1
+					great_work_locator_is_free = secondary_great_work
+				}
+			}
 		}
 		on_completion = {
-			#
+			custom_tooltip = begin_construction_of_jixia_library_tt
 			trigger_event = me_qi.4
-			show_as_tooltip = {
-
-			}
 		}
 	}
 
@@ -184,10 +216,14 @@
 
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.5
 			show_as_tooltip = {
-
+				p:8504 = {
+					add_permanent_province_modifier = {
+					    name = great_city_of_linzi_mod
+					    mode = add
+					}
+				}
 			}
 		}
 	}
@@ -204,10 +240,9 @@
 			}
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.6
 			show_as_tooltip = {
-
+				add_qi_state_core_mods = yes
 			}
 		}
 	}
@@ -218,16 +253,24 @@
 		requires = { qi_missions_task_6 }
 		allow = {
 			# Shandong core areas have 10 cities, 3 metropolis, and 500 or more pops
-			any_owned_province = {
-				count >= 3
-				has_province_rank = city_metropolis
+			custom_tooltip = {
+				text = qi_missions_task_7_tt
+				qi_missions_task_7_cities_svalue >= qi_missions_task_7_cities_max
+			}
+			custom_tooltip = {
+				text = qi_missions_task_7_ttt
+				qi_missions_task_7_metropolis_svalue >= qi_missions_task_7_metropolis_max
+			}
+			custom_tooltip = {
+				text = qi_missions_task_7_tttt
+				qi_missions_task_7_pops_svalue >= qi_missions_task_7_pops_max
 			}
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.7
 			show_as_tooltip = {
-
+				add_qi_state_core_mods = yes
+				add_4_free_province_investments = yes
 			}
 		}
 	}
@@ -238,6 +281,7 @@
 		requires = { qi_missions_task_3 }
 		allow = {
 			# Build 15 levels of forts along the Qi great wall locations, use svalue to count total.
+			# TODO
 		}
 		on_completion = {
 			#
@@ -265,7 +309,9 @@
 		on_completion = {
 			trigger_event = me_qi.9
 			show_as_tooltip = {
-
+				area:bohai_area = { mission_area_claim_effect = yes }
+				area:zhuo_area = { mission_area_claim_effect = yes }
+				area:yuyang_area = { mission_area_claim_effect = yes } 
 			}
 		}
 	}
@@ -279,10 +325,10 @@
 			owns_or_subject_owns_area = taishan_area
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.10
 			show_as_tooltip = {
-
+				# Claims on areas surrounding langya and taishan
+				mission_claim_region_effect = { REGION = qing_region }
 			}
 		}
 	}
@@ -297,10 +343,12 @@
 			owns_or_subject_owns_area = yuyang_area
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.11
 			show_as_tooltip = {
-
+				current_ruler = {
+					add_popularity = 15
+					force_add_trait = conqueror
+				}
 			}
 		}
 	}
@@ -315,10 +363,13 @@
 			}
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.12
 			show_as_tooltip = {
-
+				add_legitimacy = 15
+				add_country_modifier = {
+					name = the_great_tian_bijiang_mod
+					duration = 3650
+				}
 			}
 		}
 	}
@@ -336,7 +387,11 @@
 			add_political_influence = -15
 			trigger_event = me_qi.13
 			show_as_tooltip = {
-
+				custom_tooltip = qi_missions_task_13_tt
+				add_country_modifier = {
+					name = legacy_of_sun_bin_mod
+					duration = 3650
+				}
 			}
 		}
 	}
@@ -351,10 +406,16 @@
 			owns_or_subject_owns_region = xu_region
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.14
 			show_as_tooltip = {
-
+				current_ruler = {
+					add_focus_perk = {
+					    text = "add_1_char_perk"
+					    amount = 1
+					}
+				}
+				mission_claim_region_effect = { REGION = yu_region }
+				mission_claim_region_effect = { REGION = ji_region }
 			}
 		}
 	}
@@ -364,20 +425,32 @@
 		icon = "task_political"
 		requires = { qi_missions_task_14 }
 		allow = {
-			# Qing and Xu regions both have 100 buildings each
-			region:qing_region = {
-				every_region_province = {
-					limit = {
-						owner = root
-					}
-				}
+			# Qing and Xu regions both have 150 buildings each
+			custom_tooltip = {
+				text = qi_missions_task_15_tt
+				qi_missions_task_15_qing_svalue >= qi_missions_task_15_buildings_max
+			}
+			custom_tooltip = {
+				text = qi_missions_task_15_ttt
+				qi_missions_task_15_xu_svalue >= qi_missions_task_15_buildings_max
 			}
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.15
 			show_as_tooltip = {
-
+				ordered_owned_province = {
+					limit = {
+						OR = {
+							is_in_region = qing_region
+							is_in_region = xu_region
+						}
+					}
+					order_by = num_of_used_building_slots
+					max = 5
+					add_permanent_province_modifier = {
+						name = great_cities_of_qi_mod
+					}
+				}
 			}
 		}
 	}
@@ -387,13 +460,26 @@
 		icon = "task_political"
 		requires = { qi_missions_task_14 }
 		allow = {
-			# Own core Wei lands.
+			trigger_if = {
+				limit = {
+					exists = c:WEI
+				}
+				custom_tooltip = {
+					text = qi_missions_task_16_tt
+					c:WEI = {
+						any_owned_province = {
+							count < 1
+							is_in_region = ji_region
+						}
+					}
+				}
+			}
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.16
 			show_as_tooltip = {
-
+				mission_claim_region_effect = { REGION = yang_region }
+				mission_claim_region_effect = { REGION = jin_region }
 			}
 		}
 	}
@@ -404,12 +490,17 @@
 		requires = { qi_missions_task_14 }
 		allow = {
 			# Own core Zhou lands.
+			owns_percent_of_region = {
+			    PROVINCE = "p:8681" # Ji region
+			    PERCENT = "0.75"
+			}
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.17
 			show_as_tooltip = {
-
+				add_political_influence = 25
+				add_treasury = 250
+				add_2_free_province_investments = yes
 			}
 		}
 	}
@@ -420,13 +511,21 @@
 		requires = { qi_missions_task_16 qi_missions_task_17 }
 		allow = {
 			# Is in a war with the chinese unification war
-			
+			custom_tooltip = {
+				text = qi_missions_task_18_tt
+				has_variable = unification_war_launched
+			}
+		}
+		bypass = {
+			government = chinese_empire
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.18
 			show_as_tooltip = {
-
+				add_manpower = 2
+				current_ruler = {
+					add_popularity = 25
+				}
 			}
 		}
 	}
@@ -439,10 +538,13 @@
 			government = chinese_empire
 		}
 		on_completion = {
-			#
 			trigger_event = me_qi.19
 			show_as_tooltip = {
-
+				add_country_modifier = {
+					name = qi_final_mod
+					duration = -1
+				}
+				add_political_influence = 100
 			}
 		}
 	}
