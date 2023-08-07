@@ -156,7 +156,7 @@ empire_obj_two_svalue = {
 		}
 		add = 1
 	}
-	max = 5
+	max = 10
 }
 
 empire_obj_three_svalue = {
@@ -164,7 +164,7 @@ empire_obj_three_svalue = {
 	every_owned_province = {
 		add = civilization_value
 	}
-	max = 1000
+	max = 10000
 }
 
 empire_obj_four_svalue = {
@@ -188,12 +188,7 @@ empire_obj_five_svalue  = {
 	value = 0
 	every_integrated_culture = {
 		limit = {
-			prev = {
-				culture_pops_in_country = {
-					target = prev
-					value >= 300
-				}
-			}
+			country_culture_pop_count >= 300
 		}
 		add = 1
 	}

@@ -66,7 +66,6 @@ check_age_objectives = {
             }
             # Check for all hellenic objectives
             # Objective 1
-            add_treasury = 999
             if = {
                 limit = {
                     var:hellenic_obj_one != 100
@@ -516,20 +515,20 @@ check_age_objectives = {
             # Objective 2
             if = {
                 limit = {
-                    empire_obj_two_svalue < 5
+                    empire_obj_two_svalue < 10
                 }
                 remove_variable = empire_obj_two
                 set_variable = {
                     name = empire_obj_two
                     value = {
                         value = empire_obj_two_svalue
-                        multiply = 20
+                        multiply = 10
                     }
                 }
             }
             else_if = {
                 limit = {
-                    empire_obj_two_svalue >= 5
+                    empire_obj_two_svalue >= 10
                     var:empire_obj_two != 100
                 }
                 remove_variable = empire_obj_two
