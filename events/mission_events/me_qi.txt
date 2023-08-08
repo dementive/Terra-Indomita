@@ -2,7 +2,6 @@
 
 me_qi.1 = {
     type = country_event
-
     title = me_qi_1_title
     desc = me_qi_1_desc
     picture = great_library
@@ -10,12 +9,16 @@ me_qi.1 = {
     option = {
         name = "me_qi_1.a"
         custom_tooltip = me_qi_1_tooltip
-
+        p:8504 = {
+            add_permanent_province_modifier = {
+                name = great_city_of_linzi_mod
+                mode = add
+            }
+        }
     }
 }
 me_qi.2 = {
     type = country_event
-
     title = me_qi_2_title
     desc = me_qi_2_desc
     picture = great_library
@@ -23,12 +26,16 @@ me_qi.2 = {
     option = {
         name = "me_qi_2.a"
         custom_tooltip = me_qi_2_tooltip
-
+        p:8504 = {
+            add_permanent_province_modifier = {
+                name = great_city_of_linzi_mod
+                mode = add
+            }
+        }
     }
 }
 me_qi.3 = {
     type = country_event
-
     title = me_qi_3_title
     desc = me_qi_3_desc
     picture = great_library
@@ -36,25 +43,160 @@ me_qi.3 = {
     option = {
         name = "me_qi_3.a"
         custom_tooltip = me_qi_3_tooltip
-
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+        }
+        add_2_free_province_investments = yes
     }
 }
 me_qi.4 = {
     type = country_event
-
     title = me_qi_4_title
     desc = me_qi_4_desc
-    picture = great_library
+    picture = road_construction
+    goto_location = var:library_province_flag
+    left_portrait = root.current_ruler
+    right_portrait = scope:library_builder
 
-    option = {
-        name = "me_qi_4.a"
-        custom_tooltip = me_qi_4_tooltip
+    immediate = {
+        hidden_effect = {
+            create_character = {
+                age = 28
+                add_finesse = 5
+                add_trait = great_builder
+                save_scope_as = library_builder
+            }
+        }
+        set_variable = {
+            name = library_province_flag
+            value = p:8504
+        }
+        set_variable = building_secondary_great_work
+    }
 
+    # All the options here are an exact copy of the script in me_qin_li_si.1600
+    option = {  #A small stone pyramid will be enough 
+        name = me_qi.4.a
+        add_treasury = -250
+        if = {
+            limit = {
+                treasury < 250
+            }
+            custom_tooltip = this_will_put_us_into_debt_tt
+        }
+        hidden_effect = {
+            var:library_province_flag = {
+                begin_great_work_construction = {
+                    great_work = "library_template_1"
+                    locator = secondary_great_work
+                    is_ancient = yes #Have to be ancient or materials and leader are required.                      
+                }
+            }
+        }
+        set_variable = library_1_construction
+        custom_tooltip = begin_library_construction_tt
+        set_variable = {
+            name = library_progress
+            value = 0
+        }
+        trigger_event = {
+            id = me_qin_li_si.1601 #Maintenance
+            days = { 100 150 }
+        }
+    }
+    option = {  #Marble and silver will be exquisite
+        name = me_qi.4.b
+        add_treasury = -500
+        if = {
+            limit = {
+                treasury < 500
+            }
+            custom_tooltip = this_will_put_us_into_debt_tt
+        }
+        hidden_effect = {
+            var:library_province_flag = {
+                begin_great_work_construction = {
+                    great_work = "library_template_2"
+                    locator = secondary_great_work
+                    is_ancient = yes                    
+                }
+            }
+        }
+        set_variable = library_2_construction
+        custom_tooltip = begin_library_construction_tt
+        set_variable = {
+            name = library_progress
+            value = 0
+        }
+        trigger_event = {
+            id = me_qin_li_si.1601 #Maintenance
+            days = { 100 150 }
+        }
+    }
+    option = {  #Ebony and Ivory will do fine
+        name = me_qi.4.c
+        add_treasury = -1000
+        if = {
+            limit = {
+                treasury < 1000
+            }
+            custom_tooltip = this_will_put_us_into_debt_tt
+        }
+        hidden_effect = {
+            var:library_province_flag = {
+                begin_great_work_construction = {
+                    great_work = "library_template_3"
+                    locator = secondary_great_work
+                    is_ancient = yes                        
+                }
+            }
+        }
+        set_variable = library_3_construction
+        custom_tooltip = begin_library_construction_tt
+        set_variable = {
+            name = library_progress
+            value = 0
+        }
+        trigger_event = {
+            id = me_qin_li_si.1601 #Maintenance
+            days = { 100 150 }
+        }
+    }
+    option = {  #A fully gold pyramid is the only option for [ruler]
+        name = me_qi.4.d
+        add_treasury = -1500
+        if = {
+            limit = {
+                treasury < 1500
+            }
+            custom_tooltip = this_will_put_us_into_debt_tt
+        }
+        hidden_effect = {
+            var:library_province_flag = {
+                begin_great_work_construction = {
+                    great_work = "library_template_4"
+                    locator = secondary_great_work
+                    is_ancient = yes                        
+                }
+            }
+        }
+        set_variable = library_4_construction
+        custom_tooltip = begin_library_construction_tt
+        set_variable = {
+            name = library_progress
+            value = 0
+        }
+        trigger_event = {
+            id = me_qin_li_si.1601 #Maintenance
+            days = { 100 150 }
+        }
     }
 }
 me_qi.5 = {
     type = country_event
-
     title = me_qi_5_title
     desc = me_qi_5_desc
     picture = great_library
@@ -62,12 +204,16 @@ me_qi.5 = {
     option = {
         name = "me_qi_5.a"
         custom_tooltip = me_qi_5_tooltip
-
+        p:8504 = {
+            add_permanent_province_modifier = {
+                name = great_city_of_linzi_mod
+                mode = add
+            }
+        }
     }
 }
 me_qi.6 = {
     type = country_event
-
     title = me_qi_6_title
     desc = me_qi_6_desc
     picture = great_library
@@ -75,12 +221,11 @@ me_qi.6 = {
     option = {
         name = "me_qi_6.a"
         custom_tooltip = me_qi_6_tooltip
-
+        add_qi_state_core_mods = yes
     }
 }
 me_qi.7 = {
     type = country_event
-
     title = me_qi_7_title
     desc = me_qi_7_desc
     picture = great_library
@@ -88,12 +233,12 @@ me_qi.7 = {
     option = {
         name = "me_qi_7.a"
         custom_tooltip = me_qi_7_tooltip
-
+        add_qi_state_core_mods = yes
+        add_4_free_province_investments = yes
     }
 }
 me_qi.8 = {
     type = country_event
-
     title = me_qi_8_title
     desc = me_qi_8_desc
     picture = great_library
@@ -106,7 +251,6 @@ me_qi.8 = {
 }
 me_qi.9 = {
     type = country_event
-
     title = me_qi_9_title
     desc = me_qi_9_desc
     picture = great_library
@@ -114,12 +258,13 @@ me_qi.9 = {
     option = {
         name = "me_qi_9.a"
         custom_tooltip = me_qi_9_tooltip
-
+        area:bohai_area = { mission_area_claim_effect = yes }
+        area:zhuo_area = { mission_area_claim_effect = yes }
+        area:yuyang_area = { mission_area_claim_effect = yes } 
     }
 }
 me_qi.10 = {
     type = country_event
-
     title = me_qi_10_title
     desc = me_qi_10_desc
     picture = great_library
@@ -127,12 +272,11 @@ me_qi.10 = {
     option = {
         name = "me_qi_10.a"
         custom_tooltip = me_qi_10_tooltip
-
+        mission_claim_region_effect = { REGION = qing_region }
     }
 }
 me_qi.11 = {
     type = country_event
-
     title = me_qi_11_title
     desc = me_qi_11_desc
     picture = great_library
@@ -140,12 +284,14 @@ me_qi.11 = {
     option = {
         name = "me_qi_11.a"
         custom_tooltip = me_qi_11_tooltip
-
+        current_ruler = {
+            add_popularity = 15
+            force_add_trait = conqueror
+        }
     }
 }
 me_qi.12 = {
     type = country_event
-
     title = me_qi_12_title
     desc = me_qi_12_desc
     picture = great_library
@@ -153,12 +299,15 @@ me_qi.12 = {
     option = {
         name = "me_qi_12.a"
         custom_tooltip = me_qi_12_tooltip
-
+        add_legitimacy = 15
+        add_country_modifier = {
+            name = the_great_tian_bijiang_mod
+            duration = 3650
+        }
     }
 }
 me_qi.13 = {
     type = country_event
-
     title = me_qi_13_title
     desc = me_qi_13_desc
     picture = great_library
@@ -166,12 +315,24 @@ me_qi.13 = {
     option = {
         name = "me_qi_13.a"
         custom_tooltip = me_qi_13_tooltip
-
+        create_character = {
+            no_stats=yes
+            add_martial=12
+            add_charisma=7
+            add_finesse=8
+            add_zeal=7
+            no_traits=yes
+            add_trait="ambitious"
+            add_trait="shrewd"
+        }
+        add_country_modifier = {
+            name = legacy_of_sun_bin_mod
+            duration = 3650
+        }
     }
 }
 me_qi.14 = {
     type = country_event
-
     title = me_qi_14_title
     desc = me_qi_14_desc
     picture = great_library
@@ -179,12 +340,18 @@ me_qi.14 = {
     option = {
         name = "me_qi_14.a"
         custom_tooltip = me_qi_14_tooltip
-
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+        }
+        mission_claim_region_effect = { REGION = yu_region }
+        mission_claim_region_effect = { REGION = ji_region }
     }
 }
 me_qi.15 = {
     type = country_event
-
     title = me_qi_15_title
     desc = me_qi_15_desc
     picture = great_library
@@ -192,12 +359,23 @@ me_qi.15 = {
     option = {
         name = "me_qi_15.a"
         custom_tooltip = me_qi_15_tooltip
-
+        ordered_owned_province = {
+            limit = {
+                OR = {
+                    is_in_region = qing_region
+                    is_in_region = xu_region
+                }
+            }
+            order_by = num_of_used_building_slots
+            max = 5
+            add_permanent_province_modifier = {
+                name = great_cities_of_qi_mod
+            }
+        }
     }
 }
 me_qi.16 = {
     type = country_event
-
     title = me_qi_16_title
     desc = me_qi_16_desc
     picture = great_library
@@ -205,12 +383,12 @@ me_qi.16 = {
     option = {
         name = "me_qi_16.a"
         custom_tooltip = me_qi_16_tooltip
-
+        mission_claim_region_effect = { REGION = yang_region }
+        mission_claim_region_effect = { REGION = jin_region }
     }
 }
 me_qi.17 = {
     type = country_event
-
     title = me_qi_17_title
     desc = me_qi_17_desc
     picture = great_library
@@ -218,12 +396,13 @@ me_qi.17 = {
     option = {
         name = "me_qi_17.a"
         custom_tooltip = me_qi_17_tooltip
-
+        add_political_influence = 25
+        add_treasury = 250
+        add_2_free_province_investments = yes
     }
 }
 me_qi.18 = {
     type = country_event
-
     title = me_qi_18_title
     desc = me_qi_18_desc
     picture = great_library
@@ -231,12 +410,14 @@ me_qi.18 = {
     option = {
         name = "me_qi_18.a"
         custom_tooltip = me_qi_18_tooltip
-
+        add_manpower = 2
+        current_ruler = {
+            add_popularity = 25
+        }
     }
 }
 me_qi.19 = {
     type = country_event
-
     title = me_qi_19_title
     desc = me_qi_19_desc
     picture = great_library
@@ -244,6 +425,10 @@ me_qi.19 = {
     option = {
         name = "me_qi_19.a"
         custom_tooltip = me_qi_19_tooltip
-
+        add_country_modifier = {
+            name = qi_final_mod
+            duration = -1
+        }
+        add_political_influence = 100
     }
 }

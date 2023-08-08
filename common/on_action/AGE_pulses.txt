@@ -1,0 +1,522 @@
+﻿on_winning_war = {
+	on_actions = {
+		AGE_on_winning_war
+	}
+}
+
+AGE_on_winning_war = {
+	effect = {
+		if = {
+			limit = {
+				is_age = { num = 2 }
+				is_tribal = yes
+				var:migration_obj_one < 100
+			}
+			change_variable = {
+				name = migration_obj_one
+				add = 34
+			}
+		}
+	}
+}
+
+biyearly_country_pulse = {
+	on_actions = {
+		AGE_biyearly_country_pulse
+	}
+}
+
+AGE_biyearly_country_pulse = {
+	effect = {
+
+		# AI script that allows AI to take abilites because they are too dumb to open up the interface.
+		if = {
+			limit = {
+				is_ai = yes
+				NOT = { has_variable = splendor }
+			}
+			set_variable = {
+				name = splendor
+				value = 0
+			}
+		}
+
+		if = {
+			limit = {
+				is_ai = yes
+				var:splendor >= 800
+			}
+			if = {
+				limit = {
+					is_age = { num = 1 }
+				}
+				random_list = {
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = hellenic_ability_one_mod }
+						}
+						add_country_modifier = {
+							name = hellenic_ability_one_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = hellenic_ability_two_mod }
+						}
+						add_country_modifier = {
+							name = hellenic_ability_two_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = hellenic_ability_three_mod }
+						}
+						add_country_modifier = {
+							name = hellenic_ability_three_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = hellenic_ability_four_mod }
+						}
+						add_country_modifier = {
+							name = hellenic_ability_four_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = hellenic_ability_five_mod }
+						}
+						add_country_modifier = {
+							name = hellenic_ability_five_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = hellenic_ability_seven_mod }
+							tag = SEL
+						}
+						add_country_modifier = {
+							name = hellenic_ability_seven_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = hellenic_ability_eight_mod }
+							tag = MAC
+						}
+						add_country_modifier = {
+							name = hellenic_ability_eight_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = hellenic_ability_nine_mod }
+							tag = MRY
+						}
+						add_country_modifier = {
+							name = hellenic_ability_nine_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = hellenic_ability_ten_mod }
+							tag = CAR
+						}
+						add_country_modifier = {
+							name = hellenic_ability_ten_mod
+							duration = -1
+						}
+					}
+				}
+				age_ability_effect = yes
+			}
+			if = {
+				limit = {
+					is_age = { num = 2 }
+				}
+				random_list = {
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_one_mod }
+						}
+						add_country_modifier = {
+							name = migration_ability_one_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_two_mod }
+						}
+						add_country_modifier = {
+							name = migration_ability_two_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_three_mod }
+						}
+						add_country_modifier = {
+							name = migration_ability_three_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_four_mod }
+						}
+						add_country_modifier = {
+							name = migration_ability_four_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_five_mod }
+						}
+						add_country_modifier = {
+							name = migration_ability_five_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_six_mod }
+						}
+						add_country_modifier = {
+							name = migration_ability_six_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_seven_mod }
+							tag = PTH
+						}
+						add_country_modifier = {
+							name = migration_ability_seven_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_eight_mod }
+							tag = ALA
+						}
+						add_country_modifier = {
+							name = migration_ability_eight_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_nine_mod }
+							tag = SCY
+						}
+						add_country_modifier = {
+							name = migration_ability_nine_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_ten_mod }
+							primary_culture = cimbrian
+						}
+						add_country_modifier = {
+							name = migration_ability_ten_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = migration_ability_eleven_mod }
+							country_culture_group = scythia
+						}
+						add_country_modifier = {
+							name = migration_ability_eleven_mod
+							duration = -1
+						}
+					}
+				}
+				age_ability_effect = yes
+			}
+			if = {
+				limit = {
+					is_age = { num = 3 }
+				}
+				random_list = {
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_one_mod }
+						}
+						add_country_modifier = {
+							name = empire_ability_one_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_two_mod }
+						}
+						add_country_modifier = {
+							name = empire_ability_two_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_three_mod }
+						}
+						add_country_modifier = {
+							name = empire_ability_three_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_four_mod }
+						}
+						add_country_modifier = {
+							name = empire_ability_four_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_five_mod }
+						}
+						add_country_modifier = {
+							name = empire_ability_five_mod
+							duration = -1
+						}
+					}
+					1 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_six_mod }
+						}
+						add_country_modifier = {
+							name = empire_ability_six_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_seven_mod }
+							OR = {
+								tag = KSH
+								tag = AX2
+								tag = AXM
+							}
+						}
+						add_country_modifier = {
+							name = empire_ability_seven_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_eight_mod }
+							tag = ROM
+						}
+						add_country_modifier = {
+							name = empire_ability_eight_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_nine_mod }
+							tag = BHA
+						}
+						add_country_modifier = {
+							name = empire_ability_nine_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_ten_mod }
+							OR = {
+								tag = ALX
+								tag = HLA
+							}
+						}
+						add_country_modifier = {
+							name = empire_ability_ten_mod
+							duration = -1
+						}
+					}
+					10 = {
+						trigger = {
+							NOT = { has_country_modifier = empire_ability_eleven_mod }
+							country_culture_group = latin
+						}
+						add_country_modifier = {
+							name = empire_ability_eleven_mod
+							duration = -1
+						}
+					}
+				}
+				age_ability_effect = yes
+			}
+		}
+
+		# Clear data from previous ages so modifiers and variables don't carry over to the new age
+		if = {
+			limit = {
+				current_date >= 550.2.1
+				current_date < 554.2.1
+			}
+			clear_all_hellenic_age_data = yes
+		}
+		if = {
+			limit = {
+				current_date >= 650.2.1
+				current_date < 654.2.1
+			}
+			clear_all_migration_age_data = yes
+		}
+
+	}
+}
+
+monthly_country_pulse = {
+	on_actions = {
+		AGE_monthly_country_pulse
+	}
+}
+
+AGE_monthly_country_pulse = {
+	effect = {
+		# Passive splendor gain
+
+		init_ages_variables = yes
+
+		change_variable = {
+			name = splendor
+			add = 1.66
+		}
+
+		if = {
+			limit = {
+				OR = {
+				    var:completed_hellenic_objectives = 1
+				    var:completed_migration_objectives = 1
+				    var:completed_empire_objectives = 1
+				}
+			}
+			change_variable = {
+				name = splendor
+				add = 0.2083
+			}
+		}
+
+		if = {
+			limit = {
+				OR = {
+				    var:completed_hellenic_objectives = 2
+				    var:completed_migration_objectives = 2
+				    var:completed_empire_objectives = 2
+				}
+			}
+			change_variable = {
+				name = splendor
+				add = 0.416
+			}
+		}
+
+		if = {
+			limit = {
+				OR = {
+				    var:completed_hellenic_objectives = 3
+				    var:completed_migration_objectives = 3
+				    var:completed_empire_objectives = 3
+				}
+			}
+			change_variable = {
+				name = splendor
+				add = 0.625
+			}
+		}
+
+		if = {
+			limit = {
+				OR = {
+				    var:completed_hellenic_objectives = 4
+				    var:completed_migration_objectives = 4
+				    var:completed_empire_objectives = 4
+				}
+			}
+			change_variable = {
+				name = splendor
+				add = 0.833
+			}
+		}
+
+		if = {
+			limit = {
+				OR = {
+				    var:completed_hellenic_objectives = 5
+				    var:completed_migration_objectives = 5
+				    var:completed_empire_objectives = 5
+				}
+			}
+			change_variable = {
+				name = splendor
+				add = 1.04
+			}
+		}
+
+		if = {
+			limit = {
+				OR = {
+				    var:completed_hellenic_objectives = 6
+				    var:completed_migration_objectives = 6
+				    var:completed_empire_objectives = 6
+				}
+			}
+			change_variable = {
+				name = splendor
+				add = 1.25
+			}
+		}
+
+		if = {
+			limit = {
+				OR = {
+				    var:completed_hellenic_objectives = 7
+				    var:completed_migration_objectives = 7
+				    var:completed_empire_objectives = 7
+				}
+			}
+			change_variable = {
+				name = splendor
+				add = 1.4583
+			}
+		}
+
+	}
+}
+
+on_game_initialized = {
+	on_actions = {
+		AGE_on_init
+	}
+}
+
+AGE_on_init = {
+	effect = {
+		init_ages_variables = yes
+	}
+}
