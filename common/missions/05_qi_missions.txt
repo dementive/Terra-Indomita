@@ -1,0 +1,759 @@
+﻿qi_missions = {
+	header = "mission_image_china"
+	icon = "seleukid_1"
+
+	repeatable = no
+	chance = 1000
+
+	potential = {
+		NOT = { has_variable = qi_mission_cooldown_var }
+		tag = QII
+	}
+
+	abort = {}
+
+	on_start = {
+		start_mission_ai_effect = yes
+	}
+
+	on_abort = {
+		custom_tooltip = general_mission_cooldown_tt
+		set_variable = {
+			name = qi_mission_cooldown_var
+			days = 7300
+		}
+	}
+
+	on_completion = {
+		add_4_free_province_investments = yes
+		add_legitimacy = 25
+		capital_scope = {
+		    add_special_pop = {
+		        text = "add_2_merchant_tt"
+		        type = merchant
+		        count = 2
+		    }
+		}
+	}
+
+	# Luxuries of Linzi
+	qi_missions_task_1 = {
+		icon = "task_economical"
+		highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 8504
+				}
+			}
+        }
+		allow = {
+			# Capital buildings and investments
+			p:8504 = {
+				num_of_used_building_slots >= 5
+			}
+			p:8504.state = {
+				trigger_if = {
+					limit = {
+						has_variable = num_state_investments
+					}
+					custom_tooltip = {
+						text = state_has_2_investments_tt
+						var:num_state_investments >= 2
+					}
+				}
+				trigger_else = {
+					custom_tooltip = {
+						text = state_has_2_investments_tt
+						always = no
+					}
+				}
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.1
+			show_as_tooltip = {
+				p:8504 = {
+					add_permanent_province_modifier = {
+					    name = great_city_of_linzi_mod
+					    mode = add
+					}
+				}
+			}
+		}
+	}
+
+	# Center of Chinese Civilization
+	qi_missions_task_2 = {
+		icon = "task_happiness"
+		requires = { qi_missions_task_1 }
+		highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 8504
+				}
+			}
+        }
+		allow = {
+			# Capital Buildings, pops, and investments
+			p:8504 = {
+				total_population >= 40
+				num_of_used_building_slots >= 10
+			}
+			p:8504.state = {
+				trigger_if = {
+					limit = {
+						has_variable = num_state_investments
+					}
+					custom_tooltip = {
+						text = state_has_4_investments_tt
+						var:num_state_investments >= 4
+					}
+				}
+				trigger_else = {
+					custom_tooltip = {
+						text = state_has_4_investments_tt
+						always = no
+					}
+				}
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.2
+			show_as_tooltip = {
+				p:8504 = {
+					add_permanent_province_modifier = {
+					    name = great_city_of_linzi_mod
+					    mode = add
+					}
+				}
+			}
+		}
+	}
+
+	# Patronage of Scholars
+	qi_missions_task_3 = {
+		icon = "task_calm"
+		requires = { qi_missions_task_2 }
+		highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 8504
+				}
+			}
+        }
+		allow = {
+			# 10 Nobles, 3 academies, and 1 of each special pop in the capital
+			p:8504 = {
+				num_of_nobles >= 10
+				num_of_academy_building >= 3
+				province_has_special_pop = {
+				    text = "prov_has_1_artist_tt"
+				    type = artist
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_priest_tt"
+				    type = priest
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_architect_tt"
+				    type = architect
+				    count = 1
+				}
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.3
+			show_as_tooltip = {
+				current_ruler = {
+					add_focus_perk = {
+					    text = "add_1_char_perk"
+					    amount = 1
+					}
+				}
+				add_2_free_province_investments = yes
+			}
+		}
+	}
+
+	# Expanding Academies of Jixia
+	qi_missions_task_4 = {
+		icon = "task_apollo"
+		requires = { qi_missions_task_3 }
+		highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 8504
+				}
+			}
+        }
+		allow = {
+			# Gold and PI for a wonder (build a new wonder in Linzi next to the Jixia Academy that is a BIGGER library)
+			treasury >= 750
+			political_influence >= 50
+			p:8504 = {
+				free_building_slots >= 1
+				great_work_locator_is_free = secondary_great_work
+			}
+		}
+		bypass = {
+			p:8504 = {
+				NAND = {
+					free_building_slots >= 1
+					great_work_locator_is_free = secondary_great_work
+				}
+			}
+		}
+		on_completion = {
+			custom_tooltip = begin_construction_of_jixia_library_tt
+			trigger_event = me_qi.4
+		}
+	}
+
+	# Great Center of Wisdom
+	qi_missions_task_5 = {
+		icon = "task_religion"
+		requires = { qi_missions_task_4 }
+		highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 8504
+				}
+			}
+        }
+		allow = {
+			# Linzi is a metropolis, has lots of special pops, and has 20 or more buildings
+			p:8504 = {
+				has_province_rank = city_metropolis
+				num_of_used_building_slots >= 20
+				province_has_special_pop = {
+				    text = "prov_has_1_artist_tt"
+				    type = artist
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_priest_tt"
+				    type = priest
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_architect_tt"
+				    type = architect
+				    count = 1
+				}
+				province_has_special_pop = {
+				    text = "prov_has_1_merchant_tt"
+				    type = merchant
+				    count = 1
+				}
+			}
+
+		}
+		on_completion = {
+			trigger_event = me_qi.5
+			show_as_tooltip = {
+				p:8504 = {
+					add_permanent_province_modifier = {
+					    name = great_city_of_linzi_mod
+					    mode = add
+					}
+				}
+			}
+		}
+	}
+
+	# Great Traders of Qi
+	qi_missions_task_6 = {
+		icon = "task_economical"
+		requires = { qi_missions_task_1 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = donglai_area
+					is_in_area = beihai_area
+					is_in_area = linzi_area
+					is_in_area = qiansheng_area
+					is_in_area = langya_area
+				}
+			}
+        }
+		allow = {
+			# 25 commerce OR port buildings in core shandong areas
+			custom_tooltip = {
+				text = qi_missions_task_6_tt
+				qi_missions_task_6_buildings_svalue >= qi_missions_task_6_buildings_max
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.6
+			show_as_tooltip = {
+				add_qi_state_core_mods = yes
+			}
+		}
+	}
+
+	# Shandong Supremacy
+	qi_missions_task_7 = {
+		icon = "task_expansion"
+		requires = { qi_missions_task_6 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = donglai_area
+					is_in_area = beihai_area
+					is_in_area = linzi_area
+					is_in_area = qiansheng_area
+					is_in_area = langya_area
+				}
+			}
+        }
+		allow = {
+			# Shandong core areas have 10 cities, 3 metropolis, and 500 or more pops
+			custom_tooltip = {
+				text = qi_missions_task_7_tt
+				qi_missions_task_7_cities_svalue >= qi_missions_task_7_cities_max
+			}
+			custom_tooltip = {
+				text = qi_missions_task_7_ttt
+				qi_missions_task_7_metropolis_svalue >= qi_missions_task_7_metropolis_max
+			}
+			custom_tooltip = {
+				text = qi_missions_task_7_tttt
+				qi_missions_task_7_pops_svalue >= qi_missions_task_7_pops_max
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.7
+			show_as_tooltip = {
+				add_qi_state_core_mods = yes
+				add_4_free_province_investments = yes
+			}
+		}
+	}
+
+	# Bolster the Great Wall
+	qi_missions_task_8 = {
+		icon = "task_calm"
+		requires = { qi_missions_task_3 }
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 8524
+					province_id = 8523
+					province_id = 8526
+					province_id = 8482
+					province_id = 8483
+					province_id = 8480
+					province_id = 8484
+				}
+			}
+		}
+		allow = {
+			# Build 15 levels of forts along the Qi great wall locations, use svalue to count total.
+			custom_tooltip = {
+				text = qi_missions_task_8_tt
+				qi_missions_task_8_forts_svalue >= qi_missions_task_8_forts_max
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.8
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = the_great_walls_of_qi
+					duration = -1
+				}
+				if = {
+					limit = {
+						p:8524 = { fort_level > 0 }
+					}
+					p:8524 = {
+						add_province_modifier = {
+							name = the_great_walls_of_qi_province
+							duration = -1
+						}
+					}
+				}
+				if = {
+					limit = {
+						p:8523 = { fort_level > 0 }
+					}
+					p:8523 = {
+						add_province_modifier = {
+							name = the_great_walls_of_qi_province
+							duration = -1
+						}
+					}
+				}
+				if = {
+					limit = {
+						p:8526 = { fort_level > 0 }
+					}
+					p:8526 = {
+						add_province_modifier = {
+							name = the_great_walls_of_qi_province
+							duration = -1
+						}
+					}
+				}
+				if = {
+					limit = {
+						p:8482 = { fort_level > 0 }
+					}
+					p:8482 = {
+						add_province_modifier = {
+							name = the_great_walls_of_qi_province
+							duration = -1
+						}
+					}
+				}
+				if = {
+					limit = {
+						p:8483 = { fort_level > 0 }
+					}
+					p:8483 = {
+						add_province_modifier = {
+							name = the_great_walls_of_qi_province
+							duration = -1
+						}
+					}
+				}
+				if = {
+					limit = {
+						p:8480 = { fort_level > 0 }
+					}
+					p:8480 = {
+						add_province_modifier = {
+							name = the_great_walls_of_qi_province
+							duration = -1
+						}
+					}
+				}
+				if = {
+					limit = {
+						p:8484 = { fort_level > 0 }
+					}
+					p:8484 = {
+						add_province_modifier = {
+							name = the_great_walls_of_qi_province
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	# The Kingdom of Qi
+	qi_missions_task_9 = {
+		icon = "task_political"
+		duration = 60
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = bohai_area
+					is_in_area = zhuo_area
+					is_in_area = yuyang_area
+				}
+			}
+        }
+		allow = {
+			treasury >= 25
+			political_influence >= 15
+		}
+
+		on_start = {
+			add_treasury = -25
+			add_political_influence = -15
+		}
+
+		on_completion = {
+			trigger_event = me_qi.9
+			show_as_tooltip = {
+				area:bohai_area = { mission_area_claim_effect = yes }
+				area:zhuo_area = { mission_area_claim_effect = yes }
+				area:yuyang_area = { mission_area_claim_effect = yes } 
+			}
+		}
+	}
+
+	# Secure the South
+	qi_missions_task_10 = {
+		icon = "task_conquest"
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = langya_area
+					is_in_area = taishan_area
+				}
+			}
+        }
+		allow = {
+			# Own all of Langya and Taishan areas
+			owns_or_subject_owns_area = langya_area
+			owns_or_subject_owns_area = taishan_area
+		}
+		on_completion = {
+			trigger_event = me_qi.10
+			show_as_tooltip = {
+				# Claims on areas surrounding langya and taishan
+				mission_claim_region_effect = { REGION = qing_region }
+			}
+		}
+	}
+
+	# Destruction of Yan
+	qi_missions_task_11 = {
+		icon = "task_battle"
+		requires = { qi_missions_task_9 qi_missions_task_10 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = bohai_area
+					is_in_area = yuyang_area
+				}
+			}
+        }
+		allow = {
+			# Own Bohai and Yuyang areas
+			owns_or_subject_owns_area = bohai_area
+			owns_or_subject_owns_area = yuyang_area
+		}
+		on_completion = {
+			trigger_event = me_qi.11
+			show_as_tooltip = {
+				current_ruler = {
+					add_popularity = 15
+					force_add_trait = conqueror
+				}
+			}
+		}
+	}
+
+	# The Great Tian Bijiang
+	qi_missions_task_12 = {
+		icon = "task_athena"
+		allow = {
+			current_ruler = {
+				popularity >= 80
+				corruption < 10
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.12
+			show_as_tooltip = {
+				add_legitimacy = 15
+				add_country_modifier = {
+					name = the_great_tian_bijiang_mod
+					duration = 3650
+				}
+			}
+		}
+	}
+
+	# The Legacy of Sun Bin
+	qi_missions_task_13 = {
+		icon = "task_artemis"
+		requires = { qi_missions_task_12 }
+		allow = {
+			treasury >= 25
+			political_influence >= 15
+		}
+		on_completion = {
+			add_treasury = -25
+			add_political_influence = -15
+			trigger_event = me_qi.13
+			show_as_tooltip = {
+				custom_tooltip = qi_missions_task_13_tt
+				add_country_modifier = {
+					name = legacy_of_sun_bin_mod
+					duration = 3650
+				}
+			}
+		}
+	}
+
+	# Emperor of the East
+	qi_missions_task_14 = {
+		icon = "task_atlas"
+		requires = { qi_missions_task_11 qi_missions_task_13 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_region = qing_region
+					is_in_region = xu_region
+				}
+			}
+        }
+		allow = {
+			# Own Qing and Xu regions
+			owns_or_subject_owns_region = qing_region
+			owns_or_subject_owns_region = xu_region
+		}
+		on_completion = {
+			trigger_event = me_qi.14
+			show_as_tooltip = {
+				current_ruler = {
+					add_focus_perk = {
+					    text = "add_1_char_perk"
+					    amount = 1
+					}
+				}
+				mission_claim_region_effect = { REGION = yu_region }
+				mission_claim_region_effect = { REGION = ji_region }
+			}
+		}
+	}
+
+	# Eastern Prosperity
+	qi_missions_task_15 = {
+		icon = "task_diplomatic"
+		requires = { qi_missions_task_14 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_region = qing_region
+					is_in_region = xu_region
+				}
+			}
+        }
+		allow = {
+			# Qing and Xu regions both have 150 buildings each
+			custom_tooltip = {
+				text = qi_missions_task_15_tt
+				qi_missions_task_15_qing_svalue >= qi_missions_task_15_buildings_max
+			}
+			custom_tooltip = {
+				text = qi_missions_task_15_ttt
+				qi_missions_task_15_xu_svalue >= qi_missions_task_15_buildings_max
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.15
+			show_as_tooltip = {
+				ordered_owned_province = {
+					limit = {
+						OR = {
+							is_in_region = qing_region
+							is_in_region = xu_region
+						}
+					}
+					order_by = num_of_used_building_slots
+					max = 5
+					add_permanent_province_modifier = {
+						name = great_cities_of_qi_mod
+					}
+				}
+			}
+		}
+	}
+
+	# The End of Wei
+	qi_missions_task_16 = {
+		icon = "task_battle"
+		requires = { qi_missions_task_14 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_region = ji_region
+				}
+			}
+        }
+		allow = {
+			trigger_if = {
+				limit = {
+					exists = c:WEI
+				}
+				custom_tooltip = {
+					text = qi_missions_task_16_tt
+					c:WEI = {
+						any_owned_province = {
+							count < 1
+							is_in_region = ji_region
+						}
+					}
+				}
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.16
+			show_as_tooltip = {
+				mission_claim_region_effect = { REGION = yang_region }
+				mission_claim_region_effect = { REGION = jin_region }
+			}
+		}
+	}
+
+	# Betray the Zhou
+	qi_missions_task_17 = {
+		icon = "task_political"
+		requires = { qi_missions_task_14 }
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_region = ji_region
+				}
+			}
+        }
+		allow = {
+			# Own core Zhou lands.
+			owns_percent_of_region = {
+			    PROVINCE = "p:8681" # Ji region
+			    PERCENT = "0.75"
+			}
+		}
+		on_completion = {
+			trigger_event = me_qi.17
+			show_as_tooltip = {
+				add_political_influence = 25
+				add_treasury = 250
+				add_2_free_province_investments = yes
+			}
+		}
+	}
+
+	# The Great War of Unification
+	qi_missions_task_18 = {
+		icon = "task_expansion"
+		requires = { qi_missions_task_16 qi_missions_task_17 }
+		allow = {
+			# Is in a war with the chinese unification war
+			custom_tooltip = {
+				text = qi_missions_task_18_tt
+				has_variable = unification_war_launched
+			}
+		}
+		bypass = {
+			government = chinese_empire
+		}
+		on_completion = {
+			trigger_event = me_qi.18
+			show_as_tooltip = {
+				add_manpower = 2
+				current_ruler = {
+					add_popularity = 25
+				}
+			}
+		}
+	}
+
+	# The Qi Dynasty
+	qi_missions_task_19 = {
+		icon = "task_zeus_cornucopia"
+		requires = { qi_missions_task_18 }
+		allow = {
+			government = chinese_empire
+		}
+		on_completion = {
+			trigger_event = me_qi.19
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = qi_final_mod
+					duration = -1
+				}
+				add_political_influence = 100
+			}
+		}
+	}
+
+}

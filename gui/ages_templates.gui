@@ -1,0 +1,670 @@
+# All of the scripted gui buttons for age abilities and objectives
+
+template hellenic_objectives
+{
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/greek_god_statue.dds"
+		}
+		blockoverride "objective_title"
+		{
+			text = "HELLENIC_OBJECTIVE_1_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "HELLENIC_OBJECTIVE_1_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			text = "[Multiply_CFixedPoint( Player.MakeScope.Var('hellenic_obj_one').GetValue, '(CFixedPoint)0.01' )|0] / 1"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('hellenic_obj_one').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/roman_leader.dds"
+		}
+		blockoverride "objective_title"
+		{
+			text = "HELLENIC_OBJECTIVE_2_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "HELLENIC_OBJECTIVE_2_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 5
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('hellenic_obj_two').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)5.0')|0] / 5"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('hellenic_obj_two').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/roman_boat.dds"
+		}
+		blockoverride "objective_title"
+		{
+			text = "HELLENIC_OBJECTIVE_3_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "HELLENIC_OBJECTIVE_3_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			text = "[FixedPointToFloat(Player.MakeScope.Var('hellenic_obj_three').GetValue)|0] / 100"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('hellenic_obj_three').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/latin_roman_path_4.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "HELLENIC_OBJECTIVE_4_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "HELLENIC_OBJECTIVE_4_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('hellenic_obj_four').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)3.0')|0] / 3"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('hellenic_obj_four').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/indian_philosopher.dds"
+		}
+		blockoverride "objective_title"
+		{
+			text = "HELLENIC_OBJECTIVE_5_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "HELLENIC_OBJECTIVE_5_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('hellenic_obj_five').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)10.0')|0] / 10"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('hellenic_obj_five').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/Event_greek_fortified_city_acropolis.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "HELLENIC_OBJECTIVE_6_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "HELLENIC_OBJECTIVE_6_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			text = "[Min_CFixedPoint(Player.MakeScope.Var('hellenic_obj_six').GetValue, '(CFixedPoint)75.0' )|0] / 75"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('hellenic_obj_six').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/roman_eagle.dds"
+		}
+		blockoverride "objective_title"
+		{
+			text = "HELLENIC_OBJECTIVE_7_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "HELLENIC_OBJECTIVE_7_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			text = "[Player.MakeScope.Var('hellenic_obj_seven').GetValue|0] / 15"
+		}
+		blockoverride "progress_value"
+		{
+			# (X * 0.0667) * 100
+			value = "[FixedPointToFloat(Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('hellenic_obj_seven').GetValue, '(CFixedPoint)0.0667' ), '(CFixedPoint)100.0'))]"
+		}
+	}
+}
+
+template migration_objectives
+{
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/celtic_warrior.dds"
+		}
+		blockoverride "objective_title"
+		{
+			text = "MIGRATION_OBJECTIVE_1_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "MIGRATION_OBJECTIVE_1_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 3
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('migration_obj_one').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)3.0')|0] / 3"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('migration_obj_one').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/egypt_treasure.dds"
+		}
+		blockoverride "objective_title"
+		{
+			text = "MIGRATION_OBJECTIVE_2_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "MIGRATION_OBJECTIVE_2_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 5
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('migration_obj_two').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)5.0')|0] / 5"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('migration_obj_two').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/greek_states_path_6.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "MIGRATION_OBJECTIVE_3_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "MIGRATION_OBJECTIVE_3_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 4
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('migration_obj_three').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)4.0')|0] / 4"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('migration_obj_three').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/persian_bactrian_path_7.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "MIGRATION_OBJECTIVE_4_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "MIGRATION_OBJECTIVE_4_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 40
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('migration_obj_four').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)40.0')|0] / 40"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('migration_obj_four').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/latin_support_path_3.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "MIGRATION_OBJECTIVE_5_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "MIGRATION_OBJECTIVE_5_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 5
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('migration_obj_five').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)5.0')|0] / 5"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('migration_obj_five').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/mission_image_egypt.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "MIGRATION_OBJECTIVE_6_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "MIGRATION_OBJECTIVE_6_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 20
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('migration_obj_six').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)20.0')|0] / 20"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('migration_obj_six').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/celtic_fort.dds"
+		}
+		blockoverride "objective_title"
+		{
+			text = "MIGRATION_OBJECTIVE_7_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "MIGRATION_OBJECTIVE_7_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 3
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('migration_obj_seven').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)3.0')|0] / 3"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('migration_obj_seven').GetValue)]"
+		}
+	}
+}
+template empire_objectives
+{
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/latin_philosophy_start_bonus.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "EMPIRE_OBJECTIVE_1_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "EMPIRE_OBJECTIVE_1_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 10
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('empire_obj_one').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)10.0')|0] / 10"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('empire_obj_one').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/mission_image_thrace.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "EMPIRE_OBJECTIVE_2_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "EMPIRE_OBJECTIVE_2_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 10
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('empire_obj_two').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)10.0')|0] / 10"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('empire_obj_two').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/mission_image_syracuse.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "EMPIRE_OBJECTIVE_3_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "EMPIRE_OBJECTIVE_3_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 10000
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('empire_obj_three').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)10000.0')|0] / 10000"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('empire_obj_three').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/latin_roman_path_4.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "EMPIRE_OBJECTIVE_4_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "EMPIRE_OBJECTIVE_4_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 500
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('empire_obj_four').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)500.0')|0] / 500"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('empire_obj_four').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/greek_leader.dds"
+		}
+		blockoverride "objective_title"
+		{
+			text = "EMPIRE_OBJECTIVE_5_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "EMPIRE_OBJECTIVE_5_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 3
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('empire_obj_five').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)3.0')|0] / 3"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('empire_obj_five').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/Event_greek_city_market.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "EMPIRE_OBJECTIVE_6_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "EMPIRE_OBJECTIVE_6_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			# (X * 0.01) * 350
+			text = "[Multiply_CFixedPoint(Multiply_CFixedPoint( Player.MakeScope.Var('empire_obj_six').GetValue, '(CFixedPoint)0.01' ), '(CFixedPoint)350.0')|0] / 350"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('empire_obj_six').GetValue)]"
+		}
+	}
+	age_objective = {
+		blockoverride "Icon" {
+			texture = "gfx/interface/ages_window/objectives/WIP/mission_image_egypt.dds"
+			size = { 62 62 }
+			position = { 16 4 }
+		}
+		blockoverride "objective_title"
+		{
+			text = "EMPIRE_OBJECTIVE_7_TITLE"
+		}
+		blockoverride "objective_desc"
+		{
+			text = "EMPIRE_OBJECTIVE_7_DESC"
+		}
+		blockoverride "progress_text"
+		{
+			text = "[Multiply_CFixedPoint( Player.MakeScope.Var('empire_obj_seven').GetValue, '(CFixedPoint)0.01' )|0] / 1"
+		}
+		blockoverride "progress_value"
+		{
+			value = "[FixedPointToFloat(Player.MakeScope.Var('empire_obj_seven').GetValue)]"
+		}
+	}
+
+}
+
+template hellenic_abilities
+{
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_one')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/price_found_city_cost_modifier.dds" }
+		tooltip = "HELLENIC_ABILITY_ONE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_two')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/agressive_expansion_impact.dds" }
+		tooltip = "HELLENIC_ABILITY_TWO_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_three')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/legion.dds" }
+		tooltip = "HELLENIC_ABILITY_THREE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_four')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/recruit_mercenary_cost_modifier.dds" }
+		tooltip = "HELLENIC_ABILITY_FOUR_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_five')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/global_pop_conversion_speed.dds" }
+		tooltip = "HELLENIC_ABILITY_FIVE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_six')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/shared_icons/alert_colonize_province.dds" }
+		tooltip = "HELLENIC_ABILITY_SIX_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_seven')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/global_pop_assimilation_speed_modifier.dds" }
+		tooltip = "HELLENIC_ABILITY_SEVEN_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_eight')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/diplomatic_reputation.dds" }
+		tooltip = "HELLENIC_ABILITY_EIGHT_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_nine')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/shared_icons/stability.dds" }
+		tooltip = "HELLENIC_ABILITY_NINE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_ten')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/shared_icons/loyalty.dds" }
+		tooltip = "HELLENIC_ABILITY_TEN_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('hellenic_ability_eleven')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/traits/argeads.dds" }
+		tooltip = "HELLENIC_ABILITY_ELEVEN_TT"
+	}
+}
+
+template migration_abilities
+{
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_one')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/monthly_general_loyalty.dds" }
+		tooltip = "MIGRATION_ABILITY_ONE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_two')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/assault_ability.dds" }
+		tooltip = "MIGRATION_ABILITY_TWO_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_three')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/diplomatic_relations.dds" }
+		tooltip = "MIGRATION_ABILITY_THREE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_four')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/fabricate_claim_speed.dds" }
+		tooltip = "MIGRATION_ABILITY_FOUR_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_five')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/global_import_commerce_modifier.dds" }
+		tooltip = "MIGRATION_ABILITY_FIVE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_six')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/integrate_speed.dds" }
+		tooltip = "MIGRATION_ABILITY_SIX_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_seven')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/levy.dds" }
+		tooltip = "MIGRATION_ABILITY_SEVEN_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_eight')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/land_morale_modifier.dds" }
+		tooltip = "MIGRATION_ABILITY_EIGHT_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_nine')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/agressive_expansion_impact.dds" }
+		tooltip = "MIGRATION_ABILITY_NINE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_ten')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/discipline.dds" }
+		tooltip = "MIGRATION_ABILITY_TEN_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('migration_ability_eleven')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/war_score_cost.dds" }
+		tooltip = "MIGRATION_ABILITY_ELEVEN_TT"
+	}
+}
+
+template empire_abilities
+{
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_one')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/deify_ruler_cost_modifier.dds" }
+		tooltip = "EMPIRE_ABILITY_ONE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_two')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/agressive_expansion_monthly_change.dds" }
+		tooltip = "EMPIRE_ABILITY_TWO_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_three')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/war_score_cost.dds" }
+		tooltip = "EMPIRE_ABILITY_THREE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_four')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/naval_damage_done.dds" }
+		tooltip = "EMPIRE_ABILITY_FOUR_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_five')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/global_pop_assimilation_speed_modifier.dds" }
+		tooltip = "EMPIRE_ABILITY_FIVE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_six')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/research_points_modifier.dds" }
+		tooltip = "EMPIRE_ABILITY_SIX_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_seven')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/civil_war_threshold.dds" }
+		tooltip = "EMPIRE_ABILITY_SEVEN_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_eight')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/heavy_infantry_defensive.dds" }
+		tooltip = "EMPIRE_ABILITY_EIGHT_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_nine')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/war_exhaustion.dds" }
+		tooltip = "EMPIRE_ABILITY_NINE_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_ten')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/diplomatic_reputation.dds" }
+		tooltip = "EMPIRE_ABILITY_TEN_TT"
+	}
+	age_ability = {
+		datacontext = "[GetScriptedGui('empire_ability_eleven')]"
+		blockoverride "Texture" { texture = "gfx/interface/icons/modifiers/discipline.dds" }
+		tooltip = "EMPIRE_ABILITY_ELEVEN_TT"
+	}
+}

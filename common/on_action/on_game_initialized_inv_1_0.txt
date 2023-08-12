@@ -1,8 +1,8 @@
 ﻿on_game_initialized = {
 
 	on_actions = {
-		delay = { days = { 10 30 } }
-		cappadocia_gamestart_pulse
+		# delay = { days = { 10 30 } }
+		# cappadocia_gamestart_pulse
 		delay = { days = { 10 30 } }
 		fix_succession_on_action
 		COL_on_game_initialized
@@ -47,9 +47,7 @@
 		bloodlines_startup.26 #Chera
 		bloodlines_startup.27 #Kalinga
 		bloodlines_startup.28 #Porus
-		bloodlines_startup.29 #Lanka
-		bloodlines_startup.30 #Lanka
-		bloodlines_startup.31 #Zipoetes
+
 		#Chinese Bloodlines
 		bloodlines_startup.32
 		bloodlines_startup.33
@@ -71,7 +69,7 @@
 		bloodlines_startup.50
 		bloodlines_startup.51
 		###Capadocian Flavor delay =  days =  10 30 for later Pulse for this now see above
-		#flavor_cap.1
+		flavor_cap.1
 
 		###Interesting Treasures
 		interesting_treasures.1
@@ -90,7 +88,7 @@
 		interesting_histories_country_events.11
 		interesting_histories_country_events.12
 		interesting_histories_country_events.13
-		interesting_histories_country_events.14
+		#interesting_histories_country_events.14
 		interesting_histories_country_events.15
 		interesting_histories_country_events.16
 		interesting_histories_country_events.17
@@ -122,6 +120,13 @@
 
 		#new starts
 		startup_events.9
+		startup_events.10
+		startup_events.11
+		startup_events.12
+		startup_events.13
+		startup_events.14
+		startup_events.15
+		startup_events.16
 		#the Diadochi CB code
 		province_siege.2
 		#Ashoka Temporary health boost
@@ -136,7 +141,6 @@
 		startup_barbaricum.4
 		startup_barbaricum.5
 		startup_barbaricum.6
-
 		
 		chinese_flavor.5
 	}
@@ -385,6 +389,17 @@
 			}
 		}
 		if = {
+			limit = { tag = MRY }
+			set_global_variable = {
+				name = acting_as_ashoka
+				value = char:66
+			}
+			set_variable = {
+				name = ashoka_but_for_loc_local
+				value = char:66
+			}
+		}
+		if = {
 			limit = {
 				OR = {
 					rank = local_power
@@ -579,8 +594,23 @@
 				}
 			}
 		}
+		#AI buff by making them choose the good law at gamestart
+		if = {
+			limit = { 
+				is_monarchy = yes
+				has_law = relaxed_recruiting_standards
+			}
+			change_law = recruit_from_nobles
+		}
+		if = {
+			limit = { 
+				tag = ROM
+			}
+			change_law = lex_porcia
+		}
 		if = {
 			limit = {
+				NOT = { has_global_variable = seaonal_food_game_rule }
 				NOT = { has_global_variable = province_init_inv_done }
 			}
 			trigger_event = { id = harvest.1 months = 2 }

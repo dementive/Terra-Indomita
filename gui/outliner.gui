@@ -147,7 +147,39 @@ window = {
 			layoutpolicy_vertical = expanding
 			alwaystransparent = no
 			allow_outside = yes
-
+			container = {
+				position = { -100 1 }
+				button = {
+					visible = "[GetScriptedGui('is_first_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					enabled = "[Not(GetVariableSystem.Exists('age_window_opened'))]"
+					size = { 70 70 }
+					texture = "gfx/interface/ages_window/icon_hellenic.dds"
+					tooltip = "AGES_WINDOW_TITLE"
+					onclick = "[ExecuteConsoleCommand('gui.createwidget gui/ages_window.gui ages_window')]"
+					onclick = "[GetScriptedGui('check_age_objectives').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					onclick = "[GetVariableSystem.Toggle('age_window_opened')]"
+				}
+				button = {
+					visible = "[GetScriptedGui('is_second_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					enabled = "[Not(GetVariableSystem.Exists('age_window_opened'))]"
+					size = { 70 70 }
+					texture = "gfx/interface/ages_window/icon_migration.dds"
+					tooltip = "AGES_WINDOW_TITLE"
+					onclick = "[ExecuteConsoleCommand('gui.createwidget gui/ages_window.gui ages_window')]"
+					onclick = "[GetScriptedGui('check_age_objectives').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					onclick = "[GetVariableSystem.Toggle('age_window_opened')]"
+				}
+				button = {
+					visible = "[GetScriptedGui('is_third_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					enabled = "[Not(GetVariableSystem.Exists('age_window_opened'))]"
+					size = { 70 70 }
+					texture = "gfx/interface/ages_window/icon_empire.dds"
+					tooltip = "AGES_WINDOW_TITLE"
+					onclick = "[ExecuteConsoleCommand('gui.createwidget gui/ages_window.gui ages_window')]"
+					onclick = "[GetScriptedGui('check_age_objectives').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					onclick = "[GetVariableSystem.Toggle('age_window_opened')]"
+				}
+			}
 			background = {
 				shaderfile = "gfx/FX/pdxgui_default.shader"
 				texture = "gfx/interface/base_parts/background_black_texture.dds"

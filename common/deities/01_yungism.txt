@@ -1,0 +1,316 @@
+﻿### General Deity Checks ###
+
+deity_mat_nar = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_mat_nar = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { global_population_capacity_modifier = deity_global_population_capacity_modifier_svalue }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+	religion = funan_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_mat_khei = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_mat_khei = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { research_points_modifier = deity_research_points_modifier_svalue }
+	omen = { religious_tech_investment = omen_religious_tech_investment_svalue } #Bonus from Omen
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+	religion = funan_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_bok_hoch = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_bok_hoch = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_culture
+	passive_modifier = { happiness_for_same_culture_modifier = deity_happiness_for_same_culture_modifier_svalue }
+	omen = { global_tribesmen_output = omen_global_tribesmen_output_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_civic_tech_effect = yes
+	}
+	religion = funan_religion
+	deity_category = culture #This Deity uses a Culture slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_ching = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_ching = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_eloquence
+	passive_modifier = { global_citizen_happyness = deity_global_citizen_happiness_svalue }
+	omen = { global_nobles_output = omen_global_nobles_output_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_characters_effect = yes
+	}
+	religion = funan_religion
+	deity_category = culture #This Deity uses a Culture slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_unh = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_unh = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_war
+	passive_modifier = { land_morale_modifier = deity_land_morale_modifier_svalue }
+	omen = { war_exhaustion = omen_war_exhaustion } #Bonus from Omen
+	on_activate = {
+		war_apotheosis_martial_tech_effect = yes
+	}
+	religion = funan_religion
+	deity_category = war #This Deity uses a War slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_ca_ong = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_rare_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_ca_ong = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_war
+	passive_modifier = { naval_morale_modifier = deity_naval_morale_modifier_svalue }
+	omen = { ship_cost = -0.15 } #Bonus from Omen
+	on_activate = {
+		naval_apotheosis_effect = yes
+	}
+	religion = funan_religion
+	deity_category = war #This Deity uses a War slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_teh = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_teh = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_love
+	passive_modifier = { global_monthly_food_modifier = deity_global_monthly_food_modifier_svalue }
+	omen = { hostile_attrition = omen_hostile_attrition_svalue } #Bonus from Omen
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+	religion = funan_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_tuk = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_tuk = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_love
+	passive_modifier = { global_population_growth = deity_global_population_growth_svalue }
+	omen = { global_population_happiness = omen_global_population_happiness } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_rel_tech_effect = yes
+		current_ruler = {
+			add_trait = lustful
+		}
+	}
+	religion = funan_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_neak_ta = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_neak_ta = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth
+	passive_modifier = { fort_maintenance_cost = omen_fort_maintenance_cost_svalue }
+	omen = { global_tax_modifier = deity_global_tax_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+	}
+	religion = funan_religion
+	deity_category = economy #This Deity uses an Economy slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_pilak = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_pilak = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_wealth
+	passive_modifier = { global_commerce_modifier = omen_global_commerce_modifier_svalue }
+	omen = { army_maintenance_cost = deity_army_maintenance_cost_svalue } #Bonus from Omen
+	on_activate = {
+		economy_income_effect = yes
+	}
+	religion = funan_religion
+	deity_category = economy #This Deity uses an Economy slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_mam = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_mam = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { stability_monthly_change = omen_stability_monthly_change_svalue }
+	omen = { build_time = deity_build_time_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
+	}
+	religion = funan_religion
+	deity_category = justice #This Deity uses a Justice slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_owl_hater = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = funan_religion
+			}
+			deity:omen_owl_hater = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { global_monthly_state_loyalty = deity_global_monthly_state_loyalty_svalue }
+	omen = { oratory_tech_investment = omen_oratory_tech_investment } #Bonus from Omen
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+	religion = funan_religion
+	deity_category = justice #This Deity uses a Justice slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}

@@ -18,6 +18,7 @@
     on_potential = {}
 
     on_start = {
+        start_mission_ai_effect = yes
     }
 
     on_abort = {
@@ -27,6 +28,7 @@
     	}
     }
     on_completion = {
+        complete_mission_effect = yes
         add_country_modifier = {
             name = argive_dominance
             duration = -1
@@ -127,8 +129,9 @@
         }
 
         allow = {
-        	p:7892 = {
-        		num_of_basic_settlement_infratructure_building >= 1
+        	hidden:p:7892 = {
+        		#num_of_basic_settlement_infratructure_building >= 1
+                has_building = basic_settlement_infratructure_building
         		trigger_if = {
         			limit = { has_construction = yes }
         			custom_tooltip = {

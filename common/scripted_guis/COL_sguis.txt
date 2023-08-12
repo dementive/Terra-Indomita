@@ -1,26 +1,13 @@
 ﻿colonization_popup_isvalid_sgui = {
 	scope = country
+	ai_is_valid = {
+		always = no
+	}
 	is_valid = {
+		is_ai = no
 		NOT = { has_variable = colonization_alert_hidden_temporarily }
-		any_owned_province = {
-			total_population >= 7
-			any_pops_in_province = {
-				percent >= 0.50
-				OR = {
-					this.culture = root.culture
-					AND = {
-						exists = country_culture
-						country_culture = {
-							is_integrated = yes
-						}
-					}
-				}
-			}
-			any_neighbor_province = {
-				NOT = { has_variable = province_is_being_colonized }
-				total_population > 0
-				has_owner = no
-			}
+		any_owned_province_that_can_colonize = {
+			count >= 1
 		}
 		trigger_if = {
 			limit = {
@@ -61,36 +48,15 @@ remove_colonization_list_sgui = {
 
 colonization_alert_sgui = {
 	scope = country
+	ai_is_valid = {
+		always = no
+	}
 	is_shown = {
+		exists = var:colonization_count
 		NOT = { has_variable = colonization_alert_hidden_temporarily }
-		any_owned_province = {
-			total_population >= 7
-			any_pops_in_province = {
-				percent >= 0.50
-				OR = {
-					this.culture = root.culture
-					AND = {
-						exists = country_culture
-						country_culture = {
-							is_integrated = yes
-						}
-					}
-				}
-			}
-			any_neighbor_province = {
-				NOT = { has_variable = province_is_being_colonized }
-				total_population > 0
-				has_owner = no
-			}
-		}
-		trigger_if = {
-			limit = {
-				has_variable = colonization_count
-			}
-			var:colonization_count < maximum_colonizable_provinces
-		}
-		trigger_else = {
-			always = no
+		var:colonization_count < maximum_colonizable_provinces
+		any_owned_province_that_can_colonize = {
+			count >= 1
 		}
 	}
 	effect = {
@@ -105,18 +71,20 @@ colonization_alert_sgui = {
 		}
 		every_province = {
 			limit = {
-				NOT = { has_variable = province_is_being_colonized }
-				total_population > 0
-				has_owner = no
-				any_neighbor_province = {
-					owner = root
-					total_population >= 7
-					any_pops_in_province = {
-						percent >= 0.50
-						OR = {
-							this.culture = root.culture
-							country_culture = {
-								is_integrated = yes
+				can_be_colonized = yes
+				OR = {
+					AND = {
+						any_neighbor_province = {
+							owner = root
+							can_send_colony = yes
+						}
+					}
+					AND = {
+						any_neighbor_province = {
+							is_sea = yes
+							any_neighbor_province = {
+								owner = root
+								can_send_colony = yes
 							}
 						}
 					}
@@ -149,7 +117,16 @@ colonization_sgui = {
 			}
 			any_owned_province = {
 				any_neighbor_province = {
-					this = scope:colonizing_province
+					OR = {
+						this = scope:colonizing_province
+						AND = {
+							is_sea = yes
+							any_neighbor_province = {
+								is_sea = no
+								this = scope:colonizing_province
+							}
+						}
+					}
 				}
 			}
 		}
@@ -174,13 +151,13 @@ colonization_sgui = {
 			trigger_if = {
 				limit = {
 					scope:colonizing_province = {
-						has_variable = province_is_being_colonized
+						is_being_colonized = yes
 					}
 				}
 				hidden:scope:colonizing_province = {
 					custom_tooltip = {
 						text = colonization_count_sgui_tttt
-						NOT = { has_variable = province_is_being_colonized }
+						NOT = { is_being_colonized = yes }
 					}
 				}
 			}
@@ -189,14 +166,16 @@ colonization_sgui = {
 					custom_tooltip = {
 						text = colonization_count_sgui_t
 						any_neighbor_province = {
-							owner = root
-							total_population >= 7
-							any_pops_in_province = {
-								percent >= 0.50
-								OR = {
-									this.culture = root.culture
-									country_culture = {
-										is_integrated = yes
+							OR = {
+								AND = {
+									owner = root
+									can_send_colony = yes
+								}
+								AND = {
+									is_sea = yes
+									any_neighbor_province = {
+										owner = root
+										can_send_colony = yes
 									}
 								}
 							}
@@ -217,14 +196,16 @@ colonization_sgui = {
 		scope:colonizing_province = {
 			random_neighbor_province = {
 				limit = {
-					owner = root
-					total_population >= 7
-					any_pops_in_province = {
-						percent >= 0.50
-						OR = {
-							this.culture = root.culture
-							country_culture = {
-								is_integrated = yes
+					OR = {
+						AND = {
+							owner = root
+							can_send_colony = yes
+						}
+						AND = {
+							is_sea = yes
+							any_neighbor_province = {
+								owner = root
+								can_send_colony = yes
 							}
 						}
 					}
@@ -246,7 +227,6 @@ colonization_sgui = {
 
 		hidden_effect = {
 			scope:colonizing_province = {
-				set_variable = province_is_being_colonized
 				every_neighbor_province = {
 					limit = {
 						has_owner = yes
@@ -256,14 +236,16 @@ colonization_sgui = {
 				}
 				random_neighbor_province = {
 					limit = {
-						owner = root
-						total_population >= 7
-						any_pops_in_province = {
-							percent >= 0.50
-							OR = {
-								this.culture = root.culture
-								country_culture = {
-									is_integrated = yes
+						OR = {
+							AND = {
+								owner = root
+								can_send_colony = yes
+							}
+							AND = {
+								is_sea = yes
+								any_neighbor_province = {
+									owner = root
+									can_send_colony = yes
 								}
 							}
 						}
@@ -390,18 +372,20 @@ colonization_sgui = {
 			}
 			every_province = {
 				limit = {
-					NOT = { has_variable = province_is_being_colonized }
-					total_population > 0
-					has_owner = no
-					any_neighbor_province = {
-						owner = root
-						total_population >= 7
-						any_pops_in_province = {
-							percent >= 0.50
-							OR = {
-								this.culture = root.culture
-								country_culture = {
-									is_integrated = yes
+					can_be_colonized = yes
+					OR = {
+						AND = {
+							any_neighbor_province = {
+								owner = root
+								can_send_colony = yes
+							}
+						}
+						AND = {
+							any_neighbor_province = {
+								is_sea = yes
+								any_neighbor_province = {
+									owner = root
+									can_send_colony = yes
 								}
 							}
 						}

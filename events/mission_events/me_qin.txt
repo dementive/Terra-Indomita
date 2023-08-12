@@ -2085,39 +2085,89 @@ me_qin_li_si.1605 = {	#Library Construction Finished
 
         	library_1_construction = {
         		var:library_province_flag = {
-	        		finish_great_work_construction = {
-						great_work = "library_template_1"
-						locator = primary_great_work
+        			if = {
+        				limit = {
+        					NOT = { has_variable = building_secondary_great_work } 
+        				}
+		        		finish_great_work_construction = {
+							great_work = "library_template_1"
+							locator = primary_great_work
+		        		}
+        			}
+        			else = {
+		        		finish_great_work_construction = {
+							great_work = "library_template_1"
+							locator = secondary_great_work
+		        		}
 	        		}
 	        	}
         	}
 
         	library_2_construction = {
 				var:library_province_flag = {        	
-	        		finish_great_work_construction = {
-						great_work = "library_template_2"
-						locator = primary_great_work
+        			if = {
+        				limit = {
+        					NOT = { has_variable = building_secondary_great_work } 
+        				}
+		        		finish_great_work_construction = {
+							great_work = "library_template_2"
+							locator = primary_great_work
+		        		}
+        			}
+        			else = {
+		        		finish_great_work_construction = {
+							great_work = "library_template_2"
+							locator = secondary_great_work
+		        		}
 	        		}
         		}
         	}
 
         	library_3_construction = {
        			var:library_province_flag = {
-	        		finish_great_work_construction = {
-						great_work = "library_template_3"
-						locator = primary_great_work
+        			if = {
+        				limit = {
+        					NOT = { has_variable = building_secondary_great_work } 
+        				}
+		        		finish_great_work_construction = {
+							great_work = "library_template_3"
+							locator = primary_great_work
+		        		}
+        			}
+        			else = {
+		        		finish_great_work_construction = {
+							great_work = "library_template_3"
+							locator = secondary_great_work
+		        		}
 	        		}
         		}
         	}
 
         	library_4_construction = {
         		var:library_province_flag = {
-	        		finish_great_work_construction = {
-						great_work = "library_template_4"
-						locator = primary_great_work
+        			if = {
+        				limit = {
+        					NOT = { has_variable = building_secondary_great_work } 
+        				}
+		        		finish_great_work_construction = {
+							great_work = "library_template_4"
+							locator = primary_great_work
+		        		}
+        			}
+        			else = {
+		        		finish_great_work_construction = {
+							great_work = "library_template_4"
+							locator = secondary_great_work
+		        		}
 	        		}
         		}
         	}
+        }
+        if = {
+        	limit = {
+        		has_variable = building_secondary_great_work
+        	}
+        	remove_variable = building_secondary_great_work
         }
         remove_variable = library_province_flag
         remove_variable = library_progress

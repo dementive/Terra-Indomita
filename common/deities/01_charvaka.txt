@@ -1,0 +1,157 @@
+﻿### General Deity Checks ###
+
+deity_brihaspati = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = charvaka
+			}
+			deity:omen_brihaspati = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_war
+	passive_modifier = { discipline = deity_discipline_svalue }
+	omen = { assault_ability = omen_assault_ability_svalue } #Bonus from Omen
+	religion = charvaka
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_military_experience_effect = yes
+	}
+}
+
+deity_yajnavalkya = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = charvaka
+			}
+			deity:omen_yajnavalkya = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_love
+	passive_modifier = { global_population_capacity_modifier = deity_global_population_capacity_modifier_svalue }
+	omen = { global_monthly_food_modifier = omen_global_monthly_food_modifier } #Bonus from Omen
+	religion = charvaka
+	deity_category = fertility #This Deity uses a Fertility slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+}
+
+deity_ajita = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_trigger = {
+				RELIGION = charvaka
+			}
+			deity:omen_ajita = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_eloquence
+	passive_modifier = { global_freemen_output = deity_global_freemen_output_svalue }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue } #Bonus from Omen
+	religion = charvaka
+	deity_category = culture #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		culture_apotheosis_oratory_tech_effect = yes
+	}
+}
+
+deity_payasi = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_rare_deity_trigger = {
+				RELIGION = charvaka
+			}
+			deity:omen_payasi = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { stability_monthly_change = deity_stability_monthly_change }
+	omen = { general_loyalty = 5 } #Bonus from Omen
+	religion = charvaka
+	deity_category = justice #This Deity uses a Justice slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_manpower_effect = yes
+	}
+}
+
+deity_charvaka = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = charvaka
+			}
+			deity:omen_charvaka = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_wealth
+	passive_modifier = { global_tax_modifier = deity_global_tax_modifier_svalue }
+	omen = { global_capital_trade_routes = 2 }
+	religion = charvaka
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+}
+
+deity_pratyaksa = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_trigger = {
+				RELIGION = charvaka
+			}
+			deity:omen_pratyaksa = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { religious_tech_investment = deity_religious_tech_investment_svalue }
+	omen = { happiness_for_same_religion_modifier = omen_happiness_for_same_religion_modifier_svalue }
+	religion = charvaka
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+}
