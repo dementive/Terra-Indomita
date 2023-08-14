@@ -1,0 +1,245 @@
+﻿thaton_missions = {
+    header = "mission_image_china"
+    icon = "seleukid_2"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+    on_completion = {}
+    thaton_missions_task_1 = {
+        icon = "task_happiness"
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.1
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_2 = {
+        icon = "task_battle"
+        requires = { thaton_missions_task_1 }
+        bypass = { has_completed_mission_task = thaton_missions_task_3 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.2
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_3 = {
+        icon = "task_diplomatic"
+        requires = { thaton_missions_task_1 }
+        bypass = { has_completed_mission_task = thaton_missions_task_2 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.3
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_4 = {
+        icon = "task_political"
+        allow = {}
+        requires { thaton_missions_task_2 thaton_missions_task_3 }
+        on_completion = {
+            trigger_event = me_thaton.4
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_5 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_4 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.5
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_6 = {
+        icon = "task_political"
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.6
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_7 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_6 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.7
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_8 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_6 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.8
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_9 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_7 thaton_missions_task_8 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.9
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_10 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_9 thaton_missions_task_4 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.10
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_11 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_10 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.11
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_12 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_11 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.12
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_13 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_11 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.13
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_14 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_12 thaton_missions_task_13 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.14
+            show_as_tooltip = {
+
+            }
+        }
+        final = yes
+    }
+    thaton_missions_task_15 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_10 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.15
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_16 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_13 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.16
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_17 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_20 thaton_missions_task_16 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.17
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_18 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_15 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.18
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_19 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_15 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.19
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_20 = {
+        icon = "task_political"
+        requires = { thaton_missions_task_18 thaton_missions_task_19 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.20
+            show_as_tooltip = {
+
+            }
+        }
+    }
+}
