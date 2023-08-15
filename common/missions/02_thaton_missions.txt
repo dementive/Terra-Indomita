@@ -485,14 +485,19 @@
             }
         }
         on_start = {
-            trigger_event = me_thaton.110
+            trigger_event = {
+                name = me_thaton.110
+                days = { 75 150 }
+            }
         }
         on_completion = {
             trigger_event = me_thaton.11
             show_as_tooltip = {
+                custom_tooltip = "gain_pegu_claims_tt"
                 custom_tooltip = "fake_war_pegu_tt"
-                area:shenli_area = {
-                    every_area_province = { add_claim = root }
+                add_country_modifier = {
+                    name = prepared_for_war
+                    duration = 1095
                 }
             }
         }
@@ -500,22 +505,78 @@
     thaton_missions_task_12 = { # Up the Irrawaddy
         icon = "task_expansion"
         requires = { thaton_missions_task_11 }
-        allow = {}
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = beikthano_area
+                    is_in_area = halin_area
+                    is_in_area = shenli_area
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = shenli_area
+            owns_or_subject_owns_area = beikthano_area
+            owns_or_subject_owns_area = halin_area
+        }
         on_completion = {
             trigger_event = me_thaton.12
             show_as_tooltip = {
-
+                add_splendor = {
+                    amount = "100"
+                }
+                add_country_modifier = {
+                    name = king_of_irrawaddy
+                    duration = -1
+                }
+                area:shenli_area = {
+                    every_area_province = {
+                        limit = {
+                            owner = root
+                            NOR = {
+                                province_id = 9797
+                                province_id = 9798
+                            }
+                        }
+                        create_state_pop = citizen
+                        create_state_pop = citizen
+                    }
+                }
+                area:beikthano_area = {
+                    every_area_province = {
+                        limit = {
+                            owner = root
+                        }
+                        create_state_pop = citizen
+                        create_state_pop = citizen
+                    }
+                }
+                area:halin_area = {
+                    every_area_province = {
+                        limit = {
+                            owner = root
+                        }
+                        create_state_pop = citizen
+                        create_state_pop = citizen
+                    }
+                }
             }
         }
     }
     thaton_missions_task_13 = { # Mons Across the Monts
         icon = "task_atlas"
+        duration = 90
         requires = { thaton_missions_task_11 }
-        allow = {}
+        allow = {
+            
+        }
         on_completion = {
             trigger_event = me_thaton.13
             show_as_tooltip = {
-
+                add_country_modifier = {
+                    name = prepared_for_war
+                    duration = 1095
+                }
             }
         }
     }

@@ -200,13 +200,25 @@ me_thaton.10 = { # The Legend is Born
 me_thaton.110 = { # War on Pegu
     type = country_event
 
-    title = me_thaton_11_title
-    desc = me_thaton_11_desc
-    picture = naval_battle
+    title = me_thaton_110_title
+    desc = me_thaton_110_desc
+    picture = city_siege
 
+    immediate = {
+        c:PEG = {
+            declare_war_with_wargoal = {
+                target = root
+                war_goal = conquer_wargoal
+                province = 9797
+            }
+        }
+        add_country_modifier = {
+            name = ill_prepared_army
+            duration = -1
+        }
+    }
     option = {
         name = "me_thaton_110.a"
-
     }
 }
 me_thaton.11 = { # King of Pegu
@@ -214,12 +226,22 @@ me_thaton.11 = { # King of Pegu
 
     title = me_thaton_11_title
     desc = me_thaton_11_desc
-    picture = great_library
+    picture = naval_battle
 
     option = {
         name = "me_thaton_11.a"
         custom_tooltip = me_thaton_11_tooltip
-
+        custom_tooltip = "gain_pegu_claims_tt"
+        hidden_effect = {
+            area:shenli_area = {
+                every_area_province = { add_claim = root }
+            }
+        }
+        add_country_modifier = {
+            name = prepared_for_war
+            duration = 1095
+        }
+        remove_country_modifier = ill_prepared_army
     }
 }
 me_thaton.12 = { # Up the Irrawaddy
@@ -356,6 +378,38 @@ me_thaton.1000 = { # 3 Kingdoms Startup Event
             tag = PEG
             tag = THT
             tag = SHE
+        }
+    }
+    immediate = {
+        c:SHE = {
+            add_truce = {
+                target = c:PEG
+                duration = 1825 # 5 years
+            }
+            add_truce = {
+                target = c:THT
+                duration = 1825 # 5 years
+            }
+        }
+        c:THT = {
+            add_truce = {
+                target = c:PEG
+                duration = 1825 # 5 years
+            }
+            add_truce = {
+                target = c:SHE
+                duration = 1825 # 5 years
+            }
+        }
+        c:PEG = {
+            add_truce = {
+                target = c:SHE
+                duration = 1825 # 5 years
+            }
+            add_truce = {
+                target = c:THT
+                duration = 1825 # 5 years
+            }
         }
     }
     option = {

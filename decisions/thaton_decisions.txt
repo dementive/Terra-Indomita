@@ -1,0 +1,78 @@
+﻿country_decisions = {
+	thaton_irrawaddy_claims = {
+		potential = {
+			tag = THT
+			owns_or_subject_owns = 9800
+		}
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = beikthano_area
+					is_in_area = halin_area
+					is_in_area = shenli_area
+				}		
+			}
+
+		}
+
+		allow = {
+			political_influence >= 50
+			has_completed_mission_task = thaton_missions_task_10
+		}
+
+		effect = {
+			area:beikthano_area = {
+				every_area_province = { add_claim = { root } }
+			}
+			area:halin_area = {
+				every_area_province = { add_claim = { root } }
+			}
+			area:shenli_area = {
+				every_area_province = { add_claim = { root } }
+			}
+			add_political_influence = -50
+		}
+	}
+
+	what_to_do_with_pyu = {
+		potential = {
+			tag = THT
+			has_completed_mission_task = thaton_missions_task_12
+			any_area_province = {
+				OR = {
+					is_in_area = beikthano_area
+					is_in_area = halin_area
+					is_in_area = shenli_area
+				}
+				any_pops_in_province = {
+					is_culture = piaoyue
+				}
+			}
+		}
+		highlight = {
+			scope:province = {
+				any_area_province = {
+					OR = {
+						is_in_area = beikthano_area
+						is_in_area = halin_area
+						is_in_area = shenli_area
+					}
+					any_pops_in_province = {
+						is_culture = piaoyue
+					}
+				}
+			}
+		}
+		allow = {
+			political_influence >= 50
+		}
+		effect = {
+			trigger_event = me_thaton.999
+			show_as_tooltip = {
+				add_political_influence = -50
+			}
+		}
+	}
+}
+
