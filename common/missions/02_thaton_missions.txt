@@ -25,9 +25,6 @@
         icon = "task_happiness"
         duration = 30
         allow = {}
-        on_start = {
-            trigger_event = me_thaton.0
-        }
         on_completion = {
             trigger_event = me_thaton.1
             show_as_tooltip = {
@@ -54,6 +51,12 @@
                     add_opinion = {
                         modifier = rival_kingdom
                         target = root
+                    }
+                }
+                current_ruler = {
+                    add_focus_experience = {
+                        text = "add_25_focus_xp"
+                        amount = 25
                     }
                 }
             }
@@ -159,6 +162,16 @@
                         }
                     }
                 }
+                random_province = {
+                    limit = {
+                        is_in_area = tenasserim_area
+                    }
+                    add_special_pop = {
+                        text = add_1_merchant_tt
+                        type = merchant
+                        count = 1
+                    }
+                }
             }
         }
     }
@@ -196,6 +209,39 @@
                     add_building_level = commerce_building
                     add_building_level = port_building
                 }
+                if = {
+                    limit = {
+                        NOT = {
+                            country_has_special_pop = {
+                                text = "country_has_5_architect_tt"
+                                type = architect
+                                count = 5
+                            }
+                            any_province = {
+                                limit = {
+                                    has_city_status = yes
+                                    is_in_area = tenasserim_area
+                                }
+                                province_has_special_pop = {
+                                    text = "prov_has_5_architect_tt"
+                                    type = architect
+                                    count = 5
+                                }
+                            }
+                        }
+                    }
+                    random_province = {
+                        limit = {
+                            has_city_status = yes
+                            is_in_area = tenasserim_area
+                        }
+                        add_special_pop = {
+                            text = "add_1_architect_tt"
+                            type = architect
+                            count = 1
+                        }
+                    }
+                }
             }
         }
     }
@@ -212,6 +258,7 @@
                 total_population >= 25
                 has_building = shrine_building
                 has_building = temple_building
+                state_improvement_religious_trigger = yes
             }
         }
         on_completion = {
@@ -220,6 +267,31 @@
                 add_country_modifier = {
                     name = hall_of_the_gods
                     duration = -1
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            country_has_special_pop = {
+                                text = "country_has_5_priest_tt"
+                                type = priest
+                                count = 5
+                            }
+                            capital_scope = {
+                                province_has_special_pop = {
+                                    text = "prov_has_5_priest_tt"
+                                    type = priest
+                                    count = 5
+                                }
+                            }
+                        }
+                    }
+                    capital_scope = {
+                        add_special_pop = {
+                            text = "add_1_priest_tt"
+                            type = priest
+                            count = 1
+                        }
+                    }
                 }
             }
         }
@@ -243,6 +315,7 @@
             }
             p:9798 = {
                 has_building = basic_settlement_infratructure_building
+                state_improvement_civic_trigger = yes
             }
         }
         on_completion = {
@@ -257,7 +330,7 @@
             }
         }
     }
-    thaton_missions_task_8 = { # Incense Sense
+    thaton_missions_task_8 = { # Incense Makes Sense
         icon = "task_religion"
         requires = { thaton_missions_task_6 }
         highlight = {
@@ -266,23 +339,97 @@
             }
         }
         allow = {
-            #trades incense somehow
+            capital_scope = {
+                is_importing_trade_good = incense
+                hidden:state = {
+                    trade_good_imports = {
+                        target = incense
+                        value >= 1
+                    }
+                }
+            }
+            capital_scope = {
+                has_building = commerce_building
+                state_improvement_oratory_trigger = yes
+            }
         }
         on_completion = {
             trigger_event = me_thaton.8
             show_as_tooltip = {
-                
+                p:9797 = {
+                    add_province_modifier = {
+                        name = incense_production
+                        duration = -1
+                    }
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            country_has_special_pop = {
+                                text = "country_has_5_artist_tt"
+                                type = artist
+                                count = 5
+                            }
+                            capital_scope = {
+                                province_has_special_pop = {
+                                    text = "prov_has_5_artist_tt"
+                                    type = artist
+                                    count = 5
+                                }
+                            }
+                        }
+                    }
+                    capital_scope = {
+                        add_special_pop = {
+                            text = "add_1_artist_tt"
+                            type = artist
+                            count = 1
+                        }
+                    }
+                }
             }
         }
     }
     thaton_missions_task_9 = { # Trade Routes to the West
         icon = "task_economical"
         requires = { thaton_missions_task_7 thaton_missions_task_8 }
-        allow = {}
+        highlight = {
+            scope:province = {  
+                trade_goods = wootz_steel
+            }
+        }
+        allow = {
+            capital_scope = {
+                is_importing_trade_good = wootz_steel
+                hidden:state = {
+                    trade_good_imports = {
+                        target = wootz_steel
+                        value >= 1
+                    }
+                }  
+            }
+        }
         on_completion = {
             trigger_event = me_thaton.9
             show_as_tooltip = {
-
+                area:shenli_area = {
+                    every_area_province = {
+                        limit = {
+                            owner = root
+                        }
+                        add_province_modifier = {
+                            name = western_trade
+                            duration = -1
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = add_1_merchant_tt
+                        type = merchant
+                        count = 1
+                    }
+                }
             }
         }
     }
@@ -293,18 +440,60 @@
         on_completion = {
             trigger_event = me_thaton.10
             show_as_tooltip = {
-
+                current_ruler = {
+                    add_focus_perk = {
+                        text = "add_1_char_perk"
+                        amount = 1
+                    }
+                    add_popularity = popularity_large
+                }
+                add_splendor = {
+                    amount = "200"
+                }
             }
         }
     }
     thaton_missions_task_11 = { # King of Pegu
         icon = "task_conquest"
+        duration = 180
         requires = { thaton_missions_task_10 }
-        allow = {}
+        highlight = {
+            scope:province = {
+                is_in_area = shenli_area
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                c:PEG = {
+                    has_opinion = {
+                        modifier = opinion_insult
+                        target = root
+                    }
+                }
+                text = "insult_pegu_tt"
+            }
+        }
+        bypass = {
+            any_country = {
+                tag = PEG
+                has_land = no
+            }
+        }
+        on_bypass = {
+            area:shenli_area = {
+                every_area_province = { add_claim = root }
+            }
+        }
+        on_start = {
+            trigger_event = me_thaton.110
+        }
         on_completion = {
             trigger_event = me_thaton.11
             show_as_tooltip = {
-
+                custom_tooltip = "fake_war_pegu_tt"
+                area:shenli_area = {
+                    every_area_province = { add_claim = root }
+                }
             }
         }
     }
