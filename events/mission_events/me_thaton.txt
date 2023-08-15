@@ -1,6 +1,6 @@
 ﻿namespace = me_thaton
 
-me_thaton.1 = {
+me_thaton.1 = { # Kingdom of the South
     type = country_event
 
     title = me_thaton_1_title
@@ -10,10 +10,34 @@ me_thaton.1 = {
     option = {
         name = "me_thaton_1.a"
         custom_tooltip = me_thaton_1_tooltip
-
+        add_country_modifier = {
+            name = southern_kingdom
+            duration = 1825
+        }
+        custom_tooltip = "mon_culture_opinion_tt"
+        every_country = {
+            limit = {
+                is_monarchy = no
+                culture = mon
+            }
+            add_opinion = {
+                modifier = legend_of_culture
+                target = root
+            }
+        }
+        every_country = {
+            limit = {
+                is_monarchy = yes
+                culture = mon
+            }
+            add_opinion = {
+                modifier = rival_kingdom
+                target = root
+            }
+        }
     }
 }
-me_thaton.2 = {
+me_thaton.2 = { # Coastal Conquest
     type = country_event
 
     title = me_thaton_2_title
@@ -23,10 +47,18 @@ me_thaton.2 = {
     option = {
         name = "me_thaton_2.a"
         custom_tooltip = me_thaton_2_tooltip
-
+        add_political_influence = -50
+        area:tenasserim_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        p:9799 = {
+            add_claim = root
+        }
     }
 }
-me_thaton.3 = {
+me_thaton.3 = { # Subjects of Sadhuim
     type = country_event
 
     title = me_thaton_3_title
@@ -36,10 +68,19 @@ me_thaton.3 = {
     option = {
         name = "me_thaton_3.a"
         custom_tooltip = me_thaton_3_tooltip
-
+        make_subject = {
+            target = root
+            type = feudatory
+            tag = YIL
+        }
+        make_subject = {
+            target = root
+            type = feudatory
+            tag = TES
+        }
     }
 }
-me_thaton.4 = {
+me_thaton.4 = { # Trade Routes to the East
     type = country_event
 
     title = me_thaton_4_title
@@ -49,10 +90,17 @@ me_thaton.4 = {
     option = {
         name = "me_thaton_4.a"
         custom_tooltip = me_thaton_4_tooltip
-
+        area:tenasserim_area = {
+            every_area_province = {
+                add_province_modifier = {
+                    name = eastern_trade
+                    duration = -1
+                }
+            }
+        }
     }
 }
-me_thaton.5 = {
+me_thaton.5 = { # Cities of the Sea
     type = country_event
 
     title = me_thaton_5_title
@@ -62,10 +110,21 @@ me_thaton.5 = {
     option = {
         name = "me_thaton_5.a"
         custom_tooltip = me_thaton_5_tooltip
-
+        every_province = {
+            limit = {
+                is_in_area = tenasserim_area
+                has_city_status = yes
+            }
+            add_province_modifier = {
+                name = bustling_asian_trade
+                duration = -1
+            }
+            add_building_level = commerce_building
+            add_building_level = port_building
+        }
     }
 }
-me_thaton.6 = {
+me_thaton.6 = { # City of the Gods
     type = country_event
 
     title = me_thaton_6_title
@@ -75,10 +134,13 @@ me_thaton.6 = {
     option = {
         name = "me_thaton_6.a"
         custom_tooltip = me_thaton_6_tooltip
-
+        add_country_modifier = {
+            name = hall_of_the_gods
+            duration = -1
+        }
     }
 }
-me_thaton.7 = {
+me_thaton.7 = { # Garden of Greens
     type = country_event
 
     title = me_thaton_7_title
@@ -88,7 +150,12 @@ me_thaton.7 = {
     option = {
         name = "me_thaton_7.a"
         custom_tooltip = me_thaton_7_tooltip
-
+        p:9798 = {
+            add_province_modifier = {
+                name = garden_of_greens
+                duration = -1
+            }
+        }
     }
 }
 me_thaton.8 = {
@@ -258,5 +325,43 @@ me_thaton.20 = {
         name = "me_thaton_20.a"
         custom_tooltip = me_thaton_20_tooltip
 
+    }
+}
+
+me_thaton.1000 = { # 3 Kingdoms Startup Event
+    type = country_event
+    title = mon_kingdoms_title
+    desc = mon_kingdoms_desc
+    picture = china_art_16_event
+    goto_location = root
+    left_portrait = current_ruler
+    right_portrait = char:40113
+    right_portrait = char:40174
+    right_portrait = char:36035
+
+    trigger = {
+        OR = {
+            tag = PEG
+            tag = THT
+            tag = SHE
+        }
+    }
+    option = {
+        trigger = {
+            tag = PEG
+        }
+        name = mon_kingdoms.a
+    }
+    option = {
+        trigger = {
+            tag = THT
+        }
+        name = mon_kingdoms.b
+    }
+    option = {
+        trigger = {
+            tag = SHE
+        }
+        name = mon_kingdoms.c
     }
 }
