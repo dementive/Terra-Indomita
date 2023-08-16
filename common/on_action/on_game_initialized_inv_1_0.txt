@@ -3,7 +3,7 @@
 	on_actions = {
 		# delay = { days = { 10 30 } }
 		# cappadocia_gamestart_pulse
-		delay = { days = { 10 30 } }
+		# delay = { days = { 10 30 } } ##delay be gone
 		fix_succession_on_action
 		COL_on_game_initialized
 	}
@@ -47,6 +47,10 @@
 		bloodlines_startup.26 #Chera
 		bloodlines_startup.27 #Kalinga
 		bloodlines_startup.28 #Porus
+		bloodlines_startup.29 # Vijaya
+		bloodlines_startup.30 # Vijaya Ruhunu
+		bloodlines_startup.31 # Zipoetes
+		bloodlines_startup.32 # Samaria
 
 		#Chinese Bloodlines
 		bloodlines_startup.32
@@ -68,6 +72,8 @@
 		bloodlines_startup.49
 		bloodlines_startup.50
 		bloodlines_startup.51
+
+
 		###Capadocian Flavor delay =  days =  10 30 for later Pulse for this now see above
 		flavor_cap.1
 
@@ -143,6 +149,8 @@
 		startup_barbaricum.6
 		
 		chinese_flavor.5
+		#Saba
+		south_arabia.1000
 	}
 
 	effect = {
@@ -155,6 +163,15 @@
 		startup_variables_achievement_effect = yes
 		### Cultural Minority Rights ###
 		startup_cultural_decisions_effect = yes
+		### Variable for fixing new monarchies ###
+		if = {
+			limit = {
+				is_monarchy = yes
+			}
+			set_variable = {
+				name = fix_new_countries
+			}
+		}
 		### Other ###
 		if = {
 			limit = {

@@ -13,7 +13,6 @@
         has_dlc = "The Punic Wars"
     	tag = ROM
     	OR = {
-			#always = yes
     		has_completed_mission = roman_mission_08_greece
     		any_owned_province = {
     			OR = {
@@ -41,17 +40,28 @@
             region:cilicia_region = {
                 every_region_province = { add_claim = ROOT }
             }
+            region:cyrenaica_region = {
+                every_region_province = { add_claim = ROOT }
+            }
+            region:lower_egypt_region = {
+                every_region_province = { add_claim = ROOT }
+            }
+            region:syria_region = {
+                every_region_province = { add_claim = ROOT }
+            }
+            region:palestine_region = {
+                every_region_province = { add_claim = ROOT }
+            }
             region:bithynia_region = {
                 every_region_province = { add_claim = ROOT }
             }
             region:galatia_region = {
                 every_region_province = { add_claim = ROOT }
             }
-            region:pontus_region = {
+            region:cappadocia_pontica_region = {
                 every_region_province = { add_claim = ROOT }
             }
         }
-		trigger_event = me_roman_missions_ti.7
     }
 
     on_abort = {
@@ -64,7 +74,6 @@
 
     on_completion = {
         complete_mission_effect = yes
-		trigger_event = me_roman_missions_ti.8
     }
 
     roman_mission_09_eastern_glory_task_1 = { # The Ionian Cities
@@ -113,9 +122,6 @@
     	}
 
         allow = {
-			current_ruler = {
-				has_triggered_character_modifier = foreign_affairs_focus_triggered_mod
-			}
         	political_influence >= 50
             custom_tooltip = {
                 text = roman_mission_09_eastern_glory_task_1_trigger_tt
@@ -177,13 +183,6 @@
             remove_variable = ionian_city_started_flag
         	add_political_influence = -50
         	custom_tooltip = roman_mission_09_eastern_glory_task_1_effect_tt
-			custom_tooltip = roman_mission_09_eastern_glory_task_1_ti_tt
-			hidden_effect = {
-				region:asia_region = {
-					every_region_province = { add_claim = ROOT }
-				}
-			}
-			
         }
     }
 
@@ -191,13 +190,8 @@
     	icon = "task_diplomatic"
 
     	duration = 180
-		
-		allow = {
-			current_ruler = {
-				has_triggered_character_modifier = foreign_affairs_focus_triggered_mod
-			}
-		}
 
+    	requires = { roman_mission_09_eastern_glory_task_3 }
 
         potential = {
         	OR = {
@@ -254,15 +248,186 @@
 	
         on_completion = {
         	custom_tooltip = roman_mission_09_eastern_glory_task_2_effect_tt
-			custom_tooltip = roman_mission_09_eastern_glory_task_2_ti_tt
-			hidden_effect = {
-				region:bithynia_region = {
-					every_region_province = { add_claim = ROOT }
-				}
-			}
         }
     }
 
+    roman_mission_09_eastern_glory_task_3 = { # Subdue Thrace
+    	icon = "task_conquest"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = europa_area
+					is_in_area = rhodope_area
+					is_in_area = haemimontus_area
+				}
+        	}
+        }
+
+        allow = {
+        	owns_or_subject_owns_area = europa_area
+        	owns_or_subject_owns_area = rhodope_area
+        	owns_or_subject_owns_area = haemimontus_area
+        }
+
+        on_completion = {
+        	roman_mission_ruler_popularity_effect = yes
+        	custom_tooltip = roman_conquest_reward_tooltip
+        	trigger_event = { id = roman_conquest_2.9 }
+        	if = {
+        		limit = {
+        			any_subject = {
+        				any_owned_province = {
+        					OR = {
+        						is_in_area = europa_area
+        						is_in_area = rhodope_area
+        						is_in_area = haemimontus_area
+        					}
+        				}
+        			}
+        		}
+        		every_subject = {
+        			limit = {
+        				any_owned_province = {
+        					OR = {
+        						is_in_area = europa_area
+        						is_in_area = rhodope_area
+        						is_in_area = haemimontus_area
+        					}
+        				}
+        			}
+        			add_opinion = {
+        				modifier = opinion_roman_mission_subject_appreciation
+        				target = root
+        			}
+        		}
+        	}
+            every_country_state = {
+                limit = {
+                    any_state_province = {
+                        OR = {
+                            is_in_area = europa_area
+                            is_in_area = rhodope_area
+                            is_in_area = haemimontus_area
+                        }
+                    }
+                }
+                custom = roman_mission_09_eastern_glory_task_3_modifier_tt
+                add_state_modifier = {
+                    name = new_roman_conquest_foreign_smod
+                    duration = 1825 # 5 years
+                }
+            }
+        }
+    }
+
+    roman_mission_09_eastern_glory_task_4 = { # The Bread Basket
+    	icon = "task_diplomatic"
+
+    	highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = western_delta_area
+					is_in_area = central_delta_area
+					is_in_area = eastern_delta_area
+				}
+				trade_goods = grain
+			}
+    	}
+
+    	bypass = {
+    		OR = {
+	    		NOR = {
+	    			area:western_delta_area = {
+	    				any_area_province = {
+	    					trade_goods = grain
+	    					exists = owner
+	    					owner = {
+	    						is_subject = no
+	    						NOT = { war_with = root }
+	    					}
+	    				}
+	    			}
+	    			area:central_delta_area = {
+	    				any_area_province = {
+	    					trade_goods = grain
+	    					exists = owner
+	    					owner = {
+	    						is_subject = no
+	    						NOT = { war_with = root }
+	    					}
+	    				}
+	    			}
+	    			area:eastern_delta_area = {
+	    				any_area_province = {
+	    					trade_goods = grain
+	    					exists = owner
+	    					owner = {
+	    						is_subject = no
+	    						NOT = { war_with = root }
+	    					}
+	    				}
+	    			}
+	    		}
+	    		any_owned_province = {
+	    			OR = {
+		    			is_in_area = western_delta_area
+		    			is_in_area = central_delta_area
+		    			is_in_area = eastern_delta_area
+		    		}
+		    		trade_goods = grain
+	    		}
+    		}
+    	}
+
+        allow = {
+        	treasury >= roman_mission_bread_basket_cost_svalue
+        	custom_tooltip = {
+        		text = roman_mission_09_eastern_glory_task_4_trigger_tt
+        		OR = {
+	    			area:western_delta_area = {
+	    				any_area_province = {
+	    					trade_goods = grain
+	    					exists = owner
+	    					owner = {
+	    						is_subject = no
+	    						NOT = { war_with = root }
+	    					}
+	    				}
+	    			}
+	    			area:central_delta_area = {
+	    				any_area_province = {
+	    					trade_goods = grain
+	    					exists = owner
+	    					owner = {
+	    						is_subject = no
+	    						NOT = { war_with = root }
+	    					}
+	    				}
+	    			}
+	    			area:eastern_delta_area = {
+	    				any_area_province = {
+	    					trade_goods = grain
+	    					exists = owner
+	    					owner = {
+	    						is_subject = no
+	    						NOT = { war_with = root }
+	    					}
+	    				}
+	    			}
+	    		}
+        	}
+        }
+
+        on_completion = {
+        	add_treasury = {
+        		value = 0
+        		subtract = roman_mission_bread_basket_cost_svalue
+        	}
+        	custom_tooltip = roman_mission_09_eastern_glory_task_4_effect_tt
+        	trigger_event = { id = me_roman_9_eastern_glory.7 }
+        }
+    }
 
     roman_mission_09_eastern_glory_task_5 = { # Storied Ionia
     	icon = "task_conquest"
@@ -333,17 +498,13 @@
                     duration = 1825 # 5 years
                 }
             }
-			custom_tooltip = roman_mission_09_eastern_glory_task_5_ti_tt
-			hidden_effect = {
-				region:cilicia_region = {
-					every_region_province = { add_claim = ROOT }
-				}
-			}
         }
     }
 
     roman_mission_09_eastern_glory_task_6 = { # Entering Bithynia
     	icon = "task_conquest"
+
+    	requires = { roman_mission_09_eastern_glory_task_3 }
 
         highlight = {
 			scope:province = {
@@ -351,7 +512,6 @@
 					is_in_area = bithynia_area
 					is_in_area = bithynia_inferior_area
 					is_in_area = heracleotis_area
-					is_in_area = bithynia_superior_area
 				}
         	}
         }
@@ -360,7 +520,6 @@
         	owns_or_subject_owns_area = bithynia_area
         	owns_or_subject_owns_area = bithynia_inferior_area
         	owns_or_subject_owns_area = heracleotis_area
-			owns_or_subject_owns_area = bithynia_superior_area
         }
 
         on_completion = {
@@ -411,18 +570,80 @@
                     duration = 1825 # 5 years
                 }
             }
-			custom_tooltip = roman_mission_09_eastern_glory_task_6_ti_tt
-			hidden_effect = {
-				region:galatia_region = {
-					every_region_province = { add_claim = ROOT }
-				}
-				region:cappadocia_pontica_region = {
-					every_region_province = { add_claim = ROOT }
-				}
-			}
         }
     }
 
+    roman_mission_09_eastern_glory_task_7 = { # Ancient Syria
+    	icon = "task_conquest"
+
+    	requires = { roman_mission_09_eastern_glory_task_11 }
+
+    	highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = syria_area
+					is_in_area = apamene_area
+					is_in_area = north_phoenicia_area
+				}
+    		}
+    	}
+
+    	allow = {
+    		owns_or_subject_owns_area = syria_area
+    		owns_or_subject_owns_area = apamene_area
+    		owns_or_subject_owns_area = north_phoenicia_area
+    	}
+
+    	on_completion = {
+    		roman_mission_ruler_popularity_effect = yes
+        	custom_tooltip = roman_conquest_reward_tooltip
+        	trigger_event = { id = roman_conquest_2.13 }
+        	if = {
+        		limit = {
+        			any_subject = {
+        				any_owned_province = {
+        					OR = {
+        						is_in_area = syria_area
+        						is_in_area = apamene_area
+        						is_in_area = north_phoenicia_area
+        					}
+        				}
+        			}
+        		}
+        		every_subject = {
+        			limit = {
+        				any_owned_province = {
+        					OR = {
+        						is_in_area = syria_area
+        						is_in_area = apamene_area
+        						is_in_area = north_phoenicia_area
+        					}
+        				}
+        			}
+        			add_opinion = {
+        				modifier = opinion_roman_mission_subject_appreciation
+        				target = root
+        			}
+        		}
+        	}
+            every_country_state = {
+                limit = {
+                    any_state_province = {
+                        OR = {
+                            is_in_area = syria_area
+                            is_in_area = apamene_area
+                            is_in_area = north_phoenicia_area
+                        }
+                    }
+                }
+                custom = roman_mission_09_eastern_glory_task_7_modifier_tt
+                add_state_modifier = {
+                    name = new_roman_conquest_foreign_smod
+                    duration = 1825 # 5 years
+                }
+            }
+    	}
+    }
 
     roman_mission_09_eastern_glory_task_8 = { # Anatolian Riches
     	icon = "task_conquest"
@@ -434,11 +655,10 @@
 				OR = {
 					is_in_area = galatia_area
 					is_in_area = phrygia_epiktetos
+					is_in_area = lydia_area
 					is_in_area = phrygia_area
 					is_in_area = phrygia_parorea_area
 					is_in_area = lycaonia_area
-					is_in_area = isauria_area
-					is_in_area = galatia_trocmi_area
 				}
     		}
     	}
@@ -446,11 +666,10 @@
     	allow = {
     		owns_or_subject_owns_area = galatia_area
     		owns_or_subject_owns_area = phrygia_epiktetos
+    		owns_or_subject_owns_area = lydia_area
     		owns_or_subject_owns_area = phrygia_area
     		owns_or_subject_owns_area = phrygia_parorea_area
     		owns_or_subject_owns_area = lycaonia_area
-			owns_or_subject_owns_area = isauria_area
-			owns_or_subject_owns_area = galatia_trocmi_area
     	}
 
     	on_completion = {
@@ -464,11 +683,10 @@
         					OR = {
         						is_in_area = galatia_area
 					    		is_in_area = phrygia_epiktetos
+					    		is_in_area = lydia_area
 					    		is_in_area = phrygia_area
 					    		is_in_area = phrygia_parorea_area
 					    		is_in_area = lycaonia_area
-								is_in_area = isauria_area
-								is_in_area = galatia_trocmi_area
         					}
         				}
         			}
@@ -483,8 +701,6 @@
 					    		is_in_area = phrygia_area
 					    		is_in_area = phrygia_parorea_area
 					    		is_in_area = lycaonia_area
-								is_in_area = isauria_area
-								is_in_area = galatia_trocmi_area
         					}
         				}
         			}
@@ -500,11 +716,10 @@
                         OR = {
                             is_in_area = galatia_area
                             is_in_area = phrygia_epiktetos
+                            is_in_area = lydia_area
                             is_in_area = phrygia_area
                             is_in_area = phrygia_parorea_area
                             is_in_area = lycaonia_area
-							is_in_area = isauria_area
-							is_in_area = galatia_trocmi_area
                         }
                     }
                 }
@@ -514,12 +729,6 @@
                     duration = 1825 # 5 years
                 }
             }
-			custom_tooltip = roman_mission_09_eastern_glory_task_8_ti_tt
-			hidden_effect = {
-				region:cappadocia_region = {
-					every_region_province = { add_claim = ROOT }
-				}
-			}
     	}
     }
 
@@ -534,8 +743,6 @@
 					is_in_area = paphlagonia_inferior_area
 					is_in_area = pontus_area
 					is_in_area = machelonia_area
-					is_in_area = pontus_colopene_area
-					is_in_area = paphlagonia_superior_area
 				}
     		}
     	}
@@ -544,8 +751,6 @@
     		owns_or_subject_owns_area = paphlagonia_inferior_area
     		owns_or_subject_owns_area = pontus_area
     		owns_or_subject_owns_area = machelonia_area
-			owns_or_subject_owns_area = pontus_colopene_area
-			owns_or_subject_owns_area = paphlagonia_superior_area
     	}
 
     	on_completion = {
@@ -560,8 +765,6 @@
         						is_in_area = paphlagonia_inferior_area
         						is_in_area = pontus_area
         						is_in_area = machelonia_area
-								is_in_area = pontus_colopene_area
-								is_in_area = paphlagonia_superior_area
         					}
         				}
         			}
@@ -573,8 +776,6 @@
         						is_in_area = paphlagonia_inferior_area
         						is_in_area = pontus_area
         						is_in_area = machelonia_area
-								is_in_area = pontus_colopene_area
-								is_in_area = paphlagonia_superior_area
         					}
         				}
         			}
@@ -591,8 +792,6 @@
                             is_in_area = paphlagonia_inferior_area
                             is_in_area = pontus_area
                             is_in_area = machelonia_area
-							is_in_area = pontus_colopene_area
-							is_in_area = paphlagonia_superior_area
                         }
                     }
                 }
@@ -605,6 +804,82 @@
     	}
     }
 
+    roman_mission_09_eastern_glory_task_10 = { # Lavish Palestine
+    	icon = "task_conquest"
+
+    	requires = { roman_mission_09_eastern_glory_task_4 }
+
+    	highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = philistia_area
+					is_in_area = judea_area
+					is_in_area = samaria_area
+					is_in_area = galilee_area
+				}
+    		}
+    	}
+
+    	allow = {
+    		owns_or_subject_owns_area = philistia_area
+    		owns_or_subject_owns_area = judea_area
+    		owns_or_subject_owns_area = samaria_area
+    		owns_or_subject_owns_area = galilee_area
+    	}
+
+    	on_completion = {
+    		roman_mission_ruler_popularity_effect = yes
+        	custom_tooltip = roman_conquest_reward_tooltip
+        	trigger_event = { id = roman_conquest_2.14 }
+        	if = {
+        		limit = {
+        			any_subject = {
+        				any_owned_province = {
+        					OR = {
+        						is_in_area = philistia_area
+        						is_in_area = judea_area
+        						is_in_area = samaria_area
+        						is_in_area = galilee_area
+        					}
+        				}
+        			}
+        		}
+        		every_subject = {
+        			limit = {
+        				any_owned_province = {
+        					OR = {
+        						is_in_area = philistia_area
+        						is_in_area = judea_area
+        						is_in_area = samaria_area
+        						is_in_area = galilee_area
+        					}
+        				}
+        			}
+        			add_opinion = {
+        				modifier = opinion_roman_mission_subject_appreciation
+        				target = root
+        			}
+        		}
+        	}
+            every_country_state = {
+                limit = {
+                    any_state_province = {
+                        OR = {
+                            is_in_area = philistia_area
+                            is_in_area = judea_area
+                            is_in_area = samaria_area
+                            is_in_area = galilee_area
+                        }
+                    }
+                }
+                custom = roman_mission_09_eastern_glory_task_10_modifier_tt
+                add_state_modifier = {
+                    name = new_roman_conquest_foreign_smod
+                    duration = 1825 # 5 years
+                }
+            }
+    	}
+    }
 
     roman_mission_09_eastern_glory_task_11 = { # The Pirate Nest
     	icon = "task_conquest"
@@ -675,19 +950,165 @@
                     duration = 1825 # 5 years
                 }
             }
-			custom_tooltip = roman_mission_09_eastern_glory_task_11_ti_tt
-			hidden_effect = {
-				region:syria_region = {
-					every_region_province = { add_claim = ROOT }
+    	}
+    }
+
+    roman_mission_09_eastern_glory_task_12 = { # Independent Judea
+    	icon = "task_political"
+
+    	requires = { roman_mission_09_eastern_glory_task_10 }
+
+    	highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = judea_area
+					is_in_area = peraea_area
+					is_in_area = samaria_area
+					is_in_area = galilee_area
 				}
+    		}
+    	}
+
+    	allow = {
+    		custom_tooltip = {
+    			text = roman_mission_09_eastern_glory_task_12_trigger_tt
+    			OR = {
+    				NOT = { exists = c:JUD }
+    				c:JUD = { num_of_cities = 0 }
+    			}
+    		}
+    		owns_area = judea_area
+    		owns_area = peraea_area
+    		owns_area = samaria_area
+    		owns_area = galilee_area
+    	}
+
+    	on_completion = {
+    		custom_tooltip = roman_mission_09_eastern_glory_task_12_effect_tt
+    		hidden_effect = {
+	    		p:687 = {
+	    			create_country = {
+	    				name = {
+	    					name = "JUD"
+	    					adjective = "JUD_ADJ"
+	    				}
+	    				change_country_tag = JUD
+						if = {
+							limit = {
+								NOT = {
+									primary_culture = hebrew
+								}
+							}
+							set_primary_culture_cleanup_effect = {
+								NEW_PRIMARY_CULTURE = hebrew
+								MAKE_OLD_CULTURE_INTEGRATED = yes
+							}
+						}
+	    				set_country_religion = judaism
+	    				set_country_heritage = judea_heritage
+	    				change_country_flag = JUD
+	    				change_country_color = judea_country_color
+	    				change_government = aristocratic_monarchy
+	    				save_scope_as = new_judea_country
+	    				add_opinion = {
+	    					modifier = opinion_liberated_us
+	    					target = root
+	    				}
+	    			}
+	    		}
+	    		every_owned_province = {
+	    			limit = {
+	    				OR = {
+	    					is_in_area = judea_area
+	    					is_in_area = peraea_area
+	    					is_in_area = samaria_area
+	    					is_in_area = galilee_area
+	    				}
+	    				is_coastal = no
+	    			}
+	    			set_owned_by = scope:new_judea_country
+	    		}
+	    		make_subject = {
+	    			target = scope:new_judea_country
+	    			type = client_state
+	    		}
+    		}
+    	}
+    }
+
+    roman_mission_09_eastern_glory_task_13 = { # Raising the Decapolian League
+    	icon = "task_political"
+
+    	requires = { roman_mission_09_eastern_glory_task_12 }
+
+    	highlight = {
+			scope:province = {
+				is_in_area = decapolis_area
 			}
+    	}
+
+    	allow = {
+    		owns_area = decapolis_area
+    	}
+
+    	on_completion = {
+    		custom_tooltip = roman_mission_09_eastern_glory_task_13_effect_tt
+    		hidden_effect = {
+    			area:decapolis_area = {
+    				ordered_area_province = {
+    					order_by = total_population
+    					max = 1
+    					save_scope_as = decapolis_province
+    				}
+    			}
+	    		scope:decapolis_province = {
+	    			create_country = {
+	    				name = {
+	    					name = "DECAPOLIS_NAME"
+	    					adjective = "DECAPOLIS_ADJECTIVE"
+	    				}
+	    				change_country_tag = DCP
+						if = {
+							limit = {
+								NOT = {
+									primary_culture = aramaic
+								}
+							}
+							set_primary_culture_cleanup_effect = {
+								NEW_PRIMARY_CULTURE = aramaic
+								MAKE_OLD_CULTURE_INTEGRATED = yes
+							}
+						}
+	    				set_country_religion = roman_pantheon
+	    				set_country_heritage = decapolian_heritage
+	    				change_country_flag = DECAPOLIS_FLAG
+	    				change_country_color = dark_orange
+	    				change_government = democratic_republic
+	    				save_scope_as = new_decapolis_country
+	    				add_opinion = {
+	    					modifier = opinion_liberated_us
+	    					target = root
+	    				}
+	    			}
+	    		}
+	    		every_owned_province = {
+	    			limit = {
+	    				is_in_area = decapolis_area
+	    			}
+	    			set_owned_by = scope:new_decapolis_country
+	    		}
+	    		make_subject = {
+	    			target = scope:new_decapolis_country
+	    			type = client_state
+	    		}
+    		}
     	}
     }
 
     roman_mission_09_eastern_glory_task_final = { # The Eastern Campaign
     	icon = "task_expansion"
 
-    	requires = { roman_mission_09_eastern_glory_task_11 roman_mission_09_eastern_glory_ti_task_2 roman_mission_09_eastern_glory_ti_task_3 }
+    	requires = { roman_mission_09_eastern_glory_task_11 roman_mission_09_eastern_glory_task_9 }
 
         final = yes
 
@@ -707,298 +1128,4 @@
 	        }
         }
     }
-	
-	
-	roman_mission_09_eastern_glory_ti_task_1 = { #Lycia&Pisidia
-		icon = "task_conquest"
-		
-		requires = { roman_mission_09_eastern_glory_task_11 }
-		
-		highlight = {
-			scope:province = {
-				OR = {
-					is_in_area = milyas_area
-					is_in_area = lycia_area
-					is_in_area = pisidia_area
-				}
-    		}
-    	}
-		
-		allow = {
-    		owns_or_subject_owns_area = milyas_area
-    		owns_or_subject_owns_area = lycia_area
-    		owns_or_subject_owns_area = pisidia_area
-    	}
-		
-		on_completion = {
-			roman_mission_ruler_popularity_effect = yes
-        	custom_tooltip = roman_conquest_reward_tooltip
-        	trigger_event = { id = roman_conquest_missions_ti.19 }
-        	if = {
-        		limit = {
-        			any_subject = {
-        				any_owned_province = {
-        					OR = {
-        						is_in_area = milyas_area
-								is_in_area = lycia_area
-								is_in_area = pisidia_area
-        					}
-        				}
-        			}
-        		}
-        		every_subject = {
-        			limit = {
-        				any_owned_province = {
-        					OR = {
-        						is_in_area = milyas_area
-								is_in_area = lycia_area
-								is_in_area = pisidia_area
-        					}
-        				}
-        			}
-        			add_opinion = {
-        				modifier = opinion_roman_mission_subject_appreciation
-        				target = root
-        			}
-        		}
-        	}
-            every_country_state = {
-                limit = {
-                    any_state_province = {
-                        OR = {
-                            is_in_area = milyas_area
-							is_in_area = lycia_area
-							is_in_area = pisidia_area
-                        }
-                    }
-                }
-                custom = roman_mission_09_eastern_glory_ti_task_1_modifier_tt
-                add_state_modifier = {
-                    name = new_roman_conquest_foreign_smod
-                    duration = 1825 # 5 years
-                }
-            }
-		}
-	}
-	
-	roman_mission_09_eastern_glory_ti_task_2 = { #Rounding off Asia
-		icon = "task_conquest"
-		
-		requires = { roman_mission_09_eastern_glory_task_5 }
-		
-		highlight = {
-			scope:province = {
-				OR = {
-					is_in_area = mysia_area
-					is_in_area = mysia_abrettene_area
-					is_in_area = inland_caria_area
-					is_in_area = lydia_area
-					is_in_area = sporades_area
-				}
-    		}
-    	}
-		
-		allow = {
-    		owns_or_subject_owns_area = mysia_area
-    		owns_or_subject_owns_area = mysia_abrettene_area
-    		owns_or_subject_owns_area = inland_caria_area
-			owns_or_subject_owns_area = lydia_area
-			owns_or_subject_owns_area = sporades_area
-    	}
-		
-		on_completion = {
-			roman_mission_ruler_popularity_effect = yes
-        	custom_tooltip = roman_conquest_reward_tooltip
-        	trigger_event = { id = roman_conquest_missions_ti.20 }
-        	if = {
-        		limit = {
-        			any_subject = {
-        				any_owned_province = {
-        					OR = {
-        						is_in_area = mysia_area
-								is_in_area = mysia_abrettene_area
-								is_in_area = inland_caria_area
-								is_in_area = lydia_area
-								is_in_area = sporades_area
-        					}
-        				}
-        			}
-        		}
-        		every_subject = {
-        			limit = {
-        				any_owned_province = {
-        					OR = {
-        						is_in_area = mysia_area
-								is_in_area = mysia_abrettene_area
-								is_in_area = inland_caria_area
-								is_in_area = lydia_area
-								is_in_area = sporades_area
-        					}
-        				}
-        			}
-        			add_opinion = {
-        				modifier = opinion_roman_mission_subject_appreciation
-        				target = root
-        			}
-        		}
-        	}
-            every_country_state = {
-                limit = {
-                    any_state_province = {
-                        OR = {
-                            is_in_area = mysia_area
-							is_in_area = mysia_abrettene_area
-							is_in_area = inland_caria_area
-							is_in_area = lydia_area
-							is_in_area = sporades_area
-                        }
-                    }
-                }
-                custom = roman_mission_09_eastern_glory_ti_task_2_modifier_tt
-                add_state_modifier = {
-                    name = new_roman_conquest_foreign_smod
-                    duration = 1825 # 5 years
-                }
-            }
-		}
-		
-	}
-	
-	roman_mission_09_eastern_glory_ti_task_3 = { #End Cappadocian Independence
-		icon = "task_conquest"
-		
-		requires = { roman_mission_09_eastern_glory_task_8 roman_mission_09_eastern_glory_task_9 }
-		
-		highlight = {
-			scope:province = {
-				OR = {
-					is_in_area = cappadocia_area
-					is_in_area = cappadocia_cataonia_area
-					is_in_area = cappadocia_garsauritis_area
-					is_in_area = cappadocia_saravene_area
-					is_in_area = cappadocia_melitene_area
-				}
-    		}
-    	}
-		
-		allow = {
-    		owns_or_subject_owns_area = cappadocia_area
-    		owns_or_subject_owns_area = cappadocia_cataonia_area
-    		owns_or_subject_owns_area = cappadocia_garsauritis_area
-			owns_or_subject_owns_area = cappadocia_saravene_area
-			owns_or_subject_owns_area = cappadocia_melitene_area
-    	}
-		
-		on_completion = {
-			roman_mission_ruler_popularity_effect = yes
-        	custom_tooltip = roman_conquest_reward_tooltip
-        	trigger_event = { id = roman_conquest_missions_ti.21 }
-        	if = {
-        		limit = {
-        			any_subject = {
-        				any_owned_province = {
-        					OR = {
-        						is_in_area = cappadocia_area
-								is_in_area = cappadocia_cataonia_area
-								is_in_area = cappadocia_garsauritis_area
-								is_in_area = cappadocia_saravene_area
-								is_in_area = cappadocia_melitene_area
-        					}
-        				}
-        			}
-        		}
-        		every_subject = {
-        			limit = {
-        				any_owned_province = {
-        					OR = {
-        						is_in_area = cappadocia_area
-					is_in_area = cappadocia_cataonia_area
-					is_in_area = cappadocia_garsauritis_area
-					is_in_area = cappadocia_saravene_area
-					is_in_area = cappadocia_melitene_area
-        					}
-        				}
-        			}
-        			add_opinion = {
-        				modifier = opinion_roman_mission_subject_appreciation
-        				target = root
-        			}
-        		}
-        	}
-            every_country_state = {
-                limit = {
-                    any_state_province = {
-                        OR = {
-                            is_in_area = cappadocia_area
-							is_in_area = cappadocia_cataonia_area
-							is_in_area = cappadocia_garsauritis_area
-							is_in_area = cappadocia_saravene_area
-							is_in_area = cappadocia_melitene_area
-                        }
-                    }
-                }
-                custom = roman_mission_09_eastern_glory_ti_task_3_modifier_tt
-                add_state_modifier = {
-                    name = new_roman_conquest_foreign_smod
-                    duration = 1825 # 5 years
-                }
-            }
-		}
-		
-	}
-	
-	roman_mission_09_eastern_glory_ti_task_4 = { #Greater Armenia
-		icon = "task_conquest"
-		
-		requires = { roman_mission_09_eastern_glory_ti_task_3 }
-		
-		highlight = {
-			scope:province = {
-				OR = {
-					is_in_region = armenia_region
-					is_in_region = colchis_region
-					is_in_area = arran_area
-					is_in_area = caucasian_albania_area
-					is_in_area = paytankert_area
-					is_in_area = artshak_area
-					is_in_area = kahetia_area
-				}
-    		}
-    	}
-		
-		allow = {
-			OR = {
-				c:ARM = { has_land = no }
-				c:ARM = { num_of_cities < rm_4_rome_subject_city_counter_compare_svalue }
-			}
-		}
-		
-		on_completion = {
-			if = {
-				limit = { 
-					c:ARM = { has_land = yes }
-				}
-				custom_tooltip = roman_mission_09_eastern_glory_ti_task_4_armenia_alive_tt #send ultimatum to Armenia
-				c:ARM = { 
-					trigger_event = me_roman_missions_ti.15
-				}
-			}
-			else = {
-				custom_tooltip = roman_mission_09_eastern_glory_ti_task_4_armenia_dead_tt #gain claims on below regions
-				hidden_effect = {
-					region:armenia_region = {
-						every_region_province = { add_claim = ROOT }
-					}
-					region:colchis_region = {
-						every_region_province = { add_claim = ROOT }
-					}
-					area:arran_area = { mission_area_claim_effect = yes }
-					area:caucasian_albania_area = { mission_area_claim_effect = yes }
-					area:paytankert_area = { mission_area_claim_effect = yes }
-					area:artshak_area = { mission_area_claim_effect = yes }
-					area:kahetia_area = { mission_area_claim_effect = yes }
-				}
-			}
-		}
-	}
 }
