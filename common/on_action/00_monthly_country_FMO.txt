@@ -1,7 +1,6 @@
 ﻿monthly_country_pulse = {
 	on_actions = {		
 		monthly_check_for_100_experience
-		monthly_reparation_payments_on_action
 		monthly_imperial_power
 		monthly_colonization_pulse
 	}
@@ -116,23 +115,6 @@ monthly_imperial_power = {
 	}
 }
 
-monthly_reparation_payments_on_action = {
-	effect = {
-		#Add income for reparations...
-		if = {
-			limit = { has_variable = paying_5_year_reparations }
-			save_scope_as = rep_country
-			add_treasury = {
-				value = subtract_10_percent_monthly_income
-			}
-			var:paying_5_year_reparations = {
-				add_treasury = {
-					value = add_10_percent_monthly_income
-				}
-			}
-		}
-	}
-}
 monthly_check_for_100_experience = {
 	#This uses multiple scripted lists for performance. It also assigns focus for ai because they cant use buttons.
 	#Other ai stuff is in the bi-yearly action because perks aren't gained very often.

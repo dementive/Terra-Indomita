@@ -1,17 +1,10 @@
 ﻿on_game_initialized = {
 
 	on_actions = {
-		# delay = { days = { 10 30 } }
-		# cappadocia_gamestart_pulse
-		# delay = { days = { 10 30 } } ##delay be gone
 		fix_succession_on_action
-		COL_on_game_initialized
 	}
 
 	events = {
-		#credits
-		startup_event.1
-
 		###Spartan Diarchy
 		special_spartan_event.1
 
@@ -51,28 +44,6 @@
 		bloodlines_startup.30 # Vijaya Ruhunu
 		bloodlines_startup.31 # Zipoetes
 		bloodlines_startup.32 # Samaria
-
-		#Chinese Bloodlines
-		bloodlines_startup.32
-		bloodlines_startup.33
-		bloodlines_startup.34
-		bloodlines_startup.36
-		bloodlines_startup.37
-		bloodlines_startup.38
-		bloodlines_startup.39
-		bloodlines_startup.40
-		bloodlines_startup.41
-		bloodlines_startup.42
-		bloodlines_startup.43
-		bloodlines_startup.44
-		bloodlines_startup.45
-		bloodlines_startup.46
-		bloodlines_startup.47
-		bloodlines_startup.48
-		bloodlines_startup.49
-		bloodlines_startup.50
-		bloodlines_startup.51
-
 
 		###Capadocian Flavor delay =  days =  10 30 for later Pulse for this now see above
 		flavor_cap.1
@@ -139,16 +110,7 @@
 		flavor_maurya.4
 		#All mauryan provinces list event
 		flavor_maurya.15
-
-		#Barbarian starts - 1-6 Germania
-		startup_barbaricum.1
-		startup_barbaricum.2
-		startup_barbaricum.3
-		startup_barbaricum.4
-		startup_barbaricum.5
-		startup_barbaricum.6
 		
-		chinese_flavor.5
 		#Saba
 		south_arabia.1000
 	}
@@ -658,20 +620,6 @@
 				NOT = { has_global_variable = is_playing_invictus }
 			}
 			set_global_variable = is_playing_invictus #For other mods to check for Invictus stuff without errors plz don't remove
-		}
-		set_variable = {
-			name = colonization_count
-			value = 0
-		}
-	}
-}
-
-
-COL_on_game_initialized = {
-	effect = {
-		set_variable = {
-			name = colonization_count
-			value = 0
 		}
 	}
 }

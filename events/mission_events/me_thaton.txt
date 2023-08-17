@@ -18,7 +18,9 @@ me_thaton.1 = { # Kingdom of the South
         every_country = {
             limit = {
                 is_monarchy = no
-                culture = mon
+                any_integrated_culture = {
+                    is_culture = mon
+                }
             }
             add_opinion = {
                 modifier = legend_of_culture
@@ -28,7 +30,9 @@ me_thaton.1 = { # Kingdom of the South
         every_country = {
             limit = {
                 is_monarchy = yes
-                culture = mon
+                any_integrated_culture = {
+                    is_culture = mon
+                }
             }
             add_opinion = {
                 modifier = rival_kingdom
@@ -68,15 +72,27 @@ me_thaton.3 = { # Subjects of Sadhuim
     option = {
         name = "me_thaton_3.a"
         custom_tooltip = me_thaton_3_tooltip
-        make_subject = {
-            target = root
-            type = feudatory
-            tag = YIL
+        if = {
+            limit = {
+                exists = c:YIL
+            }
+            c:YIL = {
+                make_subject = {
+                    target = root
+                    type = feudatory
+                }
+            }
         }
-        make_subject = {
-            target = root
-            type = feudatory
-            tag = TES
+        if = {
+            limit = {
+                exists = c:TES
+            }
+            c:TES = {
+                make_subject = {
+                    target = root
+                    type = feudatory
+                }
+            }
         }
     }
 }
@@ -85,7 +101,7 @@ me_thaton.4 = { # Trade Routes to the East
 
     title = me_thaton_4_title
     desc = me_thaton_4_desc
-    picture = china_art_6
+    picture = china_art_6_event
 
     option = {
         name = "me_thaton_4.a"
