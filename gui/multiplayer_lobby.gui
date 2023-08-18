@@ -2287,7 +2287,7 @@ JominiMultiplayerLobby_BUI = {
 	}
 	state = {
 		name = _show
-		on_start = "[GetVariableSystem.Set( 'show_south_europe_missions', 'yes' )]"
+		on_start = "[GetVariableSystem.Set( 'show_asia_missions', 'yes' )]"
 		trigger_on_create = yes
 	}
 	window = {
@@ -2322,7 +2322,23 @@ JominiMultiplayerLobby_BUI = {
 					@maxcategorybuttonwidth = 143
 					@mincategorybuttonheight = 28
 					@maxcategorybuttonheight = 32
-
+					category_tab = {
+						name = "asia_missions_tab"
+						blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
+						blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
+						blockoverride "MinVisible" { visible = "[Not( GetVariableSystem.HasValue( 'show_asia_missions', 'yes' ) )]" }
+						blockoverride "MaxVisible" { visible = "[GetVariableSystem.HasValue( 'show_asia_missions', 'yes' )]" }
+						blockoverride "Center_text" { text = "asia" }
+						blockoverride "Icon" { visible = no }
+						blockoverride "ClickFunction"
+						{
+							onclick = "[GetVariableSystem.Set( 'show_south_europe_missions', 'no' )]"
+							onclick = "[GetVariableSystem.Set( 'show_north_europe_missions', 'no' )]"
+							onclick = "[GetVariableSystem.Set( 'show_africa_missions', 'no' )]"
+							onclick = "[GetVariableSystem.Set( 'show_asia_missions', 'yes' )]"
+							onclick = "[GetVariableSystem.Set( 'show_indian_missions', 'no' )]"
+						}
+					}
 					category_tab = {
 						name = "greek_missions_tab"
 						blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
@@ -2375,23 +2391,6 @@ JominiMultiplayerLobby_BUI = {
 						}
 					}
 					category_tab = {
-						name = "asia_missions_tab"
-						blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
-						blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
-						blockoverride "MinVisible" { visible = "[Not( GetVariableSystem.HasValue( 'show_asia_missions', 'yes' ) )]" }
-						blockoverride "MaxVisible" { visible = "[GetVariableSystem.HasValue( 'show_asia_missions', 'yes' )]" }
-						blockoverride "Center_text" { text = "asia" }
-						blockoverride "Icon" { visible = no }
-						blockoverride "ClickFunction"
-						{
-							onclick = "[GetVariableSystem.Set( 'show_south_europe_missions', 'no' )]"
-							onclick = "[GetVariableSystem.Set( 'show_north_europe_missions', 'no' )]"
-							onclick = "[GetVariableSystem.Set( 'show_africa_missions', 'no' )]"
-							onclick = "[GetVariableSystem.Set( 'show_asia_missions', 'yes' )]"
-							onclick = "[GetVariableSystem.Set( 'show_indian_missions', 'no' )]"
-						}
-					}
-					category_tab = {
 						name = "indian_missions_tab"
 						blockoverride "MinSize" { size = { @mincategorybuttonwidth @mincategorybuttonheight } }
 						blockoverride "MaxSize" { size = { @maxcategorybuttonwidth @maxcategorybuttonheight } }
@@ -2407,6 +2406,16 @@ JominiMultiplayerLobby_BUI = {
 							onclick = "[GetVariableSystem.Set( 'show_asia_missions', 'no' )]"
 							onclick = "[GetVariableSystem.Set( 'show_indian_missions', 'yes' )]"
 						}
+					}
+				}
+				missions_container = {
+					blockoverride "visiblity"
+					{
+						visible = "[GetVariableSystem.HasValue( 'show_asia_missions', 'yes' )]"
+					}
+					blockoverride "missions"
+					{
+						using = asian_missions
 					}
 				}
 				missions_container = {
@@ -2437,16 +2446,6 @@ JominiMultiplayerLobby_BUI = {
 					blockoverride "missions"
 					{
 						using = africa_missions
-					}
-				}
-				missions_container = {
-					blockoverride "visiblity"
-					{
-						visible = "[GetVariableSystem.HasValue( 'show_asia_missions', 'yes' )]"
-					}
-					blockoverride "missions"
-					{
-						using = asian_missions
 					}
 				}
 				missions_container = {
