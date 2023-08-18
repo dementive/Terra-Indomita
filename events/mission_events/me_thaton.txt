@@ -273,6 +273,216 @@ me_thaton.12 = { # Up the Irrawaddy
 
     }
 }
+me_thaton.130 = { # Send Ultimatum
+    type = country_event
+    title = me_thaton_130_title
+    desc = me_thaton_130_desc
+    picture = interesting_histories_greek_debate
+
+    option = {
+        name = me_thaton_130.a
+        #Offer Ultimatum
+        add_aggressive_expansion = 10
+        add_tyranny = 10
+        c:SHE = {
+            trigger_event = {
+                id = me_rhodes.131
+                days = { 5 10 }
+            }
+        }
+    }
+    option = {
+        name = me_thaton_130.b
+        #Offer Sweetened Ultimatum
+        add_treasury = -50
+        current_ruler = {
+            add_gold = -100
+        }
+        reverse_add_opinion = {
+            target = c:SHE
+            modifier = opinion_gift
+        }
+        add_aggressive_expansion = 5
+        add_tyranny = 5
+        c:SHE = {
+            set_variable = {
+                name = thaton_sent_us_da_cash
+                days = 180
+            }
+            trigger_event = {
+                id = me_thaton.131
+                days = { 5 10 }
+            }
+        }
+    }
+    option = {
+        name = me_thaton_130.c
+        declare_war_with_wargoal = {
+            target = c:SHE
+            war_goal = imperial_conquest_wargoal
+        }
+    }
+}
+me_thaton.131 = { # Shenli Response
+    type = country_event
+    title = me_thaton_131_title
+    desc = me_thaton_131_desc
+    picture = interesting_histories_greek_debate
+
+    immediate = {
+        if = {
+            limit = {
+                has_variable = thaton_sent_us_da_cash
+            }
+            add_treasury = 50
+            current_ruler = {
+                add_gold = 100
+            }
+            set_variable = {
+                name = thaton_ultimatum_decision_var
+                value = {
+                    integer_range = {
+                        min = 3
+                        max = 6
+                    }
+                }
+                days = 180
+            }
+        }
+        else = {
+            limit = {
+                NOT = { has_variable = thaton_sent_us_da_cash }
+            }
+            set_variable = {
+                name = thaton_ultimatum_decision_var
+                value = {
+                    integer_range = {
+                        min = 1
+                        max = 5
+                    }
+                }
+                days = 180
+            }
+        }
+    }
+
+    option = {
+        name = me_thaton_131.a
+        #We will accept their alliance offer
+        make_subject = {
+            target = c:SHE
+            type = satrapy
+        }
+        c:THT = {
+            set_variable = {
+                name = shenli_accepted_ultimatum
+                days = 180
+            }
+            trigger_event = {
+                id = me_thaton.132
+                days = { 15 30 }
+            }
+        }
+        ai_chance = {
+            base = 5
+            modifier = {
+                factor = -50
+                var:thaton_ultimatum_decision_var <= 3
+            }
+            modifier = {
+                factor = 50
+                var:thaton_ultimatum_decision_var >= 4
+            }
+        }
+    }
+    option = {
+        name = me_thaton_131.b
+        #Offer them to become a tributary (ai only)
+        trigger = {
+            c:SHE = { is_ai = yes }
+        }
+        c:SHE = {
+            declare_war_with_wargoal = {
+                target = c:THT
+                war_goal = imperial_conquest_wargoal
+            }
+        }
+        ai_chance = {
+            base = 5
+            modifier = {
+                factor = 25
+                var:thaton_ultimatum_decision_var <= 3
+            }
+            modifier = {
+                factor = -25
+                var:thaton_ultimatum_decision_var >= 4
+            }
+        }
+    }
+    option = {
+        name = me_thaton_131.c
+        #Egypt wants nothing to do with Rhodes!
+        add_political_influence = 5
+        c:THT = {
+            set_variable = {
+                name = shenli_does_nothing
+                days = 180
+            }
+            trigger_event = {
+                id = me_thaton.132
+                days = { 15 30 }
+            }
+        }
+        ai_chance = {
+            base = 5
+            modifier = {
+                factor = 50
+                var:thaton_ultimatum_decision_var <= 3
+            }
+            modifier = {
+                factor = -50
+                var:thaton_ultimatum_decision_var >= 4
+            }
+        }
+    }
+}
+me_thaton.132 = {
+    type = country_event
+    title = me_thaton_132_title
+    desc = {
+        first_valid = {
+            triggered_desc = {  ##Accepted Description
+                trigger = { has_variable = shenli_does_nothing }
+                desc = "me_thaton_132_desc_1"
+            }
+            triggered_desc = {  ##Declined Description
+                trigger = { has_variable = shenli_accepted_ultimatum }
+                desc = "me_thaton_132_desc_2"
+            }
+        }
+    }
+    picture = interesting_histories_greek_debate
+
+    option = {
+        name = me_thaton_132.a
+        trigger = { has_variable = shenli_does_nothing }
+        declare_war_with_wargoal = {
+            target = c:SHE
+            war_goal = imperial_conquest_wargoal
+        }
+    }
+    option = {
+        name = me_thaton_132.b
+        trigger = { has_variable = shenli_accepted_ultimatum}
+        #Shenli submits
+        show_as_tooltip = {
+            make_subject = {
+                target = c:SHE
+                type = satrapy
+            }
+        }
+    }
+}
 me_thaton.13 = { # Mons Across the Monts
     type = country_event
 

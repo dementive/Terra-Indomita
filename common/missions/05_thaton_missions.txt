@@ -563,29 +563,38 @@
     }
     thaton_missions_task_13 = { # Mons Across the Monts
         icon = "task_atlas"
-        duration = 90
+        duration = 30
         requires = { thaton_missions_task_11 }
+        highlight = {
+            scope:province = {
+                exists = c:SHE
+                owner = c:SHE
+            }
+        }
         allow = {
             
         }
         on_completion = {
-            trigger_event = me_thaton.13
+            trigger_event = me_thaton.130
             show_as_tooltip = {
                 add_country_modifier = {
                     name = prepared_for_war
                     duration = 1095
                 }
+                custom_tooltip = "threaten_war_shenli_tt"
             }
         }
     }
     thaton_missions_task_14 = { # Empire of All Monkind
         icon = "task_heracles"
-        requires = { thaton_missions_task_12 thaton_missions_task_13 }
-        allow = {}
+        requires = { thaton_missions_task_21 }
+        allow = {
+            num_of_controlled_cities = 65
+        }
         on_completion = {
             trigger_event = me_thaton.14
             show_as_tooltip = {
-
+                change_government = imperium
             }
         }
         final = yes
@@ -651,6 +660,17 @@
         allow = {}
         on_completion = {
             trigger_event = me_thaton.20
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    thaton_missions_task_21 = { # Civilizing Singhanavati
+        icon = "task_political"
+        requires = { thaton_missions_task_12 thaton_missions_task_13 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.21
             show_as_tooltip = {
 
             }
