@@ -181,7 +181,6 @@
         requires = { thaton_missions_task_4 }
         highlight = {
             scope:province = {
-                has_city_status = yes
                 is_in_area = tenasserim_area
             }
         }
@@ -393,8 +392,12 @@
         icon = "task_economical"
         requires = { thaton_missions_task_7 thaton_missions_task_8 }
         highlight = {
-            scope:province = {  
-                trade_goods = wootz_steel
+            scope:province = { 
+                OR = {
+                    trade_goods = wootz_steel
+                    province_id = 9798
+                    province_id = 9797
+                }
             }
         }
         allow = {
@@ -435,6 +438,11 @@
     thaton_missions_task_10 = { # The Legend is Born
         icon = "task_zeus_cornucopia"
         requires = { thaton_missions_task_9 thaton_missions_task_4 }
+        highlight = {
+            scope:province = {
+                owner = root
+            }
+        }
         allow = {}
         on_completion = {
             trigger_event = me_thaton.10
@@ -573,7 +581,9 @@
             }
         }
         allow = {
-            
+            p:9803 = {
+                has_building = fortress_building
+            }
         }
         on_completion = {
             trigger_event = me_thaton.130
@@ -589,36 +599,63 @@
     thaton_missions_task_14 = { # Empire of All Monkind
         icon = "task_heracles"
         requires = { thaton_missions_task_21 }
+        highlight = {
+            scope:province = {
+                dominant_province_culture = mon
+            }
+        }
         allow = {
-            num_of_controlled_cities = 65
+            num_of_controlled_cities >= 50
+            any_province = {
+                limit = {
+                    dominant_province_culture = mon
+                }
+                owner = root
+            }
         }
         on_completion = {
             trigger_event = me_thaton.14
             show_as_tooltip = {
                 change_government = imperium
+                change_country_name = "suvannabhumi"
+                custom_tooltip = "suvarnabhumi_region_claims_tt"
             }
         }
         final = yes
     }
     thaton_missions_task_15 = { # Fate of our Faith
-        icon = "task_religion"
+        icon = "task_diplomatic"
         requires = { thaton_missions_task_10 }
-        allow = {}
+        allow = {
+            stability >= 55
+            legitimacy >= 75
+            current_ruler = {
+                zeal > 5
+            }
+        }
         on_completion = {
             trigger_event = me_thaton.15
             show_as_tooltip = {
-
+                add_country_modifier = {
+                    name = fate_of_our_faith
+                    duration = -1
+                }
+                add_political_influence = 100
             }
         }
     }
     thaton_missions_task_16 = { # The Yungist Yolk
-        icon = "task_political"
+        icon = "task_happiness"
+        duration = 30
         requires = { thaton_missions_task_13 }
         allow = {}
         on_completion = {
             trigger_event = me_thaton.16
             show_as_tooltip = {
-
+                add_country_modifier = {
+                    name = yungist_yolk
+                    duration = 1095
+                }
             }
         }
     }
@@ -629,51 +666,108 @@
         on_completion = {
             trigger_event = me_thaton.17
             show_as_tooltip = {
-
+                custom_tooltip = "which_gods_tt"
             }
         }
     }
     thaton_missions_task_18 = { # Beset with Buddhists
-        icon = "task_political"
+        icon = "task_durga"
         duration = 30
         requires = { thaton_missions_task_15 }
         allow = {}
         on_completion = {
             trigger_event = me_thaton.18
             show_as_tooltip = {
+                add_country_modifier = {
+                    name = beset_with_buddhism
+                    duration = 1095
+                }
+                create_character = {
+                    culture = lankan
+                    religion = buddhism
+                    no_stats = yes
+                    hidden_effect = {
+                        average_martial_effect = yes
+                        average_charisma_effect = yes
+                        average_finesse_effect = yes
+                        amazing_zeal_effect = yes
+                        add_trait = ascetic
+                    }
+                }
             }
         }
     }
     thaton_missions_task_19 = { # The Vibrant Vedas
-        icon = "task_political"
+        icon = "task_shiva"
+        duration = 30
         requires = { thaton_missions_task_15 }
         allow = {}
         on_completion = {
             trigger_event = me_thaton.19
             show_as_tooltip = {
-
+                add_country_modifier = {
+                    name = vibrant_vedas
+                    duration = 1095
+                }
+                create_character = {
+                    culture = lankan
+                    religion = hindu
+                    no_stats = yes
+                    hidden_effect = {
+                        average_martial_effect = yes
+                        average_charisma_effect = yes
+                        average_finesse_effect = yes
+                        great_zeal_effect = yes
+                        add_trait = scholar
+                    }
+                }
             }
         }
     }
     thaton_missions_task_20 = { # Why Not Nats?
-        icon = "task_political"
+        icon = "task_religion"
+        duration = 30
         requires = { thaton_missions_task_18 thaton_missions_task_19 }
         allow = {}
         on_completion = {
             trigger_event = me_thaton.20
             show_as_tooltip = {
-
+                add_country_modifier = {
+                    name = native_natics
+                    duration = 1095
+                }
             }
         }
     }
-    thaton_missions_task_21 = { # Civilizing Singhanavati
-        icon = "task_political"
+    thaton_missions_task_21 = { # Civilize Singhanavati
+        icon = "task_battle"
+        duration = 60
         requires = { thaton_missions_task_12 thaton_missions_task_13 }
-        allow = {}
+        highlight = {
+            scope:province = {
+                is_in_area = singhanavati_area
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = dvaravati_area
+            owns_or_subject_owns_area = mon_area
+            treasury >= 200
+            political_influence >= 50
+        }
         on_completion = {
             trigger_event = me_thaton.21
             show_as_tooltip = {
-
+                area:singhanavati_area = {
+                    every_area_province = {
+                        limit = {
+                            has_owner = no
+                        }
+                        set_owned_by = root
+                        create_pop = tribesmen
+                        create_pop = tribesmen
+                        create_pop = freemen
+                    }
+                }
             }
         }
     }

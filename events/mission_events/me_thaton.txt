@@ -505,8 +505,17 @@ me_thaton.14 = { # Empire of All Monkind
 
     option = {
         name = "me_thaton_14.a"
+        change_government = imperium
+        change_country_name = "suvannabhumi"
+        custom_tooltip = "suvarnabhumi_region_claims_tt"
+        hidden_effect = {
+                region:suvarnabhumi_region = {
+                every_region_province = {
+                    add_claim = root
+                }
+            }
+        }
         custom_tooltip = me_thaton_14_tooltip
-
     }
 }
 me_thaton.15 = { # Fate of our Faith
@@ -519,7 +528,11 @@ me_thaton.15 = { # Fate of our Faith
     option = {
         name = "me_thaton_15.a"
         custom_tooltip = me_thaton_15_tooltip
-
+        add_country_modifier = {
+            name = fate_of_our_faith
+            duration = -1
+        }
+        add_political_influence = 100
     }
 }
 me_thaton.16 = { # The Yungist Yolk
@@ -532,7 +545,15 @@ me_thaton.16 = { # The Yungist Yolk
     option = {
         name = "me_thaton_16.a"
         custom_tooltip = me_thaton_16_tooltip
-
+        add_country_modifier = {
+            name = yungist_yolk
+            duration = 1095
+        }
+        set_variable = thaton_yungism
+    }
+    option = {
+        name = "me_thaton_16.b"
+        custom_tooltip = me_thaton_16_tooltip 
     }
 }
 me_thaton.17 = { # The Hall to Which Gods?
@@ -542,10 +563,129 @@ me_thaton.17 = { # The Hall to Which Gods?
     desc = me_thaton_17_desc
     picture = great_library
 
+    immediate = {
+        remove_country_modifier = fate_of_our_faith
+    }
+
     option = {
+        trigger = { has_variable = thaton_buddhism }
         name = "me_thaton_17.a"
         custom_tooltip = me_thaton_17_tooltip
-
+        change_country_color = hall_of_buddhism
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = buddhism
+                }
+            }
+        }
+        set_country_religion = buddhism
+    }
+    option = {
+        trigger = { has_variable = thaton_vedic }
+        name = "me_thaton_17.b"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_vedas
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = hindu
+                }
+            }
+        }
+        set_country_religion = hindu
+    }
+    option = {
+        trigger = { has_variable = thaton_agama }
+        name = "me_thaton_17.c"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_agama
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = agama
+                }
+            }
+        }
+        set_country_religion = agama
+    }
+    option = {
+        trigger = { has_variable = thaton_jainism }
+        name = "me_thaton_17.d"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_jainism
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = jainism
+                }
+            }
+        }
+        set_country_religion = jainism
+    }
+    option = {
+        trigger = { has_variable = thaton_ajivika }
+        name = "me_thaton_17.e"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_ajivika
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = ajivika
+                }
+            }
+        }
+        set_country_religion = ajivika
+    }
+    option = {
+        trigger = { has_variable = thaton_carvaka }
+        name = "me_thaton_17.f"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_carvaka
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = charvaka
+                }
+            }
+        }
+        set_country_religion = charvaka
+    }
+    option = {
+        trigger = { has_variable = thaton_yungism }
+        name = "me_thaton_17.g"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_yungs
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = funan_religion
+                }
+            }
+        }
+        set_country_religion = funan_religion
+    }
+    option = {
+        trigger = { has_variable = thaton_natic }
+        name = "me_thaton_17.h"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_nats
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = burmese_religion
+                }
+            }
+        }
+        set_country_religion = burmese_religion
     }
 }
 me_thaton.18 = { # Beset with Buddhists
@@ -555,10 +695,44 @@ me_thaton.18 = { # Beset with Buddhists
     desc = me_thaton_18_desc
     picture = ascetic
 
+    hidden_effect = {
+            immediate = {
+            every_owned_province = {
+                while = {
+                    count = 2
+                    random_pops_in_province = {
+                        limit = {
+                            NOT = {
+                                pop_religion = buddhism
+                            }
+                        }
+                        set_pop_religion = buddhism
+                    }
+                }
+            }
+        }
+    }
+
     option = {
         name = "me_thaton_18.a"
+        set_variable = thaton_buddhism
+        add_country_modifier = {
+            name = beset_with_buddhism
+            duration = 1095
+        }
+        create_character = {
+            culture = lankan
+            religion = buddhism
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                amazing_zeal_effect = yes
+                add_trait = ascetic
+            }
+        }
         custom_tooltip = me_thaton_18_tooltip
-        
     }
 }
 me_thaton.19 = { # The Vibrant Vedas
@@ -568,10 +742,151 @@ me_thaton.19 = { # The Vibrant Vedas
     desc = me_thaton_19_desc
     picture = great_library
 
+    hidden_effect = {
+        immediate = {
+            every_owned_province = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        limit = {
+                            NOT = {
+                                pop_religion = hindu
+                            }
+                        }
+                        set_pop_religion = hindu
+                    }
+                }
+            }
+        }
+    }
+
     option = {
         name = "me_thaton_19.a"
+        set_variable = thaton_vedic
+        add_country_modifier = {
+            name = vibrant_vedas
+            duration = 1095
+        }
+        create_character = {
+            culture = lankan
+            religion = hindu
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = scholar
+            }
+        }
         custom_tooltip = me_thaton_19_tooltip
+    }
+    option = {
+        name = "me_thaton_19.b"
+        set_variable = thaton_agama
+        add_country_modifier = {
+            name = amazing_agama
+            duration = 1095
+        }
+        create_character = {
+            culture = tamil
+            religion = agama
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = scholar
+            }
+        }
+        custom_tooltip = me_thaton_19_tooltip
+    }
+    option = {
+        name = "me_thaton_19.c"
+        custom_tooltip = "more_choices"
+        trigger_event = me_thaton.190
+    }
+    option = {
+        name = "me_thaton_19.d"
+        custom_tooltip = me_thaton_19_tooltip
+    }
+}
+me_thaton.190 = { # Shramanic Faiths
+    type = country_event
 
+    title = me_thaton_190_title
+    desc = me_thaton_190_desc
+    picture = great_library
+
+    option = {
+        name = "me_thaton_190.a"
+        add_country_modifier = {
+            name = jubilant_jainism
+            duration = 1095
+        }
+        set_variable = thaton_jainism
+        create_character = {
+            culture = kannadan
+            religion = jainism
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = ascetic
+            }
+        }
+        custom_tooltip = me_thaton_19_tooltip
+    }
+
+    option = {
+        name = "me_thaton_190.b"
+        add_country_modifier = {
+            name = astounding_ajivika
+            duration = 1095
+        }
+        set_variable = thaton_ajivika
+        create_character = {
+            culture = telugu
+            religion = ajivika
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = ascetic
+            }
+        }
+        custom_tooltip = me_thaton_19_tooltip
+    }
+    option = {
+        name = "me_thaton_190.c"
+        set_variable = thaton_carvaka
+        add_country_modifier = {
+            name = compelling_carvaka
+            duration = 1095
+        }
+        create_character = {
+            culture = cholan
+            religion = charvaka
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = ascetic
+            }
+        }
+        custom_tooltip = me_thaton_19_tooltip
+    }
+    option = {
+        name = "me_thaton_190.d"
+        trigger_event = me_thaton.19
+        custom_tooltip = "go_back"
     }
 }
 me_thaton.20 = { # Why Not Nats?
@@ -584,7 +899,35 @@ me_thaton.20 = { # Why Not Nats?
     option = {
         name = "me_thaton_20.a"
         custom_tooltip = me_thaton_20_tooltip
+        add_country_modifier = {
+            name = native_natics
+            duration = 1095
+        }
+        set_variable = thaton_natic
+    }
+}
 
+me_thaton.21 = { # Civilize Singhanavati
+    type = country_event
+
+    title = me_thaton_21_title
+    desc = me_thaton_21_desc
+    picture = city_country
+
+    option = {
+        name = "me_thaton_21.a"
+        area:singhanavati_area = {
+            every_area_province = {
+                limit = {
+                    has_owner = no
+                }
+                set_owned_by = root
+                create_pop = tribesmen
+                create_pop = tribesmen
+                create_pop = freemen
+            }
+        }
+        custom_tooltip = me_thaton_21_tooltip
     }
 }
 
@@ -606,6 +949,7 @@ me_thaton.1000 = { # 3 Kingdoms Startup Event
             tag = SHE
         }
     }
+    fire_only_once = yes
     immediate = {
         c:SHE = {
             add_truce = {
