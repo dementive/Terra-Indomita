@@ -82,9 +82,9 @@ me_thaton.3 = { # Subjects of Sadhuim
             limit = {
                 exists = c:YIL
             }
-            c:YIL = {
+            root = {
                 make_subject = {
-                    target = root
+                    target = c:YIL
                     type = feudatory
                 }
             }
@@ -93,9 +93,9 @@ me_thaton.3 = { # Subjects of Sadhuim
             limit = {
                 exists = c:TES
             }
-            c:TES = {
+            root = {
                 make_subject = {
-                    target = root
+                    target = c:TES
                     type = feudatory
                 }
             }
@@ -964,8 +964,8 @@ me_thaton.18 = { # Beset with Buddhists
     desc = me_thaton_18_desc
     picture = ascetic
 
-    hidden_effect = {
-            immediate = {
+    immediate = {
+        hidden_effect = {
             every_owned_province = {
                 while = {
                     count = 2
@@ -1011,24 +1011,6 @@ me_thaton.19 = { # The Vibrant Vedas
     desc = me_thaton_19_desc
     picture = interesting_histories_southern_india
 
-    hidden_effect = {
-        immediate = {
-            every_owned_province = {
-                while = {
-                    count = 1
-                    random_pops_in_province = {
-                        limit = {
-                            NOT = {
-                                pop_religion = hindu
-                            }
-                        }
-                        set_pop_religion = hindu
-                    }
-                }
-            }
-        }
-    }
-
     option = {
         name = "me_thaton_19.a"
         set_variable = thaton_vedic
@@ -1046,6 +1028,21 @@ me_thaton.19 = { # The Vibrant Vedas
                 average_finesse_effect = yes
                 great_zeal_effect = yes
                 add_trait = scholar
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        limit = {
+                            NOT = {
+                                pop_religion = hindu
+                            }
+                        }
+                        set_pop_religion = hindu
+                    }
+                }
             }
         }
         custom_tooltip = me_thaton_19_tooltip
@@ -1067,6 +1064,21 @@ me_thaton.19 = { # The Vibrant Vedas
                 average_finesse_effect = yes
                 great_zeal_effect = yes
                 add_trait = scholar
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        limit = {
+                            NOT = {
+                                pop_religion = agama
+                            }
+                        }
+                        set_pop_religion = agama
+                    }
+                }
             }
         }
         custom_tooltip = me_thaton_19_tooltip
