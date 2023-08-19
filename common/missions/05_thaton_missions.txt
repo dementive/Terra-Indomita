@@ -37,7 +37,7 @@
                 every_country = {
                     limit = {
                         is_monarchy = no
-                        culture = mon
+                        primary_culture = mon
                     }
                     add_opinion = {
                         modifier = legend_of_culture
@@ -47,7 +47,7 @@
                 every_country = {
                     limit = {
                         is_monarchy = yes
-                        culture = mon
+                        primary_culture = mon
                     }
                     add_opinion = {
                         modifier = rival_kingdom
@@ -131,15 +131,17 @@
         on_completion = {
             trigger_event = me_thaton.3
             show_as_tooltip = {
-                make_subject = {
-                    target = root
-                    type = feudatory
-                    tag = YIL
+                root = {
+                    make_subject = {
+                        target = TES
+                        type = feudatory
+                    }
                 }
-                make_subject = {
-                    target = root
-                    type = feudatory
-                    tag = TES
+                root = {
+                    make_subject = {
+                        target = YIL
+                        type = feudatory
+                    }
                 }
             }
         }
@@ -573,6 +575,12 @@
     thaton_missions_task_13 = { # Mons Across the Monts
         icon = "task_atlas"
         duration = 30
+        bypass = {
+            any_country = {
+                tag = SHE
+                has_land = no
+            }
+        }
         requires = { thaton_missions_task_11 }
         highlight = {
             scope:province = {
@@ -583,6 +591,15 @@
         allow = {
             p:9803 = {
                 has_building = fortress_building
+            }
+            has_aggressive_expansion < 10
+            num_of_cities > 15
+        }
+        on_bypass = {
+            area:dvaravati_area = {
+                every_area_province = {
+                    add_claim = root
+                }
             }
         }
         on_completion = {
@@ -607,9 +624,7 @@
         allow = {
             num_of_controlled_cities >= 50
             any_province = {
-                limit = {
-                    dominant_province_culture = mon
-                }
+                dominant_province_culture = mon
                 owner = root
             }
         }
@@ -648,7 +663,14 @@
         icon = "task_happiness"
         duration = 30
         requires = { thaton_missions_task_13 }
-        allow = {}
+        allow = {
+            custom_tooltip = {
+                text = yung_deity_tt
+                any_pantheon_deity = {
+                    deity_religion = funan_religion
+                }
+            }
+        }
         on_completion = {
             trigger_event = me_thaton.16
             show_as_tooltip = {
@@ -656,6 +678,7 @@
                     name = yungist_yolk
                     duration = 1095
                 }
+                add_stability = 20
             }
         }
     }
@@ -674,7 +697,18 @@
         icon = "task_durga"
         duration = 30
         requires = { thaton_missions_task_15 }
-        allow = {}
+        allow = {
+            custom_tooltip = {
+                text = dravidian_country_relations
+                any_country = {
+                    is_in_region = dravida_region
+                    opinion = {
+                        target = root
+                        value >= 60
+                    }
+                }
+            }
+        }
         on_completion = {
             trigger_event = me_thaton.18
             show_as_tooltip = {
@@ -701,7 +735,14 @@
         icon = "task_shiva"
         duration = 30
         requires = { thaton_missions_task_15 }
-        allow = {}
+        highlight = {
+            scope:province = {
+                is_in_area = arakan_area
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = arakan_area
+        }
         on_completion = {
             trigger_event = me_thaton.19
             show_as_tooltip = {
@@ -728,7 +769,16 @@
         icon = "task_religion"
         duration = 30
         requires = { thaton_missions_task_18 thaton_missions_task_19 }
-        allow = {}
+        allow = {
+            custom_tooltip = {
+                text = mon_land_protection.tt
+                any_country_culture = {
+                    is_culture = mon
+                    is_integrated = yes
+                    has_country_culture_modifier = land_protection
+                }
+            }
+        }
         on_completion = {
             trigger_event = me_thaton.20
             show_as_tooltip = {

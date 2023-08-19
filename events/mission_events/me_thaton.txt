@@ -39,6 +39,12 @@ me_thaton.1 = { # Kingdom of the South
                 target = root
             }
         }
+        current_ruler = {
+            add_focus_experience = {
+                text = "add_25_focus_xp"
+                amount = 25
+            }
+        }
     }
 }
 me_thaton.2 = { # Coastal Conquest
@@ -114,6 +120,16 @@ me_thaton.4 = { # Trade Routes to the East
                 }
             }
         }
+        random_province = {
+            limit = {
+                is_in_area = tenasserim_area
+            }
+            add_special_pop = {
+                text = add_1_merchant_tt
+                type = merchant
+                count = 1
+            }
+        }
     }
 }
 me_thaton.5 = { # Cities of the Sea
@@ -138,6 +154,37 @@ me_thaton.5 = { # Cities of the Sea
             add_building_level = commerce_building
             add_building_level = port_building
         }
+        if = {
+            limit = {
+                NOT = {
+                    country_has_special_pop = {
+                        text = "country_has_5_architect_tt"
+                        type = architect
+                        count = 5
+                    }
+                    any_province = {
+                        has_city_status = yes
+                        is_in_area = tenasserim_area
+                        province_has_special_pop = {
+                            text = "prov_has_5_architect_tt"
+                            type = architect
+                            count = 5
+                        }
+                    }
+                }
+            }
+            random_province = {
+                limit = {
+                    has_city_status = yes
+                    is_in_area = tenasserim_area
+                }
+                add_special_pop = {
+                    text = "add_1_architect_tt"
+                    type = architect
+                    count = 1
+                }
+            }
+        }
     }
 }
 me_thaton.6 = { # City of the Gods
@@ -153,6 +200,31 @@ me_thaton.6 = { # City of the Gods
         add_country_modifier = {
             name = hall_of_the_gods
             duration = -1
+        }
+        if = {
+            limit = {
+                NOT = {
+                    country_has_special_pop = {
+                        text = "country_has_5_priest_tt"
+                        type = priest
+                        count = 5
+                    }
+                    capital_scope = {
+                        province_has_special_pop = {
+                            text = "prov_has_5_priest_tt"
+                            type = priest
+                            count = 5
+                        }
+                    }
+                }
+            }
+            capital_scope = {
+                add_special_pop = {
+                    text = "add_1_priest_tt"
+                    type = priest
+                    count = 1
+                }
+            }
         }
     }
 }
@@ -179,12 +251,42 @@ me_thaton.8 = { # Incense Sense
 
     title = me_thaton_8_title
     desc = me_thaton_8_desc
-    picture = great_library
+    picture = hellenic_marketplace
 
     option = {
         name = "me_thaton_8.a"
         custom_tooltip = me_thaton_8_tooltip
-
+        p:9797 = {
+            add_province_modifier = {
+                name = incense_production
+                duration = -1
+            }
+        }
+        if = {
+            limit = {
+                NOT = {
+                    country_has_special_pop = {
+                        text = "country_has_5_artist_tt"
+                        type = artist
+                        count = 5
+                    }
+                    capital_scope = {
+                        province_has_special_pop = {
+                            text = "prov_has_5_artist_tt"
+                            type = artist
+                            count = 5
+                        }
+                    }
+                }
+            }
+            capital_scope = {
+                add_special_pop = {
+                    text = "add_1_artist_tt"
+                    type = artist
+                    count = 1
+                }
+            }
+        }
     }
 }
 me_thaton.9 = { # Trade Routes to the West
@@ -197,7 +299,24 @@ me_thaton.9 = { # Trade Routes to the West
     option = {
         name = "me_thaton_9.a"
         custom_tooltip = me_thaton_9_tooltip
-
+        area:shenli_area = {
+            every_area_province = {
+                limit = {
+                    owner = root
+                }
+                add_province_modifier = {
+                    name = western_trade
+                    duration = -1
+                }
+            }
+        }
+        capital_scope = {
+            add_special_pop = {
+                text = add_1_merchant_tt
+                type = merchant
+                count = 1
+            }
+        }
     }
 }
 me_thaton.10 = { # The Legend is Born
@@ -210,7 +329,16 @@ me_thaton.10 = { # The Legend is Born
     option = {
         name = "me_thaton_10.a"
         custom_tooltip = me_thaton_10_tooltip
-
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+            add_popularity = popularity_large
+        }
+        add_splendor = {
+            amount = "200"
+        }
     }
 }
 me_thaton.110 = { # War on Pegu
@@ -249,8 +377,8 @@ me_thaton.11 = { # King of Pegu
         custom_tooltip = me_thaton_11_tooltip
         custom_tooltip = "gain_pegu_claims_tt"
         hidden_effect = {
-            area:shenli_area = {
-                every_area_province = { add_claim = root }
+            region:pyu_region = {
+                every_region_province = { add_claim = root }
             }
         }
         add_country_modifier = {
@@ -265,19 +393,56 @@ me_thaton.12 = { # Up the Irrawaddy
 
     title = me_thaton_12_title
     desc = me_thaton_12_desc
-    picture = great_library
+    picture = interesting_histories_hellenic_dock
 
     option = {
         name = "me_thaton_12.a"
         custom_tooltip = me_thaton_12_tooltip
-
+        add_splendor = {
+            amount = "100"
+        }
+        add_country_modifier = {
+            name = king_of_irrawaddy
+            duration = -1
+        }
+        area:shenli_area = {
+            every_area_province = {
+                limit = {
+                    owner = root
+                    NOR = {
+                        province_id = 9797
+                        province_id = 9798
+                    }
+                }
+                create_state_pop = citizen
+                create_state_pop = citizen
+            }
+        }
+        area:beikthano_area = {
+            every_area_province = {
+                limit = {
+                    owner = root
+                }
+                create_state_pop = citizen
+                create_state_pop = citizen
+            }
+        }
+        area:halin_area = {
+            every_area_province = {
+                limit = {
+                    owner = root
+                }
+                create_state_pop = citizen
+                create_state_pop = citizen
+            }
+        }
     }
 }
 me_thaton.130 = { # Send Ultimatum
     type = country_event
     title = me_thaton_130_title
     desc = me_thaton_130_desc
-    picture = interesting_histories_greek_debate
+    picture = war_council
 
     option = {
         name = me_thaton_130.a
@@ -286,7 +451,7 @@ me_thaton.130 = { # Send Ultimatum
         add_tyranny = 10
         c:SHE = {
             trigger_event = {
-                id = me_rhodes.131
+                id = me_thaton.131
                 days = { 5 10 }
             }
         }
@@ -329,7 +494,16 @@ me_thaton.131 = { # Shenli Response
     desc = me_thaton_131_desc
     picture = interesting_histories_greek_debate
 
+    left_portrait = current_ruler
+    right_portrait = scope:shenli_official
+
     immediate = {
+        random_character = {
+            limit = {
+                has_any_office = yes
+            }
+            save_scope_as = shenli_official
+        }
         if = {
             limit = {
                 has_variable = thaton_sent_us_da_cash
@@ -421,7 +595,7 @@ me_thaton.131 = { # Shenli Response
     }
     option = {
         name = me_thaton_131.c
-        #Egypt wants nothing to do with Rhodes!
+        #Egypt wants nothing to do with Rhodes! (guess where i copied pasted from lol)
         add_political_influence = 5
         c:THT = {
             set_variable = {
@@ -452,11 +626,11 @@ me_thaton.132 = {
     desc = {
         first_valid = {
             triggered_desc = {  ##Accepted Description
-                trigger = { has_variable = shenli_does_nothing }
+                trigger = { has_variable = shenli_accepted_ultimatum }
                 desc = "me_thaton_132_desc_1"
             }
             triggered_desc = {  ##Declined Description
-                trigger = { has_variable = shenli_accepted_ultimatum }
+                trigger = { has_variable = shenli_does_nothing }
                 desc = "me_thaton_132_desc_2"
             }
         }
@@ -483,17 +657,18 @@ me_thaton.132 = {
         }
     }
 }
-me_thaton.13 = { # Mons Across the Monts
+me_thaton.13 = { # Mons Across the Monts ( Unused )
     type = country_event
 
     title = me_thaton_13_title
     desc = me_thaton_13_desc
-    picture = great_library
+    picture = interesting_histories_kush_capital
 
     option = {
         name = "me_thaton_13.a"
-        custom_tooltip = me_thaton_13_tooltip
-
+        current_ruler = {
+            add_nickname = "egg_finder"
+        }
     }
 }
 me_thaton.14 = { # Empire of All Monkind
@@ -501,7 +676,7 @@ me_thaton.14 = { # Empire of All Monkind
 
     title = me_thaton_14_title
     desc = me_thaton_14_desc
-    picture = great_library
+    picture = chinese_emperor
 
     option = {
         name = "me_thaton_14.a"
@@ -523,7 +698,7 @@ me_thaton.15 = { # Fate of our Faith
 
     title = me_thaton_15_title
     desc = me_thaton_15_desc
-    picture = great_library
+    picture = religious_rite
 
     option = {
         name = "me_thaton_15.a"
@@ -540,7 +715,7 @@ me_thaton.16 = { # The Yungist Yolk
 
     title = me_thaton_16_title
     desc = me_thaton_16_desc
-    picture = great_library
+    picture = china_art_2_event
 
     option = {
         name = "me_thaton_16.a"
@@ -550,10 +725,59 @@ me_thaton.16 = { # The Yungist Yolk
             duration = 1095
         }
         set_variable = thaton_yungism
+        add_stability = 20
     }
     option = {
         name = "me_thaton_16.b"
-        custom_tooltip = me_thaton_16_tooltip 
+        custom_tooltip = me_thaton_16_tooltip
+        add_stability = 10
+    }
+    option = {
+        name = "me_thaton_16.c"
+        trigger_event = me_thaton.160
+    }
+}
+me_thaton.160 = { # More Religion Choices
+    type = country_event
+
+    title = me_thaton_160_title
+    desc = me_thaton_160_desc
+    picture = china_art_8_event
+
+    option = {
+        name = "me_thaton_160.a"
+        custom_tooltip = me_thaton_16_tooltip
+        add_country_modifier = {
+            name = marvelous_moism
+            duration = 1095
+        }
+        set_variable = thaton_mohism
+        add_stability = 20
+    }
+    option = {
+        name = "me_thaton_160.b"
+        custom_tooltip = me_thaton_16_tooltip
+        add_country_modifier = {
+            name = beneficial_baiyue
+            duration = 1095
+        }
+        set_variable = thaton_baiyue
+        add_stability = 20
+    }
+    option = {
+        name = "me_thaton_160.c"
+        custom_tooltip = me_thaton_16_tooltip
+        add_country_modifier = {
+            name = shining_shenic
+            duration = 1095
+        }
+        set_variable = thaton_shenic
+        add_stability = 20
+    }
+    option = {
+        name = "me_thaton_160.d"
+        custom_tooltip = "go_back"
+        trigger_event = me_thaton.16
     }
 }
 me_thaton.17 = { # The Hall to Which Gods?
@@ -561,7 +785,7 @@ me_thaton.17 = { # The Hall to Which Gods?
 
     title = me_thaton_17_title
     desc = me_thaton_17_desc
-    picture = great_library
+    picture = interesting_histories_greek_city_temple
 
     immediate = {
         remove_country_modifier = fate_of_our_faith
@@ -673,6 +897,51 @@ me_thaton.17 = { # The Hall to Which Gods?
         set_country_religion = funan_religion
     }
     option = {
+        trigger = { has_variable = thaton_mohism }
+        name = "me_thaton_17.i"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_mohism
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = mohism
+                }
+            }
+        }
+        set_country_religion = mohism
+    }
+    option = {
+        trigger = { has_variable = thaton_baiyue }
+        name = "me_thaton_17.j"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_baiyue
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = baiyue_religions
+                }
+            }
+        }
+        set_country_religion = baiyue_religions
+    }
+    option = {
+        trigger = { has_variable = thaton_shenic }
+        name = "me_thaton_17.k"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_shens
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = chinese_religions
+                }
+            }
+        }
+        set_country_religion = chinese_religions
+    }
+    option = {
         trigger = { has_variable = thaton_natic }
         name = "me_thaton_17.h"
         custom_tooltip = me_thaton_17_tooltip
@@ -729,7 +998,7 @@ me_thaton.18 = { # Beset with Buddhists
                 average_charisma_effect = yes
                 average_finesse_effect = yes
                 amazing_zeal_effect = yes
-                add_trait = ascetic
+                add_trait = scholar
             }
         }
         custom_tooltip = me_thaton_18_tooltip
@@ -740,7 +1009,7 @@ me_thaton.19 = { # The Vibrant Vedas
 
     title = me_thaton_19_title
     desc = me_thaton_19_desc
-    picture = great_library
+    picture = interesting_histories_southern_india
 
     hidden_effect = {
         immediate = {
@@ -817,7 +1086,7 @@ me_thaton.190 = { # Shramanic Faiths
 
     title = me_thaton_190_title
     desc = me_thaton_190_desc
-    picture = great_library
+    picture = indian_city
 
     option = {
         name = "me_thaton_190.a"
@@ -835,7 +1104,7 @@ me_thaton.190 = { # Shramanic Faiths
                 average_charisma_effect = yes
                 average_finesse_effect = yes
                 great_zeal_effect = yes
-                add_trait = ascetic
+                add_trait = scholar
             }
         }
         custom_tooltip = me_thaton_19_tooltip
@@ -857,7 +1126,7 @@ me_thaton.190 = { # Shramanic Faiths
                 average_charisma_effect = yes
                 average_finesse_effect = yes
                 great_zeal_effect = yes
-                add_trait = ascetic
+                add_trait = scholar
             }
         }
         custom_tooltip = me_thaton_19_tooltip
@@ -878,7 +1147,7 @@ me_thaton.190 = { # Shramanic Faiths
                 average_charisma_effect = yes
                 average_finesse_effect = yes
                 great_zeal_effect = yes
-                add_trait = ascetic
+                add_trait = scholar
             }
         }
         custom_tooltip = me_thaton_19_tooltip
@@ -894,7 +1163,7 @@ me_thaton.20 = { # Why Not Nats?
 
     title = me_thaton_20_title
     desc = me_thaton_20_desc
-    picture = great_library
+    picture = greek_religious_rite
 
     option = {
         name = "me_thaton_20.a"
@@ -938,9 +1207,9 @@ me_thaton.1000 = { # 3 Kingdoms Startup Event
     picture = china_art_16_event
     goto_location = root
     left_portrait = current_ruler
-    right_portrait = char:40113
-    right_portrait = char:40174
-    right_portrait = char:36035
+    right_portrait = c:PEG.current_ruler
+    right_portrait = c:THT.current_ruler
+    right_portrait = c:SHE.current_ruler
 
     trigger = {
         OR = {
