@@ -1,7 +1,15 @@
 ﻿age_ability_trigger = {
-    custom_tooltip = {
-        text = ability_requires_splendor_tt
-        var:splendor >= 800
+    trigger_if = {
+        limit = {
+            has_variable = splendor
+        }
+        custom_tooltip = {
+            text = ability_requires_splendor_tt
+            var:splendor >= 800
+        }
+    }
+    trigger_else = {
+        always = no
     }
 }
 

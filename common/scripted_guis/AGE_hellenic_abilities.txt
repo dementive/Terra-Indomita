@@ -146,9 +146,17 @@ hellenic_ability_ten = {
 hellenic_ability_eleven = {
     scope = country
     is_valid = {
-        custom_tooltip = {
-            text = ability_requires_splendor_extreme_tt
-            var:splendor >= 4000
+        trigger_if = {
+            limit = {
+                has_variable = splendor
+            }
+            custom_tooltip = {
+                text = ability_requires_splendor_extreme_tt
+                var:splendor >= 4000
+            }
+        }
+        trigger_else = {
+            always = no
         }
         trigger_if = {
             limit = {

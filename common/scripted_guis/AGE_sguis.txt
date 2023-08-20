@@ -30,13 +30,23 @@ golden_age_button = {
     scope = country
     is_valid = {
         # has completed at least 3 age objectives
-        custom_tooltip = {
-            text = golden_age_objectives_tt
-            OR = {
-                var:completed_hellenic_objectives >= 3
-                var:completed_migration_objectives >= 3
-                var:completed_empire_objectives >= 3
+        trigger_if = {
+            limit = {
+                has_variable = completed_hellenic_objectives
+                has_variable = completed_migration_objectives
+                has_variable = completed_empire_objectives
             }
+            custom_tooltip = {
+                text = golden_age_objectives_tt
+                OR = {
+                    var:completed_hellenic_objectives >= 3
+                    var:completed_migration_objectives >= 3
+                    var:completed_empire_objectives >= 3
+                }
+            }
+        }
+        trigger_else = {
+            always = no
         }
         trigger_if = {
             limit = {
