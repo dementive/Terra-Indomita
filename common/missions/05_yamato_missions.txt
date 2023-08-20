@@ -320,6 +320,14 @@ yamato_02_consolidate = {
     yamato_02_consolidate_task_2 = { #Southern Push
         icon = "task_conquest"
         requires = { yamato_02_consolidate_task_1 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = iya_area
+                    is_in_area = kii_area
+                }
+            }
+        }
         allow = {
             owns_or_subject_owns_area = iya_area
             owns_or_subject_owns_area = kii_area
@@ -350,31 +358,16 @@ yamato_02_consolidate = {
             }
         }
     }
-    yamato_02_consolidate_task_3 = { #Coastal Ventures
-        icon = "task_expansion"
-        allow = {
-            owns_or_subject_owns_area = tsuma_area
-        }
-        on_completion = {
-            trigger_event = me_yamato_consolidate.3
-            random_owned_province = {
-                limit = {
-                    is_in_area = tsuma_area
-                }
-                state = {
-                    add_state_modifier = {
-                        name = thriving_coastal_province_state_mod
-                        duration = -1
-                    }
-                }
-            }
-        }
-    }
     yamato_02_consolidate_task_4 = { #Up North
         icon = "task_battle"
+        highlight = {
+            scope:province = {
+                is_in_area = mino_area
+            }
+        }
         allow = {
             owns_or_subject_owns_area = mino_area
-            owns_or_subject_owns_area = owari_area
+            #owns_or_subject_owns_area = owari_area
         }
         on_completion = {
             trigger_event = me_yamato_consolidate.4
@@ -405,6 +398,15 @@ yamato_02_consolidate = {
     yamato_02_consolidate_task_6 = { #Northern Consolidation
         icon = "task_calm"
         requires = { yamato_02_consolidate_task_4 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = musasi_area
+                    is_in_area = sinano_area
+                    is_in_area = kaga_area
+                }
+            }
+        }
         allow = {
             owns_or_subject_owns_area = musasi_area
             owns_or_subject_owns_area = sinano_area
@@ -421,6 +423,14 @@ yamato_02_consolidate = {
     yamato_02_consolidate_task_7 = { #Cleaning up Kumaso
         icon = "task_expansion"
         requires = { yamato_02_consolidate_task_2 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = kumaso_area
+                    is_in_area = matsura_area
+                }
+            }
+        }
         allow = {
             owns_or_subject_owns_area = kumaso_area
             owns_or_subject_owns_area = matsura_area
@@ -532,13 +542,18 @@ yamato_02_consolidate = {
             scope:province = { is_in_region = wa_region }
         }
         allow = {
-            owns_or_subject_owns_region = wa_region
+            custom_tooltip = {
+                text = yamato_02_consolidate_task_12_tooltip
+                yamato_current_pop_value >= yamato_total_pop_value
+            }   
         }
         on_completion = {
             trigger_event = me_yamato_consolidate.12
+            add_4_free_province_investments = yes
             add_treasury  = {
                 value = root.has_monthly_income
                 multiply = add_monthly_income_huge
+                max = 1000
             }
         }
     }

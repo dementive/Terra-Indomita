@@ -23,6 +23,50 @@ current_yam_buildings_svalue = {
 
 total_yam_buildings_svalues = { value = 250 }
 
+yamato_current_pop_value = {
+	value = 0
+	region:wa_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+			}
+			every_pops_in_province = {
+				limit = {
+					OR = {
+						pop_culture = root.culture
+						AND = {
+							exists = country_culture
+							country_culture = { is_integrated = yes }
+						}
+					}
+				}
+				add = 1
+			}
+		}
+	}
+	max = yamato_total_pop_value
+}
+
+yamato_total_pop_value = {
+	value = yamato_absolute_total_pop_value
+	multiply = 0.90
+	round = floor
+}
+
+yamato_absolute_total_pop_value = {
+	value = 0
+	region:wa_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+			}
+			every_pops_in_province = {
+				add = 1
+			}
+		}
+	}
+}
+
 qi_missions_task_6_buildings_svalue = {
 	value = 0
 	area:donglai_area = {
