@@ -1,0 +1,155 @@
+﻿### General Deities Check ###
+
+deity_chqov = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_trigger = {
+				RELIGION = nilotic_pantheon
+			}
+			deity:omen_chqov = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { global_tribesmen_happyness = omen_global_tribesmen_happiness_svalue }
+	omen = { global_citizen_output = omen_global_citizen_output_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_civic_tech_effect = yes
+	}
+	religion = nivkh_religion
+	deity_category = justice #This Deity uses a Justice slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_keq = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = nilotic_pantheon
+			}
+			deity:omen_keq = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_culture
+	passive_modifier = { global_pop_conversion_speed_modifier = deity_global_pop_conversion_speed_modifier_svalue }
+	omen = { global_pop_assimilation_speed_modifier = omen_global_pop_assimilation_speed_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+	religion = nivkh_religion
+	deity_category = culture #This Deity uses a Culture slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_geirq = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = nilotic_pantheon
+			}
+			deity:omen_geirq = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_war
+	passive_modifier = { naval_morale_modifier = deity_naval_morale_modifier_svalue }
+	omen = { mercenary_land_maintenance_cost = omen_mercenary_land_maintenance_cost_svalue } #Bonus from Omen
+	on_activate = {
+		naval_apotheosis_effect = yes
+		storm_of_the_century_effect = {
+			REGION = china_seas_region
+		}
+	}
+	religion = nivkh_religion
+	deity_category = culture #This Deity uses a War slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_bal = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = nilotic_pantheon
+			}
+			deity:omen_bal = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { religious_tech_investment = omen_religious_tech_investment_svalue }
+	omen = { monthly_political_influence_modifier = deity_monthly_political_influence_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+	religion = nivkh_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_eri = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = nilotic_pantheon
+			}
+			deity:omen_geirq = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_love
+	passive_modifier = { global_monthly_civilization = deity_global_monthly_civilization_svalue }
+	omen = { global_population_growth = omen_global_population_growth } #Bonus from Omen
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+	religion = nivkh_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_milk = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = nilotic_pantheon
+			}
+			deity:omen_milk = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_wealth
+	passive_modifier = { agressive_expansion_monthly_change = deity_aggressive_expansion_monthly_change_svalue }
+	omen = { global_tax_modifier = omen_global_tax_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		economy_income_effect = yes
+	}
+	religion = nivkh_religion
+	deity_category = economy #This Deity uses an Economy slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
