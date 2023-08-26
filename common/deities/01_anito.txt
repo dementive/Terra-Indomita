@@ -1,0 +1,747 @@
+﻿### General Deity Checks ###
+## Pan-Pinoy ##
+deity_balangao = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = pinoy_religion
+			}
+			deity:omen_balangao = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_war
+	passive_modifier = { land_morale_modifier = deity_land_morale_modifier_svalue }
+	omen = { global_freemen_happyness = omen_global_freemen_happiness_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		military_apotheosis_capital_freemen_effect = yes
+	}
+}
+deity_buan = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = pinoy_religion
+			}
+			deity:omen_buan = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { global_nobles_output = deity_global_nobles_output_svalue }
+	omen = { war_score_cost = omen_war_score_cost_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		economy_apotheosis_capital_noble_effect = yes
+	}
+}
+deity_bakunawa = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = pinoy_religion
+			}
+			deity:omen_bakunawa = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth
+	passive_modifier = { global_tax_modifier = deity_global_tax_modifier_svalue }
+	omen = { agressive_expansion_monthly_change = omen_aggressive_expansion_monthly_change_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+	}
+}
+deity_kinunsana = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = pinoy_religion
+			}
+			deity:omen_kinunsana = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_eloquence
+	passive_modifier = { global_tribesmen_happyness = global_tribesmen_happiness_svalue }
+	omen = { global_pop_conversion_speed_modifier = omen_global_pop_conversion_speed_modifier_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = culture #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_rel_tech_effect = yes
+	}
+}
+deity_anitu = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = pinoy_religion
+			}
+			deity:omen_anitu = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { monthly_wage_modifier = deity_monthly_wage_modifier_svalue }
+	omen = { stability_monthly_change = omen_stability_monthly_change_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = justice #This Deity uses a Justice slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		fertility_apotheosis_capital_slaves_effect = yes
+	}
+}
+deity_tala = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = pinoy_religion
+			}
+			deity:omen_tala = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_love
+	passive_modifier = { global_population_growth = deity_global_population_growth_svalue }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+}
+## Tagalog ##
+deity_algaca = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagalog
+				RELIGION = pinoy_religion
+			}
+			deity:omen_algaca = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_war
+	passive_modifier = { discipline = deity_discipline_svalue }
+	omen = { global_monthly_food_modifier = omen_global_monthly_food_modifier } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = war #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		war_apotheosis_martial_tech_effect = yes
+	}
+}
+deity_bibit = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagalog
+				RELIGION = pinoy_religion
+			}
+			deity:omen_bibit = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { research_points_modifier = deity_research_points_modifier_svalue }
+	omen = { civic_tech_investment = omen_civic_tech_investment_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_civic_tech_effect = yes
+	}
+}
+deity_macatalubhay = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagalog
+				RELIGION = pinoy_religion
+			}
+			deity:omen_macatalubhay = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_love
+	passive_modifier = { global_food_capacity = deity_global_food_capacity_svalue }
+	omen = { global_monthly_food_modifier = omen_global_monthly_food_modifier } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+}
+deity_pilipit = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_culture_trigger = {
+				CULTURE = tagalog
+				RELIGION = pinoy_religion
+			}
+			deity:omen_pilipit = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { war_breaking_truce_cost_modifier = -0.10 }
+	omen = { global_monthly_state_loyalty = omen_global_monthly_state_loyalty } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = justice #This Deity uses a Justice slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_characters_effect = yes
+	}
+}
+deity_pagwaagan = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagalog
+				RELIGION = pinoy_religion
+			}
+			deity:omen_pagwaagan = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_wealth
+	passive_modifier = { global_commerce_modifier = deity_global_commerce_modifier_svalue }
+	omen = { navy_movement_speed = 0.15 } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		economy_income_effect = yes
+	}
+}
+
+## Tagalog + Bisaya ##
+deity_arao = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_culture_trigger = {
+				CULTURE = tagalog
+				RELIGION = pinoy_religion
+			}
+			very_common_deity_culture_trigger = {
+				CULTURE = bisaya
+				RELIGION = pinoy_religion
+			}
+			deity:omen_arao = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_eloquence
+	passive_modifier = { global_monthly_civilization = deity_global_monthly_civilization_svalue }
+	omen = { global_population_happiness = omen_global_population_happiness } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = culture #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+}
+
+## Bisaya ##
+deity_laon = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_culture_trigger = {
+				CULTURE = bisaya
+				RELIGION = pinoy_religion
+			}
+			deity:omen_laon = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { happiness_for_same_culture_modifier = deity_happiness_for_same_culture_modifier_svalue }
+	omen = { governor_loyalty = 5 } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = justice #This Deity uses a Justice slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
+	}
+}
+deity_sappia = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = bisaya
+				RELIGION = pinoy_religion
+			}
+			deity:omen_sappia = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_love
+	passive_modifier = { global_population_growth = deity_global_population_growth_svalue }
+	omen = { global_goods_from_slaves = -2 } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+}
+deity_kaptan = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_culture_trigger = {
+				CULTURE = bisaya
+				RELIGION = pinoy_religion
+			}
+			deity:omen_kaptan = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_war
+	passive_modifier = { ruler_popularity_gain = deity_ruler_popularity_gain_svalue }
+	omen = { agressive_expansion_monthly_change = omen_aggressive_expansion_monthly_change_svalue }
+	religion = pinoy_religion
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		military_apotheosis_military_experience_effect = yes
+	}
+}
+deity_maguyaen = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = bisaya
+				RELIGION = pinoy_religion
+			}
+			deity:omen_maguyaen = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_wealth
+	passive_modifier = { global_commerce_modifier = deity_global_commerce_modifier_svalue }
+	omen = { naval_morale_modifier = omen_naval_morale_modifier_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+		storm_of_the_century_effect = {
+			REGION = china_seas_region
+		}
+	}
+}
+deity_sidapa = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = bisaya
+				RELIGION = pinoy_religion
+			}
+			deity:omen_sidapa = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { oratory_tech_investment = deity_oratory_tech_investment_svalue }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_rel_tech_effect = yes
+	}
+}
+
+## Igorot ##
+# Isneg #
+deity_anito_puno = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_culture_trigger = {
+				CULTURE = igorot
+				RELIGION = pinoy_religion
+			}
+			deity:omen_anito_puno = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { happiness_for_same_culture_modifier = deity_happiness_for_same_culture_modifier_svalue }
+	omen = { governor_loyalty = 5 } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = justice #This Deity uses a Justice slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
+	}
+}
+# Itneg #
+deity_init = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_culture_trigger = {
+				CULTURE = igorot
+				RELIGION = pinoy_religion
+			}
+			deity:omen_init = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_love
+	passive_modifier = { global_monthly_food_modifier = omen_global_monthly_food_modifier }
+	omen = { global_pop_conversion_speed_modifier = omen_global_pop_conversion_speed_modifier_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = fertility #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+}
+deity_aponibolinayen = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = igorot
+				RELIGION = pinoy_religion
+			}
+			deity:omen_aponibolinayen = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_eloquence
+	passive_modifier = { global_citizen_output = deity_global_citizen_output_svalue }
+	omen = { happiness_for_same_religion_modifier = omen_happiness_for_same_religion_modifier_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = culture #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_characters_effect = yes
+	}
+}
+# Kalinga #
+deity_kidul = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = pinoy_religion
+			}
+			deity:omen_kidul = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { military_tech_investment = omen_military_tech_investment }
+	omen = { discipline = omen_discipline_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		war_apotheosis_martial_tech_effect = yes
+	}
+}
+# Bontoc #
+deity_chacha = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = igorot
+				RELIGION = pinoy_religion
+			}
+			deity:omen_chacha = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_war
+	passive_modifier = { discipline = deity_discipline_svalue }
+	omen = { jungle_combat_bonus = 0.10 } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		military_apotheosis_manpower_effect = yes
+	}
+}
+# Ifugao #
+deity_puwok = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = igorot
+				RELIGION = pinoy_religion
+			}
+			deity:omen_puwok = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_wealth
+	passive_modifier = { naval_morale_modifier = deity_naval_morale_modifier_svalue }
+	omen = { global_commerce_modifier = omen_global_commerce_modifier_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+		storm_of_the_century_effect = {
+			REGION = china_seas_region
+		}
+	}
+}
+
+## Tagbanwa ##
+deity_mangindusa = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagbanwa
+				RELIGION = pinoy_religion
+			}
+			deity:omen_mangindusa = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_love
+	passive_modifier = { global_population_growth = deity_global_population_growth_svalue }
+	omen = { price_found_metropolis_cost_modifier = -0.15 } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = fertility #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		fertility_apotheosis_capital_slaves_effect = yes
+	}
+}
+deity_bugwasin = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagbanwa
+				RELIGION = pinoy_religion
+			}
+			deity:omen_bugwasin = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_eloquence
+	passive_modifier = { global_citizen_output = deity_global_citizen_output_svalue }
+	omen = { happiness_for_same_religion_modifier = omen_happiness_for_same_religion_modifier_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = culture #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_characters_effect = yes
+	}
+}
+deity_dibuwatanin = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagbanwa
+				RELIGION = pinoy_religion
+			}
+			deity:omen_dibuwatanin = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { governor_loyalty = 3 }
+	omen = { global_freemen_happyness = omen_global_freemen_happiness_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = justice #This Deity uses a Justice slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+}
+deity_magrakad = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagbanwa
+				RELIGION = pinoy_religion
+			}
+			deity:omen_magrakad = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_wealth
+	passive_modifier = { build_cost = deity_build_cost_svalue }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+	}
+}
+deity_polo = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagbanwa
+				RELIGION = pinoy_religion
+			}
+			deity:omen_polo = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_war
+	passive_modifier = { naval_morale_modifier = deity_naval_morale_modifier_svalue }
+	omen = { ship_repair_at_sea = deity_ship_repair_at_sea } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		naval_apotheosis_effect = yes
+		storm_of_the_century_effect = {
+			REGION = china_seas_region
+		}
+	}
+}
+deity_fuku = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_culture_trigger = {
+				CULTURE = tagbanwa
+				RELIGION = pinoy_religion
+			}
+			deity:omen_fuku = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { religious_tech_investment = deity_religious_tech_investment_svalue }
+	omen = { oratory_tech_investment = omen_oratory_tech_investment } #Bonus from Omen
+	religion = pinoy_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_rel_tech_effect = yes
+	}
+}
