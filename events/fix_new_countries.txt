@@ -63,10 +63,24 @@ fix_new_countries.3 = {
 	immediate = {
 		random_character = {
 			limit = {
-				is_ruler = yes
+				OR = {
+					is_ruler = yes
+					PREV.current_ruler = THIS # This prevents errors caused by ruler_head_of_family not being saved, I guess
+				}
 			}
 			save_scope_as = ruler_head_of_family
 			remove_character_modifier = family_reorganisation
+		}
+		if = {
+			limit = {
+				NOT = { exists = scope:ruler_head_of_family }
+			}
+			random_character = {
+				limit = {
+					is_head_of_family = yes
+				}
+				save_scope_as = ruler_head_of_family
+			}
 		}
 		every_character = {
 			limit = {
