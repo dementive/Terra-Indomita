@@ -1,0 +1,35 @@
+﻿country_decisions = {
+	phnom_capital_decision = {
+		potential = {
+			has_completed_mission_task = phnom_mission_tree_task_15
+		}
+		allow = {
+			capital_scope = {
+				has_province_rank = city_metropolis
+				total_population >= 60
+				num_goods_produced >= 4
+				num_of_used_building_slots >= 10
+				free_building_slots = 0
+		        trigger_if = {
+		            limit = { has_construction = yes }
+		            custom_tooltip = {
+		                text = province_has_no_construction_tooltip
+		                has_construction  = no
+		            }
+		        }
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_province_modifier = {
+					name = phnom_nat_temple_modifier_reward
+					duration = -1
+					mode = add
+				}
+			}
+			add_splendor = {
+			    amount = "400"
+			}
+		}
+	}
+}

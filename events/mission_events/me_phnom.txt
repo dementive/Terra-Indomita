@@ -42,6 +42,14 @@ me_phnom.3 = {
     option = {
         custom_tooltip = me_phnom_3_tooltip
         name = "me_phnom_3.a"
+        add_country_modifier = {
+            name = phnom_cheaper_slaves_cost
+            duration = 7300 #20 years
+        }
+        add_country_modifier = {
+            name = phnom_expanded_diplo_mod_1
+            duration = 9125
+        }
     }
 }
 
@@ -157,6 +165,23 @@ me_phnom.10 = {
                 duration = -1
             }
         }
+        add_innovation = 1
+        add_research = {
+            technology = military_tech
+            value = 25
+        }
+            add_research = {
+            technology = civic_tech
+            value = 25
+        }
+        add_research = {
+            technology = oratory_tech
+            value = 25
+        }
+        add_research = {
+            technology = religious_tech
+            value = 25
+        }
     }
 }
 
@@ -222,6 +247,26 @@ me_phnom.14 = {
     option = {
         custom_tooltip = me_phnom_14_tooltip
         name = "me_phnom_14.a"
+        add_1_free_province_investments = yes
+        add_innovation = 1
+        p:9833 = {
+            add_province_modifier = {
+                name = phnom_sugar_farms_mod
+                duration = -1
+            }
+        }
+        p:9834 = {
+            add_province_modifier = {
+                name = phnom_sugar_farms_mod
+                duration = -1
+            }
+        }
+        p:9835 = {
+            add_province_modifier = {
+                name = phnom_sugar_farms_mod
+                duration = -1
+            }
+        }
     }
 }
 
@@ -255,10 +300,9 @@ me_phnom.16 = {
         p:9828 = {
             add_province_modifier = {
                 name = capital_phnom_trade_boost_mod
-                duration = -1
+                duration = 3650
             }
         }
-        add_treasury = -50 
     }
 	
 	option = {
@@ -326,12 +370,83 @@ me_phnom.19 = {
 	left_portrait = root.current_ruler
 
     option = {
-        capital_scope = {
-            add_permanent_province_modifier = {
-                name = phnom_nat_temple_modifier_reward
-            }
-        }
         custom_tooltip = me_phnom_19_tooltip
         name = "me_phnom_19.a"
+    }
+}
+
+me_phnom.20 = {
+    type = country_event
+
+    title = me_phnom_20_title
+    desc = me_phnom_20_desc
+    picture = throneroom
+    
+    left_portrait = root.current_ruler
+
+    option = { #We Need a Despotic Monarch
+        name = "me_phnom_20.a"
+        change_government = despotic_monarchy
+        if = {
+            limit = { is_tribal = yes }
+            add_country_modifier = {
+                name = civilized_tribe
+                duration = 5475
+            }
+            change_government = despotic_monarchy
+            switch_government_type_event_clearup_effect = yes
+        }
+    }
+    option = { #A Aristocratic Monarchy
+        name = "me_phnom_20.b"
+        change_government = aristocratic_monarchy
+        if = {
+            limit = { is_tribal = yes }
+            add_country_modifier = {
+                name = civilized_tribe
+                duration = 5475
+            }
+            change_government = despotic_monarchy
+            switch_government_type_event_clearup_effect = yes
+        }
+    }
+    option = { #A Stratocratic Monarchy
+        name = "me_phnom_20.c"
+        change_government = stratocratic_monarchy
+        if = {
+            limit = { is_tribal = yes }
+            add_country_modifier = {
+                name = civilized_tribe
+                duration = 5475
+            }
+            change_government = despotic_monarchy
+            switch_government_type_event_clearup_effect = yes
+        }
+    }
+    option = { #Theocracy is the only Way
+        name = "me_phnom_20.d"
+        change_government = theocratic_monarchy
+        if = {
+            limit = { is_tribal = yes }
+            add_country_modifier = {
+                name = civilized_tribe
+                duration = 5475
+            }
+            change_government = despotic_monarchy
+            switch_government_type_event_clearup_effect = yes
+        }
+    }
+    option = { #Plutocracy suits us well
+        name = "me_phnom_20.e"
+        change_government = plutocratic_monarchy
+        if = {
+            limit = { is_tribal = yes }
+            add_country_modifier = {
+                name = civilized_tribe
+                duration = 5475
+            }
+            change_government = despotic_monarchy
+            switch_government_type_event_clearup_effect = yes
+        }
     }
 }
