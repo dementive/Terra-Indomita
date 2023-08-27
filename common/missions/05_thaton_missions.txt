@@ -175,6 +175,8 @@
                         count = 1
                     }
                 }
+                add_treasury = 100
+                add_political_influence = 50
             }
         }
     }
@@ -254,12 +256,20 @@
         }
         allow = {
             p:9797 = {
-                is_holy_site = yes
-                total_population >= 25
-                has_building = shrine_building
+                total_population >= 20
                 has_building = temple_building
-                state_improvement_religious_trigger = yes
+                has_building = shrine_building
             }
+            custom_tooltip = {
+                text = thaton_city_religious_investment_tt
+                capital_scope.state = {
+                    calc_true_if = {
+                        amount >= 1 
+                        state_improvement_religious_trigger = yes      
+                    }
+                }
+            }
+            num_of_ships >= 10
         }
         on_completion = {
             trigger_event = me_thaton.6
@@ -434,6 +444,8 @@
                         count = 1
                     }
                 }
+                add_treasury = 100
+                add_political_influence = 50
             }
         }
     }
