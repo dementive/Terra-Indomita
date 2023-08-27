@@ -47,6 +47,7 @@ me_thaton.1 = { # Kingdom of the South
                 amount = 25
             }
         }
+        add_2_free_province_investments = yes
     }
 }
 me_thaton.2 = { # Coastal Conquest
@@ -817,6 +818,7 @@ me_thaton.15 = { # Fate of our Faith
             duration = -1
         }
         add_political_influence = 100
+        set_variable = thaton_yungism_deity_checker
     }
 }
 me_thaton.16 = { # The Yungist Yolk
@@ -898,6 +900,10 @@ me_thaton.17 = { # The Hall to Which Gods?
 
     immediate = {
         remove_country_modifier = fate_of_our_faith
+        add_country_modifier = {
+            name = recent_convert_modifier
+            duration = 1095
+        }
     }
 
     option = {
@@ -1389,5 +1395,23 @@ me_thaton.1000 = { # 3 Kingdoms Startup Event
             tag = SHE
         }
         name = mon_kingdoms.c
+    }
+}
+me_thaton.30 = { # True Final Event
+    type = country_event
+
+    title = me_thaton_30_title
+    desc = me_thaton_30_desc
+    picture = china_art_18_event
+
+    option = {
+        name = "me_thaton_30.a"
+        custom_tooltip = me_thaton_30_tooltip
+        add_country_modifier = {
+            name = to_new_horizons
+            duration = -1
+        }
+        add_political_influence = 100
+        add_treasury = 300
     }
 }

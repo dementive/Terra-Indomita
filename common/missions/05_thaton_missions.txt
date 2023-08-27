@@ -21,7 +21,9 @@
             days = 7300
         }
     }
-    on_completion = {}
+    on_completion = {
+        trigger_event = me_thaton.30
+    }
     thaton_missions_task_1 = { # Kingdom of the South
         icon = "task_happiness"
         duration = 30
@@ -60,6 +62,7 @@
                         amount = 25
                     }
                 }
+                add_2_free_province_investments = yes
             }
         }
     }
@@ -327,11 +330,11 @@
                 has_building = basic_settlement_infratructure_building
             }
             custom_tooltip = {
-                text = thaton_city_religious_investment_tt_green_garden
+                text = infrastructure_thaton_tt
                 capital_scope.state = {
                     calc_true_if = {
                         amount >= 1 
-                        state_improvement_civic_trigger = yes      
+                        state_improvement_civic_trigger = yes
                     }
                 }
             }
@@ -411,6 +414,17 @@
                             type = artist
                             count = 1
                         }
+                    }
+                }
+            }
+            hidden_effect = {
+                random_province = {
+                    limit = {
+                        trade_goods = wootz_steel
+                    }
+                    add_permanent_province_modifier = {
+                        name = wootz_steel_demand
+                        duration = -1
                     }
                 }
             }
@@ -511,10 +525,7 @@
             }
         }
         bypass = {
-            any_country = {
-                tag = PEG
-                has_land = no
-            }
+            c:PEG = { has_land = no }
         }
         on_bypass = {
             area:shenli_area = {
@@ -604,10 +615,7 @@
         icon = "task_atlas"
         duration = 30
         bypass = {
-            any_country = {
-                tag = SHE
-                has_land = no
-            }
+            c:SHE = { has_land = no }
         }
         requires = { thaton_missions_task_11 }
         highlight = {
@@ -650,7 +658,7 @@
             }
         }
         allow = {
-            num_of_controlled_cities >= 50
+            num_of_controlled_cities >= 60
             any_province = {
                 dominant_province_culture = mon
                 owner = root
