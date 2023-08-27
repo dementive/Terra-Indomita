@@ -1,0 +1,308 @@
+﻿### General Deity Checks ###
+deity_ponai = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			very_common_deity_culture_trigger = {
+				RELIGION = austronesian_religion
+				CULTURE = linyi
+			}
+			deity:omen_ponai = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_eloquence
+	passive_modifier = { happiness_for_wrong_culture_group_modifier = deity_happiness_for_wrong_culture_group_modifier_svalue }
+	omen = { naval_morale_modifier = omen_naval_morale_modifier_svalue } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = culture #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		naval_apotheosis_effect = yes
+		storm_of_the_century_effect = {
+			REGION = china_seas_region
+		}
+	}
+}
+deity_mula = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			very_common_deity_culture_trigger = {
+				RELIGION = austronesian_religion
+				CULTURE = minangkabau
+			}
+			deity:omen_mula = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_eloquence
+	passive_modifier = { happiness_for_same_culture_modifier = deity_happiness_for_same_culture_modifier_svalue }
+	omen = { global_monthly_state_loyalty = omen_global_monthly_state_loyalty } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = culture #This Deity uses a Culture slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_rel_tech_effect = yes
+	}
+}
+deity_sang_hyang = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			common_deity_culture_trigger = {
+				RELIGION = austronesian_religion
+				CULTURE = minangkabau
+			}
+			deity:omen_sang_hyang = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { stability_monthly_change = deity_stability_monthly_change }
+	omen = { general_loyalty = 5 } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = justice #This Deity uses a Justice slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		fertility_apotheosis_capital_slaves_effect = yes
+	}
+}
+deity_air = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			deity:omen_air = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_love
+	passive_modifier = { global_food_capacity = deity_global_food_capacity_svalue }
+	omen = { naval_morale_modifier = omen_naval_morale_modifier_svalue } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+}
+deity_beruk = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			deity:omen_beruk = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_war
+	passive_modifier = { assault_ability = omen_assault_ability_svalue }
+	omen = { land_morale_modifier = omen_land_morale_modifier_svalue } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		war_apotheosis_martial_tech_effect = yes
+	}
+}
+deity_belian = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			deity:omen_belian = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_kemetic_war
+	passive_modifier = { discipline = deity_discipline_svalue }
+	omen = { global_defensive = omen_global_defensive_svalue } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		military_apotheosis_defensive_effect = yes
+	}
+}
+deity_sunan = { # Fertility
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			common_deity_culture_trigger = {
+				RELIGION = austronesian_religion
+				CULTURE = minangkabau
+			}
+			deity:omen_sunan = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_love
+	passive_modifier = { global_population_growth = deity_global_population_growth_svalue }
+	omen = { monthly_legitimacy = 0.08 } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+}
+deity_musang = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			deity:omen_musang = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { research_points_modifier = deity_research_points_modifier_svalue }
+	omen = { monthly_experience_gain = 0.33 } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		military_apotheosis_military_experience_effect = yes
+	}
+}
+deity_pusaka = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			deity:omen_pusaka = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth
+	passive_modifier = { global_capital_trade_routes = 1 }
+	omen = { build_cost = omen_build_cost_svalue } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+}
+deity_raya = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			deity:omen_raya = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { loyalty_gain_chance_modifier = -0.1 }
+	omen = { character_loyalty = 5 } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = justice #This Deity uses a Justice slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		economy_apotheosis_capital_citizens_effect = yes
+	}
+}
+deity_jenglot = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			deity:omen_jenglot = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_wealth
+	passive_modifier = { global_tax_modifier = deity_global_tax_modifier_svalue }
+	omen = { global_goods_from_slaves = -2 } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = economy #This Deity uses an Economy slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		economy_income_effect = yes
+	}
+}
+deity_padoha = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = austronesian_religion
+			}
+			deity:omen_padoha = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { religious_tech_investment = deity_religious_tech_investment_svalue }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue } #Bonus from Omen
+	religion = austronesian_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_oratory_tech_effect = yes
+	}
+}
