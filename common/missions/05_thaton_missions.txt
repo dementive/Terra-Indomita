@@ -325,7 +325,15 @@
             }
             p:9798 = {
                 has_building = basic_settlement_infratructure_building
-                state_improvement_civic_trigger = yes
+            }
+            custom_tooltip = {
+                text = thaton_city_religious_investment_tt_green_garden
+                capital_scope.state = {
+                    calc_true_if = {
+                        amount >= 1 
+                        state_improvement_civic_trigger = yes      
+                    }
+                }
             }
         }
         on_completion = {
@@ -358,9 +366,17 @@
                     }
                 }
             }
+            custom_tooltip = {
+                text = thaton_city_religious_investment_tt_incense
+                capital_scope.state = {
+                    calc_true_if = {
+                        amount >= 1 
+                        state_improvement_oratory_trigger = yes      
+                    }
+                }
+            }
             capital_scope = {
                 has_building = commerce_building
-                state_improvement_oratory_trigger = yes
             }
         }
         on_completion = {
