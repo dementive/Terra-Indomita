@@ -52,6 +52,9 @@ judea_inv.1 = { #Join the Diadochi war
 	}
 	option = { #On Antigonos' side
 		name = judea_inv.1.b
+		trigger = {
+			always = no # reenable once the bug is fixed
+		}
 		c:PRY = {
 			add_opinion = {
 				modifier = joined_my_war
@@ -1046,10 +1049,6 @@ judea_inv.15 = { #Ark of the Covenant
 		}
 	}
 
-	after = {
-		trigger_event = ach.5
-	}
-
 	option = {
 		name = judea_inv.15.a
 		create_country_treasure = {
@@ -1491,6 +1490,12 @@ judea_inv.23 = { #create the new family and character on independence
 		}
 			create_family = scope:davidic_heir
 			new_family_generation_effect = { FAMILY_CANDIDATE = davidic_heir }
+			every_character = {
+				limit = {
+					has_same_family = scope:davidic_heir
+				}
+				force_add_trait = blood_of_david
+			}
 		}
 	}
 

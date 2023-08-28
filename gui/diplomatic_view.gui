@@ -1070,7 +1070,7 @@ base_window = {
 							scale = 0.9
 							position = { -15 4 }
 							parentanchor = bottom|hcenter					
-							visible = "[Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'ainu'), Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'samhan'), EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'japan') )))]"
+							visible = "[Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'jomon'), Or( EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'samhan'), EqualTo_string(DiplomaticView.GetTargetCountry.GetPrimaryCulture.GetCultureGroup.GetKey, 'japan') ))]"
 
 							datacontext = "[DiplomaticView]"
 							tooltip = "TARGET_GOVTYPE_DIPLO_TT"
@@ -1167,7 +1167,7 @@ base_window = {
 							}
 							container = {
 								visible = "[Not(DiplomaticView.GetTargetCountry.IsBarbarian)]"
-								position = { 118 78 }
+								position = { 100 78 }
 
 								container = {
 									flowcontainer = {
@@ -1285,7 +1285,6 @@ base_window = {
 					}
 				
 					margin_widget = {
-						#position = { 20 20 }
 						size = { 160 144 }
 						allow_outside = yes
 						
@@ -1295,23 +1294,23 @@ base_window = {
 							using = NoninteractableBG
 							ignoreinvisible = yes
 							parentanchor = bottom|right
-							position = { -7 0 }
+							position = { 0 0 }
 							blockoverride "Margins" 
 							{
 								margin_top = 8
-								margin_left = 12
-								margin_right = 12
+								margin_left = 5
+								margin_right = 9
 								margin_bottom = 0
 							}
-							@military_icon_width = 160
+							@military_icon_width = 185
 							icon_and_text = {
 								#position = { 10 3 }
 								tooltip = "[DiplomaticView.GetTargetCountry.GetHeritage.GetTooltip]"
 								visible = "[Not(DiplomaticView.GetTargetCountry.IsBarbarian)]"
-								size = { 160 0 }
+								size = { 190 0 }
 								blockoverride "Icon" {
 									modifier_icon = {
-										position = { -5 5 }
+										position = { -5 0 }
 										datacontext = "[DiplomaticView.GetTargetCountry.GetHeritage.GetModifier]"
 										size = { 34 34 }
 									}
@@ -1319,10 +1318,11 @@ base_window = {
 								blockoverride "Text" {
 
 									text = "#bold [DiplomaticView.GetTargetCountry.GetHeritage.GetNameWithNoTooltip]"
-									align = left|nobaseline
-									#fontsize = 14
+									align = center
+									fontsize = 14
+									position = { -4 0 }
 									autoresize = yes
-									max_width = 122
+									max_width = 160
 								}
 							}
 							icon_and_text = { 

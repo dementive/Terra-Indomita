@@ -1,0 +1,3076 @@
+﻿namespace = te_barbarians
+
+#Germanic
+te_barbarians.1 = {
+    type = country_event
+    title = "te_barbarians.1.t"
+    desc = "te_barbarians.1.desc"
+    picture = romans_marching
+
+    fire_only_once = yes
+
+    trigger = {
+        current_date > 1053.3.15 #AD 300 
+        current_date < 1055.11.15
+        OR = {
+            AND = {
+                NOR = {
+                    country_culture_group = germanic
+                    p:5142 = {
+                        any_neighbor_province = { 
+                            owner = {
+                                country_culture_group = germanic
+                            } 
+                        }
+                    }
+                }
+                p:5142 = {
+                    any_neighbor_province = { owner = root }
+                }
+            }
+            p:5146 = {
+                any_neighbor_province = { owner = root }
+            }
+            p:1 = { owner = root }
+        }     
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                num_of_cities >= 100
+                is_tribal = no
+            }
+            add_stability = -50
+        }
+        else_if = {
+            limit = {
+                num_of_cities < 100
+                is_tribal = no
+            }
+            add_stability = -25
+        }
+    }
+
+    option = { 
+        name = "te_barbarians.1.a"
+        if = {
+            limit = {
+                NOT = {
+                    has_global_variable = germanic_migration
+                }
+            }
+            p:5144 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 120
+                        }
+                    }    
+                    create_pop = tribesmen
+                }   
+            }   
+            p:5146 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 120
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }
+            #p:5145 = {
+            #    add_province_modifier = {
+            #        name = "barbarian_invasion_war"
+            #        duration = 2555
+            #    }
+            #}
+            set_global_variable = {
+                name = germanic_migration
+            }
+        }
+        set_variable = {
+            name = germanic_invasion
+            days = 1825
+        }
+    }
+
+    after = {
+        if = {
+            limit = {
+                NOR = {
+                    p:5142 = {
+                        any_neighbor_province = {
+                            AND = {
+                                exists = owner 
+                                owner = {
+                                    AND = {
+                                        country_culture_group = germanic
+                                        NOR = {
+                                            tag = BAR
+                                            tag = REB
+                                            tag = PIR
+                                            tag = MER
+                                        }
+                                    }    
+                                } 
+                            }
+                        }
+                    }
+                    p:5143 = {
+                        any_neighbor_province = {
+                            AND = {
+                                exists = owner 
+                                owner = {
+                                    AND = {
+                                        country_culture_group = germanic
+                                        NOR = {
+                                            tag = BAR
+                                            tag = REB
+                                            tag = PIR
+                                            tag = MER
+                                        }
+                                    }    
+                                } 
+                            }
+                        }
+                    }
+                    p:5142 = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5143 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 120
+                        }
+                    }    
+                    create_pop = tribesmen
+                }   
+            }   
+            p:5142 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 120
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }
+        }
+    }
+}
+
+te_barbarians.10 = {
+    type = country_event
+    title = "te_barbarians.10.t"
+    desc = "te_barbarians.10.desc"
+    picture = romans_marching
+
+    fire_only_once = yes
+
+    trigger = {
+        current_date > 1056.3.15
+        current_date < 1058.11.15
+        OR = {
+            p:5140 = {
+                any_neighbor_province = { owner = root }
+            }
+            p:1 = { owner = root }
+        }    
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities >= 100
+                NOT = {
+                    has_variable = germanic_invasion
+                }
+            }
+            add_stability = -50
+        }
+        else_if = {
+            limit = {
+                is_tribal = no
+                NOT = {
+                    has_variable = germanic_invasion
+                }
+                num_of_cities < 100
+            }
+            add_stability = -25
+        }
+    }     
+
+    option = {
+        name = "te_barbarians.10.a"
+        if = {
+            limit = {
+                NOT = {
+                    has_global_variable = germanic_migration_2
+                }
+            }
+            p:5141 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 180
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5140 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 180
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_war"
+                }
+            }
+            #p:5141 = {
+            #    add_province_modifier = {
+            #        name = "barbarian_invasion_war"
+            #        duration = 2555
+            #    }
+            #}
+            set_global_variable = {
+                name = germanic_migration_2
+            }    
+        }
+        set_variable = {
+            name = germanic_invasion
+            days = 1825
+        }
+    }
+}
+
+te_barbarians.11 = {
+    type = country_event
+    title = "te_barbarians.11.t"
+    desc = "te_barbarians.11.desc"
+    picture = romans_marching
+
+    fire_only_once = yes
+
+    trigger = {
+        current_date > 1103.3.15 #AD 350
+        current_date < 1106.11.15
+        has_global_variable = germanic_migration_2
+        OR = {
+            p:5140 = {
+                any_neighbor_province = { owner = root }
+            }
+            p:1 = { owner = root }
+        }
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities >= 100
+            }
+            add_stability = -50
+        }
+        else_if = {
+            limit = {
+                is_tribal = no
+                num_of_cities < 100
+            }
+            add_stability = -25
+        }
+    }
+    option = {
+        name = "te_barbarians.11.a"
+        if = {
+            limit = {
+                NOR = {
+                    has_global_variable = germanic_migration_3
+                    p:5140 = {
+                        has_province_modifier = barbarian_invasion_war
+                    }  
+                    p:5140 =   {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5141 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 360
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5140 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 360
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_war"
+                }
+            }
+            set_global_variable = {
+                name = germanic_migration_3
+            }    
+        }
+        else_if = {
+            limit = {
+                AND = {
+                    NOT = {
+                        has_global_variable = germanic_migration_3
+                    }
+                    p:5140 = {
+                        OR = {
+                            has_province_modifier = barbarian_invasion_war
+                            has_province_modifier = barbarian_invasion_skirmish
+                        } 
+                    }
+                }    
+            }
+            p:5141 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 360
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5140 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 360
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            set_global_variable = {
+                name = germanic_migration_3
+            }    
+        }
+        set_variable = {
+            name = germanic_invasion
+            days = 1825
+        }
+    }
+}
+
+#Baiuvarii
+te_barbarians.12 = {
+    type = country_event
+    title = "te_barbarians.12.t"
+    desc = "te_barbarians.12.desc"
+    picture = romans_marching
+
+    fire_only_once = yes
+
+    trigger = { 
+        current_date > 1108.11.08 
+        current_date < 1111.11.11
+        has_global_variable = germanic_migration
+        OR = {
+            AND = {
+                NOR = {
+                    country_culture_group = germanic
+                    p:5142 = {
+                        any_neighbor_province = {
+                            AND = {
+                                exists = owner 
+                                owner = {
+                                    AND = {
+                                        country_culture_group = germanic
+                                        NOR = {
+                                            tag = BAR
+                                            tag = REB
+                                            tag = PIR
+                                            tag = MER
+                                        }
+                                    }    
+                                } 
+                            }    
+                        }
+                    }
+                }
+                p:5142 = {
+                    any_neighbor_province = { owner = root }
+                }
+            }
+            p:5146 = {
+                any_neighbor_province = { owner = root }
+            }
+            p:1 = { owner = root }
+        }
+    }
+    
+    immediate = {
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities >= 100
+                NOT = {
+                    has_variable = germanic_invasion
+                }
+            }
+            add_stability = -50
+        }
+        else_if = {
+            limit = {
+                is_tribal = no
+                num_of_cities < 100
+                NOT = {
+                    has_variable = germanic_invasion
+                }
+            }
+            add_stability = -25
+        }
+    }
+
+    option = {
+        name = "te_barbarians.12.a"
+        if = {
+            limit = {
+                NOR = {
+                    has_global_variable = germanic_migration_4
+                    p:5146 = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5144 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 240
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5146 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 240
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }
+            set_global_variable = {
+                name = germanic_migration_4
+            }    
+        }
+        else_if = {
+            limit = {
+                AND = {
+                    NOT = {
+                        has_global_variable = germanic_migration_4
+                    }
+                    p:5146 = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5144 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 240
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5146 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 240
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            set_global_variable = {
+                name = germanic_migration_4
+            } 
+        }
+        set_variable = {
+            name = germanic_invasion
+            days = 1825
+        }
+    }
+
+    after = {
+        if = {
+            limit = {
+                NOR = {
+                    p:5142 = {
+                        any_neighbor_province = {
+                            AND = {
+                                exists = owner 
+                                owner = {
+                                    AND = {
+                                        country_culture_group = germanic
+                                        NOR = {
+                                            tag = BAR
+                                            tag = REB
+                                            tag = PIR
+                                            tag = MER
+                                        }
+                                    }    
+                                } 
+                            }
+                        }
+                    }
+                    p:5143 = {
+                        any_neighbor_province = {
+                            AND = {
+                                exists = owner 
+                                owner = {
+                                    AND = {
+                                        country_culture_group = germanic
+                                        NOR = {
+                                            tag = BAR
+                                            tag = REB
+                                            tag = PIR
+                                            tag = MER
+                                        }
+                                    }    
+                                } 
+                            }
+                        }
+                    }
+                    p:5142 = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5143 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 240
+                        }
+                    }    
+                    create_pop = tribesmen
+                }   
+            }   
+            p:5142 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 240
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                AND = {
+                    NOR = {
+                        p:5142 = {
+                            any_neighbor_province = {
+                                AND = {
+                                    exists = owner 
+                                    owner = {
+                                        AND = {
+                                            country_culture_group = germanic
+                                            NOR = {
+                                                tag = BAR
+                                                tag = REB
+                                                tag = PIR
+                                                tag = MER
+                                            }
+                                        }    
+                                    } 
+                                }
+                            }
+                        }
+                        p:5143 = {
+                            any_neighbor_province = {
+                                AND = {
+                                    exists = owner 
+                                    owner = {
+                                        AND = {
+                                            country_culture_group = germanic
+                                            NOR = {
+                                                tag = BAR
+                                                tag = REB
+                                                tag = PIR
+                                                tag = MER
+                                            }
+                                        }    
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                    p:5142 = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    } 
+                }       
+            }
+            p:5142 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 240
+                        }
+                    }    
+                    create_pop = tribesmen
+                }   
+            }
+            p:5143 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 240
+                        }
+                    }    
+                    create_pop = tribesmen
+                }   
+            }
+        }
+    }
+}
+
+#Suioni revenge
+te_barbarians.13 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1054.5.14
+        p:5952 = {
+            AND = {
+                OR = {
+                    NOT = { has_province_modifier = barbarian_invasion_skirmish }
+                    THIS = { num_of_tribesmen < 120 }
+                } 
+                any_neighbor_province = {
+                    has_owner = yes
+                    owner = {
+                        NOT = {
+                            country_culture_group = germanic
+                        } 
+                    }
+                }
+            }
+        }
+    }
+
+    immediate = {
+        p:5952 = {
+            while = {
+                limit = {
+                    any_pops_in_province = {
+                        count < 120
+                    }
+                }    
+                create_pop = tribesmen
+            }   
+        } 
+    }
+
+    option = {
+        if = {
+            limit = {
+                p:5952 = { 
+                    NOT = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5952 = {
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }
+        }
+    }
+
+}
+
+te_barbarians.14 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1054.5.14
+        p:5952 = {
+            AND = {
+                has_province_modifier = barbarian_invasion_skirmish
+                NOT = { 
+                    any_neighbor_province = {
+                        has_owner = yes
+                        owner = {
+                            NOT = { country_culture_group = germanic }
+                        }   
+                    }
+                }
+            }
+        }
+    }
+
+    option = {
+        p:5952 = {
+            remove_province_modifier = barbarian_invasion_skirmish
+        }
+    }
+}
+
+te_barbarians.15 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1054.5.14
+        p:5952 = {
+            AND = {
+                has_province_modifier = barbarian_invasion_skirmish
+                any_neighbor_province = {
+                    has_owner = yes
+                    owner = {
+                        AND = {
+                            is_ai = yes
+                            NOT = {
+                                country_culture_group = germanic
+                            }
+                            any_owned_province = {
+                                AND = {
+                                    num_of_tribesmen > 200
+                                    dominant_province_culture_group = culture_group:germanic
+                                }    
+                            }
+                        } 
+                    }
+                }
+            }
+        }
+    }
+
+    immediate = {
+        p:5952 = {
+            random_neighbor_province = {
+                limit = {
+                    has_owner = yes
+                    owner = {
+                        AND = {
+                            is_ai = yes
+                            NOT = {
+                                country_culture_group = germanic
+                            }
+                            any_owned_province = {
+                                AND = {
+                                    num_of_tribesmen > 200
+                                    dominant_province_culture_group = culture_group:germanic
+                                }
+                            }
+                        }
+                    }
+                }
+                owner = {
+                    save_scope_as = germanic_invaded_country
+                    random_owned_province = {
+                        limit = {
+                            num_of_tribesmen > 200
+                            dominant_province_culture_group = culture_group:germanic
+                        }
+                        save_scope_as = germanic_invaded_province
+                    }
+                }
+            }
+        }
+    }
+    option = {
+        scope:germanic_invaded_country = {
+            set_primary_culture_cleanup_effect = {
+                NEW_PRIMARY_CULTURE = scope:germanic_invaded_province.dominant_province_culture
+                MAKE_OLD_CULTURE_INTEGRATED = no
+            }    
+        }
+    }
+
+    after = {
+        p:5952 = {
+            remove_province_modifier = barbarian_invasion_skirmish
+        }
+    }
+
+}
+
+## Migration Era — Huns!
+te_barbarians.2 = {
+    type = country_event
+    title = "te_barbarians.2.t"
+    desc = "te_barbarians.2.desc"
+    picture = steppe_cavalry_honor
+
+    fire_only_once = yes
+
+    trigger = {
+        current_date > 1123.3.15 #AD 370
+        current_date < 1125.11.15
+    }
+
+    immediate = {    
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities > 100
+            }
+            add_stability = -50
+        }
+        else_if = {
+            limit = {
+                is_tribal = no
+                num_of_cities < 100
+            }
+            add_stability = -25
+        }
+    }
+
+    option = {
+        name = "te_barbarians.2.a" 
+        if = {
+            limit = {
+                NOT = {
+                    has_global_variable = huns_first_wave
+                }
+            }
+            p:5971 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 100
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+            }             
+            set_global_variable = huns_first_wave  
+        }   
+    }
+
+    after = {
+        p:5971 = {   
+            add_permanent_province_modifier = {
+                name = "barbarian_invasion_skirmish"
+            }
+        } 
+    }
+}
+
+te_barbarians.3 = {
+    type = country_event
+    title = "te_barbarians.3.t"
+    desc = "te_barbarians.3.desc"
+    picture = steppe_cavalry_honor
+
+    fire_only_once = yes
+
+    trigger = {
+        current_date > 1148.3.15 #AD 395
+        current_date < 1150.11.15
+        has_global_variable = huns_first_wave
+    }
+
+    immediate = { 
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities > 100
+            }
+            add_stability = -50
+        }
+        else_if = {
+            limit = {
+                is_tribal = no
+                num_of_cities < 100
+            }
+            add_stability = -25
+        }                              
+    }
+
+    option = {
+        name = "te_barbarians.3.a"
+        if = { 
+            limit = {
+                NOT = {
+                    has_global_variable = huns_second_wave
+                }
+            }
+            p:5971 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+            } 
+            p:5970 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+            }  
+            set_global_variable = huns_second_wave  
+        }    
+    }
+
+    after = {
+        p:5970 = {   
+            add_permanent_province_modifier = {
+                name = "barbarian_invasion_skirmish"
+            }
+        }
+    }
+}
+
+te_barbarians.4 = {
+    type = country_event
+    title = "te_barbarians.4.t"
+    desc = "te_barbarians.4.desc"
+    picture = steppe_cavalry
+
+    fire_only_once = yes
+
+    trigger = {
+        current_date > 1173.3.15 #AD 420
+        current_date < 1175.11.15
+        has_global_variable = huns_second_wave
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities > 100
+            }
+            add_stability = -60
+        }    
+        else_if = {
+            limit = {
+                is_tribal = no
+                num_of_cities < 100
+            }
+            add_stability = -30
+        }
+    }       
+
+    option = {
+        name = "te_barbarians.4.a" 
+        if = {
+            limit = {
+                NOT = {
+                    has_global_variable = huns_third_wave
+                }
+            }
+            p:5971 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 300
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+            } 
+            p:5970 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 300
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+            }  
+            p:5981 = {   
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 300
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            } 
+            ### separate these into new event te_barbarians.# ? ###
+            #p:5961 = {  
+		    #    add_permanent_province_modifier = {
+		    #        name = "barbarian_invasion_skirmish"
+		    #    }
+	        #}
+            #p:5966 = {
+                #while = {
+                #    limit = {
+                #        any_pops_in_province = {
+                #            count < 200
+                #        }
+                #    }    
+                #    create_pop = tribesmen
+                #}   
+            #    add_permanent_province_modifier = {
+            #        name = "barbarian_invasion_skirmish"
+            #    }
+            #}
+            ######################################################
+            set_global_variable = huns_third_wave
+        }        
+    }
+
+    after = {
+        if = {
+            limit = {
+                p:5140 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5140 = {
+                remove_province_modifier = barbarian_invasion_war
+            }
+        }
+        else_if = {
+            limit = {
+                p:5140 = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                }
+            }
+            p:5140 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }
+        }
+        p:5146 = {
+            remove_province_modifier = barbarian_invasion_skirmish
+        }
+        if = {
+            limit = {
+                p:5142 = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                }
+            }
+            p:5142 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+    }
+}
+
+te_barbarians.5 = {
+    type = country_event
+    title = "te_barbarians.5.t"
+    desc = "te_barbarians.5.desc"
+    picture = steppe_cavalry
+
+    fire_only_once = yes
+
+    trigger = {
+        current_date > 1187.3.15 #AD 434
+        current_date < 1189.11.15
+        has_global_variable = huns_third_wave
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities > 100
+            }
+            add_stability = -60
+        }    
+        else_if = {
+            limit = {
+                is_tribal = no
+                num_of_cities < 100
+            }
+            add_stability = -30
+        }
+    }       
+
+    option = {
+        name = "te_barbarians.5.a" 
+        if = {
+            limit = {
+                NOT = {
+                    has_global_variable = huns_fourth_wave
+                }
+            }
+            p:5981 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+                remove_province_modifier = barbarian_invasion_skirmish  
+                add_province_modifier = {
+                    name = "barbarian_invasion_war"
+                    duration = 7280
+                }
+            }
+            p:5971 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+                remove_province_modifier = barbarian_invasion_skirmish  
+                add_province_modifier = {
+                    name = "barbarian_invasion_war"
+                    duration = 7280
+                } 
+            }
+            p:5970 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+                remove_province_modifier = barbarian_invasion_skirmish  
+                add_province_modifier = {
+                    name = "barbarian_invasion_war"
+                    duration = 7280
+                }
+            }    
+            p:5299 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 360
+                        }
+                    }
+                    create_pop = tribesmen
+                }
+                remove_province_modifier = barbarian_invasion_skirmish  
+                add_province_modifier = {
+                    name = "barbarian_invasion_war"
+                    duration = 7280
+                }
+            }
+            set_global_variable = huns_fourth_wave
+        }      
+    }
+
+    after = {
+            
+    }
+}
+
+te_barbarians.50 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        NOT = {
+           has_variable = barbarian_fury
+        }   
+    }
+
+    immediate = {
+        c:BAR = {
+            every_army = {
+                add_morale = 1
+            }
+            every_unit = {
+                limit = {
+                    NOT = {
+                        has_unit_modifier = barbarian_fury_rage
+                    }
+                }
+                add_unit_modifier = {
+                    name = "barbarian_fury_rage"
+                }
+            }
+            if = {
+                limit = {
+                    NOR = {
+                        has_country_modifier = barbarian_fury_discipline
+                        has_variable = barbarian_fury
+                    }
+                }
+                add_country_modifier = {
+                    name = "barbarian_fury_discipline"
+                    duration = 360
+                }
+            }
+        } 
+        set_variable = {
+            name = barbarian_fury
+            days = 185
+         }
+    }
+}    
+
+###STOP-BRAKE events for runaway barbarian tribesmen pops###
+te_barbarians.51 = {
+    type = country_event
+	hidden = yes
+
+    trigger = {
+        has_global_variable = germanic_migration_2
+        current_date < 1102.11.02
+        NOT = {
+            has_variable = germanic_invasion
+        }
+        country_culture_group = germanic
+        num_of_cities >= 1
+        any_owned_province = {
+            any_neighbor_province = {
+                AND = {
+                    OR = {
+                        province_id = 5140
+                        province_id = 5142
+                        province_id = 5146
+                    }
+                    OR = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                        has_province_modifier = barbarian_invasion_war
+                    }
+                }
+            } 
+        }               
+        any_owned_province = {
+            num_of_tribesmen > 50
+        }
+    }
+
+    option = {
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5140
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5140 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 50
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5140
+                                has_province_modifier = barbarian_invasion_war
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5140 = {
+                remove_province_modifier = barbarian_invasion_war
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5146
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5146 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5142
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5142 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+    }
+}
+
+te_barbarians.52 = {
+    type = country_event
+	#title = "te_barbarians.52.t"
+    #desc = "te_barbarians.52.desc"
+    #picture = celtic_village
+    hidden = yes
+    
+    trigger = {
+        has_global_variable = germanic_migration_4
+        NOT = {
+            has_variable = germanic_invasion
+        }
+        country_culture_group = germanic
+        num_of_cities >= 1
+        any_owned_province = {
+            any_neighbor_province = {
+                AND = {
+                    OR = {
+                        province_id = 5140
+                        province_id = 5142
+                        province_id = 5146
+                    }
+                    OR = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                        has_province_modifier = barbarian_invasion_war
+                    }
+                }
+            } 
+        }               
+        any_owned_province = {
+            num_of_tribesmen > 100
+        }
+    }
+
+    option = {
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 150
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5140
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5140 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5140
+                                has_province_modifier = barbarian_invasion_war
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5140 = {
+                remove_province_modifier = barbarian_invasion_war
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 150
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5146
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5146 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 150
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5142
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5142 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+    }
+}
+
+te_barbarians.53 = {
+    type = country_event
+	hidden = yes
+
+    trigger = {
+        has_global_variable = huns_second_wave
+        OR = {
+            primary_culture = hunnic
+            #any_country_culture = {
+            #    culture = culture:hunnic
+            #    is_integrated = yes       
+            #}
+            current_ruler = {
+                has_culture = hunnic
+            }
+        }    
+        num_of_cities >= 1
+        any_owned_province = {
+            any_neighbor_province = {
+                OR = {
+                    AND = {
+                        is_in_area = don_river_area
+                        p:5970 = {
+                            OR = {
+                                has_province_modifier = barbarian_invasion_skirmish
+                                has_province_modifier = barbarian_invasion_war
+                            }
+                        }
+                    }
+                    AND = {
+                        OR = {
+                            province_id = 5299
+                            province_id = 5970
+                            province_id = 5971
+                            province_id = 5981
+                        }
+                        OR = {
+                            has_province_modifier = barbarian_invasion_skirmish
+                            has_province_modifier = barbarian_invasion_war
+                        }
+                    }
+
+                }
+                
+            } 
+        }               
+        any_owned_province = {
+            num_of_tribesmen > 100
+        }
+    }
+
+    option = {
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5299
+                                has_province_modifier = barbarian_invasion_war
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5299 = {
+                remove_province_modifier = barbarian_invasion_war
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 200
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5299
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5299 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 200
+                        any_neighbor_province = {
+                            OR = {
+                                AND = {
+                                    is_in_area = don_river_area
+                                    p:5970 = {
+                                        has_province_modifier = barbarian_invasion_skirmish
+                                    }
+                                }
+                                AND = { 
+                                    province_id = 5970
+                                    has_province_modifier = barbarian_invasion_skirmish
+                                }  
+                            }      
+                        }
+                    }
+                }    
+            }
+            p:5970 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            OR = {
+                                AND = {
+                                    is_in_area = don_river_area
+                                    p:5970 = {
+                                        has_province_modifier = barbarian_invasion_war
+                                    }
+                                }
+                                AND = { 
+                                    province_id = 5970
+                                    has_province_modifier = barbarian_invasion_war
+                                }  
+                            }     
+                        }
+                    }
+                }    
+            }
+            p:5970 = {
+                remove_province_modifier = barbarian_invasion_war
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 200
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5971
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5971 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5971
+                                has_province_modifier = barbarian_invasion_war
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5971 = {
+                remove_province_modifier = barbarian_invasion_war
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 200
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5981
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5981 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5981
+                                has_province_modifier = barbarian_invasion_war
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5981 = {
+                remove_province_modifier = barbarian_invasion_war
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }    
+        }
+    }
+}
+
+te_barbarians.54 = {
+    type = country_event
+	hidden = yes
+
+    trigger = {
+        has_global_variable = huns_fourth_wave
+        OR = {
+            country_culture_group = bactrian
+            #any_country_culture = {
+            #    culture = culture:huna
+            #    is_integrated = yes
+            #}    
+            current_ruler = {
+                has_culture = huna
+            }
+        }
+        num_of_cities >= 1
+        any_owned_province = {
+            any_neighbor_province = {
+                AND = {
+                    OR = {
+                        province_id = 5278
+                        province_id = 5380
+                        province_id = 7296
+                    }
+                    OR = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                        has_province_modifier = barbarian_invasion_war
+                    }
+                }
+            } 
+        }               
+        any_owned_province = {
+            num_of_tribesmen > 100
+        }
+    }
+
+    option = {
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 200
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5278
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5278 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5278
+                                has_province_modifier = barbarian_invasion_war
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5278 = {
+                remove_province_modifier = barbarian_invasion_war
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 200
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5380
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5380 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 5380
+                                has_province_modifier = barbarian_invasion_war
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:5380 = {
+                remove_province_modifier = barbarian_invasion_war
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 200
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 7296
+                                has_province_modifier = barbarian_invasion_skirmish
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:7296 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }    
+        }
+        if = {
+            limit = {
+                any_owned_province = {
+                    AND = {
+                        num_of_tribesmen > 100
+                        any_neighbor_province = {
+                            AND = { 
+                                province_id = 7296
+                                has_province_modifier = barbarian_invasion_war
+                            }    
+                        }
+                    }
+                }    
+            }
+            p:7296 = {
+                remove_province_modifier = barbarian_invasion_war
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                }
+            }    
+        }
+    }
+}
+
+te_barbarians.55 = {
+    type = country_event
+	hidden = yes
+
+    trigger = {
+        current_date > 1203.12.13
+        is_ai = yes
+        NOR = {
+            primary_culture = istvaeonic
+            primary_culture = irminonic
+            primary_culture = huna
+            primary_culture = hunnic    
+            current_ruler = {
+                OR = {
+                    has_culture = huna
+                    has_culture = hunnic
+                    has_culture = istvaeonic
+                    has_culture = irminonic
+                }
+            }
+        }
+        num_of_cities > 1               
+        any_owned_province = {
+            AND = {
+                OR = {
+                    dominant_province_culture = huna
+                    dominant_province_culture = hunnic
+                    dominant_province_culture = istvaeonic
+                    dominant_province_culture = irminonic
+                }
+                num_of_tribesmen > 300
+            }
+        }
+    }
+
+    option = {
+        random_owned_province = {
+            limit = {
+                num_of_tribesmen > 300
+            }
+            if = {
+                limit = {
+                    dominant_province_culture = irminonic
+                }
+                owner = {
+                    current_ruler = {
+                        set_culture = irminonic
+                    }
+                    set_primary_culture_cleanup_effect = {
+                        NEW_PRIMARY_CULTURE = irminonic
+                        MAKE_OLD_CULTURE_INTEGRATED = yes
+                    }    
+                }
+            }
+            else_if = {
+                limit = {
+                    dominant_province_culture = istvaeonic
+                }
+                owner = {
+                    current_ruler = {
+                        set_culture = istvaeonic
+                    }
+                    set_primary_culture_cleanup_effect = {
+                        NEW_PRIMARY_CULTURE = istvaeonic
+                        MAKE_OLD_CULTURE_INTEGRATED = yes
+                    }    
+                }
+            }
+            else_if = {
+                limit = {
+                    dominant_province_culture = hunnic
+                }
+                owner = {
+                    current_ruler = {
+                        set_culture = hunnic
+                    }
+                    set_primary_culture_cleanup_effect = {
+                        NEW_PRIMARY_CULTURE = hunnic
+                        MAKE_OLD_CULTURE_INTEGRATED = no
+                    }    
+                }
+            }
+            else_if = {
+                limit = {
+                    dominant_province_culture = huna
+                }
+                owner = {
+                    current_ruler = {
+                        set_culture = huna
+                    }
+                    set_primary_culture_cleanup_effect = {
+                        NEW_PRIMARY_CULTURE = huna
+                        MAKE_OLD_CULTURE_INTEGRATED = no
+                    }    
+                }
+            }
+        }
+    }
+}   
+
+te_barbarians.56 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        OR = {
+            AND = {
+                primary_culture = istvaeonic
+                NOT = {
+                    any_country_culture = {
+                        is_culture = istvaeonic
+                        has_pop_type_right = nobles
+                    }
+                }    
+            }
+            AND = {
+                primary_culture = irminonic
+                NOT = {
+                    any_country_culture = {
+                        is_culture = irminonic
+                        has_pop_type_right = nobles
+                    }
+                }
+            }
+            AND = {
+                primary_culture = hunnic
+                NOT = {
+                    any_country_culture = {
+                        is_culture = hunnic
+                        has_pop_type_right = nobles
+                    }
+                }
+            }
+            AND = {
+                primary_culture = huna
+                NOT = {
+                    any_country_culture = {
+                        is_culture = huna
+                        has_pop_type_right = nobles
+                    }
+                }
+            }
+            AND = {
+                primary_culture = suiones
+                NOT = {
+                    any_country_culture = {
+                        is_culture = suiones
+                        has_pop_type_right = nobles
+                    }
+                }
+            }
+        }
+    }
+
+    option = {
+        if = {
+            limit = {
+                AND = {
+                    primary_culture = istvaeonic
+                    NOT = {
+                        any_country_culture = {
+                            is_culture = istvaeonic
+                            has_pop_type_right = nobles
+                        }
+                    } 
+                }
+            }
+            random_country_culture = {
+                limit = {
+                    is_culture = istvaeonic
+                }
+                set_country_culture_right = nobles
+            }
+        }
+        else_if = {
+            limit = {
+                AND = {
+                    primary_culture = irminonic
+                    NOT = {
+                        any_country_culture = {
+                            is_culture = irminonic
+                            has_pop_type_right = nobles
+                        }
+                    } 
+                }
+            }
+            random_country_culture = {
+                limit = {
+                    is_culture = irminonic
+                }
+                set_country_culture_right = nobles
+            }
+        }
+        else_if = {
+            limit = {
+                AND = {
+                    primary_culture = hunnic
+                    NOT = {
+                        any_country_culture = {
+                            is_culture = hunnic
+                            has_pop_type_right = nobles
+                        }
+                    } 
+                }
+            }
+            random_country_culture = {
+                limit = {
+                    is_culture = hunnic
+                }
+                set_country_culture_right = nobles
+            }
+        }
+        else_if = {
+            limit = {
+                AND = {
+                    primary_culture = huna
+                    NOT = {
+                        any_country_culture = {
+                            is_culture = huna
+                            has_pop_type_right = nobles
+                        }
+                    } 
+                }
+            }
+            random_country_culture = {
+                limit = {
+                    is_culture = huna
+                }
+                set_country_culture_right = nobles
+            }
+        }
+        else_if = {
+            limit = {
+                AND = {
+                    primary_culture = suiones
+                    NOT = {
+                        any_country_culture = {
+                            is_culture = suiones
+                            has_pop_type_right = nobles
+                        }
+                    } 
+                }
+            }
+            random_country_culture = {
+                limit = {
+                    is_culture = suiones
+                }
+                set_country_culture_right = nobles
+            }
+        }
+    }
+}
+##################################################################
+
+te_barbarians.60 = {
+    type = country_event
+    title = "te_barbarians.60.t"
+    desc = "te_barbarians.60.desc"
+    picture = steppe_cavalry_honor
+
+    fire_only_once = yes
+
+    trigger = {
+        current_date > 1087.6.30
+        current_date < 1090.6.30
+        OR = {
+            p:5278 = {
+                any_neighbor_province = { owner = root }
+            } 
+            p:5380 = {
+                any_neighbor_province = { owner = root }
+            }
+        }      
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities >= 500
+            }
+            add_stability = -50
+        }
+        else_if = {
+            limit = {
+                is_tribal = no
+            }
+            add_stability = -25
+        }
+    }
+
+    option = {
+        name = "te_barbarians.60.a"
+        if = {
+            limit = {
+                NOT = {
+                    p:5278 = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5279 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 150
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5278 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 150
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                    duration = 5475
+                }
+            }
+        }    
+        else_if = {
+            limit = {
+                p:5278 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5278 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 150
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5279 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 150
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+        }    
+    }
+
+    after = {
+        if = {
+            limit = {
+                p:5380 = {
+                    NOT = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5963 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 150
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5380 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 150
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                    duration = 5475
+                }    
+            }
+        }
+    }
+}
+
+te_barbarians.6 = {
+    type = country_event
+    title = "te_barbarians.6.t"
+    desc = "te_barbarians.6.desc"
+    picture = steppe_cavalry
+
+    fire_only_once = yes
+
+    trigger = { 
+        current_date > 1104.04.11 
+        current_date < 1107.11.07
+        has_global_variable = germanic_migration
+        OR = {
+            p:5278 = {
+                any_neighbor_province = { owner = root }
+            }
+            tag = SEL
+            tag = MRY
+        }
+    }
+    
+    immediate = {
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities >= 100
+                NOT = {
+                    has_variable = huna_invasion
+                }
+            }
+            add_stability = -50
+        }
+        else_if = {
+            limit = {
+                is_tribal = no
+                num_of_cities < 100
+                NOT = {
+                    has_variable = huna_invasion
+                }
+            }
+            add_stability = -25
+        }
+    }
+
+    option = {
+        name = "te_barbarians.6.a"
+        if = {
+            limit = {
+                NOT = {
+                    p:5278 = {
+                        has_province_modifier = barbarian_invasion_war
+                    }
+                }
+            }
+            p:5279 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5278 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_province_modifier = {
+                    name = "barbarian_invasion_war"
+                    duration = 15000
+                }
+            }
+            trigger_event = { id = te_barbarians.61 }
+           
+        }
+        else_if = {
+            limit = {
+                p:5278 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5278 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5279 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+        }
+        set_variable = {
+            name = huna_invasion
+            days = 15000
+        }
+    }
+}
+
+te_barbarians.61 = {
+    type = country_event
+    hidden = yes
+
+    fire_only_once = yes
+
+    trigger = { 
+
+    }
+    
+    #immediate = {
+    #    if = {
+    #        limit = {
+    #            num_of_cities >= 100
+    #            NOT = {
+    #                has_variable = germanic_invasion
+    #            }
+    #        }
+    #        add_stability = -50
+    #    }
+    #    else_if = {
+    #        limit = {
+    #            num_of_cities < 100
+    #            NOT = {
+    #                has_variable = germanic_invasion
+    #            }
+    #        }
+    #        add_stability = -25
+    #    }
+    #}
+
+    option = {
+        if = {
+            limit = {
+                NOT = {
+                    p:5380 = {
+                        has_province_modifier = barbarian_invasion_war
+                    }
+                }
+            }
+            p:5963 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5380 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_province_modifier = {
+                    name = "barbarian_invasion_war"
+                    duration = 15000
+                }
+            }
+           
+        }
+        else_if = {
+            limit = {
+                p:5380 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5380 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5963 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 200
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+        }
+    }
+}
+
+te_barbarians.70 = {
+    type = country_event
+    title = "te_barbarians.70.t"
+    desc = "te_barbarians.70.desc"
+    picture = steppe_cavalry_honor
+
+    fire_only_once = yes
+
+    trigger = {
+        has_global_variable = huns_fourth_wave
+        current_date >= 1194.4.20
+        current_date <= 1196.7.10
+        OR = {
+            p:5278 = {
+                any_neighbor_province = { owner = root }
+            }
+            p:5380 = {
+                any_neighbor_province = { owner = root }
+            }
+        }    
+    }
+
+    option = {
+        name = "te_barbarians.70.a"
+        if = {
+            limit = {
+                p:5278 = {
+                    NOT = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5278 = {
+                p:5278 = {
+                    while = {
+                        limit = {
+                            any_pops_in_province = {
+                                count < 300
+                            }
+                        }    
+                        create_pop = tribesmen
+                    }
+                }
+                add_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                    duration = 3675
+                }    
+            }
+        }
+    }
+    
+    after = {
+        if = {
+            limit = {
+                p:5380 = {
+                    NOT = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                    }
+                }
+            }
+            p:5380 = {
+                p:5380 = {
+                    while = {
+                        limit = {
+                            any_pops_in_province = {
+                                count < 300
+                            }
+                        }    
+                        create_pop = tribesmen
+                    }
+                }
+                add_province_modifier = {
+                    name = "barbarian_invasion_skirmish"
+                    duration = 3675
+                }    
+            }
+        }
+    }
+}
+
+te_barbarians.7 = {
+    type = country_event
+    title = "te_barbarians.7.t"
+    desc = "te_barbarians.7.desc"
+    picture = steppe_cavalry
+
+    fire_only_once = yes
+
+    trigger = { 
+        current_date > 1204.04.11 
+        current_date < 1207.11.07
+        has_global_variable = huns_fourth_wave
+        OR = {
+            p:5278 = {
+                any_neighbor_province = { owner = root }
+            }
+            tag = SEL
+            tag = MRY
+        }
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                is_tribal = no
+                num_of_cities >= 100
+                NOT = {
+                    has_variable = huna_invasion_again
+                }
+            }
+            add_stability = -60
+        }
+        else_if = {
+            limit = {
+                is_tribal = no
+                num_of_cities < 100
+                NOT = {
+                    has_variable = huna_invasion_again
+                }
+            }
+            add_stability = -30
+        }
+    }
+
+    option = {
+        name = "te_barbarians.7.a"
+        if = {
+            limit = {
+                NOT = {
+                    p:5278 = {
+                        has_province_modifier = barbarian_invasion_war
+                    }
+                }
+            }
+            p:5279 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5278 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_war"
+                }    
+            }
+            trigger_event = { id = te_barbarians.71 }
+           
+        }
+        else_if = {
+            limit = {
+                p:5278 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5278 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5279 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+        }
+        set_variable = huna_invasion_again
+    }
+}
+
+te_barbarians.71 = {
+    type = country_event
+    hidden = yes
+
+    fire_only_once = yes
+
+    trigger = { 
+
+    }
+    
+    #immediate = {
+    #    if = {
+    #        limit = {
+    #            num_of_cities >= 100
+    #            NOT = {
+    #                has_variable = germanic_invasion
+    #            }
+    #        }
+    #        add_stability = -50
+    #    }
+    #    else_if = {
+    #        limit = {
+    #            num_of_cities < 100
+    #            NOT = {
+    #                has_variable = germanic_invasion
+    #            }
+    #        }
+    #        add_stability = -25
+    #    }
+    #}
+
+    option = {
+        if = {
+            limit = {
+                NOT = {
+                    p:5380 = {
+                        has_province_modifier = barbarian_invasion_war
+                    }
+                }
+            }
+            p:5963 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5380 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_war"
+                }
+            }
+            trigger_event = { id = te_barbarians.72 }
+        }
+        else_if = {
+            limit = {
+                p:5380 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5380 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:5963 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+        }
+    }
+}
+
+te_barbarians.72 = {
+    type = country_event
+    hidden = yes
+
+    fire_only_once = yes
+
+    trigger = { 
+
+    }
+    
+    #immediate = {
+    #    if = {
+    #        limit = {
+    #            num_of_cities >= 100
+    #            NOT = {
+    #                has_variable = germanic_invasion
+    #            }
+    #        }
+    #        add_stability = -50
+    #    }
+    #    else_if = {
+    #        limit = {
+    #            num_of_cities < 100
+    #            NOT = {
+    #                has_variable = germanic_invasion
+    #            }
+    #        }
+    #        add_stability = -25
+    #    }
+    #}
+
+    option = {
+        if = {
+            limit = {
+                NOT = {
+                    p:7296 = {
+                        has_province_modifier = barbarian_invasion_war
+                    }
+                }
+            }
+            p:7295 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:7296 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+                add_permanent_province_modifier = {
+                    name = "barbarian_invasion_war"
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                p:7296 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:7296 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+            p:7295 = {
+                while = {
+                    limit = {
+                        any_pops_in_province = {
+                            count < 400
+                        }
+                    }    
+                    create_pop = tribesmen
+                }
+            }
+        }
+    }
+}
+
+te_barbarians.98 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1208.5.15
+        has_global_variable = huns_fourth_wave
+        OR = {
+            p:5981 = {
+                OR = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5971 = {
+                OR = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5970 = {
+                OR = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5299 = {
+                OR = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+        }
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                p:5981 = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                }
+            }
+            p:5981 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }
+        }
+        else_if = {
+            limit = {
+                p:5981 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5981 = {
+                remove_province_modifier = barbarian_invasion_war
+            }
+        }
+        if = {
+            limit = {
+                p:5971 = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                }
+            }
+            p:5971 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }
+        }
+        else_if = {
+            limit = {
+                p:5971 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5971 = {
+                remove_province_modifier = barbarian_invasion_war
+            }
+        }
+    }
+    option = {
+        if = {
+            limit = {
+                p:5970 = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                }
+            }
+            p:5970 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }
+        }
+        else_if = {
+            limit = {
+                p:5970 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5970 = {
+                remove_province_modifier = barbarian_invasion_war
+            }
+        }
+    }
+
+    after = {
+        if = {
+            limit = {
+                p:5299 = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                }
+            }
+            p:5299 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            }
+        }
+        else_if = {
+            limit = {
+                p:5299 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5299 = {
+                remove_province_modifier = barbarian_invasion_war
+            }
+        }
+    }
+
+}
+
+te_barbarians.99 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1281.6.30
+        has_global_variable = huns_fourth_wave
+        num_of_cities >= 1
+        any_owned_province = {
+            AND = {
+                total_population > 200
+                dominant_province_culture = huna
+            }
+            any_neighbor_province = {
+                AND = {
+                    OR = {
+                        province_id = 5278
+                        province_id = 5380
+                        province_id = 7296
+                    }
+                    OR = {
+                        has_province_modifier = barbarian_invasion_skirmish
+                        has_province_modifier = barbarian_invasion_war
+                    }
+                }
+            } 
+        }               
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                p:5278 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5278 = {
+                remove_province_modifier = barbarian_invasion_war 
+            }   
+        }
+        else_if = {
+            limit = {
+                p:5278 = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                }   
+            }
+            p:5278 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            } 
+        }
+    }    
+
+    option = {    
+        if = {
+            limit = {
+                p:5380 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:5380 = {
+                remove_province_modifier = barbarian_invasion_war 
+            }   
+        }
+        else_if = {
+            limit = {
+                p:5380 = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                }   
+            }
+            p:5380 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            } 
+        }
+    }
+
+    after = {
+        if = {
+            limit = {
+                p:7296 = {
+                    has_province_modifier = barbarian_invasion_war
+                }
+            }
+            p:7296 = {
+                remove_province_modifier = barbarian_invasion_war 
+            }   
+        }
+        else_if = {
+            limit = {
+                p:7296 = {
+                    has_province_modifier = barbarian_invasion_skirmish
+                }   
+            }
+            p:7296 = {
+                remove_province_modifier = barbarian_invasion_skirmish
+            } 
+        }
+    }
+}
+
+

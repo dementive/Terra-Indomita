@@ -1,0 +1,313 @@
+﻿### General Deity Checks ###
+
+deity_dam = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_dam = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_eloquence
+	passive_modifier = { happiness_for_same_culture_modifier = deity_happiness_for_same_culture_modifier_svalue }
+	omen = { deify_ruler_cost_modifier = -0.1 } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_characters_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = culture #This Deity uses a Culture slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_ban_phi = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_ban_phi = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_eloquence
+	passive_modifier = { global_freemen_output = deity_global_freemen_output_svalue }
+	omen = { global_citizen_happyness = omen_global_citizen_happiness_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = culture #This Deity uses a Culture slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_mae_phosop = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_mae_phosop = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_love
+	passive_modifier = { global_goods_from_slaves = -1 }
+	omen = { global_monthly_food_modifier = omen_global_monthly_food_modifier } #Bonus from Omen
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_khao_kham = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_khao_kham = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_love
+	passive_modifier = { global_population_growth = deity_global_population_growth_svalue }
+	omen = { naval_morale_modifier = omen_naval_morale_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes # add storm of the century todo
+	}
+	religion = satsana_phi_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_kham_seng = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_kham_seng = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth
+	passive_modifier = { global_tax_modifier = deity_global_tax_modifier_svalue }
+	omen = { build_cost = omen_build_cost_svalue } #Bonus from Omen
+	on_activate = {
+		economy_income_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = economy #This Deity uses an Economy slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_nang = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_nang = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_wealth
+	passive_modifier = { global_commerce_modifier = deity_global_commerce_modifier_svalue }
+	omen = { build_time = omen_build_cost_svalue } #Bonus from Omen
+	on_activate = {
+		economy_income_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = economy #This Deity uses an Economy slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_lengdon = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_lengdon = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_war
+	passive_modifier = { land_morale_modifier = deity_land_morale_modifier_svalue }
+	omen = { war_score_cost = omen_war_score_cost_svalue } #Bonus from Omen
+	on_activate = {
+		military_apotheosis_military_experience_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = war #This Deity uses a War slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_phai = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_phai = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_tribal_war
+	passive_modifier = { war_exhaustion = deity_war_exhaustion_svalue }
+	omen = { discipline = omen_discipline_svalue } #Bonus from Omen
+	on_activate = {
+		war_apotheosis_martial_tech_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = war #This Deity uses a War slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_jasin_pha = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_jasin_pha = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { global_cohort_start_experience = deity_global_cohort_start_experience_svalue }
+	omen = { research_points_modifier = deity_research_points_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_oratory_tech_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_mut_kum = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_common_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_mut_kum = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { civic_tech_investment = deity_civic_tech_investment_svalue }
+	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_oratory_tech_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_tai_kum = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_tai_kum = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_kum
+	passive_modifier = { diplomatic_relations = 1 }
+	omen = { global_monthly_state_loyalty = omen_global_monthly_state_loyalty } #Bonus from Omen
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = justice #This Deity uses a Justice slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_tai_lang = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = satsana_phi_religion
+			}
+			deity:omen_tai_lang = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { stability_monthly_change = deity_stability_monthly_change }
+	omen = { slaves_move_cost_modifier = -0.1 } #Bonus from Omen
+	on_activate = {
+		fertility_apotheosis_capital_slaves_effect = yes
+	}
+	religion = satsana_phi_religion
+	deity_category = justice #This Deity uses a Justice slot.
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}

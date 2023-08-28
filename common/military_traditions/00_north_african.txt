@@ -36,6 +36,13 @@
 			}
 			has_country_modifier = cyr_punic_integration
 		}
+		trigger_else_if = {
+			limit = { country_culture_group = proto_european }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = proto_european
+		}
 		trigger_else = {
 			custom_tooltip = {
 				text = "tradition_unlock_requirement_cultural_decision"
@@ -191,56 +198,6 @@
 		icon = levantine_philosophy_start_bonus
 		requires = { north_african_naval_path_1 }
 		modifier = { ocean_combat_bonus = 0.05 }
-		allow = {
-			trigger_if = {
-				limit = {
-					any_country_culture = {
-						is_integrated = yes
-						country_culture_pop_count >= percent_size_culture_group_comparison
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:west_levantine
-							this.culture.culture_group = culture_group:aksumite_group
-							this.culture.culture_group = culture_group:north_african
-							this.culture.culture_group = culture_group:meroitic_group
-						}
-					}
-				}
-				any_country_culture = {
-					custom_tooltip = {
-						text = tradition_unlock_requirement_short
-						is_integrated = yes
-						country_culture_pop_count >= percent_size_culture_group_comparison
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:west_levantine
-							this.culture.culture_group = culture_group:aksumite_group
-							this.culture.culture_group = culture_group:north_african
-							this.culture.culture_group = culture_group:meroitic_group
-						}
-					}
-				}
-			}
-			trigger_else = {
-				custom_tooltip = {
-					text = "tradition_unlock_requirement_levantine"
-					any_country_culture = {
-						is_integrated = yes
-						country_culture_pop_count >= percent_size_culture_group_comparison
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:west_levantine
-							this.culture.culture_group = culture_group:aksumite_group
-							this.culture.culture_group = culture_group:north_african
-							this.culture.culture_group = culture_group:meroitic_group
-						}
-					}
-				}
-			}
-		}
-		on_activate = {
-			levantine_unlock_effect = yes
-		}
 	}
 
 	north_african_army_path_2 = { ###North Aftica 1B

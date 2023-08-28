@@ -1,0 +1,1417 @@
+﻿namespace = me_thaton
+
+me_thaton.1 = { # Kingdom of the South
+    type = country_event
+
+    title = me_thaton_1_title
+    desc = me_thaton_1_desc
+    picture = china_art_5_event
+
+    option = {
+        name = "me_thaton_1.a"
+        custom_tooltip = me_thaton_1_tooltip
+        add_country_modifier = {
+            name = southern_kingdom
+            duration = 1825
+        }
+        custom_tooltip = "mon_culture_opinion_tt"
+        every_country = {
+            limit = {
+                is_monarchy = no
+                any_integrated_culture = {
+                    is_culture = mon
+                }
+                NOT = { this = root }
+            }
+            add_opinion = {
+                modifier = legend_of_culture
+                target = root
+            }
+        }
+        every_country = {
+            limit = {
+                is_monarchy = yes
+                any_integrated_culture = {
+                    is_culture = mon
+                }
+                NOT = { this = root }
+            }
+            add_opinion = {
+                modifier = rival_kingdom
+                target = root
+            }
+        }
+        current_ruler = {
+            add_focus_experience = {
+                text = "add_25_focus_xp"
+                amount = 25
+            }
+        }
+        add_2_free_province_investments = yes
+    }
+}
+me_thaton.2 = { # Coastal Conquest
+    type = country_event
+
+    title = me_thaton_2_title
+    desc = me_thaton_2_desc
+    picture = Event_attack_on_city_wall_by_sea
+
+    option = {
+        name = "me_thaton_2.a"
+        custom_tooltip = me_thaton_2_tooltip
+        add_political_influence = -50
+        area:tenasserim_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        p:9799 = {
+            add_claim = root
+        }
+    }
+}
+me_thaton.3 = { # Subjects of Sadhuim
+    type = country_event
+
+    title = me_thaton_3_title
+    desc = me_thaton_3_desc
+    picture = throneroom
+
+    option = {
+        name = "me_thaton_3.a"
+        custom_tooltip = me_thaton_3_tooltip
+        if = {
+            limit = {
+                exists = c:YIL
+            }
+            root = {
+                make_subject = {
+                    target = c:YIL
+                    type = feudatory
+                }
+            }
+        }
+        if = {
+            limit = {
+                exists = c:TES
+            }
+            root = {
+                make_subject = {
+                    target = c:TES
+                    type = feudatory
+                }
+            }
+        }
+    }
+}
+me_thaton.4 = { # Trade Routes to the East
+    type = country_event
+
+    title = me_thaton_4_title
+    desc = me_thaton_4_desc
+    picture = china_art_6_event
+
+    option = {
+        name = "me_thaton_4.a"
+        custom_tooltip = me_thaton_4_tooltip
+        area:tenasserim_area = {
+            every_area_province = {
+                add_permanent_province_modifier = {
+                    name = eastern_trade
+                    duration = -1
+                }
+            }
+        }
+        random_province = {
+            limit = {
+                is_in_area = tenasserim_area
+            }
+            add_special_pop = {
+                text = add_1_merchant_tt
+                type = merchant
+                count = 1
+            }
+        }
+        add_treasury = 100
+        add_political_influence = 50
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        set_pop_religion = chinese_religions
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        set_pop_religion = chinese_religions
+                        set_pop_culture = chu
+                    }
+                }
+            }
+        }
+    }
+}
+me_thaton.5 = { # Cities of the Sea
+    type = country_event
+
+    title = me_thaton_5_title
+    desc = me_thaton_5_desc
+    picture = interesting_histories_fish_market
+
+    option = {
+        name = "me_thaton_5.a"
+        custom_tooltip = me_thaton_5_tooltip
+        every_province = {
+            limit = {
+                is_in_area = tenasserim_area
+                has_city_status = yes
+            }
+            add_province_modifier = {
+                name = bustling_asian_trade
+                duration = -1
+            }
+            add_building_level = commerce_building
+            add_building_level = port_building
+        }
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        set_pop_religion = jainism
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        set_pop_religion = ajivika
+                    }
+                }
+            }
+        }
+        if = {
+            limit = {
+                NOT = {
+                    country_has_special_pop = {
+                        text = "country_has_5_architect_tt"
+                        type = architect
+                        count = 5
+                    }
+                    any_province = {
+                        has_city_status = yes
+                        is_in_area = tenasserim_area
+                        province_has_special_pop = {
+                            text = "prov_has_5_architect_tt"
+                            type = architect
+                            count = 5
+                        }
+                    }
+                }
+            }
+            random_province = {
+                limit = {
+                    has_city_status = yes
+                    is_in_area = tenasserim_area
+                }
+                add_special_pop = {
+                    text = "add_1_architect_tt"
+                    type = architect
+                    count = 1
+                }
+            }
+        }
+    }
+}
+me_thaton.6 = { # City of the Gods
+    type = country_event
+
+    title = me_thaton_6_title
+    desc = me_thaton_6_desc
+    picture = hellenic_temple
+
+    option = {
+        name = "me_thaton_6.a"
+        custom_tooltip = me_thaton_6_tooltip
+        add_country_modifier = {
+            name = hall_of_the_gods
+            duration = -1
+        }
+        if = {
+            limit = {
+                NOT = {
+                    country_has_special_pop = {
+                        text = "country_has_5_priest_tt"
+                        type = priest
+                        count = 5
+                    }
+                    capital_scope = {
+                        province_has_special_pop = {
+                            text = "prov_has_5_priest_tt"
+                            type = priest
+                            count = 5
+                        }
+                    }
+                }
+            }
+            capital_scope = {
+                add_special_pop = {
+                    text = "add_1_priest_tt"
+                    type = priest
+                    count = 1
+                }
+            }
+        }
+    }
+}
+me_thaton.7 = { # Garden of Greens
+    type = country_event
+
+    title = me_thaton_7_title
+    desc = me_thaton_7_desc
+    picture = hanging_gardens
+
+    option = {
+        name = "me_thaton_7.a"
+        custom_tooltip = me_thaton_7_tooltip
+        p:9798 = {
+            add_province_modifier = {
+                name = garden_of_greens
+                duration = -1
+            }
+        }
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        set_pop_religion = buddhism
+                    }
+                }
+            }
+        }
+    }
+}
+me_thaton.8 = { # Incense Makes Sense
+    type = country_event
+
+    title = me_thaton_8_title
+    desc = me_thaton_8_desc
+    picture = hellenic_marketplace
+
+    option = {
+        name = "me_thaton_8.a"
+        custom_tooltip = me_thaton_8_tooltip
+        p:9797 = {
+            add_province_modifier = {
+                name = incense_production
+                duration = -1
+            }
+        }
+        if = {
+            limit = {
+                NOT = {
+                    country_has_special_pop = {
+                        text = "country_has_5_artist_tt"
+                        type = artist
+                        count = 5
+                    }
+                    capital_scope = {
+                        province_has_special_pop = {
+                            text = "prov_has_5_artist_tt"
+                            type = artist
+                            count = 5
+                        }
+                    }
+                }
+            }
+            capital_scope = {
+                add_special_pop = {
+                    text = "add_1_artist_tt"
+                    type = artist
+                    count = 1
+                }
+            }
+        }
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        set_pop_religion = hindu
+                    }
+                }
+            }
+        }
+    }
+}
+me_thaton.9 = { # Trade Routes to the West
+    type = country_event
+
+    title = me_thaton_9_title
+    desc = me_thaton_9_desc
+    picture = interesting_histories_india_city
+
+    option = {
+        name = "me_thaton_9.a"
+        custom_tooltip = me_thaton_9_tooltip
+        area:shenli_area = {
+            every_area_province = {
+                limit = {
+                    owner = root
+                }
+                add_province_modifier = {
+                    name = western_trade
+                    duration = -1
+                }
+            }
+        }
+        capital_scope = {
+            add_special_pop = {
+                text = add_1_merchant_tt
+                type = merchant
+                count = 1
+            }
+        }
+        add_treasury = 100
+        add_political_influence = 50
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 2
+                    random_pops_in_province = {
+                        set_pop_culture = lankan
+                        set_pop_religion = buddhism
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        set_pop_culture = lankan
+                        set_pop_religion = agama
+                    }
+                }
+            }
+        }
+    }
+}
+me_thaton.10 = { # The Legend is Born
+    type = country_event
+
+    title = me_thaton_10_title
+    desc = me_thaton_10_desc
+    picture = great_library
+
+    option = {
+        name = "me_thaton_10.a"
+        custom_tooltip = me_thaton_10_tooltip
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+            add_popularity = popularity_large
+        }
+        add_splendor = {
+            amount = "200"
+        }
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        set_pop_religion = charvaka
+                    }
+                }
+            }
+        }
+        hidden_effect = {
+            capital_scope = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        set_pop_religion = tai_religion
+                    }
+                }
+            }
+        }
+    }
+}
+me_thaton.110 = { # War on Pegu
+    type = country_event
+
+    title = me_thaton_110_title
+    desc = me_thaton_110_desc
+    picture = city_siege
+
+    immediate = {
+        c:PEG = {
+            declare_war_with_wargoal = {
+                target = root
+                war_goal = conquer_wargoal
+                province = 9797
+            }
+        }
+        add_country_modifier = {
+            name = ill_prepared_army
+            duration = -1
+        }
+    }
+    option = {
+        name = "me_thaton_110.a"
+    }
+}
+me_thaton.11 = { # King of Pegu
+    type = country_event
+
+    title = me_thaton_11_title
+    desc = me_thaton_11_desc
+    picture = naval_battle
+
+    option = {
+        name = "me_thaton_11.a"
+        custom_tooltip = me_thaton_11_tooltip
+        custom_tooltip = "gain_pegu_claims_tt"
+        hidden_effect = {
+            region:pyu_region = {
+                every_region_province = { add_claim = root }
+            }
+        }
+        add_country_modifier = {
+            name = prepared_for_war
+            duration = 1095
+        }
+        remove_country_modifier = ill_prepared_army
+    }
+}
+me_thaton.12 = { # Up the Irrawaddy
+    type = country_event
+
+    title = me_thaton_12_title
+    desc = me_thaton_12_desc
+    picture = interesting_histories_hellenic_dock
+
+    option = {
+        name = "me_thaton_12.a"
+        custom_tooltip = me_thaton_12_tooltip
+        add_splendor = {
+            amount = "100"
+        }
+        add_country_modifier = {
+            name = king_of_irrawaddy
+            duration = -1
+        }
+        area:shenli_area = {
+            every_area_province = {
+                limit = {
+                    owner = root
+                    NOR = {
+                        province_id = 9797
+                        province_id = 9798
+                    }
+                }
+                create_state_pop = citizen
+                create_state_pop = citizen
+            }
+        }
+        area:beikthano_area = {
+            every_area_province = {
+                limit = {
+                    owner = root
+                }
+                create_state_pop = citizen
+                create_state_pop = citizen
+            }
+        }
+        area:halin_area = {
+            every_area_province = {
+                limit = {
+                    owner = root
+                }
+                create_state_pop = citizen
+                create_state_pop = citizen
+            }
+        }
+    }
+}
+me_thaton.130 = { # Send Ultimatum
+    type = country_event
+    title = me_thaton_130_title
+    desc = me_thaton_130_desc
+    picture = war_council
+
+    option = {
+        name = me_thaton_130.a
+        #Offer Ultimatum
+        add_aggressive_expansion = 10
+        add_tyranny = 10
+        c:SHE = {
+            trigger_event = {
+                id = me_thaton.131
+                days = { 5 10 }
+            }
+        }
+    }
+    option = {
+        name = me_thaton_130.b
+        #Offer Sweetened Ultimatum
+        add_treasury = -50
+        current_ruler = {
+            add_gold = -100
+        }
+        reverse_add_opinion = {
+            target = c:SHE
+            modifier = opinion_gift
+        }
+        add_aggressive_expansion = 5
+        add_tyranny = 5
+        c:SHE = {
+            set_variable = {
+                name = thaton_sent_us_da_cash
+                days = 180
+            }
+            trigger_event = {
+                id = me_thaton.131
+                days = { 5 10 }
+            }
+        }
+    }
+    option = {
+        name = me_thaton_130.c
+        declare_war_with_wargoal = {
+            target = c:SHE
+            war_goal = imperial_conquest_wargoal
+        }
+    }
+}
+me_thaton.131 = { # Shenli Response
+    type = country_event
+    title = me_thaton_131_title
+    desc = me_thaton_131_desc
+    picture = interesting_histories_greek_debate
+
+    left_portrait = current_ruler
+    right_portrait = scope:shenli_official
+
+    immediate = {
+        random_character = {
+            limit = {
+                has_any_office = yes
+            }
+            save_scope_as = shenli_official
+        }
+        if = {
+            limit = {
+                has_variable = thaton_sent_us_da_cash
+            }
+            add_treasury = 50
+            current_ruler = {
+                add_gold = 100
+            }
+            set_variable = {
+                name = thaton_ultimatum_decision_var
+                value = {
+                    integer_range = {
+                        min = 3
+                        max = 6
+                    }
+                }
+                days = 180
+            }
+        }
+        else = {
+            limit = {
+                NOT = { has_variable = thaton_sent_us_da_cash }
+            }
+            set_variable = {
+                name = thaton_ultimatum_decision_var
+                value = {
+                    integer_range = {
+                        min = 1
+                        max = 5
+                    }
+                }
+                days = 180
+            }
+        }
+    }
+
+    option = {
+        name = me_thaton_131.a
+        #We will accept their alliance offer
+        make_subject = {
+            target = c:SHE
+            type = satrapy
+        }
+        c:THT = {
+            set_variable = {
+                name = shenli_accepted_ultimatum
+                days = 180
+            }
+            trigger_event = {
+                id = me_thaton.132
+                days = { 15 30 }
+            }
+        }
+        ai_chance = {
+            base = 5
+            modifier = {
+                factor = -50
+                var:thaton_ultimatum_decision_var <= 3
+            }
+            modifier = {
+                factor = 50
+                var:thaton_ultimatum_decision_var >= 4
+            }
+        }
+    }
+    option = {
+        name = me_thaton_131.b
+        #Offer them to become a tributary (ai only)
+        trigger = {
+            c:SHE = { is_ai = yes }
+        }
+        c:SHE = {
+            declare_war_with_wargoal = {
+                target = c:THT
+                war_goal = imperial_conquest_wargoal
+            }
+        }
+        ai_chance = {
+            base = 5
+            modifier = {
+                factor = 25
+                var:thaton_ultimatum_decision_var <= 3
+            }
+            modifier = {
+                factor = -25
+                var:thaton_ultimatum_decision_var >= 4
+            }
+        }
+    }
+    option = {
+        name = me_thaton_131.c
+        #Egypt wants nothing to do with Rhodes! (guess where i copied pasted from lol)
+        add_political_influence = 5
+        c:THT = {
+            set_variable = {
+                name = shenli_does_nothing
+                days = 180
+            }
+            trigger_event = {
+                id = me_thaton.132
+                days = { 15 30 }
+            }
+        }
+        ai_chance = {
+            base = 5
+            modifier = {
+                factor = 50
+                var:thaton_ultimatum_decision_var <= 3
+            }
+            modifier = {
+                factor = -50
+                var:thaton_ultimatum_decision_var >= 4
+            }
+        }
+    }
+}
+me_thaton.132 = {
+    type = country_event
+    title = me_thaton_132_title
+    desc = {
+        first_valid = {
+            triggered_desc = {  ##Accepted Description
+                trigger = { has_variable = shenli_accepted_ultimatum }
+                desc = "me_thaton_132_desc_1"
+            }
+            triggered_desc = {  ##Declined Description
+                trigger = { has_variable = shenli_does_nothing }
+                desc = "me_thaton_132_desc_2"
+            }
+        }
+    }
+    picture = interesting_histories_greek_debate
+
+    option = {
+        name = me_thaton_132.a
+        trigger = { has_variable = shenli_does_nothing }
+        declare_war_with_wargoal = {
+            target = c:SHE
+            war_goal = imperial_conquest_wargoal
+        }
+    }
+    option = {
+        name = me_thaton_132.b
+        trigger = { has_variable = shenli_accepted_ultimatum}
+        #Shenli submits
+        show_as_tooltip = {
+            make_subject = {
+                target = c:SHE
+                type = satrapy
+            }
+        }
+    }
+}
+me_thaton.13 = { # Mons Across the Monts ( Unused )
+    type = country_event
+
+    title = me_thaton_13_title
+    desc = me_thaton_13_desc
+    picture = interesting_histories_kush_capital
+
+    option = {
+        name = "me_thaton_13.a"
+        current_ruler = {
+            add_nickname = "egg_finder"
+        }
+    }
+}
+me_thaton.14 = { # Empire of All Monkind
+    type = country_event
+
+    title = me_thaton_14_title
+    desc = me_thaton_14_desc
+    picture = chinese_emperor
+
+    option = {
+        name = "me_thaton_14.a"
+        change_government = imperium
+        change_country_name = "suvannabhumi"
+        custom_tooltip = "suvarnabhumi_region_claims_tt"
+        hidden_effect = {
+                region:suvarnabhumi_region = {
+                every_region_province = {
+                    add_claim = root
+                }
+            }
+        }
+        custom_tooltip = me_thaton_14_tooltip
+    }
+}
+me_thaton.15 = { # Fate of our Faith
+    type = country_event
+
+    title = me_thaton_15_title
+    desc = me_thaton_15_desc
+    picture = religious_rite
+
+    option = {
+        name = "me_thaton_15.a"
+        custom_tooltip = me_thaton_15_tooltip
+        add_country_modifier = {
+            name = fate_of_our_faith
+            duration = -1
+        }
+        add_political_influence = 100
+        set_variable = thaton_yungism_deity_checker
+    }
+}
+me_thaton.16 = { # The Yungist Yolk
+    type = country_event
+
+    title = me_thaton_16_title
+    desc = me_thaton_16_desc
+    picture = china_art_2_event
+
+    option = {
+        name = "me_thaton_16.a"
+        custom_tooltip = me_thaton_16_tooltip
+        add_country_modifier = {
+            name = yungist_yolk
+            duration = 1095
+        }
+        set_variable = thaton_yungism
+        add_stability = 20
+    }
+    option = {
+        name = "me_thaton_16.b"
+        custom_tooltip = me_thaton_16_tooltip
+        add_stability = 10
+    }
+    option = {
+        name = "me_thaton_16.c"
+        trigger_event = me_thaton.160
+    }
+}
+me_thaton.160 = { # More Religion Choices
+    type = country_event
+
+    title = me_thaton_160_title
+    desc = me_thaton_160_desc
+    picture = china_art_8_event
+
+    option = {
+        name = "me_thaton_160.a"
+        custom_tooltip = me_thaton_16_tooltip
+        add_country_modifier = {
+            name = marvelous_moism
+            duration = 1095
+        }
+        set_variable = thaton_mohism
+        add_stability = 20
+    }
+    option = {
+        name = "me_thaton_160.b"
+        custom_tooltip = me_thaton_16_tooltip
+        add_country_modifier = {
+            name = beneficial_baiyue
+            duration = 1095
+        }
+        set_variable = thaton_baiyue
+        add_stability = 20
+    }
+    option = {
+        name = "me_thaton_160.c"
+        custom_tooltip = me_thaton_16_tooltip
+        add_country_modifier = {
+            name = shining_shenic
+            duration = 1095
+        }
+        set_variable = thaton_shenic
+        add_stability = 20
+    }
+    option = {
+        name = "me_thaton_160.d"
+        custom_tooltip = "go_back"
+        trigger_event = me_thaton.16
+    }
+}
+me_thaton.17 = { # The Hall to Which Gods?
+    type = country_event
+
+    title = me_thaton_17_title
+    desc = me_thaton_17_desc
+    picture = interesting_histories_greek_city_temple
+
+    immediate = {
+        remove_country_modifier = fate_of_our_faith
+        add_country_modifier = {
+            name = recent_convert_modifier
+            duration = 1095
+        }
+    }
+
+    option = {
+        trigger = { has_variable = thaton_buddhism }
+        name = "me_thaton_17.a"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_buddhism
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = buddhism
+                }
+            }
+        }
+        set_country_religion = buddhism
+    }
+    option = {
+        trigger = { has_variable = thaton_vedic }
+        name = "me_thaton_17.b"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_vedas
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = hindu
+                }
+            }
+        }
+        set_country_religion = hindu
+    }
+    option = {
+        trigger = { has_variable = thaton_agama }
+        name = "me_thaton_17.c"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_agama
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = agama
+                }
+            }
+        }
+        set_country_religion = agama
+    }
+    option = {
+        trigger = { has_variable = thaton_jainism }
+        name = "me_thaton_17.d"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_jainism
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = jainism
+                }
+            }
+        }
+        set_country_religion = jainism
+    }
+    option = {
+        trigger = { has_variable = thaton_ajivika }
+        name = "me_thaton_17.e"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_ajivika
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = ajivika
+                }
+            }
+        }
+        set_country_religion = ajivika
+    }
+    option = {
+        trigger = { has_variable = thaton_carvaka }
+        name = "me_thaton_17.f"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_carvaka
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = charvaka
+                }
+            }
+        }
+        set_country_religion = charvaka
+    }
+    option = {
+        trigger = { has_variable = thaton_yungism }
+        name = "me_thaton_17.g"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_yungs
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = funan_religion
+                }
+            }
+        }
+        set_country_religion = funan_religion
+    }
+    option = {
+        trigger = { has_variable = thaton_mohism }
+        name = "me_thaton_17.i"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_mohism
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = mohism
+                }
+            }
+        }
+        set_country_religion = mohism
+    }
+    option = {
+        trigger = { has_variable = thaton_baiyue }
+        name = "me_thaton_17.j"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_baiyue
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = baiyue_religions
+                }
+            }
+        }
+        set_country_religion = baiyue_religions
+    }
+    option = {
+        trigger = { has_variable = thaton_shenic }
+        name = "me_thaton_17.k"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_shens
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = chinese_religions
+                }
+            }
+        }
+        set_country_religion = chinese_religions
+    }
+    option = {
+        trigger = { has_variable = thaton_natic }
+        name = "me_thaton_17.h"
+        custom_tooltip = me_thaton_17_tooltip
+        change_country_color = hall_of_nats
+        capital_scope = {
+            while = {
+                count = 8
+                random_pops_in_province = {
+                    set_pop_religion = burmese_religion
+                }
+            }
+        }
+        set_country_religion = burmese_religion
+    }
+}
+me_thaton.18 = { # Beset with Buddhists
+    type = country_event
+
+    title = me_thaton_18_title
+    desc = me_thaton_18_desc
+    picture = ascetic
+
+    immediate = {
+        hidden_effect = {
+            every_owned_province = {
+                while = {
+                    count = 2
+                    random_pops_in_province = {
+                        limit = {
+                            NOT = {
+                                pop_religion = buddhism
+                            }
+                        }
+                        set_pop_religion = buddhism
+                    }
+                }
+            }
+        }
+    }
+
+    option = {
+        name = "me_thaton_18.a"
+        set_variable = thaton_buddhism
+        add_country_modifier = {
+            name = beset_with_buddhism
+            duration = 1095
+        }
+        create_character = {
+            culture = lankan
+            religion = buddhism
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                amazing_zeal_effect = yes
+                add_trait = scholar
+            }
+        }
+        custom_tooltip = me_thaton_18_tooltip
+    }
+}
+me_thaton.19 = { # The Vibrant Vedas
+    type = country_event
+
+    title = me_thaton_19_title
+    desc = me_thaton_19_desc
+    picture = interesting_histories_southern_india
+
+    option = {
+        name = "me_thaton_19.a"
+        set_variable = thaton_vedic
+        add_country_modifier = {
+            name = vibrant_vedas
+            duration = 1095
+        }
+        create_character = {
+            culture = lankan
+            religion = hindu
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = scholar
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        limit = {
+                            NOT = {
+                                pop_religion = hindu
+                            }
+                        }
+                        set_pop_religion = hindu
+                    }
+                }
+            }
+        }
+        custom_tooltip = me_thaton_19_tooltip
+    }
+    option = {
+        name = "me_thaton_19.b"
+        set_variable = thaton_agama
+        add_country_modifier = {
+            name = amazing_agama
+            duration = 1095
+        }
+        create_character = {
+            culture = tamil
+            religion = agama
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = scholar
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                while = {
+                    count = 1
+                    random_pops_in_province = {
+                        limit = {
+                            NOT = {
+                                pop_religion = agama
+                            }
+                        }
+                        set_pop_religion = agama
+                    }
+                }
+            }
+        }
+        custom_tooltip = me_thaton_19_tooltip
+    }
+    option = {
+        name = "me_thaton_19.c"
+        custom_tooltip = "more_choices"
+        trigger_event = me_thaton.190
+    }
+    option = {
+        name = "me_thaton_19.d"
+        custom_tooltip = me_thaton_19_tooltip
+    }
+}
+me_thaton.190 = { # Shramanic Faiths
+    type = country_event
+
+    title = me_thaton_190_title
+    desc = me_thaton_190_desc
+    picture = indian_city
+
+    option = {
+        name = "me_thaton_190.a"
+        add_country_modifier = {
+            name = jubilant_jainism
+            duration = 1095
+        }
+        set_variable = thaton_jainism
+        create_character = {
+            culture = kannadan
+            religion = jainism
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = scholar
+            }
+        }
+        custom_tooltip = me_thaton_19_tooltip
+    }
+
+    option = {
+        name = "me_thaton_190.b"
+        add_country_modifier = {
+            name = astounding_ajivika
+            duration = 1095
+        }
+        set_variable = thaton_ajivika
+        create_character = {
+            culture = telugu
+            religion = ajivika
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = scholar
+            }
+        }
+        custom_tooltip = me_thaton_19_tooltip
+    }
+    option = {
+        name = "me_thaton_190.c"
+        set_variable = thaton_carvaka
+        add_country_modifier = {
+            name = compelling_carvaka
+            duration = 1095
+        }
+        create_character = {
+            culture = cholan
+            religion = charvaka
+            no_stats = yes
+            hidden_effect = {
+                average_martial_effect = yes
+                average_charisma_effect = yes
+                average_finesse_effect = yes
+                great_zeal_effect = yes
+                add_trait = scholar
+            }
+        }
+        custom_tooltip = me_thaton_19_tooltip
+    }
+    option = {
+        name = "me_thaton_190.d"
+        trigger_event = me_thaton.19
+        custom_tooltip = "go_back"
+    }
+}
+me_thaton.20 = { # Why Not Nats?
+    type = country_event
+
+    title = me_thaton_20_title
+    desc = me_thaton_20_desc
+    picture = greek_religious_rite
+
+    option = {
+        name = "me_thaton_20.a"
+        custom_tooltip = me_thaton_20_tooltip
+        add_country_modifier = {
+            name = native_natics
+            duration = 1095
+        }
+        set_variable = thaton_natic
+    }
+}
+
+me_thaton.21 = { # Civilize Singhanavati
+    type = country_event
+
+    title = me_thaton_21_title
+    desc = me_thaton_21_desc
+    picture = city_country
+
+    option = {
+        name = "me_thaton_21.a"
+        area:singhanavati_area = {
+            every_area_province = {
+                limit = {
+                    has_owner = no
+                }
+                set_owned_by = root
+                create_pop = tribesmen
+                create_pop = tribesmen
+                create_pop = freemen
+            }
+        }
+        custom_tooltip = me_thaton_21_tooltip
+    }
+}
+
+me_thaton.1000 = { # 3 Kingdoms Startup Event
+    type = country_event
+    title = mon_kingdoms_title
+    desc = mon_kingdoms_desc
+    picture = china_art_16_event
+    goto_location = root
+    left_portrait = current_ruler
+    right_portrait = c:PEG.current_ruler
+    right_portrait = c:THT.current_ruler
+    right_portrait = c:SHE.current_ruler
+
+    trigger = {
+        OR = {
+            tag = PEG
+            tag = THT
+            tag = SHE
+        }
+    }
+    fire_only_once = yes
+    immediate = {
+        c:SHE = {
+            add_truce = {
+                target = c:PEG
+                duration = 1825 # 5 years
+            }
+            add_truce = {
+                target = c:THT
+                duration = 1825 # 5 years
+            }
+        }
+        c:THT = {
+            add_truce = {
+                target = c:PEG
+                duration = 1825 # 5 years
+            }
+            add_truce = {
+                target = c:SHE
+                duration = 1825 # 5 years
+            }
+        }
+        c:PEG = {
+            add_truce = {
+                target = c:SHE
+                duration = 1825 # 5 years
+            }
+            add_truce = {
+                target = c:THT
+                duration = 1825 # 5 years
+            }
+        }
+    }
+    option = {
+        trigger = {
+            tag = PEG
+        }
+        name = mon_kingdoms.a
+    }
+    option = {
+        trigger = {
+            tag = THT
+        }
+        name = mon_kingdoms.b
+    }
+    option = {
+        trigger = {
+            tag = SHE
+        }
+        name = mon_kingdoms.c
+    }
+}
+me_thaton.30 = { # True Final Event
+    type = country_event
+
+    title = me_thaton_30_title
+    desc = me_thaton_30_desc
+    picture = china_art_18_event
+
+    option = {
+        name = "me_thaton_30.a"
+        custom_tooltip = me_thaton_30_tooltip
+        add_country_modifier = {
+            name = to_new_horizons
+            duration = -1
+        }
+        add_political_influence = 100
+        add_treasury = 300
+    }
+}

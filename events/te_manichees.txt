@@ -1,0 +1,748 @@
+﻿namespace = te_manichees
+
+#Manichaeism
+te_manichees.1 = {
+	type = country_event
+    title = "te_manichees.1.t"
+    desc = "te_manichees.1.desc"
+    picture = te_manichaean_cosmology
+
+	fire_only_once = yes
+
+	trigger = {
+        current_date > 1030.2.26 #AD 277
+        current_date < 1034.3.2
+        NOR = {
+            country_culture_group = germanic
+            country_culture_group = baltic
+            religion = matrist_religion
+            religion = germanic_religion
+            capital_scope = {
+                OR = {
+                    is_in_region = scandinavia_region
+                    is_in_region = venedia_region
+                    is_in_region = germania_region
+                    is_in_region = germania_superior_region
+                    is_in_region = bohemia_region
+                    is_in_region = bohemia_region
+                    is_in_region = vistulia_region
+                    is_in_region = britain_region
+                    is_in_region = caledonia_region
+                    is_in_region = borysthenia_region
+                }    
+            }
+        }
+	}
+
+    immediate = {
+
+    }
+
+	option = {
+        name = "te_manichees.1.a" 
+        if = {
+            limit = {
+                NOT = {
+                    has_global_variable = manichaeism_spreads
+                }
+            }    
+            p:912 = {
+                ordered_pops_in_province = {
+                    order_by = pop_hapiness
+                    max = {
+                        value = total_population
+                        divide = 3
+                    }
+                    check_range_bounds = no
+                    set_pop_religion = manichaeism
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_global_variable = manichaeism_spreads
+            }
+            random_owned_province = {
+                limit = {
+                    any_pops_in_province = {
+                        pop_religion = christianity
+                    }    
+                }
+                random_pops_in_province = {
+                    set_pop_religion = manichaeism
+                }
+                random_pops_in_province = {
+                    set_pop_religion = manichaeism
+                }
+            }
+        } 
+        add_stability = -15  
+        set_global_variable = {
+            name = manichaeism_spreads
+        } 
+	}
+}
+
+#Aramaeans convert to Manichaeism
+te_manichees.10 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1034.7.15
+        has_global_variable = manichaeism_spreads
+        any_owned_province = {
+            OR = {
+                dominant_province_culture = aramaic
+                dominant_province_culture = assyrian
+                dominant_province_culture = babylonian
+            } 
+        }
+    }
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                OR = {
+                    dominant_province_culture = aramaic
+                    dominant_province_culture = assyrian
+                    dominant_province_culture = babylonian
+                }
+            }
+            ordered_pops_in_province = {
+                limit = {
+                    NOR = {
+                        pop_religion = christianity
+                        pop_religion = judaism
+                    }	
+                }    
+                order_by = pop_hapiness
+                max = {
+                    value = total_population
+                    divide = 3
+                }
+                check_range_bounds = no
+                set_pop_religion = manichaeism
+            }
+        }
+    }
+}
+
+#Mediterranean converts to Manichaeism
+te_manichees.11 = {
+    type = country_event
+    hidden = yes
+	
+	trigger = {
+        current_date > 1034.7.15
+		has_global_variable = manichaeism_spreads
+        any_owned_province = {
+            AND = {
+                OR = {
+                    dominant_province_culture = carthaginian
+                    dominant_province_culture = phoenician
+                    dominant_province_culture = nabatean
+                    dominant_province_culture_group = culture_group:south_levantine
+                    dominant_province_culture_group = culture_group:numidian
+                    dominant_province_culture_group = culture_group:north_african
+                }
+                any_pops_in_province = {
+                    OR = {
+                        pop_religion = christianity
+                        pop_religion = manichaeism
+                    } 
+                }
+            }    	  
+        }        
+	}
+	
+	immediate = {
+        random_owned_province = {
+            limit = {
+                AND = {
+                    OR = {
+                        dominant_province_culture = carthaginian
+                        dominant_province_culture = phoenician
+                        dominant_province_culture = nabatean
+                        dominant_province_culture_group = culture_group:south_levantine
+                        dominant_province_culture_group = culture_group:numidian
+                        dominant_province_culture_group = culture_group:north_african
+                    }
+                    any_pops_in_province = {
+                        OR = {
+                            pop_religion = christianity
+                            pop_religion = manichaeism
+                        }
+                    }
+                }            
+            }        
+            ordered_pops_in_province = {
+                limit = {
+                    NOR = {
+                        #pop_religion = christianity
+                        pop_religion = judaism
+                        pop_religion = arabian_pantheon
+                        pop_religion = egyptian_pantheon
+                    }	
+                }
+                order_by = pop_hapiness
+                max = {
+                    value = total_population
+                    divide = 3
+                }
+                check_range_bounds = no
+                set_pop_religion = manichaeism
+            }
+        }  
+        random_owned_province = {
+            limit = {
+                in_numidia_or_africa_trigger = yes
+            }    
+            random_pops_in_province = {
+                set_pop_religion = manichaeism
+            }
+        }  
+	}
+}
+
+#Easterns convert to Manichaeism
+te_manichees.12 = { 
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1034.7.15
+		has_global_variable = manichaeism_spreads
+        any_owned_province = {
+            AND = {
+                OR = {
+                    dominant_province_culture_group = culture_group:bactrian
+                    dominant_province_culture_group = culture_group:persia
+                    dominant_province_culture_group = culture_group:scythia
+                    dominant_province_culture_group = culture_group:tibetan
+                    dominant_province_culture = himalayan
+                }  
+                any_pops_in_province = {
+                    OR = {
+                        pop_religion = christianity
+                        pop_religion = manichaeism
+                    }    
+                }
+            }    
+        }        
+	}
+	
+	immediate = {
+        random_owned_province = {
+            limit = {
+                AND = {
+                    OR = {
+                        dominant_province_culture_group = culture_group:bactrian
+                        dominant_province_culture_group = culture_group:persia
+                        dominant_province_culture_group = culture_group:scythia
+                        dominant_province_culture_group = culture_group:tibetan
+                        dominant_province_culture = himalayan
+                    }
+                    any_pops_in_province = {
+                        OR = {
+                            pop_religion = christianity
+                            pop_religion = manichaeism
+                        }    
+                    }
+                }
+                
+            }        
+            ordered_pops_in_province = {
+                limit = {
+                    pop_religion = christianity	
+                }
+                order_by = pop_hapiness
+                max = {
+                    value = total_population
+                    divide = 3
+                }
+                check_range_bounds = no
+                set_pop_religion = manichaeism
+            }
+        }    
+	}
+}
+
+#Aryans convert to Manichaeism
+te_manichees.13 = { 
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1034.7.15
+		has_global_variable = manichaeism_spreads
+        any_owned_province = {
+            AND = {
+                OR = {
+                    dominant_province_culture = vidharban
+                    dominant_province_culture = saurashtran
+                    dominant_province_culture = kalingan
+                    dominant_province_culture = lankan
+                    dominant_province_culture = maharashtran
+                    dominant_province_culture = magadhi
+                    dominant_province_culture = gandhari
+                    dominant_province_culture = shauraseni
+                    dominant_province_culture = avanti
+                    dominant_province_culture = atavi
+                    dominant_province_culture = kamarupi
+                    dominant_province_culture = bangli
+                    dominant_province_culture = sindhi
+                    dominant_province_culture = dardic 
+                }  
+                any_pops_in_province = {
+                    pop_religion = christianity
+                }
+            }    
+        }        
+	}
+	
+	immediate = {
+        random_owned_province = {
+            limit = {
+                AND = {
+                    OR = {
+                        dominant_province_culture = vidharban
+                        dominant_province_culture = saurashtran
+                        dominant_province_culture = kalingan
+                        dominant_province_culture = lankan
+                        dominant_province_culture = maharashtran
+                        dominant_province_culture = magadhi
+                        dominant_province_culture = gandhari
+                        dominant_province_culture = shauraseni
+                        dominant_province_culture = avanti
+                        dominant_province_culture = atavi
+                        dominant_province_culture = kamarupi
+                        dominant_province_culture = bangli
+                        dominant_province_culture = sindhi
+                        dominant_province_culture = dardic
+                    }
+                    any_pops_in_province = {
+                        pop_religion = christianity
+                    }
+                }
+                
+            }        
+            ordered_pops_in_province = {
+                limit = {
+                    pop_religion = christianity	
+                }
+                order_by = pop_hapiness
+                max = {
+                    value = total_population
+                    divide = 1
+                }
+                check_range_bounds = no
+                set_pop_religion = manichaeism
+            }
+        }    
+	}
+}
+
+te_manichees.14 = {
+    type = country_event
+    hidden = yes
+    
+    #left_portrait = current_ruler
+    
+    trigger = {
+        current_date > 1034.12.31
+        has_global_variable = manichaeism_spreads
+        NOR = {
+            country_culture_group = germanic
+            country_culture_group = baltic
+            religion = matrist_religion
+            religion = germanic_religion
+        }
+        any_owned_province = {
+            NOR = {
+                is_in_region = scandinavia_region
+                is_in_region = venedia_region
+                is_in_region = germania_region
+                is_in_region = germania_superior_region
+                is_in_region = bohemia_region
+                is_in_region = bohemia_region
+                is_in_region = vistulia_region
+                is_in_region = britain_region
+                is_in_region = caledonia_region
+                is_in_region = borysthenia_region
+                dominant_province_culture_group = culture_group:baltic
+                dominant_province_culture_group = culture_group:germanic
+                dominant_province_religion = germanic_religion
+                dominant_province_religion = matrist_religion
+            }
+            OR = {
+                any_neighbor_province = {
+                    any_pops_in_province = {
+                        pop_religion = manichaeism
+                    }
+                }
+                any_pops_in_province = {
+                    pop_religion = manichaeism
+                }
+            }
+            any_pops_in_province = {
+                count > 4
+            }
+        }
+    }
+    
+    option = {
+        name = "l6_christian.5.a"
+        random_owned_province = {
+            limit = {
+                NOR = {
+                    is_in_region = scandinavia_region
+                    is_in_region = venedia_region
+                    is_in_region = germania_region
+                    is_in_region = germania_superior_region
+                    is_in_region = bohemia_region
+                    is_in_region = bohemia_region
+                    is_in_region = vistulia_region
+                    is_in_region = britain_region
+                    is_in_region = caledonia_region
+                    is_in_region = borysthenia_region
+                    dominant_province_culture_group = culture_group:baltic
+                    dominant_province_culture_group = culture_group:germanic
+                    dominant_province_religion = germanic_religion
+                    dominant_province_religion = matrist_religion
+                }
+                OR = {
+                    any_neighbor_province = {
+                        any_pops_in_province = {
+                            pop_religion = manichaeism
+                        }
+                    }
+                    any_pops_in_province = {
+                        pop_religion = manichaeism
+                    }
+                }
+                any_pops_in_province = {
+                    count > 4
+                }
+            }
+            random_pops_in_province = {
+                limit = {
+                    NOR = {
+                        pop_religion = germanic_religion
+                        pop_culture_group = germanic
+                        pop_religion = judaism
+                    }
+                }
+                set_pop_religion = manichaeism
+            }
+            random_pops_in_province = {
+                limit = {
+                    NOR = {
+                        pop_religion = germanic_religion
+                        pop_culture_group = germanic
+                        pop_religion = judaism
+                    }
+                }
+                set_pop_religion = manichaeism
+            }
+        }
+    }
+}
+
+#Some Greeks and Romans become Manichaeans
+te_manichees.15 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1077.3.15
+        has_global_variable = manichaeism_spreads
+        num_of_cities > 100
+        any_owned_province = {
+            AND = {
+                OR = {
+                    dominant_province_culture_group = culture_group:latin
+                    dominant_province_culture_group = culture_group:hellenic
+                }
+                any_pops_in_province = {
+                    OR = {
+                        pop_religion = christianity
+                        pop_religion = manichaeism
+                    }    
+                }
+            }
+        }
+    }
+
+    immediate = {
+        random_owned_province = {
+            limit = {
+                AND = {
+                    OR = {
+                        dominant_province_culture_group = culture_group:latin
+                        dominant_province_culture_group = culture_group:hellenic
+                    }
+                    any_pops_in_province = {
+                        OR = {
+                            pop_religion = christianity
+                            pop_religion = manichaeism
+                        }    
+                    }
+                    any_pops_in_province = {
+                        count > 4
+                    }
+                }
+            }
+            random_pops_in_province = {
+                limit = {
+                    OR = {
+                        pop_culture_group = latin
+                        pop_culture_group = hellenic
+                    }
+                    NOT = {
+                        pop_religion = judaism
+                    }
+                }
+                set_pop_religion = manichaeism
+            }
+            random_pops_in_province = {
+                limit = {
+                    OR = {
+                        pop_culture_group = latin
+                        pop_culture_group = hellenic
+                    }
+                    NOT = {
+                        pop_religion = judaism
+                    }
+                }
+                set_pop_religion = manichaeism
+            }
+        }
+        random_owned_province = {
+            limit = {
+                in_numidia_or_africa_trigger = yes
+            }    
+            random_pops_in_province = {
+                set_pop_religion = manichaeism
+            }
+        }
+    }
+}
+
+te_manichees.2 = {
+    type = country_event
+    title = "te_manichees.2.t"
+    desc = "te_manichees.2.desc"
+    picture = te_minor_manichee
+
+    trigger = {
+        has_variable = prophet_mani_execution
+        NOT = {
+            has_global_variable = prophet_mani_death
+        }
+    }
+
+    immediate = {
+        set_global_variable = {
+            name = prophet_mani_death
+        }
+        hidden_effect = {
+            create_country_treasure = {
+                key = "treasure_arzhang_book"
+                icon = "treasure_chest"
+                modifier = { local_nobles_output = 0.15 } 
+            } 
+        }
+    }
+
+    option = {
+        name = "te_manichees.2.a"
+        custom_tooltip = "prophet_mani_man"
+        hidden_effect = {
+            create_character = {
+                ### Optional properties ###
+                first_name = "Mani"
+                nickname="'Prophet of Light'"
+                family_name = "son of Pātik"
+                # dna = ""
+                culture = parthian # or scope
+                religion = manichaeism # or scope
+                # family = scope
+                # father = scope
+                # mother = scope
+                #birth_province = 681 or scope
+                female = no
+
+                birth_date = 970.04.10
+                death_date = 1030.2.26
+                no_traits = yes
+                ### Effects on character ###
+                add_trait = tolerant
+                add_trait = founder
+                add_trait = silver_tongued
+                add_charisma = 30
+                add_zeal = 10
+                save_scope_as = mani_man
+            }   
+        }
+    }
+    after = {
+        hidden_effect = {    
+            scope:mani_man = {
+                deify_character = {
+                    deity = deity:omen_prophet_mani
+                    country = ROOT
+                }      
+            }
+        }        
+    }
+}
+
+te_manichees.3 = {
+    type = country_event
+    title = "te_manichees.3.t"
+    desc = "te_manichees.3.desc"
+    picture = te_minor_manichee
+
+    fire_only_once = yes
+
+    left_portrait = current_ruler
+    #right_portait = scope:new_minor_manichee
+
+    trigger = {
+        current_date > 1035.3.15
+        has_global_variable = manichaeism_spreads
+        is_ai = no
+        NOT = {
+            religion = manichaeism
+        } 
+        NOR = {
+            any_character = {
+                has_religion = manichaeism
+            }
+            any_character = {
+                has_variable = new_minor_manichee
+            }
+        }
+        religion_pops_in_country = {
+            target = manichaeism
+            value >= 5
+        }
+    }
+
+    immediate = {
+        hidden_effect = {
+            create_character = {
+                religion = manichaeism
+                female = no
+                save_scope_as = new_minor_manichee
+            }
+        }
+    }
+
+    option = {
+        name = "te_manichees.3.a"
+        custom_tooltip = "minor_manichee_char_create"
+        scope:new_minor_manichee = {
+            set_variable = new_minor_manichee
+        }
+    }
+
+    after = {
+        set_variable = first_minor_manichee
+    }
+}
+
+te_manichees.30 = {
+    type = country_event
+    hidden = yes
+
+    trigger = {
+        current_date > 1035.3.15
+        has_global_variable = manichaeism_spreads
+        has_variable = first_minor_manichee
+        is_ai = no
+        NOT = {
+            religion = manichaeism
+        } 
+        NOR = {
+            any_character = {
+                has_religion = manichaeism
+            }
+            any_character = {
+                has_variable = new_minor_manichee
+            }
+        }
+        religion_pops_in_country = {
+            target = manichaeism
+            value >= 5
+        }
+    }
+
+    immediate = {
+        #hidden_effect = {
+            create_character = {
+                religion = manichaeism
+                female = no
+                set_variable = new_minor_manichee
+            }
+        #}
+    }
+
+    option = {
+        trigger_event = {
+            id = te_manichees.31
+            days = 1
+        }
+    }
+}
+
+te_manichees.31 = {
+    type = minor_country_event
+    title = "te_manichees.31.t"
+    desc = "te_manichees.31.desc"
+    interface_lock = no
+    #left_portrait = current_ruler
+    left_portrait = scope:new_light_listener
+
+    goto_location = capital_scope
+
+    trigger = {
+        current_date > 1035.3.15
+        has_global_variable = manichaeism_spreads
+        has_variable = first_minor_manichee
+        is_ai = no
+        NOT = {
+            religion = manichaeism
+        } 
+        #NOR = {
+        #    any_character = {
+        #        has_religion = manichaeism
+        #    }
+        #    any_character = {
+        #        has_variable = new_minor_manichee
+        #    }
+        #}
+        #religion_pops_in_country = {
+        #    target = manichaeism
+        #    value >= 5
+        #}
+    }
+
+    immediate = {
+        random_character = {
+            limit = {
+                has_variable = new_minor_manichee
+            }
+            save_scope_as = new_light_listener
+        }
+    }
+
+    option = {
+        name = "te_manichees.3.a"
+        custom_tooltip = "minor_manichee_char_create"
+        #scope:new_minor_manichee = {
+        #    set_variable = new_minor_manichee
+        #}
+    }
+}

@@ -1,0 +1,1314 @@
+﻿### Saints — can trigger events ###
+deity_st_andrew = {
+	trigger = {
+		current_date > 854.1.1
+		#NAND = { 
+		#	is_ai = yes 
+		#	primary_culture = roman
+		#	capital_scope = {
+		#		OR = {
+		#			province_id = 1
+		#			province_id = 142
+		#			province_id = 3571
+		#		}
+		#	}
+		#}
+		OR = {
+			religion = christianity 
+			common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = hellenic
+				REGION = greece_region
+			}
+			very_common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = hellenic
+				REGION = thrace_region
+			}
+			deity:omen_st_andrew = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_andrew
+	passive_modifier = { experience_decay = deity_experience_decay_svalue }
+	omen = { land_morale_modifier = omen_land_morale_modifier_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = war #This Deity uses a War slot.
+	
+	on_activate = {
+		add_greater_stability_effect = yes
+		if = {
+			limit = {
+				OR = {
+					any_owned_province = {
+						is_in_region = thrace_region
+					}
+					country_culture_group = hellenic
+				}
+				NOT = {
+					has_global_variable = st_andrew_theosis	
+				}
+			}
+			set_variable = {
+				name = st_andrew_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+		else_if = {
+			limit = { manpower_percentage < 0.8 }
+			add_manpower = 1.5
+		}
+		else = {
+			add_military_experience = 2
+		}
+	}
+	
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_thomas = {
+	trigger = {
+		current_date > 854.1.1
+		OR = { 
+			religion = christianity
+			very_common_deity_culture_group_trigger = {
+				CULTURE_GROUP = indian
+				RELIGION = christianity
+			}
+			deity:omen_st_thomas = {
+				holy_site_deity_check_trigger = yes
+			}	
+		}
+	}
+	icon = icon_st_thomas
+	passive_modifier = { global_capital_trade_routes = deity_global_capital_trade_routes_svalue }
+	omen = { naval_morale_modifier = omen_naval_morale_modifier_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = economy #This Deity uses an Economy Slot
+	
+	on_activate = {
+		add_1_free_province_investments = yes
+		if = {
+			limit = {
+				country_culture_group = indian
+				NOT = {
+					has_global_variable = st_thomas_theosis	
+				}
+			}
+			set_variable = {
+				name = st_thomas_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+		else_if = {
+			limit = { exists = scope:deified_ruler }
+			if = {
+				limit = {
+					any_navy = {
+						unit_size > 0
+					}
+				}
+				custom_tooltip = naval_apotheosis_effect_ships
+				random_navy = {
+					add_subunit = octere
+					add_subunit = octere
+				}
+			}
+			else = {
+				ordered_country_culture = {
+					order_by = country_culture_pop_count
+					add_country_culture_modifier = {
+						name = "favorable_pop_omen"
+						duration = 1825
+					}
+				}
+			}
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_paul = {
+	trigger = {
+		current_date > 854.1.1
+		#NAND = { 
+		#	is_ai = yes 
+		#	primary_culture = roman
+		#	capital_scope = {
+		#		OR = {
+		#			province_id = 1
+		#			province_id = 142
+		#			province_id = 3571
+		#		}
+		#	}
+		#}
+		OR = {
+			religion = christianity	
+			very_common_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = anatolian
+			}
+			common_deity_trigger = {
+				RELIGION = christianity
+			}
+			deity:omen_st_paul = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_paul
+	passive_modifier = { agressive_expansion_monthly_change = deity_aggressive_expansion_monthly_change_svalue }
+	omen = { happiness_for_same_religion_modifier = omen_happiness_for_same_religion_modifier_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = culture #This Deity uses a Culture Slot
+	on_activate = {
+		add_research = {
+			technology = religious_tech
+			value = {
+				add = current_ruler.zeal
+				multiply = 2.5
+				min = 5
+				max = 25
+			}		
+		}
+		if = {
+			limit = {
+				OR = {
+					country_culture_group = anatolian
+					country_culture_group = latin
+				}
+				NOT = {
+					has_global_variable = st_paul_theosis	
+				}
+			}
+			set_variable = {
+				name = st_paul_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_john = {
+	trigger = {
+		current_date > 854.1.1
+		OR = { 
+			religion = christianity
+			very_common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = hellenic
+				REGION = asia_region
+			}
+			common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = hellenic
+				REGION = greece_region
+			}
+			rare_deity_trigger = {
+				RELIGION = christianity
+			}
+			deity:omen_st_john = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_john
+	passive_modifier = { global_population_growth = deity_global_population_growth_svalue }
+	omen = { global_monthly_food_modifier = omen_global_monthly_food_modifier } #Bonus from Omen
+	religion = christianity
+	deity_category = fertility #This Deity uses a Fertility Slot
+	on_activate = {
+		if = {
+			limit = {
+				AND = {
+					religion = christianity
+					any_owned_province = {
+						OR = {
+							is_in_region = greece_region
+							is_in_region = asia_region
+						}	
+					}
+				}	
+				NOT = {
+					has_global_variable = st_john_theosis	
+				}
+			}
+			set_variable = {
+				name = st_john_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+		else_if = {
+			limit = {
+				AND = {
+					has_variable = st_john_canonization
+					exists = scope:deified_ruler
+				}	
+				any_owned_province = {
+					any_pops_in_province = {
+						NOT = {
+							pop_religion = christianity 
+						}
+					}
+				}
+			}
+			custom_tooltip = convert_pops_omen
+		}
+		hidden_effect = {
+			while = {
+				count = 5
+				limit = {
+					exists = scope:deified_ruler
+					any_owned_province = {
+						any_pops_in_province = {
+							NOT = {
+								pop_religion = christianity 
+							}
+						}
+					}
+				}
+				random_owned_province = {
+					limit = {
+						any_pops_in_province = {
+							NOT = {
+								pop_religion = christianity
+							}
+						}
+					}
+					random_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_religion = christianity 
+							}
+						}
+						set_pop_religion = christianity
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				religion = christianity
+			}
+			add_research = {
+				technology = religious_tech
+				value = {
+					add = current_ruler.zeal
+					multiply = 2.5
+					min = 5
+					max = 25
+				}		
+			}
+		}
+		
+	}
+	
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_philip = { #children_of_god
+	trigger = {
+		current_date > 854.1.1
+		#NAND = { 
+		#	is_ai = yes 
+		#	primary_culture = roman
+		#	capital_scope = {
+		#		OR = {
+		#			province_id = 1
+		#			province_id = 142
+		#			province_id = 3571
+		#		}
+		#	}
+		#}
+		OR = { 
+			religion = christianity
+			rare_deity_trigger = {
+				RELIGION = christianity
+			}
+			common_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = east_levantine
+			}
+			very_common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = east_levantine
+				REGION = syria_region
+			}
+			deity:omen_st_philip = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_philip
+	passive_modifier = { happiness_for_same_religion_modifier = deity_happiness_for_same_religion_modifier }
+	omen = { manpower_recovery_speed = omen_manpower_recovery_speed } #Bonus from Omen
+	religion = christianity
+	deity_category = war #This Deity uses a War slot.
+	on_activate = {
+		capital_scope = {
+			create_2_freemen_effect = yes
+		}	
+		if = {
+			limit = {
+				any_owned_province = {
+					is_in_region = syria_region
+				}
+				NOT = {
+					has_global_variable = st_philip_theosis	
+				}
+			}
+			set_variable = {
+				name = st_philip_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_nathanael_bartholomew = {
+	trigger = {
+		current_date > 854.1.1
+		#NAND = { 
+		#	is_ai = yes 
+		#	primary_culture = roman
+		#	capital_scope = {
+		#		OR = {
+		#			province_id = 1
+		#			province_id = 142
+		#			province_id = 3571
+		#		}
+		#	}
+		#}
+		OR = { 
+			religion = christianity
+			rare_deity_trigger = {
+				RELIGION = christianity
+			}
+			common_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = persia
+			}
+			very_common_deity_culture_region_trigger = {
+				RELIGION = christianity
+				CULTURE = armenian
+				REGION = armenia_region
+			}
+			deity:omen_st_nathanael_bartholomew = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_nathanael_bartholomew
+	passive_modifier = { stability_monthly_change = deity_stability_monthly_change }
+	omen = { ruler_popularity_gain = omen_ruler_popularity_gain_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = culture #This Deity uses a Culture Slot
+	on_activate = {
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_province_modifier = early_christian_church
+					has_province_modifier = early_christian_community
+				}
+			}
+			add_province_modifier = {
+				name = "temple_renovations"
+				duration = 1825
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						religion = christianity
+						any_owned_province = { 
+							is_in_region = armenia_region 
+						}
+					}
+					tag = ARM
+				}
+				NOT = {
+					has_global_variable = st_nathanael_bartholomew_theosis	
+				}
+			}
+			set_variable = {
+				name = st_nathanael_bartholomew_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+		else_if = {
+			limit = {
+				exists = scope:deified_ruler
+				religion = christianity
+			}
+			add_1_free_province_investments = yes
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_matthew_levi = {
+	trigger = {
+		current_date > 854.1.1
+		OR = { 
+			religion = christianity
+			very_common_deity_culture_region_trigger = {
+				RELIGION = christianity
+				CULTURE = hebrew
+				REGION = palestine_region
+			}
+			common_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = west_levantine
+			}
+			rare_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = south_levantine
+			}
+			deity:omen_st_matthew_levi = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_matthew_levi
+	passive_modifier = { global_citizen_output = deity_global_citizen_output_svalue }
+	omen = { global_tax_modifier = omen_global_tax_modifier_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = economy #This Deity uses an Economy Slot
+	on_activate = {
+		add_treasury = {
+			min = 50
+			value = current_ruler.zeal
+			if = {
+				limit = { current_ruler.zeal > 10 }
+				add = 5
+			}
+			multiply = 15
+		}
+		if = {
+			limit = {
+				OR = {
+					country_culture_group = west_levantine
+					country_culture_group = south_levantine
+					AND = {
+						religion = christianity
+						any_owned_province = {
+							OR = {
+								is_in_region = punt_region
+								is_in_region = palestine_region
+								is_in_region = arabia_region 
+								is_in_region = arabia_felix_region
+							}
+						}
+					}
+				}
+				NOT = {
+					has_global_variable = st_matthew_levi_theosis	
+				}
+			}
+			set_variable = {
+				name = st_matthew_levi_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_cornelius_centurion = {
+	trigger = {
+		current_date > 854.1.1
+		OR = { 
+			religion = christianity
+			very_common_deity_culture_trigger = {
+				RELIGION = christianity
+				CULTURE = roman
+			}
+			common_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = latin
+			}
+			deity:omen_st_cornelius_centurion = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_cornelius_centurion
+	passive_modifier = { global_start_experience = deity_global_start_experience_svalue }
+	omen = { war_score_cost = omen_war_score_cost_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = war #This Deity uses a War slot.
+	on_activate = {
+		if = {
+			limit = {
+				country_culture_group = latin
+				NOT = {
+					has_global_variable = st_cornelius_centurion_theosis	
+				}
+			}
+			set_variable = {
+				name = st_cornelius_centurion_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+		
+		add_research = {
+			technology = military_tech
+			value = {
+				add = current_ruler.zeal
+				multiply = 2.5
+				min = 5
+				max = 25
+			}
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_joseph = {
+	trigger = {
+		current_date > 854.1.1
+		OR = { 
+			religion = christianity
+			very_common_deity_culture_region_trigger = {
+				RELIGION = christianity
+				CULTURE = hebrew
+				REGION = palestine_region
+			}
+			common_deity_culture_region_trigger = {
+				RELIGION = christianity
+				CULTURE = hebrew
+				REGION = lower_egypt_region
+			}
+			rare_deity_trigger = {
+				RELIGION = christianity
+			}
+			tag_deity_trigger = {
+				TAG = EGY
+				RELIGION = christianity
+			}
+			deity:omen_st_joseph = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_joseph
+	passive_modifier = { global_monthly_food_modifier = deity_global_monthly_food_modifier_svalue }
+	omen = { global_freemen_happyness = omen_global_freemen_happiness_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = fertility #This Deity uses a Fertility Slot
+	on_activate = {
+		if = {
+			limit = {
+				OR = {
+					tag = EGY
+					any_owned_province = {
+						OR = {
+							is_in_region = lower_egypt_region
+							is_in_region = palestine_region
+						}	
+					}
+				}
+				NOT = {
+					has_global_variable = st_joseph_theosis
+				}
+			}
+			set_variable = {
+				name = st_joseph_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+		capital_scope = {
+			state = {
+				add_state_modifier = {
+					name = province_improvement_baal_harvest
+					duration = 1825
+				}
+			}
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_mary = {
+	trigger = {
+		current_date > 854.1.1
+		OR = { 
+			religion = christianity
+			very_rare_deity_trigger = {
+				RELIGION = christianity
+			}
+			rare_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = anatolian
+			}
+			tag_deity_trigger = {
+				TAG = EGY
+				RELIGION = christianity
+			}
+			deity:omen_st_mary = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_virgin_mary
+	passive_modifier = { global_pop_conversion_speed_modifier = deity_global_pop_conversion_speed_modifier_svalue }
+	omen = { happiness_for_wrong_culture_group_modifier = omen_happiness_for_wrong_culture_group_modifier_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = fertility #This Deity uses a Fertility Slot
+	on_activate = {
+		current_ruler = {
+			save_scope_as = country_ruler
+		}
+		custom_tooltip = fertility_apotheosis_food_effect_tooltip
+		hidden_effect = {
+			every_country_state = {
+				add_state_food = {
+					value = 50
+					multiply = scope:country_ruler.zeal	
+					min = 50
+					max = 500
+				}
+			}
+		}
+		if = {
+			limit = {
+				AND = {
+					any_owned_province = {
+						OR = {
+							province_id = 687
+							province_id = 290
+						}
+					}
+					religion = christianity
+				}	
+				NOT = {
+					has_global_variable = st_mary_assumption
+				}
+			}
+			set_variable = {
+				name = st_mary_dormition
+			}
+			trigger_event = { 
+				id = te_saints.10
+				days = 1
+			}
+			#trigger_event = { 
+			#	on_action = te_custom_on_action_canonizations
+			#	years = 5
+			#}
+		}
+		if = {
+			limit = {
+				religion = christianity
+				stability < 25
+			}
+			add_stability = {
+				value = {
+					add = current_ruler.zeal
+					multiply = 2.5
+					min = 5
+					max = 25
+				}
+			}
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = no
+	}
+}
+
+deity_st_luke_evangelist = {
+	trigger = {
+		current_date > 854.1.1
+		OR = {
+			religion = christianity
+			rare_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = hellenic
+			}
+			deity:omen_st_luke_evangelist = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_luke_evangelist
+	passive_modifier = { monthly_political_influence_modifier = deity_monthly_political_influence_modifier_svalue }
+	omen = { stability_monthly_change = omen_stability_monthly_change_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = economy #This Deity uses an Economy Slot
+	on_activate = {
+		add_research = {
+			technology = oratory_tech
+			value = {
+				add = current_ruler.zeal
+				multiply = 2.5
+				min = 5
+				max = 25
+			}
+		}
+		if = {
+			limit = {
+				country_culture_group = hellenic
+				NOT = {
+					has_global_variable = st_luke_evangelist_theosis	
+				}
+			}
+			set_variable = {
+				name = st_luke_evangelist_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+		else_if = {
+			limit = {
+				AND = {
+					has_variable = st_luke_evangelist_canonization
+					exists = scope:deified_ruler
+				}	
+				any_character = {
+					has_any_position = yes
+					NOT = { has_religion = christianity }
+				}
+			}
+			custom_tooltip = converts_one_employed_character
+		}
+		else = {
+			custom_tooltip = no_converts
+		}
+		hidden_effect = {
+			while = {
+				count = 2
+				limit = {
+					AND = {
+						has_variable = st_luke_evangelist_canonization
+						exists = scope:deified_ruler
+					}	
+					any_character = {
+						has_any_position = yes
+						NOT = { has_religion = christianity }
+					}
+				}
+				random_character = {
+					limit = {
+						has_any_position = yes
+						NOT = { has_religion = christianity }
+					}
+					set_character_religion = christianity
+				}
+			}
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_james_zebedee = {
+	trigger = {
+		current_date > 854.1.1
+		OR = { 
+			religion = christianity
+			very_common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = latin
+				REGION = gallaecia_region
+			}
+			common_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = celt_iberia
+			}
+			rare_deity_culture_group_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = iberia
+			}
+			deity:omen_st_james_zebedee = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_james_zebedee
+	passive_modifier = { cohort_reinforcement_speed = deity_cohort_reinforcement_speed_svalue }
+	omen = { global_defensive = omen_global_defensive_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = war #This Deity uses a War Slot
+	on_activate = {
+		capital_scope = {
+			state = {
+				add_state_modifier = {
+					name = rm_3_fortified_pmod
+					duration = 1825
+				}
+			}
+		}
+		random_country_state = {
+			limit = {
+				NOT = {
+					THIS = capital_scope.state
+				}
+			}
+			add_state_modifier = {
+				name = rm_3_fortified_pmod
+				duration = 1825
+			}
+		}	
+		if = {
+			limit = {
+				any_owned_province = {
+					OR = {
+						is_in_region = gallaecia_region
+						is_in_region = palestine_region
+					}	
+				}
+				NOT = {
+					has_global_variable = st_james_zebedee_theosis	
+				}
+			}
+			set_variable = {
+				name = st_james_zebedee_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_peter = {
+	trigger = {
+		current_date > 854.1.1
+		OR = { 
+			religion = christianity
+			very_common_deity_culture_region_trigger = {
+				RELIGION = christianity
+				CULTURE = roman
+				REGION = central_italy_region
+			}
+			common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = latin
+				REGION = central_italy_region
+			}	
+			deity:omen_st_peter = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_peter
+	passive_modifier = { global_monthly_state_loyalty = deity_global_monthly_state_loyalty_svalue }
+	omen = { global_slaves_happyness = omen_global_slaves_happiness_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = culture #This Deity uses a Culture Slot
+	on_activate = {
+		capital_scope = {
+			if = {
+				limit = {
+					has_province_modifier = early_christian_church
+				}
+				add_province_modifier = {
+					name = "christian_church_embelishment"
+					duration = 1825
+				}	
+			}
+			else_if = {
+				limit = {
+					has_province_modifier = early_christian_community
+				}
+				remove_province_modifier = early_christian_community
+				add_permanent_province_modifier = {
+					name = "early_christian_church"
+				}	
+				add_province_modifier = {
+					name = "temple_renovations"
+					duration = 1825
+				}
+			}
+			else = {
+				add_province_modifier = {
+					name = "early_christian_community"
+					duration = -1
+					mode = add
+				}
+			}
+		}
+		if = {
+			limit = {
+				AND = {
+					owns = 1
+					religion = christianity
+				}
+				NOT = {
+					has_global_variable = st_peter_theosis	
+				}
+			}
+			set_variable = {
+				name = st_peter_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+		else_if = {
+			limit = {
+				religion = christianity
+				exists = scope:deified_ruler
+			}
+			add_research = {
+				technology = civic_tech
+				value = {
+					add = current_ruler.zeal
+					multiply = 2.5
+					min = 5
+					max = 25
+				}
+			}
+		}
+		if = {
+			limit = {
+				religion = christianity
+				stability < 40
+			}
+			add_stability = {
+				value = {
+					add = current_ruler.zeal
+					multiply = 2
+					min = 2
+					max = 20
+				}
+			}		
+		}
+		
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_st_mark = {
+	trigger = {
+		current_date > 854.1.1
+		#NAND = { 
+		#	is_ai = yes 
+		#	primary_culture = roman
+		#	capital_scope = {
+		#		OR = {
+		#			province_id = 1
+		#			province_id = 142
+		#			province_id = 3571
+		#		}
+		#	}
+		#}
+		OR = {
+			religion = christianity
+			very_rare_deity_trigger = {
+				RELIGION = christianity
+			}
+			tag_deity_trigger = {
+				TAG = EGY
+				RELIGION = christianity
+			}
+			very_common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = hellenic
+				REGION = lower_egypt_region
+			}
+			very_common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = north_african
+				REGION = upper_egypt_region
+			}
+			very_common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = meroitic_group
+				REGION = nubia_region
+			}
+			very_common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = aksumite_group
+				REGION = punt_region
+			}
+			common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = west_levantine
+				REGION = cyrenaica_region
+			}
+			common_deity_culture_group_region_trigger = {
+				RELIGION = christianity
+				CULTURE_GROUP = west_levantine
+				REGION = africa_region
+			}
+			deity:omen_st_mark = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_st_mark
+	passive_modifier = { global_commerce_modifier = deity_global_commerce_modifier_svalue }
+	omen = { research_points_modifier = omen_research_points_modifier_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = economy #This Deity uses an Economy Slot
+	on_activate = {
+		capital_scope = {
+			create_2_citizens_effect = yes
+		}
+		if = {
+			limit = {
+				OR = {
+					tag = EGY
+					any_owned_province = {
+						OR = {
+							is_in_region = lower_egypt_region
+							is_in_region = upper_egypt_region
+							is_in_region = cyrenaica_region
+							is_in_region = nubia_region
+							is_in_region = lower_nubia_region
+							is_in_region = punt_region
+						}	
+					}
+				}
+				NOT = {
+					has_global_variable = st_mark_theosis
+				}
+			}
+			set_variable = {
+				name = st_mark_canonization
+			}
+			trigger_event = { 
+				on_action = te_custom_on_action_canonizations
+				years = 5
+			}
+		}
+		else_if = {
+			limit = {
+				exists = scope:deified_ruler
+				religion = christianity
+			}
+			add_research = {
+				technology = civic_tech
+				value = {
+					add = current_ruler.zeal
+					multiply = 2.5
+					min = 5
+					max = 25
+				}
+			}
+		}
+	}
+		
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+### Archangels [no events] ###
+deity_archangel_gabriel = {
+	trigger = {
+		current_date > 1053.12.31
+		#NAND = { 
+		#	is_ai = yes 
+		#	primary_culture = roman
+		#	capital_scope = {
+		#		OR = {
+		#			province_id = 1
+		#			province_id = 142
+		#			province_id = 3571
+		#		}
+		#	}
+		#}
+		OR = { 
+			religion = christianity
+			AND = {
+				polytheistic_check_religion_trigger = yes
+				very_common_deity_trigger = {
+					RELIGION = christianity 
+				}
+			}
+			deity:omen_archangel_gabriel = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_archangel_gabriel
+	passive_modifier = { diplomatic_reputation = deity_diplomatic_reputation_svalue }
+	omen = { monthly_tyranny = omen_monthly_tyranny_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = economy #This Deity uses an Economy Slot
+	on_activate = {
+		
+	}
+
+	deification_trigger = {
+		can_deify_trigger = no
+	}
+}
+
+deity_archangel_michael = {
+	trigger = {
+		current_date > 1053.12.31
+		#NAND = { 
+		#	is_ai = yes 
+		#	primary_culture = roman
+		#	capital_scope = {
+		#		OR = {
+		#			province_id = 1
+		#			province_id = 142
+		#			province_id = 3571
+		#		}
+		#	}
+		#}
+		OR = { 
+			religion = christianity
+			AND = {
+				polytheistic_check_religion_trigger = yes
+				common_deity_trigger = {
+					RELIGION = christianity
+				}
+			}	
+			deity:omen_archangel_michael = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_archangel_michael
+	passive_modifier = { land_morale_modifier = deity_land_morale_modifier_svalue }
+	omen = { discipline = omen_discipline_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = war #This Deity uses a War Slot
+	on_activate = {
+		
+	}
+
+	deification_trigger = {
+		can_deify_trigger = no
+	}
+}
+
+deity_archangel_raphael = {
+	trigger = {
+		current_date > 1053.12.31
+		OR = { 
+			religion = christianity
+			AND = { 
+				polytheistic_check_religion_trigger = yes
+				rare_deity_trigger = {
+					RELIGION = christianity
+				}	
+			}
+			deity:omen_archangel_raphael = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_archangel_raphael
+	passive_modifier = { global_population_capacity_modifier = deity_global_population_capacity_modifier_svalue }
+	omen = { monthly_wage_modifier = omen_monthly_wage_modifier_svalue } #Bonus from Omen
+	religion = christianity
+	deity_category = fertility #This Deity uses a Fertility Slot
+	on_activate = {
+		
+	}
+
+	deification_trigger = {
+		can_deify_trigger = no
+	}
+}
+
+deity_archangel_uriel = { # CULTURE
+	trigger = {
+		current_date > 1053.12.31
+		OR = {
+			religion = christianity
+			AND = {
+				polytheistic_check_religion_trigger = yes
+				very_rare_deity_trigger = {
+					RELIGION = christianity
+				}
+			}
+			deity:omen_archangel_uriel = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = icon_archangel_uriel
+	passive_modifier = { global_nobles_happyness = deity_global_nobles_happiness_svalue }
+	omen = { war_exhaustion = omen_war_exhaustion } #Bonus from Omen
+	on_activate = {
+		
+	}
+	religion = christianity
+	deity_category = culture #This Deity uses an Economy Slot
+
+	deification_trigger = {
+		can_deify_trigger = no
+	}
+}
+
+
+
+### Exclusive Deity Checks ###

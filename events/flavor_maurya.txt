@@ -23,11 +23,6 @@ flavor_maurya.1 = {		#Chandragupta kills himself and Bindusara becomes ruler
 
     immediate = {	
     	hidden_effect = {
-	    	char:22 = {
-	 			death = {
-	 				death_reason = death_ritual_sallekhana
-				}
-	    	}
 	    	#Ashoka or Bindusara becomes ruler if Bindusara isn't already the primary heir
             if = {
                 limit = { 
@@ -36,11 +31,50 @@ flavor_maurya.1 = {		#Chandragupta kills himself and Bindusara becomes ruler
                         is_alive = yes
                     }
                 }
+                char:22 = {
+                    death = {
+                        death_reason = death_ritual_sallekhana
+                    }
+                }
                 char:65 = {
                     c:MRY= {
                         set_as_ruler=char:65
                     }
                 }                    		
+            }
+            else_if = {
+                limit = { 
+                    global_var:acting_as_ashoka = {
+                        is_alive = no
+                    }
+                }
+                random_character = {
+                    limit = {
+                        is_primary_heir = yes
+                    }
+                    set_global_variable = {
+                        name = acting_as_ashoka
+                        value = this
+                    }
+                    every_country = {
+                        limit = {
+                            has_variable = ashoka_but_for_loc_local
+                        }
+                        set_variable = {
+                            name = ashoka_but_for_loc_local
+                            value = global_var:acting_as_ashoka
+                        }
+                    }
+                }
+                char:22 = {
+                    death = {
+                        death_reason = death_ritual_sallekhana
+                    }
+                }
+                c:MRY= {
+                    set_as_ruler = global_var:acting_as_ashoka
+                }
+                set_variable = bindusara_is_a_shithead  #bindusara died early somehow 
             }
 	    	else = {
                 limit = {
@@ -48,10 +82,13 @@ flavor_maurya.1 = {		#Chandragupta kills himself and Bindusara becomes ruler
                         is_alive = no
                     }                    
                 }
-                char:66 = {
-                    c:MRY= {
-                        set_as_ruler=char:66
+                char:22 = {
+                    death = {
+                        death_reason = death_ritual_sallekhana
                     }
+                }
+                c:MRY= {
+                    set_as_ruler = global_var:acting_as_ashoka
                 }
                 set_variable = bindusara_is_a_shithead  #bindusara died early somehow            
             }
@@ -108,7 +145,7 @@ flavor_maurya.2 = {		#Jain monk Bhadrabahu becomes the high priest and starts to
         set_global_variable = {
         	name = jain_priest_var
         	value = scope:jain_tutor
-        }    	
+        }
     }
 
     option = {		#Bring him into court
@@ -242,7 +279,7 @@ flavor_maurya.4 = {		#Ashoka, Changraputra, Bindusara Hidden health boost so the
     fire_only_once = yes
 
     trigger = {
-    	tag = MRY
+    	tag = MRY 
     	char:66 = {
     		is_alive = yes
     	}
@@ -281,16 +318,26 @@ flavor_maurya.5 = {		#The death of Bindusara
     fire_only_once = yes
 
     left_portrait = char:65
-    right_portrait = char:66
+    right_portrait = global_var:acting_as_ashoka
 
     trigger = {	#Bindusara is alive and Ashoka is 18
     	tag = MRY
     	char:65 = {
     		is_alive = yes
     	}
-    	char:66 = {
-    		age >= 18
-    	}
+        trigger_if = {
+            limit = {
+                char:66 = {
+                    is_alive = yes
+                } 
+            }
+            char:66 = {
+                age >= 18
+            }
+        }
+        trigger_else = {
+            current_date >= 470.1.1
+        }
     	NOT = { has_variable = bindusara_is_a_shithead }
     }
 
@@ -300,37 +347,61 @@ flavor_maurya.5 = {		#The death of Bindusara
 	 			death_reason = death_murdered_in_plot
 			}
 		}
-        if = {  #This shouldn't happen but is here just in case something goes wrong and ashoka isn't the primary heir
+        if = {
             limit = {
-                char:273 = {
-                    is_alive = yes
-                    OR = {
-                    is_ruler = yes
+                global_var:acting_as_ashoka = {
+                    is_alive = no
+                } 
+            }
+            random_character = {
+                limit = {
                     is_primary_heir = yes
-                    }
-                }                 
-            }
-            char:66 = {
-                c:MRY= {
-                    set_as_ruler=char:66
                 }
-            }            
-        }
-        else = {    #This shouldn't happen either
-            limit = {
-                char:66 = {
-                    OR = {
-                    is_ruler = no
-                    is_primary_heir = no
+                set_global_variable = {
+                    name = acting_as_ashoka
+                    value = this
+                }
+                every_country = {
+                    limit = {
+                        has_variable = ashoka_but_for_loc_local
+                    }
+                    set_variable = {
+                        name = ashoka_but_for_loc_local
+                        value = global_var:acting_as_ashoka
                     }
                 }
             }
-            char:66 = {
-                c:MRY= {
-                    set_as_ruler=char:66
-                }
-            }            
         }
+        else = {
+            if = {  #This shouldn't happen but is here just in case something goes wrong and ashoka isn't the primary heir
+                limit = {
+                    char:273 = {
+                        is_alive = yes
+                        OR = {
+                            is_ruler = yes
+                            is_primary_heir = yes
+                        }
+                    }                 
+                }
+                c:MRY= {
+                    set_as_ruler = global_var:acting_as_ashoka
+                }            
+            }
+            else = {    #This shouldn't happen either
+                limit = {
+                    global_var:acting_as_ashoka = {
+                        OR = {
+                            is_ruler = no
+                            is_primary_heir = no
+                        }
+                    }
+                }
+                c:MRY= {
+                    set_as_ruler = global_var:acting_as_ashoka
+                }            
+            }
+        }
+        
 		hidden_effect = {
             if = {
                 limit = {
@@ -412,12 +483,50 @@ flavor_maurya.5 = {		#The death of Bindusara
                 change_government = imperium
                 save_scope_as = bharat_revolt_country
             }
+            if = {
+                limit = { is_ai = yes }
+                #encourage AI expansion into India
+                region:aparanta_region = { formable_region_province_effect = yes }
+				region:vindhyaprstha_region = { formable_region_province_effect = yes }
+				region:avanti_region = { formable_region_province_effect = yes }
+				region:maru_region = { formable_region_province_effect = yes }
+				region:gandhara_region = { formable_region_province_effect = yes }
+                region:madhyadesa_region = { formable_region_province_effect = yes }
+                region:pracya_region = { formable_region_province_effect = yes }
+                #effect players get in the missions
+                global_var:acting_as_ashoka = {
+                    if = {
+                        limit = { has_trait = cruel }
+                        remove_trait = cruel
+                        force_add_trait = just								
+                    }
+                    add_character_modifier = {
+                        name = ashoka_the_great
+                        duration = -1	
+                    }
+                }
+            }
         }		  	
     }
 
     option = {    #Ashoka will bring greatness to Maurya. (Start a small civil war)
         name = flavor_maurya_5.a
         custom_tooltip = flavor_maurya_5_tooltip
+        hidden_effect = {
+            set_global_variable = {
+                name = acting_as_ashoka
+                value = current_ruler
+            }
+            every_country = {
+                limit = {
+                    has_variable = ashoka_but_for_loc_local
+                }
+                set_variable = {
+                    name = ashoka_but_for_loc_local
+                    value = global_var:acting_as_ashoka
+                }
+            }
+        }
     }
 }
 
@@ -440,25 +549,21 @@ flavor_maurya.6 = {		#Ashoka is Dead!
     picture = interesting_histories_india_city
     fire_only_once = yes
 
-    left_portrait = char:66
-    right_portrait = char:66
+    left_portrait = global_var:acting_as_ashoka
+    right_portrait = global_var:acting_as_ashoka
 
     trigger = {
+        NOT = { has_global_variable = mauryan_collapse_game_rule }
         NOT = { has_global_variable = maurya_collapse_happened }
         tag = MRY
-        trigger_if = {
-            limit = {
-                current_date < 550.1.1
-            }
-            char:66 = {
+        OR = {
+            global_var:acting_as_ashoka = {
                 is_alive = no
             }
-        }
-        trigger_else = {
-            limit = {
-                current_date > 550.1.1
-            }
-            is_ai = yes
+            AND = {
+                is_ai = yes
+                current_date > 530.1.1 
+            } 
         }
     }
 
@@ -468,118 +573,132 @@ flavor_maurya.6 = {		#Ashoka is Dead!
             limit = { 
                 is_ai = no 
                 NOT = { tag = MRY }
+                NOT = { tag = BHA }
             }
             trigger_event = {
                 id = flavor_maurya.16
             }
         }	
         if = {
-            limit = { NOT = { has_global_variable = mauryan_collapse_prevented } }
-        add_stability = -20
-        set_country_heritage = mauryan_abandoned_heritage
-    	hidden_effect = {
-		random_neighbour_country = {
-			limit = {
-                NOT = { tag = SEL }
-				OR = {
-                    country_culture_group = aryan
-                    country_culture_group = indian
-                    country_culture_group = pracyan
-                    country_culture_group = tibetan
-                    country_culture_group = persia
-				}
-				NOT = {
-					is_subject_of = ROOT
-					has_truce_with = ROOT
-					war_with = ROOT
-				}
-				num_of_cities > 20
-				has_civil_war = no
-				war = no
-				has_war_exhaustion < 13
-				is_subject = no	
-                is_ai = yes			
-			}
-			save_scope_as = mry_attack_target_country
-		}
-        random_list = {
-            50 = {
-            if = {
-                limit = {
-                    c:MRY = {
-                    is_ai = yes
+            limit = { 
+                NOT = { has_global_variable = mauryan_collapse_prevented } 
+            }
+            add_stability = -20
+            set_country_heritage = mauryan_abandoned_heritage
+            hidden_effect = {
+                random_neighbour_country = {
+                    limit = {
+                        NOT = { tag = SEL }
+                        OR = {
+                            country_culture_group = aryan
+                            country_culture_group = indian
+                            country_culture_group = pracyan
+                            country_culture_group = tibetan
+                            country_culture_group = persia
+                        }
+                        NOT = {
+                            is_subject_of = ROOT
+                            has_truce_with = ROOT
+                            war_with = ROOT
+                        }
+                        num_of_cities > 20
+                        has_civil_war = no
+                        war = no
+                        has_war_exhaustion < 13
+                        is_subject = no	
+                        is_ai = yes			
+                    }
+                    save_scope_as = mry_attack_target_country
+                    set_variable = {
+                        name = is_not_allowed_to_go_broke
+                        days = 9125
+                    }
+                    set_variable = {
+                        name = is_ignoring_ae
+                        days = 3650
                     }
                 }
-        		scope:mry_attack_target_country = {
-        			declare_war_with_wargoal = {
-        				war_goal = maurya_decline_wargoal
-        				target = c:MRY
-        			}
-                        add_treasury = 500
-                        add_manpower = 10                        
-                        create_unit = {
-                            navy = no
-                            location = scope:mry_attack_target_country.capital_scope
-                            while = {
-                                count = 4
-                                add_subunit = light_infantry
+                random_list = {
+                    60 = {
+                        if = {
+                            limit = {
+                                c:MRY = {
+                                    is_ai = yes
+                                }
                             }
-                            while = {
-                                count = 5
-                                add_subunit = warelephant
+                            scope:mry_attack_target_country = {
+                                declare_war_with_wargoal = {
+                                    war_goal = maurya_decline_wargoal
+                                    target = c:MRY
+                                }
+                                add_treasury = 500
+                                add_manpower = 10                        
+                                create_unit = {
+                                    navy = no
+                                    location = scope:mry_attack_target_country.capital_scope
+                                    while = {
+                                        count = 4
+                                        add_subunit = light_infantry
+                                    }
+                                    while = {
+                                        count = 5
+                                        add_subunit = warelephant
+                                    }
+                                    while = {
+                                        count = 5
+                                        add_subunit = light_cavalry
+                                    }
+                                    while = {
+                                        count = 2
+                                        add_subunit = supply_train
+                                    }                                              
+                                    add_food = 200
+                                    add_morale = 2
+                                }            
                             }
-                            while = {
-                                count = 5
-                                add_subunit = light_cavalry
-                            }                                                    
-                            add_food = 100
-                            add_morale = 2
-                        }            
-        		}
+                        }
+                    }
+                    40 = {}
+                } 		    		
             }
+            random_list = {
+                60 = {
+                    trigger = { is_ai = yes }
+                    trigger_event = {
+                        id = flavor_maurya.7
+                    }
+                }
+                40 = {}
             }
-            50 = {}
-        } 		    		
-		}
-        random_list = {
-            50 = {
-                trigger = { is_ai = yes }
-        		trigger_event = {
-        			id = flavor_maurya.7
-        #            days = 740
-        		}
+            random_list = {
+                60 = {
+                    trigger = { is_ai = yes }
+                    trigger_event = {
+                        id = flavor_maurya.8
+                        days = 735
+                    }
+                }
+                40 = {}
             }
-            50 = {}
-        }
-        random_list = {
-            50 = {
-                trigger = { is_ai = yes }
-        		trigger_event = {
-        			id = flavor_maurya.8
-                    days = 735
-        		}
+            #longer for ai
+            if = {
+                limit = { is_ai = yes }
+                trigger_event = {
+                    id = flavor_maurya.9
+                    days = 730
+                }            
             }
-            50 = {}
-        }
-        #longer for ai
-        if = {
-            limit = { is_ai = yes }
-            trigger_event = {
-                id = flavor_maurya.9
-                days = 730
-            }            
-        }
-		else = {
-            limit = { is_ai = no }
-            trigger_event = {
-                id = flavor_maurya.9
-                days = 365
+            else = {
+                limit = { is_ai = no }
+                trigger_event = {
+                    id = flavor_maurya.9
+                    days = 365
+                }
             }
-        }
-        add_country_modifier = {    #Clears after collapse missions
-            name = mauryan_collapse
-            duration = -1
-        }
+            add_country_modifier = {    #Clears after collapse missions
+                name = mauryan_collapse
+                duration = -1
+            }
         }
         else = {    #Fire the Indo-Greek Event even if the missions are completed.
             limit = { has_global_variable = mauryan_collapse_prevented }
@@ -634,32 +753,44 @@ flavor_maurya.7 = {		#2nd country declares war
                 is_ai = yes				
 			}
 			save_scope_as = mry_attack_target_country_two
+            set_variable = {
+                name = is_not_allowed_to_go_broke
+                days = 9125
+            }
+            set_variable = {
+                name = is_ignoring_ae
+                days = 3650
+            }
 		}
 		scope:mry_attack_target_country_two = {
 			declare_war_with_wargoal = {
 				war_goal = maurya_decline_wargoal
 				target = c:MRY
 			}
-                add_treasury = 500
-                add_manpower = 10                        
-                create_unit = {
-                    navy = no
-                    location = scope:mry_attack_target_country_two.capital_scope
-                    while = {
-                        count = 4
-                        add_subunit = light_infantry
-                    }
-                    while = {
-                        count = 5
-                        add_subunit = warelephant
-                    }
-                    while = {
-                        count = 5
-                        add_subunit = light_cavalry
-                    }                                                    
-                    add_food = 100
-                    add_morale = 2                   
-                }            
+            add_treasury = 500
+            add_manpower = 10                        
+            create_unit = {
+                navy = no
+                location = scope:mry_attack_target_country_two.capital_scope
+                while = {
+                    count = 4
+                    add_subunit = light_infantry
+                }
+                while = {
+                    count = 5
+                    add_subunit = warelephant
+                }
+                while = {
+                    count = 5
+                    add_subunit = light_cavalry
+                }
+                while = {
+                    count = 2
+                    add_subunit = supply_train
+                }                                                   
+                add_food = 200
+                add_morale = 2                   
+            }            
 		}    	
     }
 }
@@ -703,32 +834,44 @@ flavor_maurya.8 = {		#3rd country declares war (may want to make more declare  w
                 is_ai = yes				
 			}
 			save_scope_as = mry_attack_target_country_three
+            set_variable = {
+                name = is_not_allowed_to_go_broke
+                days = 9125
+            }
+            set_variable = {
+                name = is_ignoring_ae
+                days = 3650
+            }
 		}
 		scope:mry_attack_target_country_three = {
 			declare_war_with_wargoal = {
 				war_goal = maurya_decline_wargoal
 				target = c:MRY
 			}
-                add_treasury = 500
-                add_manpower = 10                        
-                create_unit = {
-                    navy = no
-                    location = scope:mry_attack_target_country_two.capital_scope
-                    while = {
-                        count = 4
-                        add_subunit = light_infantry
-                    }
-                    while = {
-                        count = 5
-                        add_subunit = warelephant
-                    }
-                    while = {
-                        count = 5
-                        add_subunit = light_cavalry
-                    }                                                    
-                    add_food = 100
-                    add_morale = 2
-                }            
+            add_treasury = 500
+            add_manpower = 10                        
+            create_unit = {
+                navy = no
+                location = scope:mry_attack_target_country_two.capital_scope
+                while = {
+                    count = 4
+                    add_subunit = light_infantry
+                }
+                while = {
+                    count = 5
+                    add_subunit = warelephant
+                }
+                while = {
+                    count = 5
+                    add_subunit = light_cavalry
+                }
+                while = {
+                    count = 2
+                    add_subunit = supply_train
+                }                                           
+                add_food = 200
+                add_morale = 2
+            }            
 		}    	
     }
 }
@@ -755,12 +898,20 @@ flavor_maurya.9 = {		#Deccan Disunity the (“Satavahana Dynasty” will take co
                 change_government = despotic_monarchy
                 set_country_heritage = satavahana_heritage
                 save_scope_as = satavahana_revolt_scope
+                set_variable = {
+                    name = is_not_allowed_to_go_broke
+                    days = 9125
+                }
+                set_variable = {
+                    name = is_ignoring_ae
+                    days = 3650
+                }
             }
         }
         every_province = {
             limit = {
                 OR = {
-                    is_in_region = aparanta_region #Sorry this just needed to be readable so changed it
+                    is_in_region = aparanta_region
                     is_in_area = vidarbha_area
                     is_in_area = asmaka_area
                     is_in_area = andhra_area
@@ -820,6 +971,14 @@ flavor_maurya.9 = {		#Deccan Disunity the (“Satavahana Dynasty” will take co
                 change_government = despotic_monarchy
                 set_country_heritage = kalingan_heritage
                 save_scope_as = kalinga_revolt_scope
+                set_variable = {
+                    name = is_not_allowed_to_go_broke
+                    days = 9125
+                }
+                set_variable = {
+                    name = is_ignoring_ae
+                    days = 3650
+                }
             }
         }
         every_province = {
@@ -886,30 +1045,34 @@ flavor_maurya.9 = {		#Deccan Disunity the (“Satavahana Dynasty” will take co
                             add_treasury = 500
                             add_manpower = 15                        
                             create_unit = {
-                                    navy = no
-                                    location = scope:satavahana_revolt_scope.capital_scope
-                                    while = {
-                                        count = 10
-                                        add_subunit = light_infantry
-                                    }
-                                    while = {
-                                        count = 5
-                                        add_subunit = chariots
-                                    }
-                                    while = {
-                                        count = 5
-                                        add_subunit = warelephant
-                                    }
-                                    while = {
-                                        count = 10
-                                        add_subunit = archers
-                                    }
-                                    while = {
-                                        count = 5
-                                        add_subunit = heavy_infantry
-                                    }                                                    
-                                    add_food = 100
-                                    add_morale = 2
+                                navy = no
+                                location = scope:satavahana_revolt_scope.capital_scope
+                                while = {
+                                    count = 10
+                                    add_subunit = light_infantry
+                                }
+                                while = {
+                                    count = 5
+                                    add_subunit = chariots
+                                }
+                                while = {
+                                    count = 5
+                                    add_subunit = warelephant
+                                }
+                                while = {
+                                    count = 10
+                                    add_subunit = archers
+                                }
+                                while = {
+                                    count = 5
+                                    add_subunit = heavy_infantry
+                                }
+                                while = {
+                                    count = 2
+                                    add_subunit = supply_train
+                                }                         
+                                add_food = 200
+                                add_morale = 2
                             }
                         }                        
                     }                   
@@ -935,30 +1098,34 @@ flavor_maurya.9 = {		#Deccan Disunity the (“Satavahana Dynasty” will take co
                             add_treasury = 500
                             add_manpower = 15                        
                             create_unit = {
-                                    navy = no
-                                    location = scope:kalinga_revolt_scope.capital_scope
+                                navy = no
+                                location = scope:kalinga_revolt_scope.capital_scope
                                     while = {
+                                    count = 5
+                                    add_subunit = light_infantry
+                                }
+                                while = {
+                                    count = 5
+                                    add_subunit = chariots
+                                }
+                                while = {
                                         count = 5
-                                        add_subunit = light_infantry
-                                    }
-                                    while = {
-                                        count = 5
-                                        add_subunit = chariots
-                                    }
-                                    while = {
-                                        count = 5
-                                        add_subunit = warelephant
-                                    }
-                                    while = {
-                                        count = 5
-                                        add_subunit = archers
-                                    }
-                                    while = {
-                                        count = 5
-                                        add_subunit = heavy_infantry
-                                    }                                                    
-                                    add_food = 100
-                                    add_morale = 2
+                                    add_subunit = warelephant
+                                }
+                                while = {
+                                    count = 5
+                                    add_subunit = archers
+                                }
+                                while = {
+                                    count = 5
+                                    add_subunit = heavy_infantry
+                                }
+                                while = {
+                                        count = 2
+                                    add_subunit = supply_train
+                                }                                           
+                                add_food = 200
+                                add_morale = 2
                             }                           
                         }                         
                     }                   
@@ -1055,30 +1222,34 @@ flavor_maurya.10 = {		#War or Truce? (Satavahana)
                 add_treasury = 500
                 add_manpower = 15            
                 create_unit = {
-                        navy = no
-                        location = scope:satavahana_revolt_scope.capital_scope
+                    navy = no
+                    location = scope:satavahana_revolt_scope.capital_scope
+                    while = {
+                        count = 10
+                        add_subunit = light_infantry
+                    }
+                    while = {
+                        count = 5
+                        add_subunit = chariots
+                    }
+                    while = {
+                        count = 5
+                        add_subunit = warelephant
+                    }
                         while = {
-                            count = 10
-                            add_subunit = light_infantry
-                        }
+                        count = 10
+                        add_subunit = archers
+                    }
                         while = {
-                            count = 5
-                            add_subunit = chariots
-                        }
-                        while = {
-                            count = 5
-                            add_subunit = warelephant
-                        }
-                        while = {
-                            count = 10
-                            add_subunit = archers
-                        }
-                        while = {
-                            count = 5
-                            add_subunit = heavy_infantry
-                        }                                                    
-                        add_food = 100
-                        add_morale = 2
+                        count = 5
+                        add_subunit = heavy_infantry
+                    }
+                    while = {
+                            count = 2
+                        add_subunit = supply_train
+                    }                                                    
+                    add_food = 200
+                    add_morale = 2
                 }
             }           
         }
@@ -1149,11 +1320,15 @@ flavor_maurya.11 = {		#War or Truce? (Kalinga)
                          count = 5
                          add_subunit = archers
                     }
-                     while = {
-                          count = 5
-                          add_subunit = heavy_infantry
-                       }                                                    
-                    add_food = 100
+                    while = {
+                        count = 5
+                        add_subunit = heavy_infantry
+                    }
+                    while = {
+                        count = 2
+                        add_subunit = supply_train
+                    }                                              
+                    add_food = 200
                     add_morale = 2
                 }
             }             
@@ -1205,6 +1380,14 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                     set_country_religion = roman_pantheon
                     set_country_heritage = indo_greek_heritage
                     save_scope_as = indo_greek_revolt_one_scope
+                    set_variable = {
+                        name = is_not_allowed_to_go_broke
+                        days = 9125
+                    }
+                    set_variable = {
+                        name = is_ignoring_ae
+                        days = 3650
+                    }
                 }
             }
             area:taxila_area = {
@@ -1236,6 +1419,8 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                     OR = { 
                         is_in_area = panchanada_area
                         is_in_area = trigarta_area 
+                        is_in_area = mallia_area
+                        is_in_area = rodewala_area
                     }
                     indo_greek_indian_culture_province_trigger = yes 
                 }
@@ -1264,6 +1449,14 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                     set_country_religion = roman_pantheon
                     set_country_heritage = indo_greek_heritage
                     save_scope_as = indo_greek_revolt_two_scope
+                    set_variable = {
+                        name = is_not_allowed_to_go_broke
+                        days = 9125
+                    }
+                    set_variable = {
+                        name = is_ignoring_ae
+                        days = 3650
+                    }
                 }
             }
             area:panchanada_area = {
@@ -1275,6 +1468,22 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                 }
             }
             area:trigarta_area = {
+                every_area_province = {
+                    limit = {                
+                        owned_or_subject_owned = root 
+                    }
+                    set_owned_by = scope:indo_greek_revolt_two_scope
+                }
+            }
+            area:mallia_area = {
+                every_area_province = {
+                    limit = {                
+                        owned_or_subject_owned = root 
+                    }
+                    set_owned_by = scope:indo_greek_revolt_two_scope
+                }
+            }
+            area:rodewala_area = {
                 every_area_province = {
                     limit = {                
                         owned_or_subject_owned = root 
@@ -1296,6 +1505,14 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                     set_country_religion = roman_pantheon               
                     set_country_heritage = indo_greek_heritage
                     save_scope_as = indo_greek_revolt_three_scope
+                    set_variable = {
+                        name = is_not_allowed_to_go_broke
+                        days = 9125
+                    }
+                    set_variable = {
+                        name = is_ignoring_ae
+                        days = 3650
+                    }
                 }
             }
             area:madra_area = {
@@ -1325,6 +1542,14 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                     set_country_religion = roman_pantheon                 
                     set_country_heritage = indo_greek_heritage
                     save_scope_as = indo_greek_revolt_four_scope
+                    set_variable = {
+                        name = is_not_allowed_to_go_broke
+                        days = 9125
+                    }
+                    set_variable = {
+                        name = is_ignoring_ae
+                        days = 3650
+                    }
                 }
             }
             area:gandhara_area = {
@@ -1370,6 +1595,14 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                     set_country_religion = roman_pantheon                
                     set_country_heritage = indo_greek_heritage
                     save_scope_as = indo_greek_revolt_five_scope
+                    set_variable = {
+                        name = is_not_allowed_to_go_broke
+                        days = 9125
+                    }
+                    set_variable = {
+                        name = is_ignoring_ae
+                        days = 3650
+                    }
                 }
             }
             area:north_sindhu_area = {
@@ -1518,6 +1751,7 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                             is_in_area = panchanada_area
                             is_in_area = trigarta_area
                             is_in_area = sthanisvara_area
+                            is_in_area = rodewala_area
                         }
                     }
                     ordered_pops_in_province = {
@@ -1934,16 +2168,20 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                         while = {
                             count = 5
                             add_subunit = warelephant
-                         }
-                        while = {
-                             count = 5
-                             add_subunit = spearmen
                         }
-                         while = {
-                              count = 5
-                              add_subunit = heavy_infantry
-                           }                                                    
-                        add_food = 100
+                        while = {
+                            count = 5
+                            add_subunit = spearmen
+                        }
+                        while = {
+                            count = 5
+                            add_subunit = heavy_infantry
+                        }
+                        while = {
+                            count = 2
+                            add_subunit = supply_train
+                        }                                                
+                        add_food = 200
                         add_morale = 2
                     }
                 }
@@ -1971,11 +2209,15 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                              count = 5
                              add_subunit = spearmen
                         }
-                         while = {
-                              count = 5
-                              add_subunit = heavy_infantry
-                           }                                                    
-                        add_food = 100
+                        while = {
+                            count = 5
+                            add_subunit = heavy_infantry
+                        }
+                        while = {
+                            count = 2
+                            add_subunit = supply_train
+                        }                                                   
+                        add_food = 200
                         add_morale = 2
                     }
                 }
@@ -2000,14 +2242,18 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                             add_subunit = warelephant
                          }
                         while = {
-                             count = 5
-                             add_subunit = spearmen
+                            count = 5
+                            add_subunit = spearmen
                         }
-                         while = {
-                              count = 5
-                              add_subunit = heavy_infantry
-                           }                                                    
-                        add_food = 100
+                        while = {
+                            count = 5
+                            add_subunit = heavy_infantry
+                        }
+                        while = {
+                            count = 2
+                            add_subunit = supply_train
+                        }                                                   
+                        add_food = 200
                         add_morale = 2
                     }
                 }
@@ -2030,16 +2276,16 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                         while = {
                             count = 5
                             add_subunit = warelephant
-                         }
-                        while = {
-                             count = 5
-                             add_subunit = spearmen
                         }
-                         while = {
-                              count = 5
-                              add_subunit = heavy_infantry
-                           }                                                    
-                        add_food = 100
+                        while = {
+                            count = 5
+                            add_subunit = spearmen
+                        }
+                        while = {
+                            count = 5
+                            add_subunit = heavy_infantry
+                        }                                                    
+                        add_food = 200
                         add_morale = 2
                     }
                 }
@@ -2062,16 +2308,20 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                         while = {
                             count = 5
                             add_subunit = warelephant
-                         }
-                        while = {
-                             count = 5
-                             add_subunit = spearmen
                         }
-                         while = {
-                              count = 5
-                              add_subunit = heavy_infantry
-                           }                                                    
-                        add_food = 100
+                        while = {
+                            count = 5
+                            add_subunit = spearmen
+                        }
+                        while = {
+                            count = 5
+                            add_subunit = heavy_infantry
+                        }
+                        while = {
+                            count = 2
+                            add_subunit = supply_train
+                        }                                               
+                        add_food = 200
                         add_morale = 2
                     }
                 }
@@ -2142,6 +2392,7 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
             RULER_CULTURE = greco_indian
             RULER_RELIGION = roman_pantheon
         }
+        set_variable = play_as_kapisa
         trigger_event = {
             id = flavor_maurya.17
         }
@@ -2164,6 +2415,7 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
             RULER_CULTURE = greco_indian
             RULER_RELIGION = roman_pantheon
         }
+        set_variable = play_as_panchanada
         trigger_event = {
             id = flavor_maurya.17
         }
@@ -2186,6 +2438,7 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
             RULER_CULTURE = greco_indian
             RULER_RELIGION = roman_pantheon
         }
+        set_variable = play_as_kuninda
         trigger_event = {
             id = flavor_maurya.17
         }
@@ -2208,6 +2461,7 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
             RULER_CULTURE = greco_indian
             RULER_RELIGION = roman_pantheon
         }
+        set_variable = play_as_kashmir
         trigger_event = {
             id = flavor_maurya.17
         }
@@ -2230,6 +2484,7 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
             RULER_CULTURE = greco_indian
             RULER_RELIGION = roman_pantheon
         }
+        #set_variable = play_as_sauvira
         trigger_event = {
             id = flavor_maurya.17
         }
@@ -2293,6 +2548,14 @@ flavor_maurya.13 = {		#Shunga Rebellion
                 set_country_religion = hindu
                 set_country_heritage = shunga_heritage
                 save_scope_as = shunga_revolt_scope
+                set_variable = {
+                    name = is_not_allowed_to_go_broke
+                    days = 9125
+                }
+                set_variable = {
+                    name = is_ignoring_ae
+                    days = 3650
+                }
             }
         }
         every_province = {
@@ -2337,8 +2600,12 @@ flavor_maurya.13 = {		#Shunga Rebellion
                     while = {
                         count = 5
                         add_subunit = heavy_infantry
-                    }                                                    
-                    add_food = 100
+                    }
+                    while = {
+                        count = 2
+                        add_subunit = supply_train
+                    }
+                    add_food = 200
                     add_morale = 2
                 }
             }
@@ -2426,9 +2693,18 @@ flavor_maurya.14 = {     #Ashoka claps his brother
 
     trigger = {
         tag = MRY
-        char:66 = {
-            is_alive = yes
-            age > 14
+        trigger_if = {
+            limit = {
+                char:66 = {
+                    is_alive = yes
+                }
+            }
+            char:66 = {
+                age > 14
+            }
+        }
+        trigger_else = {
+            current_date >= 466.1.1
         }
         char:273 = {
             is_alive = yes
@@ -2477,6 +2753,7 @@ flavor_maurya.16 = {     #Notifiy the world of collapse
 
     trigger = {
         NOT = { tag = MRY }
+        NOT = { tag = BHA }
         NOT = { has_global_variable = i_used_to_be_maurya }
     }
 
@@ -2502,25 +2779,115 @@ flavor_maurya.17 = {     #Tag Switch
                 }
                 set_owned_by = root
             }
-        }  
-        switch_player_country_effect = {
-            NEW_NAME = indo_greek_revolt_one_name
-            NEW_ADJECTIVE = indo_greek_revolt_one_adjective
-            NEW_GOVERNMENT = aristocratic_monarchy
-            NEW_COLOR = sapphire_blue
-            NEW_RELIGION = roman_pantheon
-            NEW_CULTURE = greco_indian
-            NEW_FLAG = INDO_GREEK_FLAG
-            NEW_TAG = MGK
-            NEW_HERITAGE = indo_greek_heritage
-            OLD_COUNTRY_COLOR = bharatavarsha_orange_color
-            OLD_COUNTRY_NAME = MRY
-            OLD_COUNTRY_ADJ = MRY
-            OLD_COUNTRY_FLAG = MRY
-            OLD_COUNTRY_HERITAGE = maurya_heritage
-            OLD_COUNTRY_CULTURE = magadhi
-            OLD_COUNTRY_RELIGION = hindu
-            OLD_TAG = MRY
+        }
+        if = {
+            limit = { has_variable = play_as_kapisa }
+            switch_player_country_effect = {
+                NEW_NAME = indo_greek_revolt_one_name
+                NEW_ADJECTIVE = indo_greek_revolt_one_adjective
+                NEW_GOVERNMENT = aristocratic_monarchy
+                NEW_COLOR = sapphire_blue
+                NEW_RELIGION = roman_pantheon
+                NEW_CULTURE = greco_indian
+                NEW_FLAG = INDO_GREEK_FLAG
+                NEW_TAG = MGK
+                NEW_HERITAGE = indo_greek_heritage
+                OLD_COUNTRY_COLOR = bharatavarsha_orange_color
+                OLD_COUNTRY_NAME = MRY
+                OLD_COUNTRY_ADJ = MRY
+                OLD_COUNTRY_FLAG = MRY
+                OLD_COUNTRY_HERITAGE = maurya_heritage
+                OLD_COUNTRY_CULTURE = magadhi
+                OLD_COUNTRY_RELIGION = hindu
+                OLD_TAG = MRY
+            }
+        }
+        else_if = {
+            limit = { has_variable = play_as_panchanada }
+            switch_player_country_effect = {
+                NEW_NAME = indo_greek_revolt_two_name
+                NEW_ADJECTIVE = indo_greek_revolt_two_adjective
+                NEW_GOVERNMENT = despotic_monarchy
+                NEW_COLOR = not_magna_graecia_color
+                NEW_RELIGION = roman_pantheon
+                NEW_CULTURE = greco_indian
+                NEW_FLAG = INDO_GREEK_FLAG
+                NEW_TAG = MGK
+                NEW_HERITAGE = indo_greek_heritage
+                OLD_COUNTRY_COLOR = bharatavarsha_orange_color
+                OLD_COUNTRY_NAME = MRY
+                OLD_COUNTRY_ADJ = MRY
+                OLD_COUNTRY_FLAG = MRY
+                OLD_COUNTRY_HERITAGE = maurya_heritage
+                OLD_COUNTRY_CULTURE = magadhi
+                OLD_COUNTRY_RELIGION = hindu
+                OLD_TAG = MRY
+            }
+        }
+        else_if = {
+            limit = { has_variable = play_as_kuninda }
+            switch_player_country_effect = {
+                NEW_NAME = indo_greek_revolt_three_name
+                NEW_ADJECTIVE = indo_greek_revolt_three_adjective
+                NEW_GOVERNMENT = despotic_monarchy
+                NEW_COLOR = arabian_green
+                NEW_RELIGION = roman_pantheon
+                NEW_CULTURE = greco_indian
+                NEW_FLAG = INDO_GREEK_FLAG
+                NEW_TAG = MGK
+                NEW_HERITAGE = indo_greek_heritage
+                OLD_COUNTRY_COLOR = bharatavarsha_orange_color
+                OLD_COUNTRY_NAME = MRY
+                OLD_COUNTRY_ADJ = MRY
+                OLD_COUNTRY_FLAG = MRY
+                OLD_COUNTRY_HERITAGE = maurya_heritage
+                OLD_COUNTRY_CULTURE = magadhi
+                OLD_COUNTRY_RELIGION = hindu
+                OLD_TAG = MRY
+            }
+        }
+        else_if = {
+            limit = { has_variable = play_as_kashmir }
+            switch_player_country_effect = {
+                NEW_NAME = indo_greek_revolt_four_name
+                NEW_ADJECTIVE = indo_greek_revolt_four_adjective
+                NEW_GOVERNMENT = despotic_monarchy
+                NEW_COLOR = onyx_black
+                NEW_RELIGION = roman_pantheon
+                NEW_CULTURE = greco_indian
+                NEW_FLAG = INDO_GREEK_FLAG
+                NEW_TAG = MGK
+                NEW_HERITAGE = indo_greek_heritage
+                OLD_COUNTRY_COLOR = bharatavarsha_orange_color
+                OLD_COUNTRY_NAME = MRY
+                OLD_COUNTRY_ADJ = MRY
+                OLD_COUNTRY_FLAG = MRY
+                OLD_COUNTRY_HERITAGE = maurya_heritage
+                OLD_COUNTRY_CULTURE = magadhi
+                OLD_COUNTRY_RELIGION = hindu
+                OLD_TAG = MRY
+            }
+        }
+        else = {
+            switch_player_country_effect = {
+                NEW_NAME = indo_greek_revolt_five_name
+                NEW_ADJECTIVE = indo_greek_revolt_five_adjective
+                NEW_GOVERNMENT = despotic_monarchy
+                NEW_COLOR = burgundy_color
+                NEW_RELIGION = roman_pantheon
+                NEW_CULTURE = greco_indian
+                NEW_FLAG = INDO_GREEK_FLAG
+                NEW_TAG = MGK
+                NEW_HERITAGE = indo_greek_heritage
+                OLD_COUNTRY_COLOR = bharatavarsha_orange_color
+                OLD_COUNTRY_NAME = MRY
+                OLD_COUNTRY_ADJ = MRY
+                OLD_COUNTRY_FLAG = MRY
+                OLD_COUNTRY_HERITAGE = maurya_heritage
+                OLD_COUNTRY_CULTURE = magadhi
+                OLD_COUNTRY_RELIGION = hindu
+                OLD_TAG = MRY
+            }
         }
     }
     after = {
@@ -2642,8 +3009,12 @@ flavor_maurya.18 = {     #Shunga Tag Switch
                 while = {
                     count = 5
                     add_subunit = heavy_infantry
-                }                                                    
-                add_food = 100
+                }
+                while = {
+                    count = 2
+                    add_subunit = supply_train
+                }
+                add_food = 200
                 add_morale = 2
             }
         }
@@ -2726,8 +3097,12 @@ flavor_maurya.19 = {     #Satavahana Tag Switch
                 while = {
                     count = 5
                     add_subunit = heavy_infantry
-                }                                                    
-                add_food = 100
+                }
+                while = {
+                    count = 2
+                    add_subunit = supply_train
+                }
+                add_food = 200
                 add_morale = 2
             }
             add_political_influence = 100

@@ -1,0 +1,404 @@
+﻿colonization_popup_isvalid_sgui = {
+	scope = country
+	ai_is_valid = {
+		always = no
+	}
+	is_valid = {
+		is_ai = no
+		NOT = { has_variable = colonization_alert_hidden_temporarily }
+		any_owned_province_that_can_colonize = {
+			count >= 1
+		}
+		trigger_if = {
+			limit = {
+				has_variable = colonization_count
+			}
+			var:colonization_count < maximum_colonizable_provinces
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+}
+
+colonization_alert_rightclick_sgui = {
+	scope = country
+	effect = {
+		set_variable = {
+			name = colonization_alert_hidden_temporarily
+			days = 730 # hide for 2 years
+		}
+	}
+}
+
+remove_colonization_list_sgui = {
+    scope = country
+    effect = {
+        every_in_list = {
+            variable = player_colonization_list
+            root = {
+                remove_list_variable = {
+                    name = player_colonization_list
+                    target = prev
+                }
+            }
+        }
+    }
+}
+
+colonization_alert_sgui = {
+	scope = country
+	ai_is_valid = {
+		always = no
+	}
+	is_shown = {
+		exists = var:colonization_count
+		NOT = { has_variable = colonization_alert_hidden_temporarily }
+		var:colonization_count < maximum_colonizable_provinces
+		any_owned_province_that_can_colonize = {
+			count >= 1
+		}
+		manpower >= 1
+	}
+	effect = {
+		every_in_list = {
+		    variable = player_colonization_list
+		    root = {
+		        remove_list_variable = {
+		            name = player_colonization_list
+		            target = prev
+		        }
+		    }
+		}
+		every_province = {
+			limit = {
+				can_be_colonized = yes
+				OR = {
+					AND = {
+						any_neighbor_province = {
+							owner = root
+							can_send_colony = yes
+						}
+					}
+					AND = {
+						any_neighbor_province = {
+							is_sea = yes
+							any_neighbor_province = {
+								owner = root
+								can_send_colony = yes
+							}
+						}
+					}
+				}
+			}
+		    root = {
+		        add_to_variable_list = {
+		            name = player_colonization_list
+		            target = prev
+		        }
+		    }
+		}
+	}
+}
+
+colonization_sgui = {
+	scope = country
+	saved_scopes = {
+		colonizing_province
+	}
+	confirm_title = "colonization_sgui_title"	
+	confirm_text = "colonization_sgui_desc"
+	ai_is_valid = {
+		always = no
+	}
+	is_shown = {
+		trigger_if = {
+			limit = {
+				exists = scope:colonizing_province
+			}
+			any_owned_province = {
+				any_neighbor_province = {
+					OR = {
+						this = scope:colonizing_province
+						AND = {
+							is_sea = yes
+							any_neighbor_province = {
+								is_sea = no
+								this = scope:colonizing_province
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+	is_valid = {
+		trigger_if = {
+			limit = {
+				var:colonization_count >= maximum_colonizable_provinces
+			}
+			custom_tooltip = {
+				text = colonization_count_sgui_tt
+				var:colonization_count < maximum_colonizable_provinces
+			}
+		}
+		trigger_if = {
+			limit = {
+				var:colonization_count < maximum_colonizable_provinces
+			}
+			trigger_if = {
+				limit = {
+					scope:colonizing_province = {
+						is_being_colonized = yes
+					}
+				}
+				hidden:scope:colonizing_province = {
+					custom_tooltip = {
+						text = colonization_count_sgui_tttt
+						NOT = { is_being_colonized = yes }
+					}
+				}
+			}
+			trigger_else = {
+				hidden:scope:colonizing_province = {
+					custom_tooltip = {
+						text = colonization_count_sgui_t
+						any_neighbor_province = {
+							OR = {
+								AND = {
+									owner = root
+									can_send_colony = yes
+								}
+								AND = {
+									is_sea = yes
+									any_neighbor_province = {
+										owner = root
+										can_send_colony = yes
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				manpower < 1
+			}
+			manpower >= 1
+		}
+	}
+	effect = {
+		add_manpower = -1
+		scope:colonizing_province = {
+			random_neighbor_province = {
+				limit = {
+					OR = {
+						AND = {
+							owner = root
+							can_send_colony = yes
+						}
+						AND = {
+							is_sea = yes
+							any_neighbor_province = {
+								owner = root
+								can_send_colony = yes
+							}
+						}
+					}
+				}
+				random_pops_in_province = {
+					limit = {
+						OR = {
+							this.culture = root.culture
+							country_culture = {
+								is_integrated = yes
+							}
+						}
+					}
+					move_pop = scope:colonizing_province
+				}
+			}
+			custom_tooltip = colonization_count_sgui_ttttt
+		}
+
+		hidden_effect = {
+			scope:colonizing_province = {
+				every_neighbor_province = {
+					limit = {
+						has_owner = yes
+						NOT = { owner = root }
+					}
+					prev = { add_claim = prev.owner }
+				}
+				random_neighbor_province = {
+					limit = {
+						OR = {
+							AND = {
+								owner = root
+								can_send_colony = yes
+							}
+							AND = {
+								is_sea = yes
+								any_neighbor_province = {
+									owner = root
+									can_send_colony = yes
+								}
+							}
+						}
+					}
+					random_pops_in_province = {
+						limit = {
+							OR = {
+								this.culture = root.culture
+								country_culture = {
+									is_integrated = yes
+								}
+							}
+						}
+						move_pop = scope:colonizing_province
+					}
+				}
+		    	root = {
+		    		if = {
+		    			limit = {
+		    				NOT = {
+		    					has_variable = colonization_count
+		    				}
+		    			}
+		    			set_variable = {
+		    				name = colonization_count
+		    				value = 0
+		    			}
+		    		}
+			    	if = {
+			    		limit = {
+			    			var:colonization_count = 0
+			    		}
+			    		change_variable = {
+			    			name = colonization_count
+			    			add = 1
+			    		}
+		    			set_variable = {
+		    				name = colonization_mod_one_var
+		    				value = scope:colonizing_province
+		    			}
+			    		set_colonization_modifier = {
+			    			mod = "colonization_mod_one"
+			    			province = "scope:colonizing_province"
+			    		}
+			    	}
+			    	else_if = {
+			    		limit = {
+			    			var:colonization_count = 1
+			    		}
+			    		change_variable = {
+			    			name = colonization_count
+			    			add = 1
+			    		}
+		    			set_variable = {
+		    				name = colonization_mod_two_var
+		    				value = scope:colonizing_province
+		    			}
+			    		set_colonization_modifier = {
+			    			mod = "colonization_mod_two"
+			    			province = "scope:colonizing_province"
+			    		}
+			    	}
+			    	else_if = {
+			    		limit = {
+			    			var:colonization_count = 2
+			    		}
+			    		change_variable = {
+			    			name = colonization_count
+			    			add = 1
+			    		}
+			    		set_variable = {
+			    			name = colonization_mod_three_var
+			    			value = scope:colonizing_province
+			    		}
+			    		set_colonization_modifier = {
+			    			mod = "colonization_mod_three"
+			    			province = "scope:colonizing_province"
+			    		}
+			    	}
+			    	else_if = {
+			    		limit = {
+			    			var:colonization_count = 3
+			    		}
+			    		change_variable = {
+			    			name = colonization_count
+			    			add = 1
+			    		}
+			    		set_variable = {
+			    			name = colonization_mod_four_var
+			    			value = scope:colonizing_province
+			    		}
+			    		set_colonization_modifier = {
+			    			mod = "colonization_mod_four"
+			    			province = "scope:colonizing_province"
+			    		}
+			    	}
+			    	else_if = {
+			    		limit = {
+			    			var:colonization_count = 4
+			    		}
+			    		change_variable = {
+			    			name = colonization_count
+			    			add = 1
+			    		}
+			    		set_variable = {
+			    			name = colonization_mod_five_var
+			    			value = scope:colonizing_province
+			    		}
+			    		set_colonization_modifier = {
+			    			mod = "colonization_mod_five"
+			    			province = "scope:colonizing_province"
+			    		}
+			    	}
+			    }
+			}
+			every_in_list = {
+			    variable = player_colonization_list
+			    root = {
+			        remove_list_variable = {
+			            name = player_colonization_list
+			            target = prev
+			        }
+			    }
+			}
+			every_province = {
+				limit = {
+					can_be_colonized = yes
+					OR = {
+						AND = {
+							any_neighbor_province = {
+								owner = root
+								can_send_colony = yes
+							}
+						}
+						AND = {
+							any_neighbor_province = {
+								is_sea = yes
+								any_neighbor_province = {
+									owner = root
+									can_send_colony = yes
+								}
+							}
+						}
+					}
+				}
+			    root = {
+			        add_to_variable_list = {
+			            name = player_colonization_list
+			            target = prev
+			        }
+			    }
+			}
+		}
+	}
+}

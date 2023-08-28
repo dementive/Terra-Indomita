@@ -1,0 +1,863 @@
+﻿thaton_missions = { # Hall of the Gods
+    header = "mission_image_china"
+    icon = "seleukid_1"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = THT
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+    on_completion = {
+        trigger_event = me_thaton.30
+    }
+    thaton_missions_task_1 = { # Kingdom of the South
+        icon = "task_happiness"
+        duration = 30
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.1
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = southern_kingdom
+                    duration = 1825
+                }
+                custom_tooltip = "mon_culture_opinion_tt"
+                every_country = {
+                    limit = {
+                        is_monarchy = no
+                        primary_culture = mon
+                    }
+                    add_opinion = {
+                        modifier = legend_of_culture
+                        target = root
+                    }
+                }
+                every_country = {
+                    limit = {
+                        is_monarchy = yes
+                        primary_culture = mon
+                    }
+                    add_opinion = {
+                        modifier = rival_kingdom
+                        target = root
+                    }
+                }
+                current_ruler = {
+                    add_focus_experience = {
+                        text = "add_25_focus_xp"
+                        amount = 25
+                    }
+                }
+                add_2_free_province_investments = yes
+            }
+        }
+    }
+    thaton_missions_task_2 = { # Coastal Conquest
+        icon = "task_battle"
+        duration = 180
+        requires = { thaton_missions_task_1 }
+        bypass = { has_completed_mission_task = thaton_missions_task_3 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = tenasserim_area
+                    province_id = 9799
+                }
+            }
+        }
+        allow = {
+            political_influence >= 50
+        }
+        on_completion = {
+            trigger_event = me_thaton.2
+            show_as_tooltip = {
+                add_political_influence = -50
+                area:tenasserim_area = {
+                    every_area_province = {
+                        add_claim = root
+                    }
+                }
+                p:9799 = {
+                    add_claim = root
+                }
+            }
+        }
+    }
+    thaton_missions_task_3 = { # Subjects of Sadhuim
+        icon = "task_diplomatic"
+        requires = { thaton_missions_task_1 }
+        bypass = { has_completed_mission_task = thaton_missions_task_2 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = tenasserim_area
+                    province_id = 9799
+                }
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_country = {
+                    tag = TES
+                    opinion = {
+                        target = root 
+                        value >= 125            
+                    }
+                }
+                text = "tenasserim_opinion_tt"
+            }
+            custom_tooltip = {
+                any_country = {
+                    tag = YIL
+                    opinion = {
+                        target = root 
+                        value >= 125                
+                    }
+                }
+                text = "yilumo_opinion_tt"
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.3
+            show_as_tooltip = {
+                root = {
+                    make_subject = {
+                        target = TES
+                        type = feudatory
+                    }
+                }
+                root = {
+                    make_subject = {
+                        target = YIL
+                        type = feudatory
+                    }
+                }
+            }
+        }
+    }
+    thaton_missions_task_4 = { # Trade Routes to the East
+        icon = "task_economical"
+        requires { thaton_missions_task_2 thaton_missions_task_3 }
+        highlight = { scope:province = { is_in_area = tenasserim_area }}
+        allow = {
+            owns_or_subject_owns_area = tenasserim_area
+            owns_or_subject_owns = 9799
+        }
+        on_completion = {
+            trigger_event = me_thaton.4
+            show_as_tooltip = {
+                area:tenasserim_area = {
+                    every_area_province = {
+                        add_province_modifier = {
+                            name = eastern_trade
+                            duration = -1
+                        }
+                    }
+                }
+                random_province = {
+                    limit = {
+                        is_in_area = tenasserim_area
+                    }
+                    add_special_pop = {
+                        text = add_1_merchant_tt
+                        type = merchant
+                        count = 1
+                    }
+                }
+                add_treasury = 100
+                add_political_influence = 50
+            }
+        }
+    }
+    thaton_missions_task_5 = { # Cities of the Sea
+        icon = "task_calm"
+        requires = { thaton_missions_task_4 }
+        highlight = {
+            scope:province = {
+                is_in_area = tenasserim_area
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_owned_province = {
+                    count >= 2
+                    is_in_area = tenasserim_area
+                    has_city_status = yes
+                }
+                text = "tenasserim_2_cities_tt"
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.5
+            show_as_tooltip = {
+                every_province = {
+                    limit = {
+                        is_in_area = tenasserim_area
+                        has_city_status = yes
+                    }
+                    add_province_modifier = {
+                        name = bustling_asian_trade
+                        duration = -1
+                    }
+                    add_building_level = commerce_building
+                    add_building_level = port_building
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            country_has_special_pop = {
+                                text = "country_has_5_architect_tt"
+                                type = architect
+                                count = 5
+                            }
+                            any_province = {
+                                has_city_status = yes
+                                is_in_area = tenasserim_area
+                                province_has_special_pop = {
+                                    text = "prov_has_5_architect_tt"
+                                    type = architect
+                                    count = 5
+                                }
+                            }
+                        }
+                    }
+                    random_province = {
+                        limit = {
+                            has_city_status = yes
+                            is_in_area = tenasserim_area
+                        }
+                        add_special_pop = {
+                            text = "add_1_architect_tt"
+                            type = architect
+                            count = 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+    thaton_missions_task_6 = { # City of the Gods
+        icon = "task_shiva"
+        highlight = {
+            scope:province = {
+                province_id = 9797
+            }
+        }
+        allow = {
+            p:9797 = {
+                total_population >= 20
+                has_building = temple_building
+                has_building = shrine_building
+            }
+            custom_tooltip = {
+                text = thaton_city_religious_investment_tt
+                capital_scope.state = {
+                    calc_true_if = {
+                        amount >= 1 
+                        state_improvement_religious_trigger = yes      
+                    }
+                }
+            }
+            num_of_ships >= 10
+        }
+        on_completion = {
+            trigger_event = me_thaton.6
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = hall_of_the_gods
+                    duration = -1
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            country_has_special_pop = {
+                                text = "country_has_5_priest_tt"
+                                type = priest
+                                count = 5
+                            }
+                            capital_scope = {
+                                province_has_special_pop = {
+                                    text = "prov_has_5_priest_tt"
+                                    type = priest
+                                    count = 5
+                                }
+                            }
+                        }
+                    }
+                    capital_scope = {
+                        add_special_pop = {
+                            text = "add_1_priest_tt"
+                            type = priest
+                            count = 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+    thaton_missions_task_7 = { # Garden of Greens
+        icon = "task_political"
+        requires = { thaton_missions_task_6 }
+        bypass = {
+            p:9798 = {
+                has_city_status = yes
+            }
+        }
+        highlight = {
+            scope:province = {
+                province_id = 9798
+            }
+        }
+        allow = {
+            p:9797 = {
+                has_building = population_building
+            }
+            p:9798 = {
+                has_building = basic_settlement_infratructure_building
+            }
+            custom_tooltip = {
+                text = infrastructure_thaton_tt
+                capital_scope.state = {
+                    calc_true_if = {
+                        amount >= 1 
+                        state_improvement_civic_trigger = yes
+                    }
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.7
+            show_as_tooltip = {
+                p:9798 = {
+                    add_province_modifier = {
+                        name = garden_of_greens
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    thaton_missions_task_8 = { # Incense Makes Sense
+        icon = "task_religion"
+        requires = { thaton_missions_task_6 }
+        highlight = {
+            scope:province = {
+                province_id = 9797
+            }
+        }
+        allow = {
+            capital_scope = {
+                is_importing_trade_good = incense
+                hidden:state = {
+                    trade_good_imports = {
+                        target = incense
+                        value >= 1
+                    }
+                }
+            }
+            custom_tooltip = {
+                text = thaton_city_religious_investment_tt_incense
+                capital_scope.state = {
+                    calc_true_if = {
+                        amount >= 1 
+                        state_improvement_oratory_trigger = yes      
+                    }
+                }
+            }
+            capital_scope = {
+                has_building = commerce_building
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.8
+            show_as_tooltip = {
+                p:9797 = {
+                    add_province_modifier = {
+                        name = incense_production
+                        duration = -1
+                    }
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            country_has_special_pop = {
+                                text = "country_has_5_artist_tt"
+                                type = artist
+                                count = 5
+                            }
+                            capital_scope = {
+                                province_has_special_pop = {
+                                    text = "prov_has_5_artist_tt"
+                                    type = artist
+                                    count = 5
+                                }
+                            }
+                        }
+                    }
+                    capital_scope = {
+                        add_special_pop = {
+                            text = "add_1_artist_tt"
+                            type = artist
+                            count = 1
+                        }
+                    }
+                }
+            }
+            hidden_effect = {
+                random_province = {
+                    limit = {
+                        trade_goods = wootz_steel
+                    }
+                    add_permanent_province_modifier = {
+                        name = wootz_steel_demand
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    thaton_missions_task_9 = { # Trade Routes to the West
+        icon = "task_economical"
+        requires = { thaton_missions_task_7 thaton_missions_task_8 }
+        highlight = {
+            scope:province = { 
+                OR = {
+                    trade_goods = wootz_steel
+                    province_id = 9798
+                    province_id = 9797
+                }
+            }
+        }
+        allow = {
+            capital_scope = {
+                is_importing_trade_good = wootz_steel
+                hidden:state = {
+                    trade_good_imports = {
+                        target = wootz_steel
+                        value >= 1
+                    }
+                }  
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.9
+            show_as_tooltip = {
+                area:shenli_area = {
+                    every_area_province = {
+                        limit = {
+                            owner = root
+                        }
+                        add_province_modifier = {
+                            name = western_trade
+                            duration = -1
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = add_1_merchant_tt
+                        type = merchant
+                        count = 1
+                    }
+                }
+                add_treasury = 100
+                add_political_influence = 50
+            }
+        }
+    }
+    thaton_missions_task_10 = { # The Legend is Born
+        icon = "task_zeus_cornucopia"
+        requires = { thaton_missions_task_9 thaton_missions_task_4 }
+        highlight = {
+            scope:province = {
+                owner = root
+            }
+        }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.10
+            show_as_tooltip = {
+                current_ruler = {
+                    add_focus_perk = {
+                        text = "add_1_char_perk"
+                        amount = 1
+                    }
+                    add_popularity = popularity_large
+                }
+                add_splendor = {
+                    amount = "200"
+                }
+            }
+        }
+    }
+    thaton_missions_task_11 = { # King of Pegu
+        icon = "task_conquest"
+        duration = 180
+        requires = { thaton_missions_task_10 }
+        highlight = {
+            scope:province = {
+                is_in_area = shenli_area
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                c:PEG = {
+                    has_opinion = {
+                        modifier = opinion_insult
+                        target = root
+                    }
+                }
+                text = "insult_pegu_tt"
+            }
+        }
+        bypass = {
+            c:PEG = { has_land = no }
+        }
+        on_bypass = {
+            area:shenli_area = {
+                every_area_province = { add_claim = root }
+            }
+        }
+        on_start = {
+            trigger_event = {
+                id = me_thaton.110
+                days = { 75 150 }
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.11
+            show_as_tooltip = {
+                custom_tooltip = "gain_pegu_claims_tt"
+                custom_tooltip = "fake_war_pegu_tt"
+                add_country_modifier = {
+                    name = prepared_for_war
+                    duration = 1095
+                }
+            }
+        }
+    }
+    thaton_missions_task_12 = { # Up the Irrawaddy
+        icon = "task_expansion"
+        requires = { thaton_missions_task_11 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = beikthano_area
+                    is_in_area = halin_area
+                    is_in_area = shenli_area
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = shenli_area
+            owns_or_subject_owns_area = beikthano_area
+            owns_or_subject_owns_area = halin_area
+        }
+        on_completion = {
+            trigger_event = me_thaton.12
+            show_as_tooltip = {
+                add_splendor = {
+                    amount = "100"
+                }
+                add_country_modifier = {
+                    name = king_of_irrawaddy
+                    duration = -1
+                }
+                area:shenli_area = {
+                    every_area_province = {
+                        limit = {
+                            owner = root
+                            NOR = {
+                                province_id = 9797
+                                province_id = 9798
+                            }
+                        }
+                        create_state_pop = citizen
+                        create_state_pop = citizen
+                    }
+                }
+                area:beikthano_area = {
+                    every_area_province = {
+                        limit = {
+                            owner = root
+                        }
+                        create_state_pop = citizen
+                        create_state_pop = citizen
+                    }
+                }
+                area:halin_area = {
+                    every_area_province = {
+                        limit = {
+                            owner = root
+                        }
+                        create_state_pop = citizen
+                        create_state_pop = citizen
+                    }
+                }
+            }
+        }
+    }
+    thaton_missions_task_13 = { # Mons Across the Monts
+        icon = "task_atlas"
+        duration = 30
+        bypass = {
+            c:SHE = { has_land = no }
+        }
+        requires = { thaton_missions_task_11 }
+        highlight = {
+            scope:province = {
+                exists = c:SHE
+                owner = c:SHE
+            }
+        }
+        allow = {
+            p:9803 = {
+                has_building = fortress_building
+            }
+            has_aggressive_expansion < 10
+            num_of_cities > 15
+        }
+        on_bypass = {
+            area:dvaravati_area = {
+                every_area_province = {
+                    add_claim = root
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.130
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = prepared_for_war
+                    duration = 1095
+                }
+                custom_tooltip = "threaten_war_shenli_tt"
+            }
+        }
+    }
+    thaton_missions_task_14 = { # Empire of All Monkind
+        icon = "task_heracles"
+        requires = { thaton_missions_task_21 }
+        highlight = {
+            scope:province = {
+                dominant_province_culture = mon
+            }
+        }
+        allow = {
+            num_of_controlled_cities >= 60
+            any_province = {
+                dominant_province_culture = mon
+                owner = root
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.14
+            show_as_tooltip = {
+                change_government = imperium
+                change_country_name = "suvannabhumi"
+                custom_tooltip = "suvarnabhumi_region_claims_tt"
+            }
+        }
+        final = yes
+    }
+    thaton_missions_task_15 = { # Fate of our Faith
+        icon = "task_diplomatic"
+        requires = { thaton_missions_task_10 }
+        allow = {
+            stability >= 55
+            legitimacy >= 75
+            current_ruler = {
+                zeal > 5
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.15
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = fate_of_our_faith
+                    duration = -1
+                }
+                add_political_influence = 100
+            }
+        }
+    }
+    thaton_missions_task_16 = { # The Yungist Yolk
+        icon = "task_happiness"
+        duration = 30
+        requires = { thaton_missions_task_13 }
+        allow = {
+            custom_tooltip = {
+                text = yung_deity_tt
+                any_pantheon_deity = {
+                    deity_religion = funan_religion
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.16
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = yungist_yolk
+                    duration = 1095
+                }
+                add_stability = 20
+            }
+        }
+    }
+    thaton_missions_task_17 = { # The Hall to Which Gods?
+        icon = "task_political"
+        requires = { thaton_missions_task_20 thaton_missions_task_16 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_thaton.17
+            show_as_tooltip = {
+                custom_tooltip = "which_gods_tt"
+            }
+        }
+    }
+    thaton_missions_task_18 = { # Beset with Buddhists
+        icon = "task_durga"
+        duration = 30
+        requires = { thaton_missions_task_15 }
+        allow = {
+            custom_tooltip = {
+                text = dravidian_country_relations
+                any_country = {
+                    any_owned_province = {
+                        is_capital = yes
+                        is_in_region = dravida_region
+                    }
+                    opinion = {
+                        target = root
+                        value >= 60
+                    }
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.18
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = beset_with_buddhism
+                    duration = 1095
+                }
+                create_character = {
+                    culture = lankan
+                    religion = buddhism
+                    no_stats = yes
+                    hidden_effect = {
+                        average_martial_effect = yes
+                        average_charisma_effect = yes
+                        average_finesse_effect = yes
+                        amazing_zeal_effect = yes
+                        add_trait = scholar
+                    }
+                }
+            }
+        }
+    }
+    thaton_missions_task_19 = { # The Vibrant Vedas
+        icon = "task_shiva"
+        duration = 30
+        requires = { thaton_missions_task_15 }
+        highlight = {
+            scope:province = {
+                is_in_area = arakan_area
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = arakan_area
+        }
+        on_completion = {
+            trigger_event = me_thaton.19
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = vibrant_vedas
+                    duration = 1095
+                }
+                create_character = {
+                    culture = lankan
+                    religion = hindu
+                    no_stats = yes
+                    hidden_effect = {
+                        average_martial_effect = yes
+                        average_charisma_effect = yes
+                        average_finesse_effect = yes
+                        great_zeal_effect = yes
+                        add_trait = scholar
+                    }
+                }
+            }
+        }
+    }
+    thaton_missions_task_20 = { # Why Not Nats?
+        icon = "task_religion"
+        duration = 30
+        requires = { thaton_missions_task_18 thaton_missions_task_19 }
+        allow = {
+            custom_tooltip = {
+                text = mon_land_protection.tt
+                any_country_culture = {
+                    is_culture = mon
+                    is_integrated = yes
+                    has_country_culture_modifier = land_protection
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_thaton.20
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = native_natics
+                    duration = 1095
+                }
+            }
+        }
+    }
+    thaton_missions_task_21 = { # Civilize Singhanavati
+        icon = "task_battle"
+        duration = 60
+        requires = { thaton_missions_task_12 thaton_missions_task_13 }
+        highlight = {
+            scope:province = {
+                is_in_area = singhanavati_area
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = dvaravati_area
+            owns_or_subject_owns_area = mon_area
+            treasury >= 200
+            political_influence >= 50
+        }
+        on_completion = {
+            trigger_event = me_thaton.21
+            show_as_tooltip = {
+                area:singhanavati_area = {
+                    every_area_province = {
+                        limit = {
+                            has_owner = no
+                        }
+                        set_owned_by = root
+                        create_pop = tribesmen
+                        create_pop = tribesmen
+                        create_pop = freemen
+                    }
+                }
+            }
+        }
+    }
+}

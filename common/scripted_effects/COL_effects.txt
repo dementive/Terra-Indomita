@@ -1,0 +1,192 @@
+﻿fix_colonization_amount = {
+	if = {
+		limit = {
+			has_variable = colonization_count
+		}
+		if = {
+			limit = {
+				var:colonization_count != colonizing_count_real_value
+			}
+			remove_variable = colonization_count
+			set_variable = {
+				name = colonization_count
+				value = colonizing_count_real_value
+			}
+		}
+	}
+	else = {
+		set_variable = {
+			name = colonization_count
+			value = 0
+		}
+	}
+}
+
+# c = chance
+# l = lower
+# u = upper
+set_colonization_onaction = {
+	# This is the fake placeholder effect here to prevent errors, remove this when events are added
+	random = { chance = $c$ }
+	random = { chance = $l$ }
+	random = { chance = $u$ }
+
+	# This is the actual effect, uncomment this if/when events are added
+	#random = {
+	#	chance = $c$
+	#	trigger_event = {
+	#		on_action = colonization_pulse
+	#		days = { $l$ $u$ }
+	#	}
+	#}
+}
+
+set_colonization_modifier = {
+	if = {
+		limit = {
+			$province$ = {
+				total_population >= 5
+			}
+		}
+		random_list = {
+			1 = {
+				if = {
+					limit = {
+						$province$ = { has_city_status = yes }
+					}
+					add_country_modifier = {
+						name = $mod$ 
+						duration = 465
+					}
+					$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 465 } }
+					set_colonization_onaction = { c = "10" l = "30" u = "300" }
+				}
+				else = {
+					add_country_modifier = {
+						name = $mod$ 
+						duration = 365
+					}
+					$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 365 } }
+					set_colonization_onaction = { c = "10" l = "30" u = "200" }
+				}
+			}
+			1 = {
+				if = {
+					limit = {
+						$province$ = { has_city_status = yes }
+					}
+					add_country_modifier = {
+						name = $mod$ 
+						duration = 500
+					}
+					$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 500 } }
+					set_colonization_onaction = { c = "10" l = "30" u = "400" }
+				}
+				else = {
+					add_country_modifier = {
+						name = $mod$ 
+						duration = 400
+					}
+					$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 400 } }
+					set_colonization_onaction = { c = "10" l = "30" u = "300" }
+				}
+			}
+			1 = {
+				if = {
+					limit = {
+						$province$ = { has_city_status = yes }
+					}
+					add_country_modifier = {
+						name = $mod$ 
+						duration = 520
+					}
+					$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 520 } }
+					set_colonization_onaction = { c = "10" l = "30" u = "420" }
+				}
+				else = {
+					add_country_modifier = {
+						name = $mod$ 
+						duration = 420
+					}
+					$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 420 } }
+					set_colonization_onaction = { c = "10" l = "30" u = "320" }
+				}
+			}
+			1 = {
+				trigger = {
+					$province$ = {
+						total_population >= 8
+					}
+				}
+				if = {
+					limit = {
+						$province$ = { has_city_status = yes }
+					}
+					add_country_modifier = {
+						name = $mod$ 
+						duration = 550
+					}
+					$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 550 } }
+					set_colonization_onaction = { c = "10" l = "30" u = "450" }
+				}
+				else = {
+					add_country_modifier = {
+						name = $mod$ 
+						duration = 450
+					}
+					$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 450 } }
+					set_colonization_onaction = { c = "10" l = "30" u = "350" }
+				}
+			}
+		}
+	}
+	else = {
+		random_list = {
+			1 = {
+				trigger = {
+					$province$ = {
+						total_population <= 1
+					}
+				}
+				add_country_modifier = {
+					name = $mod$ 
+					duration = 180
+				}
+				$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 180 } }
+				set_colonization_onaction = { c = "10" l = "30" u = "160" }
+			}
+			1 = {
+				add_country_modifier = {
+					name = $mod$ 
+					duration = 200
+				}
+				$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 200 } }
+				set_colonization_onaction = { c = "10" l = "30" u = "160" }
+			}
+			1 = {
+				add_country_modifier = {
+					name = $mod$ 
+					duration = 250
+				}
+				$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 250 } }
+				set_colonization_onaction = { c = "10" l = "30" u = "200" }
+			}
+			1 = {
+				add_country_modifier = {
+					name = $mod$ 
+					duration = 300
+				}
+				$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 300 } }
+				set_colonization_onaction = { c = "10" l = "30" u = "250" }
+			}
+			1 = {
+				add_country_modifier = {
+					name = $mod$ 
+					duration = 365
+				}
+				$province$ = { add_province_modifier = { name = province_is_being_colonized_modifier duration = 365 } }
+				set_colonization_onaction = { c = "10" l = "30" u = "280" }
+			}
+		}
+	}
+}

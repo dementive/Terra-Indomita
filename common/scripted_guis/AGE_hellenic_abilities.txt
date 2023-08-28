@@ -1,0 +1,178 @@
+﻿hellenic_ability_one = {
+    scope = country
+    is_valid = {
+        age_ability_trigger = yes
+    }
+    effect = {
+        # All modifiers gained from age abilities need to be removed when the age ends.
+        add_country_modifier = {
+            name = hellenic_ability_one_mod
+            duration = -1
+        }
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_two = {
+    scope = country
+    is_valid = {
+        age_ability_trigger = yes
+    }
+    effect = {
+        add_country_modifier = {
+            name = hellenic_ability_two_mod
+            duration = -1
+        }
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_three = {
+    scope = country
+    is_valid = {
+        age_ability_trigger = yes
+    }
+    effect = {
+        add_country_modifier = {
+            name = hellenic_ability_three_mod
+            duration = -1
+        }
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_four = {
+    scope = country
+    is_valid = {
+        age_ability_trigger = yes
+    }
+    effect = {
+        add_country_modifier = {
+            name = hellenic_ability_four_mod
+            duration = -1
+        }
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_five = {
+    scope = country
+    is_valid = {
+        age_ability_trigger = yes
+    }
+    effect = {
+        add_country_modifier = {
+            name = hellenic_ability_five_mod
+            duration = -1
+        }
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_six = {
+    scope = country
+    is_valid = {
+        age_ability_trigger = yes
+    }
+    effect = {
+        custom_tooltip = hellenic_ability_six_tooltip
+        set_variable = hellenic_ability_six_taken # Make sure to remove at the end of the age.
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_seven = {
+    scope = country
+    is_valid = {
+        custom_tooltip = {
+            text = hellenic_ability_seven_tt
+            tag = SEL
+        }
+        age_ability_trigger = yes
+    }
+    effect = {
+        add_country_modifier = {
+            name = hellenic_ability_seven_mod
+            duration = -1
+        }
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_eight = {
+    scope = country
+    is_valid = {
+        custom_tooltip = {
+            text = hellenic_ability_eight_tt
+            tag = MAC
+        }
+        age_ability_trigger = yes
+    }
+    effect = {
+        add_country_modifier = {
+            name = hellenic_ability_eight_mod
+            duration = -1
+        }
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_nine = {
+    scope = country
+    is_valid = {
+        custom_tooltip = {
+            text = hellenic_ability_nine_tt
+            tag = MRY
+        }
+        age_ability_trigger = yes
+    }
+    effect = {
+        add_country_modifier = {
+            name = hellenic_ability_nine_mod
+            duration = -1
+        }
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_ten = {
+    scope = country
+    is_valid = {
+        custom_tooltip = {
+            text = hellenic_ability_ten_tt
+            tag = CAR
+        }
+        age_ability_trigger = yes
+    }
+    effect = {
+        add_country_modifier = {
+            name = hellenic_ability_ten_mod
+            duration = -1
+        }
+        age_ability_effect = yes
+    }
+}
+hellenic_ability_eleven = {
+    scope = country
+    is_valid = {
+        trigger_if = {
+            limit = {
+                has_variable = splendor
+            }
+            custom_tooltip = {
+                text = ability_requires_splendor_extreme_tt
+                var:splendor >= 4000
+            }
+        }
+        trigger_else = {
+            always = no
+        }
+        trigger_if = {
+            limit = {
+                current_ruler = { has_trait = argeads }
+            }
+            NOT = { current_ruler = { has_trait = argeads } }
+        }
+        country_culture_group = hellenic
+    }
+    effect = {
+        custom_tooltip = add_argeads_sgui_trait_tooltip
+        hidden_effect = {
+            current_ruler = {
+                trigger_event = age_hidden_events.1
+            }
+        }
+        age_ability_effect = yes
+    }
+}

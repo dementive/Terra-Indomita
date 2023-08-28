@@ -1,0 +1,101 @@
+﻿colonizing_count_real_value = {
+	value = 0
+	if = {
+		limit = {
+			has_country_modifier = colonization_mod_one
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_country_modifier = colonization_mod_two
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_country_modifier = colonization_mod_three
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_country_modifier = colonization_mod_four
+		}
+		add = 1
+	}
+	if = {
+		limit = {
+			has_country_modifier = colonization_mod_five
+		}
+		add = 1
+	}
+}
+
+maximum_colonizable_provinces = {
+	value = 0
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					is_tribal = yes
+					country_population <= 25
+				}
+				AND = {
+					is_tribal = no
+					country_population <= 50
+				}
+			}
+		}
+		add = 1
+	}
+	else_if = {
+		limit = {
+			OR = {
+				AND = {
+					is_tribal = yes
+					country_population < 100
+					country_population > 25
+				}
+				AND = {
+					is_tribal = no
+					country_population < 150
+					country_population > 50
+				}
+			}
+		}
+		add = 2
+	}
+	else_if = {
+		limit = {
+			OR = {
+				AND = {
+					is_tribal = yes
+					country_population >= 100
+				}
+				AND = {
+					is_tribal = no
+					country_population >= 150
+					country_population < 250
+				}
+			}
+		}
+		add = 3
+	}
+	else_if = {
+		limit = {
+			is_tribal = no
+			country_population >= 250
+			country_population < 500
+		}
+		add = 4
+	}
+	else_if = {
+		limit = {
+			is_tribal = no
+			country_population >= 500
+		}
+		add = 5
+	}
+	max = 5
+}

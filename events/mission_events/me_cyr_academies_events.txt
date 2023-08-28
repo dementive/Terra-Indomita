@@ -11,23 +11,23 @@ cyr_academies_01.1 = {            # Eratosthenes Event
         scope:eratosthenes_scope = {is_alive = yes}
     }
 
-    option = {
+    option = {      
         name = cyr_academies_01.1.a
         scope:eratosthenes_scope = {
             add_character_modifier = {
-                name = cyr_father_of_geography
+                name = cyr_father_of_geography   
                 duration = -1
             }
         }
-        create_country_treasure = {
+        create_country_treasure = { 
             key = "cyr_on_the_measure_of_the_world"
             icon = "treasure_chest"
-
+            
             modifier = {
                 local_base_trade_routes_modifier = 0.05
                 local_research_points_modifier   = 0.05
             }
-        }
+        }  
     }
 
 }
@@ -39,13 +39,13 @@ cyr_academies_01.2 = {            # The Future of Cyrenaic Philosophy
     picture = greek_philosophers
     left_portrait = char:233
     left_portrait = char:218
-    right_portrait = char:446
+    right_portrait = char:469
     right_portrait = char:230
-    right_portrait = char:445
+    right_portrait = char:468
 
 
 
-    option = {
+    option = {      
         name = cyr_academies_01.2.a
     }
 
@@ -61,14 +61,14 @@ cyr_academies_01.3 = {            # Hegesias Promoted
     trigger = {
         any_character ={
             OR = {
-                has_office = office_philosopher
-                has_office = office_pontifex
+                has_office = office_philosopher     
+                has_office = office_pontifex 
             }
             has_character_modifier = cyr_hegesiad_philosopher
-        }
+        }       
     }
 
-    option = {
+    option = {      
         name = cyr_academies_01.3.a
         remove_country_modifier = cyr_cyrenaic_state_philosophy
         add_country_modifier = {
@@ -89,14 +89,14 @@ cyr_academies_01.4 = {            # Theodoros Promoted
     trigger = {
         any_character ={
             OR = {
-                has_office = office_philosopher
-                has_office = office_pontifex
+                has_office = office_philosopher     
+                has_office = office_pontifex 
             }
             has_character_modifier = cyr_theodorid_philosopher
-        }
+        }       
     }
 
-    option = {
+    option = {      
         name = cyr_academies_01.4.a
         remove_country_modifier = cyr_cyrenaic_state_philosophy
         add_country_modifier = {
@@ -107,7 +107,7 @@ cyr_academies_01.4 = {            # Theodoros Promoted
 
 }
 
-cyr_academies_01.5 = {            # Anniceris Promoted
+cyr_academies_01.5 = {            # Anniceris Promoted 
     type = country_event
     title = cyr_academies_01.5.t
     desc = cyr_academies_01.5.desc
@@ -117,14 +117,14 @@ cyr_academies_01.5 = {            # Anniceris Promoted
     trigger = {
         any_character ={
             OR = {
-                has_office = office_philosopher
-                has_office = office_pontifex
+                has_office = office_philosopher     
+                has_office = office_pontifex 
             }
             has_character_modifier = cyr_annicerid_philosopher
-        }
+        }       
     }
 
-    option = {
+    option = {      
         name = cyr_academies_01.5.a
         remove_country_modifier = cyr_cyrenaic_state_philosophy
         add_country_modifier = {
@@ -146,17 +146,17 @@ cyr_academies_01.6 = {            # Kallimakhos Event
         scope:kallimakhos_scope = {is_alive = yes}
     }
 
-    option = {
+    option = {      
         name = cyr_academies_01.6.a
-        create_country_treasure = {
+        create_country_treasure = { 
             key = "cyr_works_of_kallimakhos"
             icon = "treasure_chest"
-
+            
             modifier = {
                 local_pop_assimilation_speed = 0.1
                 local_pop_assimilation_speed_modifier = 0.1
             }
-        }
+        }  
     }
 
 }
@@ -171,7 +171,7 @@ cyr_academies_01.7 = {            # New Ideas for a New Age
     right_portrait = char:75
     left_portrait = current_ruler
 
-    option = {
+    option = {      
         name = cyr_academies_01.7.a
         remove_country_modifier = cyr_cyrenaic_state_philosophy
         add_country_modifier = {
@@ -180,7 +180,7 @@ cyr_academies_01.7 = {            # New Ideas for a New Age
         }
     }
 
-   option = {
+   option = {      
         name = cyr_academies_01.7.b
         remove_country_modifier = cyr_cyrenaic_state_philosophy
         add_country_modifier = {
@@ -189,7 +189,7 @@ cyr_academies_01.7 = {            # New Ideas for a New Age
         }
     }
 
-   option = {
+   option = {      
         name = cyr_academies_01.7.c
         remove_country_modifier = cyr_cyrenaic_state_philosophy
         add_country_modifier = {
@@ -208,7 +208,7 @@ cyr_academies_01.8 = {            # Silphium Start Up Flavour
 
 
 
-    option = {
+    option = {      
         name = cyr_academies_01.8.a
     }
 
@@ -223,8 +223,9 @@ cyr_academies_01.9 = {            # Silphium Extinction Looming
 
 
 
-    option = {
+    option = {      
         name = cyr_academies_01.9.a
+        remove_country_modifier = cyr_silphium_economy
         add_country_modifier = {
             name = cyr_silphium_scarce
             duration = -1
@@ -252,15 +253,14 @@ cyr_academies_01.10 = {            # Silphium Extinct
         NOT = {has_variable = cyr_silphium_stable}
     }
 
-    option = {
+    option = {      
         name = cyr_academies_01.10.a
         custom_tooltip = cyr_academies_01.10.a.tt
         hidden_effect = {
-            remove_country_modifier = cyr_new_export_markets
-            remove_country_modifier = cyr_silphium_medicine
-            remove_country_modifier = cyr_silphium_cuisine
-            remove_country_modifier = cyr_silphium_economy
-            remove_country_modifier = cyr_silphium_scarce
+            remove_country_modifier = cyr_new_export_markets 
+            remove_country_modifier = cyr_silphium_medicine 
+            remove_country_modifier = cyr_silphium_cuisine 
+            remove_country_modifier = cyr_silphium_scarce 
         }
         region:cyrenaica_region = {
             hidden_effect = {
@@ -279,7 +279,7 @@ cyr_academies_01.10 = {            # Silphium Extinct
                     trade_goods = silphium
                 }
                 set_trade_goods = cattle
-            }
+            } 
             every_region_province = {
                 limit = {
                     OR = {
@@ -289,8 +289,8 @@ cyr_academies_01.10 = {            # Silphium Extinct
                     has_city_status = yes
                     trade_goods = silphium
                 }
-                set_trade_goods = earthware
-            }
+                set_trade_goods = earthware 
+            } 
         }
         custom_tooltip = cyr_academies_01.10.a.ttt
         add_country_modifier = {
@@ -298,22 +298,22 @@ cyr_academies_01.10 = {            # Silphium Extinct
             duration = 10950 # 30 years
         }
         custom_tooltip = cyr_academies_01.10.a.ttt
-        create_country_treasure = {
+        create_country_treasure = { 
             key = "cyr_the_last_silphium"
             icon = "treasure_chest"
-
+            
             modifier = {
                 city_monthly_state_loyalty = 0.05
             }
-        }
+        } 
         set_variable = {
             name = cyr_silphium_extinct
-        }
+        }            
     }
 
 }
 
-cyr_academies_01.11 = {            # Silphium Stabilised
+cyr_academies_01.11 = {            # Silphium Stabilized
     type = country_event
     title = cyr_academies_01.11.t
     desc = cyr_academies_01.11.desc
@@ -321,9 +321,10 @@ cyr_academies_01.11 = {            # Silphium Stabilised
 
 
 
-    option = {
+    option = {      
         name = cyr_academies_01.11.a
 
     }
 
 }
+

@@ -1,0 +1,1374 @@
+﻿namespace = me_gaul_arvernia_ti
+
+me_gaul_arvernia_ti.1 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_1_title
+    desc = me_gaul_arvernia_ti_1_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_1.a"
+		current_ruler = {
+			add_charisma = 2
+		}
+		add_research = {
+			technology = oratory_tech
+			value = 25
+		}
+    }
+}
+
+me_gaul_arvernia_ti.2 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_2_title
+    desc = me_gaul_arvernia_ti_2_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = { #yes
+        name = "me_gaul_arvernia_ti_2.a"
+		c:AVN = {
+			make_subject = {
+				target = root
+				type = tributary
+			}
+			trigger_event = me_gaul_arvernia_ti.200
+		}
+		ai_chance = {
+			factor = 100
+		}
+    }
+	
+	option = { #no
+        name = "me_gaul_arvernia_ti_2.b"
+		c:AVN = {
+			trigger_event = me_gaul_arvernia_ti.201
+		}
+		ai_chance = {
+			factor = 0
+		}
+    }
+}
+
+me_gaul_arvernia_ti.200 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_200_title
+    desc = me_gaul_arvernia_ti_200_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_200.a"
+
+    }
+}
+
+me_gaul_arvernia_ti.201 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_201_title
+    desc = me_gaul_arvernia_ti_201_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_201.a"
+
+    }
+}
+
+me_gaul_arvernia_ti.3 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_3_title
+    desc = me_gaul_arvernia_ti_3_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_3.a"
+		add_country_modifier = {
+			name = gaul_arvernia_gifts_mod
+			duration = -1
+		}
+    }
+}
+
+me_gaul_arvernia_ti.4 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_4_title
+    desc = me_gaul_arvernia_ti_4_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_4.a"
+		current_ruler = {
+			add_focus_perk = {
+				text = "add_3_char_perk"
+				amount = 3
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.400 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_400_title
+    desc = me_gaul_arvernia_ti_400_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_400.a"
+		add_political_influence = -50
+    }
+}
+
+me_gaul_arvernia_ti.401 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_401_title
+    desc = me_gaul_arvernia_ti_401_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_401.a"
+		add_aggressive_expansion = -2.5
+    }
+}
+
+me_gaul_arvernia_ti.402 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_402_title
+    desc = me_gaul_arvernia_ti_402_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_402.a"
+		current_ruler = {
+			add_charisma = 1
+			add_trait = orator
+		}
+    }
+}
+
+me_gaul_arvernia_ti.403 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_403_title
+    desc = me_gaul_arvernia_ti_403_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+	right_portrait = scope:pot_tributary_scope.current_ruler
+	
+	trigger = {
+		any_country = {
+			has_land = yes
+			country_culture_group = gallic
+			num_of_cities <= 10
+			capital_scope = {
+				is_in_region = central_gaul_region
+				is_in_region = transalpine_gaul_region
+				is_in_region = aquitaine_region
+				is_in_region = germania_superior_region
+			}
+			is_ai = yes
+		}
+	}
+	
+	immediate = {
+		random_country = {
+			limit = {
+				has_land = yes
+				country_culture_group = gallic
+				num_of_cities <= 10
+				capital_scope = {
+					is_in_region = central_gaul_region
+					is_in_region = transalpine_gaul_region
+					is_in_region = aquitaine_region
+					is_in_region = germania_superior_region
+				}
+				is_ai = yes
+			}
+			save_scope_as = pot_tributary_scope
+		}
+	}
+
+    option = {
+        name = "me_gaul_arvernia_ti_403.a"
+		add_treasury = -50
+		c:AVN = {
+			make_subject = {
+				target = scope:pot_tributary_scope
+				type = tributary
+			}
+		}
+    }
+	
+	option = {
+        name = "me_gaul_arvernia_ti_403.b"
+		
+    }
+}
+
+me_gaul_arvernia_ti.5 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_5_title
+    desc = me_gaul_arvernia_ti_5_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_5.a"
+		capital_scope = {
+			add_special_pop = {
+				text = "add_1_artist_tt"
+				type = artist
+				count = 1
+			}
+		}
+		add_treasury = 25
+    }
+}
+
+me_gaul_arvernia_ti.6 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_6_title
+    desc = me_gaul_arvernia_ti_6_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_6.a"
+		c:AED = {
+			add_country_modifier = {
+				name = gaul_ruined_reputation_mod
+				duration = 7300
+			}
+		}
+		every_country = {
+			limit = {
+				any_owned_province = {
+					OR = {
+						is_in_region = central_gaul_region
+						is_in_region = germania_superior_region
+						is_in_region = belgica_region
+					}
+				} 
+			}
+			add_opinion = {
+				modifier = unfriendly_neighbors
+				target = c:AED
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.7 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_7_title
+    desc = me_gaul_arvernia_ti_7_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = { #yes
+        name = "me_gaul_arvernia_ti_7.a"
+		ai_chance = {
+			factor = 25
+		}
+		c:AVN = {
+			trigger_event = me_gaul_arvernia_ti.700
+			make_subject = {
+				target = root
+				type = tributary
+			}
+		}
+    }
+	
+	option = { #no
+        name = "me_gaul_arvernia_ti_7.b"
+		ai_chance = {
+			factor = 75
+		}
+		c:AVN = {
+			trigger_event = me_gaul_arvernia_ti.701
+		}
+    }
+}
+
+me_gaul_arvernia_ti.700 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_700_title
+    desc = me_gaul_arvernia_ti_700_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+	right_portrait = c:AED.current_ruler
+
+    option = { #yes
+        name = "me_gaul_arvernia_ti_7.a"
+		c:AVN = {
+			make_subject = {
+				target = c:AED
+				type = tributary
+			}
+		}
+    }
+
+}
+
+me_gaul_arvernia_ti.701 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_700_title
+    desc = me_gaul_arvernia_ti_700_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+	right_portrait = c:AED.current_ruler
+
+    option = { #yes
+        name = "me_gaul_arvernia_ti_7.a"
+		add_treasury = 100
+		add_opinion = {
+			modifier = unfriendly_neighbors
+			target = c:AED
+		}
+    }
+
+}
+
+me_gaul_arvernia_ti.8 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_8_title
+    desc = me_gaul_arvernia_ti_8_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_8.a"
+		p:2438 = {
+			reduce_province_rank_effect = yes
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+		capital_scope = {
+			create_pop = slaves
+			create_pop = slaves
+			create_pop = slaves
+			hidden_effect = {
+				random_pops_in_province = {
+					limit = {
+						pop_type = slaves
+					}
+					set_pop_culture = haedui
+				}
+			}
+			hidden_effect = {
+				random_pops_in_province = {
+					limit = {
+						pop_type = slaves
+					}
+					set_pop_culture = haedui
+				}
+			}
+			hidden_effect = {
+				random_pops_in_province = {
+					limit = {
+						pop_type = slaves
+					}
+					set_pop_culture = haedui
+				}
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.9 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_9_title
+    desc = me_gaul_arvernia_ti_9_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_9.a"
+		every_subject = {
+			limit = {
+				capital_scope = {
+					OR = {
+						is_in_region = central_gaul_region
+						is_in_area = lemovicia_area
+						is_in_area = celtica_occidentalis_area
+						is_in_area = allobrogia_area
+					}
+				}
+			}
+			every_owned_province = {
+				set_owned_by = root
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.10 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_10_title
+    desc = me_gaul_arvernia_ti_10_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_10.a"
+		add_political_influence = 50
+		add_centralization = 20
+    }
+}
+
+me_gaul_arvernia_ti.11 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_11_title
+    desc = me_gaul_arvernia_ti_11_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_11.a"
+		capital_scope = {
+			add_permanent_province_modifier = {
+				name = gaul_arvernia_capital_mod
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.12 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_12_title
+    desc = me_gaul_arvernia_ti_12_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_12.a"
+		add_2_free_province_investments = yes
+		capital_scope = {
+			add_special_pop = {
+				text = "add_2_merchant_tt"
+				type = merchant
+				count = 2
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.13 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_13_title
+    desc = me_gaul_arvernia_ti_13_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_13.a"
+		change_country_name = "GAUL_FEDERATION_NAME"
+		hidden_effect = {
+			change_country_adjective = "GAUL_ADJECTIVE"
+			change_country_color =  "desaturated_green"
+			change_country_flag = GAUL_FLAG
+		}
+    }
+}
+
+me_gaul_arvernia_ti.1300 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_1300_title
+    desc = me_gaul_arvernia_ti_1300_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+	right_portrait = scope:scheming_clan_chief_1
+	right_portrait = scope:scheming_clan_chief_2
+	
+	immediate = {
+		add_political_influence = -100
+		random_character = {
+			limit = {
+				is_clan_chief = yes
+				is_ruler = no
+			}
+			save_scope_as = scheming_clan_chief_1
+		}
+		random_character = {
+			limit = {
+				is_clan_chief = yes
+				is_ruler = no
+				NOT = {
+					THIS = scope:scheming_clan_chief_1
+				}
+			}
+			save_scope_as = scheming_clan_chief_2
+		}
+	}
+
+    option = { #monarchic path
+        name = "me_gaul_arvernia_ti_1300.a"
+		trigger_event = {
+			id = me_gaul_arvernia_ti.1301
+			days = 90
+		}
+    }
+	
+	option = { #republican path
+        name = "me_gaul_arvernia_ti_1300.b"
+		trigger_event = {
+			id = me_gaul_arvernia_ti.1303
+			days = 90
+		}
+    }
+}
+
+me_gaul_arvernia_ti.1301 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_1301_title
+    desc = me_gaul_arvernia_ti_1301_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = { #monarchic path
+        name = "me_gaul_arvernia_ti_1301.a"
+		custom_tooltip = me_gaul_arvernia_ti_1301_tt #preparations for coronation continue
+		trigger_event = {
+			id = me_gaul_arvernia_ti.1302
+			days = 80
+		}
+    }
+}
+
+me_gaul_arvernia_ti.1302 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_1302_title
+    desc = me_gaul_arvernia_ti_1302_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = { #monarchic path
+        name = "me_gaul_arvernia_ti_1302.a"
+		change_government = despotic_monarchy
+		switch_government_type_event_clearup_effect = yes
+    }
+}
+
+me_gaul_arvernia_ti.1303 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_1303_title
+    desc = me_gaul_arvernia_ti_1303_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+	right_portrait = scope:scheming_clan_chief_1
+	right_portrait = scope:scheming_clan_chief_2
+	
+	immediate = {
+		random_character = {
+			limit = {
+				is_clan_chief = yes
+				is_ruler = no
+			}
+			save_scope_as = scheming_clan_chief_1
+		}
+		random_character = {
+			limit = {
+				is_clan_chief = yes
+				is_ruler = no
+				NOT = {
+					THIS = scope:scheming_clan_chief_1
+				}
+			}
+			save_scope_as = scheming_clan_chief_2
+		}
+	}
+
+    option = { #monarchic path
+        name = "me_gaul_arvernia_ti_1303.a"
+		custom_tooltip = me_gaul_arvernia_ti_1303_tt #preparations for coronation continue but so do the plans for the assassination
+		trigger_event = {
+			id = me_gaul_arvernia_ti.1304
+			days = 80
+		}
+    }
+}
+
+me_gaul_arvernia_ti.1304 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_1304_title
+    desc = me_gaul_arvernia_ti_1304_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+	right_portrait = scope:scheming_clan_chief_1
+	right_portrait = scope:scheming_clan_chief_2
+	
+	immediate = {
+		random_character = {
+			limit = {
+				is_clan_chief = yes
+				is_ruler = no
+			}
+			save_scope_as = scheming_clan_chief_1
+		}
+		random_character = {
+			limit = {
+				is_clan_chief = yes
+				is_ruler = no
+				NOT = {
+					THIS = scope:scheming_clan_chief_1
+				}
+			}
+			save_scope_as = scheming_clan_chief_2
+		}
+	}
+
+    option = { #monarchic path
+        name = "me_gaul_arvernia_ti_1304.a"
+		current_ruler = {
+			death = {
+				death_reason = death_internal_assassination
+				killer = scope:scheming_clan_chief_1
+			}
+		}
+		add_stability = -10
+		change_government = oligarchic_republic
+		switch_government_type_event_clearup_effect = yes
+    }
+}
+
+me_gaul_arvernia_ti.14 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_14_title
+    desc = me_gaul_arvernia_ti_14_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_14.a"
+		c:AED = {
+			every_owned_province = {
+				set_conquered_by = root
+			}
+		}
+    }
+}
+
+####### 2nd Tree
+
+me_gaul_arvernia_ti.15 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_15_title
+    desc = me_gaul_arvernia_ti_15_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_15.a"
+		custom_tooltip = gaul_arvernia_task_15_claims_tt
+    }
+}
+
+me_gaul_arvernia_ti.1500 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_1500_title
+    desc = me_gaul_arvernia_ti_1500_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = { #diplomacy
+        name = "me_gaul_arvernia_ti_1500.a"
+		add_aggressive_expansion = -10
+		add_country_modifier = {
+			name = gaul_arvernia_diplo_mod
+			duration = 7300
+		}
+    }
+	
+	option = { #war
+        name = "me_gaul_arvernia_ti_1500.b"
+		add_aggressive_expansion = 10
+		add_country_modifier = {
+			name = gaul_arvernia_conquest_mod
+			duration = 7300
+		}
+    }
+}
+
+me_gaul_arvernia_ti.16 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_16_title
+    desc = me_gaul_arvernia_ti_16_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_16.a"
+		p:2345 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:2229 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:2270 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.17 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_17_title
+    desc = me_gaul_arvernia_ti_17_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_17.a"
+		p:2265 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:2256 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:3527 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.18 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_18_title
+    desc = me_gaul_arvernia_ti_18_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_18.a"
+		p:3701 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:2240 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:2355 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.19 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_19_title
+    desc = me_gaul_arvernia_ti_19_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_19.a"
+		p:2350 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:2151 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:2134 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.20 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_20_title
+    desc = me_gaul_arvernia_ti_20_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_20.a"
+		add_country_modifier = {
+			name = gaul_arvernia_sea_mod
+			duration = 7300
+		}
+    }
+}
+
+me_gaul_arvernia_ti.21 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_21_title
+    desc = me_gaul_arvernia_ti_21_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_21.a"
+		change_country_name = "GAUL_NAME"
+		hidden_effect = {
+			change_country_adjective = "GAUL_ADJECTIVE"
+			change_country_color =  "desaturated_green"
+			change_country_tag = GAU
+			change_country_flag = GAUL_FLAG
+		}
+		capital_scope = {
+			capital_formable_large_effect = yes
+			formable_capital_modifier_large_effect = yes
+		}
+		add_country_modifier = {
+			name = formable_country_huge_modifier
+			duration = 7600
+		}
+    }
+}
+
+me_gaul_arvernia_ti.22 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_22_title
+    desc = me_gaul_arvernia_ti_22_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_22.a"
+		p:3571 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:146 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:3551 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:3584 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.23 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_23_title
+    desc = me_gaul_arvernia_ti_23_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_23.a"
+		add_5_free_province_investments = yes
+		current_ruler = {
+			add_trait = conqueror
+		}
+		p:2248 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:3712 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:3690 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:2475 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.24 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_24_title
+    desc = me_gaul_arvernia_ti_24_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_24.a"
+		if = {
+			limit = { has_completed_mission = gaul_haeduia_1 }
+			current_ruler = {
+				deify_character = {
+					deity = deity:omen_segomo
+					country = root
+				}
+			}
+		}
+		else = {
+			current_ruler = {
+				deify_character = {
+					deity = deity:omen_arvernus
+					country = root
+				}
+			}
+		}
+		monarchy_republic_into_imperium_formable_effect = yes
+    }
+}
+
+me_gaul_arvernia_ti.25 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_25_title
+    desc = me_gaul_arvernia_ti_25_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_25.a"
+		capital_scope = {
+			add_special_pop = {
+				text = "add_1_priest_tt"
+				type = priest
+				count = 1
+			}
+		}
+		p:2350 = {
+			add_province_modifier = {
+				name = "seat_of_druids_mod"
+				duration = -1
+			}
+		}
+		current_ruler = {
+			add_trait = pious
+		}
+    }
+}
+
+me_gaul_arvernia_ti.26 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_26_title
+    desc = me_gaul_arvernia_ti_26_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_26.a"
+		add_country_modifier = {
+			name = gaul_arvernia_land_of_oppida_mod
+			duration = 7300
+		}
+		capital_scope = {
+			add_special_pop = {
+				text = "add_1_merchant_tt"
+				type = merchant
+				count = 1
+			}
+			add_special_pop = {
+				text = "add_1_architect_tt"
+				type = architect
+				count = 1
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.2700 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_2700_title
+    desc = me_gaul_arvernia_ti_2700_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_2700.a"
+		add_treasury = -500
+    }
+}
+
+me_gaul_arvernia_ti.27 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_27_title
+    desc = me_gaul_arvernia_ti_27_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_27.a"
+		add_legitimacy = 20
+		capital_scope = {
+			add_permanent_province_modifier = {
+				name = gaul_arvernia_capital_forum
+			}
+			set_city_status = city_metropolis
+		}
+		create_country_treasure = {
+			key = "gaul_arvernia_treasure"
+			icon = "treasure_chest"
+			modifier = {
+				local_population_happiness = 0.1
+				local_tax_modifier = 0.15
+			}
+		}
+    }
+}
+
+me_gaul_arvernia_ti.28 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_28_title
+    desc = me_gaul_arvernia_ti_28_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_28.a"
+		add_country_modifier = {
+			name = gaul_arvernia_army_mod
+			duration = 7300
+		}
+		add_military_experience = 10
+    }
+}
+
+me_gaul_arvernia_ti.29 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_29_title
+    desc = me_gaul_arvernia_ti_29_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_29.a"
+		change_government = imperium
+    }
+	
+	option = {
+        name = "me_gaul_arvernia_ti_29.b"
+		trigger = {
+			is_republic = yes
+		}
+		add_stability = 20
+    }
+}
+
+me_gaul_arvernia_ti.30 = {
+    type = country_event
+
+    title = me_gaul_arvernia_ti_30_title
+    desc = me_gaul_arvernia_ti_30_desc
+    picture = great_library    
+	left_portrait = root.current_ruler
+	
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_gaul_arvernia_ti_30.a"
+		add_country_modifier = {
+			name = gaul_arvernia_start_diplo
+			duration = 7300
+		}
+    }
+}

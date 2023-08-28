@@ -2,15 +2,39 @@
     # SCOPE = country
     # type = priest/merchant/architect/artist
     # count = number of special pops to check for
-    trigger_if = {
-        limit = {
-            has_variable = number_of_$type$_var
+    # text = tooltip to use
+    # country_has_1_artist_tt
+    # country_has_2_artist_tt
+    # country_has_3_artist_tt
+    # country_has_4_artist_tt
+    # country_has_5_artist_tt
+    # country_has_1_priest_tt
+    # country_has_2_priest_tt
+    # country_has_3_priest_tt
+    # country_has_4_priest_tt
+    # country_has_5_priest_tt
+    # country_has_1_merchant_tt
+    # country_has_2_merchant_tt
+    # country_has_3_merchant_tt
+    # country_has_4_merchant_tt
+    # country_has_5_merchant_tt
+    # country_has_1_architect_tt
+    # country_has_2_architect_tt
+    # country_has_3_architect_tt
+    # country_has_4_architect_tt
+    # country_has_5_architect_tt
+    custom_tooltip = {
+        text = $text$
+        trigger_if = {
+            limit = {
+                has_variable = number_of_$type$_var
+            }
+            var:number_of_$type$_var >= $count$
         }
-        var:number_of_$type$_var >= $count$
-    }
-    trigger_else = {
-        # if there is no var there are no pops
-        always = no
+        trigger_else = {
+            # if there is no var there are no pops
+            always = no
+        }
     }
 }
 
@@ -18,14 +42,38 @@ province_has_special_pop = {
     # SCOPE = province
     # type = priest/merchant/architect/artist
     # count = number of special pops to check for
-    trigger_if = {
-        limit = {
-            has_variable = $type$_in_territory
+    # text = tooltip to use
+    #prov_has_1_artist_tt
+    #prov_has_2_artist_tt
+    #prov_has_3_artist_tt
+    #prov_has_4_artist_tt
+    #prov_has_5_artist_tt
+    #prov_has_1_priest_tt
+    #prov_has_2_priest_tt
+    #prov_has_3_priest_tt
+    #prov_has_4_priest_tt
+    #prov_has_5_priest_tt
+    #prov_has_1_merchant_tt
+    #prov_has_2_merchant_tt
+    #prov_has_3_merchant_tt
+    #prov_has_4_merchant_tt
+    #prov_has_5_merchant_tt
+    #prov_has_1_architect_tt
+    #prov_has_2_architect_tt
+    #prov_has_3_architect_tt
+    #prov_has_4_architect_tt
+    #prov_has_5_architect_tt
+    custom_tooltip = {
+        text = $text$
+        trigger_if = {
+            limit = {
+                has_variable = $type$_in_territory
+            }
+            var:$type$_in_territory >= $count$
         }
-        var:$type$_in_territory >= $count$
-    }
-    trigger_else = {
-        # if there is no var there are no pops
-        always = no
+        trigger_else = {
+            # if there is no var there are no pops
+            always = no
+        }
     }
 }

@@ -2,79 +2,78 @@
 "AmbientNormalTexturePath" = "gfx/map/water/ambient_normal.dds"
 "FlowMapTexturePath" = "gfx/map/water/flowmap.dds"
 "FlowNormalTexturePath" = "gfx/map/water/flow_normal.dds"
-"CubeMapTexturePath" = "gfx/map/environment/sea_reflection.dds"
+"CubeMapTexturePath" = "gfx/map/environment/cubemap_blackbottom.dds"
 "FoamTexturePath" = "gfx/map/water/foam.dds"
 "FoamRampTexturePath" = "gfx/map/water/foam_ramp.dds"
 "FoamMapTexturePath" = "gfx/map/water/foam_map.dds"
 "FoamNoiseTexturePath" = "gfx/map/water/foam_noise.dds"
 
-"Water.WaterColorShallow" = hsv{ 0.55  0.7 0.0 }			#z hsv{ 0.55 0.65 0.4 } # Most visible at low angle. 
-"Water.WaterColorDeep" = 	hsv{ 0.55  0.7 0.0 }			#z hsv{ 0.7  0.25 0.0 } # Most visible at high angle, when looking from above
-"Water.WaterColorMapTint" = hsv{ 0.6  0.9 0.0 }				#z hsv{ 0.7  0.99 0.2 } # Color faded in the more you zoom out. 
-"WaterColorMapTintAlpha" = 0.000000							#z 1.000000 # How much affect color map tint has. 
+"Water.WaterColorShallow" = hsv{ 0.55  0.5 0.1 }		#z hsv{ 0.55 0.65 0.4 } # Most visible at low angle. 
+"Water.WaterColorDeep" = 	hsv{ 0.62  0.9 0.1 }			#z hsv{ 0.7  0.25 0.0 } # Most visible at high angle, when looking from above
+"Water.WaterColorMapTint" = hsv{ 0.58  0.4 0.3 }			#z hsv{ 0.7  0.99 0.2 } # Color faded in the more you zoom out. 
+"WaterColorMapTintAlpha" = 0.800000							#z 1.000000 # How much affect color map tint has. 
 "WaterColorMapTintStartHeight" = 0.000000					# At what camera height the tinting starts 	
 "WaterColorMapTintEndHeight" = 2000.000000					# At what camera height the tinting is full
-"WaterDiffuseMultiplier" = 0.200000							#z 0.500000 # How much effect the color map has water color. 
+"WaterDiffuseMultiplier" = 1.000000						#z 0.500000 # How much effect the color map has water color. 
 
-"WaterCubemapIntensity" = 1.50000							#z 3.000000 # Amount of reflection from the sky
+"WaterCubemapIntensity" = 0.500000							#z 3.000000 # Amount of reflection from the sky
 
-"WaterGlossBase" = 0.800000									# Not to high, then it causes bloom spikes. 
-"WaterGlossScale" = 4.500000
-"WaterZoomedOutGlossScaleOffset" = 1.500000					# How much gloss base you have when you zoom out. 
-"WaterSpecular" = 0.025000									# Specular intensity
-"WaterSpecularFactor" = 0.08								# ?
+"WaterGlossBase" = 0.80000									# Not to high, then it causes bloom spikes. 
+"WaterGlossScale" = 3.000000
+"WaterZoomedOutGlossScaleOffset" = -3.000000				# How much gloss base you have when you zoom out. 
+"WaterSpecular" = 0.005									# Specular intensity
+"WaterSpecularFactor" = 0.025								# ?
 
-"WaterFoamScale" = 0.25										# Size of foam, lower value is bigger in size
-"WaterFoamDistortFactor" = 0.00000							# How much the foam should be distorted
+"WaterFoamScale" = 1.2										# Size of foam, lower value is bigger in size
+"WaterFoamDistortFactor" = -0.10000							# How much the foam should be distorted
 "WaterFoamShoreMaskDepth" = 0.000000						# Foam fade on beaches low = no cut of. 1.0 very smooth cut of. 
-"WaterFoamShoreMaskSharpness" = 3.000000
-"WaterFoamNoiseScale" = 0.003000							# Scale of the mask which generates some randomness to where foam appears. 
-"WaterFoamNoiseSpeed" = 0.005000							# The speed of the noise moving over the map
-"WaterFoamStrength" = 1.5									#z 2.0 
+"WaterFoamShoreMaskSharpness" = 0.00000
+"WaterFoamNoiseScale" = 0.060000							# Scale of the mask which generates some randomness to where foam appears. 
+"WaterFoamNoiseSpeed" = -0.010000							# The speed of the noise moving over the map
+"WaterFoamStrength" = 2.0									#z 2.0 
 
 "WaterZoomedInHeight" = -100.000000							# ?
 "WaterZoomedOutHeight" = 1500.000000						# ?
 
-"WaterFresnelBias" = 0.05000								#
-"WaterZoomedOutFresnelBiasOffset" = 0.025000				# Amount of reflection when zoomed out
-"WaterFresnelPow" = 5.000000
-"WaterZoomedOutFresnelPowOffset" = 0.00000
-"WaterReflectionFlatten" = 4.000000							# Reflection blurry ness. The higher it is, the more the eflections "ignore" normals more to be less distorted the higher the value is. 
+"WaterFresnelBias" = 0.01000								#
+"WaterZoomedOutFresnelBiasOffset" = 0.0250000				# Amount of reflection when zoomed out
+"WaterFresnelPow" = 4.000000
+"WaterZoomedOutFresnelPowOffset" = -1.00000
+"WaterReflectionFlatten" = 0.000000							# Reflection blurry ness. The higher it is, the more the eflections "ignore" normals more to be less distorted the higher the value is. 
 
-"WaterRefractionShoreMaskDepth" = 1.400000					# Distance from shore which does not get refraction
-"WaterRefractionShoreMaskSharpness" = 1.000000				# Sharpness of refraction mask
+"WaterRefractionShoreMaskDepth" = 0.800000					# Distance from shore which does not get refraction
+"WaterRefractionShoreMaskSharpness" = 0.800000				# Sharpness of refraction mask
 "WaterRefractionFadeStart" = 0.000000
-"WaterRefractionFadeEnd" = 2000.000000						# Camera height where refraction ends
-"WaterRefractionScale" = 50.000000							# Refraction amount
+"WaterRefractionFadeEnd" = 500.000000						# Camera height where refraction ends
+"WaterRefractionScale" = 200.000000							# Refraction amount
 
-@wave_flatness = 2.50000									# How much to remove the waves
 
 # Settings for the 3 layers of ambient normals
 
-"WaterWave1.Scale" = { 0.500000 0.500000 }					# Size / tiling for normal map
-"WaterWave1.Rotation" = -0.350000							# Direction
-"WaterWave1.Speed" = 0.020000								# Movement speed
-"WaterWave1.NormalFlatten" = @wave_flatness					# Strength
+"WaterWave1.Scale" = { 0.5000000 0.5000000 }
+"WaterWave1.Rotation" = -0.350000
+"WaterWave1.Speed" = 0.010000
+"WaterWave1.NormalFlatten" = 1.500000
 
-"WaterWave2.Scale" = { 1.000000 1.000000 }
+"WaterWave2.Scale" = { 10.000000 3.000000 }
 "WaterWave2.Rotation" = -1.600000
-"WaterWave2.Speed" = 0.028000
-"WaterWave2.NormalFlatten" = @wave_flatness
+"WaterWave2.Speed" = 0.050000
+"WaterWave2.NormalFlatten" = 1.000000
 
-"WaterWave3.Scale" = { 1.200000 1.200000 }
-"WaterWave3.Rotation" = 1.725075
-"WaterWave3.Speed" = 0.012000
-"WaterWave3.NormalFlatten" = @wave_flatness
+"WaterWave3.Scale" = { 6.000000 6.000000 }
+"WaterWave3.Rotation" = 1.725000
+"WaterWave3.Speed" = 0.020000
+"WaterWave3.NormalFlatten" = 1.000000
 
-"WaterFlowSpeed" = 0.040000									# Water movement speed
+"WaterFlowSpeed" = 0.0250000									# Water movement speed
 "WaterZoomedOutFlowSpeedOffset" = 0.150000					# Water movement speed when zoomed out
-"WaterFlowNormalScale" = 0.10000							# Water scale
+"WaterFlowNormalScale" = 0.40000							# Water scale
 "WaterFlowNormalFlatten" = 1.000000							# ?
 
-"WaterFadeShoreMaskDepth" = 0.300000						# Shoreline smoothness. low is jagged, high is smooth. High lowers the water. 
-"WaterFadeShoreMaskSharpness" = 5.000000
-"WaterSeeThroughDensity" = 1.00000							# How fast water becomes opaque with depth
-"WaterSeeThroughDensityAngleOffset" = 1.00000							# How fast water becomes opaque with depth
-"WaterSeeThroughShoreMaskDepth" = 4.0
-"WaterSeeThroughShoreMaskSharpness" = 0.500000
+"WaterFadeShoreMaskDepth" = 0.100000						# Shoreline smoothness. low is jagged, high is smooth. High lowers the water. 
+"WaterFadeShoreMaskSharpness" = 9.000000
+"WaterSeeThroughDensity" = 0.400000							# How fast water becomes opaque with depth
+"WaterSeeThroughDensityAngleOffset" = 0.40000							# How fast water becomes opaque with depth
+"WaterSeeThroughShoreMaskDepth" = 2.000000
+"WaterSeeThroughShoreMaskSharpness" = 0.150000
 

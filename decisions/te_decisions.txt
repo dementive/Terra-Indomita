@@ -1,0 +1,46 @@
+﻿country_decisions = {
+	
+	ai_constantinople = {
+		potential = {
+			current_date > 1083.5.11
+			is_ai = yes
+			tag = ROM
+			owns = 1
+			owns = 1453
+			NOR = {
+				p:1453 = {
+					is_capital = yes
+				}
+				has_global_variable = roman_empire_divided
+			}
+			government = imperium
+		}
+
+		allow = {
+			current_ruler = {
+				has_religion = christianity
+			}
+			num_of_cities >= 600
+			has_civil_war = no
+			war = no
+		}
+
+		effect = {
+			set_capital = 1453
+			hidden_effect = {
+				p:1453.state = {
+					set_state_capital = 1453
+				}
+			}
+			capital_scope = {
+				increase_province_rank_effect = yes
+			}	
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+	}
+
+}	

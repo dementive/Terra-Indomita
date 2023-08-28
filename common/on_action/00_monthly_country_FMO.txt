@@ -1,8 +1,120 @@
 ﻿monthly_country_pulse = {
 	on_actions = {		
 		monthly_check_for_100_experience
+		monthly_imperial_power
+		monthly_colonization_pulse
+	}
+
+	effect = {
+		if = {
+			limit = {
+				OR = {
+					has_variable = me_ant_start_flag
+					has_variable = me_mac_start_flag
+					tag = EGY
+					tag = SEL
+				}
+				war_with = c:TRE
+			}
+			trigger_event = me_thrace_3_new_philhellene_policy.201
+		}
+	}
+	events = {
+		imperial_events.1
 	}
 }
+monthly_colonization_pulse = {
+	effect = {
+		if = {
+			limit = {
+				has_variable = colonization_mod_one_var
+				NOT = { has_country_modifier = colonization_mod_one }
+			}
+			var:colonization_mod_one_var = {
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_one_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = colonization_mod_two_var
+				NOT = { has_country_modifier = colonization_mod_two }
+			}
+			var:colonization_mod_two_var = {
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_two_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = colonization_mod_three_var
+				NOT = { has_country_modifier = colonization_mod_three }
+			}
+			var:colonization_mod_three_var = {
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_three_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = colonization_mod_four_var
+				NOT = { has_country_modifier = colonization_mod_four }
+			}
+			var:colonization_mod_four_var = {
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_four_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		if = {
+			limit = {
+				has_variable = colonization_mod_five_var
+				NOT = { has_country_modifier = colonization_mod_five }
+			}
+			var:colonization_mod_five_var = {
+				set_owned_by = root
+			}
+			remove_variable = colonization_mod_five_var
+			change_variable = {
+				name = colonization_count
+				subtract = 1
+			}
+		}
+		fix_colonization_amount = yes
+	}
+}
+monthly_imperial_power = {
+	trigger = {
+		has_variable = imperial_power
+	}
+	effect = {
+		if = {
+			limit = {
+				num_of_cities < 600
+			}
+			remove_variable = imperial_power
+		}
+		else = {
+			set_imperial_power = yes
+		}
+	}
+}
+
 monthly_check_for_100_experience = {
 	#This uses multiple scripted lists for performance. It also assigns focus for ai because they cant use buttons.
 	#Other ai stuff is in the bi-yearly action because perks aren't gained very often.

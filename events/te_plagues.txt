@@ -1,0 +1,1034 @@
+﻿namespace = te_plagues
+
+#Antonine Plague AD 165�180
+te_plagues.1 = {
+type = country_event
+title = "te_plagues.1.t"
+desc = "te_plagues.1.desc"
+picture = natural_disaster
+
+goto_location = p:1
+
+fire_only_once = yes
+
+	trigger = {
+		current_date >= 917.1.1
+		current_date <= 919.12.31
+		p:1 = {
+			owner = root
+		}	
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = antonine_plague_pandemic
+			days = 5460
+		}	
+		add_stability = -20
+	}
+
+	option = {
+		name = "te_plagues.1.a"
+		capital_scope = {
+			add_province_modifier = {
+				name = "antonine_plague_epidemic"
+				duration = 1080
+			}	
+		}
+		set_variable = {
+			name = antonine_plague_country
+			days = 5460
+		}
+	}
+}	
+
+#Antonine Plague epidemic � provinces
+te_plagues.10 = {
+	type = province_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = antonine_plague_pandemic
+		has_owner = yes
+		owner = {
+			AND = {
+				has_variable = antonine_plague_country
+				num_of_cities > 1
+			}	
+		}	
+		NOR = { 
+			has_province_modifier = "antonine_plague_epidemic"
+			total_population < 20
+		}		
+	}
+
+	weight_multiplier = {
+		modifier = {
+			factor = 2
+			total_population > 40
+		}
+	}
+
+	immediate = {
+		add_province_modifier = {
+			name = "antonine_plague_epidemic"
+			duration = 1080
+		}
+	}
+}
+
+#Antonine Plague epidemic � country
+te_plagues.11 = {
+	type = country_event
+	title = "te_plagues.11.t"
+	desc = "te_plagues.11.desc"
+	picture = natural_disaster
+
+	goto_location = scope:antonine_plague_city
+
+	fire_only_once = yes
+
+	trigger = {
+		current_date > 917.1.1
+		#current_date < 932.12.31
+		has_global_variable = antonine_plague_pandemic
+		num_of_cities > 1
+		NOR = {
+			p:1 = {
+				owner = root
+			}
+			has_variable = antonine_plague_country	
+		}
+		any_owned_province = {
+			total_population >= 20
+		}
+	}
+
+	immediate = {
+		add_stability = -20
+		random_owned_province = {
+			limit = {
+				NOR = {
+					has_province_modifier = "antonine_plague_epidemic" 
+					total_population < 20
+				}
+			}
+			save_scope_as = antonine_plague_city
+		}		
+	}	
+
+	option = {
+		name = "te_plagues.11.a"
+			scope:antonine_plague_city = {	
+				add_province_modifier = {
+					name = "antonine_plague_epidemic"
+					duration = 1080
+				}
+			}
+		set_variable = {
+			name = antonine_plague_country
+			days = 5460	
+		}			
+	}
+}
+
+#Remove Antonine flag
+te_plagues.12 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 933.12.31
+		current_date < 999.12.31
+		owns = 1
+		has_global_variable = antonine_plague_pandemic
+	}
+
+	immediate = {
+		remove_global_variable = antonine_plague_pandemic
+	}
+}
+
+#Cyprian Plague AD249�262
+te_plagues.2 = {
+	type = country_event
+	title = "te_plagues.2.t"
+	desc = "te_plagues.2.desc"
+	picture = natural_disaster
+
+	fire_only_once = yes
+
+	goto_location = p:516
+
+	trigger = {
+		current_date >= 1001.1.1
+		current_date <= 1003.12.31
+		p:516 = { #Alexandria - plague spread from Ethiopia
+			owner = root
+		}	  
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = cyprian_plague_pandemic
+			days = 4745
+		}	
+		add_stability = -30
+	}
+
+	option = {
+		name = "te_plagues.2.a"
+		capital_scope = {
+			add_province_modifier = {
+				name = "cyprian_plague_epidemic"
+				duration = 1220
+			}	
+		}
+		set_variable = {
+			name = cyprian_plague_country
+			days = 4745
+		}
+	}
+}	
+
+#Cyprian Plague epidemic � provinces
+te_plagues.20 = {
+	type = province_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = cyprian_plague_pandemic
+		has_owner = yes
+		owner = {
+			AND = {
+				has_variable = cyprian_plague_country
+				num_of_cities > 1
+			}	
+		}	
+		NOR = { 
+			has_province_modifier = "cyprian_plague_epidemic" 
+			total_population < 30	
+		}
+	}
+
+	weight_multiplier = {
+		modifier = {
+			factor = 3
+			total_population > 60
+		}
+	}
+
+	immediate = {
+		add_province_modifier = {
+			name = "cyprian_plague_epidemic"
+			duration = 1220
+		}
+	}
+}
+
+#Cyprian Plague � country
+te_plagues.21 = {
+	type = country_event
+	title = "te_plagues.21.t"
+	desc = "te_plagues.21.desc"
+	picture = natural_disaster
+
+	goto_location = scope:cyprian_plague_city
+
+	fire_only_once = yes
+
+	trigger = {
+		current_date > 1001.1.1
+		#current_date < 1015.12.31
+		has_global_variable = cyprian_plague_pandemic
+		num_of_cities > 1
+		NOR = {
+			has_variable = cyprian_plague_country
+			p:516 = {
+				owner = root
+			}
+		}
+		any_owned_province = {
+			total_population >= 30
+		}
+	}
+
+	immediate = {
+		add_stability = -30
+		random_owned_province = {
+			limit = {
+				NOR = {
+					has_province_modifier = "cyprian_plague_epidemic" 
+					total_population < 30
+				}
+			}	
+			save_scope_as = cyprian_plague_city
+		}	
+	}	
+
+	option = {
+		name = "te_plagues.21.a"
+			scope:cyprian_plague_city = {	
+				add_province_modifier = {
+					name = "cyprian_plague_epidemic"
+					duration = 1220
+				}
+			}
+		set_variable = {
+			name = cyprian_plague_country
+			days = 4745	
+		}			
+	}
+}
+
+#Remove Cyprian flag
+te_plagues.22 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 1024.12.31
+		owns = 516
+		has_global_variable = cyprian_plague_pandemic
+	}
+
+	immediate = {
+		remove_global_variable = cyprian_plague_pandemic
+	}
+}
+
+###Late Antiquity population decline###
+te_plagues.30 = { #Central add
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 977.3.13 #224 CE
+		NOT = {
+			any_province = {
+				is_in_region = fezzan_region
+			}
+		}
+		OR = {
+			any_owned_province = {
+				is_in_pars_occidentalis_trigger = yes
+			}
+			tag = MRY
+			tag = BHA
+		}	
+		NOR = {
+			country_culture_group = germanic
+			is_tribal = yes
+			has_country_modifier = late_antiquity_pop_decline_central
+			has_country_modifier = late_antiquity_pop_decline_occident
+			has_country_modifier = late_antiquity_pop_decline_orient
+			num_of_cities < 2
+			AND = { #Eastern Roman Empire relief
+				has_global_variable = roman_empire_divided
+				capital_scope = {
+					is_in_pars_occidentalis_trigger = no
+					#province_id = 1453
+				}
+				has_variable = eastern_roman_senior_pars
+			}
+			AND = {
+				current_date > 1104.4.30
+				capital_scope = {
+					is_in_pars_occidentalis_trigger = yes
+				}
+				NOT = { #Western Roman Empire relief
+					has_variable = western_roman_senior_pars
+				}		
+			}
+		}
+	}
+
+	immediate = {
+		add_country_modifier = {
+			name = "late_antiquity_pop_decline_central"
+			duration = -1
+		}
+		set_variable = {
+			name = late_antiquity_pop_decline_central_target
+			days = 3250
+		}	
+	}
+}
+
+te_plagues.31 = { #Central remove
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 977.3.13
+		NOT = {
+			any_province = {
+				is_in_region = fezzan_region
+			}
+		}
+		OR = {
+			country_culture_group = germanic
+			is_tribal = yes
+			current_date > 1353.10.17
+			num_of_cities < 2
+			AND = { #Eastern Roman Empire relief
+				has_global_variable = roman_empire_divided
+				capital_scope = {
+					is_in_pars_occidentalis_trigger = no
+					#province_id = 1453
+				}
+				has_variable = eastern_roman_senior_pars
+			}
+			NOR = {
+				any_owned_province = {
+					is_in_pars_occidentalis_trigger = yes
+				}
+				tag = MRY
+				tag = BHA
+			}	
+			AND = {	
+				current_date > 1104.4.30
+				capital_scope = {
+					is_in_pars_occidentalis_trigger = yes
+				}
+				NOT = { #Western Roman Empire relief
+					has_variable = western_roman_senior_pars
+				}			
+			}
+		}
+		has_country_modifier = late_antiquity_pop_decline_central
+		NOT = {
+			has_variable = late_antiquity_pop_decline_central_target
+		}	
+	}
+
+	immediate = {
+		remove_country_modifier = late_antiquity_pop_decline_central
+	}
+}
+
+te_plagues.32 = { #occident add
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 1104.4.30
+		current_date < 1353.10.17
+		NOT = {
+			any_province = {
+				is_in_region = fezzan_region
+			}
+		}
+		NOR = {
+			country_culture_group = germanic
+			is_tribal = yes
+			num_of_cities < 2
+			has_country_modifier = late_antiquity_pop_decline_central
+			has_country_modifier = late_antiquity_pop_decline_occident
+			has_country_modifier = late_antiquity_pop_decline_orient
+		}
+		AND = {
+			capital_scope = {
+				is_in_pars_occidentalis_trigger = yes
+			}
+			NOT = { #Western Roman Empire relief
+				has_variable = western_roman_senior_pars
+			}	
+		}		
+	}
+
+	immediate = {
+		add_country_modifier = {
+			name = "late_antiquity_pop_decline_occident"
+			duration = -1
+		}
+		set_variable = {
+			name = late_antiquity_pop_decline_occident_target
+			days = 3250
+		}
+	}	
+}
+
+te_plagues.33 = { #occident remove
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 1104.4.30
+		NOT = {
+			any_province = {
+				is_in_region = fezzan_region
+			}
+		}
+		OR = {
+			country_culture_group = germanic
+			is_tribal = yes
+			NOT = {
+				capital_scope = {
+					is_in_pars_occidentalis_trigger = yes
+				}
+			}
+			AND = { #Western Roman Empire relief
+				has_global_variable = roman_empire_divided
+				has_variable = western_roman_senior_pars
+			}
+			current_date > 1353.10.17
+			num_of_cities < 2
+		}		
+		has_country_modifier = late_antiquity_pop_decline_occident	
+		NOT = {
+			has_variable = late_antiquity_pop_decline_occident_target
+		}
+	}
+	
+	immediate = {
+		remove_country_modifier = late_antiquity_pop_decline_occident
+	}
+}
+
+te_plagues.34 = { #orient add
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 977.3.13 #224 CE
+		NOT = {
+			any_province = {
+				is_in_region = fezzan_region
+			}
+		}
+		NOR = {
+			any_owned_province = {
+				is_in_pars_occidentalis_trigger = yes
+			}
+			capital_scope = {
+				is_in_pars_occidentalis_trigger = yes
+			}
+			country_culture_group = germanic
+			is_tribal = yes
+			has_country_modifier = late_antiquity_pop_decline_central
+			has_country_modifier = late_antiquity_pop_decline_occident
+			has_country_modifier = late_antiquity_pop_decline_orient
+			num_of_cities < 2
+			AND = { #Eastern Roman Empire relief
+				has_global_variable = roman_empire_divided
+				capital_scope = {
+					is_in_pars_occidentalis_trigger = no
+					#province_id = 1453
+				}
+				has_variable = eastern_roman_senior_pars
+			}
+			tag = MRY
+			tag = BHA
+		}
+	}
+
+	immediate = {
+		add_country_modifier = {
+			name = "late_antiquity_pop_decline_orient"
+			duration = -1
+		}
+		set_variable = {
+			name = late_antiquity_pop_decline_orient_target
+			days = 3250
+		}	
+	}
+}
+
+te_plagues.35 = { #orient remove
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 977.3.13
+		NOT = {
+			any_province = {
+				is_in_region = fezzan_region
+			}
+		}
+		OR = {
+			any_owned_province = {
+				is_in_pars_occidentalis_trigger = yes
+			}
+			capital_scope = {
+				is_in_pars_occidentalis_trigger = yes
+			}
+			country_culture_group = germanic
+			is_tribal = yes
+			current_date > 1353.10.17
+			num_of_cities < 2
+			AND = { #Eastern Roman Empire relief
+				has_global_variable = roman_empire_divided
+				capital_scope = {
+					is_in_pars_occidentalis_trigger = no
+					#province_id = 1453
+				}
+				has_variable = eastern_roman_senior_pars
+			}
+			tag = MRY
+			tag = BHA
+		}
+		has_country_modifier = late_antiquity_pop_decline_orient
+		NOT = {
+			has_variable = late_antiquity_pop_decline_orient_target
+		}	
+	}
+
+	immediate = {
+		remove_country_modifier = late_antiquity_pop_decline_orient
+	}
+}
+
+###Late Antiquity population decline � Invictus map###
+te_plagues.40 = { #Central add
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = is_playing_invictus
+		current_date > 977.3.13 #224 CE
+		any_province = { #Invictus map check?
+			is_in_region = fezzan_region
+		}
+		OR = {
+			any_owned_province = {
+				is_in_pars_occidentalis_inv_trigger = yes
+			}
+			capital_scope = {
+				OR = {
+					is_in_area = gelonia_area
+					is_in_area = budinia_area
+					is_in_area = dnieper_area
+					is_in_area = desna_area
+					is_in_area = yukhnovo_area
+					is_in_area = seym_area
+					is_in_region = dacia_region
+					is_in_region = sarmatia_asiatica_region
+					is_in_region = scythia_region
+				}
+			}		
+			tag = MRY
+			tag = BHA
+		}	
+		NOR = {
+			country_culture_group = germanic
+			is_tribal = yes
+			has_country_modifier = late_antiquity_pop_decline_central
+			has_country_modifier = late_antiquity_pop_decline_occident
+			has_country_modifier = late_antiquity_pop_decline_orient
+			num_of_cities < 2
+			AND = { #Eastern Roman Empire relief
+				has_global_variable = roman_empire_divided
+				capital_scope = {
+					is_in_pars_occidentalis_inv_trigger = no
+					#province_id = 1453
+				}
+				has_variable = eastern_roman_senior_pars
+			}
+			AND = {
+				current_date > 1104.4.30
+				capital_scope = {
+					is_in_pars_occidentalis_inv_trigger = yes
+				}
+				NOT = { #Western Roman Empire relief
+					has_variable = western_roman_senior_pars
+				}		
+			}
+		}
+	}
+
+	immediate = {
+		add_country_modifier = {
+			name = "late_antiquity_pop_decline_central"
+			duration = -1
+		}
+		set_variable = {
+			name = late_antiquity_pop_decline_central_target
+			days = 3250
+		}	
+	}
+}
+
+te_plagues.41 = { #Central remove
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = is_playing_invictus
+		current_date > 977.3.13
+		any_province = {
+			is_in_region = fezzan_region
+		}
+		OR = {
+			country_culture_group = germanic
+			is_tribal = yes
+			current_date > 1353.10.17
+			num_of_cities < 2
+			AND = { #Eastern Roman Empire relief
+				has_global_variable = roman_empire_divided
+				capital_scope = {
+					is_in_pars_occidentalis_inv_trigger = no
+					#province_id = 1453
+				}
+				has_variable = eastern_roman_senior_pars
+			}
+			NOR = {
+				any_owned_province = {
+					is_in_pars_occidentalis_inv_trigger = yes
+				}
+				capital_scope = {
+					OR = {
+						is_in_area = gelonia_area
+						is_in_area = budinia_area
+						is_in_area = dnieper_area
+						is_in_area = desna_area
+						is_in_area = yukhnovo_area
+						is_in_area = seym_area
+						is_in_region = dacia_region
+						is_in_region = sarmatia_asiatica_region
+						is_in_region = scythia_region
+					}
+				}
+				tag = MRY
+				tag = BHA
+			}	
+			AND = {	
+				current_date > 1104.4.30
+				capital_scope = {
+					is_in_pars_occidentalis_inv_trigger = yes
+				}	
+				NOT = { #Western Roman Empire relief
+					has_variable = western_roman_senior_pars
+				}		
+			}
+		}
+		has_country_modifier = late_antiquity_pop_decline_central
+		NOT = {
+			has_variable = late_antiquity_pop_decline_central_target
+		}	
+	}
+
+	immediate = {
+		remove_country_modifier = late_antiquity_pop_decline_central
+	}
+}
+
+te_plagues.42 = { #occident add
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = is_playing_invictus
+		current_date > 1104.4.30
+		current_date < 1353.10.17
+		any_province = {
+			is_in_region = fezzan_region
+		}
+		NOR = {
+			country_culture_group = germanic
+			is_tribal = yes
+			num_of_cities < 2
+			has_country_modifier = late_antiquity_pop_decline_central
+			has_country_modifier = late_antiquity_pop_decline_occident
+			has_country_modifier = late_antiquity_pop_decline_orient
+		}
+		AND = {
+			capital_scope = {
+				is_in_pars_occidentalis_inv_trigger = yes
+			}
+			NOT = { #Western Roman Empire relief
+				has_variable = western_roman_senior_pars
+			}	
+		}		
+	}
+
+	immediate = {
+		add_country_modifier = {
+			name = "late_antiquity_pop_decline_occident"
+			duration = -1
+		}
+		set_variable = {
+			name = late_antiquity_pop_decline_occident_target
+			days = 3250
+		}
+	}	
+}
+
+te_plagues.43 = { #occident remove
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = is_playing_invictus
+		current_date > 1104.4.30
+		any_province = {
+			is_in_region = fezzan_region
+		}
+		OR = {
+			country_culture_group = germanic
+			is_tribal = yes
+			NOT = {
+				capital_scope = {
+					is_in_pars_occidentalis_inv_trigger = yes
+				}
+			}
+			AND = { #Western Roman Empire relief
+				has_global_variable = roman_empire_divided
+				has_variable = western_roman_senior_pars
+			}
+			current_date > 1353.10.17
+			num_of_cities < 2
+		}		
+		has_country_modifier = late_antiquity_pop_decline_occident	
+		NOT = {
+			has_variable = late_antiquity_pop_decline_occident_target
+		}
+	}
+	
+	immediate = {
+		remove_country_modifier = late_antiquity_pop_decline_occident
+	}
+}
+
+te_plagues.44 = { #orient add
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = is_playing_invictus
+		current_date > 977.3.13 #224 CE
+		any_province = {
+			is_in_region = fezzan_region
+		}
+		NOR = {
+			any_owned_province = {
+				is_in_pars_occidentalis_inv_trigger = yes
+			}
+			capital_scope = {
+				OR = {
+					is_in_pars_occidentalis_inv_trigger = yes
+					is_in_area = gelonia_area
+					is_in_area = budinia_area
+					is_in_area = dnieper_area
+					is_in_area = desna_area
+					is_in_area = yukhnovo_area
+					is_in_area = seym_area
+					is_in_region = dacia_region
+					is_in_region = sarmatia_asiatica_region
+					is_in_region = scythia_region
+				}	
+			}
+			country_culture_group = germanic
+			is_tribal = yes
+			has_country_modifier = late_antiquity_pop_decline_central
+			has_country_modifier = late_antiquity_pop_decline_occident
+			has_country_modifier = late_antiquity_pop_decline_orient
+			num_of_cities < 2
+			AND = { #Eastern Roman Empire relief
+				has_global_variable = roman_empire_divided
+				capital_scope = {
+					is_in_pars_occidentalis_inv_trigger = no
+					#province_id = 1453
+				}
+				has_variable = eastern_roman_senior_pars
+			}
+			tag = MRY
+			tag = BHA
+		}
+	}
+
+	immediate = {
+		add_country_modifier = {
+			name = "late_antiquity_pop_decline_orient"
+			duration = -1
+		}
+		set_variable = {
+			name = late_antiquity_pop_decline_orient_target
+			days = 3250
+		}	
+	}
+}
+
+te_plagues.45 = { #orient remove
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		has_global_variable = is_playing_invictus
+		current_date > 977.3.13
+		any_province = {
+			is_in_region = fezzan_region
+		}
+		OR = {
+			any_owned_province = {
+				is_in_pars_occidentalis_inv_trigger = yes
+			}
+			capital_scope = {
+				OR = {
+					is_in_pars_occidentalis_inv_trigger = yes
+					is_in_area = gelonia_area
+					is_in_area = budinia_area
+					is_in_area = dnieper_area
+					is_in_area = desna_area
+					is_in_area = yukhnovo_area
+					is_in_area = seym_area
+					is_in_region = dacia_region
+					is_in_region = borysthenia_region
+					is_in_region = sarmatia_asiatica_region
+					is_in_region = scythia_region
+				}
+			}
+			country_culture_group = germanic
+			is_tribal = yes
+			current_date > 1353.10.17
+			num_of_cities < 2
+			AND = { #Eastern Roman Empire relief
+				has_global_variable = roman_empire_divided
+				capital_scope = {
+					is_in_pars_occidentalis_inv_trigger = no
+					#province_id = 1453
+				}
+				has_variable = eastern_roman_senior_pars
+			}
+			tag = MRY
+			tag = BHA
+		}
+		has_country_modifier = late_antiquity_pop_decline_orient
+		NOT = {
+			has_variable = late_antiquity_pop_decline_orient_target
+		}	
+	}
+
+	immediate = {
+		remove_country_modifier = late_antiquity_pop_decline_orient
+	}
+}
+
+##### Late Antiquity Decentralization #####
+te_plagues.50 = { 
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 973.11.3
+		is_tribal = no
+		num_of_cities >= 1
+		any_owned_province = {
+			OR = {
+				AND = {
+					total_population > 120
+					has_city_status = yes
+					NOT = {
+						has_province_modifier = late_antiquity_decentralization_city
+					}
+				}
+				AND = {
+					total_population < 10
+					has_city_status = no
+					NOT = {
+						has_province_modifier = late_antiquity_decentralization_settlement
+					}
+				}
+			}		
+		}
+	}
+
+	immediate = {
+		every_owned_province = {
+			limit = {
+				total_population > 120
+				has_city_status = yes
+				NOT = {
+					has_province_modifier = late_antiquity_decentralization_city
+				}
+			}
+			add_province_modifier = {
+				name = "late_antiquity_decentralization_city"
+				duration = 4356
+			}
+			if = {
+				limit = {
+					has_province_modifier = late_antiquity_decentralization_settlement
+				}
+				remove_province_modifier = late_antiquity_decentralization_settlement
+			}
+		}
+	}
+	
+	option = {
+		every_owned_province = {
+			limit = {
+				total_population < 10
+				has_city_status = no
+				NOT = {
+					has_province_modifier = late_antiquity_decentralization_settlement
+				}
+			}
+			add_province_modifier = {
+				name = "late_antiquity_decentralization_settlement"
+				duration = 4356
+			}
+			if = {
+				limit = {
+					has_province_modifier = late_antiquity_decentralization_city
+				}
+				remove_province_modifier = late_antiquity_decentralization_city
+			}
+		}	
+	}
+}
+
+te_plagues.51 = {
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		current_date > 993.9.3
+		is_tribal = no
+		num_of_cities >= 1
+		any_owned_province = {
+			OR = {
+				AND = {
+					total_population < 80
+					has_province_modifier = late_antiquity_decentralization_city
+				}
+				AND = {
+					total_population > 20
+					has_province_modifier = late_antiquity_decentralization_settlement
+				}
+			}		
+		}
+	}
+
+	immediate = {
+		every_owned_province = {
+			limit = {
+				total_population < 80
+				has_province_modifier = late_antiquity_decentralization_city
+			}
+			remove_province_modifier = late_antiquity_decentralization_city
+			#if = {
+			#	limit = {
+			#		has_province_modifier = late_antiquity_decentralization_settlement
+			#	}
+			#	remove_province_modifier = late_antiquity_decentralization_settlement
+			#}
+		}
+	}		
+
+	option = {	
+		every_owned_province = {
+			limit = {
+				total_population > 20
+				has_province_modifier = late_antiquity_decentralization_settlement
+			}
+			remove_province_modifier = late_antiquity_decentralization_settlement
+			#if = {
+			#	limit = {
+			#		has_province_modifier = late_antiquity_decentralization_city
+			#	}
+			#	remove_province_modifier = late_antiquity_decentralization_city
+			#}
+		}
+	}	
+}

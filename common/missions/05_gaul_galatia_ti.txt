@@ -1,0 +1,772 @@
+﻿gaul_galatia_ti = {
+    header = "mission_image_general"
+	icon = "general_1"
+
+    repeatable = no
+
+    chance = {
+        factor = 5000
+    }
+
+    potential = {
+        NOT = { has_variable = gaul_galatia_ti }
+        is_subject = no
+        has_civil_war = no
+		country_culture_group = gallic
+		is_tribal = yes
+		is_ai = no
+		any_owned_province = {
+			OR = {
+				is_in_region = bohemia_region
+				is_in_region = pannonia_region
+				is_in_region = illyria_region
+				is_in_region = moesia_region
+				is_in_region = moesia_s_region
+				is_in_region = dacia_region
+			}
+		}
+    }
+
+    abort = {
+        is_tribal = no
+    }
+
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_gaul_galatia_ti.14
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = gaul_galatia_ti
+            days = 7300
+        }
+    }
+
+    on_completion = {
+        complete_mission_effect = yes
+    }
+
+    gaul_galatia_ti_task_1 = { # emissaries to diadochoi
+        icon = "task_political"
+		duration = 730
+
+        allow = {
+			political_influence >= 20
+			current_ruler = {
+				has_triggered_character_modifier = foreign_affairs_focus_triggered_mod
+			}
+		}
+		#send emissaries to MAC, TRE, PRY and SEL
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					owned_or_subject_owned = c:MAC
+					owned_or_subject_owned = c:PRY
+					owned_or_subject_owned = c:TRE
+					owned_or_subject_owned = c:SEL
+				}
+			}
+        }
+		
+		bypass = {
+			OR = {
+				AND = { 
+					c:MAC = {
+						has_land = no
+					}
+					c:PRY = {
+						has_land = no
+					}
+					c:SEL = {
+						has_land = no
+					}
+					c:TRE = {
+						has_land = no
+					}
+				}
+				has_completed_mission_task = gaul_galatia_ti_task_2
+			}
+		}
+		
+		prevented_by = { gaul_galatia_ti_task_2 }
+		
+		on_start = {
+			add_political_influence = -20
+			trigger_event = {
+				id = me_gaul_galatia_ti.100 #MAC
+				days = 30
+			}
+			trigger_event = {
+				id = me_gaul_galatia_ti.101 #TRE
+				days = 60
+			}
+			trigger_event = {
+				id = me_gaul_galatia_ti.102 #PRY
+				days = 210
+			}
+			trigger_event = {
+				id = me_gaul_galatia_ti.103 #SEL
+				days = 365
+			}
+		}
+
+
+        on_completion = {
+			custom_tooltip = gaul_galatia_ti_task_1_claims_tt
+			trigger_event = me_gaul_galatia_ti.1
+			hidden_effect = {
+				area:dardania_inferioris_area = { mission_area_claim_effect = yes }
+				area:macedonia_salutaris_area = { mission_area_claim_effect = yes }
+				area:thraca_area = { mission_area_claim_effect = yes }
+			}
+			show_as_tooltip = {
+				current_ruler = {
+					add_focus_perk = {
+						text = "add_1_char_perk"
+						amount = 1
+					}
+				}
+			}
+        }
+    }
+
+    gaul_galatia_ti_task_2 = { # Cimbaules's invasion
+
+        icon = "task_expansion"
+		
+		duration = 365
+		prevented_by = { gaul_galatia_ti_task_1 }
+
+        highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:MAC
+			}
+        }
+		
+		bypass = {
+			has_completed_mission_task = gaul_galatia_ti_task_1
+		}
+
+
+        allow = {
+			current_ruler = {
+				has_triggered_character_modifier = siegecraft_focus_triggered_mod
+			}
+        }
+		
+		on_start = {
+			trigger_event = me_gaul_galatia_ti.200
+		}
+
+        on_completion = {
+			custom_tooltip = gaul_galatia_ti_task_1_claims_tt
+			hidden_effect = {
+				area:dardania_inferioris_area = { mission_area_claim_effect = yes }
+				area:macedonia_salutaris_area = { mission_area_claim_effect = yes }
+				area:thraca_area = { mission_area_claim_effect = yes }
+			}
+			show_as_tooltip = {
+				current_ruler = {
+					add_focus_perk = {
+						text = "add_1_char_perk"
+						amount = 1
+					}
+				}
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_3 = { # sacrifice to the sky gods -> omen_taranis
+
+        icon = "task_political"
+
+
+        allow = {
+			any_owned_province = {
+				province_has_special_pop = {
+					text = "prov_has_1_priest_tt"
+					type = priest
+					count >= 1
+				}
+			}
+			any_character = {
+				prisoner = yes
+				NOT = {
+					has_religion = druidism
+				}
+			}
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.3
+			show_as_tooltip = {
+				add_stability = 5
+				add_country_modifier = {
+					name = barbaricum_mission_omen_modifier
+					duration = 7300
+				}
+				random_character = {
+					limit = {
+						prisoner = yes
+						NOT = {
+							has_religion = druidism
+						}
+					}
+					death = {
+						death_reason = death_claimed_by_the_underworld
+					}
+				}
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_4 = { # Gaulish allies
+
+        icon = "task_political"
+
+
+
+        allow = {
+			any_country = {
+				count >= 2
+				custom_tooltip = {
+					text = gaul_galatia_ti_task_4_req_tt #Gallic country is allied with us
+					has_land = yes
+					country_culture_group = gallic
+					alliance_with = root
+				}
+			}
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.4
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = galatia_gaulish_allies_mod #levy size modifier
+					duration = 7300
+				}
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_5 = { # into dardania
+		requires = { gaul_galatia_ti_task_1 gaul_galatia_ti_task_2 }
+
+        icon = "task_conquest"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					province_id = 4096
+					province_id = 499
+				}
+			}
+        }
+
+
+        allow = {
+			owns = 4096
+			owns = 499
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.5
+			show_as_tooltip = {
+				add_military_experience = 5
+			}
+			custom_tooltip = gaul_galatia_ti_task_5_claims_tt
+			hidden_effect = {
+				area:macedonia_area = { mission_area_claim_effect = yes }
+				area:chalkidiki_area = { mission_area_claim_effect = yes }
+				area:upper_macedonia_area = { mission_area_claim_effect = yes }
+				area:thessaly_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_6 = { # into moesia
+		requires = { gaul_galatia_ti_task_1 gaul_galatia_ti_task_2 }
+
+        icon = "task_conquest"
+
+        highlight = {
+			scope:province = {
+				province_id = 488
+			}
+        }
+
+
+        allow = {
+			owns = 488
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.6
+			show_as_tooltip = {
+				add_military_experience = 5
+			}
+			custom_tooltip = gaul_galatia_ti_task_6_claims_tt
+			hidden_effect = {
+				area:rhodope_area = { mission_area_claim_effect = yes }
+				area:europa_area = { mission_area_claim_effect = yes }
+				area:haemimontus_area = { mission_area_claim_effect = yes }
+				area:moesia_orientalis_area = { mission_area_claim_effect = yes }
+				area:scythia_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_7 = { # rally the troops
+		requires = { gaul_galatia_ti_task_1 gaul_galatia_ti_task_2 gaul_galatia_ti_task_3 }
+
+        icon = "task_expansion"
+
+
+        allow = {
+			custom_tooltip = {
+				text = barbaricum_treveria_mission_task_3_tt #all clan chiefs have loyalty >=70
+				NOT = {
+					any_character = {
+						is_clan_chief = yes
+						loyalty <= 70
+					}
+				}
+			}
+			political_influence >= 50
+			current_ruler = {
+				has_triggered_character_modifier = command_focus_triggered_mod
+			}
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.7
+			show_as_tooltip = {
+				add_political_influence = -50
+				add_country_modifier = {
+					name = galatia_rally_mod
+					duration = 10950
+				}
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_8 = { # into macedonia
+		requires = { gaul_galatia_ti_task_5 gaul_galatia_ti_task_7 }
+
+        icon = "task_conquest"
+		
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:MAC
+			}
+        }
+
+
+        allow = {
+			owns = 4096
+			owns = 499
+			war = no
+        }
+		
+		bypass = {
+            OR = {
+				has_completed_mission_task = gaul_galatia_ti_task_9
+				owns = 379
+			}
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.8
+			custom_tooltip = gaul_galatia_ti_task_8_army_reward_tt
+			custom_tooltip = gaul_galatia_ti_task_8_war_declaration
+        }
+    }
+	
+	gaul_galatia_ti_task_9 = { # into thrakia
+		requires = { gaul_galatia_ti_task_6 gaul_galatia_ti_task_7 }
+
+        icon = "task_conquest"
+
+        highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:TRE
+			}
+        }
+		
+		bypass = {
+            OR = {
+				has_completed_mission_task = gaul_galatia_ti_task_8
+				owns = 350
+			}
+        }
+
+
+        allow = {
+			owns = 488
+			war = no
+        }
+
+       on_completion = {
+			trigger_event = me_gaul_galatia_ti.9
+			custom_tooltip = gaul_galatia_ti_task_9_army_reward_tt
+			custom_tooltip = gaul_galatia_ti_task_9_war_declaration
+        }
+    }
+	
+	gaul_galatia_ti_task_10 = { # makedonian subjugation
+		requires = { gaul_galatia_ti_task_8 }
+
+        icon = "task_conquest"
+
+        highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:MAC
+			}
+        }
+		
+		bypass = {
+            OR = {
+				has_completed_mission_task = gaul_galatia_ti_task_9
+				owns_or_subject_owns = 379
+			}
+        }
+
+        allow = {
+			hidden:p:379 = {
+				owner = {
+					any_current_war = {
+						war_score = { 
+							target = root 
+							value >= 25
+						}
+					}
+				}
+			}
+			p:379 = {
+				controller = root
+			}
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.10 #event to kill current ruler of Makedonia
+			custom_tooltip = gaul_galatia_ti_task_10_reward_tt
+			custom_tooltip = gaul_galatia_ti_task_10_claims_tt
+			hidden_effect = {
+				area:boeotia_area = { mission_area_claim_effect = yes }
+				area:aetolia_area = { mission_area_claim_effect = yes }
+				area:epirus_area = { mission_area_claim_effect = yes }
+			}
+			show_as_tooltip = {
+				add_treasury = 400
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_11 = { # riches of Delphi
+		requires = { gaul_galatia_ti_task_10 }
+
+        icon = "task_conquest"
+
+        highlight = {
+			scope:province = {
+				province_id = 424
+			}
+        }
+		
+		bypass = {
+            has_completed_mission_task = gaul_galatia_ti_task_9
+        }
+
+
+        allow = {
+			owns_or_subject_owns = 379
+			owns_or_subject_owns = 424
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.11
+			custom_tooltip = gaul_galatia_ti_task_11_claims_tt
+			hidden_effect = {
+				area:central_greece_area = { mission_area_claim_effect = yes }
+				area:euboea_area = { mission_area_claim_effect = yes }
+				area:achaea_area = { mission_area_claim_effect = yes }
+				area:arcadia_area = { mission_area_claim_effect = yes }
+				area:south_peleponnesos_area = { mission_area_claim_effect = yes }
+			}
+			show_as_tooltip = {
+				add_treasury = 1000
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_12 = { # druidic oracle
+		requires = { gaul_galatia_ti_task_11 }
+
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				province_id = 424
+			}
+        }
+		
+		bypass = {
+            has_completed_mission_task = gaul_galatia_ti_task_9
+        }
+
+
+        allow = {
+			p:424 = {
+				owner = root
+				province_has_special_pop = {
+					text = "prov_has_1_priest_tt"
+					type = priest
+					count >= 1
+				}
+			}
+        }
+		
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.12
+			show_as_tooltip = {
+				p:424 = {
+					remove_province_deity = yes
+					add_city_fire_effect = yes
+					add_province_modifier = {
+						name = "upset_local_priests"
+						duration = 365
+					}
+					ordered_pops_in_province = {
+						order_by = pop_hapiness
+						max = {
+							value = total_population
+							divide = 2
+						}
+						min = {
+							value = 0
+						}
+						set_pop_religion = druidism
+					}
+				}
+				current_ruler = {
+					add_focus_perk = {
+						text = "add_3_char_perk"
+						amount = 3
+					}
+				}
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_13 = { # Hellenogalatia
+		requires = { gaul_galatia_ti_task_11 }
+
+        icon = "task_conquest"
+		
+		final = yes
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = central_greece_area
+					is_in_area = euboea_area
+					is_in_area = achaea_area
+					is_in_area = arcadia_area
+					is_in_area = south_peleponnesos_area
+				}
+			}
+        }
+		
+		bypass = {
+            has_completed_mission_task = gaul_galatia_ti_task_9
+        }
+
+
+        allow = {
+			any_owned_province = {
+				count >= 25
+				OR = {
+					is_in_area = central_greece_area
+					is_in_area = euboea_area
+					is_in_area = achaea_area
+					is_in_area = arcadia_area
+					is_in_area = south_peleponnesos_area
+				}
+			}
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.13
+			show_as_tooltip = {
+				change_government = despotic_monarchy
+				switch_government_type_event_clearup_effect = yes
+				change_country_name = "HELLENOGALATIA_NAME"
+				hidden_effect = {
+					change_country_adjective = "HELLENOGALATIA_ADJECTIVE"
+					change_country_color = "galatia_light_blue_color"
+					change_country_tag = GLT
+					change_country_flag = GALATIA_FLAG
+				}
+				add_3_free_province_investments = yes
+			}
+        }
+    }
+	
+	
+	gaul_galatia_ti_task_15 = { # Galatia path
+		requires = { gaul_galatia_ti_task_9 }
+
+        icon = "task_conquest"
+		
+
+        highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:TRE
+			}
+        }
+		
+		bypass = {
+            OR = {
+				has_completed_mission_task = gaul_galatia_ti_task_8
+				has_completed_mission_task = gaul_galatia_ti_task_16
+			}
+        }
+
+
+        allow = {
+			p:350 = {
+				controller = root
+			}
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.15
+			custom_tooltip = gaul_galatia_ti_task_15_reward_tt
+        }
+    }
+	
+	gaul_galatia_ti_task_16 = { # found Tylis 
+		requires = { gaul_galatia_ti_task_9 }
+
+        icon = "task_conquest"
+		
+		final = yes
+
+        highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:TRE
+			}
+        }
+		
+		bypass = {
+            has_completed_mission_task = gaul_galatia_ti_task_8
+        }
+
+
+        allow = {
+			hidden:p:350 = {
+				owner = {
+					any_current_war = {
+						war_score = { 
+							target = root 
+							value >= 25
+						}
+					}
+				}
+			}
+			p:350 = {
+				controller = root
+			}
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.16
+			custom_tooltip = gaul_galatia_ti_task_16_reward_tt
+			show_as_tooltip = {
+				change_government = despotic_monarchy
+				switch_government_type_event_clearup_effect = yes
+				change_country_name = "TYLIS_NAME"
+				hidden_effect = {
+					change_country_adjective = "TYLIS_ADJECTIVE"
+					change_country_color = "galatia_light_blue_color"
+				}
+				add_2_free_province_investments = yes
+			}
+        }
+    }
+	
+	gaul_galatia_ti_task_17 = { # found Galatia
+		requires = { gaul_galatia_ti_task_15 }
+
+        icon = "task_conquest"
+		
+		final = yes
+
+        highlight = {
+
+        }
+		
+		bypass = {
+            OR = {
+				has_completed_mission_task = gaul_galatia_ti_task_8
+				has_completed_mission_task = gaul_galatia_ti_task_16
+			}
+        }
+
+
+        allow = {
+			hidden:p:194 = {
+				owner = {
+					any_current_war = {
+						war_score = { 
+							target = root 
+							value >= 25
+						}
+					}
+				}
+			}
+			p:194 = {
+				controller = root
+			}
+        }
+
+        on_completion = {
+			trigger_event = me_gaul_galatia_ti.17
+			show_as_tooltip = {
+				change_country_name = "GALATIA_NAME"
+				hidden_effect = {
+					change_country_adjective = "GALATIA_ADJECTIVE"
+					change_country_color = "galatia_light_blue_color"
+					change_country_tag = GLT
+					change_country_flag = GALATIA_FLAG
+				}
+				add_3_free_province_investments = yes
+				area:galatia_trocmi_area = {
+					every_area_province = {
+						set_conquered_by = ROOT
+					}
+				}
+			}
+			custom_tooltip = gaul_galatia_ti_task_17_claims_tt
+			hidden_effect = {
+				region:asia_region = {
+					every_region_province = { add_claim = ROOT }
+				}
+				region:cilicia_region = {
+					every_region_province = { add_claim = ROOT }
+				}
+				region:bithynia_region = {
+					every_region_province = { add_claim = ROOT }
+				}
+				region:galatia_region = {
+					every_region_province = { add_claim = ROOT }
+				}			
+			}
+        }
+    }
+
+    
+}

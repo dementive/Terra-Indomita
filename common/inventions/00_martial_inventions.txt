@@ -431,7 +431,8 @@
 		allow = {
 			OR = {
 				country_culture_group = scythia
-				country_culture_group = scythian_east
+				country_culture_group = sarmatian_group
+				country_culture_group = saka_g
 				primary_culture = median
 			}
 		}
@@ -586,6 +587,8 @@
 			heavy_cavalry_defensive = 0.05
 			light_cavalry_offensive = 0.05
 			heavy_cavalry_offensive = 0.05
+			horse_skirmishers_offensive = 0.05
+			horse_skirmishers_offensive = 0.05
 		}
         
         requires_or = { global_supply_limit_modifier_inv_4 }
@@ -660,6 +663,7 @@
 	#New Invictus invention
     postal_service_inv = {
     	modifier = {
+    		horse_skirmishers_movement_speed = 0.1
     		light_cavalry_movement_speed = 0.1
     		heavy_cavalry_movement_speed = 0.1
     		camels_movement_speed = 0.1
@@ -835,6 +839,7 @@ military_inventions = {
 		modifier = { 
 			heavy_cavalry_defensive = 0.05
 			light_cavalry_defensive = 0.05
+			horse_skirmishers_defensive = 0.05
 			horse_archers_defensive = 0.05
 		}
 		allow = {
@@ -879,7 +884,10 @@ military_inventions = {
 
 	#Changed for Invictus
 	heavy_infantry_cost_inv = {
-		modifier = { heavy_infantry_cost = -0.1 }
+		modifier = {
+			heavy_infantry_cost = -0.1
+			pikemen_cost = -0.1
+		}
 		requires = { heavy_cavalry_discipline_inv }
 	}
 
@@ -940,6 +948,7 @@ military_inventions = {
     	modifier = { 
     		heavy_cavalry_morale = 0.05
     		light_cavalry_morale = 0.05
+    		horse_skirmishers_morale = 0.05
     		horse_archers_morale = 0.05
     	}
         
@@ -1009,8 +1018,8 @@ military_inventions = {
 	#New Invictus invention
     bloomeries_inv = { 
         modifier = {
-        	slaves_move_cost_modifier -0.15
-        	global_tax_income = 0.05
+        	slaves_move_cost_modifier = -0.15
+        	global_tax_modifier = 0.05
         }
         
         requires = { heavy_infantry_cost_inv }
@@ -1027,8 +1036,10 @@ military_inventions = {
 					}
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:meroitic_group
-						this.culture.culture_group = culture_group:aksumite_group
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
 					}
 				}
 			}
@@ -1076,8 +1087,10 @@ military_inventions = {
 					}
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:meroitic_group
-						this.culture.culture_group = culture_group:aksumite_group
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
 					}
 				}
 			}
@@ -1166,7 +1179,8 @@ military_inventions = {
     #Vanilla invention modified for Invictus
     gallic_noric_steel_inv = {
     	modifier = { light_infantry_offensive = 0.05
-    				 heavy_infantry_offensive = 0.05 }
+    				 heavy_infantry_offensive = 0.05 
+    				 axemen_offensive = 0.05 }
         requires = { gallic_oppidum_inv }
         allow = {
 			OR = {
@@ -1244,7 +1258,8 @@ military_inventions = {
     #Vanilla invention modified for Invictus
     gallic_chainmail_inv = {
     	modifier = { 
-    		light_infantry_defensive  = 0.05 
+    		light_infantry_defensive  = 0.05
+    		axemen_defensive  = 0.05
 			heavy_infantry_defensive = 0.05
     		heavy_cavalry_defensive = 0.05
 		}
@@ -1301,7 +1316,8 @@ military_inventions = {
     #Vanilla invention modified for Invictus
     gallic_montefortino_helmet_inv = {
     	modifier = { light_infantry_discipline = 0.1 
-    				 heavy_infantry_discipline = 0.1 }
+    				 heavy_infantry_discipline = 0.1
+    				 axemen_discipline = 0.1 }
         requires = { gallic_celtic_plough_inv gallic_chainmail_inv }
         allow = {
 			OR = {
@@ -1524,13 +1540,17 @@ naval_tree = {
 					}
 				}
 				country_culture_group = south_levantine
+				country_culture_group = south_arabian
 				custom_tooltip = {
 					#Need a new text
 					text = integrated_any_arabian_culture
 					has_variable = arabian_science
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:south_levantine
+						OR = {
+							this.culture.culture_group = culture_group:south_levantine
+							this.culture.culture_group = culture_group:south_arabian
+						}
 					}
 				}
 				country_culture_group = meroitic_group
@@ -1544,11 +1564,14 @@ naval_tree = {
 					}
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:meroitic_group
-						this.culture.culture_group = culture_group:aksumite_group
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
 					}	
 				}
 				tag = TYO
+				tag = TLM
 			}
 		} 
     }
@@ -1645,13 +1668,17 @@ naval_tree = {
 					}
 				}
 				country_culture_group = south_levantine
+				country_culture_group = south_arabian
 				custom_tooltip = {
 					#Need a new text
 					text = integrated_any_arabian_culture
 					has_variable = arabian_science
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:south_levantine
+						OR = {
+							this.culture.culture_group = culture_group:south_levantine
+							this.culture.culture_group = culture_group:south_arabian
+						}
 					}
 				}
 				country_culture_group = meroitic_group
@@ -1665,11 +1692,14 @@ naval_tree = {
 					}
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:meroitic_group
-						this.culture.culture_group = culture_group:aksumite_group
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
 					}	
 				}
 				tag = TYO
+				tag = TLM
 			}
 		} 
     }
@@ -1694,8 +1724,10 @@ naval_tree = {
 					}
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:meroitic_group
-						this.culture.culture_group = culture_group:aksumite_group
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
 					}	
 				}
 			}
@@ -1713,13 +1745,17 @@ naval_tree = {
         allow = {
 			OR = {
 				country_culture_group = south_levantine
+				country_culture_group = south_arabian
 				custom_tooltip = {
 					#Need a new text
 					text = integrated_any_arabian_culture
 					has_variable = arabian_science
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:south_levantine
+						OR = {
+							this.culture.culture_group = culture_group:south_levantine
+							this.culture.culture_group = culture_group:south_arabian
+						}
 					}
 				}
 			}

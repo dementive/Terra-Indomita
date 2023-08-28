@@ -1,0 +1,984 @@
+﻿phnom_mission_tree = {
+    header = "mission_image_china"
+    icon = "cde_gallic_village"
+
+    repeatable = no
+	
+    chance = {
+        factor = 5
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = PHN
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+	
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_phnom.1
+    }
+	
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+	
+    on_completion = {
+        add_6_free_province_investments = yes
+		capital_scope = {
+            capital_formable_small_effect = yes
+        }
+        complete_mission_effect = yes
+    }
+	
+    phnom_mission_tree_task_1 = { #Colonizing The Mekong Delta
+        icon = "task_political"
+		
+        allow = {
+            num_of_ships >= 10
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.3
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = phnom_cheaper_slaves_cost
+					duration = 7300 #20 years
+				}
+				add_country_modifier = {
+					name = phnom_expanded_diplo_mod_1
+					duration = 9125
+				}
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_2 = { #Mauryan Marriage
+        icon = "task_battle"
+		requires = { phnom_mission_tree_task_1 }
+		duration = 90
+		
+		highlight = {
+            scope:province = {
+                province_id = 8773
+            }
+        }
+		
+        allow = {
+			trigger_if = {
+                limit = {
+                    c:MRY = { has_land = yes }
+                }
+                trigger_if = {
+                    limit = {
+                        char:66 = { is_alive = yes}
+                    }
+                    char:66 = { age <= 75 }
+                }
+                trigger_else_if = {
+                    limit = {
+                        char:66 = { is_alive = no }
+                    }
+                    current_ruler = {
+                        any_child = {
+                            is_alive = yes
+                            is_male = yes
+                        }
+                    }
+                }
+            	c:MRY = {
+            		opinion = {
+            			target = c:PHN
+            			value >= 30
+            		}
+                    any_character = {
+                        has_trait = maurya
+                        is_female = yes
+                        age <= 40
+                        age > 15
+                    }
+            	}
+            }
+            trigger_else = {
+                c:MRY = { has_land = no }
+            }
+        }
+		
+        on_completion = {
+            if = {
+                limit = {
+                    c:MRY = { has_land = yes }
+                }
+                trigger_event = me_phnom.4
+                if = {
+                    limit = {
+                        c:MRY = { has_land = yes }
+                        char:66 = { is_alive = yes }
+                    }
+                    #Marry an Achaemenid character to Zipoetes son if he is alive, otherwise marry a random child.
+                    custom_tooltip  = phnom_missions_task_2_tt
+                    if = {
+                        limit = {
+                            current_ruler = { is_married = yes }
+                        }
+                        current_ruler = { divorce_character = spouse }
+                    }
+                    c:MRY = {
+                        random_character = {
+                            limit = {
+                                has_trait = maurya
+                                is_female = yes
+                                age <= 40
+                                age > 15
+                            }
+                            if = {
+                                limit = { is_married = yes }
+                                divorce_character = spouse
+                            }
+                            save_scope_as = marriage_partner
+                        }
+                    }
+                    current_ruler = { marry_character = scope:marriage_partner }
+                }
+                else_if = {
+                    limit = {
+                        c:MRY = { has_land = yes }
+                        current_ruler = {
+                            any_child = {
+                                is_alive = yes
+                                is_male = yes
+                                age >= 16
+                            }
+                        }
+                    }
+                    c:MRY = {
+                        random_character = {
+                            limit = {
+                                has_trait = maurya
+                                is_female = yes
+                                age <= 40
+                                age > 15
+                            }
+                            if = {
+                                limit = { is_married = yes }
+                                divorce_character = spouse
+                            }
+                            save_scope_as = marriage_partner
+                        }
+                    }
+                    current_ruler = {
+                        ordered_child = {
+                            limit = {
+                                age >= 16
+                                is_male = yes
+                                is_alive = yes
+                            }
+                            order_by = age
+                            position = end
+                            if = {
+                                limit = { is_married = yes }
+                                divorce_character = spouse
+                            }
+                            marry_character = scope:marriage_partner
+                        }
+                    }
+                }
+            }
+            else = {
+                add_treasury = 100
+                current_ruler = {
+                    add_popularity = 5
+                }
+            }
+			add_country_modifier = {
+				name = phnom_maurya_marriage_trade_connection_mod
+				duration = -1
+			}
+        }
+    }
+	
+    phnom_mission_tree_task_3 = { #The Province of Funan
+        icon = "task_battle"
+		duration = 180
+
+        allow = {
+            political_influence >= 15
+        }
+		
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 9833
+                    is_in_area = chenla_area
+                }
+            }
+        }
+
+        on_completion = {
+			add_political_influence = -15
+            trigger_event = me_phnom.6
+			area:chenla_area = {
+                add_provincial_claim_effect = yes
+			}
+            p:9833 = { set_owned_by = root }
+			p:9827 = { add_claim = root }
+        }
+    }
+	
+    phnom_mission_tree_task_4 = { #sister cities
+        icon = "task_economical"
+		duration = 365
+        requires = { phnom_mission_tree_task_1 phnom_mission_tree_task_3 }
+		
+		highlight = {
+            scope:province = {
+                province_id = 9829
+            }
+        }
+		
+        allow = {
+			political_influence >= 40
+			treasury >= 100
+			p:9829.state = {
+                calc_true_if = {
+                    amount >= 1
+                    state_improvement_military_trigger = yes
+                    state_improvement_civic_trigger = yes
+                    state_improvement_oratory_trigger = yes
+                    state_improvement_religious_trigger = yes
+                }
+            }
+			p:9829 = {
+				total_population >= 10
+			}
+        }
+		
+        on_completion = {
+			add_political_influence = -40
+			add_treasury = -100
+            trigger_event = me_phnom.7
+            p:9829 = {set_city_status = city}
+			p:9828 = {
+				add_road_towards = 9829
+			}
+			add_country_modifier = {
+				name = phnom_expanded_diplo_mod_2
+				duration = -1
+			}
+        }
+    }
+	
+    phnom_mission_tree_task_5 = { #Court of phnom
+        icon = "task_diplomatic"
+        requires = { phnom_mission_tree_task_4 }
+        duration = 365
+		
+        highlight = {
+			scope:province = {
+				OR = {
+					province_id = 11015
+					province_id = 11014
+					province_id = 11002
+					province_id = 11003
+                    province_id = 9828
+				}
+			}
+		}
+		
+        allow = {
+            political_influence >= 40
+            hidden:capital_scope = {
+				has_building = forum_building
+			}
+        }
+		
+        on_completion = {
+            add_political_influence = -40
+            trigger_event = me_phnom.8
+                p:11015 = { set_owned_by = root }
+                p:11014 = { set_owned_by = root }
+                p:11002 = { set_owned_by = root }
+                p:11003 = { set_owned_by = root }
+        }
+    }
+	
+    phnom_mission_tree_task_6 = { #Claiming The Coasts
+        icon = "task_expansion"
+        requires = { phnom_mission_tree_task_5 }
+
+        highlight = {
+            scope:province = {
+                province_id = 9828
+            }
+        }
+		
+        allow = {
+			num_of_ships >= 40
+			hidden:capital_scope = {
+				has_building = military_harbor_building
+				num_of_port_building >= 2
+			}
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.9
+            add_country_modifier = {
+                name = phnom_expanded_diplo_mod_3
+                duration = -1
+            }
+            show_as_tooltip = {
+                capital_scope = {
+                    add_permanent_province_modifier = {
+                        name = phnom_harbor_mod
+                    }
+                }
+                custom_tooltip = phnom_mission_tree_task_6_tt
+                hidden_effect = {
+                    region:funan_region = {
+                        every_region_province = { add_claim = ROOT }
+                    }
+                }
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_7 = { # Advancements In Production
+        icon = "task_calm"
+        requires = { phnom_mission_tree_task_5 }
+		
+        allow = {
+            any_owned_province = {
+                count > 1
+                has_building = foundry_building
+            }
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.10
+            show_as_tooltip = {
+                p:11015 = {
+                    add_permanent_province_modifier = {
+                        name = phnom_expanded_mines_mod
+                        duration = -1
+                    }
+                }
+                p:11014 = {
+                    add_permanent_province_modifier = {
+                        name = phnom_expanded_hunting_mod
+                        duration = -1
+                    }
+                }
+                add_innovation = 1
+                add_research = {
+                    technology = military_tech
+                    value = 25
+                }
+                    add_research = {
+                    technology = civic_tech
+                    value = 25
+                }
+                add_research = {
+                    technology = oratory_tech
+                    value = 25
+                }
+                add_research = {
+                    technology = religious_tech
+                    value = 25
+                }
+            }
+        }
+    }
+	
+    phnom_mission_tree_task_8 = { #A Modernising Influence
+        requires = { phnom_mission_tree_task_6 phnom_mission_tree_task_7 phnom_mission_tree_task_19 }
+        icon = "task_apollo"
+		final = yes
+		
+        allow = {
+            custom_tooltip = {
+                text = you_need_to_form_funan_tt
+                tag = FNN
+            }
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.11
+            add_splendor = {
+                amount = "800"
+            }
+            add_country_modifier = {
+                name = end_of_phnom_mission_tree_reward_mod
+                duration = -1
+            }
+            mission_claim_region_effect = { REGION = jiao_region }
+            mission_claim_region_effect = { REGION = suvarnabhumi_region }
+            mission_claim_region_effect = { REGION = austronesia_region }
+        }
+    }
+	
+    phnom_mission_tree_task_9 = { #Markets of [ROOT.GetCountry.GetCapital.GetName]
+        icon = "task_economical"
+
+		highlight = {
+			scope:province = {
+				has_owner = yes
+				owner = ROOT
+				is_capital = yes
+			}
+		}
+		
+        allow = {
+            capital_scope = {
+				num_of_slave_building >= 1
+				num_of_commerce_building >= 1
+				civilization_value >= 22
+			}
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.12
+			capital_scope = {
+				create_state_pop = tribesmen
+				create_state_pop = tribesmen
+				create_state_pop = slaves
+				create_state_pop = slaves
+			}
+			add_country_modifier = {
+				name = phnom_renowned_architects
+				duration = 7300
+			}
+        }
+    }
+	
+    phnom_mission_tree_task_10 = { #A System of Canals
+        icon = "task_conquest"
+		requires = { phnom_mission_tree_task_9 }
+		duration = 730
+
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 9828
+					province_id = 9830
+					province_id = 9831
+					province_id = 10963
+                    province_id = 9835
+                    province_id = 10962
+                    province_id = 10964
+				}
+			}
+		}
+		
+        allow = {
+			manpower >= 2
+			treasury >= 100
+			invention = capital_trade_inv_2
+        }
+		
+        on_completion = {
+			add_manpower = -2
+			add_treasury = -100
+            trigger_event = me_phnom.13
+            add_country_modifier = {
+                name = canals_of_funan_mod
+                duration = -1
+            }
+			p:9828 = {
+				add_road_towards = 9830
+			}
+			p:9830 = {
+				add_road_towards = 9831
+			}
+            p:9831 = {
+				add_road_towards = 10963
+			}
+            p:9831 = {
+				add_road_towards = 10964
+			}
+            p:10963 = {
+				add_road_towards = 9835
+			}
+            p:10963 = {
+				add_road_towards = 10962
+			}
+        }
+    }
+	
+    phnom_mission_tree_task_11 = { #Sugar Farms Of The South
+        icon = "task_happiness"
+        requires = { phnom_mission_tree_task_3 phnom_mission_tree_task_9 }
+		
+        highlight = {
+			scope:province = {
+				OR = {
+					province_id = 9833
+					province_id = 9834
+					province_id = 9835
+				}
+			}
+		}
+		
+        allow = {
+			p:9833 = {
+				num_of_latifundia_building >= 1
+			}
+            p:9834 = {
+				num_of_latifundia_building >= 1
+			}
+			p:9835 = {
+				num_of_latifundia_building >= 1
+			}
+			owns = 9833
+			owns = 9834
+			owns = 9835
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.14
+            show_as_tooltip = {
+                add_1_free_province_investments = yes
+                add_innovation = 1
+				p:9833 = {
+					add_province_modifier = {
+						name = phnom_sugar_farms_mod
+						duration = -1
+					}
+				}
+				p:9834 = {
+					add_province_modifier = {
+						name = phnom_sugar_farms_mod
+						duration = -1
+					}
+				}
+                p:9835 = {
+                    add_province_modifier = {
+                        name = phnom_sugar_farms_mod
+                        duration = -1
+                    }
+                }
+			}
+        }
+    }
+	
+    phnom_mission_tree_task_12 = { #The Port of Oc Eo
+        icon = "task_calm"
+		duration = 365
+
+        requires = { phnom_mission_tree_task_10 phnom_mission_tree_task_11 }
+		
+		highlight = {
+			scope:province = {
+				province_id = 10963
+			}
+		}
+		
+        allow = {
+			political_influence >= 40
+			treasury >= 100
+			invention = capital_trade_inv_2
+			hidden:capital_scope.state = {
+				trade_good_surplus = {
+					target = stone
+					value >= 2
+				}
+			}
+        }
+		
+        on_completion = {
+			p:10963 = {
+                set_city_status = city
+                define_pop = {
+                    type = citizen
+                    culture = root.culture
+                    religion = root.religion
+                }
+                define_pop = {
+                    type = freemen
+                    culture = root.culture
+                    religion = root.religion
+                }
+                define_pop = {
+                    type = freemen
+                    culture = root.culture
+                    religion = root.religion
+                }
+            }
+            trigger_event = me_phnom.15
+			add_political_influence = -40
+			add_treasury = -100
+        }
+    }
+	
+	phnom_mission_tree_task_13 = { #Completing the Canals
+        icon = "task_atlas"
+		duration = 730
+        requires = { phnom_mission_tree_task_12 }
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 9828
+					province_id = 9832
+                    province_id = 9834
+				}
+			}
+		}
+		
+        allow = {
+			manpower >= 2
+			treasury >= 50
+			invention = capital_trade_inv_1
+        }
+		
+        on_completion = {
+			add_manpower = -2
+			add_treasury = -50
+            add_centralization = 10
+			trigger_event = me_phnom.16
+            p:9828 = {
+                if = {
+                    limit = { NOT = { has_road_towards = 9832 } }
+                    add_road_towards = 9832
+                }
+            }
+			p:9832 = {
+                if = {
+                    limit = { NOT = { has_road_towards = 9833 } }
+                    add_road_towards = 9833
+                }
+                if = {
+                    limit = { NOT = { has_road_towards = 9834 } }
+                    add_road_towards = 9834
+                }
+			}
+			p:9834 = {
+                if = {
+                    limit = { NOT = { has_road_towards = 9833 } }
+                    add_road_towards = 9833
+                }
+			}
+        }
+    }
+	
+	phnom_mission_tree_task_14 = { #Jungle Combat
+        icon = "task_conquest"
+        requires = { phnom_mission_tree_task_4 phnom_mission_tree_task_11 }
+		
+        allow = {
+			military_tech >= 3
+			custom_tooltip = {
+				text = phnom_mission_tree_task_14_tt
+				has_military_bonus = ti_rong_di_path_1
+			}
+        }
+		
+        on_completion = {
+            trigger_event = me_phnom.18
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = phnom_jungle_warrior_master_mod
+					duration = -1
+				}
+            }
+        }
+    }
+
+    phnom_mission_tree_task_15 = { #Embrace The Nats
+        requires = { phnom_mission_tree_task_12 }
+        icon = "task_religion"
+
+        highlight = {
+            scope:province = {
+                province_id = 9828
+            }
+        }
+        
+        allow = {
+            capital_scope = {
+                is_holy_site = yes
+                has_building = temple_building
+            }
+            capital_scope.state = {
+                state_improvement_religious_trigger = yes      
+            }
+        }
+
+        on_completion = {
+            trigger_event = me_phnom.19
+            capital_scope = {
+                add_province_modifier = {
+                    name = phnom_nat_temple_modifier_reward
+                    duration = -1
+                    mode = add
+                }
+            }
+        }
+    }
+
+    phnom_mission_tree_task_16 = { # Merchants of Funan
+        icon = "task_economical"
+        requires = { phnom_mission_tree_task_9 }
+        
+        allow = {
+            country_has_special_pop = {
+                type = "merchant"
+                text = "country_has_2_merchant_tt"
+                count = "2"
+            }
+        }
+        
+        on_completion = {
+            if = {
+                limit = {
+                    NOT = {
+                        country_has_special_pop = {
+                            type = merchant
+                            text = "country_has_5_merchant_tt"
+                            count = 5
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_merchant_tt"
+                        type = merchant
+                        count = 1
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        country_has_special_pop = {
+                            type = priest
+                            text = "country_has_5_priest_tt"
+                            count = 5
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_priest_tt"
+                        type = priest
+                        count = 1
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        country_has_special_pop = {
+                            type = artist
+                            text = "country_has_5_artist_tt"
+                            count = 5
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_artist_tt"
+                        type = artist
+                        count = 1
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        country_has_special_pop = {
+                            type = architect
+                            text = "country_has_5_architect_tt"
+                            count = 5
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_architect_tt"
+                        type = architect
+                        count = 1
+                    }
+                }
+            }
+            add_2_free_province_investments = yes
+        }
+    }
+
+    phnom_mission_tree_task_17 = { # Conquest of Chenla
+        icon = "task_artemis"
+        requires = { phnom_mission_tree_task_3 }
+        
+        highlight = {
+            scope:province = {
+                is_in_area = chenla_area
+            }
+        }
+
+        allow = {
+            owns_percent_of_area = {
+                PROVINCE = "p:9824"
+                PERCENT = "0.50"
+            }
+        }
+        
+        on_completion = {
+            add_2_free_province_investments = yes
+            p:9824.state = {
+                add_state_modifier = {
+                    name = phnom_mission_tree_task_17_state_mod
+                    duration = -1
+                }
+            }
+            area:mun_area = { mission_area_claim_effect = yes }
+            area:kualadungun_area = { mission_area_claim_effect = yes }
+        }
+    }
+    phnom_mission_tree_task_18 = { # Consolidate the Delta
+        icon = "task_expansion"
+        requires = { phnom_mission_tree_task_17 }
+        
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = chenla_area
+                    is_in_area = funan_area
+                    is_in_area = kompong_area
+                    is_in_area = kualadungun_area
+                }
+            }
+        }
+
+        allow = {
+            custom_tooltip = {
+                text = phnom_mission_tree_task_18_tt
+                any_country = {
+                    count < 1
+                    NOT = { this = root }
+                    any_owned_province = {
+                        OR = {
+                            is_in_area = chenla_area
+                            is_in_area = funan_area
+                            is_in_area = kompong_area
+                            is_in_area = kualadungun_area
+                        }
+                    }
+                }
+            }
+        }
+        
+        on_completion = {
+            add_political_influence = 50
+            add_military_experience = 40
+            area:lam_ap_area = {
+                add_provincial_claim_effect = yes
+			}
+            area:rinan_area = {
+                add_provincial_claim_effect = yes
+			}
+            current_ruler = {
+                add_focus_perk = {
+                    text = "add_1_char_perk"
+                    amount = "1"
+                }
+            }
+        }
+    }
+    phnom_mission_tree_task_19 = { # Develop the Delta
+        icon = "task_political"
+        requires = { phnom_mission_tree_task_18 }
+        
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = chenla_area
+                    is_in_area = funan_area
+                    is_in_area = kompong_area
+                    is_in_area = kualadungun_area
+                }
+            }
+        }
+
+        allow = {
+            custom_tooltip = {
+                text = phnom_mission_tree_task_19_tt
+                any_owned_province = {
+                    count >= 4
+                    OR = {
+                        is_in_area = chenla_area
+                        is_in_area = funan_area
+                        is_in_area = kompong_area
+                        is_in_area = kualadungun_area
+                    }
+                    has_city_status = yes
+                }
+            }
+        }
+        
+        on_completion = {
+            add_2_free_province_investments = yes
+            add_innovation = 2
+            random_owned_province = {
+                limit = {
+                    is_in_area = chenla_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = phnom_developed_delta
+                        duration = 9125
+                    }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    is_in_area = funan_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = phnom_developed_delta
+                        duration = 9125
+                    }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    is_in_area = kompong_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = phnom_developed_delta
+                        duration = 9125
+                    }
+                }
+            }
+            random_owned_province = {
+                limit = {
+                    is_in_area = kualadungun_area
+                }
+                state = {
+                    add_state_modifier = {
+                        name = phnom_developed_delta
+                        duration = 9125
+                    }
+                }
+            }
+        }
+    }
+    phnom_mission_tree_task_20 = {
+        icon = "task_political"
+        requires = { phnom_mission_tree_task_17 }
+        allow = {
+            current_ruler = { popularity >= 75 }
+        }
+        on_completion = {
+            trigger_event = me_phnom.20
+            custom_tooltip = yamato_01_heartland_task_12_tt
+        }
+    }
+}

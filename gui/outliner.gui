@@ -70,6 +70,56 @@ types BUI_Outliner
 
 		}
 	}
+
+	type outliner_colonization_modifier = widget {
+		size = { 250 25 }
+		outliner_highlight_button = {
+			position = { -9 4 }
+			size = { 250 25 }
+			blockoverride "Text" {
+				block "variable"
+				{
+					tooltip = "Colonizing [Player.MakeScope.Var('colonization_mod_one_var').GetProvince.GetName]"
+					text = "Colonizing [Player.MakeScope.Var('colonization_mod_one_var').GetProvince.GetName]"
+				}
+				max_width = 170
+				elide = right
+				margin_left = 19
+				fontsize_min = 14
+			}
+
+			blockoverride "On_click" {
+				onmousehierarchyleave = "[ClearHighlightColors]"
+				block "click"
+				{
+					onclick = "[OpenOverviewDecisionsView]"
+				}
+			}
+
+			modifier_icon = {
+				position = { 7 -2 }
+				size = { 25 25 }
+				alwaystransparent = yes
+				tooltip = ""
+				texture = "gfx/interface/icons/shared_icons/alert_colonize_province.dds"
+			}
+
+			container = {
+				parentanchor = vcenter|right
+				progressbar = {
+					using = progressbar_green_horizontal
+					parentanchor = center
+					position = { 7 2 }
+					size = { 70 9 }
+					block "progress_value"
+					{
+						value = "[FixedPointToFloat(TimedModifier.GetProgress)]"
+					}
+				}
+			}
+		}
+	}
+
 }
 
 window = {
@@ -97,7 +147,39 @@ window = {
 			layoutpolicy_vertical = expanding
 			alwaystransparent = no
 			allow_outside = yes
-
+			container = {
+				position = { -100 1 }
+				button = {
+					visible = "[GetScriptedGui('is_first_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					enabled = "[Not(GetVariableSystem.Exists('age_window_opened'))]"
+					size = { 70 70 }
+					texture = "gfx/interface/ages_window/icon_hellenic.dds"
+					tooltip = "AGES_WINDOW_TITLE"
+					onclick = "[ExecuteConsoleCommand('gui.createwidget gui/ages_window.gui ages_window')]"
+					onclick = "[GetScriptedGui('check_age_objectives').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					onclick = "[GetVariableSystem.Toggle('age_window_opened')]"
+				}
+				button = {
+					visible = "[GetScriptedGui('is_second_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					enabled = "[Not(GetVariableSystem.Exists('age_window_opened'))]"
+					size = { 70 70 }
+					texture = "gfx/interface/ages_window/icon_migration.dds"
+					tooltip = "AGES_WINDOW_TITLE"
+					onclick = "[ExecuteConsoleCommand('gui.createwidget gui/ages_window.gui ages_window')]"
+					onclick = "[GetScriptedGui('check_age_objectives').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					onclick = "[GetVariableSystem.Toggle('age_window_opened')]"
+				}
+				button = {
+					visible = "[GetScriptedGui('is_third_age').IsShown( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					enabled = "[Not(GetVariableSystem.Exists('age_window_opened'))]"
+					size = { 70 70 }
+					texture = "gfx/interface/ages_window/icon_empire.dds"
+					tooltip = "AGES_WINDOW_TITLE"
+					onclick = "[ExecuteConsoleCommand('gui.createwidget gui/ages_window.gui ages_window')]"
+					onclick = "[GetScriptedGui('check_age_objectives').Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
+					onclick = "[GetVariableSystem.Toggle('age_window_opened')]"
+				}
+			}
 			background = {
 				shaderfile = "gfx/FX/pdxgui_default.shader"
 				texture = "gfx/interface/base_parts/background_black_texture.dds"
@@ -137,6 +219,110 @@ window = {
 						flowcontainer = {
 							ignoreinvisible = yes
 							direction = vertical
+
+							flowcontainer = {
+								direction = vertical
+								ignoreinvisible = yes
+								visible =  "[GreaterThan_CFixedPoint(Player.MakeScope.Var('colonization_count').GetValue, '(CFixedPoint)0')]"
+								outliner_category_button_square_BUI = {
+									size = { 250 25 }
+									using = tooltip_es
+									blockoverride "Text" {
+										text = "COLONIZATION_UI_OUTLINER_TEXT"
+										tooltip = "COLONIZATION_UI_OUTLINER_HEADER_NUMBERS"
+										tooltip_type = widget
+										tooltip_parentanchor = bottom|left
+										tooltip_widgetanchor = bottom|right
+										tooltip_verticalbehavior = mirror
+										tooltip_offset = { 0 -35 }
+										tooltip_horizontalbehavior = slide
+									}
+									blockoverride "Down" { visible = "[Not(GetVariableSystem.Exists('hide_modifiers'))]" }
+									blockoverride "Up" { visible = "[GetVariableSystem.Exists('hide_modifiers')]" }
+									blockoverride "On_click" { onclick = "[GetVariableSystem.Toggle('hide_modifiers')]" }
+									position = { 0 6 }
+								}
+								outliner_colonization_modifier = {
+									visible = "[And(Player.HasTimedModifier('colonization_mod_one'), Not(GetVariableSystem.Exists('hide_modifiers')))]"
+									datacontext = "[Player.GetTimedModifier('colonization_mod_one').GetModifier]"
+									blockoverride "variable" {
+										tooltip = "[Player.GetTimedModifier('colonization_mod_one').GetTooltip]"
+										text = "[Player.MakeScope.Var('colonization_mod_one_var').GetProvince.GetName]"
+									}
+									blockoverride "progress_value" {
+										value = "[FixedPointToFloat(Player.GetTimedModifier('colonization_mod_one').GetProgress)]"
+									}
+									blockoverride "click" {
+										onclick = "[OnClickOnProvince( Player.MakeScope.Var('colonization_mod_one_var').GetProvince )]"
+										onclick = "[PanToProvince( Player.MakeScope.Var('colonization_mod_one_var').GetProvince )]"
+										onmousehierarchyenter = "[SetHighlightProvince( Player.MakeScope.Var('colonization_mod_one_var').GetProvince.GetId )]"
+									}
+								}
+								outliner_colonization_modifier = {
+									visible = "[And(Player.HasTimedModifier('colonization_mod_two'), Not(GetVariableSystem.Exists('hide_modifiers')))]"
+									datacontext = "[Player.GetTimedModifier('colonization_mod_two').GetModifier]"
+									blockoverride "variable" {
+										tooltip = "[Player.GetTimedModifier('colonization_mod_two').GetTooltip]"
+										text = "[Player.MakeScope.Var('colonization_mod_two_var').GetProvince.GetName]"
+									}
+									blockoverride "progress_value" {
+										value = "[FixedPointToFloat(Player.GetTimedModifier('colonization_mod_two').GetProgress)]"
+									}
+									blockoverride "click" {
+										onclick = "[OnClickOnProvince( Player.MakeScope.Var('colonization_mod_two_var').GetProvince )]"
+										onclick = "[PanToProvince( Player.MakeScope.Var('colonization_mod_two_var').GetProvince )]"
+										onmousehierarchyenter = "[SetHighlightProvince( Player.MakeScope.Var('colonization_mod_two_var').GetProvince.GetId )]"
+									}
+								}
+								outliner_colonization_modifier = {
+									visible = "[And(Player.HasTimedModifier('colonization_mod_three'), Not(GetVariableSystem.Exists('hide_modifiers')))]"
+									datacontext = "[Player.GetTimedModifier('colonization_mod_three').GetModifier]"
+									blockoverride "variable" {
+										tooltip = "[Player.GetTimedModifier('colonization_mod_three').GetTooltip]"
+										text = "[Player.MakeScope.Var('colonization_mod_three_var').GetProvince.GetName]"
+									}
+									blockoverride "progress_value" {
+										value = "[FixedPointToFloat(Player.GetTimedModifier('colonization_mod_three').GetProgress)]"
+									}
+									blockoverride "click" {
+										onclick = "[OnClickOnProvince( Player.MakeScope.Var('colonization_mod_three_var').GetProvince )]"
+										onclick = "[PanToProvince( Player.MakeScope.Var('colonization_mod_three_var').GetProvince )]"
+										onmousehierarchyenter = "[SetHighlightProvince( Player.MakeScope.Var('colonization_mod_three_var').GetProvince.GetId )]"
+									}
+								}
+								outliner_colonization_modifier = {
+									visible = "[And(Player.HasTimedModifier('colonization_mod_four'), Not(GetVariableSystem.Exists('hide_modifiers')))]"
+									datacontext = "[Player.GetTimedModifier('colonization_mod_four').GetModifier]"
+									blockoverride "variable" {
+										tooltip = "[Player.GetTimedModifier('colonization_mod_four').GetTooltip]"
+										text = "[Player.MakeScope.Var('colonization_mod_four_var').GetProvince.GetName]"
+									}
+									blockoverride "progress_value" {
+										value = "[FixedPointToFloat(Player.GetTimedModifier('colonization_mod_four').GetProgress)]"
+									}
+									blockoverride "click" {
+										onclick = "[OnClickOnProvince( Player.MakeScope.Var('colonization_mod_four_var').GetProvince )]"
+										onclick = "[PanToProvince( Player.MakeScope.Var('colonization_mod_four_var').GetProvince )]"
+										onmousehierarchyenter = "[SetHighlightProvince( Player.MakeScope.Var('colonization_mod_four_var').GetProvince.GetId )]"
+									}
+								}
+								outliner_colonization_modifier = {
+									visible = "[And(Player.HasTimedModifier('colonization_mod_five'), Not(GetVariableSystem.Exists('hide_modifiers')))]"
+									datacontext = "[Player.GetTimedModifier('colonization_mod_five').GetModifier]"
+									blockoverride "variable" {
+										tooltip = "[Player.GetTimedModifier('colonization_mod_five').GetTooltip]"
+										text = "[Player.MakeScope.Var('colonization_mod_five_var').GetProvince.GetName]"
+									}
+									blockoverride "progress_value" {
+										value = "[FixedPointToFloat(Player.GetTimedModifier('colonization_mod_five').GetProgress)]"
+									}
+									blockoverride "click" {
+										onclick = "[OnClickOnProvince( Player.MakeScope.Var('colonization_mod_five_var').GetProvince )]"
+										onclick = "[PanToProvince( Player.MakeScope.Var('colonization_mod_five_var').GetProvince )]"
+										onmousehierarchyenter = "[SetHighlightProvince( Player.MakeScope.Var('colonization_mod_five_var').GetProvince.GetId )]"
+									}
+								}
+							}
 
 							flowcontainer = {
 								direction = vertical
@@ -616,8 +802,6 @@ window = {
 					}
 				}
 			}
-
-			debug_button_1 = {}
 
 			button_slide_out = {
 				name = "hide_outliner_button"

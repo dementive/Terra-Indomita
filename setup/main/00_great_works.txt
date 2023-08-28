@@ -7,6 +7,12 @@ provinces = {
 #	4 = { # Roma
 #		great_work=4
 #	}
+	266={ # Rhodes
+		great_work=2
+	}
+	278={ #Pergamon
+		great_work=4
+	}
 	290={ # Ephesos
 		great_work=5
 	}
@@ -15,6 +21,9 @@ provinces = {
 	}
 	416={ # Athens - Athenian Acropolis
 		great_work=22
+	}
+	428={ # Aigeai
+		great_work=7
 	}
 	439={ # Olympia
 		great_work=8
@@ -46,6 +55,9 @@ provinces = {
 	4666 = { # Mariaba - Marib Dam
 		great_work = 51
 	}
+	6694={
+		great_work=15
+	}
 	6978={
 		great_work=16
 	}
@@ -54,6 +66,9 @@ provinces = {
 	}
 	7723 = { # Durum (rough location of Ur) - Ur Ziggurat
 		great_work = 50
+	}
+	8504 = {
+		great_work = 100
 	}
 }
 
@@ -82,29 +97,52 @@ great_work_manager={
 				}
 			}
 		}
-#		4={
-#			ancient_wonder = yes
-#			key="stonehenge_event"
-#			great_work_category="building"
-#			great_work_state=great_work_state_completed
-#			finished_date=450.10.1
-#
-#			great_work_name={
-#				name="wonder_stonehenge_event"
-#			}
-#			great_work_components={
-#				{
-#					great_work_module="wonder_stonehenge_event"
-#				}
-#			}
-#
-#			great_work_effect_selections={
-#				{
-#					great_work_effect="gw_effect_omen_doctrine"
-#					great_work_effect_tier = "gw_effect_tier_4"
-#				}
-#			}
-#		}
+		2={
+			dlc = "Hellenistic World Flavor Pack"
+			ancient_wonder = yes
+			key="rhodes_acropolis"
+			great_work_state=great_work_state_completed
+			finished_date=450.10.1
+			great_work_category="building"
+
+			great_work_name={
+				name="wonder_rhodes_acropolis"
+			}
+			great_work_components={
+				{
+					great_work_module="wonder_rhodes_acropolis"
+				}
+			}
+			great_work_effect_selections={
+				{
+					great_work_effect="gw_effect_acropolis_rhodes"
+					great_work_effect_tier = "gw_effect_tier_4"
+				}
+			}
+		}
+		4={
+			dlc = "Hellenistic World Flavor Pack"
+			ancient_wonder = yes
+			key="pergamon_acropolis"
+			great_work_state=great_work_state_completed
+			finished_date=450.10.1
+			great_work_category="building"
+
+			great_work_name={
+				name="wonder_pergamon_acropolis"
+			}
+			great_work_components={
+				{
+					great_work_module="wonder_pergamon_acropolis"
+				}
+			}
+			great_work_effect_selections={
+				{
+					great_work_effect="gw_effect_pergamon_acropolis"
+					great_work_effect_tier = "gw_effect_tier_4"
+				}
+			}
+		}
 		5={
 			ancient_wonder = yes
 			key="temple_of_artemis"
@@ -123,6 +161,29 @@ great_work_manager={
 			great_work_effect_selections={
 				{
 					great_work_effect="gw_effect_religious_temple_of_artemis"
+					great_work_effect_tier = "gw_effect_tier_4"
+				}
+			}
+		}
+		7={
+			dlc = "Hellenistic World Flavor Pack"
+			ancient_wonder = yes
+			key="argead_palace"
+			great_work_state=great_work_state_completed
+			finished_date=450.10.1
+			great_work_category="building"
+			
+			great_work_name={
+				name="wonder_argead_palace"
+			}
+			great_work_components={
+				{
+					great_work_module="wonder_argead_palace"
+				}
+			}
+			great_work_effect_selections={
+				{
+					great_work_effect="gw_effect_argead_palace"
 					great_work_effect_tier = "gw_effect_tier_4"
 				}
 			}
@@ -233,6 +294,29 @@ great_work_manager={
 			great_work_effect_selections={
 				{
 					great_work_effect="gw_effect_stonehenge"
+					great_work_effect_tier = "gw_effect_tier_4"
+				}
+			}
+		}
+		15={
+			dlc = "Hellenistic World Flavor Pack"
+			ancient_wonder = yes
+			key="ay_khanum"
+			great_work_state=great_work_state_completed
+			finished_date=450.10.1
+			great_work_category="building"
+			
+			great_work_name={
+				name="wonder_ay_khanum"
+			}
+			great_work_components={
+				{
+					great_work_module="wonder_ay_khanum"
+				}
+			}
+			great_work_effect_selections={
+				{
+					great_work_effect="gw_effect_ay_khanum"
 					great_work_effect_tier = "gw_effect_tier_4"
 				}
 			}
@@ -471,6 +555,45 @@ great_work_manager={
 					# unique
 					great_work_effect = "gw_effect_marib_dam"
 					great_work_effect_tier = "gw_effect_tier_4"
+				}
+			}
+		}
+		100 = {
+			ancient_wonder = yes
+			key = "jixia_academy"
+			great_work_category = "building"
+			great_work_state = great_work_state_completed
+			finished_date = 450.10.1
+
+			great_work_name = {
+				name = "wonder_jixia_academy"
+			}
+			great_work_components={
+				{
+					great_work_module="gw_building_05_base"
+					great_work_material="stone"
+				}
+				{
+					great_work_module="gw_building_03_pillar"
+					great_work_material="marble"
+				}
+				{
+					great_work_module="gw_building_01_roof"
+					great_work_material="wood"
+				}
+			}
+			great_work_effect_selections={
+				{
+					great_work_effect = "gw_effect_citizen_pop_doctrine"
+					great_work_effect_tier = "gw_effect_tier_2"
+				}
+				{
+					great_work_effect = "gw_effect_civilization_builder"
+					great_work_effect_tier = "gw_effect_tier_2"
+				}
+				{
+					great_work_effect = "gw_effect_religious_science_doctrine"
+					great_work_effect_tier = "gw_effect_tier_2"
 				}
 			}
 		}

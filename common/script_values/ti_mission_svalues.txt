@@ -2,7 +2,7 @@
 	value = 0
 	every_character = {
 		limit = {
-			has_office = yes
+			has_any_office = yes
 			loyalty >= 80
 			character_experience >= 50
 		}
@@ -22,3 +22,281 @@ current_yam_buildings_svalue = {
 }
 
 total_yam_buildings_svalues = { value = 250 }
+
+yamato_current_pop_value = {
+	value = 0
+	region:wa_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+			}
+			every_pops_in_province = {
+				limit = {
+					OR = {
+						pop_culture = root.culture
+						AND = {
+							exists = country_culture
+							country_culture = { is_integrated = yes }
+						}
+					}
+				}
+				add = 1
+			}
+		}
+	}
+	max = yamato_total_pop_value
+}
+
+yamato_total_pop_value = {
+	value = yamato_absolute_total_pop_value
+	multiply = 0.90
+	round = floor
+}
+
+yamato_absolute_total_pop_value = {
+	value = 0
+	region:wa_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+			}
+			every_pops_in_province = {
+				add = 1
+			}
+		}
+	}
+}
+
+qi_missions_task_6_buildings_svalue = {
+	value = 0
+	area:donglai_area = {
+		every_area_province = {
+			limit = { owner = root }
+			add = num_of_port_building
+			add = num_of_commerce_building
+		}
+	}
+	area:beihai_area = {
+		every_area_province = {
+			limit = { owner = root }
+			add = num_of_port_building
+			add = num_of_commerce_building
+		}
+	}
+	area:linzi_area = {
+		every_area_province = {
+			limit = { owner = root }
+			add = num_of_port_building
+			add = num_of_commerce_building
+		}
+	}
+	area:qiansheng_area = {
+		every_area_province = {
+			limit = { owner = root }
+			add = num_of_port_building
+			add = num_of_commerce_building
+		}
+	}
+	area:langya_area = {
+		every_area_province = {
+			limit = { owner = root }
+			add = num_of_port_building
+			add = num_of_commerce_building
+		}
+	}
+	max = qi_missions_task_6_buildings_max
+}
+
+qi_missions_task_6_buildings_max = 25
+
+qi_missions_task_7_cities_svalue = {
+	value = 0
+	area:donglai_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city
+			}
+			add = 1
+		}
+	}
+	area:beihai_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city
+			}
+			add = 1
+		}
+	}
+	area:linzi_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city
+			}
+			add = 1
+		}
+	}
+	area:qiansheng_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city
+			}
+			add = 1
+		}
+	}
+	area:langya_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city
+			}
+			add = 1
+		}
+	}
+	max = qi_missions_task_7_cities_max
+}
+
+qi_missions_task_7_cities_max = 10
+
+qi_missions_task_7_metropolis_svalue = {
+	value = 0
+	area:donglai_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city_metropolis
+			}
+			add = 1
+		}
+	}
+	area:beihai_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city_metropolis
+			}
+			add = 1
+		}
+	}
+	area:linzi_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city_metropolis
+			}
+			add = 1
+		}
+	}
+	area:qiansheng_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city_metropolis
+			}
+			add = 1
+		}
+	}
+	area:langya_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_province_rank = city_metropolis
+			}
+			add = 1
+		}
+	}
+	max = qi_missions_task_7_metropolis_max
+}
+
+
+qi_missions_task_7_metropolis_max = 3
+
+qi_missions_task_7_pops_svalue = {
+	value = 0
+	area:donglai_area = {
+		every_area_province = {
+			limit = { owner = root }
+			add = total_population
+		}
+	}
+	area:beihai_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+			 }
+			add = total_population
+		}
+	}
+	area:linzi_area = {
+		every_area_province = {
+			limit = { owner = root }
+			add = total_population
+		}
+	}
+	area:qiansheng_area = {
+		every_area_province = {
+			limit = { owner = root }
+			add = total_population
+		}
+	}
+	area:langya_area = {
+		every_area_province = {
+			limit = { owner = root }
+			add = total_population
+		}
+	}
+	max = qi_missions_task_7_pops_max
+}
+
+qi_missions_task_7_pops_max = 500
+
+qi_missions_task_8_forts_svalue = {
+	value = 0
+	p:8523 = {
+		add = fort_level
+	}
+	p:8526 = {
+		add = fort_level
+	}
+	p:8482 = {
+		add = fort_level
+	}
+	p:8483 = {
+		add = fort_level
+	}
+	p:8480 = {
+		add = fort_level
+	}
+	p:8484 = {
+		add = fort_level
+	}
+	p:8524 = {
+		add = fort_level
+	}
+	max = qi_missions_task_8_forts_max
+}
+
+qi_missions_task_8_forts_max = 15
+
+qi_missions_task_15_qing_svalue = {
+	value = 0
+	region:qing_region = {
+		every_region_province = {
+			add = num_of_used_building_slots
+		}
+	}
+}
+
+qi_missions_task_15_xu_svalue = {
+	value = 0
+	region:xu_region = {
+		every_region_province = {
+			add = num_of_used_building_slots
+		}
+	}
+}
+
+qi_missions_task_15_buildings_max = 150
