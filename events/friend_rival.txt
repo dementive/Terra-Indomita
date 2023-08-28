@@ -1,0 +1,1200 @@
+﻿namespace = friend_rival
+
+#Generic friendship Events
+friend_rival.1 = {
+	type = character_event
+	title = "friend_rival.1.t"
+	desc = "friend_rival.1.desc"
+	picture = greek_court
+	
+	left_portrait = root
+	right_portrait = scope:targeter
+	
+	trigger = {
+		exists = scope:targeter
+		scope:targeter = { is_alive = yes }
+	}
+	
+	weight_multiplier = {
+		modifier = {
+			factor = 0.1
+			exists = scope:targeter
+			scope:targeter = {
+				is_same_gender = root
+			}
+		}
+	}
+	
+	immediate = {
+		
+	}
+	
+	option = {
+		name = "friend_rival.1.a"
+		add_friend = scope:targeter
+		
+		ai_chance = {
+			modifier = {
+				factor = 100
+			}
+		}
+		
+	}
+	option = {
+		name = "friend_rival.1.b"
+	}
+}
+
+friend_rival.2 = {
+	type = character_event
+	title = "friend_rival.2.t"
+	desc = "friend_rival.2.desc"
+	picture = greek_philosophers
+	
+	left_portrait = root
+	right_portrait = scope:targeter
+	
+	trigger = {
+		exists = scope:targeter
+		scope:targeter = {
+			is_alive = yes
+		}
+		is_alive = yes
+	}
+	
+	immediate = {
+	
+	}
+	
+	option = {
+		name = "friend_rival.2.a"
+		add_friend = scope:targeter
+		
+		ai_chance = {
+			modifier = {
+				factor = 100
+			}
+		}
+		
+	}
+	option = {
+		name = "friend_rival.2.b"
+		custom_tooltip = "tooltip_no_effect"
+	}
+	
+}
+
+friend_rival.3 = {
+	type = character_event
+	title = "friend_rival.3.t"
+	desc = "friend_rival.3.desc"
+	picture = dagger_behind_back
+	
+	left_portrait = root
+	right_portrait = scope:targeter
+	
+	goto_location = scope:targeter
+	
+	trigger = {
+		is_alive = yes
+		exists = scope:targeter
+		scope:targeter = { is_alive = yes }
+	}
+	
+	immediate = {
+		add_rival = scope:targeter
+	}
+	
+	option = {
+		name = "friend_rival.3.a"
+		
+	}
+}
+
+friend_rival.4 = {
+	type = character_event
+	title = "friend_rival.4.t"
+	desc = "friend_rival.4.desc"
+	picture = senate_debate
+	
+	left_portrait = root
+	right_portrait = scope:targeter
+	
+	goto_location = scope:targeter
+	
+	trigger = {
+		exists = employer
+		exists = scope:targeter
+		scope:targeter = { is_alive = yes }
+		employer = {
+			is_republic = yes
+		}
+	}
+	
+	immediate = {
+
+	}
+	
+	option = {
+		name = "friend_rival.4.a"
+		add_friend = scope:targeter
+	}
+	
+	option = {
+		name = "friend_rival.4.b"
+		scope:targeter = {
+			add_popularity = subtract_popularity_small
+		}
+	}
+}
+
+friend_rival.5 = {
+	type = character_event
+	title = "friend_rival.5.t"
+	desc = "friend_rival.5.desc"
+	picture = war_chest
+	
+	left_portrait = scope:friend_rival_5_target_one
+	right_portrait = scope:friend_rival_5_target_two
+	
+	goto_location = scope:friend_rival_5_target_two
+	
+	trigger = {
+		is_ruler = yes
+		char_can_have_friends_trigger = yes
+		employer = {
+			any_character = {
+				count >= 2
+				char_can_be_friend_trigger = yes
+				NOR = {
+					is_party_leader = yes
+					THIS = ROOT
+				}
+				prisoner = no
+			}
+		}
+		NOT = {
+			has_variable = friend_rival_5_toggle
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			name = friend_rival_5_toggle
+			days = 1825
+		}
+		employer = {
+			random_character = {
+				limit = {
+					char_can_be_friend_trigger = yes
+					NOR = {
+						is_party_leader = yes
+						THIS = ROOT
+					}
+					prisoner = no
+				}
+				weight = {
+					title_importance_modifier = yes
+				}
+				set_variable = {
+					name = fr_5_first
+					days = { 180 720 }
+				}
+				save_scope_as = friend_rival_5_target_one
+			}
+			random_character = {
+				limit = {
+					char_can_be_friend_trigger = yes
+					NOR = {
+						is_party_leader = yes
+						THIS = ROOT
+						has_variable = fr_5_first
+					}
+					prisoner = no
+				}
+				weight = {
+					title_importance_modifier = yes
+				}
+				save_scope_as = friend_rival_5_target_two
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.5.a"
+		scope:friend_rival_5_target_one = {
+			add_gold = {
+				value = root.employer.has_monthly_income
+				multiply = 6
+			}
+			add_friend = ROOT
+		}
+		hidden_effect = {
+			scope:friend_rival_5_target_two = {
+				save_scope_as = friend_rival_5_spurned
+			}
+			employer = {
+				random_list = {
+					50 = {
+						trigger_event = {
+							id = friend_rival.6
+							days = { 30 90 }
+						}
+					}
+					50 = {}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.5.b"
+		scope:friend_rival_5_target_two = {
+			add_gold = {
+				value = root.employer.has_monthly_income
+				multiply = 6
+			}
+			add_friend = ROOT
+		}
+		hidden_effect = {
+			scope:friend_rival_5_target_one = {
+				save_scope_as = friend_rival_5_spurned
+			}
+			employer = {
+				random_list = {
+					50 = {
+						trigger_event = {
+							id = friend_rival.6
+							days = 1
+						}
+					}
+					50 = {}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.5.c"
+		scope:friend_rival_5_target_one = {
+			add_gold = {
+				value = root.employer.has_monthly_income
+				multiply = 3
+			}
+		}
+		scope:friend_rival_5_target_two = {
+			add_gold = {
+				value = root.employer.has_monthly_income
+				multiply = 3
+			}
+		}
+		add_popularity = popularity_small
+	}
+}
+	
+friend_rival.6 = {
+	type = country_event
+	title = "friend_rival.6.t"
+	desc = "friend_rival.6.desc"
+	picture = dagger_behind_back
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:friend_rival_5_spurned
+	
+	goto_location = scope:friend_rival_5_spurned
+	
+	trigger = {
+		exists = scope:friend_rival_5_spurned
+		scope:friend_rival_5_spurned = {
+			is_alive = yes
+			employer = root
+			NOT = {
+				is_rival = root.current_ruler
+			}
+		}
+		current_ruler = {
+			can_get_rivals = yes
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				scope:friend_rival_5_spurned = {
+					can_get_rivals = no
+				}
+			}
+			scope:friend_rival_5_spurned = {
+				random_rival = {
+					weight = {
+						title_importance_modifier = yes
+					}
+					remove_rival = scope:friend_rival_5_spurned
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.6.a"
+		scope:friend_rival_5_spurned = {
+			add_rival = root.current_ruler
+		}
+		if = {
+			limit = {
+				scope:friend_rival_5_spurned = {
+					has_trait = vengeful
+				}
+			}
+			custom_tooltip = "fr_6_vengeful_tooltip"
+			random_owned_province = {
+				limit = {
+					controller = root
+				}
+				add_province_modifier = {
+					name = sabotage_modifier
+					duration = 3650
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.6.b"
+		custom_tooltip = "just_tooltip"
+		trigger = {
+			current_ruler = {
+				has_trait = just
+			}
+		}
+	}
+	
+}
+
+friend_rival.7 = { #low prominence/age character as mentee
+	type = character_event
+	title = "friend_rival.7.t"
+	desc = "friend_rival.7.desc"
+	picture = senator_conversing
+	
+	left_portrait = root
+	right_portrait = scope:mentee
+	
+	trigger = {
+		exists = employer
+		char_can_have_friends_trigger = yes
+		has_any_office = yes
+		NOR = {
+			has_variable = mentor
+			has_variable = mentee
+		}
+		employer = {
+			any_character = {
+				age < root.age
+				NOR = {
+					is_friend = root
+					is_rival = root
+				}
+				is_ruler = no
+				can_get_friends = yes
+				prominence <= 20
+				NOR = {
+					has_variable = mentor
+					has_variable = mentee
+				}
+				has_any_office = no
+				trigger_if = {
+					limit = {
+						employer = {
+							gender_equality = no
+						}
+					}
+					is_female = no
+				}
+				trigger_if = {
+					employer = {
+						is_republic = yes
+					}
+					is_party_leader = no
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		employer = {
+			random_character = {
+				limit = {
+					age < root.age
+					NOR = {
+						is_friend = root
+						is_rival = root
+					}
+					is_ruler = no
+					can_get_friends = yes
+					prominence <= 20
+					NOR = {
+						has_variable = mentor
+						has_variable = mentee
+					}
+					has_any_office = no
+					trigger_if = {
+						limit = {
+							employer = {
+								gender_equality = no
+							}
+						}
+						is_female = no
+					}
+					trigger_if = {
+						employer = {
+							is_republic = yes
+						}
+						is_party_leader = no
+					}
+				}
+				weight = {
+					title_importance_modifier = yes
+				}
+				save_scope_as = mentee
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.7.a"
+		custom_tooltip = "mentee_arrangement"
+		set_variable = {
+			name = mentee
+			value = scope:mentee
+		}
+		scope:mentee = {
+			set_variable = {
+				name = mentor
+				value = root
+			}
+		}
+		add_friend = scope:mentee
+		ai_chance = {
+			modifier = {
+				factor = 2
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.7.b"
+		ai_chance = {
+			modifier = {
+				factor = 1
+			}
+		}
+	}
+	
+}
+
+friend_rival.8 = { #Mentee sees your way of thinking
+	type = character_event
+	title = "friend_rival.8.t"
+	desc = "friend_rival.8.desc"
+	picture = senator_conversing
+	
+	left_portrait = root
+	right_portrait = scope:mentee
+	
+	trigger = {
+		exists = employer
+		has_variable = mentee
+		employer = {
+			is_republic = yes
+		}
+		NOT = {
+			has_variable = friend_rival_8_toggle
+		}
+		var:mentee = {
+			is_friend = root
+			is_alive = yes
+			is_ruler = no
+			NOT = {
+				is_same_party_as = root
+			}
+			employer = root.employer
+			has_any_office = no
+		}
+	}
+	
+	immediate = {
+		var:mentee = {
+			save_scope_as = mentee
+		}
+		set_variable = {
+			name = friend_rival_8_toggle
+			days = 3600
+		}
+	}
+	
+	option = {
+		name = "friend_rival.8.a"
+		scope:mentee = {
+			add_party_conviction = {
+				party = root.character_party
+				value = 10
+			}
+		}
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 2
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.8.b"
+		scope:mentee = {
+			if = {
+				limit = {
+					number_of_personality_traits < max_number_of_traits_svalue
+					NOR = {
+						has_trait = just
+						has_trait = arbitrary
+					}
+				}
+				add_trait = just
+			}
+			else = {
+				add_prominence = prominence_medium
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+friend_rival.9 = { #Mentee learns some things
+	type = character_event
+	title = "friend_rival.9.t"
+	desc = "friend_rival.9.desc"
+	picture = senate_debate
+	
+	left_portrait = root
+	right_portrait = scope:mentee
+	
+	trigger = {
+		exists = employer
+		has_variable = mentee
+		NOT = {
+			has_variable = friend_rival_9_toggle
+		}
+		var:mentee = {
+			is_friend = root
+			is_alive = yes
+			is_ruler = no
+			employer = root.employer
+			prominence < root.prominence
+			has_any_office = no
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			name = friend_rival_9_toggle
+			days = 3600
+		}
+		var:mentee = {
+			save_scope_as = mentee
+		}
+	}
+	
+	option = {
+		name = "friend_rival.9.a"
+		scope:mentee = {
+			add_prominence = prominence_large
+		}
+	}
+	
+	option = {
+		name = "friend_rival.9.b"
+		scope:mentee = {
+			if = {
+				limit = {
+					number_of_personality_traits < max_number_of_traits_svalue
+					NOT = {
+						has_trait = humble
+						has_trait = proud
+					}
+				}
+				add_trait = humble
+			}
+			else = {
+				add_loyalty = loyalty_mentee_lesson
+			}
+		}
+	}
+}
+
+friend_rival.10 = { #Mentee makes a mistake
+	type = character_event
+	title = "friend_rival.10.t"
+	desc = "friend_rival.10.desc"
+	picture = roman_trial
+	
+	left_portrait = root
+	right_portrait = scope:mentee
+	
+	trigger = {
+		exists = employer
+		has_variable = mentee
+		NOT = {
+			has_variable = friend_rival_10_toggle
+		}
+		var:mentee = {
+			is_friend = root
+			is_alive = yes
+			is_ruler = no
+			employer = root.employer
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			name = friend_rival_10_toggle
+			days = 3600
+		}
+		var:mentee = {
+			save_scope_as = mentee
+		}
+	}
+	
+	option = {
+		name = "friend_rival.10.a"
+		if = {
+			limit = {
+				number_of_personality_traits < max_number_of_traits_svalue
+				NOT = {
+					has_trait = vengeful
+					has_trait = forgiving
+				}
+			}
+			add_trait = vengeful
+		}
+		scope:mentee = {
+			if = {
+				limit = {
+					number_of_personality_traits < max_number_of_traits_svalue
+					NOT = {
+						has_trait = assertive
+						has_trait = submissive
+					}
+				}
+				add_trait = assertive
+			}
+			else = {
+				add_loyalty = loyalty_mentee_lesson
+			}
+		}
+		
+	}
+	
+	option = {
+		name = "friend_rival.10.b"
+		if = {
+			limit = {
+				number_of_personality_traits < max_number_of_traits_svalue
+				NOT = {
+					has_trait = vengeful
+					has_trait = forgiving
+				}
+			}
+			add_trait = forgiving
+		}
+		else = {
+			add_popularity = popularity_small
+		}
+		scope:mentee = {
+			if = {
+				limit = {
+					number_of_personality_traits < max_number_of_traits_svalue
+					NOT = {
+						has_trait = submissive
+						has_trait = assertive
+					}
+				}
+				add_trait = submissive
+			}
+			else = {
+				add_prominence = -10
+			}
+		}
+	}
+}
+
+friend_rival.11 = { 
+	type = character_event
+	title = "friend_rival.11.t"
+	desc = "friend_rival.11.desc"
+	picture = senate_debate
+	
+	left_portrait = root
+	right_portrait = scope:targeter
+	
+	trigger = {
+		exists = scope:targeter
+		scope:targeter = { is_alive = yes }
+	}
+	
+	immediate = {
+
+	}
+	
+	option = {
+		name = "friend_rival.11.a"
+		if = {
+			limit = {
+				char_can_have_friends_trigger = yes
+			}
+			add_friend = scope:targeter
+		}
+	}
+	
+	option = {
+		name = "friend_rival.11.b"
+		if = {
+			limit = {
+				is_ruler = yes
+			}
+			scope:targeter = {
+				add_loyalty = loyalty_friendship_overruled
+			}
+		}
+	}
+}
+
+friend_rival.12 = { 
+	type = character_event
+	title = "friend_rival.12.t"
+	desc = "friend_rival.12.desc"
+	picture = dagger_behind_back
+	
+	left_portrait = scope:friend_rival_12_general_target
+	right_portrait = scope:friend_rival_12_rival_target
+	
+	trigger = {
+		exists = employer
+		is_ruler = yes
+		NOT = {
+			has_variable = friend_rival_12_toggle
+		}
+		num_of_rivals >= 1
+		employer = {
+			any_character = {
+				is_general = yes
+				loyalty > 70
+				is_ruler = no
+				char_can_have_friends_trigger = yes
+			}
+		}
+		employer = {
+			any_character = {
+				is_general = no
+				is_ruler = no
+				is_rival = root
+				char_can_have_friends_trigger = yes
+			}
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			name = friend_rival_12_toggle
+			days = 3600
+		}
+		employer = {
+			random_character = {
+				limit = {
+					is_general = yes
+					loyalty > 70
+					is_ruler = no
+					char_can_have_friends_trigger = yes
+				}
+				weight = {
+					title_importance_modifier = yes
+				}
+				save_scope_as = friend_rival_12_general_target
+			}
+		}
+		employer = {
+			random_character = {
+				limit = {
+					is_general = no
+					is_ruler = no
+					is_rival = root
+					char_can_have_friends_trigger = yes
+				}
+				weight = {
+					title_importance_modifier = yes
+				}
+				save_scope_as = friend_rival_12_rival_target
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.12.a"
+		if = {
+			limit = {
+				scope:friend_rival_12_general_target = {
+					char_can_have_friends_trigger = yes
+					NOR = {
+						is_friend = scope:friend_rival_12_rival_target
+						is_rival = scope:friend_rival_12_rival_target
+					}
+				}
+				scope:friend_rival_12_rival_target = {
+					char_can_have_friends_trigger = yes
+				}
+			}
+			scope:friend_rival_12_general_target = {
+				add_friend = scope:friend_rival_12_rival_target
+			}
+		}
+		scope:friend_rival_12_general_target = {
+			add_loyalty = loyalty_convinced_against_ruler
+		}
+	}
+	
+	option = {
+		name = "friend_rival.12.b"
+		trigger = {
+			char_can_have_rivals_trigger = yes
+			scope:friend_rival_12_general_target = {
+				char_can_have_rivals_trigger = yes
+				NOR = {
+					is_rival = root
+					is_friend = root
+				}
+			}
+		}
+		if = {
+			limit = {
+				scope:friend_rival_12_general_target = {
+					char_can_have_friends_trigger = yes
+				}
+				scope:friend_rival_12_rival_target = {
+					char_can_have_friends_trigger = yes
+				}
+			}
+			scope:friend_rival_12_general_target = {
+				add_friend = scope:friend_rival_12_rival_target
+			}
+		}
+		if = {
+			limit = {
+				char_can_have_rivals_trigger = yes
+				scope:friend_rival_12_general_target = {
+					char_can_have_rivals_trigger = yes
+					NOR = {
+						is_rival = root
+						is_friend = root
+					}
+				}
+			}
+			scope:friend_rival_12_general_target = {
+				add_rival = root
+			}
+		}
+		scope:friend_rival_12_general_target = {
+			add_loyalty = loyalty_denounced_curs
+		}
+		scope:friend_rival_12_rival_target = {
+			add_loyalty = loyalty_denounced_curs
+		}
+		add_popularity = popularity_medium
+	}
+	
+}
+
+friend_rival.13 = { 
+	type = character_event
+	title = "friend_rival.13.t"
+	desc = "friend_rival.13.desc"
+	picture = senate_debate
+	
+	left_portrait = root
+	right_portrait = scope:targeter
+	
+	trigger = {
+		exists = scope:targeter
+		scope:targeter = { is_alive = yes }
+		exists = employer
+		employer = {
+			any_country = { 
+				count >= 2
+				has_land = yes
+				NOT = {
+					this = root.employer
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		employer = {
+			random_country = {
+				limit = {
+					NOT = {
+						this = root.employer
+					}
+				}
+				save_scope_as = accusation_target
+			}
+			random_country = {
+				limit = {
+					NOR = {
+						this = root.employer
+						this = scope:accusation_target
+					}
+				}
+				save_scope_as = accusation_target_2
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.13.a"
+		if = {
+			limit = {
+				is_ruler = yes
+				number_of_personality_traits < max_number_of_traits_svalue
+				NOR = {
+					has_trait = wise
+					has_trait = rash
+				}
+			}
+			add_trait = wise
+		}
+		if = {
+			limit = {
+				is_ruler = yes
+			}
+			scope:targeter = {
+				add_prominence = prominence_large
+				add_popularity = popularity_medium
+				add_loyalty = loyalty_xenophobia_unchecked
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.13.b"
+		if = {
+			limit = {
+				is_ruler = yes
+				number_of_personality_traits < max_number_of_traits_svalue
+				NOR = {
+					has_trait = wise
+					has_trait = rash
+				}
+			}
+			add_trait = rash
+		}
+		if = {
+			limit = {
+				is_ruler = yes
+			}
+			add_popularity = popularity_medium
+			add_prominence = prominence_large
+		}
+		add_rival = scope:targeter
+	
+		ai_chance = {
+			modifier = {
+				factor = 10
+			}
+		}
+		
+	}
+}
+
+#Likely behind-the-scenes event of adding friends if less than 4 friends
+friend_rival.14 = { 
+	type = character_event
+	hidden = yes
+	
+	trigger = {
+		exists = employer
+		is_ruler = no
+		char_can_have_friends_trigger = yes
+		employer = {
+			any_character = {
+				char_can_be_friend_trigger = yes
+				num_of_friends < 4
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		base = 0
+		modifier = {
+			add = 1
+			num_of_friends < 1
+		}
+		modifier = {
+			add = 1
+			num_of_friends < 2
+		}
+		modifier = {
+			add = 1
+			num_of_friends < 3
+		}
+		modifier = {
+			add = 1
+			num_of_friends < 4
+		}
+	}
+	
+	immediate = {
+		employer = {
+			random_character = {
+				limit = {
+					char_can_be_friend_trigger = yes
+					num_of_friends < 4
+				}
+				weight = {
+					title_importance_modifier = yes
+				}
+				add_friend = root
+			}
+		}
+	}
+}
+
+#childhood friends
+friend_rival.15 = { 
+	type = character_event
+	title = "friend_rival.15.t"
+	desc = "friend_rival.15.desc"
+	picture = hellenic_marketplace
+	
+	left_portrait = scope:fr_15_target_child
+	right_portrait = scope:fr_15_target_child_2
+	
+	trigger = {
+		exists = employer
+		exists = employer.current_ruler
+		num_of_children > 0
+		any_child = {
+			age >= 5
+			age < 14
+			is_minor_character = no
+			can_get_friends = yes
+			employer = root.employer
+			NOT = {
+				has_variable = childhood_friend
+			}
+		}
+		employer = {
+			any_character = {
+				is_minor_character = no
+				age >= 5
+				age < 14
+				NOR	= { 
+					has_same_family = ROOT 
+					AND = {
+						exists = mother
+						mother = root
+					}
+					AND = {
+						exists = father
+						father = root
+					}
+				}
+				trigger_if = {
+					limit = {
+						exists = root.employer.current_ruler
+						root.employer.current_ruler = {
+							is_minor_character = no
+						}
+					}
+					from_ruler_family = no
+				}
+				is_ruler = no
+				can_get_friends = yes
+				NOT = {
+					has_variable = childhood_friend
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_child = {
+			limit = {
+				age >= 5
+				age < 14
+				can_get_friends = yes
+				is_minor_character = no
+				employer = root.employer
+				NOT = {
+					has_variable = childhood_friend
+				}
+			}
+			save_scope_as = fr_15_target_child
+		}
+		employer = {
+			random_character = {
+				limit = {
+					is_minor_character = no
+					age >= 5
+					age < 14
+					NOR	= { 
+						has_same_family = ROOT 
+						AND = {
+							exists = mother
+							mother = root
+						}
+						AND = {
+							exists = father
+							father = root
+						}
+					}
+					trigger_if = {
+						limit = {
+							root.employer.current_ruler = {
+								is_minor_character = no
+							}
+						}
+						from_ruler_family = no
+					}
+					is_ruler = no
+					can_get_friends = yes
+					NOT = {
+						has_variable = childhood_friend
+					}
+				}
+				save_scope_as = fr_15_target_child_2
+			}
+		}
+		scope:fr_15_target_child = {
+			set_variable = {
+				name = childhood_friend
+				value = scope:fr_15_target_child_2
+			}
+		}
+		scope:fr_15_target_child_2 = {
+			set_variable = {
+				name = childhood_friend
+				value = scope:fr_15_target_child
+			}
+		}
+	}
+	
+	option = {
+		name = "friend_rival.15.a"
+		scope:fr_15_target_child = {
+			add_friend = scope:fr_15_target_child_2
+		}
+	}
+}
+	
