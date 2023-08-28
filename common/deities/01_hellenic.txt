@@ -227,7 +227,10 @@ deity_asclepius = {
 deity_hades = {
 	trigger = {
 		polytheistic_check_religion_trigger = yes
-		NOT = { country_culture_group = latin }
+		OR = {
+			NOT = { country_culture_group = latin }
+			primary_culture = etruscan
+		}
 		OR = {
 			NOT = { country_culture_group = illyrian_group } #Illyrians have own deities
 			primary_culture = messapian #Messapians have Greek deities (some with a different name)
@@ -1761,7 +1764,10 @@ deity_hekate = {
 	trigger = {
 		has_dlc = "Heirs of Alexander"
 		polytheistic_check_religion_trigger = yes
-		NOT = { country_culture_group = latin }
+		OR = {
+			NOT = { country_culture_group = latin }
+			primary_culture = etruscan
+		}
 		OR = {
 			NOT = { country_culture_group = illyrian_group } #Illyrians have own deities
 			primary_culture = messapian #Messapians have Greek deities (some with a different name)
