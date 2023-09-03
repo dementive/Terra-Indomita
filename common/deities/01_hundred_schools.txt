@@ -103,6 +103,61 @@ deity_zhangyi = {
 	religion = chinese_religions
 	deity_category = war #This Deity uses a War slot.
 }
+deity_likui = {
+	trigger = {
+		OR = {
+			common_deity_trigger = {
+				RELIGION = taoism
+				RELIGION = confucian
+				RELIGION = mohism
+				RELIGION = chinese_religions
+			}
+		deity:omen_likui = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth
+	passive_modifier = { global_freemen_output = deity_global_freemen_output_svalue }
+	omen = { war_exhaustion = omen_war_exhaustion }
+	
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+	
+	#religion = legalism
+	religion = confucian
+
+	deity_category = war #This Deity uses a War slot.
+	#temporarily moved
+}
+#to be changed
+deity_siege_engineers = {
+	trigger = {
+		OR = {
+			common_deity_trigger = {
+				RELIGION = taoism
+				RELIGION = confucian
+				RELIGION = mohism
+				RELIGION = chinese_religions
+			}
+		deity:omen_siege_engineers = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth
+	passive_modifier = { global_defensive = omen_global_defensive_svalue }
+	omen = { hostile_attrition = omen_hostile_attrition_svalue }
+	
+	on_activate = {
+		military_apotheosis_defensive_effect = yes
+	}
+	
+	religion = mohism
+
+	deity_category = war #This Deity uses a War slot.
+}
 ###############
 
 
@@ -211,7 +266,7 @@ deity_shenbuhai = {
 	religion = confucian
 	deity_category = economy #This Deity uses a War slot.
 }
-deity_likui = {
+deity_chinese_atomism = {
 	trigger = {
 		OR = {
 			common_deity_trigger = {
@@ -220,22 +275,20 @@ deity_likui = {
 				RELIGION = mohism
 				RELIGION = chinese_religions
 			}
-		deity:omen_likui = {
+		deity:omen_chinese_atomism = {
 				holy_site_deity_check_trigger = yes
 			}
 		}
 	}
 	icon = deity_wealth
-	passive_modifier = { global_freemen_output = deity_global_freemen_output_svalue }
-	omen = { war_exhaustion = omen_war_exhaustion }
+	passive_modifier = { global_commerce_modifier = deity_global_commerce_modifier_svalue }
+	omen = { global_citizen_output = omen_global_citizen_output_svalue }
 	
 	on_activate = {
-		fertility_apotheosis_food_effect = yes
+		economy_apotheosis_province_improvement_effect = yes
 	}
 	
-	#religion = legalism
-	religion = confucian
-
+	religion = mohism
 	deity_category = economy #This Deity uses a War slot.
 }
 ##############
@@ -295,33 +348,6 @@ deity_zichan = {
 	religion = confucian
 	deity_category = culture #This Deity uses a War slot.
 }
-deity_zisi = {
-	trigger = {
-		OR = {
-			common_deity_trigger = {
-				RELIGION = taoism
-				RELIGION = confucian
-				RELIGION = mohism
-				RELIGION = chinese_religions
-			}
-		deity:omen_zisi = {
-				holy_site_deity_check_trigger = yes
-			}
-		}
-	}
-	icon = deity_eloquence
-	passive_modifier = { global_pop_assimilation_speed_modifier = deity_global_pop_assimilation_speed_modifier_svalue }
-	omen = { global_citizen_output = omen_global_citizen_output_svalue } #Bonus from Omen
-	
-	on_activate = {
-		culture_apotheosis_assimilate_effect = yes
-	}
-	
-
-	religion = confucian
-
-	deity_category = culture #This Deity uses a War slot.
-}
 deity_xunzi = {
 	trigger = {
 		OR = {
@@ -373,6 +399,31 @@ deity_zhuangzi = {
 	
 	religion = taoism
 	deity_category = culture #This Deity uses a Culture slot.
+}
+deity_altruism = {
+	trigger = {
+		OR = {
+			common_deity_trigger = {
+				RELIGION = taoism
+				RELIGION = confucian
+				RELIGION = mohism
+				RELIGION = chinese_religions
+			}
+		deity:omen_altruism = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wealth
+	passive_modifier = { monthly_corruption = deity_monthly_corruption_svalue }
+	omen = { global_tribesmen_happyness = omen_global_tribesmen_happiness_svalue }
+	
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+	
+	religion = mohism
+	deity_category = culture #This Deity uses a War slot.
 }
 #################
 
@@ -505,7 +556,33 @@ deity_lieyukou = {
 	
 	religion = taoism
 
-	deity_category = culture #This Deity uses a Culture slot.
+	deity_category = war #This Deity uses a Culture slot.
+	#to change
+}
+deity_dao = {
+	trigger = {
+		OR = {
+			common_deity_trigger = {
+				RELIGION = taoism
+				RELIGION = confucian
+				RELIGION = mohism
+				RELIGION = chinese_religions
+			}
+		deity:omen_dao = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_love
+	passive_modifier = { global_freemen_output = deity_global_freemen_output_svalue }
+	omen = { global_population_growth = omen_global_population_growth }
+	
+	on_activate = {
+		fertility_apotheosis_food_effect = yes
+	}
+	religion = taoism
+
+	deity_category = fertility #This Deity uses a Fertility slot.
 }
 ################
 
@@ -536,6 +613,34 @@ deity_confucius = {
 
 	deity_category = wisdom #This Deity uses a Wisdom slot.
 }
+deity_zisi = {
+	trigger = {
+		OR = {
+			common_deity_trigger = {
+				RELIGION = taoism
+				RELIGION = confucian
+				RELIGION = mohism
+				RELIGION = chinese_religions
+			}
+		deity:omen_zisi = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_eloquence
+	passive_modifier = { global_pop_assimilation_speed_modifier = deity_global_pop_assimilation_speed_modifier_svalue }
+	omen = { global_citizen_output = omen_global_citizen_output_svalue } #Bonus from Omen
+	
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+	
+
+	religion = confucian
+
+	deity_category = wisdom #This Deity uses a War slot.
+	#temporarily moved
+}
 deity_laozi = {
 	trigger = {
 		OR = {
@@ -559,6 +664,31 @@ deity_laozi = {
 	}
 	
 	religion = taoism
+	deity_category = wisdom #This Deity uses a Wisdom slot.
+}
+deity_gongshu = {
+	trigger = {
+		OR = {
+			common_deity_trigger = {
+				RELIGION = taoism
+				RELIGION = confucian
+				RELIGION = mohism
+				RELIGION = chinese_religions
+			}
+		deity:omen_gongshu = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { military_tech_investment = deity_military_tech_investment_svalue }
+	 #Bonus from Omen
+	omen = { ruler_popularity_gain = omen_ruler_popularity_gain_svalue }
+	on_activate = {
+		military_apotheosis_defensive_effect = yes
+	}
+	
+	religion = mohism
 	deity_category = wisdom #This Deity uses a Wisdom slot.
 }
 
@@ -616,50 +746,53 @@ deity_dengxi = {
 	religion = confucian
 	deity_category = justice #This Deity uses a Justice slot.
 }
+deity_sun_wukong = {
+	trigger = {
+		OR = {
+			common_deity_trigger = {
+				RELIGION = taoism
+				RELIGION = confucian
+				RELIGION = mohism
+				RELIGION = chinese_religions
+			}
+		deity:omen_sun_wukong = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { monthly_tyranny = deity_monthly_tyranny_svalue }
+	omen = { ruler_popularity_gain = omen_ruler_popularity_gain_svalue }
 
+	on_activate = {
+		military_apotheosis_manpower_effect = yes
+	}
+	
+	religion = taoism
+	deity_category = justice #This Deity uses a Justice slot.
+}
+deity_universal_love = {
+	trigger = {
+		OR = {
+			common_deity_trigger = {
+				RELIGION = taoism
+				RELIGION = confucian
+				RELIGION = mohism
+				RELIGION = chinese_religions
+			}
+		deity:omen_universal_love = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { global_monthly_state_loyalty = deity_global_monthly_state_loyalty_svalue }
+	omen = { ruler_popularity_gain = omen_ruler_popularity_gain_svalue }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	on_activate = {
+		culture_apotheosis_capital_effect = yes
+	}
+	
+	religion = mohism
+	deity_category = justice #This Deity uses a Justice slot.
+}
