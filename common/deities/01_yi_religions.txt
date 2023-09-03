@@ -229,3 +229,105 @@ deity_yi_god_of_river = {
 		can_deify_trigger = yes
 	}
 }
+
+deity_haemosu = {
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = yi_religions
+			}
+			deity:omen_helios = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_7
+	passive_modifier = { global_population_capacity_modifier = deity_global_population_capacity_modifier_svalue }
+	omen = { ruler_popularity_gain = omen_ruler_popularity_gain_svalue } #Bonus from Omen
+	religion = yi_religions
+	deity_category = fertility #This Deity uses a Culture Slot
+
+	on_activate = {
+		military_apotheosis_capital_freemen_effect = yes
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_dalnim = {
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = yi_religions
+			}
+			deity:omen_dalnim = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_7
+	passive_modifier = { global_commerce_modifier = deity_global_commerce_modifier_svalue }
+	omen = { global_tax_modifier = omen_global_tax_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		economy_apotheosis_province_improvement_effect = yes
+	}
+	religion = yi_religions
+	deity_category = economy #This Deity uses a Culture Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_seokga = {
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = yi_religions
+			}
+			deity:omen_seokga = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_10
+	passive_modifier = { monthly_corruption = deity_monthly_corruption_svalue }
+	omen = { character_loyalty = 4 } #Bonus from Omen
+	on_activate = {
+		fertility_apotheosis_capital_slaves_effect = yes
+	}
+	religion = yi_religions
+	deity_category = justice #This Deity uses a Wisdom Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_mireuk = {
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = yi_religions
+			}
+			deity:omen_dalnim = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_10
+	passive_modifier = { research_points_modifier = deity_research_points_modifier_svalue }
+	omen = { character_loyalty = 4 } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_assimilate_effect = yes
+	}
+	religion = yi_religions
+	deity_category = wisdom #This Deity uses a Wisdom Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
