@@ -1,13 +1,13 @@
 ﻿### General Deity Checks ###
 
-deity_masto1 = { # WAR
+deity_barha = { # WAR
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
-			rare_deity_trigger = {
+			common_deity_trigger = {
 				RELIGION = masto_pantheon
 			}
-			deity:omen_masto1 = {
+			deity:omen_barha = {
 				holy_site_deity_check_trigger = yes
 			}
 		}
@@ -25,14 +25,39 @@ deity_masto1 = { # WAR
 		can_deify_trigger = yes
 	}
 }
-deity_masto2 = { # ECONOMY
+deity_dubo = { # WAR
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
 			rare_deity_trigger = {
 				RELIGION = masto_pantheon
 			}
-			deity:omen_masto2 = {
+			deity:omen_dubo = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_war
+	passive_modifier = { land_morale_modifier = deity_land_morale_modifier_svalue }
+	omen = { hostile_attrition = omen_hostile_attrition_svalue } #Bonus from Omen
+	on_activate = {
+		war_apotheosis_martial_tech_effect = yes
+	}
+	religion = masto_pantheon
+	deity_category = war #This Deity uses a War Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_malika = { # ECONOMY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = masto_pantheon
+			}
+			deity:omen_malika = {
 				holy_site_deity_check_trigger = yes
 			}
 		}
@@ -50,14 +75,39 @@ deity_masto2 = { # ECONOMY
 		can_deify_trigger = yes
 	}
 }
-deity_masto3 = { # JUSTICE
+deity_gothadevata = { # ECONOMY
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
 			rare_deity_trigger = {
 				RELIGION = masto_pantheon
 			}
-			deity:omen_masto3 = {
+			deity:omen_gothadevata = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_wealth
+	passive_modifier = { global_food_capacity = deity_global_food_capacity_svalue }
+	omen = { global_commerce_modifier = omen_global_commerce_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		economy_income_effect = yes
+	}
+	religion = masto_pantheon
+	deity_category = economy #This Deity uses an Economy Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_tulsi = { # JUSTICE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = masto_pantheon
+			}
+			deity:omen_tulsi = {
 				holy_site_deity_check_trigger = yes
 			}
 		}
@@ -75,14 +125,39 @@ deity_masto3 = { # JUSTICE
 		can_deify_trigger = yes
 	}
 }
-deity_masto4 = { # Wisdom
+deity_vanadevata = { # JUSTICE
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
 			rare_deity_trigger = {
 				RELIGION = masto_pantheon
 			}
-			deity:omen_masto4 = {
+			deity:omen_vanadevata = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_justice
+	passive_modifier = { character_loyalty = 3 }
+	omen = { global_monthly_state_loyalty = deity_global_monthly_state_loyalty_svalue }
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+	religion = masto_pantheon
+	deity_category = justice #This Deity uses a Justice Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_pipala = { # WISDOM
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = masto_pantheon
+			}
+			deity:omen_pipala = {
 				holy_site_deity_check_trigger = yes
 			}
 		}
@@ -100,14 +175,39 @@ deity_masto4 = { # Wisdom
 		can_deify_trigger = yes
 	}
 }
-deity_masto5 = { # CULTURE
+deity_vara = { # WISDOM
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
 			rare_deity_trigger = {
 				RELIGION = masto_pantheon
 			}
-			deity:omen_masto5 = {
+			deity:omen_vara = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_wisdom
+	passive_modifier = { civic_tech_investment = deity_civic_tech_investment_svalue }
+	omen = { religious_tech_investment = omen_religious_tech_investment_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_oratory_tech_effect = yes
+	}
+	religion = masto_pantheon
+	deity_category = wisdom #This Deity uses a Wisdom Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_surya = { # CULTURE
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = masto_pantheon
+			}
+			deity:omen_surya = {
 				holy_site_deity_check_trigger = yes
 			}
 		}
@@ -125,14 +225,39 @@ deity_masto5 = { # CULTURE
 		can_deify_trigger = yes
 	}
 }
-deity_masto6 = { # FERTILITY
+deity_masto = { # CULTURE
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
-			rare_deity_trigger = {
+			very_common_deity_trigger = {
 				RELIGION = masto_pantheon
 			}
-			deity:omen_masto6 = {
+			deity:omen_masto = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_eloquence
+	passive_modifier = { happiness_for_same_culture_modifier = omen_happiness_for_same_culture_modifier_svalue }
+	omen = { happiness_for_same_religion_modifier = omen_happiness_for_same_religion_modifier_svalue } #Bonus from Omen
+	on_activate = {
+		culture_apotheosis_characters_effect = yes
+	}
+	religion = masto_pantheon
+	deity_category = culture #This Deity uses a Culture Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_durga_masto = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			common_deity_trigger = {
+				RELIGION = masto_pantheon
+			}
+			deity:omen_durga_masto = {
 				holy_site_deity_check_trigger = yes
 			}
 		}
@@ -142,6 +267,31 @@ deity_masto6 = { # FERTILITY
 	omen = { global_monthly_civilization = omen_global_monthly_civilization_svalue }
 	on_activate = {
 		economy_apotheosis_province_improvement_effect = yes
+	}
+	religion = masto_pantheon
+	deity_category = fertility #This Deity uses a Fertility Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+deity_jaladevata = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = masto_pantheon
+			}
+			deity:omen_jaladevata = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_hindu_love
+	passive_modifier = { global_population_growth = deity_global_population_growth_svalue }
+	omen = { naval_morale_modifier = omen_naval_morale_modifier_svalue }
+	on_activate = {
+		naval_apotheosis_effect = yes
 	}
 	religion = masto_pantheon
 	deity_category = fertility #This Deity uses a Fertility Slot
