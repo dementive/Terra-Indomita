@@ -1,6 +1,6 @@
 ﻿jomon_north_missions = {
-    header = "mission_image_general"
-    icon = "general_1"
+    header = "mission_image_japan"
+    icon = "cde_tribal_raid"
 
     repeatable = no
     chance = 1000
@@ -21,8 +21,11 @@
         }
     }
     on_completion = {}
-    jomon_north_missions_task_1 = {
+
+    # Start
+    jomon_north_missions_task_1 = { # Epi-Jomon Jidai
         icon = "task_political"
+        duration = 30
         allow = {}
         on_completion = {
             trigger_event = me_jomon.1
@@ -31,8 +34,20 @@
             }
         }
     }
-    jomon_north_missions_task_2 = {
-        icon = "task_political"
+
+    ## Hokkaido
+    jomon_north_missions_task_2 = { # The Three Tribes
+        icon = "task_conquest"
+        potential = { primary_culture = ainu }
+        highlight = {
+            scope:province = {
+                OR = {
+                    owner = c:ESN
+                    owner = c:ESU
+                    owner = c:KTM
+                }
+            }
+        }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.2
@@ -41,9 +56,22 @@
             }
         }
     }
-    jomon_north_missions_task_3 = {
-        icon = "task_political"
-        allow = {}
+    jomon_north_missions_task_3 = { # Proficient Fishing
+        icon = "task_expansion"
+        potential = { primary_culture = ainu }
+        requires = { jomon_north_missions_task_2 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10567
+                    province_id = 10568
+                    province_id = 10575
+                }
+            }
+        }
+        allow = {
+            
+        }
         on_completion = {
             trigger_event = me_jomon.3
             show_as_tooltip = {
@@ -51,8 +79,19 @@
             }
         }
     }
-    jomon_north_missions_task_4 = {
-        icon = "task_political"
+    jomon_north_missions_task_4 = { # Sap-Stone of Sakhalin
+        icon = "task_economical"
+        potential = { primary_culture = ainu }
+        requires = { jomon_north_missions_task_2 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10569
+                    province_id = 10570
+                    province_id = 10571
+                }
+            }
+        }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.4
@@ -61,8 +100,19 @@
             }
         }
     }
-    jomon_north_missions_task_5 = {
+    jomon_north_missions_task_5 = { # Art of Amber
         icon = "task_political"
+        potential = { primary_culture = ainu }
+        requires = { jomon_north_missions_task_2 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10572
+                    province_id = 10573
+                    province_id = 10574
+                }
+            }
+        }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.5
@@ -71,8 +121,15 @@
             }
         }
     }
-    jomon_north_missions_task_6 = {
-        icon = "task_political"
+    jomon_north_missions_task_6 = { # Hokkaido is Home
+        icon = "task_happiness"
+        potential = { primary_culture = ainu }
+        requires = { jomon_north_missions_task_3 jomon_north_missions_task_4 jomon_north_missions_task_5 }
+        highlight = {
+            scope:province = {
+                is_in_area = hokkaido_area
+            }
+        }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.6
@@ -81,8 +138,11 @@
             }
         }
     }
+
+    ## Honshu
     jomon_north_missions_task_7 = {
         icon = "task_political"
+        potential = { NOT = { primary_culture = ainu } }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.7
@@ -93,6 +153,7 @@
     }
     jomon_north_missions_task_8 = {
         icon = "task_political"
+        potential = { NOT = { primary_culture = ainu } }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.8
@@ -103,6 +164,7 @@
     }
     jomon_north_missions_task_9 = {
         icon = "task_political"
+        potential = { NOT = { primary_culture = ainu } }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.9
@@ -113,6 +175,7 @@
     }
     jomon_north_missions_task_10 = {
         icon = "task_political"
+        potential = { NOT = { primary_culture = ainu } }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.10
@@ -123,6 +186,7 @@
     }
     jomon_north_missions_task_11 = {
         icon = "task_political"
+        potential = { NOT = { primary_culture = ainu } }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.11
@@ -133,6 +197,7 @@
     }
     jomon_north_missions_task_12 = {
         icon = "task_political"
+        potential = { NOT = { primary_culture = ainu } }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.12
@@ -150,75 +215,76 @@
 
             }
         }
+        final = yes
     }
-    jomon_north_missions_task_14 = {
-        icon = "task_political"
-        allow = {}
-        on_completion = {
-            trigger_event = me_jomon.14
-            show_as_tooltip = {
-
-            }
-        }
-    }
-    jomon_north_missions_task_15 = {
-        icon = "task_political"
-        allow = {}
-        on_completion = {
-            trigger_event = me_jomon.15
-            show_as_tooltip = {
-
-            }
-        }
-    }
-    jomon_north_missions_task_16 = {
-        icon = "task_political"
-        allow = {}
-        on_completion = {
-            trigger_event = me_jomon.16
-            show_as_tooltip = {
-
-            }
-        }
-    }
-    jomon_north_missions_task_17 = {
-        icon = "task_political"
-        allow = {}
-        on_completion = {
-            trigger_event = me_jomon.17
-            show_as_tooltip = {
-
-            }
-        }
-    }
-    jomon_north_missions_task_18 = {
-        icon = "task_political"
-        allow = {}
-        on_completion = {
-            trigger_event = me_jomon.18
-            show_as_tooltip = {
-
-            }
-        }
-    }
-    jomon_north_missions_task_19 = {
-        icon = "task_political"
-        allow = {}
-        on_completion = {
-            trigger_event = me_jomon.19
-            show_as_tooltip = {
-
-            }
-        }
-    }
-    jomon_north_missions_task_20 = {
-        icon = "task_political"
-        allow = {}
-        on_completion = {
-            trigger_event = me_jomon.20
-            show_as_tooltip = {
-
-            }
-        }
-    }
+    #jomon_north_missions_task_14 = {
+    #    icon = "task_political"
+    #    allow = {}
+    #    on_completion = {
+    #        trigger_event = me_jomon.14
+    #        show_as_tooltip = {
+#
+    #        }
+    #    }
+    #}
+    #jomon_north_missions_task_15 = {
+    #    icon = "task_political"
+    #    allow = {}
+    #    on_completion = {
+    #        trigger_event = me_jomon.15
+    #        show_as_tooltip = {
+#
+    #        }
+    #    }
+    #}
+    #jomon_north_missions_task_16 = {
+    #    icon = "task_political"
+    #    allow = {}
+    #    on_completion = {
+    #        trigger_event = me_jomon.16
+    #        show_as_tooltip = {
+#
+    #        }
+    #    }
+    #}
+    #jomon_north_missions_task_17 = {
+    #    icon = "task_political"
+    #    allow = {}
+    #    on_completion = {
+    #        trigger_event = me_jomon.17
+    #        show_as_tooltip = {
+#
+    #        }
+    #    }
+    #}
+    #jomon_north_missions_task_18 = {
+    #    icon = "task_political"
+    #    allow = {}
+    #    on_completion = {
+    #        trigger_event = me_jomon.18
+    #        show_as_tooltip = {
+#
+    #        }
+    #    }
+    #}
+    #jomon_north_missions_task_19 = {
+    #    icon = "task_political"
+    #    allow = {}
+    #    on_completion = {
+    #        trigger_event = me_jomon.19
+    #        show_as_tooltip = {
+#
+    #        }
+    #    }
+    #}
+    #jomon_north_missions_task_20 = {
+    #    icon = "task_political"
+    #    allow = {}
+    #    on_completion = {
+    #        trigger_event = me_jomon.20
+    #        show_as_tooltip = {
+#
+    #        }
+    #    }
+    #}
 }
