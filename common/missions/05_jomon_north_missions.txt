@@ -24,13 +24,29 @@
 
     # Start
     jomon_north_missions_task_1 = { # Epi-Jomon Jidai
-        icon = "task_political"
+        icon = "task_diplomatic"
         duration = 30
         allow = {}
         on_completion = {
-            trigger_event = me_jomon.1
+            trigger_if = {
+                limit = {
+                    primary_culture = ainu
+                }
+                trigger_event = me_jomon.1
+            }
+            trigger_else = {
+                trigger_event = me_jomon.101
+            }
             show_as_tooltip = {
-
+                trigger_if = {
+                    limit = {
+                        primary_culture = ainu
+                    }
+                    custom_tooltip = claims_on_hokkaido_tt
+                }
+                trigger_else = {
+                    custom_tooltip = claims_on_honshu_tt
+                }
             }
         }
     }
@@ -48,11 +64,26 @@
                 }
             }
         }
-        allow = {}
+        allow = {
+            custom_tooltip = {
+                any_country = {
+                    primary_culture = ainu
+                    opinion = {
+                        target = root 
+                        value >= 125            
+                    }
+                }
+                text = "hokkaido_opinion_tt"
+            }
+        }
+        bypass = {
+            owns_or_subject_owns_area = hokkaido_area
+        }
         on_completion = {
             trigger_event = me_jomon.2
+            set_variable = hokkaido_unification_var
             show_as_tooltip = {
-
+                custom_tooltip = hokkaido_unification_decision_tt
             }
         }
     }
@@ -70,7 +101,15 @@
             }
         }
         allow = {
-            
+            owns_or_subject_owns = 10567
+            owns_or_subject_owns = 10568
+            owns_or_subject_owns = 10575
+            any_owned_province = {
+                limit = {
+                    trade_goods = fish
+                }
+                has_building = basic_settlement_infratructure_building
+            }
         }
         on_completion = {
             trigger_event = me_jomon.3
@@ -81,6 +120,7 @@
     }
     jomon_north_missions_task_4 = { # Sap-Stone of Sakhalin
         icon = "task_economical"
+        duration = 30
         potential = { primary_culture = ainu }
         requires = { jomon_north_missions_task_2 }
         highlight = {
@@ -92,7 +132,34 @@
                 }
             }
         }
-        allow = {}
+        allow = {
+            owns_or_subject_owns = 10569
+            owns_or_subject_owns = 10570
+            owns_or_subject_owns = 10571
+            any_owned_province = {
+                limit = {
+                    OR = {
+                        province_id = 10569
+                        province_id = 10570
+                        province_id = 10571
+                    }
+                    has_building = commerce_building
+                }
+            }
+            custom_tooltip = {
+                any_country = {
+                    tag = TU7
+                    opinion = {
+                        target = root 
+                        value >= 75            
+                    }
+                }
+                text = "susuya_opinion_tt"
+            }
+        }
+        on_start = {
+            trigger_event = me_jomon.401
+        }
         on_completion = {
             trigger_event = me_jomon.4
             show_as_tooltip = {
@@ -113,11 +180,43 @@
                 }
             }
         }
-        allow = {}
+        allow = {
+            owns_or_subject_owns = 10572
+            owns_or_subject_owns = 10573
+            owns_or_subject_owns = 10574
+            OR = {
+                capital_scope = {
+                    is_importing_trade_good = amber
+                    hidden:state = {
+                        trade_good_imports = {
+                            target = amber
+                            value >= 2
+                        }
+                    }  
+                }
+                custom_tooltip = {
+                    text = local_amber_tt
+                    any_owned_province = {
+                        trade_goods = amber
+                        num_goods_produced >= 1
+                    }
+                }
+            }
+        }
         on_completion = {
             trigger_event = me_jomon.5
             show_as_tooltip = {
+                p:10572 = {
+                    add_permanent_province_modifier = hub_of_amber
+                }
+                create_country_treasure = {
+                    key = amber_jewelry
+                    icon = 10572
 
+                    modifier = {
+                        local_goods_from_slaves = -4
+                    }
+                }
             }
         }
     }
@@ -130,7 +229,9 @@
                 is_in_area = hokkaido_area
             }
         }
-        allow = {}
+        allow = {
+            owns_or_subject_owns_area = hokkaido_area
+        }
         on_completion = {
             trigger_event = me_jomon.6
             show_as_tooltip = {
@@ -139,11 +240,22 @@
         }
     }
 
-    ## Honshu
-    jomon_north_missions_task_7 = {
+    ## ESAN
+    jomon_north_missions_task_7 = { # Sunazawa Siblings
         icon = "task_political"
-        potential = { NOT = { primary_culture = ainu } }
-        allow = {}
+        potential = { tag = ESN }
+        allow = {
+            owns_or_subject_owns = 10558
+            owns_or_subject_owns = 10559
+            owns_or_subject_owns = 10560
+            owns_or_subject_owns = 10562
+            custom_tooltip = {
+                any_integrated_culture = {
+                    is_culture = sunazawa
+                }
+                text = "esan_mixed_culture"
+            }
+        }
         on_completion = {
             trigger_event = me_jomon.7
             show_as_tooltip = {
@@ -151,10 +263,28 @@
             }
         }
     }
-    jomon_north_missions_task_8 = {
+
+    ## EBETSU-KITAMI
+    jomon_north_missions_task_8 = { # Susuya Siblings
         icon = "task_political"
-        potential = { NOT = { primary_culture = ainu } }
-        allow = {}
+        potential = {
+            OR = {
+                tag = KTM
+                tag = ESU
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_country = {
+                    tag = TU7
+                    opinion = {
+                        target = root 
+                        value >= 180            
+                    }
+                }
+                text = "susuya_opinion_2_tt"
+            } 
+        }
         on_completion = {
             trigger_event = me_jomon.8
             show_as_tooltip = {
