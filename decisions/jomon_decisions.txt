@@ -1,0 +1,296 @@
+﻿country_decisions = {
+
+	city_of_fish_oshima = {
+		potential = {
+			tag = ESN
+			p:10567 = {
+				has_city_status = yes
+			}
+		}
+
+		allow = {
+			treasury >= 200
+		}
+
+		effect = {
+			p:10567 = {
+				set_trade_goods = fish
+				add_province_modifier = {
+					name = city_of_fish
+					duration = 3650
+				}
+			}
+			add_treasury = -200
+			add_stability = -3
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+	peaceful_unification_of_hokkaido = {
+		potential = {
+			primary_culture = ainu
+			has_variable = hokkaido_unification_var
+			NOT = { has_variable = hokkaido_unified_var }
+			c:ESN = {
+				has_land = yes
+			}
+			c:ESU = {
+				has_land = yes
+			}
+			c:KTM = {
+				has_land = yes
+			}
+		}
+		highlight = {
+			scope:province = {
+				OR = {
+					owner = c:ESN
+					owner = c:ESU
+					owner = c:KTM
+				}
+			}
+		}
+		allow = {
+			trigger_if = {
+				limit = {
+					tag = ESN
+				}
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESU
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esu_tt"
+	            }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = KTM
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_ktm_tt"
+	            }
+	        }
+			trigger_if = {
+				limit = {
+					tag = ESU
+				}
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESN
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esn_tt"
+	            }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = KTM
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_ktm_tt"
+	            }
+	        }
+	        trigger_if = {
+				limit = {
+					tag = KTM
+				}
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESU
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esu_tt"
+	            }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESN
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esn_tt"
+	            }
+	        }
+	        trigger_else = {
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESN
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esn_tt"
+	            }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESU
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esu_tt"
+	            }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = KTM
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_ktm_tt"
+	            }
+	        }
+		}
+
+		effect = {
+			set_variable = hokkaido_unified_var
+			if = {
+				limit = {
+					tag = ESN
+				}
+				c:ESU = {
+					every_owned_province = {
+						set_owned_by = root
+					}
+				}
+				c:KTM = {
+					every_owned_province = {
+						set_owned_by = root
+					}
+				}
+			}
+			if = {
+				limit = {
+					tag = ESU
+				}
+				c:ESN = {
+					every_owned_province = {
+						set_owned_by = root
+					}
+				}
+				c:KTM = {
+					every_owned_province = {
+						set_owned_by = root
+					}
+				}
+			}
+			if = {
+				limit = {
+					tag = KTM
+				}
+				c:ESN = {
+					every_owned_province = {
+						set_owned_by = root
+					}
+				}
+				c:ESU = {
+					every_owned_province = {
+						set_owned_by = root
+					}
+				}
+			}
+			else = {
+				c:ESN = {
+					every_owned_province = {
+						set_owned_by = root
+					}
+				}
+				c:ESU = {
+					every_owned_province = {
+						set_owned_by = root
+					}
+				}
+				c:KTM = {
+					every_owned_province = {
+						set_owned_by = root
+					}
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+	hostile_unification_of_hokkaido = {
+		potential = {
+			primary_culture = ainu
+			has_variable = hokkaido_unification_var
+			NOT = { has_variable = hokkaido_unified_var }
+		}
+		highlight = {
+			scope:province = {
+				OR = {
+					owner = c:ESN
+					owner = c:ESU
+					owner = c:KTM
+				}
+			}
+		}
+		allow = {
+			OR = {
+				diplomatic_stance = domination_stance
+				diplomatic_stance = warmongering_stance
+			}
+		}
+
+		effect = {
+			set_variable = hokkaido_unified_var
+			if = {
+				limit = {
+					tag = ESN
+				}
+				declare_war_with_wargoal = {
+					
+				}
+			}
+			if = {
+				limit = {
+					tag = ESU
+				}
+				declare_war_with_wargoal = {
+					
+				}
+			}
+			if = {
+				limit = {
+					tag = KTM
+				}
+				declare_war_with_wargoal = {
+					
+				}
+			}
+			else = {
+				declare_war_with_wargoal = {
+
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 0
+		}
+	}
+
+}
