@@ -1,4 +1,4 @@
-﻿jomon_north_missions = {
+﻿ezo_missions = {
     header = "mission_image_japan"
     icon = "cde_tribal_raid"
 
@@ -7,6 +7,7 @@
 
     potential = {
         NOT = { has_variable = mission_cooldown_var }
+        primary_culture = ainu
     }
 
     abort = {}
@@ -22,15 +23,27 @@
     }
     on_completion = {}
 
-    # Start
-    jomon_north_missions_task_1 = { # Epi-Jomon Jidai
+    ezo_missions_task_1 = { # Horizons of Hokkaido
         icon = "task_diplomatic"
         duration = 30
-        allow = {}
+        requires = {}
+        allow = {
+            trigger_if = {
+                limit = {
+                    tag = ESN
+                }
+                political_influence >= 10
+                num_of_ships >= 5
+            }
+            trigger_else = {
+                political_influence >= 25
+                treasury >= 25
+            }
+        }
         on_completion = {
             if = {
                 limit = {
-                    primary_culture = ainu
+                    tag = ESN
                 }
                 trigger_event = me_jomon.1
             }
@@ -40,21 +53,19 @@
             show_as_tooltip = {
                 if = {
                     limit = {
-                        primary_culture = ainu
+                        tag = ESN
                     }
-                    custom_tooltip = claims_on_hokkaido_tt
+                    custom_tooltip = claims_on_sunazawa_tt
                 }
                 else = {
-                    custom_tooltip = claims_on_honshu_tt
+                    custom_tooltip = claims_on_sakhalin_tt
                 }
             }
         }
     }
 
-    ## Hokkaido
-    jomon_north_missions_task_2 = { # The Three Tribes
+    ezo_missions_task_2 = { # The Three Tribes
         icon = "task_conquest"
-        potential = { primary_culture = ainu }
         highlight = {
             scope:province = {
                 OR = {
@@ -88,10 +99,9 @@
             }
         }
     }
-    jomon_north_missions_task_3 = { # Proficient Fishing
+    ezo_missions_task_3 = { # Proficient Fishing
         icon = "task_expansion"
-        potential = { primary_culture = ainu }
-        requires = { jomon_north_missions_task_2 }
+        requires = { ezo_missions_task_2 }
         highlight = {
             scope:province = {
                 OR = {
@@ -117,11 +127,10 @@
             }
         }
     }
-    jomon_north_missions_task_4 = { # Sap-Stone of Sakhalin
+    ezo_missions_task_4 = { # Sap-Stone of Sakhalin
         icon = "task_economical"
         duration = 30
-        potential = { primary_culture = ainu }
-        requires = { jomon_north_missions_task_2 }
+        requires = { ezo_missions_task_2 }
         highlight = {
             scope:province = {
                 OR = {
@@ -135,13 +144,16 @@
             owns_or_subject_owns = 10569
             owns_or_subject_owns = 10570
             owns_or_subject_owns = 10571
-            any_owned_province = {
-                OR = {
-                    province_id = 10569
-                    province_id = 10570
-                    province_id = 10571
+            OR = {
+                p:10570 = {
+                    has_building = commerce_building
                 }
-                has_building = commerce_building
+                p:10571 = {
+                    has_building = commerce_building
+                }
+                p:10569 = {
+                    has_building = commerce_building
+                }
             }
             custom_tooltip = {
                 any_country = {
@@ -164,10 +176,9 @@
             }
         }
     }
-    jomon_north_missions_task_5 = { # Art of Amber
+    ezo_missions_task_5 = { # Art of Amber
         icon = "task_political"
-        potential = { primary_culture = ainu }
-        requires = { jomon_north_missions_task_2 }
+        requires = { ezo_missions_task_2 }
         highlight = {
             scope:province = {
                 OR = {
@@ -182,14 +193,17 @@
             owns_or_subject_owns = 10573
             owns_or_subject_owns = 10574
             OR = {
-                capital_scope = {
-                    is_importing_trade_good = amber
-                    hidden:state = {
-                        trade_good_imports = {
-                            target = amber
-                            value >= 2
-                        }
-                    }  
+                custom_tooltip = {
+                    capital_scope = {
+                        is_importing_trade_good = amber
+                        hidden:state = {
+                            trade_good_imports = {
+                                target = amber
+                                value >= 2
+                            }
+                        }  
+                    }
+                    text = foreign_amber_tt
                 }
                 custom_tooltip = {
                     text = local_amber_tt
@@ -219,10 +233,9 @@
             }
         }
     }
-    jomon_north_missions_task_6 = { # Hokkaido is Home
+    ezo_missions_task_6 = { # Hokkaido is Home
         icon = "task_happiness"
-        potential = { primary_culture = ainu }
-        requires = { jomon_north_missions_task_3 jomon_north_missions_task_4 jomon_north_missions_task_5 }
+        requires = { ezo_missions_task_3 ezo_missions_task_4 ezo_missions_task_5 }
         highlight = {
             scope:province = {
                 is_in_area = hokkaido_area
@@ -237,13 +250,24 @@
 
             }
         }
+        final = yes
     }
 
     ## ESAN
-    jomon_north_missions_task_7 = { # Sunazawa Siblings
-        icon = "task_political"
+    ezo_missions_task_7 = { # Sunazawa Siblings
+        icon = "task_religion"
         potential = { tag = ESN }
-        requires = { jomon_north_missions_task_1 }
+        requires = { ezo_missions_task_1 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10558
+                    province_id = 10559
+                    province_id = 10560
+                    province_id = 10562
+                }
+            }
+        }
         allow = {
             owns_or_subject_owns = 10558
             owns_or_subject_owns = 10559
@@ -265,15 +289,15 @@
     }
 
     ## EBETSU-KITAMI
-    jomon_north_missions_task_8 = { # Susuya Siblings
-        icon = "task_political"
+    ezo_missions_task_8 = { # Susuya Siblings
+        icon = "task_religion"
         potential = {
             OR = {
                 tag = KTM
                 tag = ESU
             }
         }
-        requires = { jomon_north_missions_task_1 }
+        requires = { ezo_missions_task_1 }
         allow = {
             custom_tooltip = {
                 any_country = {
@@ -293,10 +317,33 @@
             }
         }
     }
-    jomon_north_missions_task_9 = {
-        icon = "task_political"
-        potential = { NOT = { primary_culture = ainu } }
-        allow = {}
+    ezo_missions_task_9 = { # Playground of the Gods
+        icon = "task_atlas"
+        requires = { ezo_missions_task_1 }
+        highlight = {
+            scope:province = {
+                province_id = 8114
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = hokkaido_area
+            custom_tooltip = {
+                text = playground_of_the_gods_tt
+                p:5993 = {
+                    OR = {
+                        NOR = { 
+                            has_province_modifier = generic_barbarian_spawn_place
+                            has_province_modifier = minor_barbarian_spawn_place
+                            has_province_modifier = major_barbarian_spawn_place
+                        }
+                        any_neighbor_province = {
+                            count >= 2
+                            civilization_value >= 30
+                        }
+                    }
+                }
+            }
+        }
         on_completion = {
             trigger_event = me_jomon.9
             show_as_tooltip = {
@@ -304,71 +351,98 @@
             }
         }
     }
-    jomon_north_missions_task_10 = {
-        icon = "task_political"
-        potential = { NOT = { primary_culture = ainu } }
+    ezo_missions_task_10 = { # Oshima Shallow Forts
+        icon = "task_battle"
+        highlight = {
+            scope:province = {
+                province_id = 10567
+            }
+        }
+        potential = { tag = ESN }
+        requires = { ezo_missions_task_3 }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.10
             show_as_tooltip = {
-
+    
             }
         }
     }
-    jomon_north_missions_task_11 = {
-        icon = "task_political"
-        potential = { NOT = { primary_culture = ainu } }
+    ezo_missions_task_11 = { # Ishikari Animal Humor
+        icon = "task_battle"
+        highlight = {
+            scope:province = {
+                province_id = 10569
+            }
+        }
+        potential = { tag = ESU }
+        requires = { ezo_missions_task_4 }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.11
             show_as_tooltip = {
-
+    
             }
         }
     }
-    jomon_north_missions_task_12 = {
-        icon = "task_political"
-        potential = { NOT = { primary_culture = ainu } }
+    ezo_missions_task_12 = { # Okhotsk Scallop Farming
+        icon = "task_battle"
+        highlight = {
+            scope:province = {
+                province_id = 10572
+            }
+        }
+        potential = { tag = KTM }
+        requires = { ezo_missions_task_5 }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.12
             show_as_tooltip = {
-
+    
             }
         }
     }
-    jomon_north_missions_task_13 = {
+    ezo_missions_task_13 = {
         icon = "task_political"
+        potential = {
+            OR = {
+                tag = KTM
+                tag = ESU
+            }
+        }
+        requires = { ezo_missions_task_9 ezo_missions_task_8 }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.13
             show_as_tooltip = {
-
+    
             }
         }
-        final = yes
     }
-    #jomon_north_missions_task_14 = {
-    #    icon = "task_political"
-    #    allow = {}
-    #    on_completion = {
-    #        trigger_event = me_jomon.14
-    #        show_as_tooltip = {
-#
-    #        }
-    #    }
-    #}
-    #jomon_north_missions_task_15 = {
-    #    icon = "task_political"
-    #    allow = {}
-    #    on_completion = {
-    #        trigger_event = me_jomon.15
-    #        show_as_tooltip = {
-#
-    #        }
-    #    }
-    #}
-    #jomon_north_missions_task_16 = {
+    ezo_missions_task_14 = {
+        icon = "task_political"
+        potential = { tag = ESN }
+        requires = { ezo_missions_task_9 ezo_missions_task_7 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_jomon.14
+            show_as_tooltip = {
+    
+            }
+        }
+    }
+    ezo_missions_task_15 = {
+        icon = "task_political"
+        allow = {}
+        requires = { ezo_missions_task_14 ezo_missions_task_13 ezo_missions_task_6 }
+        on_completion = {
+            trigger_event = me_jomon.15
+            show_as_tooltip = {
+    
+            }
+        }
+    }
+    #ezo_missions_task_16 = {
     #    icon = "task_political"
     #    allow = {}
     #    on_completion = {
@@ -378,7 +452,7 @@
     #        }
     #    }
     #}
-    #jomon_north_missions_task_17 = {
+    #ezo_missions_task_17 = {
     #    icon = "task_political"
     #    allow = {}
     #    on_completion = {
@@ -388,7 +462,7 @@
     #        }
     #    }
     #}
-    #jomon_north_missions_task_18 = {
+    #ezo_missions_task_18 = {
     #    icon = "task_political"
     #    allow = {}
     #    on_completion = {
@@ -398,7 +472,7 @@
     #        }
     #    }
     #}
-    #jomon_north_missions_task_19 = {
+    #ezo_missions_task_19 = {
     #    icon = "task_political"
     #    allow = {}
     #    on_completion = {
@@ -408,7 +482,7 @@
     #        }
     #    }
     #}
-    #jomon_north_missions_task_20 = {
+    #ezo_missions_task_20 = {
     #    icon = "task_political"
     #    allow = {}
     #    on_completion = {
