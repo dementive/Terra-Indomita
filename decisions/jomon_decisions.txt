@@ -3,15 +3,17 @@
 	city_of_fish_oshima = {
 		potential = {
 			tag = ESN
-			p:10567 = {
-				has_city_status = yes
-			}
+			p:10567 = { has_city_status = yes }
 		}
-
+		highlight = { scope:province = { province_id = 10567 } }
 		allow = {
 			treasury >= 200
+			p:10567 = {
+				has_building = port_building
+				has_building = commerce_building
+				has_building = fortress_building
+			}
 		}
-
 		effect = {
 			p:10567 = {
 				set_trade_goods = fish
@@ -24,9 +26,7 @@
 			add_stability = -3
 		}
 		
-		ai_will_do = {
-			base = 0
-		}
+		ai_will_do = { base = 0 }
 	}
 
 	peaceful_unification_of_hokkaido = {
@@ -34,15 +34,9 @@
 			primary_culture = ainu
 			has_variable = hokkaido_unification_var
 			NOT = { has_variable = hokkaido_unified_var }
-			c:ESN = {
-				has_land = yes
-			}
-			c:ESU = {
-				has_land = yes
-			}
-			c:KTM = {
-				has_land = yes
-			}
+			c:ESN = { has_land = yes }
+			c:ESU = { has_land = yes }
+			c:KTM = { has_land = yes }
 		}
 		highlight = {
 			scope:province = {
@@ -55,9 +49,7 @@
 		}
 		allow = {
 			trigger_if = {
-				limit = {
-					tag = ESN
-				}
+				limit = { tag = ESN }
 	            custom_tooltip = {
 	                any_country = {
 	                    tag = ESU
@@ -80,9 +72,7 @@
 	            }
 	        }
 			trigger_if = {
-				limit = {
-					tag = ESU
-				}
+				limit = { tag = ESU }
 	            custom_tooltip = {
 	                any_country = {
 	                    tag = ESN
@@ -105,9 +95,7 @@
 	            }
 	        }
 	        trigger_if = {
-				limit = {
-					tag = KTM
-				}
+				limit = { tag = KTM }
 	            custom_tooltip = {
 	                any_country = {
 	                    tag = ESU
@@ -162,82 +150,40 @@
 	            }
 	        }
 		}
-
 		effect = {
 			set_variable = hokkaido_unified_var
 			if = {
-				limit = {
-					tag = ESN
-				}
-				c:ESU = {
-					every_owned_province = {
-						set_owned_by = root
-					}
-				}
-				c:KTM = {
-					every_owned_province = {
-						set_owned_by = root
-					}
-				}
+				limit = { tag = ESN }
+				c:ESU = { every_owned_province = { set_owned_by = root } }
+				c:KTM = { every_owned_province = { set_owned_by = root } }
 			}
 			if = {
-				limit = {
-					tag = ESU
-				}
-				c:ESN = {
-					every_owned_province = {
-						set_owned_by = root
-					}
-				}
-				c:KTM = {
-					every_owned_province = {
-						set_owned_by = root
-					}
-				}
+				limit = { tag = ESU }
+				c:ESN = { every_owned_province = { set_owned_by = root } }
+				c:KTM = { every_owned_province = { set_owned_by = root } }
 			}
 			if = {
-				limit = {
-					tag = KTM
-				}
-				c:ESN = {
-					every_owned_province = {
-						set_owned_by = root
-					}
-				}
-				c:ESU = {
-					every_owned_province = {
-						set_owned_by = root
-					}
-				}
+				limit = { tag = KTM }
+				c:ESN = { every_owned_province = { set_owned_by = root } }
+				c:ESU = { every_owned_province = { set_owned_by = root } }
 			}
 			else = {
-				c:ESN = {
-					every_owned_province = {
-						set_owned_by = root
-					}
-				}
-				c:ESU = {
-					every_owned_province = {
-						set_owned_by = root
-					}
-				}
-				c:KTM = {
-					every_owned_province = {
-						set_owned_by = root
-					}
-				}
+				c:ESN = { every_owned_province = { set_owned_by = root } }
+				c:ESU = { every_owned_province = { set_owned_by = root } }
+				c:KTM = { every_owned_province = { set_owned_by = root } }
 			}
 		}
-		
-		ai_will_do = {
-			base = 0
-		}
+		ai_will_do = { base = 0 }
 	}
+
 	hostile_unification_of_hokkaido = {
 		potential = {
 			primary_culture = ainu
 			has_variable = hokkaido_unification_var
 			NOT = { has_variable = hokkaido_unified_var }
+			c:ESN = { has_land = yes }
+			c:ESU = { has_land = yes }
+			c:KTM = { has_land = yes }
 		}
 		highlight = {
 			scope:province = {
@@ -253,44 +199,101 @@
 				diplomatic_stance = domination_stance
 				diplomatic_stance = warmongering_stance
 			}
+			NOT = {
+				any_country = {
+					limit = {
+						capital_scope = { is_in_area = hokkaido_area }
+						NOT = { this = root }
+					}
+					opinion = {
+						target = root
+						value >= 100
+					}
+				}
+			}
+			NOR = {
+				has_truce_with = c:ESN
+				has_truce_with = c:ESU
+				has_truce_with = c:KTM
+			}
 		}
-
 		effect = {
 			set_variable = hokkaido_unified_var
 			if = {
-				limit = {
-					tag = ESN
+				limit = { tag = ESN }
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = ESU
 				}
 				declare_war_with_wargoal = {
-					
+					war_goal = imperial_conquest_wargoal
+					target = KTM
 				}
 			}
 			if = {
-				limit = {
-					tag = ESU
+				limit = { tag = ESU }
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = ESN
 				}
 				declare_war_with_wargoal = {
-					
+					war_goal = imperial_conquest_wargoal
+					target = KTM
 				}
 			}
 			if = {
-				limit = {
-					tag = KTM
+				limit = { tag = KTM }
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = ESU
 				}
 				declare_war_with_wargoal = {
-					
+					war_goal = imperial_conquest_wargoal
+					target = ESN
 				}
 			}
 			else = {
 				declare_war_with_wargoal = {
-
+					war_goal = imperial_conquest_wargoal
+					target = ESU
+				}
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = ESN
+				}
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = KTM
 				}
 			}
 		}
-		
-		ai_will_do = {
-			base = 0
+		ai_will_do = { base = 0 }
+	}
+
+	ai_unification_of_hokkaido = { # For AI Only
+		potential = {
+			is_ai = yes
+			primary_culture = ainu
+			NOT = { has_variable = ai_unification_var }
+			NOT = { any_country = { tag = YZO } }
 		}
+		allow = {
+			owns_or_subject_owns_area = hokkaido_area
+		}
+		highlight = {
+			scope:province = {
+				is_in_area = hokkaido_area
+			}
+		}
+		effect = {
+			set_variable = ai_unification_var
+			change_country_name = "ezo_name"
+			change_country_tag = YZO
+			change_government = tribal_kingdom
+			switch_government_type_event_clearup_effect = yes
+			add_2_free_province_investments = yes
+		}
+		ai_will_do = { base = 1 }
 	}
 
 }
