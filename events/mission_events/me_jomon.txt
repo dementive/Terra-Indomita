@@ -1,6 +1,6 @@
 ﻿namespace = me_jomon
 # Ezo 1-16
-me_jomon.1 = {
+me_jomon.1 = { # Horizons of Hokkaido
     type = country_event
 
     title = me_jomon_1_title
@@ -9,11 +9,32 @@ me_jomon.1 = {
 
     option = {
         name = "me_jomon_1.a"
+        if = {
+            limit = { tag = ESN }
+            custom_tooltip = claims_on_sunazawa_tt
+            hidden_effect = {
+                p:10558 = { add_claim = root }
+                p:10559 = { add_claim = root }
+                p:10560 = { add_claim = root }
+                p:10562 = { add_claim = root }
+            }
+            add_political_influence = -15
+        }
+        else = {
+            custom_tooltip = claims_on_sakhalin_tt
+            add_treasury = -25
+            add_political_influence = -25
+            c:TU7 = {
+                add_opinion = {
+                    target = root
+                    modifier = opinion_friendly_neighbor
+                }
+            }
+        }
         custom_tooltip = me_jomon_1_tooltip
-
     }
 }
-me_jomon.2 = {
+me_jomon.2 = { # The Three Tribes
     type = country_event
 
     title = me_jomon_2_title
@@ -22,11 +43,35 @@ me_jomon.2 = {
 
     option = {
         name = "me_jomon_2.a"
-        custom_tooltip = me_jomon_2_tooltip
-
+        custom_tooltip = hokkaido_unification_decision_tt
+        set_variable = hokkaido_unification_var
     }
 }
-me_jomon.3 = {
+me_jomon.201 = { # The Three Tribes
+    type = country_event
+
+    title = me_jomon_2_title
+    desc = me_jomon_201_desc
+    picture = celtic_chiefs
+
+    option = {
+        name = "me_jomon_201.a"
+        add_country_modifier = {
+            name = hostile_ambitions_ezo
+            duration = 1825
+        }
+        custom_tooltip = me_jomon_2_tooltip
+    }
+    option = {
+        name = "me_jomon_201.b"
+        add_country_modifier = {
+            name = peaceful_ambitions_ezo
+            duration = 1825
+        }
+        custom_tooltip = me_jomon_2_tooltip
+    }
+}
+me_jomon.3 = { # Proficient Fishing
     type = country_event
 
     title = me_jomon_3_title
@@ -35,11 +80,23 @@ me_jomon.3 = {
 
     option = {
         name = "me_jomon_3.a"
+        every_owned_province = {
+            limit = {
+                OR = {
+                    province_id = 10567
+                    province_id = 10568
+                    province_id = 10575
+                }
+            }
+            add_province_modifier = {
+                name = fish_surplus_ezo_mod
+                duration = -1
+            }
+        }
         custom_tooltip = me_jomon_3_tooltip
-
     }
 }
-me_jomon.4 = {
+me_jomon.4 = { # Sap-Stone from Sakhalin
     type = country_event
 
     title = me_jomon_4_title
@@ -48,11 +105,23 @@ me_jomon.4 = {
 
     option = {
         name = "me_jomon_4.a"
+        every_owned_province = {
+            limit = {
+                OR = {
+                    province_id = 10567
+                    province_id = 10568
+                    province_id = 10575
+                }
+            }
+            add_province_modifier = {
+                name = port_of_amber
+                duration = -1
+            }
+        }
         custom_tooltip = me_jomon_4_tooltip
-
     }
 }
-me_jomon.5 = {
+me_jomon.5 = { # Art of Amber
     type = country_event
 
     title = me_jomon_5_title
@@ -61,11 +130,23 @@ me_jomon.5 = {
 
     option = {
         name = "me_jomon_5.a"
+        create_country_treasure = {
+            key = amber_jewelry
+            icon = treasure_it_boii_chieftains_torc
+            modifier = {
+                local_goods_from_slaves = -4
+            }
+        }
+        p:10572 = {
+            add_permanent_province_modifier = {
+                name = hub_of_amber
+                duration = -1
+            }
+        }
         custom_tooltip = me_jomon_5_tooltip
-
     }
 }
-me_jomon.6 = {
+me_jomon.6 = { # Home in Hokkaido
     type = country_event
 
     title = me_jomon_6_title
@@ -74,8 +155,8 @@ me_jomon.6 = {
 
     option = {
         name = "me_jomon_6.a"
+        change_government = tribal_kingdom
         custom_tooltip = me_jomon_6_tooltip
-
     }
 }
 me_jomon.7 = {
@@ -87,8 +168,8 @@ me_jomon.7 = {
 
     option = {
         name = "me_jomon_7.a"
-        custom_tooltip = me_jomon_7_tooltip
 
+        custom_tooltip = me_jomon_7_tooltip
     }
 }
 me_jomon.8 = {
@@ -104,20 +185,25 @@ me_jomon.8 = {
 
     }
 }
-me_jomon.9 = {
+me_jomon.9 = { # Playground of the Gods
     type = country_event
 
     title = me_jomon_9_title
     desc = me_jomon_9_desc
     picture = china_art_2_event
 
+    immediate = { set_variable = kamuy_mintara_var }
+
     option = {
         name = "me_jomon_9.a"
+        custom_tooltip = kamuy_mintara_tt
+        custom_tooltip = kamuy_mintara_2_tt
+        hidden_effect = { p:8114 = { change_province_name = "kamuy_mintara_prov" } }
+        p:10570 = { set_province_deity = deity:omen_kamuy_mintara }
         custom_tooltip = me_jomon_9_tooltip
-
     }
 }
-me_jomon.10 = {
+me_jomon.10 = { # Oshima Shallow Forts
     type = country_event
 
     title = me_jomon_10_title
@@ -126,11 +212,16 @@ me_jomon.10 = {
 
     option = {
         name = "me_jomon_10.a"
+        p:10567 = {
+            add_province_modifier = {
+                name = shallow_forts
+                duration = -1
+            }
+        }
         custom_tooltip = me_jomon_10_tooltip
-
     }
 }
-me_jomon.11 = {
+me_jomon.11 = { # Ishikari Animal Humor
     type = country_event
 
     title = me_jomon_11_title
@@ -139,11 +230,14 @@ me_jomon.11 = {
 
     option = {
         name = "me_jomon_11.a"
+        add_country_modifier = {
+            name = animal_humor
+            duration = -1
+        }
         custom_tooltip = me_jomon_11_tooltip
-
     }
 }
-me_jomon.12 = {
+me_jomon.12 = { # Okhotsk Scallop Farming
     type = country_event
 
     title = me_jomon_12_title
@@ -152,8 +246,13 @@ me_jomon.12 = {
 
     option = {
         name = "me_jomon_12.a"
+        p:10572 = {
+            add_province_modifier = {
+                name = birthplace_of_scallop_farming
+                duration = -1
+            }
+        }
         custom_tooltip = me_jomon_12_tooltip
-
     }
 }
 me_jomon.13 = { # Gods of the North
@@ -245,7 +344,7 @@ me_jomon.14 = { # Gods of the South
         custom_tooltip = me_jomon_14_tooltip
     }
 }
-me_jomon.15 = {
+me_jomon.15 = { # The Enlightened Ezo
     type = country_event
 
     title = me_jomon_15_title
@@ -254,11 +353,29 @@ me_jomon.15 = {
 
     option = {
         name = "me_jomon_15.a"
+        change_country_name = "ezo_name"
+        change_country_adjective = "ezo_adj"
+        if = {
+            limit = { tag = ESN }
+            change_country_color = ezo_esan_orange
+        }
+        if = {
+            limit = { tag = ESU }
+            change_country_color = ezo_ebetsu_blue
+        }
+        if = {
+            limit = { tag = KTM }
+            change_country_color = ezo_kitami_green
+        }
+        change_country_tag = YZO
+        add_4_free_province_investments = yes
+        add_innovation = 2
+        add_splendor = { amount = "200" }
+        current_ruler = { add_trait = founder }
         custom_tooltip = me_jomon_15_tooltip
-
     }
 }
-me_jomon.16 = {
+me_jomon.16 = { # Mission Tree Completion Ezo
     type = country_event
 
     title = me_jomon_16_title
@@ -268,7 +385,7 @@ me_jomon.16 = {
     option = {
         name = "me_jomon_16.a"
         custom_tooltip = me_jomon_16_tooltip
-
+        custom_tooltip = unlock_jomon_tree_tt
     }
 }
 

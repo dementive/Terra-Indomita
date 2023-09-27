@@ -34,7 +34,7 @@
                 limit = {
                     tag = ESN
                 }
-                political_influence >= 10
+                political_influence >= 15
                 num_of_ships >= 5
             }
             trigger_else = {
@@ -58,9 +58,12 @@
                         tag = ESN
                     }
                     custom_tooltip = claims_on_sunazawa_tt
+                    add_political_influence = -15
                 }
                 else = {
                     custom_tooltip = claims_on_sakhalin_tt
+                    add_treasury = -25
+                    add_political_influence = -25
                 }
             }
         }
@@ -68,6 +71,7 @@
 
     ezo_missions_task_2 = { # The Three Tribes
         icon = "task_conquest"
+        duration = 30
         highlight = {
             scope:province = {
                 OR = {
@@ -93,8 +97,11 @@
         bypass = {
             owns_or_subject_owns_area = hokkaido_area
         }
-        on_completion = {
+        on_start = {
             trigger_event = me_jomon.2
+        }
+        on_completion = {
+            trigger_event = me_jomon.201
             set_variable = hokkaido_unification_var
             show_as_tooltip = {
                 custom_tooltip = hokkaido_unification_decision_tt
@@ -125,13 +132,24 @@
         on_completion = {
             trigger_event = me_jomon.3
             show_as_tooltip = {
-
+                every_owned_province = {
+                    limit = {
+                        OR = {
+                            province_id = 10567
+                            province_id = 10568
+                            province_id = 10575
+                        }
+                    }
+                    add_province_modifier = {
+                        name = fish_surplus_ezo_mod
+                        duration = -1
+                    }
+                }
             }
         }
     }
     ezo_missions_task_4 = { # Sap-Stone of Sakhalin
         icon = "task_economical"
-        duration = 30
         requires = { ezo_missions_task_2 }
         highlight = {
             scope:province = {
@@ -147,15 +165,14 @@
             owns_or_subject_owns = 10570
             owns_or_subject_owns = 10571
             OR = {
-                p:10570 = {
-                    has_building = commerce_building
-                }
-                p:10571 = {
-                    has_building = commerce_building
-                }
-                p:10569 = {
-                    has_building = commerce_building
-                }
+                p:10570 = { has_building = commerce_building }
+                p:10571 = { has_building = commerce_building }
+                p:10569 = { has_building = commerce_building }
+            }
+            OR = {
+                p:10570 = { has_building = port_building }
+                p:10571 = { has_building = port_building }
+                p:10569 = { has_building = port_building }
             }
             custom_tooltip = {
                 any_country = {
@@ -168,13 +185,22 @@
                 text = "susuya_opinion_tt"
             }
         }
-        on_start = {
-            trigger_event = me_jomon.401
-        }
         on_completion = {
             trigger_event = me_jomon.4
             show_as_tooltip = {
-
+                every_owned_province = {
+                    limit = {
+                        OR = {
+                            province_id = 10567
+                            province_id = 10568
+                            province_id = 10575
+                        }
+                    }
+                    add_province_modifier = {
+                        name = port_of_amber
+                        duration = -1
+                    }
+                }
             }
         }
     }
@@ -238,19 +264,11 @@
     ezo_missions_task_6 = { # Home in Hokkaido
         icon = "task_happiness"
         requires = { ezo_missions_task_3 ezo_missions_task_4 ezo_missions_task_5 }
-        highlight = {
-            scope:province = {
-                is_in_area = hokkaido_area
-            }
-        }
-        allow = {
-            owns_or_subject_owns_area = hokkaido_area
-        }
+        highlight = { scope:province = { is_in_area = hokkaido_area } }
+        allow = { owns_or_subject_owns_area = hokkaido_area }
         on_completion = {
             trigger_event = me_jomon.6
-            show_as_tooltip = {
-                change_government = tribal_kingdom
-            }
+            show_as_tooltip = { change_government = tribal_kingdom }
         }
     }
 
@@ -328,7 +346,10 @@
         requires = { ezo_missions_task_1 }
         highlight = {
             scope:province = {
-                province_id = 8114
+                OR = {
+                    province_id = 8114
+                    province_id = 10570
+                }
             }
         }
         allow = {
@@ -355,16 +376,13 @@
             show_as_tooltip = {
                 custom_tooltip = kamuy_mintara_tt
                 custom_tooltip = kamuy_mintara_2_tt
+                p:10570 = { set_province_deity = deity:omen_kamuy_mintara }
             }
         }
     }
     ezo_missions_task_10 = { # Oshima Shallow Forts
         icon = "task_battle"
-        highlight = {
-            scope:province = {
-                province_id = 10567
-            }
-        }
+        highlight = { scope:province = { province_id = 10567 } }
         potential = { tag = ESN }
         requires = { ezo_missions_task_3 }
         allow = {
@@ -431,14 +449,17 @@
         allow = {
             p:10572 = {
                 total_population >= 10
+                civilization_value >= 10
             }
         }
         on_completion = {
             trigger_event = me_jomon.12
             show_as_tooltip = {
-                add_province_modifier = {
-                    name = birthplace_of_scallop_farming
-                    duration = -1
+                p:10572 = {
+                    add_province_modifier = {
+                        name = birthplace_of_scallop_farming
+                        duration = -1
+                    }
                 }
             }
         }
@@ -513,6 +534,7 @@
             trigger_event = me_jomon.15
             show_as_tooltip = {
                 change_country_name = "ezo_name"
+                change_country_adjective = "ezo_adj"
                 add_4_free_province_investments = yes
                 add_innovation = 2
                 add_splendor = {
@@ -535,12 +557,25 @@
             NOT = { any_country = { tag = YZO } }
         }
         on_completion = {
-            set_variable = ai_unification_var
             change_country_name = "ezo_name"
+            change_country_adjective = "ezo_adj"
             change_country_tag = YZO
             change_government = tribal_kingdom
             switch_government_type_event_clearup_effect = yes
             add_2_free_province_investments = yes
+            if = {
+                limit = { tag = ESN }
+                change_country_color = ezo_esan_orange
+            }
+            if = {
+                limit = { tag = ESU }
+                change_country_color = ezo_ebetsu_blue
+            }
+            if = {
+                limit = { tag = KTM }
+                change_country_color = ezo_kitami_green
+            }
         }
+        final = yes
     }
 }

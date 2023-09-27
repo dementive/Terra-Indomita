@@ -79,15 +79,21 @@
  peaceful_uni_ktm_tt:0 "#E Kitami#! has an opinion of #E [SCOPE.GetRootScope.GetCountry.GetName|Y]#! greater than #G 190#!."
  kamuy_mintara_tt:0 "The #Y Impassible#! changes name to #Y Kamuy-Mintara#!."
  kamuy_mintara_2_tt:0 "The #Y Kamuy-Mintara#! deity has been #G unlocked#!."
+ unlock_jomon_tree_tt:0 "[SCOPE.GetRootScope.GetCountry.GetName|E] gains access to the '#Y Epi-Jomon Jidai#!' mission tree."
 
 #Modifiers
- hub_of_amber:0 "Amber Tradehub"
+ hub_of_amber:0 "Amber Artisans"
+ port_of_amber:0 "Amber-Road Trade"
  shallow_forts:0 "Hak-Casi"
  city_of_fish:0 "City of Fish"
  animal_humor:0 "Animal Comedians"
  birthplace_of_scallop_farming:0 "Scallop Cuisine"
  nivkh_syncretism:0 "Nivkh Syncretism"
  kodo_syncretism:0 "Kodo Syncretism"
+ oppose_kodo:0 "Rejected Kodo Syncretism"
+ fish_surplus_ezo_mod:0 "Esan Fishermen"
+ hostile_ambitions_ezo:0 "Ambitions of Unification by War"
+ peaceful_ambitions_ezo:0 "Ambitions of Unification by Diplomacy"
 
 #Decisions
  peaceful_unification_of_hokkaido:0 "Unify the Ezo Peacefully"
@@ -97,8 +103,14 @@
 
 #Others
  amber_jewelry:0 "Kitami Amber Ring"
+ amber_jewelry_desc:0 "This ring is made of the highest quality of #Y Amber#! from #E Sakhalin#!. The skilled #Y Amber#! artisans of the #E Kitami#! clan in northwest #E Hokkaido#! made this piece specifically to offer to the #E Kamuy#! themselves."
  ezo_name:0 "Ezochi"
+ ezo_adj:0 "Ezo"
  kamuy_mintara:0 "Kamuy-Mintara"
+ kamuy_mintara_prov:0 "Kamuy-Mintara"
+ ezo_kitami_green:0 "Forest of the Ezo"
+ ezo_esan_orange:0 "Sunset in Hokkaido"
+ ezo_ebetsu_blue:0 "Waters of Ezogashima"
 
 #Events
  me_jomon_1_title:0 "$ezo_missions_task_1$"
@@ -110,6 +122,10 @@
  me_jomon_2_desc:0 "[GetProvince('(int32) 10567').GetArea.GetName|E] is divided amongst three [SCOPE.GetRootScope.GetCountry.GetPrimaryCulture.GetName|E] tribes. The #E Esan#! tribe, the #E Ebetsu#! tribe, and the #E Kitami#! tribe. While we have our differences, it we deserve to rule our fellow [SCOPE.GetRootScope.GetCountry.GetPrimaryCulture.GetName|E] under our banner. Whether we do it by peace or war, our island will be unified."
  me_jomon_2.a:0 "The [SCOPE.GetRootScope.GetCountry.GetPrimaryCulture.GetName] together will thrive."
  me_jomon_2_tooltip:0 "The mission task '#Y $ezo_missions_task_2$#!' has now been #G Completed#!!"
+
+ me_jomon_201_desc:0 "There are two methods to unify the clans of [GetProvince('(int32) 10567').GetArea.GetName|E]. We should either aim for a unification by diplomacy or a unification by war. But which way should we focus on? While a unification diplomatically would prevent bloodshed, it may take longer and be more expensive than unifying by conquest."
+ me_jomon_201.a:0 "Surely we can reason with our own blood."
+ me_jomon_201.b:0 "Or maybe we spill blood for our great goal instead."
  
  me_jomon_3_title:0 "$ezo_missions_task_3$"
  me_jomon_3_desc:0 "The fishermen of #E Esan#! are elite, even amongst the [SCOPE.GetRootScope.GetCountry.GetPrimaryCulture.GetName|E]. The fisheries remain filled with exquisite fish, catching enough to trade with the island of #E Honshu#! to the south, both [GetCulture('dewa').GetCultureGroup.GetName|E] and [GetCulture('wa').GetCultureGroup.GetName|E] alike."
@@ -118,7 +134,7 @@
  
  me_jomon_4_title:0 "$ezo_missions_task_4$"
  me_jomon_4_desc:0 "Who but the traders of #E Ebetsu#! could trade animals for amber. Their guile and charisma has netted them profitable trade with the #E Sakhalin#! peninsula, giving the [SCOPE.GetRootScope.GetCountry.GetPrimaryCulture.GetName|E] access to the precious sap-stone."
- me_jomon_4.a:0 "The Ebetsu are the Ebest traders."
+ me_jomon_4.a:0 "The Ebetsu are the ebestu traders."
  me_jomon_4_tooltip:0 "The mission task '#Y $ezo_missions_task_4$#!' has now been #G Completed#!!"
  
  me_jomon_5_title:0 "$ezo_missions_task_5$"
@@ -158,7 +174,7 @@
  
  me_jomon_12_title:0 "$ezo_missions_task_12$"
  me_jomon_12_desc:0 "Scallops practically jump onto our plates in #E Okhotsk#!. The settlement is perfect for trading all the profitable scallops filling our fisheries. While the #E Esan#! boast thier fishing prowess, even they must buy our local delicacy of scallops."
- me_jomon_12.a:0 "Hokkaido scallops, yum!"
+ me_jomon_12.a:0 "Hokkaido scallops, our new national dish!"
  me_jomon_12_tooltip:0 "The mission task '#Y $ezo_missions_task_12$#!' has now been #G Completed#!!"
  
  me_jomon_13_title:0 "$ezo_missions_task_13$"
@@ -183,4 +199,4 @@
  me_jomon_16_title:0 "An Ezo-Jomon Jidai?"
  me_jomon_16_desc:0 "With the utter completion and establishment of [SCOPE.GetRootScope.GetCountry.GetName|E], the land of the [SCOPE.GetRootScope.GetCountry.GetPrimaryCulture.GetName|E], we now turn our sites on the rest of the [GetCulture('dewa').GetCultureGroup.GetName|E]. If we were able to unite our island, why not attempt to unite all of our people?\n\nWhile the [GetCulture('dewa').GetCultureGroup.GetName|E] are a diverse people, there is one thing we all have in common. We are being pushed off our ancenstral homeland of [GetProvince('(int32)9328').GetArea.GetRegion.GetName|E] by the [GetCulture('wa').GetCultureGroup.GetName|E]. Our cousins to the south will be forced to retreat to [SCOPE.GetRootScope.GetCountry.GetName|E] anyways, so why not bring the fight for [GetProvince('(int32)9328').GetArea.GetRegion.GetName|E] to them instead of waiting idly."
  me_jomon_16.a:0 "The Ezo will save Jomon!"
- me_jomon_16_tooltip:0 "The mission tree '#Y $ezo_missions$#!' has now been #G Completed#!!"
+ me_jomon_16_tooltip:0 "The mission tree '#Y Heights of Hokkaido#!' has now been #G Completed#!!"
