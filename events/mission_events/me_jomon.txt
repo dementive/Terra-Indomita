@@ -159,7 +159,7 @@ me_jomon.6 = { # Home in Hokkaido
         custom_tooltip = me_jomon_6_tooltip
     }
 }
-me_jomon.7 = {
+me_jomon.7 = { # Sunazawa Siblings
     type = country_event
 
     title = me_jomon_7_title
@@ -172,7 +172,7 @@ me_jomon.7 = {
         custom_tooltip = me_jomon_7_tooltip
     }
 }
-me_jomon.8 = {
+me_jomon.8 = { # Susuya Siblings
     type = country_event
 
     title = me_jomon_8_title
@@ -181,8 +181,77 @@ me_jomon.8 = {
 
     option = {
         name = "me_jomon_8.a"
-        custom_tooltip = me_jomon_8_tooltip
+        custom_tooltip = ask_susuya_tt
+        c:TU7 = {
+            trigger_event = {
+                id = me_jomon.801
+                days = { 35 45 }
+            }
+        }
+    }
+}
+me_jomon.801 = { # Susuya Response Event
+        type = country_event
+        title = me_jomon_801_title
+        desc = me_jomon_801_desc
+        picture = china_art_2_event
 
+    option = {
+        name = "me_jomon_801.a"
+        add_country_modifier = {
+            name = ezo_investments
+            duration = 1850
+        }
+        add_2_free_province_investments = yes
+        add_treasury = 100
+        set_variable = susuya_agrees_var
+        custom_tooltip = me_jomon_801_susuya_response_good
+    }
+    option = {
+        trigger = { is_ai = no }
+        name = "me_jomon_801.b"
+        custom_tooltip = me_jomon_801_susuya_response
+    }
+}
+me_jomon.802 = { # Susuya Deny Event
+        type = country_event
+        title = me_jomon_802_title
+        desc = me_jomon_802_desc
+        picture = council_country
+
+    option = {
+        name = "me_jomon_802.a"
+        custom_tooltip = claims_on_susuya_tt
+        hidden_effect = {
+            area:sahaliyan_area = {
+                every_area_province = {
+                    limit = { owner = c:TU7 }
+                    add_claim = root
+                }
+            }
+        }
+        custom_tooltip = me_jomon_8_tooltip
+    }
+    option = {
+        name = "me_jomon_802.b"
+        custom_tooltip = me_jomon_8_tooltip
+    }
+}
+me_jomon.803 = { # Susuya Accept Event
+        type = country_event
+        title = me_jomon_803_title
+        desc = me_jomon_803_desc
+        picture = council_country
+
+    option = {
+        name = "me_jomon_803.a"
+        root = {
+            make_subject = {
+                target = c:TU7
+                type = subject_colony
+            }
+        }
+        custom_tooltip = me_jomon_8_tooltip
     }
 }
 me_jomon.9 = { # Playground of the Gods

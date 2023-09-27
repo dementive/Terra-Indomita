@@ -72,6 +72,23 @@
     ezo_missions_task_2 = { # The Three Tribes
         icon = "task_conquest"
         duration = 30
+        bypass = {
+            trigger_if = {
+                limit = { tag = ESN }
+                c:KTM = { has_land = no }
+                c:ESU = { has_land = no }
+            }
+            trigger_if = {
+                limit = { tag = KTM }
+                c:ESN = { has_land = no }
+                c:ESU = { has_land = no }
+            }
+            trigger_if = {
+                limit = { tag = ESU }
+                c:KTM = { has_land = no }
+                c:ESN = { has_land = no }
+            }
+        }
         highlight = {
             scope:province = {
                 OR = {
@@ -174,15 +191,18 @@
                 p:10571 = { has_building = port_building }
                 p:10569 = { has_building = port_building }
             }
-            custom_tooltip = {
-                any_country = {
-                    tag = TU7
-                    opinion = {
-                        target = root 
-                        value >= 75            
+            trigger_if = {
+                limit = { c:TU7 = { has_land = yes } }
+                custom_tooltip = {
+                    any_country = {
+                        tag = TU7
+                        opinion = {
+                            target = root 
+                            value >= 75            
+                        }
                     }
+                    text = "susuya_opinion_tt"
                 }
-                text = "susuya_opinion_tt"
             }
         }
         on_completion = {
@@ -302,7 +322,24 @@
         on_completion = {
             trigger_event = me_jomon.7
             show_as_tooltip = {
-
+                add_country_modifier = {
+                    name = sunazawa_siblings
+                    duration = -1
+                }
+            }
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        province_id = 10558
+                        province_id = 10559
+                        province_id = 10560
+                        province_id = 10562
+                    }
+                }
+                add_province_modifier = {
+                    name = sunazawa_acceptance
+                    duration = 1825
+                }
             }
         }
     }
@@ -310,17 +347,20 @@
     ## EBETSU-KITAMI
     ezo_missions_task_8 = { # Susuya Siblings
         icon = "task_diplomatic"
+        duration = 60
+        bypass = {
+            OR = {
+                c:TU7 = { has_land = no }
+                c:TU7 = { is_subject_of = root }
+            }
+        }
         potential = {
             OR = {
                 tag = KTM
                 tag = ESU
             }
         }
-        highlight = {
-            scope:province = {
-                owner = c:TU7
-            }
-        }
+        highlight = { scope:province = { owner = c:TU7 } }
         requires = { ezo_missions_task_1 }
         allow = {
             custom_tooltip = {
@@ -334,10 +374,24 @@
                 text = "susuya_opinion_2_tt"
             } 
         }
+        on_start = { trigger_event = me_jomon.8 }
+        on_bypass = {
+            area:sahaliyan_area = {
+                every_area_province = {
+                    limit = { is_in_area = sahaliyan_area }
+                    add_claim = root
+                }
+            }
+        }
         on_completion = {
-            trigger_event = me_jomon.8
-            show_as_tooltip = {
-
+            show_as_tooltip = { custom_tooltip = susuya_subject_tt }
+            if = {
+                limit = { c:TU7 = { has_variable = susuya_agrees_var } }
+                trigger_event = me_jomon.803
+            }
+            else = {
+                limit = { c:TU7 = { NOT = { has_variable = susuya_agrees_var } } }
+                trigger_event = me_jomon.802
             }
         }
     }
