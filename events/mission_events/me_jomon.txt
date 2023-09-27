@@ -5,7 +5,7 @@ me_jomon.1 = {
 
     title = me_jomon_1_title
     desc = me_jomon_1_desc
-    picture = great_library
+    picture = naval_battle
 
     option = {
         name = "me_jomon_1.a"
@@ -18,7 +18,7 @@ me_jomon.2 = {
 
     title = me_jomon_2_title
     desc = me_jomon_2_desc
-    picture = great_library
+    picture = celtic_chiefs
 
     option = {
         name = "me_jomon_2.a"
@@ -31,7 +31,7 @@ me_jomon.3 = {
 
     title = me_jomon_3_title
     desc = me_jomon_3_desc
-    picture = great_library
+    picture = grand_ship
 
     option = {
         name = "me_jomon_3.a"
@@ -44,7 +44,7 @@ me_jomon.4 = {
 
     title = me_jomon_4_title
     desc = me_jomon_4_desc
-    picture = great_library
+    picture = trade_port
 
     option = {
         name = "me_jomon_4.a"
@@ -57,7 +57,7 @@ me_jomon.5 = {
 
     title = me_jomon_5_title
     desc = me_jomon_5_desc
-    picture = great_library
+    picture = religious_rite
 
     option = {
         name = "me_jomon_5.a"
@@ -70,7 +70,7 @@ me_jomon.6 = {
 
     title = me_jomon_6_title
     desc = me_jomon_6_desc
-    picture = great_library
+    picture = china_art_11_event
 
     option = {
         name = "me_jomon_6.a"
@@ -83,7 +83,7 @@ me_jomon.7 = {
 
     title = me_jomon_7_title
     desc = me_jomon_7_desc
-    picture = great_library
+    picture = japan_sailors_of_wa_event
 
     option = {
         name = "me_jomon_7.a"
@@ -96,7 +96,7 @@ me_jomon.8 = {
 
     title = me_jomon_8_title
     desc = me_jomon_8_desc
-    picture = great_library
+    picture = celtic_village
 
     option = {
         name = "me_jomon_8.a"
@@ -109,7 +109,7 @@ me_jomon.9 = {
 
     title = me_jomon_9_title
     desc = me_jomon_9_desc
-    picture = great_library
+    picture = china_art_2_event
 
     option = {
         name = "me_jomon_9.a"
@@ -122,7 +122,7 @@ me_jomon.10 = {
 
     title = me_jomon_10_title
     desc = me_jomon_10_desc
-    picture = great_library
+    picture = china_art_9_event
 
     option = {
         name = "me_jomon_10.a"
@@ -135,7 +135,7 @@ me_jomon.11 = {
 
     title = me_jomon_11_title
     desc = me_jomon_11_desc
-    picture = great_library
+    picture = great_work_animals
 
     option = {
         name = "me_jomon_11.a"
@@ -148,7 +148,7 @@ me_jomon.12 = {
 
     title = me_jomon_12_title
     desc = me_jomon_12_desc
-    picture = great_library
+    picture = interesting_histories_fish_market
 
     option = {
         name = "me_jomon_12.a"
@@ -156,30 +156,93 @@ me_jomon.12 = {
 
     }
 }
-me_jomon.13 = {
+me_jomon.13 = { # Gods of the North
     type = country_event
 
     title = me_jomon_13_title
     desc = me_jomon_13_desc
-    picture = great_library
+    picture = celtic_religious_festival
 
     option = {
         name = "me_jomon_13.a"
+        add_country_modifier = {
+            name = nivkh_syncretism
+            duration = 3650
+        }
         custom_tooltip = me_jomon_13_tooltip
-
+    }
+    option = {
+        name = "me_jomon_13.b"
+        set_country_religion = nivkh_religion
+        change_religion_effect = {
+            RELIGION = nivkh_religion
+        }
+        while = {
+            count = 10
+            random_owned_province = {
+                random_pops_in_province = {
+                    limit = {
+                        NOT = { pop_religion = nivkh_religion }
+                    }
+                    set_pop_religion = nivkh_religion
+                }
+            }
+        }
+        custom_tooltip = me_jomon_13_tooltip
+    }
+    option = {
+        name = "me_jomon_13.c"
+        c:TU7 = {
+            add_country_modifier = {
+                name = recent_convert_modifier
+                duration = 3650
+            }
+            set_country_religion = ainu_religion
+        }
+        custom_tooltip = me_jomon_13_tooltip
     }
 }
-me_jomon.14 = {
+me_jomon.14 = { # Gods of the South
     type = country_event
 
     title = me_jomon_14_title
     desc = me_jomon_14_desc
-    picture = great_library
+    picture = japan_spiritual_war_event
 
     option = {
         name = "me_jomon_14.a"
+        add_country_modifier = {
+            name = oppose_kodo
+            duration = -1
+        }
         custom_tooltip = me_jomon_14_tooltip
-
+    }
+    option = {
+        name = "me_jomon_14.b"
+        add_country_modifier = {
+            name = kodo_syncretism
+            duration = 3650
+        }
+        custom_tooltip = me_jomon_14_tooltip
+    }
+    option = {
+        name = "me_jomon_14.c"
+        set_country_religion = wa_religions
+        change_religion_effect = {
+            RELIGION = wa_religions
+        }
+        while = {
+            count = 10
+            random_owned_province = {
+                random_pops_in_province = {
+                    limit = {
+                        NOT = { pop_religion = wa_religions }
+                    }
+                    set_pop_religion = wa_religions
+                }
+            }
+        }
+        custom_tooltip = me_jomon_14_tooltip
     }
 }
 me_jomon.15 = {
@@ -187,7 +250,7 @@ me_jomon.15 = {
 
     title = me_jomon_15_title
     desc = me_jomon_15_desc
-    picture = great_library
+    picture = japan_mound_works_event
 
     option = {
         name = "me_jomon_15.a"
@@ -200,7 +263,7 @@ me_jomon.16 = {
 
     title = me_jomon_16_title
     desc = me_jomon_16_desc
-    picture = great_library
+    picture = china_art_19_event
 
     option = {
         name = "me_jomon_16.a"

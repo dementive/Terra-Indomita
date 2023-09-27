@@ -117,38 +117,40 @@
 	                text = "peaceful_uni_esn_tt"
 	            }
 	        }
-	        trigger_else = {
-	            custom_tooltip = {
-	                any_country = {
-	                    tag = ESN
-	                    opinion = {
-	                        target = root 
-	                        value >= 190
-	                    }
-	                }
-	                text = "peaceful_uni_esn_tt"
-	            }
-	            custom_tooltip = {
-	                any_country = {
-	                    tag = ESU
-	                    opinion = {
-	                        target = root 
-	                        value >= 190
-	                    }
-	                }
-	                text = "peaceful_uni_esu_tt"
-	            }
-	            custom_tooltip = {
-	                any_country = {
-	                    tag = KTM
-	                    opinion = {
-	                        target = root 
-	                        value >= 190
-	                    }
-	                }
-	                text = "peaceful_uni_ktm_tt"
-	            }
-	        }
+	        centralization >= 25
+	        stability >= 40
+	        #trigger_else = {
+	        #    custom_tooltip = {
+	        #        any_country = {
+	        #            tag = ESN
+	        #            opinion = {
+	        #                target = root 
+	        #                value >= 190
+	        #            }
+	        #        }
+	        #        text = "peaceful_uni_esn_tt"
+	        #    }
+	        #    custom_tooltip = {
+	        #        any_country = {
+	        #            tag = ESU
+	        #            opinion = {
+	        #                target = root 
+	        #                value >= 190
+	        #            }
+	        #        }
+	        #        text = "peaceful_uni_esu_tt"
+	        #    }
+	        #    custom_tooltip = {
+	        #        any_country = {
+	        #            tag = KTM
+	        #            opinion = {
+	        #                target = root 
+	        #                value >= 190
+	        #            }
+	        #        }
+	        #        text = "peaceful_uni_ktm_tt"
+	        #    }
+	        #}
 		}
 		effect = {
 			set_variable = hokkaido_unified_var
@@ -167,11 +169,11 @@
 				c:ESN = { every_owned_province = { set_owned_by = root } }
 				c:ESU = { every_owned_province = { set_owned_by = root } }
 			}
-			else = {
-				c:ESN = { every_owned_province = { set_owned_by = root } }
-				c:ESU = { every_owned_province = { set_owned_by = root } }
-				c:KTM = { every_owned_province = { set_owned_by = root } }
-			}
+			#else = {
+			#	c:ESN = { every_owned_province = { set_owned_by = root } }
+			#	c:ESU = { every_owned_province = { set_owned_by = root } }
+			#	c:KTM = { every_owned_province = { set_owned_by = root } }
+			#}
 		}
 		ai_will_do = { base = 0 }
 	}
@@ -198,18 +200,6 @@
 			OR = {
 				diplomatic_stance = domination_stance
 				diplomatic_stance = warmongering_stance
-			}
-			NOT = {
-				any_country = {
-					limit = {
-						capital_scope = { is_in_area = hokkaido_area }
-						NOT = { this = root }
-					}
-					opinion = {
-						target = root
-						value >= 100
-					}
-				}
 			}
 			NOR = {
 				has_truce_with = c:ESN
@@ -252,48 +242,22 @@
 					target = ESN
 				}
 			}
-			else = {
-				declare_war_with_wargoal = {
-					war_goal = imperial_conquest_wargoal
-					target = ESU
-				}
-				declare_war_with_wargoal = {
-					war_goal = imperial_conquest_wargoal
-					target = ESN
-				}
-				declare_war_with_wargoal = {
-					war_goal = imperial_conquest_wargoal
-					target = KTM
-				}
-			}
+			#else = {
+			#	declare_war_with_wargoal = {
+			#		war_goal = imperial_conquest_wargoal
+			#		target = ESU
+			#	}
+			#	declare_war_with_wargoal = {
+			#		war_goal = imperial_conquest_wargoal
+			#		target = ESN
+			#	}
+			#	declare_war_with_wargoal = {
+			#		war_goal = imperial_conquest_wargoal
+			#		target = KTM
+			#	}
+			#}
 		}
 		ai_will_do = { base = 0 }
-	}
-
-	ai_unification_of_hokkaido = { # For AI Only
-		potential = {
-			is_ai = yes
-			primary_culture = ainu
-			NOT = { has_variable = ai_unification_var }
-			NOT = { any_country = { tag = YZO } }
-		}
-		allow = {
-			owns_or_subject_owns_area = hokkaido_area
-		}
-		highlight = {
-			scope:province = {
-				is_in_area = hokkaido_area
-			}
-		}
-		effect = {
-			set_variable = ai_unification_var
-			change_country_name = "ezo_name"
-			change_country_tag = YZO
-			change_government = tribal_kingdom
-			switch_government_type_event_clearup_effect = yes
-			add_2_free_province_investments = yes
-		}
-		ai_will_do = { base = 1 }
 	}
 
 }

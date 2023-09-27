@@ -383,9 +383,11 @@
         on_completion = {
             trigger_event = me_jomon.10
             show_as_tooltip = {
-                add_province_modifier = {
-                    name = shallow_forts
-                    duration = -1
+                p:10567 = {
+                    add_province_modifier = {
+                        name = shallow_forts
+                        duration = -1
+                    }
                 }
             }
         }
@@ -450,17 +452,18 @@
                 tag = ESU
             }
         }
-        highlight = {
-            scope:province = {
-                dominant_province_religion = nivkh_religion
-            }
-        }
+        highlight = { scope:province = { dominant_province_religion = nivkh_religion } }
         requires = { ezo_missions_task_9 ezo_missions_task_8 }
-        allow = {}
+        allow = {
+
+        }
         on_completion = {
             trigger_event = me_jomon.13
             show_as_tooltip = {
-    
+                add_country_modifier = {
+                    name = nivkh_syncretism
+                    duration = 3650
+                }
             }
         }
     }
@@ -468,17 +471,16 @@
         icon = "task_religion"
         duration = 180
         potential = { tag = ESN }
-        highlight = {
-            scope:province = {
-                dominant_province_religion = wa_religions
-            }
-        }
+        highlight = { scope:province = { dominant_province_religion = wa_religions } }
         requires = { ezo_missions_task_9 ezo_missions_task_7 }
         allow = {}
         on_completion = {
             trigger_event = me_jomon.14
             show_as_tooltip = {
-    
+                add_country_modifier = {
+                    name = kodo_syncretism
+                    duration = -1
+                }
             }
         }
     }
@@ -492,6 +494,7 @@
                 }
             }
         }
+        requires = { ezo_missions_task_14 ezo_missions_task_13 ezo_missions_task_6 }
         allow = {
             custom_tooltip = {
                 text = all_investments_ezo_tt
@@ -506,7 +509,6 @@
                 }
             }
         }
-        requires = { ezo_missions_task_14 ezo_missions_task_13 ezo_missions_task_6 }
         on_completion = {
             trigger_event = me_jomon.15
             show_as_tooltip = {
@@ -519,5 +521,26 @@
             }
         }
         final = yes
+    }
+    ezo_missions_task_17 = { # For AI Only
+        icon = "task_zeus_cornucopia"
+        potential = {
+            is_ai = yes
+            primary_culture = ainu
+            NOT = { any_country = { tag = YZO } }
+        }
+        highlight = { scope:province = { is_in_area = hokkaido_area } }
+        allow = {
+            owns_or_subject_owns_area = hokkaido_area
+            NOT = { any_country = { tag = YZO } }
+        }
+        on_completion = {
+            set_variable = ai_unification_var
+            change_country_name = "ezo_name"
+            change_country_tag = YZO
+            change_government = tribal_kingdom
+            switch_government_type_event_clearup_effect = yes
+            add_2_free_province_investments = yes
+        }
     }
 }
