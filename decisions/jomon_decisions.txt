@@ -118,7 +118,14 @@
 	            }
 	        }
 	        centralization >= 10
-	        stability >= 40
+	        stability >= 50
+	        current_ruler = {
+	        	OR = {
+	        		popularity >= 50
+	        		charisma >= 8
+	        		has_trait = silver_tongued
+	        	}
+	        }
 	        #trigger_else = {
 	        #    custom_tooltip = {
 	        #        any_country = {
@@ -169,6 +176,7 @@
 				c:ESN = { every_owned_province = { set_owned_by = root } }
 				c:ESU = { every_owned_province = { set_owned_by = root } }
 			}
+			hidden_effect = { area:hokkaido_area = { every_area_province = { add_claim = root } } }
 			#else = {
 			#	c:ESN = { every_owned_province = { set_owned_by = root } }
 			#	c:ESU = { every_owned_province = { set_owned_by = root } }
@@ -242,6 +250,7 @@
 					target = ESN
 				}
 			}
+			hidden_effect = { area:hokkaido_area = { every_area_province = { add_claim = root } } }
 			#else = {
 			#	declare_war_with_wargoal = {
 			#		war_goal = imperial_conquest_wargoal
