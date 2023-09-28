@@ -182,9 +182,9 @@
             owns_or_subject_owns = 10570
             owns_or_subject_owns = 10571
             OR = {
-                p:10570 = { has_building = commerce_building }
-                p:10571 = { has_building = commerce_building }
-                p:10569 = { has_building = commerce_building }
+                p:10570 = { has_building = settlement_market }
+                p:10571 = { has_building = settlement_market }
+                p:10569 = { has_building = settlement_market }
             }
             OR = {
                 p:10570 = { has_building = port_building }
@@ -211,9 +211,9 @@
                 every_owned_province = {
                     limit = {
                         OR = {
-                            province_id = 10567
-                            province_id = 10568
-                            province_id = 10575
+                            province_id = 10569
+                            province_id = 10570
+                            province_id = 10571
                         }
                     }
                     add_province_modifier = {
@@ -571,18 +571,23 @@
         }
         requires = { ezo_missions_task_14 ezo_missions_task_13 ezo_missions_task_6 }
         allow = {
-            custom_tooltip = {
-                text = all_investments_ezo_tt
+            #custom_tooltip = {
+                #text = all_investments_ezo_tt
                 capital_scope.state = {
-                    calc_true_if = {
-                        amount >= 4
+                    #calc_true_if = {
+                        #amount >= 4
                         state_improvement_religious_trigger = yes    
                         state_improvement_civic_trigger = yes
                         state_improvement_oratory_trigger = yes
-                        state_improvement_military_trigger = yes  
-                    }
+                        any_state_province = {
+                            OR = {
+                                has_province_modifier = state_improvement_military
+                                has_province_modifier = state_improvement_manpower
+                            }
+                        }
+                    #}
                 }
-            }
+            #}
         }
         on_completion = {
             trigger_event = me_jomon.15
