@@ -1,0 +1,52 @@
+﻿emishi_missions = {
+    header = "mission_image_japan"
+    icon = "cde_tribal_raid"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        primary_culture = ainu
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+    on_completion = {
+        trigger_event = me_jomon.16
+    }
+
+    emishi_missions_task_1 = {
+        icon = "task_diplomatic"
+        requires = {}
+        allow = {
+            trigger_if = {
+                limit = {
+                    tag = ESN
+                }
+                political_influence >= 15
+                num_of_ships >= 5
+            }
+            trigger_else = {
+                political_influence >= 25
+                treasury >= 25
+            }
+        }
+        on_completion = {
+            trigger_event = me_jomon_2.18
+            show_as_tooltip = {
+
+            }
+        }
+        final = yes
+    }
+}
