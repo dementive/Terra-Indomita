@@ -1,0 +1,752 @@
+﻿namespace = lifestyle_events
+
+##############################################################################################################################################################
+# Oratory
+##############################################################################################################################################################
+
+lifestyle_events.1 = {
+    type = country_event
+
+    title = lifestyle_events.1.t
+    desc = lifestyle_events.1.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = foreign_affairs_focus_triggered_mod
+			character_experience > 0.8
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.1.a"
+		if = {
+			limit = {
+				current_ruler = { has_trait = master_of_diplomacy_trait }
+			}
+			add_aggressive_expansion = -20
+		}
+		else_if = {
+			limit = {
+				current_ruler = { charisma > 8 }
+			}
+			add_aggressive_expansion = -10
+		}
+		else_if = {
+			limit = {
+				current_ruler = { charisma > 5 }
+			}
+			add_aggressive_expansion = -5
+		}
+		else = {
+			add_aggressive_expansion = -2
+		}
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+}
+
+lifestyle_events.2 = {
+    type = country_event
+
+    title = lifestyle_events.2.t
+    desc = lifestyle_events.2.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = populist_focus_triggered_mod
+			character_experience > 0.8
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.2.a"
+		if = {
+			limit = {
+				current_ruler = { charisma > 9 }
+			}
+			add_tyranny = -10
+		}
+		else_if = {
+			limit = {
+				current_ruler = { charisma > 5 }
+			}
+			add_tyranny = -5
+		}
+		else = {
+			add_tyranny = -2
+		}
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+}
+
+lifestyle_events.3 = {
+    type = country_event
+
+    title = lifestyle_events.3.t
+    desc = lifestyle_events.3.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = family_focus_triggered_mod
+			has_trait = chaste
+			NOT = { has_trait = lustful }
+			character_experience > 0.6
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.3.a"
+		current_ruler = {
+			remove_trait = chaste
+			add_trait = lustful
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+lifestyle_events.4 = {
+    type = country_event
+
+    title = lifestyle_events.4.t
+    desc = lifestyle_events.4.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = oration_focus_triggered_mod
+			OR = {
+				has_trait = reclusive
+				has_trait = shy
+				has_trait = blunt
+			}
+			character_experience > 0.8
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.4.a"
+		trigger = {
+			current_ruler = {
+				has_trait = reclusive
+			}
+		}
+		current_ruler = {
+			remove_trait = reclusive
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+	
+	option = {
+        name = "lifestyle_events.4.b"
+		trigger = {
+			current_ruler = {
+				has_trait = shy
+			}
+		}
+		current_ruler = {
+			remove_trait = shy
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+	
+	option = {
+        name = "lifestyle_events.4.c"
+		trigger = {
+			current_ruler = {
+				has_trait = blunt
+			}
+		}
+		current_ruler = {
+			remove_trait = blunt
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+##############################################################################################################################################################
+# Martial
+##############################################################################################################################################################
+
+lifestyle_events.5 = {
+    type = country_event
+
+    title = lifestyle_events.5.t
+    desc = lifestyle_events.5.desc
+    picture = romans_marching    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = prowess_focus_triggered_mod
+			has_trait = frail
+			character_experience > 0.8
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.5.a"
+		current_ruler = {
+			remove_trait = frail
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+lifestyle_events.6 = {
+    type = country_event
+
+    title = lifestyle_events.6.t
+    desc = lifestyle_events.6.desc
+    picture = romans_marching    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = command_focus_triggered_mod
+			character_experience > 0.8
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.6.a"
+		if = {
+			limit = {
+				current_ruler = { martial > 8 }
+			}
+			add_manpower = {
+				value = max_manpower
+				divide = 5
+				max = 20
+			}
+		}
+		else_if = {
+			limit = {
+				current_ruler = { martial > 5 }
+			}
+			add_manpower = {
+				value = max_manpower
+				divide = 10
+				max = 10
+			}
+		}
+		else = {
+			add_manpower = {
+				value = max_manpower
+				divide = 20
+				max = 5
+			}
+		}	
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+}
+
+lifestyle_events.7 = {
+    type = country_event
+
+    title = lifestyle_events.7.t
+    desc = lifestyle_events.7.desc
+    picture = romans_marching    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = strategy_focus_triggered_mod
+			character_experience > 0.8
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.7.a"
+		if = {
+			limit = {
+				current_ruler = { martial > 9 }
+			}
+			add_military_experience = 10
+		}
+		else_if = {
+			limit = {
+				current_ruler = { martial > 6 }
+			}
+			add_military_experience = 5
+		}
+		else = {
+			add_military_experience = 2
+		}	
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+}
+
+lifestyle_events.8 = {
+    type = country_event
+
+    title = lifestyle_events.8.t
+    desc = lifestyle_events.8.desc
+    picture = romans_marching    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = siegecraft_focus_triggered_mod
+			NOT = { has_trait = cruel }
+			character_experience > 0.8
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.8.a"
+		
+		current_ruler = {
+			add_trait = cruel
+			remove_trait = merciful
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+##############################################################################################################################################################
+# Civic
+##############################################################################################################################################################
+
+lifestyle_events.9 = {
+    type = country_event
+
+    title = lifestyle_events.9.t
+    desc = lifestyle_events.9.desc
+    picture = greek_court    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = wealth_focus_triggered_mod
+			character_experience > 0.8
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.9.a"
+		if = {
+			limit = {
+				current_ruler = { finesse > 6 }
+			}
+			current_ruler = { add_gold = 500 }
+		}
+		else = {
+			current_ruler = { add_gold = 100 }
+		}
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+}
+
+lifestyle_events.10 = {
+    type = country_event
+
+    title = lifestyle_events.10.t
+    desc = lifestyle_events.10.desc
+    picture = greek_court    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = holding_focus_triggered_mod
+			character_experience > 0.8
+		}
+		any_owned_province = {
+			NOT = {
+				exists = holding_owner
+			}
+		}
+	}
+	
+	immediate = {
+		random_owned_province = {
+			limit = {
+				NOT = {
+					exists = holding_owner
+				}
+			}
+			save_scope_as = holding_province
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.10.a"
+		current_ruler = {
+			add_holding = scope:holding_province
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+}
+
+lifestyle_events.11 = {
+    type = country_event
+
+    title = lifestyle_events.11.t
+    desc = lifestyle_events.11.desc
+    picture = greek_court    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = commerce_focus_triggered_mod
+			character_experience > 0.9
+			NOT = { has_trait = midas_touched }
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.11.a"
+		current_ruler = {
+			add_trait = midas_touched
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+lifestyle_events.12 = {
+    type = country_event
+
+    title = lifestyle_events.12.t
+    desc = lifestyle_events.12.desc
+    picture = greek_court    
+	left_portrait = root.current_ruler
+	goto_location = scope:building_province
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = construction_focus_triggered_mod
+			character_experience > 0.8
+			wealth > 100
+		}
+		any_owned_province = {
+			free_building_slots > 0
+		}
+	}
+	
+	immediate = {
+		random_owned_province = {
+			limit = {
+				free_building_slots > 0
+			}
+			save_scope_as = building_province
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.12.a"
+		trigger = {
+			scope:building_province = {
+				has_province_rank = settlement
+			}
+		}
+		scope:building_province = {
+			add_building_level = villa_building
+		}
+		current_ruler = {
+			add_gold = -100
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+	option = {
+        name = "lifestyle_events.12.b"
+		trigger = {
+			scope:building_province = {
+				has_province_rank = settlement
+			}
+		}
+		scope:building_province = {
+			add_building_level = commons_building
+		}
+		current_ruler = {
+			add_gold = -100
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+	option = {
+        name = "lifestyle_events.12.c"
+		trigger = {
+			scope:building_province = {
+				OR = {
+					has_province_rank = city
+					has_province_rank = metropolis
+				}
+			}
+		}
+		scope:building_province = {
+			add_building_level = aqueduct_building
+		}
+		current_ruler = {
+			add_gold = -100
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+	option = {
+        name = "lifestyle_events.12.d"
+		trigger = {
+			scope:building_province = {
+				OR = {
+					has_province_rank = city
+					has_province_rank = metropolis
+				}
+			}
+		}
+		scope:building_province = {
+			add_building_level = commerce_building
+		}
+		current_ruler = {
+			add_gold = -100
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+}
+
+##############################################################################################################################################################
+# Zeal
+##############################################################################################################################################################
+
+lifestyle_events.13 = {
+    type = country_event
+
+    title = lifestyle_events.13.t
+    desc = lifestyle_events.13.desc
+    picture = greek_philosophers    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = piety_focus_triggered_mod
+			character_experience > 0.8
+			NOT = { has_trait = pious }
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.13.a"
+		current_ruler = {
+			add_trait = pious
+			remove_trait = sceptical
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+lifestyle_events.14 = {
+    type = country_event
+
+    title = lifestyle_events.14.t
+    desc = lifestyle_events.14.desc
+    picture = greek_philosophers    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = philosophy_focus_triggered_mod
+			character_experience > 0.9
+			zeal > 7
+			finesse > 7
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.14.a"
+		add_innovation = 1
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+lifestyle_events.15 = {
+    type = country_event
+
+    title = lifestyle_events.15.t
+    desc = lifestyle_events.15.desc
+    picture = greek_philosophers    
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = divinity_focus_triggered_mod
+			character_experience > 0.6
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.15.a"
+		current_ruler = {
+			add_health = 5
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+    }
+}
+
+lifestyle_events.16 = {
+    type = country_event
+
+    title = lifestyle_events.16.t
+    desc = lifestyle_events.16.desc
+    picture = greek_philosophers    
+	left_portrait = root.current_ruler
+	goto_location = scope:conversion_province
+	
+	trigger = {
+		has_land = yes
+		current_ruler = {
+			has_triggered_character_modifier = priestly_support_focus_triggered_mod
+			character_experience > 0.8
+		}
+		any_owned_province = {
+			NOT = { dominant_province_religion = ROOT.religion }
+		}
+	}
+	
+	immediate = {
+		random_owned_province = {
+			limit = {
+				NOT = { dominant_province_religion = ROOT.religion }
+			}
+			save_scope_as = conversion_province
+		}
+	}
+
+    option = {
+        name = "lifestyle_events.16.a"
+		trigger = {
+			scope:conversion_province = {
+				total_population > 20
+			}
+		}
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+		scope:conversion_province = {
+			while = {
+	    		count = 7 
+				random_pops_in_province = {
+					limit = {
+						NOT = { pop_religion = ROOT.religion }
+					}
+					set_pop_religion = ROOT.religion
+				}
+			}
+		}
+    }
+	option = {
+        name = "lifestyle_events.16.b"
+		trigger = {
+			scope:conversion_province = {
+				total_population <= 20
+			}
+		}
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_10_focus_xp"
+				amount = 10
+			}
+		}
+		scope:conversion_province = {
+			while = {
+	    		count = 3 
+				random_pops_in_province = {
+					limit = {
+						NOT = { pop_religion = ROOT.religion }
+					}
+					set_pop_religion = ROOT.religion
+				}
+			}
+		}
+    }
+}
