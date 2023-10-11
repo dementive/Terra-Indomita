@@ -1,0 +1,23 @@
+﻿
+##Izn's Apotheosis Effects
+#Culture
+culture_apotheosis_splendor_effect = {
+	if = {
+		limit = {
+			exists = scope:deified_ruler
+			scope:deified_ruler = { charisma > 7 }
+		}
+		add_splendor = {
+			amount = "75"
+		}
+	}
+	else_if = {
+		limit = {
+			exists = scope:deified_ruler
+			scope:deified_ruler = { charisma <= 7 }
+		}
+		add_splendor = {
+			amount = "50"
+		}
+	}
+}
