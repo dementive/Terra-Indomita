@@ -32,6 +32,7 @@
 
 clear_all_hellenic_age_data = {
 	remove_variable = hellenic_ability_six_taken
+	remove_variable = hellenic_ability_eleven_taken
 	remove_country_modifier = hellenic_ability_one_mod
 	remove_country_modifier = hellenic_ability_two_mod
 	remove_country_modifier = hellenic_ability_three_mod
@@ -151,47 +152,6 @@ migration_age_holy_site_effect = {
 		change_variable = {
 			name = migration_obj_five
 			add = 20
-		}
-	}
-}
-
-add_splendor = {
-	if = { limit = { $amount$ = 100 } custom_tooltip = "add_100_splendor_tt" }
-	if = { limit = { $amount$ = 200 } custom_tooltip = "add_200_splendor_tt" }
-	if = { limit = { $amount$ = 300 } custom_tooltip = "add_300_splendor_tt" }
-	if = { limit = { $amount$ = 400 } custom_tooltip = "add_400_splendor_tt" }
-	if = { limit = { $amount$ = 500 } custom_tooltip = "add_500_splendor_tt" }
-	if = { limit = { $amount$ = 600 } custom_tooltip = "add_600_splendor_tt" }
-	if = { limit = { $amount$ = 700 } custom_tooltip = "add_700_splendor_tt" }
-	if = { limit = { $amount$ = 800 } custom_tooltip = "add_800_splendor_tt" }
-	if = {
-		limit = { NOT = { has_variable = splendor } }
-		set_variable = {
-			name = splendor
-			value = $amount$
-		}
-	}
-	else = {
-		change_variable = {
-			name = splendor
-			add = $amount$
-		}
-	}
-}
-remove_splendor = {
-	if = { limit = { $amount$ = 100 } custom_tooltip = "remove_100_splendor_tt" }
-	if = { limit = { $amount$ = 200 } custom_tooltip = "remove_200_splendor_tt" }
-	if = { limit = { $amount$ = 300 } custom_tooltip = "remove_300_splendor_tt" }
-	if = { limit = { $amount$ = 400 } custom_tooltip = "remove_400_splendor_tt" }
-	if = { limit = { $amount$ = 500 } custom_tooltip = "remove_500_splendor_tt" }
-	if = { limit = { $amount$ = 600 } custom_tooltip = "remove_600_splendor_tt" }
-	if = { limit = { $amount$ = 700 } custom_tooltip = "remove_700_splendor_tt" }
-	if = { limit = { $amount$ = 800 } custom_tooltip = "remove_800_splendor_tt" }
-	if = {
-		limit = { has_variable = splendor } 
-		change_variable = {
-			name = splendor
-			add = $amount$
 		}
 	}
 }

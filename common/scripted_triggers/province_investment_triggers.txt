@@ -1,7 +1,7 @@
 ﻿state_improvement_military_trigger = {
 	trigger_if = {
 		limit = {
-			exists = owner
+			exists = owner 
 			owner = {
 				has_dlc = "Magna Graecia"
 				OR = {
@@ -9,66 +9,50 @@
 					has_variable = spa_unique_mech
 				}
 			}
-		}
+		} 
 		OR = {
-			any_state_province = {
-				has_province_modifier = state_improvement_military_SPA
-			}
-			any_state_province = {
-				has_province_modifier = state_improvement_manpower
-			}
+			has_state_modifier = state_improvement_military_SPA
+			has_state_modifier = state_improvement_manpower
 		}
 	}
 	trigger_else = {
 		OR = {
-			any_state_province = {
-				has_province_modifier = state_improvement_military
-			}
-			any_state_province = {
-				has_province_modifier = state_improvement_manpower
-			}
+			has_state_modifier = state_improvement_military
+			has_state_modifier = state_improvement_manpower
 		}
 	}
 }
 
 state_improvement_civic_trigger = {
-	any_state_province = {
-		OR = {
-			has_province_modifier = state_improvement_civic
-			has_province_modifier = state_improvement_admin
-			has_province_modifier = state_improvement_civ
-		}
+	OR = {
+		has_state_modifier = state_improvement_civic
+		has_state_modifier = state_improvement_admin
+		has_state_modifier = state_improvement_civ
 	}
 }
 
 state_improvement_oratory_trigger = {
-	any_state_province = {
-		OR = {
-			has_province_modifier = state_improvement_oratory
-			has_province_modifier = state_improvement_academic
-		}
+	OR = {
+		has_state_modifier = state_improvement_oratory
+		has_state_modifier = state_improvement_academic
 	}
 }
 
 state_improvement_religious_trigger = {
 	trigger_if = {
 		limit = {
-			exists = owner
-			owner = {
+			exists = owner 
+			owner = { 
 				has_dlc = "Magna Graecia"
 				OR = {
 					tag = SPA
 					has_variable = spa_unique_mech
-				}
+				} 
 			}
-		}
-		any_state_province = {
-			has_province_modifier = state_improvement_religious_SPA
-		}
+		} 
+		has_state_modifier = state_improvement_religious_SPA
 	}
 	trigger_else = {
-		any_state_province = {
-			has_province_modifier = state_improvement_religious
-		}
+		has_state_modifier = state_improvement_religious
 	}
 }

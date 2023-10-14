@@ -30,11 +30,10 @@ state_improvement.2 = { #Civic
 	trigger = { exists = scope:state_improvement_target }
 	
 	immediate = {
-		every_state_province = {
-			add_permanent_province_modifier = {
-				name = state_improvement_civic
-				mode = add
-			}
+		add_state_modifier = {
+			name = state_improvement_civic
+			duration = -1
+			mode = add
 		}
 		owner = {
 			trigger_event = { id = state_improvement.13 }
@@ -75,11 +74,10 @@ state_improvement.3 = { #Oratory
 			}
 		}
 		else = { } #Nothing!
-		every_state_province = {
-			add_permanent_province_modifier = {
-				name = state_improvement_oratory
-				mode = add
-			}
+		add_state_modifier = {
+			name = state_improvement_oratory
+			duration = -1
+			mode = add
 		}
 		owner = {
 			trigger_event = { id = state_improvement.14 }
@@ -95,11 +93,10 @@ state_improvement.4 = { #Religious
 	trigger = { exists = scope:state_improvement_target }
 	
 	immediate = {
-		every_state_province = {
-			add_permanent_province_modifier = {
-				name = state_improvement_religious
-				mode = add
-			}
+		add_state_modifier = {
+			name = state_improvement_religious
+			duration = -1
+			mode = add
 		}
 		hidden_effect = {
 			if = {
@@ -143,35 +140,51 @@ state_improvement.5 = { #City level civilization
 	
 	immediate = {
 		save_scope_as = local_civilization_target
-		add_permanent_province_modifier = {
+		add_province_modifier = {
 			name = local_civilization_pmod_stack
+			duration = -1
 			mode = add
 		}
 		owner = {
 			trigger_event = { id = state_improvement.18 }
 		}
-		increment_civ_investment_count = yes
 	}
 }
 
+##################################################################
+# state_improvement changes to account for Citys giving civ to neighbouring territories
+##################################################################
+
 state_improvement.6 = { #Toggles City Status
 	type = province_event
-	
+
 	picture = greek_city_market
-	
+
 	title = "state_improvement.6.t"
 	desc = "state_improvement.6.desc"
-	
+
 	left_portrait = root.governor_or_ruler
-	goto_location = root	
-	
+	goto_location = root
+
 	trigger = {
 		exists = owner
 		has_city_status = no
 	}
-	
+
 	immediate = {
 		set_city_status = city
+		if = {
+			limit = {
+				has_province_modifier = judea_modifier_12
+				}
+			remove_province_modifier = judea_modifier_12
+		}
+		if = {
+			limit = {
+				has_province_modifier = samaria_modifier_12
+				}
+			remove_province_modifier = samaria_modifier_12
+		}
 		if = {
 			limit = {
 				OR = {
@@ -190,10 +203,28 @@ state_improvement.6 = { #Toggles City Status
 			}
 			hidden_effect = {
 				replace_food_after_city_upgrade_effect = { VARIABLE_OR_SET_TRADE_GOODS = set_variable } #See comments in scripted effect before tampering with this
+				every_neighbor_province = {
+					limit = {
+						NOR = {
+							is_sea = yes
+							terrain = riverine_terrain
+						}
+					}
+					add_neighbor_city_modifier_effect = yes
+				}
+			}
+			while = {
+				count = 3
+				random_pops_in_province = {
+					limit = {
+						NOT = { pop_type = citizen }
+					}
+					set_pop_type = citizen
+				}
 			}
 		}
 	}
-	
+
 	option = {
 		name = "state_improvement.6.a"
 		replace_food_after_city_upgrade_finish_effect = yes
@@ -203,13 +234,33 @@ state_improvement.6 = { #Toggles City Status
 state_improvement.7 = { #Toggles Metropolis Status
 	type = province_event
 	hidden = yes
-	
+
 	trigger = {
-		
+
 	}
-	
+
 	immediate = {
 		set_city_status = city_metropolis
+		while = {
+			count = 3
+			random_pops_in_province = {
+				limit = {
+					NOT = { pop_type = nobles }
+				}
+				set_pop_type = nobles
+			}
+		}
+		hidden_effect = {
+			every_neighbor_province = {
+				limit = {
+					NOR = {
+						is_sea = yes
+						terrain = riverine_terrain
+					}
+				}
+				add_neighbor_city_modifier_effect = yes
+			}
+		}
 	}
 }
 
@@ -357,11 +408,10 @@ state_improvement.11 = { #Religious SPA
 	}
 	
 	immediate = {
-		every_state_province = {
-			add_permanent_province_modifier = {
-				name = state_improvement_religious_SPA
-				mode = add
-			}
+		add_state_modifier = {
+			name = state_improvement_religious_SPA
+			duration = -1
+			mode = add
 		}
 		owner = {
 			trigger_event = { id = state_improvement.17 }
@@ -547,6 +597,7 @@ state_improvement.18 = { #City level civilization
 
 
 
+
 #################################
 # New
 #################################
@@ -559,11 +610,10 @@ state_improvement.19 = { #Administration
 	trigger = { exists = scope:state_improvement_target }
 	
 	immediate = {
-		every_state_province = {
-			add_permanent_province_modifier = {
-				name = state_improvement_admin
-				mode = add
-			}
+		add_state_modifier = {
+			name = state_improvement_admin
+			duration = -1
+			mode = add
 		}
 		owner = {
 			trigger_event = { id = state_improvement.20 }
@@ -603,11 +653,10 @@ state_improvement.21 = { #Manpower
 	trigger = { exists = scope:state_improvement_target }
 	
 	immediate = {
-		every_state_province = {
-			add_permanent_province_modifier = {
-				name = state_improvement_manpower
-				mode = add
-			}
+		add_state_modifier = {
+			name = state_improvement_manpower
+			duration = -1
+			mode = add
 		}
 		owner = {
 			trigger_event = { id = state_improvement.22 }
@@ -646,11 +695,10 @@ state_improvement.23 = { #Academic
 	trigger = { exists = scope:state_improvement_target }
 	
 	immediate = {
-		every_state_province = {
-			add_permanent_province_modifier = {
-				name = state_improvement_academic
-				mode = add
-			}
+		add_state_modifier = {
+			name = state_improvement_academic
+			duration = -1
+			mode = add
 		}
 		owner = {
 			trigger_event = { id = state_improvement.24 }
@@ -689,11 +737,10 @@ state_improvement.25 = { #Civ
 	trigger = { exists = scope:state_improvement_target }
 	
 	immediate = {
-		every_state_province = {
-			add_permanent_province_modifier = {
-				name = state_improvement_civ
-				mode = add
-			}
+		add_state_modifier = {
+			name = state_improvement_civ
+			duration = -1
+			mode = add
 		}
 		owner = {
 			trigger_event = { id = state_improvement.26 }
