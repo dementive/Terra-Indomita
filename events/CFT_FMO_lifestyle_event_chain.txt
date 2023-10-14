@@ -690,12 +690,12 @@ lifestyle_event_chains.14 = {
 				duration = -1
 			}
 		}
-		#hidden_effect = {
-		#	trigger_event = {
-		#		id = lifestyle_event_chains.15
-		#		days = { 60 80 }
-		#	}
-		#}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.15
+				days = { 60 80 }
+			}
+		}
     }
 	
 	option = {
@@ -706,11 +706,461 @@ lifestyle_event_chains.14 = {
 				duration = -1
 			}
 		}
-		#hidden_effect = {
-		#	trigger_event = {
-		#		id = lifestyle_event_chains.20
-		#		days = { 60 80 }
-		#	}
-		#}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.20
+				days = { 60 80 }
+			}
+		}
     }
+}
+
+lifestyle_event_chains.15 = {
+    type = country_event
+
+    title = lifestyle_event_chains.15.t
+    desc = lifestyle_event_chains.15.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = { #heliocentric
+        name = "lifestyle_event_chains.15.a"
+		add_research = {
+			technology = religious_tech
+			value = 15
+		}
+		random_list = {
+			50 = {
+				current_ruler = { remove_trait = zealous }
+			}
+			20 = {
+				current_ruler = { add_trait = obsessive }
+			}
+			30 = {
+				current_ruler = { add_popularity = -10 }
+			}
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.16
+				days = { 30 45 }
+			}
+		}
+    }
+	
+	option = { #geocentric
+        name = "lifestyle_event_chains.4.a"
+		random_list = {
+			50 = {
+				current_ruler = { add_trait = content }
+			}
+			50 = {
+				current_ruler = { add_trait = narrowminded }
+			}
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.16
+				days = { 30 45 }
+			}
+		}
+    }
+}
+
+lifestyle_event_chains.16 = {
+    type = country_event
+
+    title = lifestyle_event_chains.16.t
+    desc = lifestyle_event_chains.16.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "lifestyle_event_chains.16.a"
+		add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 6
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.17
+				days = { 30 45 }
+			}
+		}
+    }
+	
+	option = {
+        name = "lifestyle_event_chains.16.b"
+		custom_tooltip = no_effect_tooltip
+    }
+}
+
+lifestyle_event_chains.17 = {
+    type = country_event
+
+    title = lifestyle_event_chains.17.t
+    desc = lifestyle_event_chains.17.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "lifestyle_event_chains.17.a"
+		random_list = {
+			40 = {
+				current_ruler = { add_trait = energetic }
+			}
+			10 = {
+				current_ruler = { add_trait = stressed }
+			}
+			50 = {
+			
+			}
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.18
+				days = { 30 45 }
+			}
+		}
+    }
+	
+	option = {
+        name = "lifestyle_event_chains.17.b"
+		random_list = {
+			50 = {
+				current_ruler = { add_trait = lazy }
+			}
+			50 = {
+				current_ruler = { add_trait = content }
+			}
+		}
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+lifestyle_event_chains.18 = {
+    type = country_event
+
+    title = lifestyle_event_chains.18.t
+    desc = lifestyle_event_chains.18.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "lifestyle_event_chains.18.a"
+		add_research = {
+			technology = religious_tech
+			value = 35
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.19
+				days = { 30 45 }
+			}
+		}
+    }
+}
+
+lifestyle_event_chains.19 = {
+    type = country_event
+
+    title = lifestyle_event_chains.19.t
+    desc = lifestyle_event_chains.19.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = { #publish findings
+        name = "lifestyle_event_chains.19.a"
+		add_innovation = 1
+		current_ruler = {
+			add_trait = scholar
+			add_zeal = -2
+			add_popularity = -20
+			add_focus_perk = {
+				text = "add_1_char_perk"
+				amount = 1
+			}
+		}
+    }
+	
+	option = { #keep secret
+		name = "lifestyle_event_chains.19.b"
+		current_ruler = {
+			add_trait = scholar
+			add_focus_perk = {
+				text = "add_1_char_perk"
+				amount = 1
+			}
+		}
+	}
+	
+	option = { #burn research
+		name = "lifestyle_event_chains.19.b"
+		add_stability = 5
+		current_ruler = {
+			add_trait = zealous
+			add_zeal = 2
+			add_focus_experience = {
+				text = "add_50_focus_xp"
+				amount = 50
+			}
+		}
+	}
+}
+
+lifestyle_event_chains.20 = {
+    type = country_event
+
+    title = lifestyle_event_chains.20.t
+    desc = lifestyle_event_chains.20.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "lifestyle_event_chains.20.a"
+		random_list = {
+			50 = {
+				current_ruler = { add_trait = paranoid }
+			}
+			20 = {
+				current_ruler = { add_trait = obsessive }
+			}
+			30 = {
+			
+			}
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.21
+				days = { 30 45 }
+			}
+		}
+    }
+}
+
+lifestyle_event_chains.21 = {
+    type = country_event
+
+    title = lifestyle_event_chains.21.t
+    desc = lifestyle_event_chains.21.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = { #Need new equipment
+        name = "lifestyle_event_chains.21.a"
+		add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 6
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.22
+				days = { 30 45 }
+			}
+		}
+    }
+	
+	option = { #stop
+        name = "lifestyle_event_chains.21.b"
+		custom_tooltip = no_effect_tooltip
+    }
+}
+
+lifestyle_event_chains.22 = {
+    type = country_event
+
+    title = lifestyle_event_chains.22.t
+    desc = lifestyle_event_chains.22.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = { #Travel to better places to observe stars
+        name = "lifestyle_event_chains.22.a"
+		add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 3
+		}
+		current_ruler = {
+			add_trait = pilgrim_status
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.23
+				days = { 30 45 }
+			}
+		}
+    }
+	
+	option = { #stop
+        name = "lifestyle_event_chains.22.b"
+		random_list = {
+			50 = {
+				current_ruler = { add_trait = lazy }
+			}
+			50 = {
+				current_ruler = { add_trait = content }
+			}
+		}
+    }
+}
+
+lifestyle_event_chains.23  = {
+    type = country_event
+
+    title = lifestyle_event_chains.23.t
+    desc = lifestyle_event_chains.23.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = { #Persist
+        name = "lifestyle_event_chains.23.a"
+		random_list = {
+			40 = {
+				current_ruler = { add_trait = energetic }
+			}
+			10 = {
+				current_ruler = { add_trait = stressed }
+			}
+			50 = {
+			
+			}
+		}
+		add_research = {
+			technology = religious_tech
+			value = 25
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.24
+				days = { 30 45 }
+			}
+		}
+    }
+	
+	option = { #stop
+        name = "lifestyle_event_chains.23.b"
+		random_list = {
+			50 = {
+				current_ruler = { add_trait = lazy }
+			}
+			50 = {
+				current_ruler = { add_trait = content }
+			}
+		}
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+			remove_trait = pilgrim_status
+		}
+    }
+}
+
+lifestyle_event_chains.24  = {
+    type = country_event
+
+    title = lifestyle_event_chains.24.t
+    desc = lifestyle_event_chains.24.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+	
+	immediate = {
+		current_ruler = {
+			remove_trait = pilgrim_status
+		}
+	}
+
+    option = { #study further
+        name = "lifestyle_event_chains.24.a"
+		random_list = {
+			40 = {
+				current_ruler = { add_trait = paranoid }
+			}
+			10 = {
+				current_ruler = { add_trait = lunatic }
+			}
+			50 = {
+			
+			}
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.25
+				days = { 30 45 }
+			}
+		}
+    }
+	
+	option = { #leave it be
+        name = "lifestyle_event_chains.24.b"
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+lifestyle_event_chains.25 = {
+    type = country_event
+
+    title = lifestyle_event_chains.25.t
+    desc = lifestyle_event_chains.25.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = { # Feeling wiser
+        name = "lifestyle_event_chains.25.a"
+		add_research = {
+			technology = religious_tech
+			value = 35
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = lifestyle_event_chains.26
+				days = { 30 45 }
+			}
+		}
+    }
+}
+
+lifestyle_event_chains.26 = {
+    type = country_event
+
+    title = lifestyle_event_chains.26.t
+    desc = lifestyle_event_chains.26.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+
+    option = { #mystic
+        name = "lifestyle_event_chains.26.a"
+		add_innovation = 1
+		current_ruler = {
+			add_trait = wise
+			add_focus_perk = {
+				text = "add_1_char_perk"
+				amount = 1
+			}
+		}
+    }
+	
+	option = { #keep secret
+		name = "lifestyle_event_chains.26.b"
+		add_stability = 10
+		current_ruler = {
+			add_trait = humble
+			add_zeal = 2
+			add_focus_perk = {
+				text = "add_1_char_perk"
+				amount = 1
+			}
+		}
+	}
 }
