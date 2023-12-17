@@ -1344,20 +1344,26 @@ lifestyle_event_chains.30  = {
     option = { #arrest servant
         name = "lifestyle_event_chains.30.a"
 		hidden_effect = {
-			#trigger_event = {
-			#	id = lifestyle_event_chains.32
-			#	days = { 30 45 }
-			#}
+			trigger_event = {
+				id = lifestyle_event_chains.32
+				days = { 30 45 }
+			}
+		}
+		imprison = {
+			target = scope:servant
 		}
     }
 	
 	option = { #arrest cook's wife
         name = "lifestyle_event_chains.30.b"
 		hidden_effect = {
-			#trigger_event = {
-			#	id = lifestyle_event_chains.33
-			#	days = { 30 45 }
-			#}
+			trigger_event = {
+				id = lifestyle_event_chains.33
+				days = { 30 45 }
+			}
+		}
+		imprison = {
+			target = scope:cooks_wife
 		}
     }
 }
@@ -1406,20 +1412,180 @@ lifestyle_event_chains.31  = {
     option = { #arrest servant
         name = "lifestyle_event_chains.31.a"
 		hidden_effect = {
-			#trigger_event = {
-			#	id = lifestyle_event_chains.34
-			#	days = { 30 45 }
-			#}
+			trigger_event = {
+				id = lifestyle_event_chains.34
+				days = { 30 45 }
+			}
+		}
+		imprison = {
+			target = scope:servant
 		}
     }
 	
 	option = { #arrest cook's wife
         name = "lifestyle_event_chains.31.b"
 		hidden_effect = {
-			#trigger_event = {
-			#	id = lifestyle_event_chains.35
-			#	days = { 30 45 }
-			#}
+			trigger_event = {
+				id = lifestyle_event_chains.35
+				days = { 30 45 }
+			}
+		}
+		imprison = {
+			target = scope:cooks_wife
+		}
+    }
+}
+
+lifestyle_event_chains.32  = {
+    type = country_event
+
+    title = lifestyle_event_chains.32.t
+    desc = lifestyle_event_chains.32.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+	right_portrait = root.current_ruler.spouse
+	right_portrait = scope:guard_of_ruler
+	
+	immediate = {
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_master_of_the_guard
+					has_office = office_bodyguard
+					has_office = office_tribune_of_the_soldiers
+				}
+			}
+			save_scope_as = guard_of_ruler
+		}
+	}
+
+    option = { #arrest servant
+        name = "lifestyle_event_chains.32.a"
+		current_ruler = {
+			add_focus_perk = {
+				text = "add_1_char_perk"
+				amount = 1
+			}
+			add_trait = just
+		}
+		current_ruler.spouse = {
+			add_loyalty = loyalty_consort_bought_off
+		}
+		scope:guard_of_ruler = {
+			add_martial = 2
+		}
+    }
+}
+
+lifestyle_event_chains.33  = {
+    type = country_event
+
+    title = lifestyle_event_chains.33.t
+    desc = lifestyle_event_chains.33.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+	right_portrait = root.current_ruler.spouse
+	right_portrait = scope:guard_of_ruler
+	
+	immediate = {
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_master_of_the_guard
+					has_office = office_bodyguard
+					has_office = office_tribune_of_the_soldiers
+				}
+			}
+			save_scope_as = guard_of_ruler
+		}
+	}
+
+    option = { #arrest servant
+        name = "lifestyle_event_chains.33.a"
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_50_focus_xp"
+				amount = 50
+			}
+			add_trait = arbitrary
+		}
+		add_tyranny = 5
+    }
+}
+
+lifestyle_event_chains.34  = {
+    type = country_event
+
+    title = lifestyle_event_chains.34.t
+    desc = lifestyle_event_chains.34.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+	right_portrait = root.current_ruler.spouse
+	right_portrait = scope:guard_of_ruler
+	
+	immediate = {
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_master_of_the_guard
+					has_office = office_bodyguard
+					has_office = office_tribune_of_the_soldiers
+				}
+			}
+			save_scope_as = guard_of_ruler
+		}
+	}
+
+    option = { #arrest servant
+        name = "lifestyle_event_chains.34.a"
+		current_ruler = {
+			add_focus_experience = {
+				text = "add_50_focus_xp"
+				amount = 50
+			}
+			add_trait = arbitrary
+		}
+		add_tyranny = 5
+    }
+}
+
+lifestyle_event_chains.35  = {
+    type = country_event
+
+    title = lifestyle_event_chains.35.t
+    desc = lifestyle_event_chains.35.desc
+    picture = senator_conversing    
+	left_portrait = root.current_ruler
+	right_portrait = root.current_ruler.spouse
+	right_portrait = scope:guard_of_ruler
+	
+	immediate = {
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_master_of_the_guard
+					has_office = office_bodyguard
+					has_office = office_tribune_of_the_soldiers
+				}
+			}
+			save_scope_as = guard_of_ruler
+		}
+	}
+
+    option = { #arrest servant
+        name = "lifestyle_event_chains.35.a"
+		current_ruler = {
+			add_focus_perk = {
+				text = "add_1_char_perk"
+				amount = 1
+			}
+			add_trait = just
+		}
+		current_ruler.spouse = {
+			add_loyalty = loyalty_consort_bought_off
+		}
+		scope:guard_of_ruler = {
+			add_martial = 2
 		}
     }
 }
