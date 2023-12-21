@@ -1,0 +1,680 @@
+xiongnu_missions_01 = {
+    header = "mission_image_general"
+    icon = "general_1"
+
+    repeatable = no
+	
+    chance = {
+        factor = 20
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var_xio_1 }
+        tag = XNU
+		is_subject = no
+        has_civil_war = no
+		is_tribal = yes
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+	
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_xiongnu_01.21 #create Luandi family and bloodline - TODO Dementive
+    }
+	
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var_xio_1
+            days = 7300
+        }
+    }
+	
+	on_completion = {
+        complete_mission_effect = yes
+    }
+	
+    xiongnu_missions_01_task_1 = { #Consolidate Clans
+        icon = "task_political"
+		
+        allow = {
+			custom_tooltip = {
+				text = barbaricum_treveria_mission_task_3_tt #all clan chiefs have loyalty >=70
+				NOT = {
+					any_character = {
+						is_clan_chief = yes
+						loyalty <= 70
+					}
+				}
+			}
+			custom_tooltip = {
+				text = xiongnu_missions_01_task_1_req #no scorned family
+				NOT = {
+					any_family = {
+						is_scorned = yes
+					}
+				}
+			}
+			
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.1
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = consolidated_clans_xiongnu #5 loyalty
+					duration = 1825
+				}
+            }
+			c:AHO = {
+				every_owned_province = {
+					add_claim = root
+				}
+			}
+        }
+    }
+	
+    xiongnu_missions_01_task_2 = { #Loyalty to Luandi
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_1 }
+		
+        allow = {
+			custom_tooltip = {
+				text = xiongnu_missions_01_task_2_tt #all clan chiefs and government officials have loyalty >=90
+				NOT = {
+					any_character = {
+						OR = {
+							is_clan_chief = yes
+							has_office = yes
+						}
+						loyalty <= 90
+					}
+				}
+			}
+			#ruler family is Luandi - TODO Dementive
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.2
+            show_as_tooltip = {
+				add_stability = 6
+				add_country_modifier = {
+					name = loyalty_luandi_xiongnu
+					duration = 7300
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_3 = { #Touman's Tribe
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_2 }
+		
+        allow = {
+			has_country_modifier = stability_investment
+			#Touman Luandi is ruler - TODO Dementive
+			trigger_if = {
+                limit = {
+                    is_ai = no
+                    has_variable = touman_character_scope_variable
+                    var:touman_character_scope_variable = {
+                        is_alive = yes
+                    }
+                }
+				hidden:var:touman_character_scope_variable = {
+					is_ruler = yes
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = xiongnu_missions_01_task_3_touman_is_ruler #Touman is ruler
+					always = no
+				}
+            }
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.3
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = toumans_tribe_xiongnu
+					duration = 5475
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_4 = { #Annex Anhou
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_1 }
+		
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:AHO
+			}
+		}
+		
+        allow = {
+			c:AHO = {
+				has_land = no
+			}
+			owns = 9489
+		}
+		
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.4
+            show_as_tooltip = {
+				add_aggressive_expansion = -5
+            }
+			c:DLG = {
+				every_owned_province = {
+					add_claim = root
+				}
+			}
+        }
+    }
+	
+    xiongnu_missions_01_task_5 = { #Dominate Dingling
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_4 }
+		
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:DLG
+			}
+		}
+		
+        allow = {
+			c:DLG = {
+				OR = {
+					has_land = no
+					is_subject = yes
+				}
+			}
+			owns_or_subject_owns = 9478
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.5
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = conversion_05_xiongnu #0.1 conversion
+					duration = 3650
+				}
+            }
+			custom_tooltip = xiongnu_missions_01_task_5_claims_tt
+			hidden_effect = {
+				area:xihai_area = { mission_area_claim_effect = yes }
+				area:ulangom_area = { mission_area_claim_effect = yes }
+				area:jiankun_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+    xiongnu_missions_01_task_6 = { #Western Warmongering
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_5 }
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					owned_or_subject_owned = c:XHI
+					owned_or_subject_owned = c:HUY
+					owned_or_subject_owned = c:QSI
+				}
+			}
+		}
+		
+        allow = {
+			c:XHI = {
+				has_land = no
+			}
+			c:HUY = {
+				has_land = no
+			}
+			c:QSI = {
+				has_land = no
+			}
+			owns = 9464
+			owns = 10542
+			owns = 10540
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.6
+            custom_tooltip = xiongnu_missions_01_task_5_claims_tt
+			hidden_effect = {
+				area:altai_area = { mission_area_claim_effect = yes }
+				area:hujie_area = { mission_area_claim_effect = yes }
+				area:jiankun_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+    xiongnu_missions_01_task_7 = { #Hoarding Horses
+        icon = "task_political"
+		
+		highlight = {
+			scope:province = {
+				owner = root
+				is_capital = yes
+			}
+		}
+		
+        allow = {
+			capital_scope.state = {
+				trade_good_surplus = {
+                    target = horses
+					value >= 2
+                }
+				trade_good_surplus = {
+                    target = steppe_horses
+					value >= 2
+                }
+				trade_good_surplus = {
+                    target = leather
+					value >= 1
+                }
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.7
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = hoarding_xiongnu
+					duration = 1825
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_8 = { #Steppe Stirrup
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_7 }
+		
+        allow = {
+			invention = global_start_experience_inv_2 #can't find the invention?
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.8
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = steppe_mod_xiongnu
+					duration = -1
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_9 = { #Prairies and Pastures
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_7 }
+		
+		highlight = {
+			scope:province = {
+				owner = root
+				OR = {
+					trade_goods = cattle
+					trade_goods = horses
+					trade_goods = steppe_horses
+				}
+			}
+		}
+		
+        allow = {
+			any_owned_province = {
+				count >= 5
+				has_building = basic_settlement_infratructure_building
+				trade_goods = cattle
+			}
+			any_owned_province = {
+				count >= 5
+				has_building = hill_fort
+				OR = {
+					trade_goods = horses
+					trade_goods = steppe_horses
+				}
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.9
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = pastures_xiongnu
+					duration = 3650
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_10 = { #Foreign Tribute
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_5 xiongnu_missions_01_task_8 }
+		
+        allow = {
+			any_subject = {
+				count >= 2
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.10
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = tribute_xiongnu
+					duration = 7300
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_11 = { #Capital Breeding Grounds
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_9 }
+		duration = 365
+		
+		highlight = {
+			scope:province = {
+				province_id = 10529
+			}
+		}
+		
+        allow = {
+			treasury >= 100
+			p:10529 = {
+				trade_goods = steppe_horses
+				num_goods_produced >= 2
+			}
+		}
+		
+		on_start = {
+			add_treasury = -100
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.11
+            show_as_tooltip = {
+				p:10529 = {
+					add_permanent_province_modifier = {
+						name = breeding_grounds_xiongnu
+					}
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_12 = { #Southern Insults
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_3 xiongnu_missions_01_task_6 }
+		
+		bypass = {
+			c:YEZ = {
+				has_land = no
+			}
+		}
+		
+        allow = {
+			c:YEZ = {
+				has_opinion = {
+					modifier = opinion_grave_insult
+                    target = ROOT
+				}
+			}
+			NOT = {
+				ROOT = {
+					OR = {
+						exports_to = c:YEZ
+						imports_from = c:YEZ
+					}
+				}
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.12
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = insults_xiongnu
+					duration = 5475
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_13 = { #Chanyu's Children
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_3 }
+		
+        allow = {
+			current_ruler.spouse = {
+				age <= 30
+				has_culture = root.culture
+				has_religion = root.religion
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.13
+			custom_tooltip = xiongnu_missions_01_task_13_create_children
+        }
+    }
+	
+    xiongnu_missions_01_task_14 = { #The Mighty Modun
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_13 }
+		
+        allow = {
+			trigger_if = {
+                limit = {
+                    is_ai = no
+                    has_variable = modun_character_scope_variable
+                    var:modun_character_scope_variable = {
+                        is_alive = yes
+                    }
+                }
+				hidden:var:modun_character_scope_variable = {
+					OR = {
+						has_any_office = yes
+						is_general = yes
+					}
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = xiongnu_missions_01_task_14_modun_has_office_general #Modun has_office
+					always = no
+				}
+            }
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.14
+			custom_tooltip = xiongnu_missions_01_task_14_modun_event_chain #event chain - TODO Dementive
+        }
+    }
+	
+    xiongnu_missions_01_task_15 = { #Hollow Out Hujie
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_6 }
+		
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = altai_area
+					is_in_area = hujie_area
+				}
+			}
+		}
+		
+        allow = {
+            owns_area = hujie_area
+            owns_area = altai_area
+        }
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.15
+            show_as_tooltip = {
+				add_aggressive_expansion = -10
+            }
+			custom_tooltip = xiongnu_missions_01_task_15_claims_tt
+			hidden_effect = {
+				area:barkol_area = { mission_area_claim_effect = yes }
+				area:gobi_altai_area = { mission_area_claim_effect = yes }
+				area:north_beishan_area = { mission_area_claim_effect = yes }
+				area:beishan_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+    xiongnu_missions_01_task_16 = { #Jumping Jiankun
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_6 }
+		
+        highlight = {
+			scope:province = {
+				is_in_area = jiankun_area
+			}
+		}
+		
+        allow = {
+            owns_area = jiankun_area
+        }
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.16
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = jumping_xiongnu
+					duration = 3650
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_17 = { #Control Gobi
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_10 }
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = fuyangju_area
+					is_in_area = bayanundar_area
+				}
+			}
+		}
+		
+        allow = {
+            owns_or_subject_owns_area = fuyangju_area
+            owns_or_subject_owns_area = bayanundar_area
+        }
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.17
+            show_as_tooltip = {
+				p:9518 = {
+					set_conquered_by = root
+				}
+				p:9516 = {
+					set_conquered_by = root
+				}
+				p:9517 = {
+					set_conquered_by = root
+				}
+				p:9512 = {
+					set_conquered_by = root
+				}
+            }
+        }
+    }
+	
+    xiongnu_missions_01_task_18 = { #Ordos Expedition
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_17 }
+		
+        highlight = {
+			scope:province = {
+				is_in_area = shuofang_area
+			}
+		}
+		
+        allow = {
+            owns_or_subject_owns_area = shuofang_area
+        }
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.18
+            custom_tooltip = xiongnu_missions_01_task_18_send_emissaries
+        }
+    }
+	
+    xiongnu_missions_01_task_19 = { #Warn Wusun
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_15 }
+		
+		bypass = {
+			c:WUS = {
+				has_land = no
+			}
+		}
+		
+        allow = {
+			current_ruler = {
+				is_rival = c:WUS.current_ruler
+				has_character_modifier = renowned_fighter
+			}
+			#challenge Wusun leader to duel  - TODO Dementive
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.19
+            ROOT = {
+				make_subject = {
+					target = c:WUS
+					type = client_state
+				}
+			}
+        }
+    }
+	
+    xiongnu_missions_01_task_20 = { #Rise of the New Chanyu
+        icon = "task_political"
+		requires = { xiongnu_missions_01_task_14 xiongnu_missions_01_task_18 xiongnu_missions_01_task_19 }
+		final = yes
+		
+        allow = {
+			trigger_if = {
+                limit = {
+                    is_ai = no
+                    has_variable = modun_character_scope_variable
+                    var:modun_character_scope_variable = {
+                        is_alive = yes
+                    }
+                }
+				hidden:var:modun_character_scope_variable = {
+					is_ruler = yes
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = xiongnu_missions_01_task_20_modun_is_ruler #Modun is ruler
+					always = no
+				}
+            }
+		}
+		
+        on_completion = {
+            trigger_event = me_xiongnu_01.20
+            show_as_tooltip = {
+				change_government = steppe_empire
+            }
+        }
+    }
+}
