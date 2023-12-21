@@ -1804,6 +1804,46 @@ pass_down_traits_effect = {
 		    add_trait = teng_bloodline
 		}
 
+		##zhaoxian_bloodline
+		if = {
+		    limit = {
+		        is_alive = yes
+		        exists = father
+		        father = {
+		            has_trait = zhaoxian_bloodline
+		        }
+		        NOT = {
+		            has_trait = zhaoxian_bloodline
+		        }
+		    }
+		    add_trait = zhaoxian_bloodline
+		}
+		if = {
+		    limit = {
+		        is_alive = yes
+		        exists = mother
+		        mother = {
+		            has_trait = zhaoxian_bloodline
+		        }
+		        NOT = {
+		            has_trait = zhaoxian_bloodline
+		        }
+		    }
+		    add_trait = zhaoxian_bloodline
+		}
+		if = {
+			limit = {
+				exists = mother
+				father = {
+					has_trait = attalid
+				}
+				NOT = {
+					has_trait = attalid
+				}
+			}
+			force_add_trait = attalid
+		}
+		
 		##bloodline_thuc_phan
 		if = {
 		    limit = {
@@ -1830,18 +1870,6 @@ pass_down_traits_effect = {
 		        }
 		    }
 		    add_trait = bloodline_thuc_phan
-		}
-		if = {
-			limit = {
-				exists = mother
-				father = {
-					has_trait = bloodline_thuc_phan
-				}
-				NOT = {
-					has_trait = bloodline_thuc_phan
-				}
-			}
-			force_add_trait = bloodline_thuc_phan
 		}
 		
 		##bloodline_xiongnu_luandi
@@ -2452,19 +2480,19 @@ bastard_major_bloodline_effect = {
 	if = {
 	    limit = {
 	        scope:bastard_ruler = {
-	            has_trait = bloodline_xiongnu_luandi
+	            has_trait = zhaoxian_bloodline
 	        }
 	    }
-	    add_trait = bloodline_xiongnu_luandi
+	    add_trait = zhaoxian_bloodline
 	}
 	
 	if = {
 	    limit = {
 	        scope:bastard_ruler = {
-	            has_trait = bloodline_thuc_phan
+	            has_trait = bloodline_xiongnu_luandi
 	        }
 	    }
-	    add_trait = bloodline_thuc_phan
+	    add_trait = bloodline_xiongnu_luandi
 	}
 	
 	if = {
