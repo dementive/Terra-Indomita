@@ -1,4 +1,4 @@
-xiongnu_missions_01 = {
+﻿xiongnu_missions_01 = {
     header = "mission_image_general"
     icon = "general_1"
 
@@ -37,7 +37,7 @@ xiongnu_missions_01 = {
         complete_mission_effect = yes
     }
 	
-    xiongnu_missions_01_task_1 = { #Consolidate Clans
+    xiongnu_missions_01_task_1 = { #Consolidate our Clans
         icon = "task_political"
 		
         allow = {
@@ -94,7 +94,10 @@ xiongnu_missions_01 = {
 					}
 				}
 			}
-			#ruler family is Luandi - TODO Dementive
+			custom_tooltip = {
+				text = xiongnu_missions_01_task_2_tt_family_check
+				current_ruler.family = fam:Luandi
+			}
 		}
 		
         on_completion = {
@@ -115,7 +118,6 @@ xiongnu_missions_01 = {
 		
         allow = {
 			has_country_modifier = stability_investment
-			#Touman Luandi is ruler - TODO Dementive
 			trigger_if = {
                 limit = {
                     is_ai = no
@@ -246,7 +248,7 @@ xiongnu_missions_01 = {
 		
         on_completion = {
             trigger_event = me_xiongnu_01.6
-            custom_tooltip = xiongnu_missions_01_task_5_claims_tt
+            custom_tooltip = xiongnu_missions_01_task_6_claims_tt
 			hidden_effect = {
 				area:altai_area = { mission_area_claim_effect = yes }
 				area:hujie_area = { mission_area_claim_effect = yes }
@@ -293,7 +295,7 @@ xiongnu_missions_01 = {
         }
     }
 	
-    xiongnu_missions_01_task_8 = { #Steppe Stirrup
+    xiongnu_missions_01_task_8 = { #Steppe Stirrups
         icon = "task_political"
 		requires = { xiongnu_missions_01_task_7 }
 		
@@ -453,11 +455,44 @@ xiongnu_missions_01 = {
 		requires = { xiongnu_missions_01_task_3 }
 		
         allow = {
-			current_ruler.spouse = {
-				age <= 30
-				has_culture = root.culture
-				has_religion = root.religion
+			trigger_if = {
+                limit = {
+                    is_ai = no
+                    has_variable = touman_character_scope_variable
+                    var:touman_character_scope_variable = {
+                        is_alive = yes
+                    }
+                }
+				hidden:var:touman_character_scope_variable = {
+					is_ruler = yes
+				}
 			}
+			trigger_else = {
+				custom_tooltip = {
+					text = xiongnu_missions_01_task_3_touman_is_ruler #Touman is ruler
+					always = no
+				}
+            }
+			trigger_if = {
+                limit = {
+                    is_ai = no
+                    current_ruler = {
+						is_married = yes
+						exists = spouse
+					}
+                }
+				current_ruler.spouse = {
+					age <= 30
+					has_culture = root.culture
+					has_religion = root.religion
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = xiongnu_missions_01_task_3_spouse_with_reqs_exists #Spouse exists
+					always = no
+				}
+            }
 		}
 		
         on_completion = {
