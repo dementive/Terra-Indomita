@@ -1,0 +1,543 @@
+﻿sushen_missions = {
+	icon = general_2
+	header = german_mission1
+
+    repeatable = no
+
+    chance = {
+        factor = 5
+    }
+
+    potential = {
+        NOT = { has_variable = sushen_abort_mission }
+        is_subject = no
+        has_civil_war = no
+		is_tribal = yes
+		primary_culture_group = tunguisic
+    }
+
+    abort = {
+        ai_mission_back_out_trigger = yes
+    }
+
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = sushen_abort_mission
+            days = 7300
+        }
+    }
+
+    on_completion = {
+        complete_mission_effect = yes
+    }
+	
+	sushen_missions_task_1 = { #Organise the Army
+        icon = "task_political"
+		requires = { sushen_missions_task_3 }
+		
+        allow = {
+			capital_scope.state = {
+				trade_good_surplus = { target = fur value >= 1 }
+				trade_good_surplus = { target = wild_game value >= 1 }
+				trade_good_surplus = { target = base_metals value >= 1 }
+			}
+			military_experience >= 10
+			num_of_ships >= 3
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.1
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = sushen_organised_army
+					duration = 7300
+				}
+            }
+        }
+    }
+
+    sushen_missions_task_2 = { #Unite the Fragments
+        icon = "task_political"
+		
+		highlight = {
+			 scope:province = {
+                OR = {
+					is_in_area = huifa_area
+					is_in_area = ussuri_area
+					is_in_area = sushen_area
+					is_in_area = amur_area
+					is_in_area = sahaliyan_area
+				}
+            }
+        }
+		
+        allow = {
+			OR = {
+				owns_area = huifa_area
+				owns_area = ussuri_area
+				owns_area = sushen_area
+				owns_area = amur_area
+				owns_area = sahaliyan_area
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.2
+            custom_tooltip = sushen_missions_task_2_claims
+			hidden_effect = {
+				area:huifa_area = { mission_area_claim_effect = yes }
+				area:ussuri_area = { mission_area_claim_effect = yes }
+				area:sushen_area = { mission_area_claim_effect = yes }
+				area:amur_area = { mission_area_claim_effect = yes }
+				area:sahaliyan_area = { mission_area_claim_effect = yes }
+				area:xuantu_area = { mission_area_claim_effect = yes }
+				area:lintun_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+    sushen_missions_task_3 = { #Reorganise the Tribes
+        icon = "task_political"
+		
+        allow = {
+			custom_tooltip = {
+				text = barbaricum_treveria_mission_task_3_tt #all clan chiefs have loyalty >=70
+				NOT = {
+					any_character = {
+						is_clan_chief = yes
+						loyalty <= 70
+					}
+				}
+			}
+			political_influence >= 25
+			num_of_cities >= 5
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.3
+            custom_tooltip = sushen_missions_task_3_choose_between_laws
+        }
+    }
+	
+    sushen_missions_task_4 = { #Dominate Rival Mohe
+        icon = "task_political"
+		requires = { sushen_missions_task_2 sushen_missions_task_3 }
+		
+		highlight = {
+			 scope:province = {
+                OR = {
+					province_id = 9545
+					province_id = 9546
+					province_id = 9547
+					province_id = 9551
+					province_id = 9562
+					province_id = 9542
+					province_id = 9543
+					province_id = 12731
+				}
+            }
+        }
+		
+        allow = {
+			owns = 9545
+			owns = 9546
+			owns = 9547
+			owns = 9551
+			owns = 9562
+			owns = 9542
+			owns = 9543
+			owns = 12731
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.4
+            show_as_tooltip = {
+				capital_scope = {
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = tribesmen
+					create_state_pop = tribesmen
+					create_state_pop = tribesmen
+				}
+            }
+			custom_tooltip = sushen_missions_task_4_claims
+			hidden_effect = {
+				area:raole_area = { mission_area_claim_effect = yes }
+				area:wuhuan_area = { mission_area_claim_effect = yes }
+				area:daxianbeishan_east_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+    sushen_missions_task_5 = { #Western Nomads
+        icon = "task_political"
+		requires = { sushen_missions_task_1 sushen_missions_task_4 }
+		
+        highlight = {
+			 scope:province = {
+                OR = {
+					is_in_area = raole_area
+					is_in_area = daxianbeishan_east_area
+				}
+            }
+        }
+		
+        allow = {
+			owns_area = raole_area
+			owns_area = daxianbeishan_east_area
+			p:9526 = {
+				fort_level >= 1
+			}
+			p:9561 = {
+				fort_level >= 1
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.5
+            show_as_tooltip = {
+				add_stability = 10
+				p:9526 = {
+					add_special_pop = {
+						text = "add_1_architect_tt"
+						type = architect
+						count = 1
+					}
+				}
+				p:9561 = {
+					add_special_pop = {
+						text = "add_1_architect_tt"
+						type = architect
+						count = 1
+					}
+				}
+            }
+        }
+    }
+	
+    sushen_missions_task_6 = { #Feeding our People
+        icon = "task_political"
+		requires = { sushen_missions_task_3 }
+		
+		highlight = {
+			 scope:province = {
+				owner = root
+                OR = {
+					trade_goods = fish
+					trade_goods = cattle
+				}
+            }
+        }
+		
+        allow = {
+			capital_scope.state = {
+                has_state_food >= 500
+			}
+			any_owned_province = {
+				trade_goods = fish
+				has_building = basic_settlement_infratructure_building
+			}
+			any_owned_province = {
+				trade_goods = cattle
+				has_building = basic_settlement_infratructure_building
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.6
+            show_as_tooltip = {
+				add_1_free_province_investments = yes
+            }
+        }
+    }
+	
+    sushen_missions_task_7 = { #Luxuries for the Chinese
+        icon = "task_political"
+		requires = { sushen_missions_task_6 }
+		
+		highlight = {
+			 scope:province = {
+				owner = root
+                OR = {
+					trade_goods = jade
+					trade_goods = exotic_beasts
+					trade_goods = pearls
+					is_capital = yes
+				}
+            }
+        }
+		
+        allow = {
+			hidden:capital_scope = {
+				province_has_special_pop = {
+					text = "prov_has_1_merchant_tt"
+					type = merchant
+					count >= 1
+				}
+			}
+			any_owned_province = {
+				trade_goods = jade
+				num_goods_produced >= 2
+			}
+			any_owned_province = {
+				trade_goods = exotic_beasts
+				num_goods_produced >= 2
+			}
+			any_owned_province = {
+				trade_goods = pearls
+				num_goods_produced >= 2
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.7
+            show_as_tooltip = {
+				capital_scope = {
+					add_permanent_province_modifier = {
+						name = sushen_capital_mod
+					}
+				}
+				add_country_modifier = {
+					name = sushen_chinese_trade
+					duration = 9125
+				}
+            }
+        }
+    }
+    sushen_missions_task_8 = { #Overrun Jin
+        icon = "task_political"
+		requires = { sushen_missions_task_3 }
+		
+        highlight = {
+			 scope:province = {
+                OR = {
+					is_in_area = lintun_area
+					is_in_area = xuantu_area
+				}
+            }
+        }
+		
+        allow = {
+			owns_area = lintun_area
+			owns_area = xuantu_area
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.8
+            custom_tooltip = sushen_missions_task_8_claims
+			hidden_effect = {
+				area:liaodong_area = { mission_area_claim_effect = yes }
+				area:lelang_area = { mission_area_claim_effect = yes }
+				area:mahan_area = { mission_area_claim_effect = yes }
+				area:jinhan_area = { mission_area_claim_effect = yes }
+				area:byeonhan_area = { mission_area_claim_effect = yes }
+				area:mahan_south_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+    sushen_missions_task_9 = { #Fall of the Jin Kingdoms
+        icon = "task_political"
+		requires = { sushen_missions_task_8 }
+		
+		highlight = {
+			 scope:province = {
+                OR = {
+					owner = { tag = JSN }
+					owner = { tag = JNG }
+					province_id = 8781
+					province_id = 8801
+					province_id = 9592
+					province_id = 9599
+				}
+            }
+        }
+		
+        allow = {
+			c:JSN = {
+				has_land = no
+			}
+			c:JNG = {
+				has_land = no
+			}
+			owns = 8781
+			owns = 8801
+			owns = 9592
+			owns = 9599
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.9
+            show_as_tooltip = {
+				current_ruler = {
+					add_popularity = 25
+				}
+				add_military_experience = 20
+				add_splendor = {
+					amount = 100
+				}
+            }
+        }
+    }
+    sushen_missions_task_10 = { #Formalise Ritual Practices
+        icon = "task_political"
+		requires = { sushen_missions_task_8 }
+		
+        allow = {
+			current_ruler = {
+				has_triggered_character_modifier = priestly_support_focus_triggered_mod
+			}
+			any_owned_province = {
+				is_holy_site = yes
+				province_has_special_pop = {
+					text = "prov_has_1_priest_tt"
+					type = priest
+					count >= 1
+				}
+				OR = {
+					has_province_rank = city 
+					has_province_rank = city_metropolis
+				}
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.10
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = sushen_conversion_mod
+					duration = 7300
+				}
+            }
+        }
+    }
+    sushen_missions_task_11 = { #Envoys to Ji
+        icon = "task_political"
+		duration = 60
+		requires = { sushen_missions_task_4 }
+		prevented_by = { sushen_missions_task_12 }
+		bypass = {
+			owns_or_subject_owns = 8742 
+		}
+		
+        allow = {
+			treasury >= 200
+			war = no
+		}
+		
+		on_start = {
+			add_treasury = -200
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.11
+            show_as_tooltip = {
+				p:8742 = {
+					owner = {
+						add_opinion = { target = root modifier = sushen_opinion_mod }
+						reverse_add_opinion = { target = root modifier = sushen_opinion_mod }
+					}
+				}
+            }
+        }
+    }
+    sushen_missions_task_12 = { #Bypass the Mountains
+        icon = "task_political"
+		requires = { sushen_missions_task_4 }
+		prevented_by = { sushen_missions_task_11 }
+		
+        highlight = {
+			 scope:province = {
+                OR = {
+					is_in_area = liaoxi_area
+					is_in_area = youbeiping_area
+					is_in_area = yuyang_area
+					province_id = 8742
+				}
+            }
+        }
+		
+        allow = {
+			owns_area = liaoxi_area
+			owns_area = youbeiping_area
+			owns_area = yuyang_area
+			owns = 8742
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.12
+            show_as_tooltip = {
+				current_ruler = {
+					add_popularity = 25
+				}
+				add_military_experience = 20
+				add_splendor = {
+					amount = 100
+				}
+            }
+			custom_tooltip = sushen_missions_task_12_claims
+			hidden_effect = {
+				region:ji_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+				region:qing_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+				region:you_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+    sushen_missions_task_13 = { #Factional Stability
+        icon = "task_political"
+		requires = { sushen_missions_task_10 sushen_missions_task_11  sushen_missions_task_12 }
+		final = yes
+		
+        allow = {
+			current_ruler = {
+				popularity >= 80
+				custom_tooltip = {
+                    text = does_not_have_true_ruler_tt
+                    has_variable = true_ruler_var
+                }
+			}
+			custom_tooltip = {
+				text = xiongnu_missions_01_task_2_tt #all clan chiefs and government officials have loyalty >=90
+				NOT = {
+					any_character = {
+						OR = {
+							is_clan_chief = yes
+							has_any_office = yes
+						}
+						loyalty <= 90
+					}
+				}
+			}
+			stability >= 60
+		}
+		
+        on_completion = {
+            trigger_event = me_sushen.13
+            show_as_tooltip = {
+				change_country_name = "MOHE_NAME"
+				hidden_effect = {
+					change_country_adjective = "MOHE_ADJECTIVE"
+				}
+				capital_scope = {
+					capital_formable_tribal_effect = yes
+					formable_capital_modifier_tribal_effect = yes
+				}
+            }
+        }
+    }
+}
