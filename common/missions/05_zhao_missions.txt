@@ -18,6 +18,7 @@
 	
     on_start = {
         start_mission_ai_effect = yes
+		trigger_event = me_zhao.25
     }
 	
     on_abort = {
@@ -158,6 +159,12 @@
 				}
 				p:9515 = {
 					set_conquered_by = root
+				}
+				every_owned_province = {
+					limit = {
+						is_in_area = wuyuan_area
+					}
+					add_civilization_value = 5
 				}
             }
         }
@@ -443,6 +450,12 @@
 		requires = { zhao_missions_task_9 }
 		duration = 30
 		
+		highlight = {
+			 scope:province = {
+                owned_or_subject_owned = c:QIN
+            }
+        }
+		
 		bypass = {
 			OR = {
 				c:QIN = {
@@ -466,10 +479,10 @@
 		
         on_completion = {
             trigger_event = me_zhao.12
-			c:QIN = {
-				add_aggressive_expansion = 5
-			}
 			show_as_tooltip = {
+				c:QIN = {
+					add_aggressive_expansion = 5
+				}
 				create_character = { #Lin Xiangru
 					age = 35
 					culture = root.culture
@@ -487,9 +500,10 @@
 					}
                 }
 				add_country_modifier = {
-					name = zhao_heshibi
+					name = "zhao_heshibi"
 					duration = 7300
 				}
+				
 			}
             custom_tooltip = zhao_missions_task_12_claims_tt
 			hidden_effect = {
@@ -505,6 +519,12 @@
 		requires = { zhao_missions_task_9 }
 		duration = 30
 		
+		highlight = {
+			 scope:province = {
+                province_id = 8681
+            }
+        }
+		
         allow = {
 			treasury >= 250
 			owns = 8681
@@ -514,10 +534,13 @@
 			}
 		}
 		
+		on_start = {
+			add_treasury = -250
+		}
+		
         on_completion = {
             trigger_event = me_zhao.13
             show_as_tooltip = {
-				add_treasury = -250
 				add_legitimacy = 20
 				add_splendor = {
 					amount = 100
@@ -674,6 +697,12 @@
         icon = "task_political"
 		requires = { zhao_missions_task_12 zhao_missions_task_14 }
 		
+		highlight = {
+			 scope:province = {
+                province_id = 8368
+            }
+        }
+		
         allow = {
 			p:8368 = {
 				owner = root
@@ -717,7 +746,10 @@
 		
         highlight = {
 			 scope:province = {
-                is_in_area = yinshan_north_area
+                OR = {
+					is_in_area = yinshan_north_area
+					owned_or_subject_owned = c:XNU
+				}
             }
         }
 		
@@ -969,14 +1001,15 @@
 			treasury >= 100
 		}
 		
+		on_start = {
+			add_military_experience = -20 #intentionally lower than requirement
+			add_political_influence = -50
+			add_treasury = -100
+		}
+		
         on_completion = {
             trigger_event = me_zhao.23
 			custom_tooltip = zhao_missions_task_23_enable_decision_academy
-            show_as_tooltip = {
-				add_military_experience = -20 #intentionally lower than requirement
-				add_political_influence = -50
-				add_treasury = -100
-            }
         }
     }
 	
