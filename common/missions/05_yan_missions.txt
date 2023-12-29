@@ -1,0 +1,856 @@
+﻿yan_missions = {
+    header = "mission_image_china"
+    icon = "seleukid_1"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = YAN
+		is_subject = no
+        has_civil_war = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+
+    on_completion = {
+		complete_mission_effect = yes
+	}
+
+    yan_missions_task_1 = { #Promote Guo Wei
+        icon = "task_political"
+
+        allow = {
+			political_influence >= 25
+		}
+
+        on_completion = {
+            trigger_event = me_yan.1
+            show_as_tooltip = {
+				add_political_influence = -25
+				create_character = {
+					age = 35
+					culture = root.culture
+					religion = root.religion
+					no_traits = yes
+					no_stats = yes
+					hidden_effect = {
+						bad_martial_effect = yes
+						amazing_charisma_effect = yes
+						amazing_finesse_effect = yes
+						average_zeal_effect = yes
+						add_trait = scholar
+						good_zeal_trait_effect = yes
+						good_charisma_trait_effect = yes
+					}
+                }
+            }
+        }
+    }
+
+    yan_missions_task_2 = { #Rebuild Southern Yan
+        icon = "task_political"
+
+		highlight = {
+			 scope:province = {
+				owned_or_subject_owned = root
+                OR = {
+					is_in_area = zhuo_area
+					is_in_area = yuyang_area
+					is_in_area = bohai_area
+					is_in_area = shanggu_area
+				}
+            }
+        }
+
+        allow = {
+			custom_tooltip = {
+				text = yan_missions_task_2_three_farms_in_zhuo_yuyang_bohai_shanggu
+				any_owned_province = {
+					count >= 3
+					OR = {
+						is_in_area = zhuo_area
+						is_in_area = yuyang_area
+						is_in_area = bohai_area
+						is_in_area = shanggu_area
+					}
+					has_building = basic_settlement_infratructure_building
+				}
+			}
+			custom_tooltip = {
+				text = yan_missions_task_2_two_reservois_in_zhuo_yuyang_bohai_shanggu
+				any_owned_province = {
+					count >= 2
+					OR = {
+						is_in_area = zhuo_area
+						is_in_area = yuyang_area
+						is_in_area = bohai_area
+						is_in_area = shanggu_area
+					}
+					has_building = reservoir_building
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yan.2
+			custom_tooltip = yan_missions_task_2_all_rebuilt_provinces_get
+            show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = zhuo_area
+							is_in_area = yuyang_area
+							is_in_area = bohai_area
+							is_in_area = shanggu_area
+						}
+					}
+					add_province_modifier = {
+						name = rebuilt_yan_mod
+						duration = 7300
+					}
+				}
+            }
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = zhuo_area
+							is_in_area = yuyang_area
+							is_in_area = bohai_area
+							is_in_area = shanggu_area
+						}
+					}
+					add_province_modifier = {
+						name = rebuilt_yan_mod
+						duration = 7300
+					}
+				}
+			}
+        }
+    }
+
+    yan_missions_task_3 = { #A Prized Hostage
+        icon = "task_political"
+		duration = 60
+
+		highlight = {
+			 scope:province = {
+				owned_or_subject_owned = c:DGH
+                OR = {
+					is_in_area = wuhuan_area
+					is_in_area = liaoxi_area
+				}
+            }
+        }
+
+        allow = {
+			treasury >= 50
+		}
+
+		on_start = {
+			add_treasury = -50
+		}
+
+        on_completion = {
+            trigger_event = me_yan.3
+            show_as_tooltip = {
+				create_character = {
+					age = 35
+					culture = root.culture
+					religion = root.religion
+					no_traits = yes
+					no_stats = yes
+					hidden_effect = {
+						amazing_martial_effect = yes
+						average_charisma_effect = yes
+						average_finesse_effect = yes
+						average_zeal_effect = yes
+						positive_martial_trait_effect = yes
+					}
+                }
+				add_country_modifier = {
+					name = yan_donghu_strategies
+					duration = 1825
+				}
+            }
+			area:wuhuan_area = { mission_area_claim_effect = yes }
+			area:liaoxi_area = { mission_area_claim_effect = yes }
+        }
+    }
+
+    yan_missions_task_4 = { #Recruit Foreign Talents
+        icon = "task_political"
+		duration = 365
+		requires = { yan_missions_task_1 }
+
+        allow = {
+			treasury >= 60
+			political_influence >= 30
+		}
+
+        on_completion = {
+            trigger_event = me_yan.4
+            show_as_tooltip = {
+
+            }
+        }
+    }
+
+    yan_missions_task_5 = { #Anti-Qi Alliance
+        icon = "task_political"
+		requires = { yan_missions_task_1 yan_missions_task_2 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_region = yu_region
+					is_in_region = qing_region
+					is_in_region = ji_region
+					is_in_region = bing_region
+					is_in_region = yong_region
+					is_in_region = xu_region
+				}
+            }
+        }
+
+        allow = {
+			NOT = {
+				alliance_with = c:QII
+			}
+			custom_tooltip = {
+				text = yan_missions_task_5_3_chinese_allies
+				any_country = {
+					has_land = yes
+					any_owned_province = {
+						OR = {
+							is_in_region = yu_region
+							is_in_region = qing_region
+							is_in_region = ji_region
+							is_in_region = bing_region
+							is_in_region = yong_region
+							is_in_region = xu_region
+						}
+					}
+					count >= 3
+					alliance_with = root
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yan.5
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = yan_coalition_mod
+					duration = 3650
+				}
+            }
+			custom_tooltip = yan_missions_task_9_claims_tt
+			hidden_effect = {
+				area:bohai_area = { mission_area_claim_effect = yes }
+				area:pingyuan_area = { mission_area_claim_effect = yes }
+				area:jinan_area = { mission_area_claim_effect = yes }
+				area:qiansheng_area = { mission_area_claim_effect = yes }
+				area:linzi_area = { mission_area_claim_effect = yes }
+				area:zhuo_area = { mission_area_claim_effect = yes }
+				area:hejian_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    yan_missions_task_6 = { #Iron and Bronze Metallurgy
+        icon = "task_political"
+		requires = { yan_missions_task_2 }
+
+        highlight = {
+			 scope:province = {
+				owned_or_subject_owned = root
+                OR = {
+					is_in_area = zhuo_area
+					is_in_area = yuyang_area
+					is_in_area = bohai_area
+					is_in_area = shanggu_area
+				}
+				OR = {
+					trade_goods = iron
+					trade_goods = base_metals
+				}
+            }
+        }
+
+        allow = {
+			custom_tooltip = {
+				text = yan_missions_task_2_three_farms_in_zhuo_yuyang_bohai_shanggu
+				any_owned_province = {
+					OR = {
+						is_in_area = zhuo_area
+						is_in_area = yuyang_area
+						is_in_area = bohai_area
+						is_in_area = shanggu_area
+					}
+					trade_goods = iron
+					has_building = slave_mine_building
+				}
+			}
+			custom_tooltip = {
+				text = yan_missions_task_2_three_farms_in_zhuo_yuyang_bohai_shanggu
+				any_owned_province = {
+					OR = {
+						is_in_area = zhuo_area
+						is_in_area = yuyang_area
+						is_in_area = bohai_area
+						is_in_area = shanggu_area
+					}
+					trade_goods = base_metals
+					has_building = slave_mine_building
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yan.6
+            show_as_tooltip = {
+				add_1_free_province_investments = yes
+				add_country_modifier = {
+					name = yan_iron_mod
+					duration = 10950
+				}
+            }
+        }
+    }
+
+    yan_missions_task_7 = { #By Ji (ng)
+        icon = "task_political"
+		requires = { yan_missions_task_2 }
+
+        highlight = {
+			 scope:province = {
+				province_id = 8742
+            }
+        }
+
+        allow = {
+			p:8742 = {
+				owner = root
+				num_of_used_building_slots >= 5
+				total_population >= 40
+				is_holy_site = yes
+			}
+			hidden:p:8742.state = {
+				calc_true_if = {
+					amount >= 1
+                    state_improvement_military_trigger = yes 
+                    state_improvement_civic_trigger = yes
+                    state_improvement_oratory_trigger = yes
+                    state_improvement_religious_trigger = yes 
+                }
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yan.7
+            show_as_tooltip = {
+				p:8742 = {
+					add_permanent_province_modifier = {
+						name = byjing_yan_mod
+					}
+					set_city_status = city_metropolis
+				}
+            }
+        }
+    }
+
+    yan_missions_task_8 = { #Defeat Donghu
+        icon = "task_political"
+		requires = { yan_missions_task_2 yan_missions_task_3 }
+
+		highlight = {
+			 scope:province = {
+                OR = {
+					is_in_area = wuhuan_area
+					province_id = 8774
+					province_id = 8775
+				}
+            }
+        }
+
+        allow = {
+			owns_area = wuhuan_area
+			owns = 8774
+			owns = 8775
+		}
+
+        on_completion = {
+            trigger_event = me_yan.8
+			show_as_tooltip = {
+				add_stability = 5
+			}
+            custom_tooltip = yan_missions_task_8_claims_tt
+			hidden_effect = {
+				area:liaoxi_area = { mission_area_claim_effect = yes }
+				area:liaodong_area = { mission_area_claim_effect = yes }
+				area:lelang_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    yan_missions_task_9 = { #Defend Against Zhao
+        icon = "task_political"
+		requires = { yan_missions_task_5 }
+
+		highlight = {
+			 scope:province = {
+				owned_or_subject_owned = root
+                OR = {
+					is_in_area = zhuo_area
+					is_in_area = yuyang_area
+					is_in_area = bohai_area
+					is_in_area = shanggu_area
+				}
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 2
+				OR = {
+					is_in_area = shanggu_area
+					is_in_area = zhuo_area
+				}
+				fort_level >= 1
+			}
+			OR = {
+				num_of_cities >= c:ZHA.num_of_cities
+				alliance_with = c:QIN
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yan.9
+			show_as_tooltip = {
+				add_stability = 5
+			}
+            custom_tooltip = yan_missions_task_9_claims_tt
+			hidden_effect = {
+				area:shanggu_area = { mission_area_claim_effect = yes }
+				area:zhuo_area = { mission_area_claim_effect = yes }
+				area:dai_area = { mission_area_claim_effect = yes }
+				area:hengshan_area = { mission_area_claim_effect = yes }
+				area:zhongshan_area = { mission_area_claim_effect = yes }
+				area:julu_area = { mission_area_claim_effect = yes }
+				area:hejian_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    yan_missions_task_10 = { #Quell Qi
+        icon = "task_political"
+		requires = { yan_missions_task_4 yan_missions_task_5 yan_missions_task_6 }
+
+		highlight = {
+			scope:province = {
+				NOT = {
+					owner = root
+				}
+                OR = {
+					is_in_area = bohai_area
+					is_in_area = pingyuan_area
+					is_in_area = jinan_area
+					is_in_area = qiansheng_area
+					is_in_area = linzi_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = bohai_area
+			owns_area = pingyuan_area
+			owns_area = jinan_area
+			owns_area = qiansheng_area
+			owns_area = linzi_area
+		}
+
+        on_completion = {
+            trigger_event = me_yan.10
+            custom_tooltip = yan_missions_task_10_claims_tt
+			hidden_effect = {
+				area:beihai_area = { mission_area_claim_effect = yes }
+				area:donglai_area = { mission_area_claim_effect = yes }
+				area:langya_area = { mission_area_claim_effect = yes }
+				area:taishan_area = { mission_area_claim_effect = yes }
+				area:dong_area = { mission_area_claim_effect = yes }
+				area:jiyin_area = { mission_area_claim_effect = yes }
+				area:shanyang_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    yan_missions_task_11 = { #Royal Bronzeware
+        icon = "task_political"
+		requires = { yan_missions_task_6 yan_missions_task_7 }
+		
+		highlight = {
+			scope:province = {
+                owner = root
+				is_capital = yes
+            }
+        }
+
+        allow = {
+			treasury >= 100
+			hidden:capital_scope = {
+				province_has_special_pop = {
+					text = "prov_has_1_artist_tt"
+					type = artist
+					count >= 1
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yan.11
+            show_as_tooltip = {
+				add_treasury = -100
+				create_country_treasure = {
+					key = "yan_royal_bronzeware"
+					icon = "treasure_urn_3"
+					modifier = {
+						local_monthly_civilization = 0.03
+						local_country_civilization_value = 10
+						local_nobles_happyness = 0.1
+					}
+				}
+            }
+        }
+    }
+
+    yan_missions_task_12 = { #Seize Joseon
+        icon = "task_political"
+		requires = { yan_missions_task_8 }
+
+        highlight = {
+			scope:province = {
+				NOT = {
+					owner = root
+				}
+                OR = {
+					is_in_area = liaoxi_area
+					is_in_area = liaodong_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = liaoxi_area
+			owns_area = liaodong_area
+		}
+
+        on_completion = {
+            trigger_event = me_yan.12
+            custom_tooltip = yan_missions_task_12_claims_tt
+			hidden_effect = {
+				area:mahan_area = { mission_area_claim_effect = yes }
+				area:mahan_south_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    yan_missions_task_13 = { #Push Back Zhao
+        icon = "task_political"
+		requires = { yan_missions_task_9 yan_missions_task_10 }
+
+        highlight = {
+			scope:province = {
+				NOT = {
+					owner = root
+				}
+                OR = {
+					is_in_area = shanggu_area
+					is_in_area = zhuo_area
+					is_in_area = dai_area
+					is_in_area = hengshan_area
+					is_in_area = zhongshan_area
+					is_in_area = julu_area
+					is_in_area = hejian_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = shanggu_area
+			owns_area = zhuo_area
+			owns_area = dai_area
+			owns_area = hengshan_area
+			owns_area = zhongshan_area
+			owns_area = julu_area
+			owns_area = hejian_area
+		}
+
+        on_completion = {
+            trigger_event = me_yan.13
+			show_as_tooltip = {
+				current_ruler = {
+					add_popularity = 25
+				}
+				add_military_experience = 10
+            }
+            custom_tooltip = yan_missions_task_13_claims_tt
+			hidden_effect = {
+				region:bing_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    yan_missions_task_14 = { #Treasures of Qi
+        icon = "task_political"
+		requires = { yan_missions_task_7 yan_missions_task_10 }
+
+        bypass = {
+			c:QII = {
+				has_land = no
+			}
+        }
+
+        highlight = {
+			scope:province = {
+				province_id = 8504
+            }
+        }
+
+        allow = {
+			owns = 8504
+		}
+
+        on_completion = {
+            trigger_event = me_yan.14
+            show_as_tooltip = {
+				add_aggressive_expansion = 5
+				treasure:jadeartifact2 = {
+					transfer_treasure_to_country = root
+				}
+				treasure:lionstatue = {
+					transfer_treasure_to_country = root
+				}
+				treasure:redbox1 = {
+					transfer_treasure_to_country = root
+				}
+            }
+        }
+    }
+
+    yan_missions_task_15 = { #March South
+        icon = "task_political"
+		requires = { yan_missions_task_10 }
+
+        highlight = {
+			scope:province = {
+				NOT = {
+					owner = root
+				}
+                OR = {
+					is_in_area = beihai_area
+					is_in_area = donglai_area
+					is_in_area = langya_area
+					is_in_area = taishan_area
+					is_in_area = dong_area
+					is_in_area = jiyin_area
+					is_in_area = shanyang_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = beihai_area
+			owns_area = donglai_area
+			owns_area = langya_area
+			owns_area = taishan_area
+			owns_area = dong_area
+			owns_area = jiyin_area
+			owns_area = shanyang_area
+		}
+
+        on_completion = {
+            trigger_event = me_yan.15
+            show_as_tooltip = {
+				current_ruler = {
+					add_popularity = 25
+				}
+				add_military_experience = 10
+				add_political_influence = 50
+				add_country_modifier = {
+					name = qinged_qi
+					duration = 7300
+				}
+            }
+        }
+    }
+
+    yan_missions_task_16 = { #Maritime Trade
+        icon = "task_political"
+		requires = { yan_missions_task_7 yan_missions_task_12 }
+
+        allow = {
+			any_owned_province = {
+				count >= 5
+				is_port = yes
+			}
+			any_owned_province = {
+				num_of_port_building >= 3
+				has_building = commerce_building
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yan.16
+            show_as_tooltip = {
+				every_owned_province = {
+					limit = {
+						is_port = yes
+					}
+					add_special_pop = {
+						text = "add_1_merchant_tt"
+						type = merchant
+						count = 1
+					}
+				}
+            }
+        }
+    }
+
+    yan_missions_task_17 = { #Northern Wall
+        icon = "task_political"
+		requires = { yan_missions_task_12 }
+
+        highlight = {
+			scope:province = {
+                OR = {
+					province_id = 8759
+					province_id = 8765
+					province_id = 8774
+				}
+            }
+        }
+
+        allow = {
+			p:8759 = {
+				fort_level >= 1
+			}
+			p:8765 = {
+				fort_level >= 1
+			}
+			p:8774 = {
+				fort_level >= 1
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yan.17
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = northern_wall_yan
+					duration = 10950
+				}
+				p:8759 = {
+					add_permanent_province_modifier = {
+						name = northern_wall_yan_province_mod
+					}
+				}
+				p:8765 = {
+					add_permanent_province_modifier = {
+						name = northern_wall_yan_province_mod
+					}
+				}
+				p:8774 = {
+					add_permanent_province_modifier = {
+						name = northern_wall_yan_province_mod
+					}
+				}
+            }
+        }
+    }
+
+    yan_missions_task_18 = { #Jin Puppets
+        icon = "task_political"
+		requires = { yan_missions_task_12 }
+
+		highlight = {
+			scope:province = {
+                is_in_region = jin_region
+            }
+		}
+
+        allow = {
+			any_owned_province = {
+				custom_tooltip = {
+					text = is_in_jin_region
+					is_in_region = jin_region
+				}
+				count >= 25
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yan.18
+            show_as_tooltip = {
+				current_ruler = {
+					add_popularity = 25
+				}
+				add_1_free_province_investments = yes
+            }
+        }
+    }
+
+    yan_missions_task_19 = { #The Emperor and the Assassin
+        icon = "task_political"
+		duration = 180
+		final = yes
+		requires = { yan_missions_task_13 yan_missions_task_14 yan_missions_task_15 yan_missions_task_17 }
+
+		bypass = {
+			c:QIN = {
+				has_land = no
+			}
+		}
+
+		highlight = {
+			 scope:province = {
+				owned_or_subject_owned = c:QIN
+            }
+        }
+
+        allow = {
+			custom_tooltip = yan_missions_task_19_more_resources_better
+			military_experience >= 10
+			political_influence >= 50
+			treasury >= 250
+		}
+		
+		on_start = {
+			trigger_event = me_yan.19
+		}
+
+        on_completion = {
+            custom_tooltip = yan_missions_task_19_attempt_assassination
+        }
+    }
+}
