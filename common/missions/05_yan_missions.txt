@@ -159,6 +159,12 @@
             }
         }
 
+		bypass = {
+			c:DGH = {
+				has_land = no
+			}
+		}
+
         allow = {
 			treasury >= 50
 		}
@@ -203,11 +209,24 @@
 			treasury >= 60
 			political_influence >= 30
 		}
+		
+		on_start = {
+			trigger_event = {
+				id = me_yan.400
+				days = 120
+			}
+			trigger_event = {
+				id = me_yan.401
+				days = 240
+			}
+		}
 
         on_completion = {
             trigger_event = me_yan.4
+			custom_tooltip = yan_missions_task_4_recruit
             show_as_tooltip = {
-
+				add_treasury = -60
+				add_political_influence = -30
             }
         }
     }
@@ -296,7 +315,7 @@
 
         allow = {
 			custom_tooltip = {
-				text = yan_missions_task_2_three_farms_in_zhuo_yuyang_bohai_shanggu
+				text = yan_missions_task_6_iron_mine_in_zhuo_yuyang_bohai_shanggu
 				any_owned_province = {
 					OR = {
 						is_in_area = zhuo_area
@@ -309,7 +328,7 @@
 				}
 			}
 			custom_tooltip = {
-				text = yan_missions_task_2_three_farms_in_zhuo_yuyang_bohai_shanggu
+				text = yan_missions_task_6_base_metals_mine_in_zhuo_yuyang_bohai_shanggu
 				any_owned_province = {
 					OR = {
 						is_in_area = zhuo_area
@@ -391,7 +410,10 @@
         }
 
         allow = {
-			owns_area = wuhuan_area
+			any_owned_province = {
+				count >= 8
+				is_in_area = wuhuan_area
+			}
 			owns = 8774
 			owns = 8775
 		}
@@ -645,14 +667,35 @@
             trigger_event = me_yan.14
             show_as_tooltip = {
 				add_aggressive_expansion = 5
-				treasure:jadeartifact2 = {
-					transfer_treasure_to_country = root
+				if = {
+					limit = {
+						c:QII = {
+							this = treasure:jadeartifact1.treasure_owner
+						}
+					}
+					treasure:jadeartifact1 = {
+						transfer_treasure_to_country = root
+					}
 				}
-				treasure:lionstatue = {
-					transfer_treasure_to_country = root
+				if = {
+					limit = {
+						c:QII = {
+							this = treasure:lionstatue.treasure_owner
+						}
+					}
+					treasure:lionstatue = {
+						transfer_treasure_to_country = root
+					}
 				}
-				treasure:redbox1 = {
-					transfer_treasure_to_country = root
+				if = {
+					limit = {
+						c:QII = {
+							this = treasure:redbox1.treasure_owner
+						}
+					}
+					treasure:redbox1 = {
+						transfer_treasure_to_country = root
+					}
 				}
             }
         }
@@ -824,7 +867,7 @@
         icon = "task_political"
 		duration = 180
 		final = yes
-		requires = { yan_missions_task_13 yan_missions_task_14 yan_missions_task_15 yan_missions_task_17 }
+		requires = { yan_missions_task_13 yan_missions_task_14 yan_missions_task_17 }
 
 		bypass = {
 			c:QIN = {
@@ -839,7 +882,12 @@
         }
 
         allow = {
-			custom_tooltip = yan_missions_task_19_more_resources_better
+			custom_tooltip = {
+				text = yan_missions_task_19_more_resources_better
+				military_experience >= 20
+				political_influence >= 100
+				treasury >= 500
+			}
 			military_experience >= 10
 			political_influence >= 50
 			treasury >= 250
