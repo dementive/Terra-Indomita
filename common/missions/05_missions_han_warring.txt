@@ -1,0 +1,755 @@
+﻿han_warring_missions = {
+    header = "mission_image_china"
+    icon = "seleukid_1"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = HAN
+		is_subject = no
+        has_civil_war = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_han_warring.100
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+
+    on_completion = {
+		complete_mission_effect = yes
+	}
+
+    han_warring_missions_task_1 = { #Lobby Zhao
+        icon = "task_political"
+		duration = 30
+
+		highlight = {
+			 scope:province = {
+				owned_or_subject_owned = c:ZHO
+            }
+        }
+
+		bypass = {
+			c:ZHO = {
+				has_land = no
+			}
+		}
+
+        allow = {
+			hidden:c:ZHO = {
+				opinion = {
+					target = root
+					value >= 50
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.1
+            show_as_tooltip = {
+				add_aggressive_expansion = -10
+				add_country_modifier = {
+					name = lobbied_as_han
+					duration = 7300
+				}
+            }
+        }
+    }
+
+    han_warring_missions_task_2 = { #Partition Chu
+        icon = "task_political"
+
+		highlight = {
+			 scope:province = {
+                OR =  {
+					is_in_area = nanyang_area
+					is_in_area = runan_area
+					province_id = 8383
+					province_id = 8393
+					province_id = 8401
+				}
+            }
+        }
+
+        allow = {
+			owns = 8383
+			owns = 8393
+			owns = 8401
+			any_owned_province = {
+				count >= 10
+				OR = {
+					is_in_area = nanyang_area
+					is_in_area = runan_area
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.2
+            custom_tooltip = han_warring_missions_task_2_claims
+			hidden_effect = {
+				area:xianyang_area = { mission_area_claim_effect = yes }
+				area:yueyang_area = { mission_area_claim_effect = yes }
+				area:changan_area = { mission_area_claim_effect = yes }
+				area:hongnong_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    han_warring_missions_task_3 = { #Legacy of Shen Buhai
+        icon = "task_political"
+
+        allow = {
+			political_influence >= 70
+			stability >= 50
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.3
+            show_as_tooltip = {
+				add_political_influence = -70
+				change_law = scholarly_pursuits_law
+				change_law = established_courts_for_landholders
+            }
+        }
+    }
+
+    han_warring_missions_task_4 = { #Coalition Qin
+        icon = "task_political"
+		requires = { han_warring_missions_task_1 han_warring_missions_task_2 }
+		duration = 60
+
+		highlight = {
+			 scope:province = {
+				owned_or_subject_owned = c:QIN
+            }
+        }
+
+		bypass = {
+			c:QIN = {
+				has_land = no
+			}
+		}
+
+        allow = {
+			treasury >= 150
+			war = no
+		}
+
+		on_start = {
+			add_treasury = -150
+			trigger_event = me_han_warring.4
+		}
+
+        on_completion = {
+            custom_tooltip = han_warring_missions_task_4_form_coalition_against_qin
+        }
+    }
+
+    han_warring_missions_task_5 = { #Protect Northern Commanderies
+        icon = "task_political"
+		requires = { han_warring_missions_task_2 }
+
+		highlight = {
+			 scope:province = {
+				owned_or_subject_owned = root
+				OR = {
+					is_in_area = shangdang_area
+					is_in_area = hedong_area
+					is_in_area = henei_area
+					is_in_area = handan_area
+				}
+            }
+        }
+
+        allow = {
+			custom_tooltip = {
+				text = han_warring_missions_task_5_fort_in_hedong_shangdang_area
+				any_owned_province = {
+					OR = {
+						is_in_area = hedong_area
+						is_in_area = shangdang_area
+					}
+					fort_level >= 1
+				}
+			}
+			any_owned_province = {
+				count >= 11
+				OR = {
+					is_in_area = hedong_area
+					is_in_area = shangdang_area
+					is_in_area = henei_area
+					is_in_area = handan_area
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.5
+            show_as_tooltip = {
+				add_1_free_province_investments = yes
+            }
+        }
+    }
+
+    han_warring_missions_task_6 = { #Old City of Zheng and Han
+        icon = "task_political"
+		requires = { han_warring_missions_task_3 }
+
+		highlight = {
+			 scope:province = {
+				province_id = 8384
+            }
+        }
+
+        allow = {
+			p:8384 = {
+				owner = root
+				free_building_slots = 0
+			}
+			hidden:p:8384.state = {
+                calc_true_if = {
+                    amount >= 2
+                    state_improvement_military_trigger = yes 
+                    state_improvement_civic_trigger = yes
+                    state_improvement_oratory_trigger = yes
+                    state_improvement_religious_trigger = yes 
+                }
+            }
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.6
+            show_as_tooltip = {
+				p:8384 = {
+					add_permanent_province_modifier = {
+						name = han_capital_mod
+					}
+				}
+            }
+        }
+    }
+
+    han_warring_missions_task_7 = { #Recruit Han Fei
+        icon = "task_political"
+		requires = { han_warring_missions_task_3 }
+
+        allow = {
+			religious_tech >= 4
+			political_influence >= 25
+			treasury >= 25
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.7
+            show_as_tooltip = {
+				add_political_influence = -25
+				add_treasury = -25
+				create_character = {
+					first_name = "Fei"
+					family = c:HAN.fam:Fji1
+					culture = root.culture
+					religion = root.religion
+					age = 25
+					no_stats = yes
+					no_traits = yes
+					hidden_effect = {
+						average_martial_effect = yes
+						amazing_charisma_effect = yes
+						amazing_finesse_effect = yes
+						good_zeal_effect = yes
+						add_zeal = 2
+						add_trait = scholar
+						add_trait = silver_tongued
+						add_trait = intelligent
+						add_trait = cultured
+						good_zeal_trait_effect = yes
+						good_charisma_trait_effect = yes
+					}
+				}
+            }
+        }
+    }
+
+    han_warring_missions_task_8 = { #Dismantle Qin
+        icon = "task_political"
+		requires = { han_warring_missions_task_4 han_warring_missions_task_5 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = xianyang_area
+					is_in_area = yueyang_area
+					is_in_area = changan_area
+					is_in_area = hongnong_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = xianyang_area
+			owns_area = yueyang_area
+			owns_area = changan_area
+			owns_area = hongnong_area
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.8
+            show_as_tooltip = {
+				add_stability = 10
+            }
+			custom_tooltip = han_warring_missions_task_8_claims
+			hidden_effect = {
+				area:taiyuan_area = { mission_area_claim_effect = yes }
+				area:shangdang_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    han_warring_missions_task_9 = { #Backstab Wei
+        icon = "task_political"
+		requires = { han_warring_missions_task_5 han_warring_missions_task_6 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = henei_area
+					is_in_area = hedong_area
+					is_in_area = daliang_area
+					is_in_area = yingchuan_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = henei_area
+			owns_area = hedong_area
+			owns_area = daliang_area
+			owns_area = yingchuan_area
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.9
+            custom_tooltip = han_warring_missions_task_9_claims
+			hidden_effect = {
+				region:yu_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    han_warring_missions_task_10 = { #Zhengguo Canal
+        icon = "task_political"
+		requires = { han_warring_missions_task_6 }
+		prevented_by = { han_warring_missions_task_11 }
+		duration = 365
+
+		highlight = {
+			 scope:province = {
+				is_in_area = yueyang_area
+            }
+        }
+
+        allow = {
+			treasury >= 250
+			owns_area = yueyang_area
+			war = no
+		}
+
+		on_start = {
+			add_treasury = -250
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.10
+            show_as_tooltip = {
+				every_owned_province = {
+					limit = {
+						is_in_area = yueyang_area
+					}
+					add_permanent_province_modifier = {
+						name = zhengguo_canal_mod
+					}
+				}
+				create_character = {
+					first_name = "Zheng"
+					family_name = "Guo"
+					culture = c:HAN.culture
+					religion = c:HAN.religion
+					age = 36
+					no_stats = yes
+					no_traits = yes
+					hidden_effect = {
+						average_martial_effect = yes
+						amazing_charisma_effect = yes
+						amazing_finesse_effect = yes
+						good_zeal_effect = yes
+						good_zeal_trait_effect = yes
+						good_charisma_trait_effect = yes
+					}
+				}
+            }
+        }
+    }
+
+    han_warring_missions_task_11 = { #Distract Qin
+        icon = "task_political"
+		requires = { han_warring_missions_task_6 }
+		prevented_by = { han_warring_missions_task_10 }
+
+        allow = {
+			treasury >= 25
+			war = no
+			NOT = {
+				has_truce_with = c:QIN
+			}
+			c:QIN = {
+				owns_area = yueyang_area
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.11
+            show_as_tooltip = {
+				add_treasury = -25
+				c:QIN = {
+					add_truce = {
+						target = root
+						duration = 5475
+					}
+				}
+            }
+			custom_tooltip = han_warring_missions_task_11_qin_builds_canal
+        }
+    }
+
+    han_warring_missions_task_12 = { #Han Feizi
+        icon = "task_political"
+		requires = { han_warring_missions_task_7 }
+		duration = 180
+
+        allow = {
+			treasury >= 50
+			trigger_if = {
+                limit = {
+                    is_ai = no
+                    has_variable = han_fei_character_scope_variable
+                    var:han_fei_character_scope_variable = {
+                        is_alive = yes
+                    }
+                }
+				hidden:var:han_fei_character_scope_variable = {
+					has_tech_office_of = religious_tech
+					character_experience >= 0.50
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = han_warring_missions_task_12_has_office 
+					always = no
+				}
+            }
+		}
+
+		on_start = {
+			add_treasury = -50
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.12
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = han_feizi_mod
+					duration = -1
+				}
+				create_country_treasure = {
+					key = "han_feizi_treasure"
+					icon = "chinascroll2"
+					modifier = {
+						local_happiness_for_same_religion_modifier = 0.1
+						local_research_points_modifier = 0.2
+					}
+				}
+            }
+        }
+    }
+
+    han_warring_missions_task_13 = { #Southern Jin
+        icon = "task_political"
+		requires = { han_warring_missions_task_8 han_warring_missions_task_9 }
+
+		highlight = {
+			 scope:province = {
+				is_in_region = yu_region
+            }
+        }
+
+        allow = {
+			owns_region = yu_region
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.13
+            show_as_tooltip = {
+				add_2_free_province_investments = yes
+				p:8408 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:8446 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:8956 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+            }
+        }
+    }
+
+    han_warring_missions_task_14 = { #Northern Jin
+        icon = "task_political"
+		requires = { han_warring_missions_task_8 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = taiyuan_area
+					is_in_area = shangdang_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = taiyuan_area
+			owns_area = shangdang_area
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.14
+            show_as_tooltip = {
+				p:8636 = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_culture = root.culture
+							}
+							NOT = {  
+								pop_type = slaves
+							}
+						}
+						order_by = pop_hapiness
+						max = 3
+						set_pop_culture = root.culture
+					}
+				}
+				p:8628 = {
+					if = {
+						limit = {
+							NOR = { 
+								has_province_rank = city 
+								has_province_rank = city_metropolis
+							} 
+						}
+						custom_tooltip = "time_to_complete_city_tt"
+						hidden_effect = {
+							add_province_modifier = {
+								name = founding_city_in_progress
+								duration = 730
+							}
+						}
+						trigger_event = {
+							id = state_improvement.6
+							days = 730
+						}
+					}
+					else = { 
+						create_state_pop = citizen
+						create_state_pop = freemen
+						create_state_pop = freemen
+						create_state_pop = freemen
+					}
+				}
+            }
+        }
+    }
+
+    han_warring_missions_task_15 = { #Agriculture of the Yellow River
+        icon = "task_political"
+		requires = { han_warring_missions_task_9 han_warring_missions_task_10 han_warring_missions_task_11 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = henei_area
+					is_in_area = wei_area
+					is_in_area = henan_area
+					is_in_area = daliang_area
+					is_in_area = dong_area
+				}
+				can_build_building = port_building
+				can_build_building = basic_settlement_infratructure_building
+            }
+        }
+
+        allow = {
+			custom_tooltip = {
+				text = han_warring_missions_task_15_seven_farms_yellow_river
+				any_owned_province = {
+					count >= 7
+					OR = {
+						is_in_area = henei_area
+						is_in_area = wei_area
+						is_in_area = henan_area
+						is_in_area = daliang_area
+						is_in_area = dong_area
+					}
+					has_building = basic_settlement_infratructure_building
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.15
+			custom_tooltip = han_warring_missions_task_15_all_our_yellow_river_provinces
+            show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = henei_area
+							is_in_area = wei_area
+							is_in_area = henan_area
+							is_in_area = daliang_area
+							is_in_area = dong_area
+						}
+					}
+					add_permanent_province_modifier = {
+						name = han_yellow_river_mod
+					}
+				}
+            }
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = henei_area
+							is_in_area = wei_area
+							is_in_area = henan_area
+							is_in_area = daliang_area
+							is_in_area = dong_area
+						}
+					}
+					add_permanent_province_modifier = {
+						name = han_yellow_river_mod
+					}
+				}
+			}
+        }
+    }
+
+    han_warring_missions_task_16 = { #War of Chinese Unification
+        icon = "task_political"
+		requires = { han_warring_missions_task_13 han_warring_missions_task_14 }
+
+		bypass = {
+			government = chinese_empire
+		}
+
+        allow = {
+			# Is in a war with the chinese unification war
+			custom_tooltip = {
+				text = qi_missions_task_18_tt
+				has_variable = unification_war_launched
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.16
+            show_as_tooltip = {
+				add_military_experience = 20
+            }
+        }
+    }
+
+    han_warring_missions_task_17 = { #Han Dynasty
+        icon = "task_political"
+		requires = { han_warring_missions_task_16 }
+
+        allow = {
+			government = chinese_empire
+			has_country_modifier = restoration_of_jin
+			legitimacy >= 95
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.17
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = han_final_mod
+					duration = -1
+				}
+				add_political_influence = 100
+				current_ruler = {
+					add_popularity = 25
+					add_focus_perk = {
+						text = "add_2_char_perk"
+						amount = 2
+					}
+					add_trait = ambitious
+					add_trait = han_bloodline
+				}
+            }
+        }
+    }
+}
