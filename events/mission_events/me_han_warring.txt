@@ -57,11 +57,176 @@ me_han_warring.4 = {
     desc = me_han_warring_4_desc
     picture = great_library
 	left_portrait = root.current_ruler
+	left_portrait = c:ZHO.current_ruler
 	right_portrait = c:QIN.current_ruler
+	right_portrait = c:ZHA.current_ruler
+	right_portrait = c:QII.current_ruler
+	left_portrait = c:WEI.current_ruler
+
+	immediate = {
+		if = {
+			limit = {
+				c:WEI = {
+					has_land = yes
+				}
+			}
+			c:WEI = {
+				trigger_event = {
+					id = me_han_warring.401
+					days = 30
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:QII = {
+					has_land = yes
+				}
+			}
+			c:QII = {
+				trigger_event = {
+					id = me_han_warring.401
+					days = 30
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:ZHA = {
+					has_land = yes
+				}
+			}
+			c:ZHA = {
+				trigger_event = {
+					id = me_han_warring.401
+					days = 30
+				}
+			}
+		}
+	}
 
     option = {
         name = "me_han_warring_4.a"
+		add_treasury = -150
+		trigger_event = {
+			id = me_han_warring.400
+			days = 60
+		}
+    }
+}
 
+me_han_warring.400 = {
+    type = country_event
+
+    title = me_han_warring_400_title
+    desc = me_han_warring_400_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = c:ZHO.current_ruler
+	right_portrait = c:QIN.current_ruler
+	right_portrait = c:ZHA.current_ruler
+	right_portrait = c:QII.current_ruler
+	left_portrait = c:WEI.current_ruler
+
+    option = {
+        name = "me_han_warring_400.a"
+		show_as_tooltip = {
+			add_opinion = {
+				modifier = coalition_han_bonus
+				target = c:WEI
+			}
+			add_opinion = {
+				modifier = coalition_han_bonus
+				target = c:QII
+			}
+			add_opinion = {
+				modifier = coalition_han_bonus
+				target = c:ZHA
+			}
+		}
+		add_opinion = {
+			modifier = coalition_han_against_qin
+			target = c:QIN
+		}
+		hidden_effect = {
+			reverse_add_opinion = {
+				modifier = coalition_han_against_qin
+				target = c:QIN
+			}
+		}
+		if = {
+			limit = {
+				alliance_with = WEI
+			}
+			show_as_tooltip = {
+				add_alliance = c:WEI
+			}
+		}
+		if = {
+			limit = {
+				alliance_with = QII
+			}
+			show_as_tooltip = {
+				add_alliance = c:QII
+			}
+		}
+		if = {
+			limit = {
+				alliance_with = ZHA
+			}
+			show_as_tooltip = {
+				add_alliance = c:ZHA
+			}
+		}
+    }
+}
+
+me_han_warring.401 = {
+    type = country_event
+
+    title = me_han_warring_401_title
+    desc = me_han_warring_401_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:HAN.current_ruler
+	right_portrait = c:QIN.current_ruler
+	
+	immediate = {
+		add_treasury = 50
+		add_opinion = {
+			modifier = coalition_han_bonus
+			target = c:HAN
+		}
+		hidden_effect = {
+			reverse_add_opinion = {
+				modifier = coalition_han_bonus
+				target = c:HAN
+			}
+		}
+		add_opinion = {
+			modifier = coalition_han_against_qin
+			target = c:QIN
+		}
+		hidden_effect = {
+			reverse_add_opinion = {
+				modifier = coalition_han_against_qin
+				target = c:QIN
+			}
+		}
+	}
+
+    option = {
+        name = "me_han_warring_401.a"
+		ai_chance = {
+			base = 66
+		}
+		add_alliance = c:HAN
+    }
+	option = {
+        name = "me_han_warring_401.b"
+		ai_chance = {
+			base = 34
+		}
     }
 }
 
