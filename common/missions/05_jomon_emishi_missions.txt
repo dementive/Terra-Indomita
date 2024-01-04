@@ -7,7 +7,11 @@
 
     potential = {
         NOT = { has_variable = mission_cooldown_var }
-        primary_culture = ainu
+        OR = {
+            primary_culture = dewa
+            primary_culture = sunazawa
+            primary_culture = mitinooku
+        }
     }
 
     abort = {}
@@ -22,27 +26,47 @@
         }
     }
     on_completion = {
-        trigger_event = me_jomon.16
+        trigger_event = me_emishi.16
     }
 
     emishi_missions_task_1 = {
         icon = "task_diplomatic"
-        requires = {}
-        allow = {
-            trigger_if = {
-                limit = {
-                    tag = ESN
-                }
-                political_influence >= 15
-                num_of_ships >= 5
-            }
-            trigger_else = {
-                political_influence >= 25
-                treasury >= 25
+        allow = {}
+        on_completion = {
+            trigger_event = me_emishi.1
+            show_as_tooltip = {
+
             }
         }
+    }
+    emishi_missions_task_2 = {
+        icon = "task_diplomatic"
+        requires = {}
+        allow = {}
         on_completion = {
-            trigger_event = me_jomon_2.18
+            trigger_event = me_emishi.2
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    emishi_missions_task_3 = {
+        icon = "task_diplomatic"
+        requires = {}
+        allow = {}
+        on_completion = {
+            trigger_event = me_emishi.3
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    emishi_missions_task_14 = {
+        icon = "task_diplomatic"
+        requires = {}
+        allow = {}
+        on_completion = {
+            trigger_event = me_emishi.14
             show_as_tooltip = {
 
             }
