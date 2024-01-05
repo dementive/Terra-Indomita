@@ -1,0 +1,53 @@
+﻿country_decisions = {
+	
+	zhao_military_academy_decision = {
+		potential = {
+			is_ai = no
+			has_land = yes
+			tag = ZHA
+			has_completed_mission_task = zhao_missions_task_23
+		}
+
+		allow = {
+			num_of_cities >= 100
+			has_civil_war = no
+			war = no
+			military_experience >= 20
+			custom_tooltip = {
+				text = zhao_military_academy_decision_cd_tt
+				NOT = {
+					has_variable = zhao_military_academy_decision_cooldown
+				}
+			}
+		}
+
+		effect = {
+			create_character = {
+				culture = root.culture
+				religion = root.religion
+				female = no
+				age = 25
+				no_traits = yes
+				no_stats = yes
+				hidden_effect = {
+					add_trait = brave
+					amazing_martial_effect = yes
+					average_charisma_effect = yes
+					average_finesse_effect = yes
+					average_zeal_effect = yes
+					positive_martial_trait_effect = yes
+				}
+			}
+			set_variable = {
+				name = "zhao_military_academy_decision_cooldown"
+				days = 7300
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+	}
+
+}	
