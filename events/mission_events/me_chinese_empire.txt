@@ -233,10 +233,19 @@ me_chinese_empire.10 = {
     desc = me_chinese_empire_10_desc
     picture = great_library
 	left_portrait = root.current_ruler
+	right_portrait = var:first_chinese_emperor_character_scope_variable
 
     option = {
         name = "me_chinese_empire_10.a"
-
+		add_country_modifier = {
+			name = terracotta_army_wonder
+			duration = -1
+		}
+		capital_scope = {
+			add_permanent_province_modifier = {
+				name = terracotta_army_mod
+			}
+		}
     }
 }
 
@@ -247,10 +256,83 @@ me_chinese_empire.1000 = {
     desc = me_chinese_empire_1000_desc
     picture = great_library
 	left_portrait = root.current_ruler
+	right_portrait = var:first_chinese_emperor_character_scope_variable
 
     option = {
         name = "me_chinese_empire_1000.a"
 		add_treasury = -2000
+		trigger_event = {
+			id = me_chinese_empire.1101
+			days = { 700 750 }
+		}
+    }
+}
+
+me_chinese_empire.1001 = { #Progress 1
+    type = country_event
+
+    title = me_chinese_empire_1001_title
+    desc = me_chinese_empire_1001_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = var:first_chinese_emperor_character_scope_variable
+
+    option = {
+        name = "me_chinese_empire_1001.a"
+		trigger_event = {
+			id = me_chinese_empire.1102
+			days = { 700 750 }
+		}
+    }
+}
+
+me_chinese_empire.1002 = { #Progress 2
+    type = country_event
+
+    title = me_chinese_empire_1002_title
+    desc = me_chinese_empire_1002_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = var:first_chinese_emperor_character_scope_variable
+
+    option = {
+        name = "me_chinese_empire_1002.a"
+		trigger_event = {
+			id = me_chinese_empire.1103
+			days = { 700 750 }
+		}
+    }
+}
+
+me_chinese_empire.1003 = { #Progress 3
+    type = country_event
+
+    title = me_chinese_empire_1003_title
+    desc = me_chinese_empire_1003_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = var:first_chinese_emperor_character_scope_variable
+
+    option = {
+        name = "me_chinese_empire_1003.a"
+		trigger_event = {
+			id = me_chinese_empire.1104
+			days = { 700 750 }
+		}
+    }
+}
+
+me_chinese_empire.1004 = { #Progress 4
+    type = country_event
+
+    title = me_chinese_empire_1004_title
+    desc = me_chinese_empire_1004_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = var:first_chinese_emperor_character_scope_variable
+
+    option = {
+        name = "me_chinese_empire_1004.a"
     }
 }
 
@@ -261,10 +343,175 @@ me_chinese_empire.11 = {
     desc = me_chinese_empire_11_desc
     picture = great_library
 	left_portrait = root.current_ruler
+	left_portrait = scope:foreign_minister
+	right_portrait = scope:eschate_owner.current_ruler
+	
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_foreign_minister
+			}
+			save_scope_as = foreign_minister
+		}
+		p:6704 = {
+			owner = {
+				save_scope_as = eschate_owner
+			}
+		}
+	}
 
     option = {
         name = "me_chinese_empire_11.a"
-		
+		add_treasury = -200
+		add_manpower = -10
+		scope:eschate_owner = {
+			trigger_event = {
+				id = me_chinese_empire.1100
+				days = 150
+			}
+		}
+    }
+}
+
+me_chinese_empire.1100 = {
+    type = country_event
+
+    title = me_chinese_empire_1100_title
+    desc = me_chinese_empire_1100_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:foreign_minister
+	right_portrait = scope:chinese_emperor.current_ruler
+	
+	immediate = {
+		random_country = {
+			limit = {
+				government = chinese_empire
+			}
+			save_scope_as = chinese_emperor
+		}
+		scope:chinese_emperor = {
+			random_character = {
+				limit = {
+					has_office = office_foreign_minister
+				}
+				save_scope_as = foreign_minister
+			}
+		}
+		p:6704 = {
+			owner = {
+				save_scope_as = eschate_owner
+			}
+		}
+	}
+
+    option = {
+        name = "me_chinese_empire_1100.a"
+		add_treasury = 200
+		show_as_tooltip = {
+			scope:chinese_emperor = {
+				make_subject = {
+					target = root
+					type = tributary
+				}
+			}
+		}
+		scope:chinese_emperor = {
+			trigger_event = {
+				id = me_chinese_empire.1101
+				days = 20
+			}
+		}
+    }
+	option = {
+        name = "me_chinese_empire_1100.b"
+		add_treasury = 200
+		show_as_tooltip = {
+			every_owned_province = {
+				limit = {
+					is_in_area = ferghana_area
+				}
+				add_claim = scope:chinese_emperor
+			}
+		}
+		scope:chinese_emperor = {
+			trigger_event = {
+				id = me_chinese_empire.1102
+				days = 20
+			}
+		}
+    }
+}
+
+me_chinese_empire.1101 = {
+    type = country_event
+
+    title = me_chinese_empire_1101_title
+    desc = me_chinese_empire_1101_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:foreign_minister
+	right_portrait = scope:eschate_owner.current_ruler
+	
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_foreign_minister
+			}
+			save_scope_as = foreign_minister
+		}
+		p:6704 = {
+			owner = {
+				save_scope_as = eschate_owner
+			}
+		}
+	}
+
+    option = {
+        name = "me_chinese_empire_1101.a"
+		root = {
+			make_subject = {
+				target = scope:eschate_owner
+				type = tributary
+			}
+		}
+    }
+}
+
+me_chinese_empire.1102 = {
+    type = country_event
+
+    title = me_chinese_empire_1102_title
+    desc = me_chinese_empire_1102_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:foreign_minister
+	right_portrait = scope:eschate_owner.current_ruler
+	
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_foreign_minister
+			}
+			save_scope_as = foreign_minister
+		}
+		p:6704 = {
+			owner = {
+				save_scope_as = eschate_owner
+			}
+		}
+	}
+
+    option = {
+        name = "me_chinese_empire_1102.a"
+		scope:eschate_owner = {
+			every_owned_province = {
+				limit = {
+					is_in_area = ferghana_area
+				}
+				add_claim = root
+			}
+		}
     }
 }
 
@@ -550,5 +797,20 @@ me_chinese_empire.23 = {
 		add_splendor = {
 			amount = "400"
 		}
+    }
+}
+
+me_chinese_empire.90 = {
+    type = country_event
+
+    title = me_chinese_empire_90_title
+    desc = me_chinese_empire_90_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_chinese_empire_90.a"
+		custom_tooltip = me_chinese_empire_90_use_mandate_mechanic
+		#change_government = chinese_empire
     }
 }
