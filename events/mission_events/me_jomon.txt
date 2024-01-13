@@ -467,7 +467,7 @@ me_ezo.16 = { # Mission Tree Completion Ezo
 
 ## Emishi ##
 # Dewa
-me_emishi.1 = {
+me_emishi.1 = { # Fun of Hit and Run
     type = country_event
 
     title = me_emishi_1_title
@@ -477,10 +477,14 @@ me_emishi.1 = {
     option = {
         name = "me_emishi_1.a"
         custom_tooltip = me_emishi_1_tooltip
+        add_country_modifier = {
+            name = emishi_tactics
+            duration = -1
+        }
     }
 }
 # Sunazawa
-me_emishi.2 = {
+me_emishi.2 = { # Secrets of Rice
     type = country_event
 
     title = me_emishi_2_title
@@ -490,10 +494,23 @@ me_emishi.2 = {
     option = {
         name = "me_emishi_2.a"
         custom_tooltip = me_emishi_2_tooltip
+        random_owned_province = {
+            limit = { has_building = basic_settlement_infratructure_building }
+            set_trade_goods = rice
+        }
+        change_local_variable = {
+            name = yayoification
+            add = 1
+        }
+        add_country_modifier = {
+            name = secret_of_rice
+            duration = -1
+        }
+        custom_tooltip = yayoification_add_1_tt
     }
 }
 # Sirakawa
-me_emishi.3 = {
+me_emishi.3 = { # Merchants by Day, Migrants by Night
     type = country_event
 
     title = me_emishi_3_title
@@ -505,7 +522,7 @@ me_emishi.3 = {
         custom_tooltip = me_emishi_3_tooltip
     }
 }
-me_emishi.4 = {
+me_emishi.4 = { # Threats in Tohoku
     type = country_event
 
     title = me_emishi_4_title
@@ -517,7 +534,7 @@ me_emishi.4 = {
         custom_tooltip = me_emishi_4_tooltip
     }
 }
-me_emishi.5 = {
+me_emishi.5 = { # A Jomon Jamboree
     type = country_event
 
     title = me_emishi_5_title
@@ -529,7 +546,7 @@ me_emishi.5 = {
         custom_tooltip = me_emishi_5_tooltip
     }
 }
-me_emishi.6 = {
+me_emishi.6 = { # Nefarious Neighbors
     type = country_event
 
     title = me_emishi_6_title
@@ -541,7 +558,7 @@ me_emishi.6 = {
         custom_tooltip = me_emishi_6_tooltip
     }
 }
-me_emishi.7 = {
+me_emishi.7 = { # Cultural Corridor
     type = country_event
 
     title = me_emishi_7_title
@@ -553,7 +570,7 @@ me_emishi.7 = {
         custom_tooltip = me_emishi_7_tooltip
     }
 }
-me_emishi.8 = {
+me_emishi.8 = { # Second Home in Hokkaido
     type = country_event
 
     title = me_emishi_8_title
@@ -565,7 +582,7 @@ me_emishi.8 = {
         custom_tooltip = me_emishi_8_tooltip
     }
 }
-me_emishi.9 = {
+me_emishi.9 = { # The Empty East
     type = country_event
 
     title = me_emishi_9_title
@@ -575,9 +592,21 @@ me_emishi.9 = {
     option = {
         name = "me_emishi_9.a"
         custom_tooltip = me_emishi_9_tooltip
+        custom_tooltip = sirakawa_settle_tt
+        hidden_effect = {
+            region:wa_region = {
+                every_region_province = {
+                    limit = {
+                        dominant_province_culture = mitinooku
+                        has_owner = no
+                    }
+                    set_owned_by = ROOT
+                }
+            }
+        }
     }
 }
-me_emishi.10 = {
+me_emishi.10 = { # Unity Amongst Emishi
     type = country_event
 
     title = me_emishi_10_title
@@ -587,9 +616,29 @@ me_emishi.10 = {
     option = {
         name = "me_emishi_10.a"
         custom_tooltip = me_emishi_10_tooltip
+        current_ruler = {
+            add_popularity = 10
+            add_trait = founder
+            add_character_experience = 5
+        }
+        add_stability = 3
+        add_political_influence = 50
+        change_country_name = "emishi_name"
+        change_country_adjective = "emishi_adj"
+        change_country_color = "emishi_electric"
+        #change_country_flag = EMISHI_FLAG
+        change_country_tag = EMI
+        add_4_free_province_investments = yes
+        add_innovation = 2
+        add_splendor = { amount = "200" }
+        if = {
+            limit = { is_tribal = yes }
+            change_government = tribal_kingdom
+            switch_government_type_event_clearup_effect = yes
+        }
     }
 }
-me_emishi.11 = {
+me_emishi.11 = { # Disparate Differences
     type = country_event
 
     title = me_emishi_11_title
@@ -601,7 +650,7 @@ me_emishi.11 = {
         custom_tooltip = me_emishi_11_tooltip
     }
 }
-me_emishi.12 = {
+me_emishi.12 = { # The *Blank* Elite
     type = country_event
 
     title = me_emishi_12_title
@@ -611,9 +660,13 @@ me_emishi.12 = {
     option = {
         name = "me_emishi_12.a"
         custom_tooltip = me_emishi_12_tooltip
+        add_country_modifier = {
+            name = emishi_elite
+            duration = -1
+        }
     }
 }
-me_emishi.13 = {
+me_emishi.13 = { # Jomon Together Strong
     type = country_event
 
     title = me_emishi_13_title
@@ -623,9 +676,13 @@ me_emishi.13 = {
     option = {
         name = "me_emishi_13.a"
         custom_tooltip = me_emishi_13_tooltip
+        add_country_modifier = {
+            name = emishi_equal
+            duration = -1
+        }
     }
 }
-me_emishi.14 = {
+me_emishi.14 = { # Emergent Emishi Culture
     type = country_event
 
     title = me_emishi_14_title
@@ -635,5 +692,44 @@ me_emishi.14 = {
     option = {
         name = "me_emishi_14.a"
         custom_tooltip = me_emishi_14_tooltip
+        if = {
+            limit = { has_variable = emi_elite_var }
+            hidden_effect = {
+                every_owned_province = {
+                    every_pops_in_province = {
+                        limit = {
+                            OR = {
+                                pop_culture = root.culture
+                                pop_type = nobles
+                            }
+                            NOT = {
+                                pop_type = slaves
+                            }
+                        }
+                        set_pop_culture = emishi
+                    }
+                }
+            }
+        }
+        if = {
+            limit = { has_variable = emi_equal_var }
+            hidden_effect = {
+                every_owned_province = {
+                    every_pops_in_province = {
+                        limit = {
+                            pop_culture_group = jomon
+                            NOR = {
+                                pop_culture = ainu
+                                pop_culture = duuchuu
+                            }
+                        }
+                        random_list = { # 50/50 chance
+                            1 = { set_pop_culture = emishi }
+                            1 = {}
+                        }
+                    }
+                }
+            }
+        }
     }
 }

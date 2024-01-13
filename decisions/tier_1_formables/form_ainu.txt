@@ -1,5 +1,5 @@
 ﻿country_decisions = {
-	form_ainu = {
+	form_ainu = { # Actually for forming Jomon nation
 		
 		potential = {
 			num_of_cities >= 1
@@ -50,6 +50,69 @@
 				change_country_adjective = "AIU_ADJECTIVE"
 				change_country_color =  "achemenid_yellow"
 				change_country_tag = AIU
+				#change_country_flag = LIGURIA_FLAG					
+			}
+			capital_scope = {
+				establish_city_effect = yes
+				capital_formable_tribal_effect = yes
+				formable_capital_modifier_tribal_effect = yes
+			}
+			random_owned_province = {
+				limit = { NOT = { this = capital_scope } }
+				establish_city_effect = yes
+			}
+			add_2_free_province_investments = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+	form_ainu2 = { # For the Actual Ainu
+		
+		potential = {
+			num_of_cities >= 1
+			primary_culture = susuya
+			capital_scope = {
+				is_in_area = hokkaido_area
+			}
+			NOT = {
+				any_country = {
+					num_of_cities >= 1
+					tag = AIN
+				}
+			}
+
+		}
+		
+		highlight = {
+			scope:province = {
+				is_in_area = hokkaido_area
+			}
+		}
+		
+		allow = {
+			can_form_nation_trigger = yes
+			owns_or_subject_owns_area = hokkaido_area
+		}
+		
+		effect = {
+			custom_tooltip = "tier_1_formable_tooltip"
+			change_country_name = "AIN_NAME"
+			if = {
+				limit = { is_tribal = yes }
+				add_country_modifier = {
+					name = civilized_tribe
+					duration = 5475
+				}
+				change_government = theocratic_monarchy
+				switch_government_type_event_clearup_effect = yes
+			}
+			hidden_effect = {
+				change_country_adjective = "AIN_ADJECTIVE"
+				change_country_color =  "navy_blue"
+				change_country_tag = AIN
 				#change_country_flag = LIGURIA_FLAG					
 			}
 			capital_scope = {
