@@ -59,7 +59,7 @@
 					duration = -1
 				}
             }
-			char:610 = {
+			char:634 = {
 				remove_trait = abrasive
 				remove_trait = two_faced
 				remove_trait = inferiority_complex
@@ -76,10 +76,10 @@
 				trade_good_surplus = { target = fur value >= 1 }
 			}
 			OR = {
-				char:609 = { 
+				char:633 = { 
 					is_alive = no 
 				}
-				char:609 = { 
+				char:633 = { 
 					loyalty >= 90 
 					has_any_office = yes
 				}
@@ -323,13 +323,13 @@
 		
 		bypass = {
 			OR = {
-				char:489 = {
+				char:495 = {
 					is_alive = no
 				}
-				char:489 = {
+				char:495 = {
 					is_ruler = no
 				}
-				char:493 = { 
+				char:630 = { 
 					is_alive = no
 				}
 			}
@@ -338,11 +338,11 @@
         allow = {
 			stability >= 50
 			war = no
-			char:489 = {
+			char:495 = {
 				is_alive = yes
 				is_ruler = yes
 			}
-			char:493 = { 
+			char:630 = { 
 				is_alive = yes
 				age >= 12
 			}
@@ -351,7 +351,7 @@
         on_completion = {
             trigger_event = me_zhao.9
             show_as_tooltip = {
-				set_as_ruler = char:493
+				set_as_ruler = char:630
             }
         }
     }
@@ -528,7 +528,7 @@
         allow = {
 			treasury >= 250
 			owns = 8681
-			char:493 = { 
+			char:630 = { 
 				is_alive = no
 				is_previous_ruler = yes
 			}
@@ -696,6 +696,12 @@
     zhao_missions_task_17 = { #Lian Po's Defensive Line
         icon = "task_battle"
 		requires = { zhao_missions_task_12 zhao_missions_task_14 }
+
+		bypass = {
+			char:632 = {
+				is_alive = no
+			}
+		}
 		
 		highlight = {
 			 scope:province = {
@@ -711,24 +717,17 @@
 			p:8368.state = {
 				state_improvement_military_trigger = yes 
 			}
+			char:632 = {
+				has_office = office_marshal
+			}
 		}
 		
         on_completion = {
             trigger_event = me_zhao.17
             show_as_tooltip = {
-				create_character = {
-					age = 35
-					culture = root.culture
-					religion = root.religion
-					no_traits = yes
-					no_stats = yes
-					hidden_effect = {
-						amazing_martial_effect = yes
-						average_charisma_effect = yes
-						average_finesse_effect = yes
-						average_zeal_effect = yes
-						positive_martial_trait_effect = yes
-					}
+				add_research = {
+					technology = military_tech
+					value = 25
 				}
 				p:8368 = {
 					add_province_modifier = {
