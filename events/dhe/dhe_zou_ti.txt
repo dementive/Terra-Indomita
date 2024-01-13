@@ -83,3 +83,42 @@ dhe_zou_ti.2 = {
 		}
 	}
 }
+
+#Event for Teng (but didn't want to create separate file)
+dhe_zou_ti.3 = {
+	type = country_event
+	title = "dhe_zou_ti.3.t"
+	desc = "dhe_zou_ti.3.desc"
+	picture = greek_court
+    fire_only_once = yes
+
+	left_portrait = current_ruler
+	right_portrait = char:601
+
+	goto_location = p:8428
+
+	trigger = {
+		owns = 8428
+		char:601 = {
+			is_alive = yes
+		}
+		NOT = {
+			p:8428 = {
+				has_province_modifier = "xu_xing_commune"
+			}
+		}
+	}
+
+	option = {
+		name = "dhe_zou_ti.3.a"
+		current_ruler = {
+			add_popularity = -10
+		}
+		p:8428 = {
+			add_province_modifier = {
+				name = "xu_xing_commune"
+				duration = 7300
+			}
+		}
+	}
+}
