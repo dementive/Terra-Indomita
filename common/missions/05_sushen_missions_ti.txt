@@ -77,12 +77,15 @@
         }
 		
         allow = {
-			OR = {
-				owns_area = huifa_area
-				owns_area = ussuri_area
-				owns_area = sushen_area
-				owns_area = amur_area
-				owns_area = sahaliyan_area
+			any_owned_province = {
+				count >= 8
+				OR = {
+					is_in_area = huifa_area
+					is_in_area = ussuri_area
+					is_in_area = sushen_area
+					is_in_area = amur_area
+					is_in_area = sahaliyan_area
+				}
 			}
 		}
 		
@@ -165,6 +168,48 @@
 					create_state_pop = tribesmen
 				}
             }
+			area:sushen_area = {
+				every_area_province = {
+					limit = {
+						NOT = {
+							owner = root
+						}
+						OR = {
+							owned_or_subject_owned = root
+							has_owner = no
+						}
+					}
+					set_conquered_by = root
+				}
+			}
+			area:ussuri_area = {
+				every_area_province = {
+					limit = {
+						NOT = {
+							owner = root
+						}
+						OR = {
+							owned_or_subject_owned = root
+							has_owner = no
+						}
+					}
+					set_conquered_by = root
+				}
+			}
+			area:amur_area = {
+				every_area_province = {
+					limit = {
+						NOT = {
+							owner = root
+						}
+						OR = {
+							owned_or_subject_owned = root
+							has_owner = no
+						}
+					}
+					set_conquered_by = root
+				}
+			}
 			custom_tooltip = sushen_missions_task_4_claims
 			hidden_effect = {
 				area:raole_area = { mission_area_claim_effect = yes }
@@ -183,12 +228,29 @@
 					is_in_area = raole_area
 					is_in_area = daxianbeishan_east_area
 				}
+				has_owner = yes
             }
         }
 		
         allow = {
-			owns_area = raole_area
-			owns_area = daxianbeishan_east_area
+			area:raole_area = {
+				any_area_province = {
+					count = all
+					OR = {
+						owned_or_subject_owned = root
+						has_owner = no
+					}
+				}
+			}
+			area:daxianbeishan_east_area = {
+				any_area_province = {
+					count = all
+					OR = {
+						owned_or_subject_owned = root
+						has_owner = no
+					}
+				}
+			}
 			p:9526 = {
 				fort_level >= 1
 			}
@@ -216,6 +278,34 @@
 					}
 				}
             }
+			area:raole_area = {
+				every_area_province = {
+					limit = {
+						NOT = {
+							owner = root
+						}
+						OR = {
+							owned_or_subject_owned = root
+							has_owner = no
+						}
+					}
+					set_conquered_by = root
+				}
+			}
+			area:daxianbeishan_east_area = {
+				every_area_province = {
+					limit = {
+						NOT = {
+							owner = root
+						}
+						OR = {
+							owned_or_subject_owned = root
+							has_owner = no
+						}
+					}
+					set_conquered_by = root
+				}
+			}
         }
     }
 	
