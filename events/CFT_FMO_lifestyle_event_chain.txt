@@ -696,7 +696,43 @@ lifestyle_event_chains.15 = {
     desc = lifestyle_event_chains.15.desc
     picture = senator_conversing    
 	left_portrait = root.current_ruler
-
+    right_portrait = scope:zeal_thinker
+    right_portrait = scope:charisma_thinker	
+	immediate = {
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			alternative_limit = {
+				is_ruler = no
+			}
+			order_by = finesse
+			save_scope_as = finesse_thinker
+		}
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			alternative_limit = {
+				is_ruler = no
+				NOT = { this = scope:finesse_thinker }
+			}
+			order_by = zeal
+			save_scope_as = zeal_thinker
+		}
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			alternative_limit = {
+				is_ruler = no
+				NOT = { this = scope:finesse_thinker }
+				NOT = { this = scope:zeal_thinker }
+			}
+			order_by = charisma
+			save_scope_as = charisma_thinker
+		}
+	}
     option = { #heliocentric
         name = "lifestyle_event_chains.15.a"
 		add_research = {
@@ -748,6 +784,7 @@ lifestyle_event_chains.16 = {
     desc = lifestyle_event_chains.16.desc
     picture = senator_conversing    
 	left_portrait = root.current_ruler
+    right_portrait = scope:zeal_thinker
 
     option = {
         name = "lifestyle_event_chains.16.a"
@@ -776,6 +813,7 @@ lifestyle_event_chains.17 = {
     desc = lifestyle_event_chains.17.desc
     picture = senator_conversing    
 	left_portrait = root.current_ruler
+    right_portrait = scope:zeal_thinker
 
     option = {
         name = "lifestyle_event_chains.17.a"
@@ -924,6 +962,7 @@ lifestyle_event_chains.21 = {
     desc = lifestyle_event_chains.21.desc
     picture = senator_conversing    
 	left_portrait = root.current_ruler
+    right_portrait = scope:zeal_thinker
 
     option = { #Need new equipment
         name = "lifestyle_event_chains.21.a"
@@ -952,6 +991,7 @@ lifestyle_event_chains.22 = {
     desc = lifestyle_event_chains.22.desc
     picture = senator_conversing    
 	left_portrait = root.current_ruler
+    right_portrait = scope:zeal_thinker
 
     option = { #Travel to better places to observe stars
         name = "lifestyle_event_chains.22.a"

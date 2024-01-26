@@ -661,6 +661,19 @@ template asian_missions {
 		}
 	}
 	starting_nation = {
+		tooltip = "jingug_start"
+		onmousehierarchyenter = "[SetHighlightCountry( GetCountry('JNG').Self )]"
+		blockoverride "flag"
+		{
+			texture = "[GetCountry('JNG').AccessCoatOfArms.GetTexture('(int32)120','(int32)120')]"
+			frame = "[GetCountry('JNG').AccessCoatOfArms.GetFrame('(int32)120','(int32)120')]"
+		}
+		blockoverride "click"
+		{
+			onclick = "[SetLobbyCountryTag('JNG')]"
+		}
+	}
+	starting_nation = {
 		tooltip = "nam_cuong_start"
 		onmousehierarchyenter = "[SetHighlightCountry( GetCountry('XOU').Self )]"
 		blockoverride "flag"

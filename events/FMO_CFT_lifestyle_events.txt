@@ -132,7 +132,46 @@ lifestyle_events.4 = {
     desc = lifestyle_events.4.desc
     picture = senator_conversing    
 	left_portrait = root.current_ruler
-	
+    right_portrait = scope:finesse_thinker
+    right_portrait = scope:zeal_thinker
+    right_portrait = scope:charisma_thinker
+
+	immediate = {
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			alternative_limit = {
+				is_ruler = no
+			}
+			order_by = finesse
+			save_scope_as = finesse_thinker
+		}
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			alternative_limit = {
+				is_ruler = no
+				NOT = { this = scope:finesse_thinker }
+			}
+			order_by = zeal
+			save_scope_as = zeal_thinker
+		}
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			alternative_limit = {
+				is_ruler = no
+				NOT = { this = scope:finesse_thinker }
+				NOT = { this = scope:zeal_thinker }
+			}
+			order_by = charisma
+			save_scope_as = charisma_thinker
+		}
+	}
+
 	trigger = {
 		has_land = yes
 		current_ruler = {
@@ -206,7 +245,17 @@ lifestyle_events.5 = {
     desc = lifestyle_events.5.desc
     picture = romans_marching    
 	left_portrait = root.current_ruler
-	
+    right_portrait = scope:martial_thinker
+
+	immediate = {
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			order_by = martial
+			save_scope_as = martial_thinker
+		}
+	}	
 	trigger = {
 		has_land = yes
 		current_ruler = {
@@ -365,7 +414,21 @@ lifestyle_events.9 = {
     title = lifestyle_events.9.t
     desc = lifestyle_events.9.desc
     picture = greek_court    
-	left_portrait = root.current_ruler
+    left_portrait = current_ruler
+    right_portrait = scope:finesse_thinker
+
+	immediate = {
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			alternative_limit = {
+				is_ruler = no
+			}
+			order_by = finesse
+			save_scope_as = finesse_thinker
+		}
+	}	
 	
 	trigger = {
 		has_land = yes
@@ -619,6 +682,7 @@ lifestyle_events.14 = {
     desc = lifestyle_events.14.desc
     picture = greek_philosophers    
 	left_portrait = root.current_ruler
+    right_portrait = scope:finesse_thinker
 	
 	trigger = {
 		has_land = yes

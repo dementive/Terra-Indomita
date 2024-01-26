@@ -1,6 +1,6 @@
 ﻿zhao_missions = {
     header = "mission_image_china"
-    icon = "seleukid_1"
+    icon = "cde_surrender_of_general"
 
     repeatable = no
     chance = 1000
@@ -34,7 +34,7 @@
 	}
 	
     zhao_missions_task_1 = { #Hufu Riding and Archery
-        icon = "task_political"
+        icon = "task_artemis"
 		duration = 90
 		
         allow = {
@@ -59,7 +59,7 @@
 					duration = -1
 				}
             }
-			char:610 = {
+			char:634 = {
 				remove_trait = abrasive
 				remove_trait = two_faced
 				remove_trait = inferiority_complex
@@ -69,17 +69,17 @@
     }
 	
     zhao_missions_task_2 = { #Deal with Opposition at Court
-        icon = "task_political"
+        icon = "task_diplomatic"
 		
         allow = {
 			capital_scope.state = {
 				trade_good_surplus = { target = fur value >= 1 }
 			}
 			OR = {
-				char:609 = { 
+				char:633 = { 
 					is_alive = no 
 				}
-				char:609 = { 
+				char:633 = { 
 					loyalty >= 90 
 					has_any_office = yes
 				}
@@ -98,7 +98,7 @@
     }
 	
     zhao_missions_task_3 = { #Handan Military Camps
-        icon = "task_political"
+        icon = "task_expansion"
 		
 		highlight = {
 			 scope:province = {
@@ -130,7 +130,7 @@
     }
 	
     zhao_missions_task_4 = { #Northern Frontier
-        icon = "task_political"
+        icon = "task_heracles"
 		requires = { zhao_missions_task_1 }
 		
         highlight = {
@@ -171,7 +171,7 @@
     }
 	
     zhao_missions_task_5 = { #Barbarian Tribute
-        icon = "task_political"
+        icon = "task_economical"
 		requires = { zhao_missions_task_1 zhao_missions_task_2 zhao_missions_task_3 }
 		
 		bypass = {
@@ -232,7 +232,7 @@
     }
 	
     zhao_missions_task_6 = { #Zhao Idioms
-        icon = "task_political"
+        icon = "task_calm"
 		requires = { zhao_missions_task_3 }
 		
         allow = {
@@ -288,7 +288,7 @@
     }
 	
     zhao_missions_task_8 = { #End Zhongshan
-        icon = "task_political"
+        icon = "task_conquest"
 		requires = { zhao_missions_task_5 }
 		
         highlight = {
@@ -318,18 +318,18 @@
     }
 	
     zhao_missions_task_9 = { #Secure Succession
-        icon = "task_political"
+        icon = "task_diplomatic"
 		requires = { zhao_missions_task_4 zhao_missions_task_5 }
 		
 		bypass = {
 			OR = {
-				char:489 = {
+				char:495 = {
 					is_alive = no
 				}
-				char:489 = {
+				char:495 = {
 					is_ruler = no
 				}
-				char:493 = { 
+				char:630 = { 
 					is_alive = no
 				}
 			}
@@ -338,11 +338,11 @@
         allow = {
 			stability >= 50
 			war = no
-			char:489 = {
+			char:495 = {
 				is_alive = yes
 				is_ruler = yes
 			}
-			char:493 = { 
+			char:630 = { 
 				is_alive = yes
 				age >= 12
 			}
@@ -351,13 +351,13 @@
         on_completion = {
             trigger_event = me_zhao.9
             show_as_tooltip = {
-				set_as_ruler = char:493
+				set_as_ruler = char:630
             }
         }
     }
 	
     zhao_missions_task_10 = { #Gongsun Long
-        icon = "task_political"
+        icon = "task_apollo"
 		requires = { zhao_missions_task_6 }
 		
         allow = {
@@ -392,7 +392,7 @@
     }
 	
     zhao_missions_task_11 = { #Curtail Wei
-        icon = "task_political"
+        icon = "task_battle"
 		requires = { zhao_missions_task_8 zhao_missions_task_9 }
 		
 		highlight = {
@@ -446,7 +446,7 @@
     }
 	
     zhao_missions_task_12 = { #Heshibi Incident
-        icon = "task_political"
+        icon = "task_diplomatic"
 		requires = { zhao_missions_task_9 }
 		duration = 30
 		
@@ -515,7 +515,7 @@
     }
 	
     zhao_missions_task_13 = { #Mausoleum of the Kings of Zhao
-        icon = "task_political"
+        icon = "task_religion"
 		requires = { zhao_missions_task_9 }
 		duration = 30
 		
@@ -528,7 +528,7 @@
         allow = {
 			treasury >= 250
 			owns = 8681
-			char:493 = { 
+			char:630 = { 
 				is_alive = no
 				is_previous_ruler = yes
 			}
@@ -582,7 +582,7 @@
     }
 	
     zhao_missions_task_15 = { #Han Protectorate
-        icon = "task_political"
+        icon = "task_conquest"
 		requires = { zhao_missions_task_11 zhao_missions_task_12 }
 		
 		highlight = {
@@ -694,8 +694,14 @@
     }
 	
     zhao_missions_task_17 = { #Lian Po's Defensive Line
-        icon = "task_political"
+        icon = "task_battle"
 		requires = { zhao_missions_task_12 zhao_missions_task_14 }
+
+		bypass = {
+			char:632 = {
+				is_alive = no
+			}
+		}
 		
 		highlight = {
 			 scope:province = {
@@ -711,24 +717,17 @@
 			p:8368.state = {
 				state_improvement_military_trigger = yes 
 			}
+			char:632 = {
+				has_office = office_marshal
+			}
 		}
 		
         on_completion = {
             trigger_event = me_zhao.17
             show_as_tooltip = {
-				create_character = {
-					age = 35
-					culture = root.culture
-					religion = root.religion
-					no_traits = yes
-					no_stats = yes
-					hidden_effect = {
-						amazing_martial_effect = yes
-						average_charisma_effect = yes
-						average_finesse_effect = yes
-						average_zeal_effect = yes
-						positive_martial_trait_effect = yes
-					}
+				add_research = {
+					technology = military_tech
+					value = 25
 				}
 				p:8368 = {
 					add_province_modifier = {
@@ -741,7 +740,7 @@
     }
 	
     zhao_missions_task_18 = { #Xiongnu Threat
-        icon = "task_political"
+        icon = "task_battle"
 		requires = { zhao_missions_task_16 }
 		
         highlight = {
@@ -794,7 +793,7 @@
     }
 	
     zhao_missions_task_19 = { #Quash Qin
-        icon = "task_political"
+        icon = "task_expansion"
 		requires = { zhao_missions_task_15 zhao_missions_task_16 }
 		
         highlight = {
@@ -967,7 +966,7 @@
     }
 	
     zhao_missions_task_22 = { #Great War of Unification
-        icon = "task_political"
+        icon = "task_battle"
 		requires = { zhao_missions_task_19 zhao_missions_task_20 }
 		
 		bypass = {
@@ -991,7 +990,7 @@
     }
 	
     zhao_missions_task_23 = { #Zhao Military Academy
-        icon = "task_political"
+        icon = "task_calm"
 		requires = { zhao_missions_task_17 zhao_missions_task_19 }
 		duration = 180
 		
@@ -1014,7 +1013,7 @@
     }
 	
     zhao_missions_task_24 = { #Zhao Dynasty
-        icon = "task_political"
+        icon = "task_atlas"
 		requires = { zhao_missions_task_21 zhao_missions_task_22 }
 		final = yes
 		

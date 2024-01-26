@@ -1,0 +1,502 @@
+﻿namespace = me_xiongnu_2
+
+me_xiongnu_2.1 = {
+    type = country_event
+
+    title = me_xiongnu_2_1_title
+    desc = me_xiongnu_2_1_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_1.a"
+		custom_tooltip = xiongnu_missions_2_task_1_claims
+    }
+}
+
+me_xiongnu_2.2 = {
+    type = country_event
+
+    title = me_xiongnu_2_2_title
+    desc = me_xiongnu_2_2_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:laoshang_char
+
+	immediate = {
+		create_character = {
+			first_name = "Laoshang"
+			family = fam:Luandi
+			culture = root.culture
+			religion = root.religion
+			age = 16
+			no_stats = yes
+			hidden_effect = {
+				amazing_martial_effect = yes
+				average_finesse_effect = yes
+				average_charisma_effect = yes
+				average_zeal_effect = yes
+				positive_martial_trait_effect = yes
+				add_trait = bloodline_xiongnu_luandi
+			}
+			father = var:modun_character_scope_variable
+			save_scope_as = laoshang_char
+		}
+		set_variable = {
+			name = laoshang_character_scope_variable
+			value = scope:laoshang_char
+		}
+	}
+
+    option = {
+        name = "me_xiongnu_2_2.a"
+    }
+}
+
+me_xiongnu_2.3 = {
+    type = country_event
+
+    title = me_xiongnu_2_3_title
+    desc = me_xiongnu_2_3_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_3.a"
+		custom_tooltip = xiongnu_missions_2_task_3_claims
+    }
+}
+
+me_xiongnu_2.4 = {
+    type = country_event
+
+    title = me_xiongnu_2_4_title
+    desc = me_xiongnu_2_4_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_4.a"
+		custom_tooltip = xiongnu_missions_2_task_4_conquer_provinces
+		custom_tooltip = xiongnu_missions_2_task_4_claims
+    }
+}
+
+me_xiongnu_2.5 = {
+    type = country_event
+
+    title = me_xiongnu_2_5_title
+    desc = me_xiongnu_2_5_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_5.a"
+		custom_tooltip = xiongnu_missions_2_task_5_claims_1
+		hidden_effect = {
+			region:you_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+	option = {
+        name = "me_xiongnu_2_5.b"
+		custom_tooltip = xiongnu_missions_2_task_5_claims_2
+		hidden_effect = {
+			region:bing_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+	option = {
+        name = "me_xiongnu_2_5.c"
+		custom_tooltip = xiongnu_missions_2_task_5_claims_3
+		hidden_effect = {
+			region:yong_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+}
+
+me_xiongnu_2.6 = {
+    type = country_event
+
+    title = me_xiongnu_2_6_title
+    desc = me_xiongnu_2_6_desc
+    picture = great_library
+	left_portrait = var:modun_character_scope_variable
+	right_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_6.a"
+		root.current_ruler = {
+			death = { killer = var:laoshang_character_scope_variable death_reason = death_execution }
+		}
+		set_as_ruler = var:laoshang_character_scope_variable
+    }
+}
+
+me_xiongnu_2.7 = {
+    type = country_event
+
+    title = me_xiongnu_2_7_title
+    desc = me_xiongnu_2_7_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_7.a"
+		custom_tooltip = xiongnu_missions_2_task_7_conquer_provinces
+		custom_tooltip = xiongnu_missions_2_task_7_claims
+    }
+}
+
+me_xiongnu_2.8 = {
+    type = country_event
+
+    title = me_xiongnu_2_8_title
+    desc = me_xiongnu_2_8_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_8.a"
+		create_country_treasure = {
+			key = "xiongnu_golden_horse"
+			icon = "bronzedragon1"
+			modifier = {
+				local_monthly_food_modifier = 0.2
+				local_start_experience = 15
+			}
+		}
+    }
+}
+
+me_xiongnu_2.9 = {
+    type = country_event
+
+    title = me_xiongnu_2_9_title
+    desc = me_xiongnu_2_9_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_9.a"
+		custom_tooltip = xiongnu_missions_2_task_9_claims
+    }
+}
+
+me_xiongnu_2.10 = {
+    type = country_event
+
+    title = me_xiongnu_2_10_title
+    desc = me_xiongnu_2_10_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_10.a"
+		add_research = {
+			technology = military_tech
+			value = 200
+		}
+    }
+}
+
+me_xiongnu_2.11 = {
+    type = country_event
+
+    title = me_xiongnu_2_11_title
+    desc = me_xiongnu_2_11_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_11.a"
+		create_country_treasure = {
+			key = "xiongnu_crown"
+			icon = "gold_dragon_throne"
+			modifier = {
+				local_output_modifier = 0.1
+			}
+		}
+    }
+}
+
+me_xiongnu_2.12 = {
+    type = country_event
+
+    title = me_xiongnu_2_12_title
+    desc = me_xiongnu_2_12_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_12.a"
+		add_country_modifier = {
+			name = xiongnu_sanctuary_mod
+			duration = 10950
+		}
+		random_country_culture = {
+			limit = {
+				is_integrated = no
+			}
+			ROOT = { integrate_country_culture = PREV }
+		}
+    }
+}
+
+me_xiongnu_2.13 = {
+    type = country_event
+
+    title = me_xiongnu_2_13_title
+    desc = me_xiongnu_2_13_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_13.a"
+		custom_tooltip = xiongnu_missions_2_task_13_claims
+    }
+}
+
+me_xiongnu_2.14 = {
+    type = country_event
+
+    title = me_xiongnu_2_14_title
+    desc = me_xiongnu_2_14_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_14.a"
+		custom_tooltip = xiongnu_missions_2_task_14_claims
+    }
+}
+
+me_xiongnu_2.15 = {
+    type = country_event
+
+    title = me_xiongnu_2_15_title
+    desc = me_xiongnu_2_15_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_15.a"
+		custom_tooltip = xiongnu_missions_2_task_15_conquer_provinces
+    }
+}
+
+me_xiongnu_2.16 = {
+    type = country_event
+
+    title = me_xiongnu_2_16_title
+    desc = me_xiongnu_2_16_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:spouse_character
+
+	immediate = {
+		if = {
+			limit = {
+				any_subject = {
+					country_culture_group = chinese
+				}
+			}
+			random_subject = {
+				limit = {
+					country_culture_group = chinese
+				}
+				save_scope_as = target
+			}
+			create_character = {
+				family = scope:target.current_ruler.family
+				culture = scope:target.culture
+				religion = scope:target.religion
+				female = yes
+				age = 16
+				no_stats = yes
+				hidden_effect = {
+					average_martial_effect = yes
+					amazing_finesse_effect = yes
+					amazing_charisma_effect = yes
+					amazing_zeal_effect = yes
+				}
+				father = scope:target.current_ruler
+				save_scope_as = spouse_character
+			}
+		}
+		else = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						is_in_region = you_region
+						is_in_region = bing_region
+						is_in_region = yong_region
+					}
+				}
+				save_scope_as = target
+			}
+			create_character = {
+				culture = scope:target.culture
+				religion = scope:target.religion
+				female = yes
+				age = 16
+				no_stats = yes
+				hidden_effect = {
+					average_martial_effect = yes
+					amazing_finesse_effect = yes
+					amazing_charisma_effect = yes
+					amazing_zeal_effect = yes
+				}
+				save_scope_as = spouse_character
+			}
+		}
+	}
+
+    option = {
+        name = "me_xiongnu_2_16.a"
+		scope:spouse_character = {
+			marry_character = root.current_ruler
+		}
+    }
+}
+
+me_xiongnu_2.17 = {
+    type = country_event
+
+    title = me_xiongnu_2_17_title
+    desc = me_xiongnu_2_17_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_17.a"
+		p:10529 = {
+			add_permanent_province_modifier = {
+				name = city_of_chanyu
+			}
+			create_state_pop = citizen
+			create_state_pop = citizen
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+		}
+		add_centralization = 25
+    }
+}
+
+me_xiongnu_2.18 = {
+    type = country_event
+
+    title = me_xiongnu_2_18_title
+    desc = me_xiongnu_2_18_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_18.a"
+		custom_tooltip = xiongnu_missions_2_task_18_conquer_provinces
+    }
+}
+
+me_xiongnu_2.19 = {
+    type = country_event
+
+    title = me_xiongnu_2_19_title
+    desc = me_xiongnu_2_19_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_19.a"
+		add_country_modifier = {
+			name = xiongnu_desert_mod
+			duration = 10950
+		}
+    }
+}
+
+me_xiongnu_2.20 = {
+    type = country_event
+
+    title = me_xiongnu_2_20_title
+    desc = me_xiongnu_2_20_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_20.a"
+		custom_tooltip = xiongnu_missions_2_task_20_claims
+    }
+}
+
+me_xiongnu_2.21 = {
+    type = country_event
+
+    title = me_xiongnu_2_21_title
+    desc = me_xiongnu_2_21_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_21.a"
+		add_stability = 10
+		if = {
+			limit = {
+				has_country_modifier = xiongnu_speed_run
+			}
+			add_country_modifier = {
+				name = xiongnu_speed_run_reward
+				duration = -1
+			}
+		}
+		add_country_modifier = {
+			name = xiongnu_02_final_mod
+			duration = -1
+		}
+    }
+}
+
+me_xiongnu_2.22 = {
+    type = country_event
+
+    title = me_xiongnu_2_22_title
+    desc = me_xiongnu_2_22_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_22.a"
+		add_military_experience = 15
+		add_splendor = {
+			amount = "200"
+		}
+    }
+}
+
+me_xiongnu_2.90 = {
+    type = country_event
+
+    title = me_xiongnu_2_90_title
+    desc = me_xiongnu_2_90_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_2_90.a"
+		custom_tooltip = xiongnu_2_speed_run_tt
+		add_country_modifier = {
+			name = xiongnu_speed_run
+			duration = 10950
+		}
+    }
+}
