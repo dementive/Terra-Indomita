@@ -1,0 +1,40 @@
+﻿namespace = ti_nation_formation_events
+
+ti_nation_formation_events.1 = {
+	type = country_event
+	title = "ti_nation_formation_events.1.t"
+	desc = "ti_nation_formation_events.1.desc"
+	picture = city_country
+	left_portrait = root.current_ruler
+	right_portrait = char:536
+	
+	option = {
+		name = "ti_nation_formation_events.1.a"
+		change_country_name = "JIN_NAME"
+		hidden_effect = {
+			change_country_adjective = "JIN_ADJ"
+			change_country_color = "jin_color"
+			change_country_tag = JIN
+			change_country_flag = JIN
+		}
+		add_country_modifier = {
+			name = restoration_of_jin
+			duration = -1
+		}
+		ai_chance = {
+            factor = 1
+        }
+	}
+	
+	option = {
+		name = "ti_nation_formation_events.1.b"
+		add_country_modifier = {
+			name = restoration_of_jin
+			duration = -1
+		}
+		ai_chance = {
+            factor = 0
+        }
+	}
+	
+}
