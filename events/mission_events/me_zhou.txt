@@ -1,0 +1,1753 @@
+﻿namespace = me_zhou
+
+me_zhou.1 = {
+    type = country_event
+
+    title = me_zhou_1_title
+    desc = me_zhou_1_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_1.a"
+		add_political_influence = -50
+		current_ruler = {
+			add_trait = ambitious
+			remove_trait = depressed
+		}
+    }
+}
+
+me_zhou.2 = {
+    type = country_event
+
+    title = me_zhou_2_title
+    desc = me_zhou_2_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_2.a"
+		add_legitimacy = 20
+		add_political_influence = 25
+		custom_tooltip = zhou_missions_task_2_claims
+    }
+}
+
+me_zhou.3 = {
+    type = country_event
+
+    title = me_zhou_3_title
+    desc = me_zhou_3_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:zhou_bride
+	right_portrait = c:HAN.current_ruler
+	
+	immediate = {
+		random_character = {
+			limit = {
+				is_female = yes
+				is_married = no
+				age >= 16
+				age <= 35
+				has_trait = zhou_bloodline
+			}
+			save_scope_as = zhou_bride
+		}
+		if = {
+			limit = {
+				c:HAN = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = HAN
+					type = feudatory
+				}
+			}
+			c:HAN.current_ruler = {
+				divorce_character = c:HAN.current_ruler.spouse
+			}
+			scope:zhou_bride = {
+				marry_character = c:HAN.current_ruler
+			}
+		}
+	}
+
+    option = {
+        name = "me_zhou_3.a"
+		c:HAN = {
+			add_opinion = {
+				modifier = zhou_bride_mod
+				target = ROOT
+			}
+			reverse_add_opinion = {
+				modifier = zhou_bride_mod
+				target = ROOT
+			}
+			add_country_modifier = {
+				name = loyalty_to_zhou
+				duration = 10950
+			}
+			trigger_event = me_zhou.301
+		}
+    }
+}
+
+me_zhou.300 = {
+    type = country_event
+
+    title = me_zhou_300_title
+    desc = me_zhou_300_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:HAN.current_ruler
+
+    option = {
+        name = "me_zhou_300.a"
+		add_political_influence = -75
+    }
+}
+
+me_zhou.301 = {
+    type = country_event
+
+    title = me_zhou_301_title
+    desc = me_zhou_301_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:ZHO.current_ruler
+	right_portrait = root.current_ruler.spouse
+
+    option = {
+        name = "me_zhou_301.a"
+		add_political_influence = 75
+    }
+}
+
+me_zhou.4 = {
+    type = country_event
+
+    title = me_zhou_4_title
+    desc = me_zhou_4_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_4.a"
+		custom_tooltip = zhou_missions_task_4_claims
+    }
+}
+
+me_zhou.5 = {
+    type = country_event
+
+    title = me_zhou_5_title
+    desc = me_zhou_5_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:new_wei_ruler
+	right_portrait = c:WEI.current_ruler
+	right_portrait = scope:zhou_assassin_scope
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_variable = new_wei_ruler_zhao_flag
+			}
+			save_scope_as = new_wei_ruler
+		}
+		root.current_ruler = {
+			random_friend = {
+				limit = {
+					has_variable = zhou_assassin_in_wei
+				}
+				save_scope_as = zhou_assassin_scope
+			}
+		}
+	}
+
+    option = {
+        name = "me_zhou_5.a"
+		
+		if = {
+			limit = {
+				c:WEI = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = WEI
+					type = feudatory
+				}
+			}
+			c:WEI.current_ruler = {
+				death = {
+					killer = scope:new_wei_ruler
+					death_reason = death_assassinated
+				}
+			}
+			c:WEI = {
+				set_as_ruler = scope:new_wei_ruler
+				add_opinion = {
+					modifier = zhou_secured_wei_throne
+					target = ROOT
+				}
+				reverse_add_opinion = {
+					modifier = zhou_secured_wei_throne
+					target = ROOT
+				}
+				add_country_modifier = {
+					name = loyalty_to_zhou
+					duration = 10950
+				}
+			}
+		}
+    }
+}
+
+me_zhou.500 = {
+    type = country_event
+
+    title = me_zhou_500_title
+    desc = me_zhou_500_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:new_wei_ruler
+	right_portrait = c:WEI.current_ruler
+	right_portrait = scope:zhou_assassin_scope
+
+	immediate = {
+		trigger_event = {
+			id = me_zhou.501
+			days = 30
+		}
+		random_character = {
+			limit = {
+				is_female = no
+				has_trait = zhou_bloodline
+				age >= 16
+				is_ruler = no
+				is_primary_heir = no
+			}
+			set_variable = {
+				name = new_wei_ruler_zhao_flag
+				days = 365
+			}
+			save_scope_as = new_wei_ruler
+		}
+		root.current_ruler = {
+			random_friend = {
+				limit = {
+					employer = c:WEI
+					NOR = {
+						is_ruler = yes
+						is_close_relative = c:WEI.current_ruler
+						is_spouse_of = c:WEI.current_ruler
+						trigger_if = {
+							limit = {
+								employer = {
+									is_tribal = yes
+								}
+							}
+							has_office = office_bodyguard
+						}
+						trigger_if = {
+							limit = {
+								employer = {
+									is_monarchy = yes
+								}
+							}
+							has_office = office_master_of_the_guard
+						}
+					}
+				}
+				set_variable = {
+					name = zhou_assassin_in_wei
+					days = 365
+				}
+				save_scope_as = zhou_assassin_scope
+			}
+		}
+	}
+
+    option = {
+        name = "me_zhou_500.a"
+		add_political_influence = -100
+		add_treasury = -250
+    }
+}
+
+me_zhou.501 = {
+    type = country_event
+
+    title = me_zhou_501_title
+    desc = me_zhou_501_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:new_wei_ruler
+	right_portrait = c:WEI.current_ruler
+	right_portrait = scope:zhou_assassin_scope
+
+	immediate = {
+		trigger_event = {
+			id = me_zhou.502
+			days = 30
+		}
+		random_character = {
+			limit = {
+				has_variable = new_wei_ruler_zhao_flag
+			}
+			save_scope_as = new_wei_ruler
+		}
+		root.current_ruler = {
+			random_friend = {
+				limit = {
+					has_variable = zhou_assassin_in_wei
+				}
+				save_scope_as = zhou_assassin_scope
+			}
+		}
+	}
+
+    option = {
+        name = "me_zhou_501.a"
+    }
+}
+
+me_zhou.502 = {
+    type = country_event
+
+    title = me_zhou_502_title
+    desc = me_zhou_502_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:new_wei_ruler
+	right_portrait = c:WEI.current_ruler
+	right_portrait = scope:zhou_assassin_scope
+
+	immediate = {
+		trigger_event = {
+			id = me_zhou.503
+			days = 30
+		}
+		random_character = {
+			limit = {
+				has_variable = new_wei_ruler_zhao_flag
+			}
+			save_scope_as = new_wei_ruler
+		}
+		root.current_ruler = {
+			random_friend = {
+				limit = {
+					has_variable = zhou_assassin_in_wei
+				}
+				save_scope_as = zhou_assassin_scope
+			}
+		}
+	}
+
+    option = {
+        name = "me_zhou_502.a"
+    }
+}
+
+me_zhou.503 = {
+    type = country_event
+
+    title = me_zhou_503_title
+    desc = me_zhou_503_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:new_wei_ruler
+	right_portrait = c:WEI.current_ruler
+	right_portrait = scope:zhou_assassin_scope
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_variable = new_wei_ruler_zhao_flag
+			}
+			save_scope_as = new_wei_ruler
+		}
+		root.current_ruler = {
+			random_friend = {
+				limit = {
+					has_variable = zhou_assassin_in_wei
+				}
+				save_scope_as = zhou_assassin_scope
+			}
+		}
+	}
+
+    option = {
+        name = "me_zhou_503.a"
+    }
+}
+
+me_zhou.6 = {
+    type = country_event
+
+    title = me_zhou_6_title
+    desc = me_zhou_6_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:zhou_challenger_for_zhao
+	right_portrait = c:ZHA.current_ruler
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_variable = zhou_challenger_for_zhao_flag
+			}
+			save_scope_as = zhou_challenger_for_zhao
+		}
+	}
+
+    option = {
+        name = "me_zhou_6.a"
+		if = {
+			limit = {
+				c:ZHA = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = ZHA
+					type = feudatory
+				}
+			}
+			c:ZHA.current_ruler = {
+				death = {
+					killer = scope:zhou_challenger_for_zhao
+					death_reason = death_tribal_duel
+				}
+			}
+			c:ZHA = {
+				set_as_ruler = scope:zhou_challenger_for_zhao
+				add_opinion = {
+					modifier = zhou_claimed_zhao_throne
+					target = ROOT
+				}
+				reverse_add_opinion = {
+					modifier = zhou_claimed_zhao_throne
+					target = ROOT
+				}
+				add_country_modifier = {
+					name = loyalty_to_zhou
+					duration = 10950
+				}
+				trigger_event = me_zhou.605
+			}
+		}
+    }
+}
+
+me_zhou.600 = {
+    type = country_event
+
+    title = me_zhou_600_title
+    desc = me_zhou_600_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:zhou_challenger_for_zhao
+	right_portrait = c:ZHA.current_ruler
+
+	immediate = {
+		trigger_event = {
+			id = me_zhou.601
+			days = 30
+		}
+		random_character = {
+			limit = {
+				is_female = no
+				martial >= 1
+				has_trait = zhou_bloodline
+				age >= 16
+				is_ruler = no
+				is_primary_heir = no
+			}
+			set_variable = {
+				name = zhou_challenger_for_zhao_flag
+				days = 365
+			}
+			save_scope_as = zhou_challenger_for_zhao
+		}
+	}
+
+    option = {
+        name = "me_zhou_600.a"
+		add_treasury = -500
+		scope:zhou_challenger_for_zhao = {
+			add_character_modifier = {
+				name = dueling_equipment
+				duration = 3650
+			}
+		}
+    }
+	option = {
+        name = "me_zhou_600.b"
+		add_treasury = -1000
+		scope:zhou_challenger_for_zhao = {
+			add_character_modifier = {
+				name = best_dueling_equipment
+				duration = 7300
+			}
+		}
+    }
+}
+
+me_zhou.601 = {
+    type = country_event
+
+    title = me_zhou_601_title
+    desc = me_zhou_601_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:zhou_challenger_for_zhao
+	right_portrait = c:ZHA.current_ruler
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_variable = zhou_challenger_for_zhao_flag
+			}
+			save_scope_as = zhou_challenger_for_zhao
+		}
+	}
+
+    option = {
+        name = "me_zhou_601.a"
+		trigger_event = {
+			id = me_zhou.602
+			days = 30
+		}
+		add_military_experience = -20
+    }
+	option = {
+        name = "me_zhou_600.b"
+		trigger_event = {
+			id = me_zhou.603
+			days = 30
+		}
+		add_military_experience = -40
+    }
+}
+
+me_zhou.602 = {
+    type = country_event
+
+    title = me_zhou_602_title
+    desc = me_zhou_602_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:zhou_challenger_for_zhao
+	right_portrait = c:ZHA.current_ruler
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_variable = zhou_challenger_for_zhao_flag
+			}
+			save_scope_as = zhou_challenger_for_zhao
+		}
+	}
+
+    option = {
+        name = "me_zhou_602.a"
+		scope:zhou_challenger_for_zhao = {
+			add_martial = 1
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					scope:zhou_challenger_for_zhao = {
+						martial >= 18
+					}
+				}
+				trigger_event = {
+					id = me_zhou.6
+					days = 25
+				}
+			}
+			else_if = {
+				limit = {
+					scope:zhou_challenger_for_zhao = {
+						martial >= 16
+					}
+				}
+				random_list = {
+					90 = {
+						trigger_event = {
+							id = me_zhou.6
+							days = 25
+						}
+					}
+					10 = {
+						trigger_event = {
+							id = me_zhou.604
+							days = 25
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					scope:zhou_challenger_for_zhao = {
+						martial >= 14
+					}
+				}
+				random_list = {
+					70 = {
+						trigger_event = {
+							id = me_zhou.6
+							days = 25
+						}
+					}
+					30 = {
+						trigger_event = {
+							id = me_zhou.604
+							days = 25
+						}
+					}
+				}
+			}
+			else = {
+				random_list = {
+					50 = {
+						trigger_event = {
+							id = me_zhou.6
+							days = 25
+						}
+					}
+					50 = {
+						trigger_event = {
+							id = me_zhou.604
+							days = 25
+						}
+					}
+				}
+			}
+		}
+    }
+}
+
+me_zhou.603 = {
+    type = country_event
+
+    title = me_zhou_603_title
+    desc = me_zhou_603_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:zhou_challenger_for_zhao
+	right_portrait = c:ZHA.current_ruler
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_variable = zhou_challenger_for_zhao_flag
+			}
+			save_scope_as = zhou_challenger_for_zhao
+		}
+	}
+
+    option = {
+        name = "me_zhou_603.a"
+		scope:zhou_challenger_for_zhao = {
+			add_martial = 3
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					scope:zhou_challenger_for_zhao = {
+						martial >= 18
+					}
+				}
+				trigger_event = {
+					id = me_zhou.6
+					days = 25
+				}
+			}
+			else_if = {
+				limit = {
+					scope:zhou_challenger_for_zhao = {
+						martial >= 16
+					}
+				}
+				random_list = {
+					90 = {
+						trigger_event = {
+							id = me_zhou.6
+							days = 25
+						}
+					}
+					10 = {
+						trigger_event = {
+							id = me_zhou.604
+							days = 25
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					scope:zhou_challenger_for_zhao = {
+						martial >= 14
+					}
+				}
+				random_list = {
+					70 = {
+						trigger_event = {
+							id = me_zhou.6
+							days = 25
+						}
+					}
+					30 = {
+						trigger_event = {
+							id = me_zhou.604
+							days = 25
+						}
+					}
+				}
+			}
+			else = {
+				random_list = {
+					50 = {
+						trigger_event = {
+							id = me_zhou.6
+							days = 25
+						}
+					}
+					50 = {
+						trigger_event = {
+							id = me_zhou.604
+							days = 25
+						}
+					}
+				}
+			}
+		}
+    }
+}
+
+me_zhou.604 = {
+    type = country_event
+
+    title = me_zhou_604_title
+    desc = me_zhou_604_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:zhou_challenger_for_zhao
+	right_portrait = c:ZHA.current_ruler
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_variable = zhou_challenger_for_zhao_flag
+			}
+			save_scope_as = zhou_challenger_for_zhao
+		}
+	}
+
+    option = {
+        name = "me_zhou_604.a"
+		scope:zhou_challenger_for_zhao = {
+			death = {
+				killer = c:ZHA.current_ruler
+				death_reason = death_tribal_duel
+			}
+		}
+		custom_tooltip = zhou_missions_task_6_claims_2
+		hidden_effect = {
+			c:ZHA = {
+				every_owned_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+}
+
+me_zhou.605 = {
+    type = country_event
+
+    title = me_zhou_605_title
+    desc = me_zhou_605_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:ZHO.current_ruler
+
+    option = {
+        name = "me_zhou_605.a"
+    }
+}
+
+me_zhou.7 = {
+    type = country_event
+
+    title = me_zhou_7_title
+    desc = me_zhou_7_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_7.a"
+		custom_tooltip = zhou_missions_task_7_claims
+    }
+}
+
+me_zhou.8 = {
+    type = country_event
+
+    title = me_zhou_8_title
+    desc = me_zhou_8_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_8.a"
+		custom_tooltip = zhou_missions_task_8_claims
+    }
+}
+
+me_zhou.9 = {
+    type = country_event
+
+    title = me_zhou_9_title
+    desc = me_zhou_9_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_9.a"
+		add_country_modifier = {
+			name = restoration_of_jin
+			duration = 10950
+		}
+		add_3_free_province_investments = yes
+    }
+	option = {
+        name = "me_zhou_9.b"
+		trigger = {
+			c:HAN = { is_subject_of = root }
+			c:WEI = { is_subject_of = root }
+			c:ZHA = { is_subject_of = root }
+		}
+		hidden_effect = {
+			c:WEI = {
+				every_owned_province = {
+					set_conquered_by = c:HAN
+				}
+			}
+			c:ZHA = {
+				every_owned_province = {
+					set_conquered_by = c:HAN
+				}
+			}
+		}
+		c:HAN = {
+			change_country_name = "JIN_NAME"
+			hidden_effect = {
+				change_country_adjective = "JIN_ADJ"
+				change_country_color = "jin_color"
+				change_country_tag = JIN
+				change_country_flag = JIN
+			}
+			capital_scope = {
+				capital_formable_medium_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			add_3_free_province_investments = yes
+		}
+		add_country_modifier = {
+			name = restoration_of_jin
+			duration = 10950
+		}
+    }
+	option = {
+        name = "me_zhou_9.c"
+		trigger = {
+			c:HAN = { is_subject_of = root }
+			c:WEI = { is_subject_of = root }
+			c:ZHA = { is_subject_of = root }
+		}
+		hidden_effect = {
+			c:HAN = {
+				every_owned_province = {
+					set_conquered_by = c:WEI
+				}
+			}
+			c:ZHA = {
+				every_owned_province = {
+					set_conquered_by = c:WEI
+				}
+			}
+		}
+		c:WEI = {
+			change_country_name = "JIN_NAME"
+			hidden_effect = {
+				change_country_adjective = "JIN_ADJ"
+				change_country_color = "jin_color"
+				change_country_tag = JIN
+				change_country_flag = JIN
+			}
+			capital_scope = {
+				capital_formable_medium_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			add_3_free_province_investments = yes
+		}
+		add_country_modifier = {
+			name = restoration_of_jin
+			duration = 10950
+		}
+    }
+	option = {
+        name = "me_zhou_9.d"
+		trigger = {
+			c:HAN = { is_subject_of = root }
+			c:WEI = { is_subject_of = root }
+			c:ZHA = { is_subject_of = root }
+		}
+		hidden_effect = {
+			c:WEI = {
+				every_owned_province = {
+					set_conquered_by = c:ZHA
+				}
+			}
+			c:ZHA = {
+				every_owned_province = {
+					set_conquered_by = c:ZHA
+				}
+			}
+		}
+		c:ZHA = {
+			change_country_name = "JIN_NAME"
+			hidden_effect = {
+				change_country_adjective = "JIN_ADJ"
+				change_country_color = "jin_color"
+				change_country_tag = JIN
+				change_country_flag = JIN
+			}
+			capital_scope = {
+				capital_formable_medium_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			add_3_free_province_investments = yes
+		}
+		add_country_modifier = {
+			name = restoration_of_jin
+			duration = 10950
+		}
+    }
+	option = {
+        name = "me_zhou_9.e"
+		trigger = {
+			OR = {
+				c:HAN = { has_land = no}
+				c:WEI = { has_land = no}
+				c:ZHA = { has_land = no}
+			}
+		}
+		hidden_effect = {
+			c:WEI = {
+				every_owned_province = {
+					set_conquered_by = c:ZHA
+				}
+			}
+			c:ZHA = {
+				every_owned_province = {
+					set_conquered_by = c:ZHA
+				}
+			}
+		}
+		p:8636 = {
+			create_country = {
+				name = {
+					name = "JIN_NAME"
+				}
+				save_scope_as = jin_country
+				hidden_effect = {
+					change_country_adjective = "JIN_ADJ"
+					change_country_color = "jin_color"
+					change_country_tag = JIN
+					change_country_flag = JIN
+					set_primary_culture = root.culture
+					set_country_religion = chinese_religions
+					change_government = aristocratic_monarchy
+				}
+			}
+		}
+		make_subject {
+			target = scope:jin_country
+			type = feudatory
+		}
+		hidden_effect = {
+			area:henei_area = {
+				every_area_province = {
+					set_conquered_by = scope:jin_country
+				}
+			}
+			area:taiyuan_area = {
+				every_area_province = {
+					set_conquered_by = scope:jin_country
+				}
+			}
+			area:shangdang_area = {
+				every_area_province = {
+					set_conquered_by = scope:jin_country
+				}
+			}
+			area:hedong_area = {
+				every_area_province = {
+					set_conquered_by = scope:jin_country
+				}
+			}
+		}
+		add_country_modifier = {
+			name = restoration_of_jin
+			duration = 10950
+		}
+    }
+}
+
+me_zhou.10 = {
+    type = country_event
+
+    title = me_zhou_10_title
+    desc = me_zhou_10_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_10.a"
+		custom_tooltip = zhou_missions_task_10_claims
+    }
+}
+
+me_zhou.11 = {
+    type = country_event
+
+    title = me_zhou_11_title
+    desc = me_zhou_11_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_11.a"
+        custom_tooltip = zhou_missions_task_11_claims
+    }
+}
+
+me_zhou.12 = {
+    type = country_event
+
+    title = me_zhou_12_title
+    desc = me_zhou_12_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_12.a"
+		add_stability = 10
+		add_manpower = 20
+    }
+}
+
+me_zhou.13 = {
+    type = country_event
+
+    title = me_zhou_13_title
+    desc = me_zhou_13_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_13.a"
+		add_military_experience = 20
+		add_political_influence = 100
+    }
+}
+
+me_zhou.14 = {
+    type = country_event
+
+    title = me_zhou_14_title
+    desc = me_zhou_14_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_14.a" #Bronze treasury of Yan
+		add_treasury = 500
+		random_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = zhuo_area
+					is_in_area = yuyang_area
+					is_in_area = bohai_area
+					is_in_area = shanggu_area
+				}
+				has_city_status = no
+				free_building_slots >= 1
+				trade_goods = iron
+				NOT = { has_building = slave_mine_building }
+			}
+			add_building_level = slave_mine_building
+		}
+		random_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = zhuo_area
+					is_in_area = yuyang_area
+					is_in_area = bohai_area
+					is_in_area = shanggu_area
+				}
+				has_city_status = no
+				free_building_slots >= 1
+				trade_goods = base_metals
+				NOT = { has_building = slave_mine_building }
+			}
+			add_building_level = slave_mine_building
+		}
+    }
+}
+
+me_zhou.15 = {
+    type = country_event
+
+    title = me_zhou_15_title
+    desc = me_zhou_15_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_15.a"
+		add_innovation = 3
+    }
+}
+
+me_zhou.16 = {
+    type = country_event
+
+    title = me_zhou_16_title
+    desc = me_zhou_16_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_16.a"
+		add_country_modifier = {
+			name = zhou_agriculture_mod
+			duration = 7300
+		}
+    }
+}
+
+me_zhou.17 = {
+    type = country_event
+
+    title = me_zhou_17_title
+    desc = me_zhou_17_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_17.a"
+		add_country_modifier = {
+			name = zhou_inspected_country
+			duration = 7300
+		}
+    }
+}
+
+me_zhou.1700 = {
+    type = country_event
+
+    title = me_zhou_1700_title
+    desc = me_zhou_1700_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:inspecting_officer
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_foreign_minister
+			}
+			save_scope_as = inspecting_officer
+		}
+	}
+
+    option = {
+        name = "me_zhou_1700.a"
+		add_political_influence = 10
+    }
+	option = {
+		trigger = {
+			any_owned_province = {
+				any_pops_in_province = {
+					pop_type = nobles
+				}
+				NOT = {
+					has_province_modifier = zhou_inspection_nobles
+				}
+			}
+		}
+        name = "me_zhou_1700.b"
+		add_political_influence = 20
+		random_owned_province = {
+			limit = {
+				any_pops_in_province = {
+					pop_type = nobles
+				}
+				NOT = {
+					has_province_modifier = zhou_inspection_nobles
+				}
+			}
+			add_province_modifier = {
+				name = zhou_inspection_nobles
+				duration = 3650
+			}
+		}
+		scope:inspecting_officer = {
+			add_charisma = 1
+		}
+    }
+}
+
+me_zhou.1701 = {
+    type = country_event
+
+    title = me_zhou_1701_title
+    desc = me_zhou_1701_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:inspecting_officer
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_marshal
+			}
+			save_scope_as = inspecting_officer
+		}
+	}
+
+
+    option = {
+        name = "me_zhou_1701.a"
+		add_manpower = 5
+    }
+	option = {
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_building = military_building
+					num_of_freemen >= 5
+				}
+				NOT = {
+					has_province_modifier = zhou_inspection_mil
+				}
+			}
+		}
+        name = "me_zhou_1701.b"
+		add_manpower = 10
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_building = military_building
+					num_of_freemen >= 5
+				}
+				NOT = {
+					has_province_modifier = zhou_inspection_mil
+				}
+			}
+			add_province_modifier = {
+				name = zhou_inspection_mil
+				duration = 3650
+			}
+		}
+		scope:inspecting_officer = {
+			add_martial = 1
+		}
+    }
+}
+
+me_zhou.1702 = {
+    type = country_event
+
+    title = me_zhou_1702_title
+    desc = me_zhou_1702_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:inspecting_officer
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_philosopher
+			}
+			save_scope_as = inspecting_officer
+		}
+	}
+
+
+    option = {
+        name = "me_zhou_1702.a"
+		random_list = {
+			25 = {
+				add_research = {
+					technology = oratory_tech
+					value = 2.5
+				}
+			}
+			25 = {
+				add_research = {
+					technology = religious_tech
+					value = 2.5
+				}
+			}
+			25 = {
+				add_research = {
+					technology = military_tech
+					value = 2.5
+				}
+			}
+			25 = {
+				add_research = {
+					technology = civic_tech
+					value = 2.5
+				}
+			}
+		}
+    }
+	option = {
+		trigger = {
+			any_owned_province = {
+				num_of_citizen >= 3
+				NOT = {
+					has_province_modifier = zhou_inspection_citizen
+				}
+			}
+		}
+        name = "me_zhou_1702.b"
+		random_list = {
+			25 = {
+				add_research = {
+					technology = oratory_tech
+					value = 5
+				}
+			}
+			25 = {
+				add_research = {
+					technology = religious_tech
+					value = 5
+				}
+			}
+			25 = {
+				add_research = {
+					technology = military_tech
+					value = 5
+				}
+			}
+			25 = {
+				add_research = {
+					technology = civic_tech
+					value = 5
+				}
+			}
+		}
+		random_owned_province = {
+			limit = {
+				num_of_citizen >= 3
+				NOT = {
+					has_province_modifier = zhou_inspection_citizen
+				}
+			}
+			add_province_modifier = {
+				name = "zhou_inspection_citizen"
+				duration = 3650
+			}
+		}
+		scope:inspecting_officer = {
+			add_zeal = 1
+		}
+    }
+}
+
+me_zhou.1703 = {
+    type = country_event
+
+    title = me_zhou_1703_title
+    desc = me_zhou_1703_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:inspecting_officer
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_steward
+			}
+			save_scope_as = inspecting_officer
+		}
+	}
+
+
+    option = {
+        name = "me_zhou_1703.a"
+		add_treasury = 100
+    }
+	option = {
+		trigger = {
+			any_owned_province = {
+				OR = {
+					has_building = town_hall_building
+					total_population >= 30
+				}
+				NOT = {
+					has_province_modifier = zhou_inspection_tax
+				}
+			}
+		}
+        name = "me_zhou_1703.b"
+		add_treasury = 200
+		random_owned_province = {
+			limit = {
+				OR = {
+					has_building = town_hall_building
+					total_population >= 30
+				}
+				NOT = {
+					has_province_modifier = zhou_inspection_tax
+				}
+			}
+			add_province_modifier = {
+				name = zhou_inspection_tax
+				duration = 3650
+			}
+		}
+		scope:inspecting_officer = {
+			add_finesse = 1
+		}
+    }
+}
+
+me_zhou.18 = {
+    type = country_event
+
+    title = me_zhou_18_title
+    desc = me_zhou_18_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_18.a"
+		add_country_modifier = {
+			name = unified_laws
+			duration = -1
+		}
+    }
+}
+
+me_zhou.19 = {
+    type = country_event
+
+    title = me_zhou_19_title
+    desc = me_zhou_19_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_19.a"
+		add_country_modifier = {
+			name = unified_currency_measure
+			duration = -1
+		}
+    }
+}
+
+me_zhou.1900 = {
+    type = country_event
+
+    title = me_zhou_1900_title
+    desc = me_zhou_1900_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { #it's all about the money, money
+        name = "me_zhou_1900.a"
+		add_treasury = {
+			add = root.has_monthly_income
+			multiply = 4
+		}
+    }
+}
+
+me_zhou.1901 = {
+    type = country_event
+
+    title = me_zhou_1901_title
+    desc = me_zhou_1901_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { #convinced official
+        name = "me_zhou_1901.a"
+		random_character = {
+			limit = {
+				OR = {
+					has_any_office = yes
+					is_governor = yes
+					has_tech_office = yes
+				}
+				NOT = {
+					has_trait = honest
+				}
+			}
+			remove_trait = deceitful
+			force_add_trait = honest
+		}
+    }
+}
+
+me_zhou.1902 = {
+    type = country_event
+
+    title = me_zhou_1902_title
+    desc = me_zhou_1902_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { #wrong coins
+        name = "me_zhou_1902.a"
+		add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 4
+		}
+    }
+}
+
+me_zhou.1903 = {
+    type = country_event
+
+    title = me_zhou_1903_title
+    desc = me_zhou_1903_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { #unpopular measures
+        name = "me_zhou_1903.a"
+		current_ruler = {
+			add_popularity = -10
+		}
+    }
+}
+
+me_zhou.20 = {
+    type = country_event
+
+    title = me_zhou_20_title
+    desc = me_zhou_20_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_20.a"
+		add_country_modifier = {
+			name = "zhou_decentralised_rule"
+			duration = -1
+		}
+    }
+	option = {
+        name = "me_zhou_20.b"
+		custom_tooltip = me_zhou_20_annex_all
+		hidden_effect = {
+			every_subject = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							is_in_region = bing_region
+							is_in_region = you_region
+							is_in_region = yu_region
+							is_in_region = qing_region
+							is_in_region = yang_region
+							is_in_region = yong_region
+							is_in_region = xu_region
+							is_in_region = jing_region
+							is_in_region = ji_region
+							is_in_region = yi_region
+						}
+					}
+					add_province_modifier = {
+						name = zhou_upset_locals_mod
+						duration = 7300
+					}
+					set_owned_by = root
+				}
+			}
+		}
+    }
+}
+
+me_zhou.2000 = {
+    type = country_event
+
+    title = me_zhou_2000_title
+    desc = me_zhou_2000_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { #preparations
+        name = "me_zhou_2000.a"
+    }
+}
+
+me_zhou.2001 = {
+    type = country_event
+
+    title = me_zhou_2001_title
+    desc = me_zhou_2001_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_2001.a"
+		add_country_modifier = {
+			name = zhou_sided_with_centre
+			duration = 3650
+		}
+    }
+	option = {
+        name = "me_zhou_2001.a"
+		add_country_modifier = {
+			name = zhou_sided_with_regions
+			duration = 3650
+		}
+    }
+}
+
+me_zhou.2002 = {
+    type = country_event
+
+    title = me_zhou_2002_title
+    desc = me_zhou_2002_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_2002.a"
+		add_political_influence = 25
+		add_tyranny = 5
+    }
+	option = {
+        name = "me_zhou_2002.a"
+		add_political_influence = -25
+		add_tyranny = -5
+    }
+}
+
+me_zhou.2003 = {
+    type = country_event
+
+    title = me_zhou_2003_title
+    desc = me_zhou_2003_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhou_2003.a"
+		current_ruler = {
+			add_trait = orator
+		}
+    }
+}
+
+me_zhou.21 = {
+    type = country_event
+
+    title = me_zhou_21_title
+    desc = me_zhou_21_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:536
+
+    option = {
+        name = "me_zhou_21.a"
+		change_government = chinese_empire
+		add_country_modifier = {
+			name = sons_of_heaven_zhou_mod
+			duration = -1
+		}
+		add_country_modifier = {
+			name = formable_country_huge_modifier_china
+			duration = 7600
+		}
+		capital_scope = {
+			capital_formable_large_effect = yes
+			formable_capital_modifier_large_effect = yes
+		}
+		add_4_free_province_investments = yes
+		trigger_event = chinese_flavor.2
+    }
+}
+
+me_zhou.90 = {
+    type = country_event
+
+    title = me_zhou_90_title
+    desc = me_zhou_90_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = char:536
+	right_portrait = c:EZO.current_ruler
+	right_portrait = c:WZO.current_ruler
+
+    option = {
+        name = "me_zhou_90.a"
+		if = {
+			limit = {
+				c:EZO = {
+					has_land = yes
+				}
+				NOT = {
+					owns = 8379
+					owns = 8380
+					owns = 8381
+				}
+			}
+			current_ruler = {
+				add_rival = c:EZO.current_ruler
+			}
+		}
+		if = {
+			limit = {
+				c:WZO = {
+					has_land = yes
+				}
+				NOT = {
+					owns = 8379
+					owns = 8380
+					owns = 8381
+				}
+			}
+			current_ruler = {
+				add_rival = c:WZO.current_ruler
+			}
+		}
+		p:8381 = {
+			add_claim = root
+		}
+		p:8380 = {
+			add_claim = root
+		}
+		p:8379 = {
+			add_claim = root
+		}
+    }
+}
