@@ -1,0 +1,51 @@
+﻿country_decisions = {
+	form_lu = {
+		
+		potential = {
+			num_of_cities >= 1
+			tag = BII
+
+		}
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 8533
+					province_id = 8535
+				}
+			}
+		}
+		
+		allow = {
+			can_form_nation_trigger = yes
+			owns = 8533
+			owns = 8535
+			c:LUU = {
+				has_land = no
+			}
+		}
+		
+		effect = {
+			custom_tooltip = "tier_1_formable_tooltip"
+			trigger_event = ti_nation_formation_events.2
+			show_as_tooltip = {
+				change_country_name = "LUU"
+				hidden_effect = {
+					change_country_adjective = "LUU_ADJ"
+					change_country_tag = LUU
+				}
+			}
+			set_capital = p:8533
+			add_1_free_province_investments = yes
+			add_country_modifier = {
+				name = revenge_of_last_huanen
+				duration = -1
+			}
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+}
