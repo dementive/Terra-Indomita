@@ -1289,7 +1289,20 @@ lifestyle_event_chains.29  = {
     picture = senator_conversing    
 	left_portrait = root.current_ruler
 	right_portrait = root.current_ruler.spouse
-
+	left_portrait = scope:guard_of_ruler
+	
+	immediate = {
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_master_of_the_guard
+					has_office = office_bodyguard
+					has_office = office_tribune_of_the_soldiers
+				}
+			}
+			save_scope_as = guard_of_ruler
+		}
+	}
     option = {
         name = "lifestyle_event_chains.29.a"
 		hidden_effect = {
@@ -1446,7 +1459,7 @@ lifestyle_event_chains.31  = {
     }
 }
 
-lifestyle_event_chains.32  = {
+lifestyle_event_chains.32  = {#arrested servant - correct
     type = country_event
 
     title = lifestyle_event_chains.32.t
@@ -1469,7 +1482,7 @@ lifestyle_event_chains.32  = {
 		}
 	}
 
-    option = { #arrest servant
+    option = { 
         name = "lifestyle_event_chains.32.a"
 		current_ruler = {
 			add_focus_perk = {
@@ -1487,7 +1500,7 @@ lifestyle_event_chains.32  = {
     }
 }
 
-lifestyle_event_chains.33  = {
+lifestyle_event_chains.33  = {#wrongfully imprisoned cooks wife
     type = country_event
 
     title = lifestyle_event_chains.33.t
@@ -1510,7 +1523,7 @@ lifestyle_event_chains.33  = {
 		}
 	}
 
-    option = { #arrest servant
+    option = { 
         name = "lifestyle_event_chains.33.a"
 		current_ruler = {
 			add_focus_experience = {
@@ -1523,7 +1536,7 @@ lifestyle_event_chains.33  = {
     }
 }
 
-lifestyle_event_chains.34  = {
+lifestyle_event_chains.34  = {#slave wrongfully imrisoned
     type = country_event
 
     title = lifestyle_event_chains.34.t
@@ -1559,7 +1572,7 @@ lifestyle_event_chains.34  = {
     }
 }
 
-lifestyle_event_chains.35  = {
+lifestyle_event_chains.35  = {#cooks wife confessed
     type = country_event
 
     title = lifestyle_event_chains.35.t
