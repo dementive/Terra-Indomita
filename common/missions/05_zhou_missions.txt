@@ -1,0 +1,912 @@
+﻿zhou_missions = {
+	header = "mission_image_china"
+    icon = "seleukid_1"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+		tag = ZHO
+		is_subject = no
+        has_civil_war = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_zhou.90
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+
+	on_completion = {
+        complete_mission_effect = yes
+    }
+
+    zhou_missions_task_1 = { #End the Depression
+        icon = "task_political"
+
+        allow = {
+			current_ruler = {
+				is_married = yes
+			}
+			diplomatic_stance = vassaling_stance
+			political_influence >= 50
+			legitimacy >= 95
+			current_ruler = {
+				custom_tooltip = {
+                    text = does_not_have_assert_authority_tt
+                    has_variable = assert_authority_var
+                }
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.1
+            show_as_tooltip = {
+				add_political_influence = -50
+				current_ruler = {
+					add_trait = ambitious
+					remove_trait = depressed
+				}
+            }
+        }
+    }
+
+    zhou_missions_task_2 = { #One Zhou, two Graves
+        icon = "task_political"
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					province_id = 8381
+					province_id = 8380
+					province_id = 8379
+				}
+            }
+        }
+
+        allow = {
+			owns = 8381
+			owns = 8380
+			owns = 8379
+			c:WZO = {
+				has_land = no
+			}
+			c:EZO = {
+				has_land = no
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.2
+            show_as_tooltip = {
+				add_legitimacy = 20
+				add_political_influence = 25
+            }
+            custom_tooltip = zhou_missions_task_2_claims
+			hidden_effect = {
+				area:nanyang_area = { mission_area_claim_effect = yes }
+				area:runan_area = { mission_area_claim_effect = yes }
+				area:yingchuan_area = { mission_area_claim_effect = yes }
+				area:henan_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    zhou_missions_task_3 = { #Sway the Han
+        icon = "task_political"
+		requires = { zhou_missions_task_1 zhou_missions_task_2 }
+		duration = 30
+
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:HAN
+			}
+		}
+
+		bypass = {
+			OR = {
+				c:HAN = {
+					has_land = no
+				}
+				c:HAN = { is_subject_of = root }
+			}
+		}
+
+        allow = {
+			political_influence >= 75
+			war = no
+			trigger_if = {
+                limit = {
+                    c:HAN = {
+						has_land = yes
+					}
+                }
+				current_ruler = {
+					is_friend = c:HAN.current_ruler
+				}
+			}
+			any_character = {
+				is_female = yes
+				is_married = no
+				age >= 16
+				age <= 35
+				has_trait = zhou_bloodline
+			}
+		}
+
+		on_start = {
+			trigger_event = me_zhou.300
+			show_as_tooltip = {
+				add_political_influence = -75
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.3
+            show_as_tooltip = {
+				if = {
+					limit = {
+						c:HAN = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = HAN
+							type = feudatory
+						}
+					}
+				}
+            }
+        }
+    }
+
+    zhou_missions_task_4 = { #Punish Chu
+        icon = "task_political"
+		requires = { zhou_missions_task_1 zhou_missions_task_2 }
+
+		highlight = {
+			 scope:province = {
+                OR =  {
+					is_in_area = nanyang_area
+					is_in_area = runan_area
+					is_in_area = yingchuan_area
+					is_in_area = henan_area
+				}
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 10
+				OR = {
+					is_in_area = nanyang_area
+					is_in_area = runan_area
+					is_in_area = yingchuan_area
+					is_in_area = henan_area
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.4
+            custom_tooltip = zhou_missions_task_4_claims
+			hidden_effect = {
+				c:SNG = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    zhou_missions_task_5 = { #Control Wei
+        icon = "task_political"
+		requires = { zhou_missions_task_3 zhou_missions_task_4 }
+		duration = 120
+
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:WEI
+			}
+		}
+
+		bypass = {
+			OR = {
+				c:WEI = {
+					has_land = no
+				}
+				c:WEI = { is_subject_of = root }
+			}
+		}
+
+        allow = {
+			political_influence >= 100
+			treasury >= 250
+			war = no
+			any_character = {
+				is_female = no
+				has_trait = zhou_bloodline
+				age >= 16
+				is_ruler = no
+				is_primary_heir = no
+			}
+			trigger_if = {
+                limit = {
+                    c:WEI = {
+						has_land = yes
+					}
+                }
+				custom_tooltip = {
+					text = zhou_employer_is_target_employer_tt
+					current_ruler = {
+						any_friend = {
+							employer = c:WEI
+							NOR = {
+								is_ruler = yes
+								is_close_relative = c:WEI.current_ruler
+								is_spouse_of = c:WEI.current_ruler
+								trigger_if = {
+									limit = {
+										employer = {
+											is_tribal = yes
+										}
+									}
+									has_office = office_bodyguard
+								}
+								trigger_if = {
+									limit = {
+										employer = {
+											is_monarchy = yes
+										}
+									}
+									has_office = office_master_of_the_guard
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		on_start = {
+			trigger_event = me_zhou.500
+			show_as_tooltip = {
+				add_political_influence = -100
+				add_treasury = -250
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.5
+            show_as_tooltip = {
+				if = {
+					limit = {
+						c:WEI = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = WEI
+							type = feudatory
+						}
+					}
+				}
+            }
+        }
+    }
+
+    zhou_missions_task_6 = { #Challenge Zhao
+        icon = "task_political"
+		requires = { zhou_missions_task_5 }
+		duration = 90
+
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:ZHA
+			}
+		}
+
+		bypass = {
+			OR = {
+				c:ZHA = {
+					has_land = no
+				}
+				c:ZHA = { is_subject_of = root }
+			}
+		}
+
+        allow = {
+			treasury >= 500
+			military_experience >= 20
+			war = no
+			any_character = {
+				is_female = no
+				martial >= 10
+				has_trait = zhou_bloodline
+				age >= 16
+				is_ruler = no
+				is_primary_heir = no
+			}
+			trigger_if = {
+                limit = {
+                    c:ZHA = {
+						has_land = yes
+					}
+                }
+				current_ruler = {
+					is_rival = c:ZHA.current_ruler
+				}
+			}
+		}
+
+		on_start = {
+			trigger_event = me_zhou.600
+			show_as_tooltip = {
+				add_military_experience = -20
+				add_treasury = -500
+			}
+		}
+
+        on_completion = {
+            #trigger_event = me_zhou.6
+			custom_tooltip = zhou_missions_task_6_challenge_zhao_for_throne
+            custom_tooltip = zhou_missions_task_6_claims
+			hidden_effect = {
+				area:xianyang_area = { mission_area_claim_effect = yes }
+				area:yueyang_area = { mission_area_claim_effect = yes }
+				area:changan_area = { mission_area_claim_effect = yes }
+				area:hongnong_area = { mission_area_claim_effect = yes }
+				area:tianshui_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    zhou_missions_task_7 = { #Subjugate Song
+        icon = "task_political"
+		requires = { zhou_missions_task_5 }
+
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:SNG
+			}
+		}
+
+        allow = {
+			OR = {
+				hidden:c:SNG= { is_subject_of = root }
+				AND = {
+					c:SNG = {
+						has_land = no
+					}
+					owns_or_subject_owns = 8433
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.7
+            custom_tooltip = zhou_missions_task_7_claims
+			hidden_effect = {
+				region:qing_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    zhou_missions_task_8 = { #Dismantle Chu
+        icon = "task_political"
+		requires = { zhou_missions_task_7 }
+
+		highlight = {
+			 scope:province = {
+                OR =  {
+					is_in_area = nan_area
+					is_in_area = yicheng_area
+					is_in_area = deng_area
+					is_in_area = jiangxia_area
+					is_in_area = lujiang_area
+					is_in_area = jiujiang_area
+					is_in_area = linhuai_area
+					is_in_area = guangling_area
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns_area = nan_area
+			owns_or_subject_owns_area = yicheng_area
+			owns_or_subject_owns_area = deng_area
+			owns_or_subject_owns_area = jiangxia_area
+			owns_or_subject_owns_area = lujiang_area
+			owns_or_subject_owns_area = jiujiang_area
+			owns_or_subject_owns_area = linhuai_area
+			owns_or_subject_owns_area = guangling_area
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.8
+            custom_tooltip = zhou_missions_task_8_claims
+			hidden_effect = {
+				c:CHU = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				region:ying_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    zhou_missions_task_9 = { #Unite Jin
+        icon = "task_political"
+		requires = { zhou_missions_task_6 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = henei_area
+					is_in_region = yu_region
+					is_in_region = yong_region
+					is_in_area = taiyuan_area
+					is_in_area = shangdang_area
+				}
+			}
+		}
+
+        allow = {
+			OR = {
+				AND = {
+					hidden:c:HAN = { is_subject_of = root }
+					hidden:c:WEI = { is_subject_of = root }
+					hidden:c:ZHA = { is_subject_of = root }
+				}
+				AND = {
+					owns_or_subject_owns_region = yu_region
+					owns_or_subject_owns_region = yong_region
+					owns_or_subject_owns_area = henei_area
+					owns_or_subject_owns_area = taiyuan_area
+					owns_or_subject_owns_area = shangdang_area
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.9
+            custom_tooltip = zhou_missions_task_9_decide_fate_of_jin
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = restoration_of_jin
+					duration = 10950
+				}
+			}
+        }
+    }
+
+    zhou_missions_task_10 = { #Curtail Qin
+        icon = "task_political"
+		requires = { zhou_missions_task_6 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = xianyang_area
+					is_in_area = yueyang_area
+					is_in_area = changan_area
+					is_in_area = hongnong_area
+					is_in_area = tianshui_area
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns_area = xianyang_area
+			owns_or_subject_owns_area = yueyang_area
+			owns_or_subject_owns_area = changan_area
+			owns_or_subject_owns_area = hongnong_area
+			owns_or_subject_owns_area = tianshui_area
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.10
+            custom_tooltip = zhou_missions_task_10_claims
+			hidden_effect = {
+				c:QIN = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				area:anding_area = { mission_area_claim_effect = yes }
+				area:beidi_area = { mission_area_claim_effect = yes }
+				area:wuwei_area = { mission_area_claim_effect = yes }
+				area:shang_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    zhou_missions_task_11 = { #Check the East
+        icon = "task_political"
+		requires = { zhou_missions_task_7 }
+
+		highlight = {
+			 scope:province = {
+                OR =  {
+					is_in_region = qing_region
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns_region = qing_region
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.11
+            custom_tooltip = zhou_missions_task_11_claims
+			hidden_effect = {
+				region:you_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    zhou_missions_task_12 = { #Yolking Yi
+        icon = "task_political"
+		requires = { zhou_missions_task_10 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = anding_area
+					is_in_area = beidi_area
+					is_in_area = wuwei_area
+					is_in_area = shang_area
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns_area = anding_area
+			owns_or_subject_owns_area = beidi_area
+			owns_or_subject_owns_area = wuwei_area
+			owns_or_subject_owns_area = shang_area
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.12
+            show_as_tooltip = {
+				add_stability = 10
+				add_manpower = 20
+            }
+        }
+    }
+
+    zhou_missions_task_13 = { #End the Qin
+        icon = "task_political"
+		requires = { zhou_missions_task_10 }
+
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:QIN
+			}
+		}
+
+        allow = {
+			c:QIN = {
+				has_land = no
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.13
+            show_as_tooltip = {
+				add_military_experience = 20
+				add_political_influence = 100
+            }
+        }
+    }
+
+    zhou_missions_task_14 = { #Yeet Yan
+        icon = "task_political"
+		requires = { zhou_missions_task_11 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = bohai_area
+					is_in_area = zhuo_area
+					is_in_area = yuyang_area
+					is_in_area = youbeiping_area
+					is_in_area = shanggu_area
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns_area = bohai_area
+			owns_or_subject_owns_area = zhuo_area
+			owns_or_subject_owns_area = yuyang_area
+			owns_or_subject_owns_area = youbeiping_area
+			owns_or_subject_owns_area = shanggu_area
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.14
+            show_as_tooltip = {
+				add_treasury = 500
+				random_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = zhuo_area
+							is_in_area = yuyang_area
+							is_in_area = bohai_area
+							is_in_area = shanggu_area
+						}
+						has_city_status = no
+						free_building_slots >= 1
+						trade_goods = iron
+						NOT = { has_building = slave_mine_building }
+					}
+					add_building_level = slave_mine_building
+				}
+				random_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = zhuo_area
+							is_in_area = yuyang_area
+							is_in_area = bohai_area
+							is_in_area = shanggu_area
+						}
+						has_city_status = no
+						free_building_slots >= 1
+						trade_goods = base_metals
+						NOT = { has_building = slave_mine_building }
+					}
+					add_building_level = slave_mine_building
+				}
+            }
+        }
+    }
+
+    zhou_missions_task_15 = { #Zhou Bureaucracy
+        icon = "task_political"
+		requires = { zhou_missions_task_2 }
+
+        allow = {
+			any_owned_province = {
+				count >= 3
+				has_building = court_building
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.15
+            show_as_tooltip = {
+				add_innovation = 3
+            }
+        }
+    }
+
+    zhou_missions_task_16 = { #Agricultural Advancements
+        icon = "task_political"
+		requires = { zhou_missions_task_3 zhou_missions_task_15 }
+
+        allow = {
+			civic_tech >= 4
+			any_owned_province = {
+				count >= 5
+				has_building = basic_settlement_infratructure_building
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.16
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = zhou_agriculture_mod
+					duration = 7300
+				}
+            }
+        }
+    }
+
+    zhou_missions_task_17 = { #Royal Inspectors
+        icon = "task_political"
+		requires = { zhou_missions_task_16 }
+		monthly_on_action = zhou_missions_task_17_monthly_pulse 
+		duration = 365
+
+		bypass = {
+			OR = {
+				is_tribal = yes
+				is_republic = yes
+			}
+		}
+
+        allow = {
+			num_of_cities >= 50
+			custom_tooltip = {
+				text = zhou_missions_task_17_officers_have_8_in_main_attribute
+				any_character = {
+					has_office = office_foreign_minister
+					charisma >= 8
+				}
+				any_character = {
+					has_office = office_marshal
+					martial >= 8
+				}
+				any_character = {
+					has_office = office_philosopher
+					zeal >= 8
+				}
+				any_character = {
+					has_office = office_steward
+					finesse >= 8
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.17
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = zhou_inspected_country
+					duration = 7300
+				}
+            }
+        }
+    }
+
+    zhou_missions_task_18 = { #Single Code of Law
+        icon = "task_political"
+		requires = { zhou_missions_task_17 }
+
+        allow = {
+			OR = {
+				has_law = increased_citizenship_quotas
+				has_law = established_courts_for_landholders
+			}
+			OR = {
+				has_law = scholarly_pursuits_law
+				has_law = royal_bureaucracy
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.18
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = unified_laws
+					duration = -1
+				}
+            }
+        }
+    }
+
+    zhou_missions_task_19 = { #Unified Currency and Measures
+        icon = "task_political"
+		requires = { zhou_missions_task_18 }
+		monthly_on_action = zhou_missions_task_19_monthly_pulse
+		duration = 730
+
+        allow = {
+			political_influence >= 50
+		}
+
+		on_start = {
+			add_political_influence = -50
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.19
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = unified_currency_measure
+					duration = -1
+				}
+            }
+        }
+    }
+
+    zhou_missions_task_20 = { #The Great Assembly
+        icon = "task_political"
+		requires = { zhou_missions_task_8 zhou_missions_task_9 zhou_missions_task_10 zhou_missions_task_18 }
+		duration = 120
+
+        allow = {
+			legitimacy >= 95
+			current_ruler = {
+				has_trait = master_of_diplomacy_trait
+			}
+			custom_tooltip = {
+				text = zhou_missions_task_20_loyal_governors_generals_officers
+				NOT = {
+					any_character = {
+						OR = {
+							is_general = yes
+							has_any_office = yes
+							is_governor = yes
+						}
+						loyalty <= 70
+					}
+				}
+			}
+		}
+
+		on_start = {
+			trigger_event = me_zhou.2000
+			trigger_event = {
+				id = me_zhou.2001
+				days = 30
+			}
+			trigger_event = {
+				id = me_zhou.2002
+				days = 30
+			}
+			trigger_event = {
+				id = me_zhou.2003
+				days = 30
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.20
+            custom_tooltip = zhou_missions_task_20_decide_governance
+        }
+    }
+
+    zhou_missions_task_21 = { #Restore the Mandate
+        icon = "task_political"
+		requires = { zhou_missions_task_20 zhou_missions_task_13 zhou_missions_task_14 zhou_missions_task_19 }
+		final = yes
+
+        allow = {
+			
+		}
+
+        on_completion = {
+            trigger_event = me_zhou.21
+            show_as_tooltip = {
+				change_government = chinese_empire
+				add_country_modifier = {
+					name = sons_of_heaven_zhou_mod
+					duration = -1
+				}
+				add_country_modifier = {
+					name = formable_country_huge_modifier_china
+					duration = 7600
+				}
+				capital_scope = {
+					capital_formable_large_effect = yes
+					formable_capital_modifier_large_effect = yes
+				}
+				add_4_free_province_investments = yes
+				#trigger_event = chinese_flavor.2
+            }
+        }
+    }
+}

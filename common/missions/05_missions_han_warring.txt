@@ -753,4 +753,37 @@
             }
         }
     }
+	han_warring_missions_task_18 = { #Crossbows and Sharp Swords
+        icon = "task_conquest"
+		requires = { han_warring_missions_task_9 }
+
+        allow = {
+			custom_tooltip = {
+				text = han_warring_missions_task_18_trigger_tt
+				any_legion = {
+					any_legion_unit = {
+						any_sub_unit = {
+							count >= 10
+							sub_unit_type = archers	
+						}
+						any_sub_unit = {
+							count >= 10
+							sub_unit_type = heavy_infantry	
+						}
+					}
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_han_warring.18
+            show_as_tooltip = {
+				add_military_experience = 20
+				add_country_modifier = {
+					name = "han_xbows_swords"
+					duration = -1
+				}
+            }
+        }
+    }
 }

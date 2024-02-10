@@ -41,19 +41,23 @@
 		
 		effect = {
 			custom_tooltip = "tier_2_formable_tooltip"
-			change_country_name = "JIN_NAME"
-			hidden_effect = {
-				change_country_adjective = "JIN_ADJ"
-				change_country_color = "jin_color"
-				change_country_tag = JIN
+			trigger_event = ti_nation_formation_events.1
+			show_as_tooltip = {
+				change_country_name = "JIN_NAME"
+				hidden_effect = {
+					change_country_adjective = "JIN_ADJ"
+					change_country_color = "jin_color"
+					change_country_tag = JIN
+					change_country_flag = JIN
+				}
+				add_country_modifier = {
+					name = restoration_of_jin
+					duration = -1
+				}
 			}
 			capital_scope = {
 				capital_formable_medium_effect = yes
 				formable_capital_modifier_normal_effect = yes
-			}
-			add_country_modifier = {
-				name = restoration_of_jin
-				duration = -1
 			}
 			add_3_free_province_investments = yes
 		}
