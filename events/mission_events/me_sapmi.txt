@@ -1,0 +1,400 @@
+﻿namespace = me_sapmi
+
+me_sapmi.1 = {
+    type = country_event
+
+    title = me_sapmi_1_title
+    desc = me_sapmi_1_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_1.a"
+		add_country_modifier = {
+			name = sapmi_migrate_mod
+			duration = 7300
+		}
+		add_military_experience = 5
+    }
+}
+
+me_sapmi.2 = {
+    type = country_event
+
+    title = me_sapmi_2_title
+    desc = me_sapmi_2_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_2.a"
+		add_country_modifier = {
+			name = sapmi_food_mod
+			duration = 7300
+		}
+		capital_scope.state = {
+			add_state_food = 400
+		}
+    }
+}
+
+me_sapmi.3 = {
+    type = country_event
+
+    title = me_sapmi_3_title
+    desc = me_sapmi_3_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:admiral_sapmi
+	
+	immediate = {
+		random_character = {
+			limit = {
+				martial >= 8
+				is_admiral = yes
+			}
+			save_scope_as = admiral_sapmi
+		}
+	}
+
+    option = {
+        name = "me_sapmi_3.a"
+		custom_tooltip = sapmi_missions_task_3_claims
+    }
+}
+
+me_sapmi.300 = {
+    type = country_event
+
+    title = me_sapmi_300_title
+    desc = me_sapmi_300_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:admiral_sapmi
+	
+	immediate = {
+		random_character = {
+			limit = {
+				martial >= 8
+				is_admiral = yes
+			}
+			save_scope_as = admiral_sapmi
+		}
+	}
+
+    option = {
+        name = "me_sapmi_300.a"
+		add_treasury = -50
+    }
+}
+
+me_sapmi.301 = {
+    type = country_event
+
+    title = me_sapmi_301_title
+    desc = me_sapmi_301_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:admiral_sapmi
+	
+	immediate = {
+		random_character = {
+			limit = {
+				martial >= 8
+				is_admiral = yes
+			}
+			save_scope_as = admiral_sapmi
+		}
+	}
+
+    option = {
+        name = "me_sapmi_301.a"
+		add_treasury = {
+			subtract = root.has_monthly_income
+			multiply = 1
+		}
+		scope:admiral_sapmi = {
+			add_loyalty = loyalty_trusted_commander_restructure
+			add_trait = seadog
+		}
+    }
+	option = {
+        name = "me_sapmi_301.b"
+		scope:admiral_sapmi = {
+			add_loyalty = loyalty_restructure_commander_untrusted
+		}
+    }
+}
+
+me_sapmi.4 = {
+    type = country_event
+
+    title = me_sapmi_4_title
+    desc = me_sapmi_4_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_4.a"
+		add_country_modifier = {
+			name = sapmi_skirith
+			duration = -1
+		}
+		add_innovation = 1
+    }
+}
+
+me_sapmi.5 = {
+    type = country_event
+
+    title = me_sapmi_5_title
+    desc = me_sapmi_5_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_5.a"
+		add_country_modifier = {
+			name = sapmi_trade_mod
+			duration = 7300
+		}
+		random_owned_province = {
+			limit = {
+				province_has_special_pop = {
+					text = "prov_has_1_merchant_tt"
+					type = merchant
+					count >= 1
+				}
+				is_port = yes
+			}
+			if = {
+				limit = {
+					NOR = { 
+						has_province_rank = city 
+						has_province_rank = city_metropolis
+					} 
+				}
+				custom_tooltip = "time_to_complete_city_tt"
+				hidden_effect = {
+					add_province_modifier = {
+						name = founding_city_in_progress
+						duration = 730
+					}
+				}
+				trigger_event = {
+					id = state_improvement.6
+					days = 730
+				}
+			}
+			else = { 
+				create_state_pop = citizen
+				create_state_pop = freemen
+				create_state_pop = freemen
+				create_state_pop = freemen
+			}
+		}
+    }
+}
+
+me_sapmi.6 = {
+    type = country_event
+
+    title = me_sapmi_6_title
+    desc = me_sapmi_6_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_6.a"
+		p:12653 = {
+			add_permanent_province_modifier = {
+				name = tarand_grave_mod
+			}
+		}
+		current_ruler = {
+			add_zeal = 1
+		}
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_high_priest
+					has_office = office_high_priest_monarchy
+					has_office = office_pontifex
+				}
+			}
+			add_zeal = 2
+		}
+    }
+}
+
+me_sapmi.7 = {
+    type = country_event
+
+    title = me_sapmi_7_title
+    desc = me_sapmi_7_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_7.a"
+		custom_tooltip = sapmi_missions_task_7_claims
+    }
+}
+
+me_sapmi.8 = {
+    type = country_event
+
+    title = me_sapmi_8_title
+    desc = me_sapmi_8_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_8.a"
+		custom_tooltip = sapmi_missions_task_8_claims
+    }
+}
+
+me_sapmi.9 = {
+    type = country_event
+
+    title = me_sapmi_9_title
+    desc = me_sapmi_9_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_9.a"
+		capital_scope = {
+			add_permanent_province_modifier = {
+				name = tarand_grave_mod
+			}
+			add_special_pop = {
+				text = "add_1_priest_tt"
+				type = priest
+				count = 1
+			}
+		}
+		current_ruler = {
+			add_zeal = 2
+		}
+		add_stability = 10
+    }
+}
+
+me_sapmi.10 = {
+    type = country_event
+
+    title = me_sapmi_10_title
+    desc = me_sapmi_10_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_10.a"
+		custom_tooltip = sapmi_missions_task_10_claims
+    }
+}
+
+me_sapmi.11 = {
+    type = country_event
+
+    title = me_sapmi_11_title
+    desc = me_sapmi_11_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_11.a"
+		custom_tooltip = sapmi_missions_task_11_claims
+    }
+}
+
+me_sapmi.12 = {
+    type = country_event
+
+    title = me_sapmi_12_title
+    desc = me_sapmi_12_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_12.a"
+		random_country_culture = {
+			limit = { this.culture = culture:fennic }
+			add_country_culture_modifier = {
+				 name = integrated_fenns
+				 duration = -1
+			}
+		}
+		random_country_culture = {
+			limit = { this.culture = root.culture }
+			add_country_culture_modifier = {
+				 name = integrated_fenns
+				 duration = -1
+			}
+		}
+    }
+}
+
+me_sapmi.13 = {
+    type = country_event
+
+    title = me_sapmi_13_title
+    desc = me_sapmi_13_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_13.a"
+		add_country_modifier = {
+			name = reorganised_sapmi_1
+			duration = 10950
+		}
+		add_political_influence = 75
+		current_ruler = {
+			add_trait = orator
+			add_focus_experience = {
+				text = "add_100_focus_xp"
+				amount = 100
+			}
+		}
+    }
+	option = {
+        name = "me_sapmi_13.b"
+		add_country_modifier = {
+			name = reorganised_sapmi_2
+			duration = 10950
+		}
+		add_political_influence = 75
+		current_ruler = {
+			add_trait = orator
+			add_focus_experience = {
+				text = "add_100_focus_xp"
+				amount = 100
+			}
+		}
+    }
+}
+
+me_sapmi.14 = {
+    type = country_event
+
+    title = me_sapmi_14_title
+    desc = me_sapmi_14_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_sapmi_14.a"
+		add_country_modifier = {
+			name = sapmi_final_mod
+			duration = -1
+		}
+		capital_scope = {
+			capital_formable_tribal_effect = yes
+			formable_capital_modifier_tribal_effect = yes
+		}
+		add_3_free_province_investments = yes
+    }
+}

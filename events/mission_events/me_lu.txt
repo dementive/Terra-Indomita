@@ -1,0 +1,696 @@
+﻿namespace = me_lu
+
+me_lu.1 = {
+    type = country_event
+
+    title = me_lu_1_title
+    desc = me_lu_1_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = char:498
+	right_portrait = scope:lu_marshal
+	right_portrait = char:693
+	
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_marshal
+			}
+			save_scope_as = lu_marshal
+		}
+	}
+
+    option = {
+        name = "me_lu_1.a"
+		scope:lu_marshal = {
+			add_martial = 1
+			add_trait = tactician
+		}
+		add_country_modifier = {
+			name = battle_of_changshao_mod
+			duration = 3650
+		}
+    }
+}
+
+me_lu.100 = {
+    type = country_event
+
+    title = me_lu_100_title
+    desc = me_lu_100_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_100.a"
+		add_manpower = 4
+    }
+}
+
+me_lu.101 = {
+    type = country_event
+
+    title = me_lu_101_title
+    desc = me_lu_101_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_101.a"
+		add_military_experience = 2.5
+    }
+}
+
+me_lu.102 = {
+    type = country_event
+
+    title = me_lu_102_title
+    desc = me_lu_102_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_102.a"
+		add_research = {
+			technology = military_tech
+			value = 5
+		}
+    }
+}
+
+me_lu.2 = {
+    type = country_event
+
+    title = me_lu_2_title
+    desc = me_lu_2_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:ZHA.current_ruler
+	right_portrait = c:YAN.current_ruler
+
+    option = {
+        name = "me_lu_2.a"
+		add_country_modifier = {
+			name = "lu_etiquette_mod"
+			duration = -1
+		}
+    }
+	option = {
+        name = "me_lu_2.b"
+		trigger = {
+			c:ZHA = {
+				has_land = yes
+			}
+		}
+		c:ZHA = {
+			trigger_event = me_lu.200
+		}
+		add_country_modifier = {
+			name = "lu_etiquette_mod"
+			duration = -1
+		}
+		show_as_tooltip = {
+			add_opinion = {
+				modifier = lu_etiquette_opinion_mod
+				target = c:ZHA
+			}
+			reverse_add_opinion = {
+				modifier = lu_etiquette_opinion_mod
+				target = c:ZHA
+			}
+		}
+    }
+	option = {
+        name = "me_lu_2.c"
+		trigger = {
+			c:YAN = {
+				has_land = yes
+			}
+		}
+		c:YAN = {
+			trigger_event = me_lu.200
+		}
+		add_country_modifier = {
+			name = "lu_etiquette_mod"
+			duration = -1
+		}
+		show_as_tooltip = {
+			add_opinion = {
+				modifier = lu_etiquette_opinion_mod
+				target = c:YAN
+			}
+			reverse_add_opinion = {
+				modifier = lu_etiquette_opinion_mod
+				target = c:YAN
+			}
+		}
+    }
+}
+
+me_lu.200 = {
+    type = country_event
+
+    title = me_lu_200_title
+    desc = me_lu_200_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:LUU.current_ruler
+
+    option = {
+        name = "me_lu_200.a"
+		current_ruler = {
+			add_charisma = 1
+			add_trait = orator
+		}
+		random_character = {
+			limit = {
+				is_primary_heir = yes
+			}
+			add_trait = orator
+		}
+		add_alliance = c:LUU
+		add_opinion = {
+			modifier = lu_etiquette_opinion_mod
+			target = c:LUU
+		}
+		reverse_add_opinion = {
+			modifier = lu_etiquette_opinion_mod
+			target = c:LUU
+		}
+		add_country_modifier = {
+			name = "lu_etiquette_mod"
+			duration = 3650
+		}
+		ai_chance = { factor = 80 }
+    }
+	option = {
+        name = "me_lu_200.b"
+		current_ruler = {
+			add_charisma = 1
+		}
+		random_character = {
+			limit = {
+				is_primary_heir = yes
+			}
+			add_charisma = 1
+		}
+		add_opinion = {
+			modifier = lu_etiquette_opinion_mod
+			target = c:LUU
+		}
+		reverse_add_opinion = {
+			modifier = lu_etiquette_opinion_mod
+			target = c:LUU
+		}
+		ai_chance = { factor = 20 }
+    }
+}
+
+me_lu.3 = {
+    type = country_event
+
+    title = me_lu_3_title
+    desc = me_lu_3_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_3.a"
+		add_treasury = 10
+		c:LUU = {
+			make_subject = {
+				target = root
+				type = feudatory
+			}
+		}
+		ai_chance = { factor = 100 }
+    }
+	option = {
+        name = "me_lu_3.b"
+		hidden_effect = {
+			c:LUU = {
+				add_treasury = 10
+			}
+		}
+		ai_chance = { factor = 0 }
+    }
+}
+
+me_lu.300 = {
+    type = country_event
+
+    title = me_lu_300_title
+    desc = me_lu_300_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_300.a"
+		if = {
+			limit = {
+				any_subject = {
+					tag = TNG
+				}
+			}
+			root = {
+				make_subject = {
+					target = c:TNG
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_subject = {
+					tag = ZOU
+				}
+			}
+			root = {
+				make_subject = {
+					target = c:ZOU
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_subject = {
+					tag = NII
+				}
+			}
+			root = {
+				make_subject = {
+					target = c:NII
+					type = feudatory
+				}
+			}
+		}
+    }
+}
+
+me_lu.4 = {
+    type = country_event
+
+    title = me_lu_4_title
+    desc = me_lu_4_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_4.a"
+		custom_tooltip = lu_missions_task_4_claims
+    }
+}
+
+me_lu.5 = {
+    type = country_event
+
+    title = me_lu_5_title
+    desc = me_lu_5_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_5.a"
+		add_country_modifier = {
+			name = lu_rituals_music_mod
+			duration = -1
+		}
+		add_stability = 10
+    }
+}
+
+me_lu.6 = {
+    type = country_event
+
+    title = me_lu_6_title
+    desc = me_lu_6_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:628
+	right_portrait = char:497
+
+    option = {
+        name = "me_lu_6.a"
+		add_country_modifier = {
+			name = destroyed_last_huanen
+			duration = 10950
+		}
+    }
+}
+
+me_lu.7 = {
+    type = country_event
+
+    title = me_lu_7_title
+    desc = me_lu_7_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:QII.current_ruler
+
+    option = {
+        name = "me_lu_7.a"
+		custom_tooltip = lu_missions_task_7_claims
+    }
+}
+
+me_lu.8 = {
+    type = country_event
+
+    title = me_lu_8_title
+    desc = me_lu_8_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:584
+
+    option = {
+        name = "me_lu_8.a"
+		add_country_modifier = {
+			name = confucius_lu_mod
+			duration = -1
+		}
+    }
+}
+
+me_lu.9 = {
+    type = country_event
+
+    title = me_lu_9_title
+    desc = me_lu_9_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:584
+
+    option = {
+        name = "me_lu_9.a"
+		add_country_modifier = {
+			name = temple_of_confucius_country_mod
+			duration = -1
+		}
+		every_owned_province = {
+			limit = {
+				is_in_area = taishan_area
+			}
+			add_permanent_province_modifier = {
+				name = temple_of_confucius_state_mod
+			}
+		}
+    }
+}
+
+me_lu.10 = {
+    type = country_event
+
+    title = me_lu_10_title
+    desc = me_lu_10_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:CHU.current_ruler
+
+    option = {
+        name = "me_lu_10.a"
+		custom_tooltip = lu_missions_task_10_claims
+    }
+}
+
+me_lu.11 = {
+    type = country_event
+
+    title = me_lu_11_title
+    desc = me_lu_11_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = scope:lu_astronomer
+	
+	immediate = {
+		create_character = {
+			age = 35
+			culture = root.culture
+			religion = root.religion
+			no_traits = yes
+			no_stats = yes
+			hidden_effect = {
+				bad_martial_effect = yes
+				amazing_charisma_effect = yes
+				average_finesse_effect = yes
+				amazing_zeal_effect = yes
+				add_trait = scholar
+				good_zeal_trait_effect = yes
+				add_trait = obsessive
+				add_character_modifier = {
+					name = observing_the_stars_mod_movement
+					duration = -1
+				}
+			}
+			save_scope_as = lu_astronomer
+		}
+	}
+
+    option = {
+        name = "me_lu_11.a"
+		add_research = {
+			technology = religious_tech
+			value = 50
+		}
+    }
+	option = {
+        name = "me_lu_11.b"
+		trigger = {
+			scope:lu_astronomer = {
+				zeal >= 12
+			}
+		}
+		exclusive = yes
+		highlight = yes
+		add_research = {
+			technology = religious_tech
+			value = 100
+		}
+    }
+}
+
+me_lu.12 = {
+    type = country_event
+
+    title = me_lu_12_title
+    desc = me_lu_12_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_12.a"
+		custom_tooltip = lu_missions_task_12_claims
+    }
+}
+
+me_lu.13 = {
+    type = country_event
+
+    title = me_lu_13_title
+    desc = me_lu_13_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:501
+
+    option = {
+        name = "me_lu_13.a"
+		random_country_culture = {
+			limit = {
+				this.culture = culture:wuyue
+			}
+			ROOT = { 
+				integrate_country_culture = PREV 
+			}
+		}
+		add_military_experience = 10
+		add_manpower = 20
+    }
+	option = {
+        name = "me_lu_13.b"
+		add_stability = 5
+		add_military_experience = 10
+    }
+}
+
+me_lu.14 = {
+    type = country_event
+
+    title = me_lu_14_title
+    desc = me_lu_14_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:ZHO.current_ruler
+
+    option = {
+        name = "me_lu_14.a"
+		root = {
+			make_subject = {
+				target = ZHO
+				type = feudatory
+			}
+		}
+		current_ruler = {
+			add_trait = zhou_bloodline
+		}
+    }
+}
+
+me_lu.1400 = {
+    type = country_event
+
+    title = me_lu_1400_title
+    desc = me_lu_1400_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:536
+
+    option = {
+        name = "me_lu_1400.a"
+		add_political_influence = 100
+		add_legitimacy = 20
+		current_ruler = {
+			add_trait = zhou_bloodline
+		}
+    }
+}
+
+me_lu.15 = {
+    type = country_event
+
+    title = me_lu_15_title
+    desc = me_lu_15_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:496
+
+    option = {
+        name = "me_lu_15.a"
+		create_country_treasure = {
+			key = "lu_spring_autumn_annals"
+			icon = "chinascroll3"
+			modifier = {
+				local_research_points_modifier = 0.25
+				local_nobles_desired_pop_ratio = 0.1
+			}
+		}
+		add_stability = 10
+    }
+}
+
+me_lu.1500 = {
+    type = country_event
+
+    title = me_lu_1500_title
+    desc = me_lu_1500_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_1500.a"
+		add_treasury = -200
+		add_political_influence = -25
+    }
+}
+
+me_lu.16 = {
+    type = country_event
+
+    title = me_lu_16_title
+    desc = me_lu_16_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_lu_16.a"
+		add_legitimacy = 20
+		p:8533 = {
+			set_city_status = city_metropolis
+			add_permanent_province_modifier = {
+				name = shahoa_ruins_mod
+			}
+			add_special_pop = {
+				text = "add_3_priest_tt"
+				type = priest
+				count = 3
+			}
+		}
+		add_splendor = {
+			amount = "100"
+		}
+    }
+}
+
+me_lu.90 = {
+    type = country_event
+
+    title = me_lu_90_title
+    desc = me_lu_90_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	left_portrait = scope:luu_heir
+	left_portrait = char:689
+	right_portrait = c:BII.current_ruler
+	right_portrait = char:628
+	right_portrait = char:497
+	
+	immediate = {
+		random_character = {
+			limit = {
+				is_primary_heir = yes
+			}
+			save_scope_as = luu_heir
+		}
+	}
+
+    option = {
+        name = "me_lu_90.a"
+		add_political_influence = 30
+		if = {
+			limit = {
+				c:BII = {
+					has_land = yes
+				}
+				c:LUU = {
+					has_land = yes
+				}
+			}
+			current_ruler = {
+				add_rival = c:BII.current_ruler
+			}
+			random_character = {
+				limit = {
+					is_primary_heir = yes
+				}
+				add_rival = c:BII.current_ruler
+			}
+			c:BII = {
+				trigger_event = me_lu.91
+			}
+		}
+    }
+}
+
+me_lu.91 = {
+    type = country_event
+
+    title = me_lu_91_title
+    desc = me_lu_91_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = c:LUU.current_ruler
+	right_portrait = char:689
+	left_portrait = char:628
+	left_portrait = char:497
+
+    option = {
+        name = "me_lu_91.a"
+		current_ruler = {
+			add_rival = c:LUU.current_ruler
+		}
+		c:LUU = {
+			every_owned_province = {
+				add_claim = root
+			}
+		}
+    }
+}

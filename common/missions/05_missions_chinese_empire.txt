@@ -255,7 +255,7 @@
 
     missions_chinese_empire_task_6 = { #The Southern Coast
         icon = "task_political"
-		requires = { missions_chinese_empire_task_5 }
+		requires = { missions_chinese_empire_task_5 missions_chinese_empire_task_24 }
 
 		highlight = {
 			 scope:province = {
@@ -1316,6 +1316,85 @@
 				}
 				add_splendor = {
 					amount = "400"
+				}
+            }
+        }
+    }
+
+	missions_chinese_empire_task_24 = { #Lingqu Canal
+        icon = "task_political"
+		duration = 365
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = guiyang_area
+					is_in_area = luling_area
+				}
+            }
+        }
+
+        allow = {
+			manpower >= 20
+			owns_area = guiyang_area
+			owns_area = luling_area
+		}
+
+		on_start = {
+			trigger_event = me_chinese_empire.2400
+			show_as_tooltip = {
+				add_manpower = -20
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_chinese_empire.24
+            show_as_tooltip = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 9043
+							province_id = 9044
+							province_id = 9045
+							province_id = 9122
+							province_id = 9119
+						}
+					}
+					add_permanent_province_modifier = {
+						name = "magic_canal_china"
+					}
+				}
+				p:9043 = {
+					if = {
+						limit = {
+							NOR = { 
+								has_province_rank = city 
+								has_province_rank = city_metropolis
+							} 
+						}
+						custom_tooltip = "time_to_complete_city_tt"
+						hidden_effect = {
+							add_province_modifier = {
+								name = founding_city_in_progress
+								duration = 730
+							}
+						}
+						trigger_event = {
+							id = state_improvement.6
+							days = 730
+						}
+					}
+					else = {
+						create_state_pop = freemen
+						create_state_pop = freemen
+						create_state_pop = freemen
+						create_state_pop = freemen
+					}
+					add_special_pop = {
+						text = "add_1_architect_tt"
+						type = architect
+						count = 1
+					}
 				}
             }
         }
