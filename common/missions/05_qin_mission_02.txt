@@ -11,18 +11,26 @@
         has_completed_mission = qin_01_shan_yang
     }
 
-    abort = {}
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
     on_start = {
         start_mission_ai_effect = yes
     }
+
     on_abort = {
         custom_tooltip = general_mission_cooldown_tt
         set_variable = {
-            name = mission_cooldown_var_2
+            name = mission_cooldown_var
             days = 7300
         }
     }
-    on_completion = {}
+
+	on_completion = {
+        complete_mission_effect = yes
+    }
+
     qin_02_li_si_task_1 = { #Recruit Li Si
         icon = "task_diplomatic"
         duration = 180
@@ -347,24 +355,12 @@
 		}
         allow = {
 			p:8313 = {
-				OR = {
-					has_province_rank = city
-					has_province_rank = city_metropolis
-				}
 				fort_level >= 3
 			}
 			p:8276 = {
-				OR = {
-					has_province_rank = city
-					has_province_rank = city_metropolis
-				}
 				fort_level >= 3
 			}
 			p:8592 = {
-				OR = {
-					has_province_rank = city
-					has_province_rank = city_metropolis
-				}
 				fort_level >= 3
 			}
             # City status of Guyuan, Yulm, and Xiangang. Level 3 forts in these 3 cities.
@@ -678,7 +674,7 @@
     }
 	qin_02_li_si_task_19 = { #Legalist Unity
         icon = "task_apollo"
-        duration = 1460
+        duration = 1095
 		monthly_on_action = qin_02_li_si_task_19_monthly_pulse
 		final = yes
         requires = {
@@ -691,12 +687,12 @@
         on_start = {
 			set_variable = {
 				name = ongoing_mission_pulse_flag
-				days = 1460
+				days = 1095
 			}
 			add_political_influence = -50
 			add_country_modifier = {
 				name = qin_2_legalist_pulse_mod
-				duration = 1460
+				duration = 1095
 			}
         }
         on_completion = {

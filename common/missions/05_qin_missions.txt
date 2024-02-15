@@ -10,10 +10,14 @@
         tag = QIN
     }
 
-    abort = {}
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
     on_start = {
         start_mission_ai_effect = yes
     }
+
     on_abort = {
         custom_tooltip = general_mission_cooldown_tt
         set_variable = {
@@ -21,7 +25,11 @@
             days = 7300
         }
     }
-    on_completion = {}
+
+	on_completion = {
+        complete_mission_effect = yes
+    }
+
     qin_01_shan_yang_task_1 = { #Abrogate Fengjian
         icon = "task_political"
         allow = {
@@ -68,14 +76,26 @@
 		highlight = {
 			scope:province = {
 				OR = {
-					is_in_area = anding_area
+					province_id = 8270
+					province_id = 8271
+					province_id = 8272
+					province_id = 8273
+					province_id = 8274
+					province_id = 8275
+					province_id = 8276
 					is_in_area = tianshui_area
 				}
 			}
 		}
         allow = {
             #Control anding_area and tianshui_area
-            owns_or_subject_owns_area = anding_area
+            owns_or_subject_owns = 8270
+            owns_or_subject_owns = 8271
+            owns_or_subject_owns = 8275
+            owns_or_subject_owns = 8276
+            owns_or_subject_owns = 8272
+            owns_or_subject_owns = 8273
+            owns_or_subject_owns = 8274
             owns_or_subject_owns_area = tianshui_area
         }
         on_completion = {
@@ -229,40 +249,24 @@
 			}
 		}
         allow = {
-			custom_tooltip = {
-				text = qin_01_shan_yang_task_7_guanghan_area
-				area:guanghan_area = {
-					any_area_province = {
-						has_city_status = yes
-						free_building_slots = 0
-					}
+			area:guanghan_area = {
+				any_area_province = {
+					num_of_used_building_slots >= 3
 				}
 			}
-			custom_tooltip = {
-				text = qin_01_shan_yang_task_7_ba_area
-				area:ba_area = {
-					any_area_province = {
-						has_city_status = yes
-						free_building_slots = 0
-					}
+			area:ba_area = {
+				any_area_province = {
+					num_of_used_building_slots >= 3
 				}
 			}
-			custom_tooltip = {
-				text = qin_01_shan_yang_task_7_shu_area
-				area:shu_area = {
-					any_area_province = {
-						has_city_status = yes
-						free_building_slots = 0
-					}
+			area:shu_area = {
+				any_area_province = {
+					num_of_used_building_slots >= 3
 				}
 			}
-			custom_tooltip = {
-				text = qin_01_shan_yang_task_7_qianwei_area
-				area:qianwei_area = {
-					any_area_province = {
-						has_city_status = yes
-						free_building_slots = 0
-					}
+			area:qianwei_area = {
+				any_area_province = {
+					num_of_used_building_slots >= 3
 				}
 			}
             #1 city with buildings in guanghan_area, ba_area, shu_area and qianwei_area areas.
@@ -279,9 +283,7 @@
 							is_in_area = shu_area
 							is_in_area = qianwei_area
 						}
-						has_city_status = yes
-						total_population >= 25
-						free_building_slots = 0
+						num_of_used_building_slots >= 3
 					}
 					ordered_pops_in_province = {
 						limit = {
