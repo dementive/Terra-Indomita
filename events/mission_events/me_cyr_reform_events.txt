@@ -523,8 +523,13 @@ cyr_reform_01.10 = {            # Coastal Powerbase - Ptolemais Founding
         	days = {30 100}
         }
         p:3354 = {
-        	set_city_status = city
-      		add_building_level = port_building
+        	found_city_effect = yes
+			if = {
+				limit = {
+					can_build_building = port_building
+				}
+				add_building_level = port_building
+			}
         }
 		cyr_royalist_support_small_effect = yes
     }
@@ -536,9 +541,14 @@ cyr_reform_01.10 = {            # Coastal Powerbase - Ptolemais Founding
         	days = {30 100}
         }
         p:3354 = {
-        	set_city_status = city
-      		add_building_level = port_building
-      	  change_province_name = "Magadeia"
+        	found_city_effect = yes
+			if = {
+				limit = {
+					can_build_building = port_building
+				}
+				add_building_level = port_building
+			}
+      	  	change_province_name = "Magadeia"
         }
 		cyr_royalist_support_small_effect = yes
     }
@@ -588,7 +598,7 @@ cyr_reform_01.11 = {            # Coastal Powerbase - Ptolemais Relocation
             }
         }
         p:3357 = {
-        	set_city_status = settlement
+        	destroy_city_effect = yes
         }
         cyr_royalist_support_moderate_effect = yes
     }
