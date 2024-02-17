@@ -1,12 +1,10 @@
 ﻿xiongnu_missions_01 = {
-    header = "mission_image_general"
-    icon = "general_1"
+    header = "mission_image_scythian"
+    icon = "cde_gallic_village"
 
     repeatable = no
 	
-    chance = {
-        factor = 20
-    }
+    chance = 1000
 
     potential = {
         NOT = { has_variable = mission_cooldown_var_xio_1 }
@@ -38,8 +36,8 @@
     }
 	
     xiongnu_missions_01_task_1 = { #Consolidate our Clans
-        icon = "task_political"
-		
+        icon = "task_atlas"
+
         allow = {
 			custom_tooltip = {
 				text = barbaricum_treveria_mission_task_3_tt #all clan chiefs have loyalty >=70
@@ -60,7 +58,7 @@
 			}
 			
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.1
             show_as_tooltip = {
@@ -78,9 +76,9 @@
     }
 	
     xiongnu_missions_01_task_2 = { #Loyalty to Luandi
-        icon = "task_political"
+        icon = "task_happiness"
 		requires = { xiongnu_missions_01_task_1 }
-		
+
         allow = {
 			custom_tooltip = {
 				text = xiongnu_missions_01_task_2_tt #all clan chiefs and government officials have loyalty >=90
@@ -99,7 +97,7 @@
 				current_ruler.family = fam:Luandi
 			}
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.2
 			custom_tooltip = xiongnu_missions_01_task_2_claimant
@@ -112,11 +110,15 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_3 = { #Touman's Tribe
-        icon = "task_political"
+        icon = "task_religion"
 		requires = { xiongnu_missions_01_task_2 }
-		
+
+		bypass = {
+			var:touman_character_scope_variable = { is_alive = no }
+		}
+
         allow = {
 			has_country_modifier = stability_investment
 			trigger_if = {
@@ -138,7 +140,7 @@
 				}
             }
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.3
             show_as_tooltip = {
@@ -149,25 +151,24 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_4 = { #Annex Anhou
-        icon = "task_political"
+        icon = "task_conquest"
 		requires = { xiongnu_missions_01_task_1 }
-		
+
 		highlight = {
 			scope:province = {
 				owned_or_subject_owned = c:AHO
 			}
 		}
-		
+
         allow = {
 			c:AHO = {
 				has_land = no
 			}
 			owns = 9489
 		}
-		
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.4
             show_as_tooltip = {
@@ -180,17 +181,17 @@
 			}
         }
     }
-	
+
     xiongnu_missions_01_task_5 = { #Dominate Dingling
-        icon = "task_political"
+        icon = "task_dying_gaul"
 		requires = { xiongnu_missions_01_task_4 }
-		
+
 		highlight = {
 			scope:province = {
 				owned_or_subject_owned = c:DLG
 			}
 		}
-		
+
         allow = {
 			c:DLG = {
 				OR = {
@@ -200,7 +201,7 @@
 			}
 			owns_or_subject_owns = 9478
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.5
             show_as_tooltip = {
@@ -217,11 +218,11 @@
 			}
         }
     }
-	
+
     xiongnu_missions_01_task_6 = { #Western Warmongering
-        icon = "task_political"
+        icon = "task_expansion"
 		requires = { xiongnu_missions_01_task_5 }
-		
+
 		highlight = {
 			scope:province = {
 				OR = {
@@ -231,7 +232,7 @@
 				}
 			}
 		}
-		
+
         allow = {
 			c:XHI = {
 				has_land = no
@@ -246,7 +247,7 @@
 			owns = 10542
 			owns = 10540
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.6
             custom_tooltip = xiongnu_missions_01_task_6_claims_tt
@@ -257,17 +258,17 @@
 			}
         }
     }
-	
+
     xiongnu_missions_01_task_7 = { #Hoarding Horses
-        icon = "task_political"
-		
+        icon = "task_economical"
+
 		highlight = {
 			scope:province = {
 				owner = root
 				is_capital = yes
 			}
 		}
-		
+
         allow = {
 			capital_scope.state = {
 				trade_good_surplus = {
@@ -284,7 +285,7 @@
                 }
 			}
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.7
             show_as_tooltip = {
@@ -295,15 +296,15 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_8 = { #Steppe Stirrups
-        icon = "task_political"
+        icon = "task_zeus_cornucopia"
 		requires = { xiongnu_missions_01_task_7 }
-		
+
         allow = {
 			invention = global_start_experience_inv_2 #can't find the invention?
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.8
             show_as_tooltip = {
@@ -314,11 +315,11 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_9 = { #Prairies and Pastures
-        icon = "task_political"
+        icon = "task_apollo"
 		requires = { xiongnu_missions_01_task_7 }
-		
+
 		highlight = {
 			scope:province = {
 				owner = root
@@ -329,7 +330,7 @@
 				}
 			}
 		}
-		
+
         allow = {
 			any_owned_province = {
 				count >= 5
@@ -345,7 +346,7 @@
 				}
 			}
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.9
             show_as_tooltip = {
@@ -356,17 +357,17 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_10 = { #Foreign Tribute
-        icon = "task_political"
+        icon = "task_diplomatic"
 		requires = { xiongnu_missions_01_task_5 xiongnu_missions_01_task_8 }
-		
+
         allow = {
 			any_subject = {
 				count >= 2
 			}
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.10
             show_as_tooltip = {
@@ -377,18 +378,18 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_11 = { #Capital Breeding Grounds
-        icon = "task_political"
+        icon = "task_durga"
 		requires = { xiongnu_missions_01_task_9 }
 		duration = 365
-		
+
 		highlight = {
 			scope:province = {
 				province_id = 10529
 			}
 		}
-		
+
         allow = {
 			treasury >= 100
 			p:10529 = {
@@ -396,11 +397,11 @@
 				num_goods_produced >= 2
 			}
 		}
-		
+
 		on_start = {
 			add_treasury = -100
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.11
             show_as_tooltip = {
@@ -412,34 +413,41 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_12 = { #Southern Insults
-        icon = "task_political"
+        icon = "task_diplomatic"
 		requires = { xiongnu_missions_01_task_3 xiongnu_missions_01_task_6 }
-		
+
 		bypass = {
 			c:YEZ = {
 				has_land = no
 			}
 		}
-		
+
         allow = {
-			c:YEZ = {
-				has_opinion = {
-					modifier = opinion_insult
-                    target = ROOT
+			trigger_if = {
+				limit = {
+					c:YEZ = {
+						has_land = yes
+					}
 				}
-			}
-			NOT = {
-				ROOT = {
-					OR = {
-						exports_to = c:YEZ
-						imports_from = c:YEZ
+				c:YEZ = {
+					has_opinion = {
+						modifier = opinion_insult
+						target = ROOT
+					}
+				}
+				NOT = {
+					ROOT = {
+						OR = {
+							exports_to = c:YEZ
+							imports_from = c:YEZ
+						}
 					}
 				}
 			}
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.12
             show_as_tooltip = {
@@ -450,11 +458,18 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_13 = { #Chanyu's Children
-        icon = "task_political"
+        icon = "task_zeus_cornucopia"
 		requires = { xiongnu_missions_01_task_3 }
-		
+
+		bypass = {
+			OR = {
+                NOT = { has_variable = touman_character_scope_variable }
+                var:touman_character_scope_variable = { is_alive = no }
+            }
+		}
+
         allow = {
 			trigger_if = {
                 limit = {
@@ -495,17 +510,24 @@
 				}
             }
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.13
 			custom_tooltip = xiongnu_missions_01_task_13_create_children
         }
     }
-	
+
     xiongnu_missions_01_task_14 = { #The Mighty Modun
-        icon = "task_political"
+        icon = "task_heracles"
 		requires = { xiongnu_missions_01_task_13 }
-		
+
+		bypass = {
+			OR = {
+                NOT = { has_variable = modun_character_scope_variable }
+                var:modun_character_scope_variable = { is_alive = no }
+            }
+		}
+
         allow = {
 			trigger_if = {
                 limit = {
@@ -529,17 +551,17 @@
 				}
             }
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.14
 			custom_tooltip = xiongnu_missions_01_task_14_modun_event_chain
         }
     }
-	
+
     xiongnu_missions_01_task_15 = { #Hollow Out Hujie
-        icon = "task_political"
+        icon = "task_conquest"
 		requires = { xiongnu_missions_01_task_6 }
-		
+
         highlight = {
 			scope:province = {
 				OR = {
@@ -548,12 +570,12 @@
 				}
 			}
 		}
-		
+
         allow = {
             owns_area = hujie_area
             owns_area = altai_area
         }
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.15
             show_as_tooltip = {
@@ -568,21 +590,21 @@
 			}
         }
     }
-	
+
     xiongnu_missions_01_task_16 = { #Jumping Jiankun
-        icon = "task_political"
+        icon = "task_athena"
 		requires = { xiongnu_missions_01_task_6 }
-		
+
         highlight = {
 			scope:province = {
 				is_in_area = jiankun_area
 			}
 		}
-		
+
         allow = {
             owns_area = jiankun_area
         }
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.16
             show_as_tooltip = {
@@ -593,11 +615,11 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_17 = { #Control Gobi
-        icon = "task_political"
+        icon = "task_expansion"
 		requires = { xiongnu_missions_01_task_10 }
-		
+
 		highlight = {
 			scope:province = {
 				OR = {
@@ -606,12 +628,12 @@
 				}
 			}
 		}
-		
+
         allow = {
             owns_or_subject_owns_area = fuyangju_area
             owns_or_subject_owns_area = bayanundar_area
         }
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.17
             show_as_tooltip = {
@@ -630,37 +652,37 @@
             }
         }
     }
-	
+
     xiongnu_missions_01_task_18 = { #Ordos Expedition
-        icon = "task_political"
+        icon = "task_diplomatic"
 		requires = { xiongnu_missions_01_task_17 }
-		
+
         highlight = {
 			scope:province = {
 				is_in_area = shuofang_area
 			}
 		}
-		
+
         allow = {
             owns_or_subject_owns_area = shuofang_area
         }
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.18
             custom_tooltip = xiongnu_missions_01_task_18_send_emissaries
         }
     }
-	
+
     xiongnu_missions_01_task_19 = { #Warn Wusun
-        icon = "task_political"
+        icon = "task_battle"
 		requires = { xiongnu_missions_01_task_15 }
-		
+
 		bypass = {
 			c:WUS = {
 				has_land = no
 			}
 		}
-		
+
         allow = {
 			trigger_if = {
                 limit = {
@@ -675,7 +697,7 @@
 			}
 			#challenge Wusun leader to duel  - TODO Dementive
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.19
             ROOT = {
@@ -686,12 +708,19 @@
 			}
         }
     }
-	
+
     xiongnu_missions_01_task_20 = { #Rise of the New Chanyu
         icon = "task_political"
 		requires = { xiongnu_missions_01_task_14 xiongnu_missions_01_task_18 xiongnu_missions_01_task_19 }
 		final = yes
-		
+
+		bypass = {
+			OR = {
+                NOT = { has_variable = modun_character_scope_variable }
+                var:modun_character_scope_variable = { is_alive = no }
+            }
+		}
+
         allow = {
 			trigger_if = {
                 limit = {
@@ -712,7 +741,7 @@
 				}
             }
 		}
-		
+
         on_completion = {
             trigger_event = me_xiongnu_01.20
             show_as_tooltip = {
@@ -733,5 +762,21 @@
 				area:ulaanzuukh_area = { mission_area_claim_effect = yes }
 			}
         }
+		on_bypass = {
+			change_government = steppe_empire
+			hidden_effect = {
+				area:barkol_area = { mission_area_claim_effect = yes }
+				area:gobi_altai_area = { mission_area_claim_effect = yes }
+				area:gryphia_area = { mission_area_claim_effect = yes }
+				area:ob_area = { mission_area_claim_effect = yes }
+				area:transbaikal_area = { mission_area_claim_effect = yes }
+				area:bayanundar_area = { mission_area_claim_effect = yes }
+				area:aimag_area = { mission_area_claim_effect = yes }
+				area:gonglu_area = { mission_area_claim_effect = yes }
+				area:terigun_area = { mission_area_claim_effect = yes }
+				area:modong_area = { mission_area_claim_effect = yes }
+				area:ulaanzuukh_area = { mission_area_claim_effect = yes }
+			}
+		}
     }
 }
