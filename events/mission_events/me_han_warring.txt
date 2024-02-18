@@ -220,7 +220,16 @@ me_han_warring.401 = {
 		ai_chance = {
 			base = 66
 		}
-		add_alliance = c:HAN
+		if = {
+			limit = {
+				NOT = {
+					any_allied_country = {
+						tag = HAN
+					}
+				}
+			}
+			add_alliance = c:HAN
+		}
     }
 	option = {
         name = "me_han_warring_401.b"
