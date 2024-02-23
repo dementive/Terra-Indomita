@@ -1,0 +1,105 @@
+﻿country_decisions = {
+
+	form_miao = {
+		
+		potential = {
+			num_of_cities >= 1
+			country_culture_group = miao
+			NOT = {
+				tag = MIA
+			}
+			NOT = {
+				any_country = {
+					tag = MIA
+				}
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = guiyang_area
+					is_in_area = changsha_area
+					is_in_area = changde_area
+					is_in_area = lingling_area
+					is_in_area = wuling_area
+				}
+			}
+		}
+		
+		allow = {
+			can_form_nation_trigger = yes
+			owns_area = guiyang_area
+			owns_area = changsha_area
+			owns_area = changde_area
+			owns_area = lingling_area
+			owns_area = wuling_area
+		}
+		
+		effect = {
+			custom_tooltip = "tier_2_formable_tooltip"
+			change_country_name = "MIA_NAME"
+			hidden_effect = {
+				change_country_adjective = "MIA_ADJ"
+				change_country_color = "miao_color"
+				change_country_tag = MIA
+				change_country_flag = MIA
+			}
+			if = {
+				limit = {
+					primary_culture = yangyu
+				}
+				random_country_culture = {
+					limit = {
+						this.culture = culture:sanmiao
+					}
+					ROOT = { 
+						integrate_country_culture = PREV 
+					}
+				}
+			}
+			if = {
+				limit = {
+					primary_culture = sanmiao
+				}
+				random_country_culture = {
+					limit = {
+						this.culture = culture:yangyu
+					}
+					ROOT = { 
+						integrate_country_culture = PREV 
+					}
+				}
+			}
+			random_country_culture = {
+				limit = {
+					this.culture = culture:yangyu
+				}
+				add_country_culture_modifier = {
+					name = restoration_of_miao
+					duration = -1
+				}
+			}
+			random_country_culture = {
+				limit = {
+					this.culture = culture:sanmiao
+				}
+				add_country_culture_modifier = {
+					name = restoration_of_miao
+					duration = -1
+				}
+			}
+			capital_scope = {
+				capital_formable_medium_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			add_3_free_province_investments = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+}
+

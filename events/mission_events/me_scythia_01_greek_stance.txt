@@ -1012,10 +1012,20 @@ me_scythia_01_greek_stance.15 = { # Chersonesus Ping
 				}
 			}
 			capital_scope = {
-				add_building_level = port_building
+				if = {
+                    limit = {
+                        can_build_building = port_building
+                    }
+                    add_building_level = port_building
+                }
 			}
 			p:4534 = {
-				add_building_level = port_building
+				if = {
+                    limit = {
+                        can_build_building = port_building
+                    }
+                    add_building_level = port_building
+                }
 			}
 		}
 		else = {
@@ -4080,7 +4090,7 @@ me_scythia_01_greek_stance.68 = { # Unlikely Allies - Tyrgetae Ping
 		if = {
 			limit = { scope:me_scythia_1_scope.var:scythia_chersonesus_owner_offer = 1 }
 			p:4800 = {
-				set_city_status = city
+				found_city_effect = yes
 				hidden_effect = { #tooltip; get bunch of stuff
 					add_building_level = population_building
 					add_building_level = commerce_building
@@ -5432,7 +5442,7 @@ me_scythia_01_greek_stance.101 = { # Ready The Horse Lords - end
 				limit = {
 					has_city_status = no
 				}
-				set_city_status = city
+				found_city_effect = yes
 			}
 			add_building_level = military_building
 			add_building_level = military_building
@@ -5910,7 +5920,7 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 			add_gold = -150
 		}
 		p:4552 = {
-			set_city_status = city
+			found_city_effect = yes
 			add_province_modifier = {
 				name = promising_port
 				duration = -1
@@ -5945,9 +5955,14 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 					}
 					add_building_level = foundry_building
 				}
-				add_building_level = port_building
-				add_building_level = port_building
-				add_building_level = port_building
+				if = {
+                    limit = {
+                        can_build_building = port_building
+                    }
+                    add_building_level = port_building
+					add_building_level = port_building
+					add_building_level = port_building
+                }
 				add_building_level = commerce_building
 				add_building_level = commerce_building
 				add_building_level = fortress_building
@@ -5987,7 +6002,7 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 		}
 		add_treasury = 150
 		p:4552 = {
-			set_city_status = city
+			found_city_effect = yes
 			add_province_modifier = {
 				name = burgeoning_port
 				duration = -1
@@ -6023,7 +6038,12 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 					}
 					add_building_level = foundry_building
 				}
-				add_building_level = port_building
+				if = {
+                    limit = {
+                        can_build_building = port_building
+                    }
+                    add_building_level = port_building
+                }
 				add_building_level = commerce_building
 				add_building_level = fortress_building
 				create_state_pop = citizen
@@ -6063,7 +6083,7 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 		}
 		p:4552 = {
 			set_trade_goods = precious_metals
-			set_city_status = city
+			found_city_effect = yes
 			add_province_modifier = {
 				name = trading_capital
 				duration = -1
@@ -6098,9 +6118,14 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 					}
 					add_building_level = foundry_building
 				}
-				add_building_level = port_building
-				add_building_level = port_building
-				add_building_level = port_building
+				if = {
+                    limit = {
+                        can_build_building = port_building
+                    }
+                    add_building_level = port_building
+					add_building_level = port_building
+					add_building_level = port_building
+                }
 				add_building_level = commerce_building
 				add_building_level = commerce_building
 				add_building_level = commerce_building
@@ -6166,7 +6191,7 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 			add_corruption = 40
 		}
 		p:4552 = {
-			set_city_status = city
+			found_city_effect = yes
 			add_province_modifier = {
 				name = well_funded_market
 				duration = -1
@@ -6202,9 +6227,14 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 					}
 					add_building_level = foundry_building
 				}
-				add_building_level = port_building
-				add_building_level = port_building
-				add_building_level = port_building
+				if = {
+                    limit = {
+                        can_build_building = port_building
+                    }
+                    add_building_level = port_building
+					add_building_level = port_building
+					add_building_level = port_building
+                }
 				add_building_level = commerce_building
 				add_building_level = commerce_building
 				add_building_level = fortress_building
@@ -6265,7 +6295,7 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 		}
 		p:4552 = {
 			set_trade_goods = gems
-			#set_city_status = city
+			#found_city_effect = yes
 			add_province_modifier = {
 				name = market_hub
 				duration = -1
@@ -6300,11 +6330,16 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 					}
 					add_building_level = foundry_building
 				}
-				add_building_level = port_building
-				add_building_level = port_building
-				add_building_level = port_building
-				add_building_level = port_building
-				add_building_level = port_building
+				if = {
+                    limit = {
+                        can_build_building = port_building
+                    }
+                    add_building_level = port_building
+					add_building_level = port_building
+					add_building_level = port_building
+					add_building_level = port_building
+					add_building_level = port_building
+                }
 				add_building_level = commerce_building
 				add_building_level = commerce_building
 				add_building_level = commerce_building

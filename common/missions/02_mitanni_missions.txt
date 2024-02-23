@@ -3,7 +3,9 @@
     icon = "india_4"
 
     repeatable = no
-    chance = 1000
+    chance = {
+		factor = 100
+	}
 
     potential = {
         NOT = { has_variable = mission_cooldown_var }
@@ -64,13 +66,7 @@
             p:844 = {
                 has_city_status = yes
                 num_of_used_building_slots >= 3
-                trigger_if = {
-                limit = { has_construction = yes }
-                    custom_tooltip = {
-                        text = province_has_no_construction_tooltip
-                        has_construction  = no
-                    }
-                }
+                has_no_ongoing_construction = yes
             }
         }
         on_completion = {
@@ -79,7 +75,7 @@
                 set_capital = p:844
                 p:844 = {
                     change_province_name = "Wassukani"
-                    set_city_status = city
+                    found_city_effect = yes
                 }
                 capital_scope = { 
                     create_pop = nobles 

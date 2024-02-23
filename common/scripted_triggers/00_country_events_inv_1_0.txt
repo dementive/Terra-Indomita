@@ -81,13 +81,7 @@ trade_good_decision_allow = {
 		total_population >= 40
 		num_goods_produced >= 3
 		free_building_slots = 0
-        trigger_if = {
-            limit = { has_construction = yes }
-            custom_tooltip = {
-                text = province_has_no_construction_tooltip
-                has_construction  = no
-            }
-        }
+		has_no_ongoing_construction = yes
 	}
 	trigger_else_if = {
 		limit = {
@@ -97,13 +91,7 @@ trade_good_decision_allow = {
 		total_population >= 50
 		num_goods_produced >= 4
 		free_building_slots = 0
-        trigger_if = {
-            limit = { has_construction = yes }
-            custom_tooltip = {
-                text = province_has_no_construction_tooltip
-                has_construction  = no
-            }
-        }
+		has_no_ongoing_construction = yes
 	}
 	trigger_else = {
 		has_city_status = yes
@@ -111,7 +99,6 @@ trade_good_decision_allow = {
 		total_population >= 20
 	}
 }
-
 
 # PROVINCE = Scope of any province in the region that is to be checked
 # PERCENT = 0-1 float
@@ -132,7 +119,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -149,7 +140,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -163,7 +158,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -180,7 +179,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -194,7 +197,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -211,7 +218,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -225,7 +236,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -242,7 +257,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -256,7 +275,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -273,7 +296,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -287,7 +314,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -304,7 +335,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -318,7 +353,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -335,7 +374,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -349,7 +392,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -366,7 +413,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -380,7 +431,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -397,7 +452,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -411,7 +470,11 @@ owns_percent_of_region = {
 				region = {
 					any_region_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -438,7 +501,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -455,7 +522,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -469,7 +540,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -486,7 +561,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -500,7 +579,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -517,7 +600,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -531,7 +618,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -548,7 +639,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -562,7 +657,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -579,7 +678,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -593,7 +696,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -610,7 +717,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -624,7 +735,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -641,7 +756,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -655,7 +774,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -672,7 +795,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -686,7 +813,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -703,7 +834,11 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
@@ -717,10 +852,25 @@ owns_percent_of_area = {
 				area = {
 					any_area_province = {
 						percent >= $PERCENT$
-						owner = root
+						exists = owner
+						OR = {
+							owner = root
+							owner = { is_subject_of = ROOT }
+						}
 					}
 				}
 			}
 		}
+	}
+}
+
+# This trigger should be used in all mission tasks that require a province to build a building.
+has_no_ongoing_construction = {
+	trigger_if = {
+	    limit = { has_construction = yes }
+	    custom_tooltip = {
+	        text = province_has_no_construction_tooltip
+	        has_construction  = no
+	    }
 	}
 }

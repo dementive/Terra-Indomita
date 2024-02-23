@@ -1,0 +1,62 @@
+﻿country_decisions = {
+	form_nanyue = {
+		
+		potential = {
+			num_of_cities >= 1
+			OR = {
+				primary_culture = nanyue
+				primary_culture = fulou
+			}
+			NOT = {
+				tag = NAN
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = nanhai_area
+					is_in_area = cangwu_area
+					province_id = 9168
+				}
+			}
+		}
+		
+		allow = {
+			can_form_nation_trigger = yes
+			owns_area = nanhai_area
+			owns_area = cangwu_area
+			owns = 9168
+		}
+		
+		effect = {
+			custom_tooltip = "tier_1_formable_tooltip"
+			change_country_name = "NANYUE_NAME"
+			if = {
+				limit = { is_tribal = yes }
+				add_country_modifier = {
+					name = civilized_tribe
+					duration = 5475
+				}
+				change_government = tribal_federation
+				switch_government_type_event_clearup_effect = yes
+			}
+			hidden_effect = {
+				change_country_adjective = "NANYUE_ADJECTIVE"
+				change_country_tag = NAN				
+			}
+			capital_scope = {
+				establish_city_effect = yes
+				capital_formable_tribal_effect = yes
+				formable_capital_modifier_tribal_effect = yes
+			}
+			add_2_free_province_investments = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+} 
+

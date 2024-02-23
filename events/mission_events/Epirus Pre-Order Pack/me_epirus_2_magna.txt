@@ -505,7 +505,29 @@ me_epirus_2_magna.9 = {							    # Round on the Cities - Start/End
         custom_tooltip = me_epirus_2_magna.9.tt
         me_epi_1_kineas_effect = yes
         p:67 = {
-            set_owned_by = EPI
+            if = {
+                limit = {
+                    owner = {
+                        is_ai = yes
+                    }
+                }
+                set_owned_by = EPI
+            }
+        }
+        if = {
+            limit = { 
+                p:67.owner = {
+                    OR = {
+                        tag = ROM
+                        is_ai = no
+                    }      
+                }
+            }
+            declare_war_with_wargoal = {
+                war_goal = imperial_conquest_wargoal
+                province = 67
+                target = p:67.owner
+            }
         }
         create_unit = {
             navy = no

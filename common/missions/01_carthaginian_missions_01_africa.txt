@@ -74,9 +74,11 @@
 
         highlight = {
 			scope:province = {
-				exists = c:MSL
-				exists = owner
-				owner = c:MSL
+				OR = {
+                    is_in_area = numidia_maioris_area
+					is_in_area = numidia_minoris_area
+					is_in_area = gaetulia_orientalis_area
+                }
 			}
         }
 
@@ -323,7 +325,7 @@
                         has_province_rank = settlement
                         owned_or_subject_owned = scope:mission_country
                     }
-                    set_city_status = city
+                    found_city_effect = yes
                 }
             }
             p:3092 = {
@@ -332,7 +334,7 @@
                         has_province_rank = settlement
                         owned_or_subject_owned = scope:mission_country
                     }
-                    set_city_status = city
+                    found_city_effect = yes
                 }
             }
             p:3095.state = {

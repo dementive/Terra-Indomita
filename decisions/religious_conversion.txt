@@ -143,6 +143,9 @@ country_decisions = {
 		
 		potential = {
 			num_of_cities >= 1
+			NOT = {
+				religion = italic_pantheon
+			}
 			potential_change_religion_trigger = {
 				RELIGION = roman_pantheon
 			}
@@ -331,24 +334,24 @@ country_decisions = {
 		}
 	}
 	
-	convert_to_anahita_religion = {
+	convert_to_anahitic_religion = {
 		
 		potential = {
 			num_of_cities >= 1
 			potential_change_religion_trigger = {
-				RELIGION = anahita_religion
+				RELIGION = anahitic_religion
 			}
 		}
 
 		allow = {
 			could_change_religion_trigger = {
-				RELIGION = anahita_religion
+				RELIGION = anahitic_religion
 			}
 		}
 		
 		effect = {
 			change_religion_effect = {
-				RELIGION = anahita_religion
+				RELIGION = anahitic_religion
 			}
 		}
 		
@@ -357,7 +360,7 @@ country_decisions = {
 			modifier = {
 				add = 1
 				capital_scope = {
-					dominant_province_religion = anahita_religion
+					dominant_province_religion = anahitic_religion
 				}
 			}
 		}
@@ -806,6 +809,38 @@ country_decisions = {
 				add = 1
 				capital_scope = {
 					dominant_province_religion = puntic_religion
+				}
+			}
+		}
+	}
+
+	convert_to_italic_pantheon = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = italic_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = italic_pantheon
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = italic_pantheon
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = italic_pantheon
 				}
 			}
 		}
