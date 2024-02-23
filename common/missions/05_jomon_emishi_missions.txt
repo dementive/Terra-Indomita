@@ -87,18 +87,55 @@
     emishi_missions_task_4 = { # Threats in Tohoku
         icon = "task_diplomatic"
         duration = 180
-        allow = {}
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = tohoku_area
+                }
+            }
+        }
+        allow = {
+            political_influence >= 25
+            treasury >= 50
+        }
         on_completion = {
             trigger_event = me_emishi.4
             show_as_tooltip = {
-
+                add_political_influence = -25
+                add_treasury = -50
+                custom_tooltip = tohoku_claims_tt
+                if = {
+                    limit = {
+                        primary_culture = sunazawa
+                    }
+                    custom_tooltip = hokkaido_claims_tt
+                }
             }
         }
     }
     emishi_missions_task_5 = { # A Jomon Jamboree
         icon = "task_diplomatic"
         requires = { emishi_missions_task_4 }
-        allow = {}
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10557
+                    province_id = 10558
+                    province_id = 9732
+                    province_id = 9721
+                    province_id = 9732
+                    province_id = 9731
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns = 10557
+            owns_or_subject_owns = 10558
+            owns_or_subject_owns = 9732
+            owns_or_subject_owns = 9721
+            owns_or_subject_owns = 9732
+            owns_or_subject_owns = 9731
+        }
         on_completion = {
             trigger_event = me_emishi.5
             show_as_tooltip = {
@@ -109,7 +146,31 @@
     emishi_missions_task_6 = { # Nefarious Neighbors
         icon = "task_diplomatic"
         requires = { emishi_missions_task_4 }
-        allow = {}
+        highlight = {
+            scope:province = {
+                AND = {
+                    OR = {
+                        is_in_area = tohoku_area
+                        is_in_area = sinano_area
+                        is_in_area = musasi_area
+                        is_in_area = kaga_area
+                    }
+                    province_dominant_culture_group = japan
+                }
+            }
+        }
+        allow = {
+            any_neighbour_country = {
+                custom_tooltip = {
+                    country_culture_group = japan
+                    text = japan_culture_neighbor_tt
+                }
+                custom_tooltip = {
+                    is_subject_of = ROOT
+                    text = neighbor_is_subject_tt
+                }
+            }
+        }
         on_completion = {
             trigger_event = me_emishi.6
             show_as_tooltip = {
@@ -133,6 +194,11 @@
         icon = "task_diplomatic"
         potential = { primary_culture = sunazawa }
         requires = { emishi_missions_task_2 emishi_missions_task_4 }
+        highlight = {
+            scope:province = {
+                is_in_area = hokkaido_area
+            }
+        }
         allow = {
             owns_or_subject_owns_area = hokkaido_area
         }
