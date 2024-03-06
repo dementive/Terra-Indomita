@@ -136,18 +136,32 @@
 					culture = baidi
 					religion = hu_religions
                 }
-				random_country_culture = {
-					limit = { culture = culture:baidi }
-					add_country_culture_modifier = {
-						name = "integrated_di"
-						duration = 7300
+				if = {
+					limit = {
+						any_country_culture = {
+							is_culture = baidi
+						}
+					}
+					random_country_culture = {
+						limit = { culture = culture:baidi }
+						add_country_culture_modifier = {
+							name = "integrated_di"
+							duration = 7300
+						}
 					}
 				}
-				random_country_culture = {
-					limit = { culture = culture:ji }
-					add_country_culture_modifier = {
-						name = pissed_off_ji
-						duration = 7300
+				if = {
+					limit = {
+						any_country_culture = {
+							is_culture = ji
+						}
+					}
+					random_country_culture = {
+						limit = { culture = culture:ji }
+						add_country_culture_modifier = {
+							name = pissed_off_ji
+							duration = 7300
+						}
 					}
 				}
 			}

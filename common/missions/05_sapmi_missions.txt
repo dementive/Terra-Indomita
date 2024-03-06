@@ -486,11 +486,18 @@
         on_completion = {
             trigger_event = me_sapmi.12
             show_as_tooltip = {
-				random_country_culture = {
-					limit = { this.culture = culture:fennic }
-					add_country_culture_modifier = {
-						 name = integrated_fenns
-						 duration = -1
+				if = {
+					limit = {
+						any_country_culture = {
+							is_culture = fennic
+						}
+					}
+					random_country_culture = {
+						limit = { this.culture = culture:fennic }
+						add_country_culture_modifier = {
+							 name = integrated_fenns
+							 duration = -1
+						}
 					}
 				}
 				random_country_culture = {
