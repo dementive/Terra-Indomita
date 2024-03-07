@@ -1679,8 +1679,30 @@ lifestyle_event_chains.37 = {
 
     title = lifestyle_event_chains.37.t
     desc = lifestyle_event_chains.37.desc
-    picture = senator_conversing    
+    picture = romans_marching    
 	left_portrait = root.current_ruler
+    right_portrait = scope:martial_thinker
+    right_portrait = scope:finesse_thinker
+
+	immediate = {
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			order_by = martial
+			save_scope_as = martial_thinker
+		}
+		ordered_character = {
+			limit = {
+				has_tech_office = yes
+			}
+			alternative_limit = {
+				is_ruler = no
+			}
+			order_by = finesse
+			save_scope_as = finesse_thinker
+		}
+	}	
 
     option = { #train with someone
         name = "lifestyle_event_chains.37.a"
@@ -1688,6 +1710,9 @@ lifestyle_event_chains.37 = {
 			subtract = root.has_monthly_income
 			multiply = 3
 		}
+		current_ruler = {
+			remove_trait = frail
+		}		
 		hidden_effect = {
 			random_list = {
 				75 = {
@@ -1765,7 +1790,7 @@ lifestyle_event_chains.39 = {
     picture = senator_conversing    
 	left_portrait = root.current_ruler
 
-    option = { #train with someone
+    option = { #train with the best
         name = "lifestyle_event_chains.39.a"
 		current_ruler = {
 			add_martial = 3
@@ -1804,6 +1829,14 @@ lifestyle_event_chains.40 = {
 	option = {
         name = "lifestyle_event_chains.40.b"
 		custom_tooltip = no_effect_tooltip
+		random_list = {
+			75 = {
+				current_ruler = { add_trait = lazy }
+			}
+			25 = {
+			
+			}
+		}
     }
 }
 
@@ -1815,7 +1848,7 @@ lifestyle_event_chains.41 = {
     picture = senator_conversing    
 	left_portrait = root.current_ruler
 
-    option = { #follow to cave
+    option = { #go to cave
         name = "lifestyle_event_chains.41.a"
 		hidden_effect = {
 			trigger_event = {
@@ -1832,7 +1865,7 @@ lifestyle_event_chains.41 = {
 				current_ruler = { add_trait = lazy }
 			}
 			75 = {
-			
+			current_ruler = add_trait = coward
 			}
 		}
     }
@@ -1947,7 +1980,7 @@ lifestyle_event_chains.45 = {
 	left_portrait = root.current_ruler
 	
 	option = { #open the chest
-        name = "lifestyle_event_chains.45.b"
+        name = "lifestyle_event_chains.45.a"
 		current_ruler = {
 			add_focus_experience = {
 				text = "add_25_focus_xp"
@@ -1991,7 +2024,7 @@ lifestyle_event_chains.45 = {
 				current_ruler = { add_trait = mil_indecisive }
 			}
 			75 = {
-			
+				current_ruler = { add_trait = wise }
 			}
 		}
     }
