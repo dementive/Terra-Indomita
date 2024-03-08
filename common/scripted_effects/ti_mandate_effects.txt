@@ -371,41 +371,6 @@ remove_all_chinese_unification_vars_effect = {
 	remove_variable = chinese_prov_26_owned
 }
 
-declare_china_war_effect = {
-	$COUNTRY$ = {
-	    random_neighbour_country = {
-	        limit = {
-	        	is_ai = yes
-	            country_culture_group = chinese
-	            NOT = {
-	            	alliance_with = $COUNTRY$
-	            }
-	            NOT = {
-	            	any_allied_country = {
-	            		alliance_with = $COUNTRY$
-	            		opinion = { target = $COUNTRY$ value >= 50 } 
-	            	}
-	            }
-	        }
-	        weight = {
-	        	modifier = {
-	        		factor = {
-	        			value = 1
-	        			add = num_of_cities
-	        			divide = 2
-	        		}
-	        	}
-	        }
-	        prev = {
-	            declare_war_with_wargoal = {
-	                war_goal = chinese_unification_wargoal
-	                target = prev
-	            }
-	        }
-	    }
-	}
-}
-
 change_mandate_effect = {
 	if = {
 		limit = {
@@ -413,7 +378,7 @@ change_mandate_effect = {
 		}
 		change_variable = {
 			name = mandate_variable
-			add = $VALUE$
+			add = $amount$
 		}
 	}
 }

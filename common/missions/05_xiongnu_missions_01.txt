@@ -674,6 +674,7 @@
         allow = {
 			trigger_if = {
                 limit = {
+                	is_tribal = yes
                     c:WUS = {
 						has_land = yes
 					}
@@ -683,7 +684,17 @@
 					has_character_modifier = renowned_fighter
 				}
 			}
-			#challenge Wusun leader to duel  - TODO Dementive
+			trigger_else = {
+				custom_tooltip = {
+					text = xiongnu_missions_01_task_19_tt
+					current_ruler = {
+						has_variable = ruler_challenged_duel_recently
+						c:WUS.current_ruler = {
+							has_variable = duel_challenged
+						}
+					}
+				}
+			}
 		}
 
         on_completion = {
