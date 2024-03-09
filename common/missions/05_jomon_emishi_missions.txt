@@ -86,8 +86,8 @@
         icon = "task_expansion"
         potential = { primary_culture = mitinooku }
         allow = {
-            centralization <= -5
-            trade_routes >= 1
+            centralization <= -3
+            diplomatic_stance = trading_stance
         }
         on_completion = {
             trigger_event = me_emishi.3
@@ -137,7 +137,6 @@
                 OR = {
                     province_id = 10557
                     province_id = 10558
-                    province_id = 9732
                     province_id = 9721
                     province_id = 9732
                     province_id = 9731
@@ -147,7 +146,6 @@
         allow = {
             owns_or_subject_owns = 10557
             owns_or_subject_owns = 10558
-            owns_or_subject_owns = 9732
             owns_or_subject_owns = 9721
             owns_or_subject_owns = 9732
             owns_or_subject_owns = 9731
@@ -285,14 +283,15 @@
         potential = { primary_culture = mitinooku }
         highlight = {
             scope:province = {
-                dominant_province_culture = mitinooku
-                has_owner = no
-                NOT = { province_id = 9760 }
+                OR = {
+                    province_id = 10564
+                    province_id = 10561
+                }
             }
         }
         requires = { emishi_missions_task_3 emishi_missions_task_4 }
         allow = {
-            centralization >= 10
+            centralization > 0
             capital_scope = {
                 OR = {
                     custom_tooltip = {
@@ -362,7 +361,9 @@
                     character_experience >= 75
                 }
                 custom_tooltip = {
-                    has_variable = oratory_focus_tree_enabled
+                    current_ruler = {
+                        has_variable = oratory_focus_tree_enabled
+                    }
                     text = oratory_focus_tree_enabled_tt
                 }
             }

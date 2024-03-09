@@ -537,6 +537,29 @@ me_emishi.4 = { # Threats in Tohoku
     option = {
         name = "me_emishi_4.a"
         custom_tooltip = me_emishi_4_tooltip
+        add_political_influence = -25
+        add_treasury = -50
+        custom_tooltip = tohoku_claims_tt
+        hidden_effect = {
+            area:tohoku_area = {
+                every_area_province = {
+                    add_claim = root
+                }
+            }
+        }
+        if = {
+            limit = {
+                primary_culture = sunazawa
+            }
+            custom_tooltip = hokkaido_claims_tt
+            hidden_effect = {
+                area:hokkaido_area = {
+                    every_area_province = {
+                        add_claim = root
+                    }
+                }
+            }
+        }
     }
 }
 me_emishi.5 = { # A Jomon Jamboree
@@ -708,7 +731,7 @@ me_emishi.9 = { # The Empty East
         }
         if = {
             limit = {
-                tag = MIT
+                tag = MTK
             }
             set_capital = 9721
         }
