@@ -537,12 +537,19 @@
         on_completion = {
             trigger_event = me_lu.13
             show_as_tooltip = {
-				random_country_culture = {
+				if = {
 					limit = {
-						this.culture = culture:wuyue
+						any_country_culture = {
+							is_culture = wuyue
+						}
 					}
-					ROOT = { 
-						integrate_country_culture = PREV 
+					random_country_culture = {
+						limit = {
+							this.culture = culture:wuyue
+						}
+						ROOT = { 
+							integrate_country_culture = PREV 
+						}
 					}
 				}
 				add_military_experience = 10

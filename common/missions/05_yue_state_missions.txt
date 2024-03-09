@@ -246,7 +246,14 @@
 				}
 				trigger_event = me_yue_state.5
 			}
-			else = {
+			else_if = {
+				limit = {
+					NOT = { primary_culture = xu }
+					any_country_culture = {
+						is_culture = xu
+						is_integrated = no
+					}
+				}
 				random_country_culture = {
 					limit = {
 						this.culture = culture:xu
@@ -760,12 +767,19 @@
         on_completion = {
             trigger_event = me_yue_state.18
             show_as_tooltip = {
-				random_country_culture = {
+				if = {
 					limit = {
-						this.culture = culture:miao
+						any_country_culture = {
+							is_culture = sanmiao
+						}
 					}
-					ROOT = { 
-						integrate_country_culture = PREV 
+					random_country_culture = {
+						limit = {
+							this.culture = culture:sanmiao
+						}
+						ROOT = { 
+							integrate_country_culture = PREV 
+						}
 					}
 				}
 				add_country_modifier = {
