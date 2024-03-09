@@ -30,9 +30,11 @@
     }
 
     emishi_missions_task_1 = { # Fun of Hit and Run
-        icon = "task_diplomatic"
+        icon = "task_battle"
         potential = { primary_culture = dewa }
-        allow = {}
+        allow = {
+            military_experience >= 15
+        }
         on_completion = {
             trigger_event = me_emishi.1
             show_as_tooltip = {
@@ -40,11 +42,18 @@
                     name = emishi_tactics
                     duration = -1
                 }
+                add_military_experience = -15
             }
         }
     }
     emishi_missions_task_2 = { # Secrets of Rice
-        icon = "task_diplomatic"
+        icon = "task_zeus_cornucopia"
+        highlight = {
+            scope:province = {
+                has_food_trade_good_trigger = yes
+                is_in_region = wa_region
+            }
+        }
         potential = { primary_culture = sunazawa }
         allow = {
             treasury >= 25
@@ -74,18 +83,25 @@
         }
     }
     emishi_missions_task_3 = { # Merchants by Day, Migrants by Night
-        icon = "task_diplomatic"
+        icon = "task_expansion"
         potential = { primary_culture = mitinooku }
-        allow = {}
+        allow = {
+            centralization <= -5
+            trade_routes >= 1
+        }
         on_completion = {
             trigger_event = me_emishi.3
             show_as_tooltip = {
-
+                change_government = tribal_chiefdom
+                add_country_modifier = {
+                    name = merchants_by_day
+                    duration = -1
+                }
             }
         }
     }
     emishi_missions_task_4 = { # Threats in Tohoku
-        icon = "task_diplomatic"
+        icon = "task_conquest"
         duration = 180
         highlight = {
             scope:province = {
@@ -114,7 +130,7 @@
         }
     }
     emishi_missions_task_5 = { # A Jomon Jamboree
-        icon = "task_diplomatic"
+        icon = "task_happiness"
         requires = { emishi_missions_task_4 }
         highlight = {
             scope:province = {
@@ -139,12 +155,15 @@
         on_completion = {
             trigger_event = me_emishi.5
             show_as_tooltip = {
-
+                add_country_modifier = {
+                    name = jomon_jamboree
+                    duration = 1825
+                }
             }
         }
     }
     emishi_missions_task_6 = { # Nefarious Neighbors
-        icon = "task_diplomatic"
+        icon = "task_battle"
         requires = { emishi_missions_task_4 }
         highlight = {
             scope:province = {
@@ -174,19 +193,71 @@
         on_completion = {
             trigger_event = me_emishi.6
             show_as_tooltip = {
-
+                add_country_modifier = {
+                    name = push_back_emishi
+                    duration = 730
+                }
+                area:sinano_area = {
+                    every_area_province = {
+                        add_claim = root
+                    }
+                }
+                area:musasi_area = {
+                    every_area_province = {
+                        add_claim = root
+                    }
+                }
+                area:kaga_area = {
+                    every_area_province = {
+                        add_claim = root
+                    }
+                }
             }
         }
     }
     emishi_missions_task_7 = { # Cultural Corridor
-        icon = "task_diplomatic"
+        icon = "task_conquest"
         potential = { primary_culture = dewa }
         requires = { emishi_missions_task_1 emishi_missions_task_4 }
-        allow = {}
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10555
+                    province_id = 9731
+                    province_id = 9730
+                    province_id = 9729
+                    province_id = 9728
+                }
+            }
+        }
+        allow = {
+            any_owned_province = {
+                has_building = port_building
+            }
+            owns = 10555
+            owns = 9731
+            OR = {
+                owns = 9730
+                owns = 9729
+                owns = 9728
+            }
+        }
         on_completion = {
             trigger_event = me_emishi.7
             show_as_tooltip = {
-
+                create_unit = {
+                    navy = yes
+                    location = p:10932
+                    add_subunit = liburnian
+                    add_subunit = liburnian
+                    add_subunit = liburnian
+                    add_subunit = liburnian
+                    add_subunit = liburnian
+                    add_subunit = liburnian
+                    add_subunit = liburnian
+                    add_subunit = liburnian
+                    add_subunit = liburnian
+                }
             }
         }
     }
@@ -205,16 +276,35 @@
         on_completion = {
             trigger_event = me_emishi.8
             show_as_tooltip = {
-
+                custom_tooltip = "sunazawa_hokkaido_tt"
             }
         }
     }
     emishi_missions_task_9 = { # The Empty East
-        icon = "task_diplomatic"
+        icon = "task_expansion"
         potential = { primary_culture = mitinooku }
+        highlight = {
+            scope:province = {
+                dominant_province_culture = mitinooku
+                has_owner = no
+                NOT = { province_id = 9760 }
+            }
+        }
         requires = { emishi_missions_task_3 emishi_missions_task_4 }
         allow = {
-            #civilization level or centralization level
+            centralization >= 10
+            capital_scope = {
+                OR = {
+                    custom_tooltip = {
+                        province_id = 10564
+                        text = "miyako_capital_tt"
+                    }
+                    custom_tooltip = {
+                        province_id = 10561
+                        text = "mutsu_capital_tt"
+                    }
+                }
+            }
         }
         on_completion = {
             trigger_event = me_emishi.9
@@ -224,9 +314,9 @@
         }
     }
     emishi_missions_task_10 = { # Unity Amongst Emishi
-        icon = "task_diplomatic"
-        requires = { emishi_missions_task_7 emishi_missions_task_8 emishi_missions_task_9 }
-        allow = {}
+        icon = "task_apollo"
+        requires = { emishi_missions_task_7 emishi_missions_task_8 emishi_missions_task_9 emishi_missions_task_5 }
+        allow = { owns_or_subject_owns_area = tohoku_area }
         on_completion = {
             trigger_event = me_emishi.10
             show_as_tooltip = {
@@ -250,16 +340,27 @@
                     change_government = tribal_kingdom
                     switch_government_type_event_clearup_effect = yes
                 }
+                area:tohoku_area = {
+                    every_area_province = {
+                        limit = {
+                            owned_or_subject_owned = root
+                            NOT = { owner = root }
+                        }
+                        set_owned_by = root
+                    }
+                }
             }
         }
     }
     emishi_missions_task_11 = { # Disparate Differences
-        icon = "task_diplomatic"
+        icon = "task_religion"
         duration = 30
         requires = { emishi_missions_task_10 }
         allow = {
             OR = {
-                character_experience >= 75
+                current_ruler = {
+                    character_experience >= 75
+                }
                 custom_tooltip = {
                     has_variable = oratory_focus_tree_enabled
                     text = oratory_focus_tree_enabled_tt
@@ -269,14 +370,29 @@
         on_completion = {
             trigger_event = me_emishi.11
             show_as_tooltip = {
-
+                add_political_influence = 75
+                add_treasury = 75
+                current_ruler = {
+                    add_focus_perk = {
+                        text = "add_1_char_perk"
+                        amount = 1
+                    }
+                }
             }
         }
     }
     emishi_missions_task_12 = { # The *Blank* Elite
-        icon = "task_diplomatic"
+        icon = "task_artemis"
         requires = { emishi_missions_task_11 }
-        allow = {}
+        allow = {
+            capital_scope = {
+                has_building = court_building
+                OR = {
+                    has_building = nobles_building
+                    has_building = citizen_building
+                }
+            }
+        }
         on_completion = {
             trigger_event = me_emishi.12
             set_variable = emi_elite_var
@@ -289,9 +405,14 @@
         }
     }
     emishi_missions_task_13 = { # Jomon Together Strong
-        icon = "task_diplomatic"
+        icon = "task_athena"
         requires = { emishi_missions_task_11 }
-        allow = {}
+        allow = {
+            capital_scope = {
+                has_building = town_hall_building
+                has_building = freemen_building
+            }
+        }
         on_completion = {
             trigger_event = me_emishi.13
             set_variable = emi_equal_var
@@ -304,9 +425,11 @@
         }
     }
     emishi_missions_task_14 = { # Emergent Emishi Culture
-        icon = "task_diplomatic"
+        icon = "task_atlas"
         requires = { emishi_missions_task_12 emishi_missions_task_13 }
-        allow = {}
+        allow = {
+            invention = agressive_expansion_monthly_decay_inv_3
+        }
         on_completion = {
             trigger_event = me_emishi.14
             show_as_tooltip = {
@@ -319,9 +442,11 @@
                                     OR = {
                                         pop_culture = root.culture
                                         pop_type = nobles
+                                        pop_type = citizen
                                     }
-                                    NOT = {
+                                    NOR = {
                                         pop_type = slaves
+                                        pop_type = freemen
                                     }
                                 }
                                 set_pop_culture = emishi
@@ -354,7 +479,68 @@
                 NEW_PRIMARY_CULTURE = emishi
                 MAKE_OLD_CULTURE_INTEGRATED = yes
             }
+            add_country_modifier = {
+                name = emishi_assimilation
+                duration = 1825
+            }
         }
         final = yes
+    }
+
+    emishi_missions_task_15 = { # Mend Yayoi Relations
+        icon = "task_happiness"
+        highlight = {
+            scope:province = {
+                province_dominant_culture_group = japan
+            }
+        }
+        requires = { emishi_missions_task_6 }
+        allow = {
+            custom_tooltip = {
+                any_subject = {
+                    country_culture_group = japan
+                    has_subject_loyalty >= 70
+                }
+                text = "yayoi_subject_mend_tt"
+            }
+        }
+        on_completion = {
+            trigger_event = me_emishi.15
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = yayoi_mend
+                    duration = -1
+                }
+            }
+            custom_tooltip = yayoification_add_1_tt
+        }
+    }
+    emishi_missions_task_16 = { # End Yayoi Relations
+        icon = "task_conquest"
+        highlight = {
+            scope:province = {
+                province_dominant_culture_group = japan
+            }
+        }
+        requires = { emishi_missions_task_6 }
+        allow = {
+            custom_tooltip = {
+                any_subject = {
+                    country_culture_group = japan
+                    has_subject_loyalty <= -35
+                }
+                text = "yayoi_subject_end_tt"
+            }
+        }
+        on_completion = {
+            trigger_event = me_emishi.16
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = yayoi_end
+                    duration = -1
+                }
+            }
+            custom_tooltip = yayoification_sub_1_tt
+        }
     }
 }

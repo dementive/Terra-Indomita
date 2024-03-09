@@ -520,6 +520,11 @@ me_emishi.3 = { # Merchants by Day, Migrants by Night
     option = {
         name = "me_emishi_3.a"
         custom_tooltip = me_emishi_3_tooltip
+        change_government = tribal_chiefdom
+        add_country_modifier = {
+            name = merchants_by_day
+            duration = -1
+        }
     }
 }
 me_emishi.4 = { # Threats in Tohoku
@@ -544,6 +549,10 @@ me_emishi.5 = { # A Jomon Jamboree
     option = {
         name = "me_emishi_5.a"
         custom_tooltip = me_emishi_5_tooltip
+        add_country_modifier = {
+            name = jomon_jamboree
+            duration = 1825
+        }
     }
 }
 me_emishi.6 = { # Nefarious Neighbors
@@ -556,6 +565,25 @@ me_emishi.6 = { # Nefarious Neighbors
     option = {
         name = "me_emishi_6.a"
         custom_tooltip = me_emishi_6_tooltip
+        add_country_modifier = {
+            name = push_back_emishi
+            duration = 730
+        }
+        area:sinano_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:musasi_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:kaga_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
     }
 }
 me_emishi.7 = { # Cultural Corridor
@@ -568,6 +596,19 @@ me_emishi.7 = { # Cultural Corridor
     option = {
         name = "me_emishi_7.a"
         custom_tooltip = me_emishi_7_tooltip
+        create_unit = {
+            navy = yes
+            location = p:10932
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+        }
     }
 }
 me_emishi.8 = { # Second Home in Hokkaido
@@ -580,6 +621,67 @@ me_emishi.8 = { # Second Home in Hokkaido
     option = {
         name = "me_emishi_8.a"
         custom_tooltip = me_emishi_8_tooltip
+        custom_tooltip = annex_hokkaido_tt
+        area:hokkaido_area = {
+            every_area_province = {
+                add_province_modifier = {
+                    name = sunazawa_dominance
+                    duration = 3650
+                }
+            }
+        }
+    }
+    option = {
+        name = "me_emishi_8.b"
+        custom_tooltip = me_emishi_8_tooltip
+        custom_tooltip = vassal_hokkaido_tt
+        custom_tooltip = oshima_buff_tt
+        hidden_effect = {
+            p:10567 = {
+                create_country = {
+                    name = {
+                        name = oshima
+                        adjective = "ocean_man_adj"
+                    }
+                    change_country_tag = OS1
+                    if = {
+                        limit = {
+                            primary_culture = ainu
+                        }
+                        set_primary_culture_cleanup_effect = {
+                            NEW_PRIMARY_CULTURE = sunazawa
+                            MAKE_OLD_CULTURE_INTEGRATED = yes
+                        }
+                    }
+                    set_country_religion = ainu_religion
+                    change_country_color = punjabi_orange
+                    change_government = tribal_kingdom
+                    save_scope_as = oshima_vassal
+                    reverse_add_opinion = {
+                        modifier = opinion_liberated_us
+                        target = root
+                    }
+                }
+            }
+            area:hokkaido_area = {
+                every_area_province = {
+                    limit = {
+                        owned_or_subject_owned = root
+                    }
+                    set_owned_by = scope:oshima_vassal
+                }
+            }
+            make_subject = {
+                target = scope:oshima_vassal
+                type = feudatory
+            }
+            scope:oshima_vassal = {
+                add_country_modifier = {
+                    name = oshima_vassal_mod
+                    duration = -1
+                }
+            }
+        }
     }
 }
 me_emishi.9 = { # The Empty East
@@ -604,6 +706,19 @@ me_emishi.9 = { # The Empty East
                 }
             }
         }
+        if = {
+            limit = {
+                tag = MIT
+            }
+            set_capital = 9721
+        }
+        if = {
+            limit = {
+                tag = SRA
+            }
+            set_capital = 9723
+        }
+        change_government = tribal_federation
     }
 }
 me_emishi.10 = { # Unity Amongst Emishi
@@ -648,6 +763,14 @@ me_emishi.11 = { # Disparate Differences
     option = {
         name = "me_emishi_11.a"
         custom_tooltip = me_emishi_11_tooltip
+        add_political_influence = 75
+        add_treasury = 75
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+        }
     }
 }
 me_emishi.12 = { # The *Blank* Elite
@@ -664,6 +787,7 @@ me_emishi.12 = { # The *Blank* Elite
             name = emishi_elite
             duration = -1
         }
+        set_variable = emi_elite_var
     }
 }
 me_emishi.13 = { # Jomon Together Strong
@@ -680,6 +804,7 @@ me_emishi.13 = { # Jomon Together Strong
             name = emishi_equal
             duration = -1
         }
+        set_variable = emi_equal_var
     }
 }
 me_emishi.14 = { # Emergent Emishi Culture
@@ -731,5 +856,55 @@ me_emishi.14 = { # Emergent Emishi Culture
                 }
             }
         }
+        set_primary_culture_cleanup_effect = {
+            NEW_PRIMARY_CULTURE = emishi
+            MAKE_OLD_CULTURE_INTEGRATED = yes
+        }
+        add_country_modifier = {
+            name = emishi_assimilation
+            duration = 1825
+        }
+    }
+}
+me_emishi.15 = { # Mend Yayoi Relations
+    type = country_event
+
+    title = me_emishi_15_title
+    desc = me_emishi_15_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_15.a"
+        custom_tooltip = me_emishi_15_tooltip
+        add_country_modifier = {
+            name = yayoi_mend
+            duration = -1
+        }
+        change_local_variable = {
+                name = yayoification
+                add = 1
+            }
+        custom_tooltip = yayoification_add_1_tt
+    }
+}
+me_emishi.16 = { # End Yayoi Relations
+    type = country_event
+
+    title = me_emishi_16_title
+    desc = me_emishi_16_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_16.a"
+        custom_tooltip = me_emishi_16_tooltip
+        add_country_modifier = {
+            name = yayoi_end
+            duration = -1
+        }
+        change_local_variable = {
+                name = yayoification
+                add = -1
+            }
+        custom_tooltip = yayoification_sub_1_tt
     }
 }
