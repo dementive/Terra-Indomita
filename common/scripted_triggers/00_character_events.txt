@@ -1,0 +1,503 @@
+﻿char_can_have_friends_trigger = {
+	can_get_friends = yes
+	is_mercenary = no
+	is_adult = yes
+}
+
+char_can_have_rivals_trigger = {
+	can_get_rivals = yes
+	is_mercenary = no
+	is_adult = yes
+}
+
+#use only in trigger block of target
+char_can_be_friend_trigger = {
+	is_adult = yes
+	is_ruler = no
+	can_get_friends = yes
+	is_mercenary = no
+	exists = THIS
+	NOT = { is_rival = ROOT }
+	NOT = { is_friend = ROOT }
+	NOT = { has_same_family = ROOT }
+}
+
+#use only in trigger block of target
+char_can_be_rival_trigger = {
+	is_adult = yes
+	is_ruler = no
+	is_mercenary = no
+	can_get_rivals = yes
+	NOT = { is_rival = ROOT }
+	NOT = { is_friend = ROOT }
+	NOT = { has_same_family = ROOT }
+}
+
+char_has_military_trait = {
+	OR = {
+		has_trait = tactician
+		has_trait = disciplined
+		has_trait = steadfast
+		has_trait = aggressive
+	}	
+}
+
+char_rival_is_valid_antagonist_trigger = {
+	is_ruler = no
+	is_alive = yes
+	employer = root.employer
+	prisoner = no
+	exists = THIS
+}
+
+char_valid_for_country_events_trigger = {
+	is_alive = yes
+	prisoner = no
+	NOT = {
+		has_variable = olympic_attendee
+	}
+}
+
+prisoner_valid_for_country_events_trigger = {
+	is_alive = yes
+	NOR = {
+		has_variable = olympic_attendee
+		has_variable = modun_character_scope_variable
+	}
+}
+
+#For monarchy plot events
+is_valid_plotter = {
+	country = employer
+	is_alive = yes
+	is_successor = yes
+	prisoner = no
+}
+
+char_is_unoccupied_trigger = {
+	exists = THIS
+	is_adult = yes
+	is_alive = yes
+	has_job = no
+	has_any_office = no
+	is_ruler = no
+}
+
+# Wonder Destruction Province Check
+city_has_destroyable_wonder_trigger = {
+	OR = {
+		city_has_museion_trigger = yes
+		city_has_colossus_trigger = yes
+	}
+}
+
+city_has_museion_trigger = {
+	province_id = 516
+	has_province_modifier = museion_of_alexandria
+}
+
+city_has_colossus_trigger = {
+	province_id = 266
+	OR = {
+		has_province_modifier = province_improvement_colossus_1
+		has_province_modifier = province_improvement_colossus_2
+	}
+}
+
+# For DHE Museion check
+char_is_hellenic_sphere_trigger = {
+	OR = {
+		has_culture_group = west_levantine
+		has_culture_group = east_levantine
+		has_culture_group = south_levantine
+		has_culture_group = persia
+		has_culture_group = anatolian
+		has_culture_group = bactrian
+		has_culture_group = hellenic
+		has_culture_group = north_african
+		has_culture_group = latin
+		has_religion = roman_pantheon
+		has_religion = egyptian_pantheon
+		has_religion = carthaginian_pantheon
+		has_religion = anatolian_religion
+		has_religion = zoroaster
+	}
+}
+
+# War Check
+scripted_famous_cities_list_trigger = {
+	province_id = 1
+}
+
+# For DHE City Fall trigger
+city_fall_trigger = {
+	NOT = { has_variable = sacked_province }
+	any_pops_in_province = {
+		count > 10
+	}
+}
+
+#Used in DHE Rome check
+random_populist_character_trigger = {
+	character_democratic_party_trigger = yes
+	is_ruler = no
+	is_adult = yes
+	prisoner = no
+	NOT = {
+		has_character_modifier = foreign_citizen
+	}
+}
+
+is_diadochi_trigger = {
+	OR = {
+		tag = SEL
+		tag = PRY
+		tag = EGY
+		tag = TRE
+		tag = MAC
+	}
+}
+
+#MON RIVAL BROTHERS Check
+rival_brothers_trigger = {
+	is_monarchy = yes
+	has_land = yes
+	any_successor = {
+		is_child_of = root.current_ruler
+		from_ruler_family = yes
+		prisoner = no
+		is_female = no
+		age >= 18
+		age <= 30
+		has_any_illness_trigger = no
+		employer = root
+		save_temporary_scope_as = rival_brother_1_temp_t
+		OR = {
+			AND = {
+				can_get_rivals = yes
+				any_sibling = {
+					is_successor = yes
+					is_child_of = root.current_ruler
+					from_ruler_family = yes
+					prisoner = no
+					is_female = no
+					age >= 18
+					age <= 30
+					can_get_rivals = yes
+					has_any_illness_trigger = no
+					employer = root
+					NOT = { is_rival = scope:rival_brother_1_temp_t }
+				}
+			}
+			AND = {
+				num_of_rivals >= 1
+				any_rival = {
+					is_successor = yes
+					is_sibling_of = scope:rival_brother_1_temp_t
+					is_child_of = root.current_ruler
+					from_ruler_family = yes
+					prisoner = no
+					is_female = no
+					age >= 18
+					age <= 30
+					has_any_illness_trigger = no
+					employer = root
+				}
+			}
+		}
+	}
+}
+
+rival_brothers_scope_trigger = {
+	is_monarchy = yes
+	has_land = yes
+	exists = scope:rival_brother_1
+	exists = scope:rival_brother_2
+	scope:rival_brother_1 = {
+		is_alive = yes
+		employer = root
+		prisoner = no
+		is_rival = scope:rival_brother_2
+	}
+	scope:rival_brother_2 = {
+		is_alive = yes
+		employer = root
+		prisoner = no
+	}
+}
+
+is_disloyal = {
+	loyalty < 33
+}
+
+remove_regent_modifier_trigger = {
+	OR = {
+		has_character_modifier = martial_regent_1_charmod
+		has_character_modifier = martial_regent_2_charmod
+		has_character_modifier = finesse_regent_1_charmod
+		has_character_modifier = finesse_regent_2_charmod
+		has_character_modifier = charisma_regent_1_charmod
+		has_character_modifier = charisma_regent_2_charmod
+		has_character_modifier = zeal_regent_1_charmod
+		has_character_modifier = zeal_regent_2_charmod
+	}
+}
+
+employer_is_valid = {
+	employer = {
+		num_of_cities > 0
+		NOR = {
+			tag = MER
+			tag = BAR
+			tag = PIR
+			tag = REB
+		}
+	}
+}
+
+scheme_preconditions = {
+	employer_is_valid = yes
+	is_adult = yes
+	is_ruler = no
+	is_mercenary = no
+	prisoner = no
+	NOR = {
+		has_character_modifier = foreign_citizen
+		has_character_modifier = indisposed_charmod
+	}
+}
+
+scheme_preconditions_ruler = {
+	employer_is_valid = yes
+	is_adult = yes
+	is_mercenary = no
+	prisoner = no
+	NOT = {
+		has_character_modifier = foreign_citizen
+	}
+}
+
+has_any_position = {
+	OR = {
+		has_job = yes
+		has_any_office = yes
+		has_tech_office = yes
+		is_general = yes
+		is_admiral = yes
+		is_governor = yes
+		is_co_ruler = yes
+		has_legion_trigger = yes
+		AND = {
+			employer = { is_monarchy = yes }
+			this = employer.consort
+		}
+	}
+}
+
+hof_disapproves_loyalty = {
+	exists = scope:negotiator
+	scope:negotiator = {
+		loyalty < 50
+	}
+}
+
+hof_disapproves_age = {
+	exists = scope:negotiator
+	var:suitor_age >= get_love_target_age_svalue 
+}
+
+self_disapproves_loyalty = {
+	NOT = {
+		exists = scope:negotiator
+	}
+	scope:love_target = {
+		loyalty < 50
+	}
+}
+
+self_disapproves_age = {
+	NOT = {
+		exists = scope:negotiator
+	}
+	var:suitor_age >= get_love_target_age_svalue
+}
+
+hof_approves = {
+	exists = scope:negotiator
+	scope:negotiator = {
+		loyalty >= 50
+	}
+	var:suitor_age < get_love_target_age_svalue
+}
+
+self_approves = {
+	NOT = {
+		exists = scope:negotiator
+	}
+	scope:love_target = {
+		loyalty >= 50
+	}
+	var:suitor_age < get_love_target_age_svalue
+}
+
+ruler_is_available = {
+	employer_is_valid = yes
+	is_ruler = yes
+	is_adult = yes
+	prisoner = no
+	is_mercenary = no
+	NOT = {
+		has_character_modifier = foreign_citizen
+	}
+}
+
+has_any_religious_office_trigger = {
+	OR = {
+		has_office = office_high_priest_monarchy
+		has_office = office_augur
+		has_office = office_pontifex
+		has_office = office_high_priest
+	}
+}
+
+has_any_admin_office_trigger = {
+	OR = {
+		has_office = office_steward
+		has_office = office_plebeian_aedile
+		has_office = office_magistrate
+	}
+}
+
+has_any_military_office_trigger = {
+	OR = {
+		has_office = office_marshal
+		has_office = office_master_of_the_guard
+		has_office = office_tribune_of_the_soldiers
+		has_office = office_tribune_of_the_treasury
+		has_office = office_warchief
+		has_office = office_bodyguard
+	}
+}
+
+has_tendency_to_bitterness = {
+	OR = {
+		has_trait = jealous
+		has_trait = lapsed
+		has_trait = arbitrary
+		has_trait = corrupt
+		has_trait = vengeful
+		has_trait = selfish
+		has_trait = reckless
+		has_trait = deceitful
+		has_trait = foolish
+		has_trait = ambitious
+		has_trait = arrogant
+	}
+}
+
+recruit_char_in_trigger = {
+	OR = {
+		from_ruler_family = yes
+		is_governor = yes
+		has_any_office = yes
+		in_command = yes
+		is_head_of_family = yes
+	}
+	NOR = {
+		loyalty > 40
+		AND = {
+			is_friend = employer.current_ruler 
+			NOT = { is_friend = scope:target }
+		}
+	}
+}
+
+will_defect_unnotable_trigger = {
+	NOR = {
+		is_ruler = yes
+		is_mercenary = yes
+		prisoner = yes
+		trigger_if = {
+			limit = { from_ruler_family = yes }
+			trigger_if = {
+				limit = { is_adult = yes }
+				loyalty > 40
+			}
+			trigger_else_if = {
+				limit = { is_adult = no }
+				is_child_of = scope:recruit_employer_scope.current_ruler
+			}
+		}
+		has_any_office = yes
+		is_head_of_family = yes
+		is_party_leader = yes
+		is_friend = employer.current_ruler
+		is_general = yes
+		is_admiral = yes
+		is_governor = yes
+		is_primary_heir = yes
+		loyalty > 70
+	}
+	OR = {
+		is_rival = employer.current_ruler
+		NAND = {
+			is_friend = scope:recruit_employer_scope.current_ruler
+			NOR = {
+				is_friend = spouse
+				is_friend = scope:actor.current_ruler
+			}
+		}
+	}
+}
+
+will_defect_notable_trigger = {
+	OR = {
+		from_ruler_family = yes
+		has_any_office = yes
+		is_head_of_family = yes
+		is_party_leader = yes
+		is_friend = employer.current_ruler
+		AND = {
+			NOT = { is_friend = scope:recruit_employer_scope.current_ruler }
+			OR = {
+				is_friend = spouse
+				is_friend = scope:actor.current_ruler
+			}
+		}
+	}
+	NOT = { loyalty > 40 }
+}
+
+citizenship_restrictions_trigger = {
+	trigger_if = {
+		limit = {
+			NOT = { has_culture = employer.culture }
+		}
+		employer = {
+			any_country_culture = {
+				has_country_culture_modifier = citizenship_by_adoption
+			}
+		}
+	}
+}
+
+eligible_for_country_move = {
+	is_alive = yes
+	employer = root
+	prisoner = no
+}
+
+betrothed_trigger = {
+	is_alive = yes
+	prisoner = no
+	OR = {
+		is_ruler = yes
+		is_close_relative = employer.current_ruler
+	}
+	NOR = {
+		employer = c:MER
+		employer = c:REB
+		employer = c:PIR
+	}
+	has_variable = betrothed_flag
+}
