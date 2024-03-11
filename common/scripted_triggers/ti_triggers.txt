@@ -556,6 +556,40 @@
 				}
 			}
 		}
+		trigger_if = { #Jomon Ezo
+			limit = {
+				ROOT = {
+					primary_culture = ainu
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = ezo_missions
+					}
+				}
+				is_in_region = wa_region
+			}
+		}
+		trigger_if = { #Jomon Emishi
+			limit = {
+				ROOT = {
+					OR = {
+						primary_culture = dewa
+						primary_culture = sunazawa
+						primary_culture = mitinooku
+					}
+				}
+			}
+			AND = {
+				ROOT = {
+					NOT = {
+						has_completed_mission = emishi_missions
+					}
+				}
+				is_in_region = wa_region
+			}
+		}
 	}
 }
 
@@ -587,6 +621,10 @@ TI_generic_infrastructure_mission_block = {
 				tag = DIA
 				tag = HY7
 				tag = ZHO
+				primary_culture = ainu
+				primary_culture = dewa
+				primary_culture = sunazawa
+				primary_culture = mitinooku
 			}
 		}
 		current_date > 452.1.1
