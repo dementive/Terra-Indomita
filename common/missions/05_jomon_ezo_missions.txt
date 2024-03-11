@@ -65,20 +65,11 @@
         icon = "task_conquest"
         duration = 30
         bypass = {
-            trigger_if = {
-                limit = { tag = ESN }
+            OR = {
                 c:KTM = { has_land = no }
                 c:ESU = { has_land = no }
-            }
-            trigger_if = {
-                limit = { tag = KTM }
                 c:ESN = { has_land = no }
-                c:ESU = { has_land = no }
-            }
-            trigger_if = {
-                limit = { tag = ESU }
-                c:KTM = { has_land = no }
-                c:ESN = { has_land = no }
+                owns_or_subject_owns_area = hokkaido_area
             }
         }
         highlight = {
@@ -102,9 +93,6 @@
                 }
                 text = "hokkaido_opinion_tt"
             }
-        }
-        bypass = {
-            owns_or_subject_owns_area = hokkaido_area
         }
         on_start = {
             trigger_event = me_ezo.2
