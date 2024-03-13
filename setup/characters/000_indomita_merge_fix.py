@@ -150,7 +150,7 @@ def find_blocks(file_path: str):
 
 
 def get_blocks_map(mod_path: str):
-    FIRST_FREE_ID = 515  # This should be the same as the first free ID listed in setup\character\000_READ_ME.txt of Invictus.
+    FIRST_FREE_ID = 516  # This should be the same as the first free ID listed in setup\character\000_READ_ME.txt of Invictus.
     file_path = mod_path + "setup\\characters\\000_indomita_characters.txt"
     blocks = find_blocks(file_path)
 
