@@ -1,6 +1,8 @@
 ﻿namespace = me_ezo
 namespace = me_emishi
 namespace = me_honshu
+namespace = me_duuchuu
+
 # Ezo
 me_ezo.1 = { # Horizons of Hokkaido
     type = country_event
@@ -1195,6 +1197,541 @@ me_honshu.20 = {
     option = {
         name = "me_honshu_20.a"
         custom_tooltip = me_honshu_20_tooltip
+
+    }
+}
+
+# Duuchuu
+me_duuchuu.1 = {
+    type = country_event
+
+    title = me_duuchuu_1_title
+    desc = me_duuchuu_1_desc
+    picture = great_work_animals
+
+    option = {
+        name = "me_duuchuu_1.a"
+        custom_tooltip = me_duuchuu_1_tooltip
+        add_country_modifier = {
+            name = okinawa_calm
+            duration = 730
+        }
+    }
+}
+me_duuchuu.2 = {
+    type = country_event
+
+    title = me_duuchuu_2_title
+    desc = me_duuchuu_2_desc
+    picture = china_art_11_event
+
+    option = {
+        name = "me_duuchuu_2.a"
+        custom_tooltip = me_duuchuu_2_tooltip
+        create_country_treasure = {
+            key = shell_bracelet
+            icon = treasure_it_lusitanian_silver_breastplate
+            modifier = {
+                local_population_growth = 0.05
+                local_commerce_value_modifier = 0.10
+            }
+        }
+        add_1_free_province_investments = yes
+        p:9734 = {
+            create_pop = freemen
+            create_pop = freemen
+        }
+    }
+}
+me_duuchuu.3 = {
+    type = country_event
+
+    title = me_duuchuu_3_title
+    desc = me_duuchuu_3_desc
+    picture = interesting_histories_fish_market
+
+    option = {
+        name = "me_duuchuu_3.a"
+        custom_tooltip = me_duuchuu_3_tooltip
+        add_country_modifier = {
+            name = okinawa_fish
+            duration = -1
+        }
+        add_1_free_province_investments = yes
+        p:9738 = {
+            create_pop = freemen
+            create_pop = freemen
+        }
+    }
+}
+me_duuchuu.4 = {
+    type = country_event
+
+    title = me_duuchuu_4_title
+    desc = me_duuchuu_4_desc
+    picture = celtic_religious_festival
+
+    option = {
+        name = "me_duuchuu_4.a"
+        custom_tooltip = me_duuchuu_4_tooltip
+        #custom_tooltip = empower_women_tt
+        capital_scope = {
+            add_special_pop = {
+                text = "add_2_priest_tt"
+                type = priest
+                count = 2
+            }
+        }
+        random_character = {
+            limit = {
+                is_female = yes
+                has_office = office_high_priest
+            }
+            add_zeal = 5
+        }
+        random_character = {
+            limit = {
+                is_female = yes
+                has_office = office_arbitrator
+            }
+            add_zeal = 5
+        }
+        random_character = {
+            limit = {
+                is_female = yes
+                has_office = office_elder
+            }
+            add_charisma = 5
+        }
+        random_character = {
+            limit = {
+                is_female = yes
+                has_office = office_wise_person
+            }
+            add_charisma = 5
+        }
+        if = {
+            limit = {
+                current_ruler = {
+                    is_female = yes
+                }
+            }
+            current_ruler = {
+                add_focus_perk = {
+                    text = "add_1_char_perk"
+                    amount = 1
+                }
+                add_trait = prominent
+            }
+        }
+    }
+}
+me_duuchuu.5 = {
+    type = country_event
+
+    title = me_duuchuu_5_title
+    desc = me_duuchuu_5_desc
+    picture = interesting_histories_ship_port_africa
+
+    option = {
+        name = "me_duuchuu_5.a"
+        custom_tooltip = me_duuchuu_5_tooltip
+        
+        add_country_modifier = {
+            name = okinawa_boats
+            duration = -1
+        }
+        capital_scope = {
+            add_special_pop = {
+                text = "add_1_merchant_tt"
+                type = merchant
+                count = 2
+            }
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+    }
+}
+me_duuchuu.6 = {
+    type = country_event
+
+    title = me_duuchuu_6_title
+    desc = me_duuchuu_6_desc
+    picture = japan_sailors_of_wa_event
+
+    option = {
+        name = "me_duuchuu_6.a"
+        custom_tooltip = me_duuchuu_6_tooltip
+        add_country_modifier = {
+            name = okinawa_rice
+            duration = -1
+        }
+        add_1_free_province_investments = yes
+        p:9737 = {
+            create_pop = freemen
+            create_pop = freemen
+        }
+    }
+}
+me_duuchuu.700 = {
+    type = country_event
+
+    title = me_duuchuu_7_title
+    desc = me_duuchuu_700_desc
+    picture = yue_wild_warriors_mil_trad_event
+    left_portrait = current_ruler
+    right_portrait = scope:nuruu
+
+    immediate = {
+        random_character = {
+            limit = {
+                has_office = office_high_priest
+            }
+            save_scope_as = nuruu
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_700.a"
+        show_as_tooltip = {
+            custom_tooltip = okinawa_disaster_tt
+            add_stability = -100
+            add_treasury = -1000
+            capital_scope = {
+                random_pops_in_province = {
+                    kill_pop = yes
+                    kill_pop = yes
+                    kill_pop = yes
+                    kill_pop = yes
+                }
+            }
+            current_ruler = {
+                divorce_character = spouse
+            }
+            current_heir = {
+                death = {
+                    death_reason = death_apoplectic_rage
+                    killer = ruler
+                }
+            }
+            add_country_modifier = {
+                name = devestation
+                duration = -1
+            }
+        }
+        trigger_event = {
+            id = me_duuchuu.701
+            days = 30
+        }
+    }
+}
+me_duuchuu.701 = {
+    type = country_event
+
+    title = me_duuchuu_7_title
+    desc = me_duuchuu_701_desc
+    picture = looting_dishonor
+
+    option = {
+        name = "me_duuchuu_701.a"
+        custom_tooltip = me_duuchuu_7_tooltip
+        add_manpower = -2
+        add_stability = -3
+    }
+}
+me_duuchuu.702 = {
+    type = country_event
+
+    title = me_duuchuu_7_title
+    desc = me_duuchuu_702_desc
+    picture = Event_fire_city
+
+    option = {
+        name = "me_duuchuu_702.a"
+        custom_tooltip = me_duuchuu_7_tooltip
+        add_stability = 3
+    }
+}
+me_duuchuu.7 = {
+    type = country_event
+
+    title = me_duuchuu_7_title
+    desc = me_duuchuu_7_desc
+    picture = war_council
+
+    option = {
+        name = "me_duuchuu_7.a"
+        custom_tooltip = me_duuchuu_7_tooltip
+        area:kumaso_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:matsura_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:tutikungshan_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:qilin_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+    }
+}
+me_duuchuu.8 = {
+    type = country_event
+
+    title = me_duuchuu_8_title
+    desc = me_duuchuu_8_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_8.a"
+        custom_tooltip = me_duuchuu_8_tooltip
+
+    }
+}
+me_duuchuu.9 = {
+    type = country_event
+
+    title = me_duuchuu_9_title
+    desc = me_duuchuu_9_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_9.a"
+        custom_tooltip = me_duuchuu_9_tooltip
+
+    }
+}
+me_duuchuu.10 = {
+    type = country_event
+
+    title = me_duuchuu_10_title
+    desc = me_duuchuu_10_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_10.a"
+        custom_tooltip = me_duuchuu_10_tooltip
+
+    }
+}
+me_duuchuu.11 = {
+    type = country_event
+
+    title = me_duuchuu_11_title
+    desc = me_duuchuu_11_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_11.a"
+        custom_tooltip = me_duuchuu_11_tooltip
+
+    }
+}
+me_duuchuu.12 = {
+    type = country_event
+
+    title = me_duuchuu_12_title
+    desc = me_duuchuu_12_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_12.a"
+        custom_tooltip = me_duuchuu_12_tooltip
+
+    }
+}
+me_duuchuu.130 = {
+    type = country_event
+
+    title = me_duuchuu_13_title
+    desc = me_duuchuu_130_desc
+    picture = china_art_4_event
+
+    immediate = {
+        random_country = {
+            limit = {
+                owns = 9740
+            }
+            save_scope_as = osumi_owner
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_13.b"
+        custom_tooltip = me_duuchuu_13_tooltip
+        add_treasury = -50
+        scope:osumi_owner = {
+            create_country_treasure = {
+                key = shell_jewelry
+                icon = treasure_chest
+                modifier = {
+                    local_goods_from_slaves = -1
+                }
+            }
+        }
+        p:9740 = {
+            set_owned_by = root
+        }
+    }
+}
+me_duuchuu.13 = {
+    type = country_event
+
+    title = me_duuchuu_13_title
+    desc = me_duuchuu_13_desc
+    picture = japan_tribal_ways_event
+
+    option = {
+        name = "me_duuchuu_13.a"
+        custom_tooltip = me_duuchuu_13_tooltip
+        p:9740 = {
+            set_owned_by = root
+        }
+    }
+}
+me_duuchuu.14 = {
+    type = country_event
+
+    title = me_duuchuu_14_title
+    desc = me_duuchuu_14_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_14.a"
+        custom_tooltip = me_duuchuu_14_tooltip
+
+    }
+}
+me_duuchuu.15 = {
+    type = country_event
+
+    title = me_duuchuu_15_title
+    desc = me_duuchuu_15_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_15.a"
+        custom_tooltip = me_duuchuu_15_tooltip
+
+    }
+}
+me_duuchuu.16 = {
+    type = country_event
+
+    title = me_duuchuu_16_title
+    desc = me_duuchuu_16_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_16.a"
+        custom_tooltip = me_duuchuu_16_tooltip
+
+    }
+}
+me_duuchuu.17 = {
+    type = country_event
+
+    title = me_duuchuu_17_title
+    desc = me_duuchuu_17_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_17.a"
+        custom_tooltip = me_duuchuu_17_tooltip
+
+    }
+}
+me_duuchuu.18 = {
+    type = country_event
+
+    title = me_duuchuu_18_title
+    desc = me_duuchuu_18_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_18.a"
+        custom_tooltip = me_duuchuu_18_tooltip
+
+    }
+}
+me_duuchuu.19 = {
+    type = country_event
+
+    title = me_duuchuu_19_title
+    desc = me_duuchuu_19_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_19.a"
+        custom_tooltip = me_duuchuu_19_tooltip
+
+    }
+}
+me_duuchuu.20 = {
+    type = country_event
+
+    title = me_duuchuu_20_title
+    desc = me_duuchuu_20_desc
+    picture = great_library
+
+    option = {
+        name = "me_duuchuu_20.a"
+        custom_tooltip = me_duuchuu_20_tooltip
 
     }
 }
