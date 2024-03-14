@@ -32,7 +32,7 @@
         highlight = {
 			scope:province = {
                 OR = {
-                    is_in_area = pyu_area
+                    is_in_area = beikthano_area
                 }
             }
 	    }
@@ -42,7 +42,7 @@
         }
         on_completion = {
             add_political_influence = -15
-            area:pyu_area = {
+            area:beikthano_area = {
 				add_provincial_claim_effect = yes
             }
             trigger_event = me_fugandulu.1
@@ -102,26 +102,26 @@
         highlight = {
 			scope:province = {
                 OR = {
-                    is_in_area = pyu_area
+                    is_in_area = beikthano_area
                 }
             }
 	    }
 
         allow = {
             political_influence >= 30 
-            owns_or_subject_owns_area = pyu_area
+            owns_or_subject_owns_area = beikthano_area
             diplomatic_stance = warmongering_stance
         }
 
         on_completion = {
             add_political_influence = -30
-            area:shan_area = {
-				add_provincial_claim_effect = yes
-            }
-            area:pubu_area = {
+            area:halin_area = {
 				add_provincial_claim_effect = yes
             }
             area:arakan_area = {
+				add_provincial_claim_effect = yes
+            }
+            area:shenli_area = {
 				add_provincial_claim_effect = yes
             }
             trigger_event = me_fugandulu.4
@@ -176,10 +176,6 @@
 
         allow = {
             invention = global_tax_modifier_inv_1
-            custom_tooltip = {
-                text = fugandulu_has_bureaucracy_war_tt
-                has_military_bonus = mauryan_mauryas_path_end_bonus
-            }
             custom_tooltip = {
                 text = fugandulu_needs_two_farms_tt
                 any_owned_province = {
@@ -236,13 +232,13 @@
 
         highlight = {
 			scope:province = {
-				province_id = 8773				
+				province_id = 9787				
 			}
 		}
 
         allow = {
-            owns_or_subject_owns = 8773
-			hidden:p:8773 = {
+            owns_or_subject_owns = 9787
+			hidden:p:9787 = {
 				has_building = slave_mine_building
 				has_no_ongoing_construction = yes
 			}
@@ -251,7 +247,7 @@
         on_completion = {
             trigger_event = me_fugandulu.7
             add_1_free_province_investments = yes
-			p:8773 = {
+			p:9787 = {
 				add_permanent_province_modifier = {
 					name = fugandulu_slave_mine_mod
                     duration = -1
@@ -294,21 +290,21 @@
         highlight = {
             scope:province = {
                 OR = {
-                    province_id = 8771	
-                    province_id = 8775	
-                    province_id = 8808	
+                    province_id = 11076	
+                    province_id = 11078	
+                    province_id = 9789	
                 }
             }
         }
 
         allow = {
-            owns_or_subject_owns = 8775
-            owns_or_subject_owns = 8808
-            hidden:p:8775 = {
+            owns_or_subject_owns = 11076
+            owns_or_subject_owns = 11078
+            hidden:p:11076 = {
 				has_building = slave_mine_building
 				has_no_ongoing_construction = yes
 			}
-            hidden:p:8808 = {
+            hidden:p:11078 = {
 				has_building = latifundia_building
 				has_no_ongoing_construction = yes
 			}
@@ -344,20 +340,23 @@
         highlight = {
 			scope:province = {
                 OR = {
-                    is_in_area = shan_area
+                    is_in_area = halin_area
                 }
             }
 	    }
 
         allow = {
             owns_percent_of_area = {
-                PROVINCE = "p:8806"
+                PROVINCE = "p:11076"
                 PERCENT = "0.5"
             }
         }
         
         on_completion = {
             trigger_event = me_fugandulu.10
+            area:pubu_area = {
+				add_provincial_claim_effect = yes
+            }
             area:kamarupa_area = {
 				add_provincial_claim_effect = yes
             }
@@ -392,10 +391,7 @@
                 text = pillars_herc_tt
                     invention = pirate_spawn_chance_inv_1
             } 
-            hidden:p:8770 = {
-                has_building = fortress_building
-            } 
-            hidden:p:8769 = {
+            hidden:p:9783 = {
                 OR = {
                     has_building = port_building
                     has_building = fortress_building
@@ -407,8 +403,8 @@
             add_1_free_province_investments = yes
             add_innovation = 2
             add_centralization = 5
-            p:8769 = { add_road_towards = p:8770 }
-            p:8770 = { add_road_towards = p:8771 }
+            p:9783 = { add_road_towards = p:9788 }
+            p:9788 = { add_road_towards = p:9789 }
             random_owned_province = {
 				limit = {
 					num_of_port_building >= 1 
@@ -450,7 +446,7 @@
             }
             custom_tooltip = {
                 text = fugandulu_fifty_percent_natic_tt
-                region:burma_region = {
+                region:pyu_region = {
                     any_region_province = {
                         percent >= 0.5
                         dominant_province_religion = root.religion
@@ -599,14 +595,14 @@
         }
 
         allow = {
-            owns_or_subject_owns = 8769
             num_of_ships >= 15 
-            p:8771 = {
+            owns_or_subject_owns = 9783
+            p:9789 = {
                 num_of_commerce_building >= 2
                 province_income >= 0.1 
                 governor_policy = acquisition_of_wealth
             }
-            p:8769 = {
+            p:9783 = {
                 has_city_status = yes
                 num_of_port_building >= 1
                 num_of_fortress_building >= 1
@@ -645,13 +641,13 @@
         
         highlight = {
 			scope:province = {
-				province_id = 8813				
+				province_id = 9405				
 			}
 		}
 
         allow = {
-            owns_or_subject_owns = 8813
-			hidden:p:8813 = {
+            owns_or_subject_owns = 9405
+			hidden:p:9405 = {
 				has_building = slave_mine_building
 				has_no_ongoing_construction = yes
                 total_population >= 15 
@@ -667,7 +663,7 @@
 					local_pop_assimilation_speed_modifier = 0.05
 				}
 			}
-            p:8813 = {
+            p:9405 = {
                 add_permanent_province_modifier = {
                     name = mon_jade_mines_modifier_fugandulu
                     duration = -1
@@ -685,19 +681,19 @@
         highlight = {
 			scope:province = {
 				OR = {
-                    province_id = 8778
-                    province_id = 8771
+                    province_id = 9791
+                    province_id = 9789
                 }				
 			}
 		}
 
         allow = {
             war = no
-            owns_or_subject_owns = 8778
+            owns_or_subject_owns = 9791
             capital_scope = {
 				is_importing_trade_good = incense
             }
-            hidden:p:8778.state = {
+            hidden:p:9791.state = {
                 custom_tooltip = {
                     text = "halin_needs_religious_investments_tt"
                     calc_true_if = {
@@ -785,7 +781,7 @@
 
         on_completion = {
             set_variable = deity_unlocked_nikem_nat
-            p:8771 = {
+            p:9789 = {
                 set_province_deity = deity:omen_kingdom_nat
             }
             add_country_modifier = {
