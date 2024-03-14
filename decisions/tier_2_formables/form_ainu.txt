@@ -4,6 +4,7 @@
 		potential = {
 			num_of_cities >= 1
 			country_culture_group = jomon
+			NOT = { tag = OK1 }
 			NOT = {
 				any_country = {
 					num_of_cities >= 1
@@ -35,20 +36,18 @@
 		}
 		
 		effect = {
-			custom_tooltip = "tier_1_formable_tooltip"
+			custom_tooltip = "tier_2_formable_tooltip"
 			change_country_name = "AIU_NAME"
 			if = {
 				limit = { is_tribal = yes }
 				add_country_modifier = {
 					name = civilized_tribe
-					duration = 5475
+					duration = 7300
 				}
-				change_government = theocratic_monarchy
-				switch_government_type_event_clearup_effect = yes
 			}
 			hidden_effect = {
 				change_country_adjective = "AIU_ADJECTIVE"
-				change_country_color =  "achemenid_yellow"
+				change_country_color = aquitania_color
 				change_country_tag = AIU
 				#change_country_flag = LIGURIA_FLAG					
 			}
@@ -61,7 +60,7 @@
 				limit = { NOT = { this = capital_scope } }
 				establish_city_effect = yes
 			}
-			add_2_free_province_investments = yes
+			add_4_free_province_investments = yes
 		}
 		
 		ai_will_do = {
