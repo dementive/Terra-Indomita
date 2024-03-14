@@ -1535,12 +1535,32 @@ me_duuchuu.8 = {
 
     title = me_duuchuu_8_title
     desc = me_duuchuu_8_desc
-    picture = great_library
+    picture = china_art_13_event
 
     option = {
         name = "me_duuchuu_8.a"
         custom_tooltip = me_duuchuu_8_tooltip
-
+        add_treasury = 150
+        add_political_influence = 25
+        current_ruler = {
+            add_popularity = popularity_medium
+            add_trait = confident
+        }
+        add_stability = 3
+        random_country_culture = {
+            limit = {
+                is_culture = yizhou
+            }
+            add_country_culture_modifier = {
+                name = cultural_familiarity_yaemama
+                duration = 1825
+            }
+        }
+        area:luzon_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
     }
 }
 me_duuchuu.9 = {
@@ -1548,12 +1568,57 @@ me_duuchuu.9 = {
 
     title = me_duuchuu_9_title
     desc = me_duuchuu_9_desc
-    picture = great_library
+    picture = trade_routes_path_4_event
 
     option = {
         name = "me_duuchuu_9.a"
         custom_tooltip = me_duuchuu_9_tooltip
-
+        p:10839 = {
+            set_city_status = city
+            add_province_modifier = {
+                name = duuchuu_colony
+                duration = -1
+            }
+        }
+        add_treasury = -150
+    }
+    option = {
+        name = "me_duuchuu_10.c"
+        custom_tooltip = me_duuchuu_10_tooltip
+        p:10840 = {
+            set_city_status = city
+            create_country = {
+                name = {
+                    name = "RY2"
+                    adjective = "RY2_ADJ"
+                }
+                change_country_tag = RY2
+                hidden_effect = { change_country_color = ocean_blue }
+                if = {
+                    limit = {
+                        NOT = {
+                            primary_culture = duuchuu
+                        }
+                    }
+                    set_primary_culture_cleanup_effect = {
+                        NEW_PRIMARY_CULTURE = duuchuu
+                        MAKE_OLD_CULTURE_INTEGRATED = yes
+                    }
+                }
+                set_country_religion = okinawa_religion
+                change_government = plutocratic_monarchy
+                add_treasury = 50.0
+                save_scope_as = ry2_colony
+            }
+        }
+        make_subject = {
+            target = scope:ry2_colony
+            type = subject_colony
+        }
+    }
+    option = {
+        name = "me_duuchuu_9.b"
+        custom_tooltip = me_duuchuu_9_tooltip
     }
 }
 me_duuchuu.10 = {
@@ -1561,12 +1626,57 @@ me_duuchuu.10 = {
 
     title = me_duuchuu_10_title
     desc = me_duuchuu_10_desc
-    picture = great_library
+    picture = trade_routes_path_4_event
 
     option = {
         name = "me_duuchuu_10.a"
         custom_tooltip = me_duuchuu_10_tooltip
-
+        p:10840 = {
+            set_city_status = city
+            add_province_modifier = {
+                name = duuchuu_colony
+                duration = -1
+            }
+        }
+        add_treasury = -150
+    }
+    option = {
+        name = "me_duuchuu_10.c"
+        custom_tooltip = me_duuchuu_10_tooltip
+        p:10840 = {
+            set_city_status = city
+            create_country = {
+                name = {
+                    name = "RY1"
+                    adjective = "RY1_ADJ"
+                }
+                change_country_tag = RY1
+                hidden_effect = { change_country_color = ocean_blue }
+                if = {
+                    limit = {
+                        NOT = {
+                            primary_culture = duuchuu
+                        }
+                    }
+                    set_primary_culture_cleanup_effect = {
+                        NEW_PRIMARY_CULTURE = duuchuu
+                        MAKE_OLD_CULTURE_INTEGRATED = yes
+                    }
+                }
+                set_country_religion = okinawa_religion
+                change_government = plutocratic_monarchy
+                add_treasury = 50.0
+                save_scope_as = ry1_colony
+            }
+        }
+        make_subject = {
+            target = scope:ry1_colony
+            type = subject_colony
+        }
+    }
+    option = {
+        name = "me_duuchuu_10.b"
+        custom_tooltip = me_duuchuu_10_tooltip
     }
 }
 me_duuchuu.11 = {
@@ -1574,12 +1684,26 @@ me_duuchuu.11 = {
 
     title = me_duuchuu_11_title
     desc = me_duuchuu_11_desc
-    picture = great_library
+    picture = china_art_19_event
 
     option = {
         name = "me_duuchuu_11.a"
         custom_tooltip = me_duuchuu_11_tooltip
-
+        random_country_culture = {
+            limit = {
+                is_culture = igorot
+            }
+            add_country_culture_modifier = {
+                name = ichor_of_igorot
+                duration = -1
+            }
+        }
+        area:maynila_area = {
+            every_area_province = { add_claim = root }
+        }
+        current_ruler = {
+            add_trait = conqueror
+        }
     }
 }
 me_duuchuu.12 = {
@@ -1732,6 +1856,56 @@ me_duuchuu.20 = {
     option = {
         name = "me_duuchuu_20.a"
         custom_tooltip = me_duuchuu_20_tooltip
+        change_government = pirate_kingdom
+        change_law = egyption_succession_law
+    }
+}
+me_duuchuu.22 = {
+    type = country_event
 
+    title = me_duuchuu_22_title
+    desc = me_duuchuu_22_desc
+    picture = Event_massive_naval_battle
+
+    option = {
+        name = "me_duuchuu_22.a"
+        custom_tooltip = me_duuchuu_22_tooltip
+        change_government = pirate_kingdom
+        change_law = egyption_succession_law
+    }
+    option = {
+        name = "me_duuchuu_22.b"
+        custom_tooltip = me_duuchuu_22_tooltip
+        change_government = plutocratic_monarchy
+    }
+
+}
+me_duuchuu.24 = {
+    type = country_event
+
+    title = me_duuchuu_24_title
+    desc = me_duuchuu_24_desc
+    picture = quarry
+
+    option = {
+        name = "me_duuchuu_24.a"
+        custom_tooltip = me_duuchuu_24_tooltip
+        add_political_influence = 25
+        add_stability = 3
+        add_military_experience = 10
+        add_2_free_province_investments = yes
+        add_treasury = -150
+        add_country_modifier = {
+            name = yuta_undercutters
+            duration = -1
+        }
+    }
+    option = {
+        name = "me_duuchuu_24.b"
+        custom_tooltip = me_duuchuu_24_tooltip
+        add_country_modifier = {
+            name = nuruu_dominance
+            duration = -1
+        }
     }
 }
