@@ -21,7 +21,9 @@
             days = 7300
         }
     }
-    on_completion = {}
+    on_completion = {
+        change_government = yamato_empire
+    }
     jomon_duuchuu_missions_task_1 = {
         icon = "task_calm"
         allow = {}
@@ -611,9 +613,28 @@
             }
         }
         allow = {
-
+            custom_tooltip = {
+                text = duuchuu_yoink_tt
+                any_navy = {
+                    any_sub_unit = {
+                        count >= 30
+                    }
+                    has_commander = yes
+                }
+            }
+            custom_tooltip = {
+                text = 7_martial_admiral_needed_tt
+                any_character = {
+                    is_admiral = yes
+                    martial >= 7
+                }
+            }
         }
         on_completion = {
+            random_country = {
+                limit = { owns = 9285 }
+                save_scope_as = tamna_terrify_scope
+            }
             trigger_event = me_duuchuu.17
             show_as_tooltip = {
                 p:9285 = {
@@ -708,6 +729,13 @@
             political_influence >= 100
         }
         on_completion = {
+            random_country = {
+                limit = {
+                    country_culture_group = jomon
+                    alliance_with = root
+                }
+                save_scope_as = jomon_tribe_scope
+            }
             trigger_event = me_duuchuu.20
             show_as_tooltip = {
                 custom_tooltip = send_request_tt
@@ -761,7 +789,7 @@
         }
         allow = {
             custom_tooltip = {
-                text = duuchuu_yoink_tt
+                text = duuchuu_yoink_tt_2
                 any_navy = {
                     any_sub_unit = {
                         count >= 30
