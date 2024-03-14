@@ -627,14 +627,16 @@
         }
     }
     jomon_duuchuu_missions_task_18 = {
-        icon = "task_political"
+        icon = "task_economical"
         requires = { jomon_duuchuu_missions_task_16 }
         highlight = {
             scope:province = {
                 province_id = 9326
             }
         }
-        allow = {}
+        allow = {
+            owns = 9326
+        }
         on_completion = {
             trigger_event = me_duuchuu.18
             show_as_tooltip = {
@@ -643,29 +645,72 @@
         }
     }
     jomon_duuchuu_missions_task_19 = {
-        icon = "task_political"
+        icon = "task_expansion"
         requires = { jomon_duuchuu_missions_task_16 }
         highlight = {
             scope:province = {
                 province_id = 10555
             }
         }
-        allow = {}
+        allow = {
+            OR = {
+                custom_tooltip = {
+                    any_country = { owns = 10555 }
+                    text = okinawa_sado_tt
+                }
+                p:9305 = {
+                    total_population >= 15
+                }
+            }
+        }
         on_completion = {
             trigger_event = me_duuchuu.19
             show_as_tooltip = {
-
+                if = {
+                    limit = {
+                        p:10555 = {
+                            has_owner = yes
+                            NOT = { owner = root }
+                        }
+                    }
+                    trigger_event = me_duuchuu.19
+                    show_as_tooltip = {
+                        custom_tooltip = okinawa_make_an_offer_tt
+                    }
+                }
+                if = {
+                    limit = {
+                        p:10555 = {
+                            has_owner = no
+                        }
+                    }
+                    trigger_event = me_duuchuu.190
+                    show_as_tooltip = {
+                        p:10555 = {
+                            set_owned_by = root
+                        }
+                    }
+                }
             }
         }
     }
     jomon_duuchuu_missions_task_20 = {
         icon = "task_political"
         requires = { jomon_duuchuu_missions_task_18 jomon_duuchuu_missions_task_19 }
-        allow = {}
+        allow = {
+            custom_tooltip = {
+                any_country = {
+                    country_culture_group = jomon
+                    alliance_with = root
+                }
+                text = "alliance_jomon_tt"
+            }
+            political_influence >= 100
+        }
         on_completion = {
             trigger_event = me_duuchuu.20
             show_as_tooltip = {
-
+                custom_tooltip = send_request_tt
             }
         }
         final = yes
@@ -686,7 +731,7 @@
             treasury >= 100
         }
         on_completion = {
-            trigger_event = me_duuchuu.20
+            trigger_event = me_duuchuu.21
             show_as_tooltip = {
 
             }
@@ -759,41 +804,64 @@
         }
     }
     jomon_duuchuu_missions_task_25 = {
-        icon = "task_political"
+        icon = "task_diplomatic"
         highlight = {
             scope:province = {
-                is_in_area = tutikungshan_area
-                is_in_area = qilin_area
+                OR = {
+                    is_in_area = tutikungshan_area
+                    is_in_area = qilin_area
+                }
             }
         }
         requires = { jomon_duuchuu_missions_task_8 jomon_duuchuu_missions_task_24 }
-        allow = {}
+        allow = {
+            owns_or_subject_owns_area = tutikungshan_area
+            owns_or_subject_owns_area = qilin_area
+        }
         on_completion = {
             trigger_event = me_duuchuu.25
             show_as_tooltip = {
-
+                custom_tooltip = yuta_1_tt
             }
         }
     }
     jomon_duuchuu_missions_task_26 = {
         icon = "task_atlas"
         requires = { jomon_duuchuu_missions_task_25 jomon_duuchuu_missions_task_15 }
-        allow = {}
+        allow = {
+            owns_or_subject_owns_area = matsura_area
+            owns_or_subject_owns_area = kumaso_area
+            political_influence >= 35
+        }
         on_completion = {
             trigger_event = me_duuchuu.26
             show_as_tooltip = {
-
+                custom_tooltip = kumaso_decision_tt
             }
         }
     }
     jomon_duuchuu_missions_task_27 = {
         icon = "task_shiva"
         requires = { jomon_duuchuu_missions_task_25 }
-        allow = {}
+        allow = {
+            military_experience >= 25
+            military_tech >= 5
+            political_influence >= 35
+            OR = {
+                custom_tooltip = {
+                    text = does_not_have_loyalty_and_respect_tt
+                    has_variable = loyalty_and_respect_var
+                }
+                current_ruler = { martial >= 8 }
+            }
+        }
         on_completion = {
             trigger_event = me_duuchuu.27
             show_as_tooltip = {
-
+                add_country_modifier = {
+                    name = way_of_te
+                    duration = -1
+                }
             }
         }
     }

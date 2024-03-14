@@ -1585,7 +1585,15 @@ me_duuchuu.9 = {
     option = {
         name = "me_duuchuu_10.c"
         custom_tooltip = me_duuchuu_10_tooltip
-        p:10840 = {
+        hidden_effect = {
+            p:10839 = {
+                random_pops_in_province = {
+                    set_pop_culture = duuchuu
+                    set_pop_religion = okinawa_religion
+                }
+            }
+        }
+        p:10839 = {
             set_city_status = city
             create_country = {
                 name = {
@@ -1643,6 +1651,14 @@ me_duuchuu.10 = {
     option = {
         name = "me_duuchuu_10.c"
         custom_tooltip = me_duuchuu_10_tooltip
+        hidden_effect = {
+            p:10840 = {
+                random_pops_in_province = {
+                    set_pop_culture = duuchuu
+                    set_pop_religion = okinawa_religion
+                }
+            }
+        }
         p:10840 = {
             set_city_status = city
             create_country = {
@@ -1832,17 +1848,51 @@ me_duuchuu.16 = {
         remove_country_modifier = ghost_in_tsushima
     }
 }
+me_duuchuu.170 = {
+    type = country_event
+
+    title = me_duuchuu_17_title
+    desc = me_duuchuu_170_desc
+    picture = china_art_4_event
+
+    immediate = {
+        random_country = {
+            limit = {
+                owns = 10555
+            }
+            save_scope_as = sado_owner
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_17.b"
+        custom_tooltip = me_duuchuu_17_tooltip
+        add_treasury = -100
+        scope:sado_owner = {
+            add_treasury = 100
+        }
+        p:10555 = {
+            set_owned_by = root
+        }
+    }
+    option = {
+        name = "me_duuchuu_17.c"
+        custom_tooltip = me_duuchuu_17_tooltip
+    }
+}
 me_duuchuu.17 = {
     type = country_event
 
     title = me_duuchuu_17_title
     desc = me_duuchuu_17_desc
-    picture = great_library
+    picture = japan_tribal_ways_event
 
     option = {
         name = "me_duuchuu_17.a"
         custom_tooltip = me_duuchuu_17_tooltip
-
+        p:10555 = {
+            set_owned_by = root
+        }
     }
 }
 me_duuchuu.18 = {
@@ -1850,12 +1900,30 @@ me_duuchuu.18 = {
 
     title = me_duuchuu_18_title
     desc = me_duuchuu_18_desc
-    picture = great_library
+    picture = japan_sailors_of_wa_event
+
+    immediate = {
+        current_ruler = {
+            add_popularity = 10
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+        }
+    }
 
     option = {
         name = "me_duuchuu_18.a"
         custom_tooltip = me_duuchuu_18_tooltip
-
+        add_treasury = -100
+        add_political_influence = -25
+        p:9326 = {
+            set_city_status = city
+        }
+    }
+    option = {
+        name = "me_duuchuu_18.b"
+        custom_tooltip = me_duuchuu_18_tooltip
     }
 }
 me_duuchuu.19 = {
@@ -1863,12 +1931,16 @@ me_duuchuu.19 = {
 
     title = me_duuchuu_19_title
     desc = me_duuchuu_19_desc
-    picture = great_library
+    picture = japan_sailors_of_wa_event
 
     option = {
         name = "me_duuchuu_19.a"
         custom_tooltip = me_duuchuu_19_tooltip
-
+        add_treasury = -100
+        add_political_influence = -25
+        p:9326 = {
+            set_city_status = city
+        }
     }
 }
 me_duuchuu.20 = {
@@ -1935,7 +2007,96 @@ me_duuchuu.22 = {
         custom_tooltip = me_duuchuu_22_tooltip
         change_government = plutocratic_monarchy
     }
+}
+me_duuchuu.23 = {
+    type = country_event
 
+    title = me_duuchuu_23_title
+    desc = me_duuchuu_23_desc
+    picture = Event_massive_naval_battle
+
+    immediate = {
+        random_country = {
+            limit = { owns = 9093 }
+            save_scope_as = yue_country
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_23.a"
+        custom_tooltip = me_duuchuu_23_tooltip
+        p:9093 = { set_owned_by = root }
+        reverse_add_opinion = {
+            target = scope:yue_country
+            modifier = corsica_stolen
+        }
+        scope:yue_country = {
+            trigger_event = {
+                id = me_duuchuu.230
+                #days = { 30 60 }
+                days = 1
+            }
+        }
+    }
+}
+me_duuchuu.230 = {
+    type = country_event
+
+    title = me_duuchuu_23_title
+    desc = me_duuchuu_230_desc
+    picture = Event_massive_naval_battle
+
+    immediate = {
+        show_as_tooltip = {
+            p:9093 = {
+                set_owned_by = root
+            }
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_230.a"
+        current_ruler = {
+            add_popularity = subtract_popularity_large
+        }
+        c:OK1 = {
+            trigger_event = me_duuchuu.231
+        }
+        show_as_tooltip = {
+            add_opinion = {
+                target = c:OK1
+                modifier = corsica_stolen
+            }
+        }
+    }
+    option = {
+        name = "me_duuchuu_230.b"
+        declare_war_with_wargoal = {
+            war_goal = conquer_wargoal
+            province = p:9093
+            target = c:OK1
+        }
+        show_as_tooltip = {
+            add_opinion = {
+                target = c:OK1
+                modifier = corsica_stolen
+            }
+        }
+    }
+}
+me_duuchuu.231 = {
+    type = country_event
+
+    title = me_duuchuu_23_title
+    desc = me_duuchuu_231_desc
+    picture = quarry
+
+    option = {
+        name = "me_duuchuu_231.a"
+        current_ruler = {
+            add_trait = coastal_raider
+        }
+    }
 }
 me_duuchuu.24 = {
     type = country_event
@@ -1962,6 +2123,270 @@ me_duuchuu.24 = {
         custom_tooltip = me_duuchuu_24_tooltip
         add_country_modifier = {
             name = nuruu_dominance
+            duration = -1
+        }
+    }
+}
+me_duuchuu.25 = {
+    type = country_event
+
+    title = me_duuchuu_25_title
+    desc = me_duuchuu_25_desc
+    picture = china_art_3_event
+
+    option = {
+        name = "me_duuchuu_25.a"
+        custom_tooltip = me_duuchuu_25_tooltip
+        hidden_effect = {
+            p:9739 = {
+                random_pops_in_province = {
+                    set_pop_culture = yaeyama
+                }
+                create_pop = freemen
+            }
+            p:9738 = {
+                random_pops_in_province = {
+                    set_pop_culture = yaeyama
+                }
+                create_pop = freemen
+            }
+            area:tutikungshan_area = {
+                every_area_province = {
+                    random_pops_in_province = {
+                        set_pop_culture = yaeyama
+                        set_pop_religion = okinawa_religion
+                    }
+                }
+            }
+            area:qilin_area = {
+                every_area_province = {
+                    random_pops_in_province = {
+                        set_pop_culture = yaeyama
+                        set_pop_religion = okinawa_religion
+                    }
+                }
+            }
+        }
+        p:10836 = {
+            create_country = {
+                name = {
+                    name = yaemama_subject
+                    adjective = yaemama_subject_adj
+                }
+                hidden_effect = { change_country_color = light_green }
+                change_government = aristocratic_republic
+                set_primary_culture = yaeyama
+                set_country_religion = okinawa_religion
+                save_scope_as = yaeyamashima_scope
+            }
+        }
+        area:tutikungshan_area = {
+            every_area_province = {
+                limit = {                
+                    owned_or_subject_owned = root 
+                }
+                set_owned_by = scope:yaeyamashima_scope
+            }
+        }
+        area:qilin_area = {
+            every_area_province = {
+                limit = {                
+                    owned_or_subject_owned = root
+                    NOR = {
+                        province_id = 10839
+                        province_id = 10840
+                    }
+                }
+                set_owned_by = scope:yaeyamashima_scope
+            }
+        }
+        make_subject = {
+            target = scope:yaeyamashima_scope
+            type = feudatory
+        }
+    }
+    option = {
+        name = "me_duuchuu_25.b"
+        custom_tooltip = me_duuchuu_25_tooltip
+        hidden_effect = {
+            p:9739 = {
+                random_pops_in_province = {
+                    set_pop_culture = yaeyama
+                }
+                create_pop = freemen
+            }
+            p:9738 = {
+                random_pops_in_province = {
+                    set_pop_culture = yaeyama
+                }
+                create_pop = freemen
+            }
+            area:tutikungshan_area = {
+                every_area_province = {
+                    random_pops_in_province = {
+                        set_pop_culture = yaeyama
+                        set_pop_religion = okinawa_religion
+                    }
+                }
+            }
+        }
+        p:10836 = {
+            create_country = {
+                name = {
+                    name = yaemama_subject
+                    adjective = yaemama_subject_adj
+                }
+                hidden_effect = { change_country_color = light_green }
+                change_government = aristocratic_republic
+                set_primary_culture = yaeyama
+                set_country_religion = okinawa_religion
+                save_scope_as = yaeyamashima_scope
+            }
+        }
+        area:tutikungshan_area = {
+            every_area_province = {
+                limit = {                
+                    owned_or_subject_owned = root 
+                }
+                set_owned_by = scope:yaeyamashima_scope
+            }
+        }
+        make_subject = {
+            target = scope:yaeyamashima_scope
+            type = feudatory
+        }
+    }
+    option = {
+        name = "me_duuchuu_25.c"
+        custom_tooltip = me_duuchuu_25_tooltip
+    }
+}
+me_duuchuu.26 = {
+    type = country_event
+
+    title = me_duuchuu_26_title
+    desc = me_duuchuu_26_desc
+    picture = japan_hacimans_blessing_event
+
+    option = {
+        name = "me_duuchuu_26.a"
+        custom_tooltip = me_duuchuu_26_tooltip
+        custom_tooltip = nansei_culture_tt
+        hidden_effect = {
+            region:wa_region = {
+                every_region_province = {
+                    limit = {
+                        owner = root
+                    }
+                    every_pops_in_province = {
+                        limit = {
+                            pop_culture = kumaso
+                        }
+                        set_pop_culture = nansei
+                    }
+                }
+            }
+        }
+    }
+    option = {
+        name = "me_duuchuu_26.c"
+        custom_tooltip = me_duuchuu_26_tooltip
+        hidden_effect = {
+            region:wa_region = {
+                every_region_province = {
+                    limit = {
+                        owner = root
+                    }
+                    every_pops_in_province = {
+                        limit = {
+                            pop_culture = kumaso
+                        }
+                        set_pop_culture = nansei
+                    }
+                }
+            }
+        }
+        p:9303 = {
+            create_country = {
+                name = {
+                    name = nansei_subject
+                    adjective = nansei_subject_adj
+                }
+                hidden_effect = {
+                    change_country_color = phrygia_red
+                    change_country_tag = NNS
+                }
+                change_government = plutocratic_monarchy
+                set_primary_culture = nansei
+                set_country_religion = okinawa_religion
+                save_scope_as = nansei_scope
+            }
+        }
+        area:matsura_area = {
+            every_area_province = {
+                limit = {
+                    NOR = {
+                        province_id = 9305
+                        province_id = 8121
+                    }
+                }
+                set_owned_by = scope:nansei_scope
+            }
+        }
+        make_subject = {
+            target = scope:nansei_scope
+            type = feudatory
+        }
+    }
+    option = {
+        name = "me_duuchuu_26.b"
+        custom_tooltip = me_duuchuu_26_tooltip
+        hidden_effect = {
+            region:wa_region = {
+                every_region_province = {
+                    limit = {
+                        owner = root
+                    }
+                    every_pops_in_province = {
+                        limit = {
+                            pop_culture = kumaso
+                        }
+                        set_pop_culture = nansei
+                    }
+                }
+            }
+        }
+        set_primary_culture_cleanup_effect = {
+            NEW_PRIMARY_CULTURE = nansei
+            MAKE_OLD_CULTURE_INTEGRATED = yes
+        }
+    }
+    option = {
+        name = "me_duuchuu_26.d"
+        custom_tooltip = me_duuchuu_26_tooltip
+        random_country_culture = {
+            limit = {
+                is_culture = kumaso
+            }
+            add_country_culture_modifier = {
+                name = denied_syncretism_okinawa
+                duration = 1825
+            }
+        }
+    }
+}
+me_duuchuu.27 = {
+    type = country_event
+
+    title = me_duuchuu_27_title
+    desc = me_duuchuu_27_desc
+    picture = ascetic
+
+    option = {
+        name = "me_duuchuu_27.a"
+        custom_tooltip = me_duuchuu_27_tooltip
+        add_country_modifier = {
+            name = way_of_te
             duration = -1
         }
     }
