@@ -1848,11 +1848,11 @@ me_duuchuu.16 = {
         remove_country_modifier = ghost_in_tsushima
     }
 }
-me_duuchuu.170 = {
+me_duuchuu.190 = {
     type = country_event
 
-    title = me_duuchuu_17_title
-    desc = me_duuchuu_170_desc
+    title = me_duuchuu_19_title
+    desc = me_duuchuu_190_desc
     picture = china_art_4_event
 
     immediate = {
@@ -1865,8 +1865,8 @@ me_duuchuu.170 = {
     }
 
     option = {
-        name = "me_duuchuu_17.b"
-        custom_tooltip = me_duuchuu_17_tooltip
+        name = "me_duuchuu_19.b"
+        custom_tooltip = me_duuchuu_19_tooltip
         add_treasury = -100
         scope:sado_owner = {
             add_treasury = 100
@@ -1876,20 +1876,20 @@ me_duuchuu.170 = {
         }
     }
     option = {
-        name = "me_duuchuu_17.c"
-        custom_tooltip = me_duuchuu_17_tooltip
+        name = "me_duuchuu_19.c"
+        custom_tooltip = me_duuchuu_19_tooltip
     }
 }
-me_duuchuu.17 = {
+me_duuchuu.19 = {
     type = country_event
 
-    title = me_duuchuu_17_title
-    desc = me_duuchuu_17_desc
+    title = me_duuchuu_19_title
+    desc = me_duuchuu_19_desc
     picture = japan_tribal_ways_event
 
     option = {
-        name = "me_duuchuu_17.a"
-        custom_tooltip = me_duuchuu_17_tooltip
+        name = "me_duuchuu_19.a"
+        custom_tooltip = me_duuchuu_19_tooltip
         p:10555 = {
             set_owned_by = root
         }
@@ -1926,20 +1926,78 @@ me_duuchuu.18 = {
         custom_tooltip = me_duuchuu_18_tooltip
     }
 }
-me_duuchuu.19 = {
+me_duuchuu.17 = {
     type = country_event
 
-    title = me_duuchuu_19_title
-    desc = me_duuchuu_19_desc
-    picture = japan_sailors_of_wa_event
+    title = me_duuchuu_17_title
+    desc = me_duuchuu_17_desc
+    picture = naval_battle
+
+    immediate = {
+        add_country_modifier = {
+            name = terrify_tamna
+            duration = -1
+        }
+    }
 
     option = {
-        name = "me_duuchuu_19.a"
-        custom_tooltip = me_duuchuu_19_tooltip
-        add_treasury = -100
-        add_political_influence = -25
-        p:9326 = {
-            set_city_status = city
+        name = "me_duuchuu_17.a"
+        custom_tooltip = me_duuchuu_17_tooltip
+        custom_tooltip = threaten_tamna
+        scope:tamna_terrify_scope = {
+            trigger_event = {
+                id = me_duuchuu.170
+                days = { 1 7 }
+            }
+        }
+    }
+}
+me_duuchuu.170 = {
+    type = country_event
+
+    title = me_duuchuu_17_title
+    desc = me_duuchuu_170_desc
+    picture = naval_battle
+
+    option = {
+        name = "me_duuchuu_170.a"
+        p:9285 = {
+            set_owned_by = OK1
+        }
+    }
+    option = {
+        name = "me_duuchuu_170.b"
+        custom_tooltip = okinawa_war_tt
+        c:OK1 = {
+            trigger_event = {
+                id = me_duuchuu.171
+                days = { 1 7 }
+            }
+        }
+    }
+}
+me_duuchuu.171 = {
+    type = country_event
+
+    title = me_duuchuu_17_title
+    desc = me_duuchuu_171_desc
+    picture = naval_battle
+
+    option = {
+        name = "me_duuchuu_171.a"
+        declare_war_with_wargoal = {
+            war_goal = conquer_wargoal
+            target = scope:tamna_terrify_scope
+            province = 9285
+        }
+    }
+    option = {
+        name = "me_duuchuu_171.b"
+        current_ruler = {
+            add_popularity = -10
+        }
+        p:9285 = {
+            add_claim = root
         }
     }
 }
@@ -1948,13 +2006,33 @@ me_duuchuu.20 = {
 
     title = me_duuchuu_20_title
     desc = me_duuchuu_20_desc
-    picture = great_library
+    picture = yue_coastal_warfare_mil_trad_event
 
     option = {
         name = "me_duuchuu_20.a"
         custom_tooltip = me_duuchuu_20_tooltip
-        change_government = pirate_kingdom
-        change_law = egyption_succession_law
+        add_political_influence = -50
+        scope:jomon_tribe_scope = {
+            change_government = plutocratic_monarchy
+            soft_change_religion_effect = {
+                RELIGION = okinawa_religion
+            }
+        }
+    }
+    option = {
+        name = "me_duuchuu_20.b"
+        custom_tooltip = me_duuchuu_20_tooltip
+        add_political_influence = -100
+        scope:jomon_tribe_scope = {
+            change_government = plutocratic_monarchy
+            soft_change_religion_effect = {
+                RELIGION = okinawa_religion
+            }
+        }
+        make_subject = {
+            target = scope:jomon_tribe_scope
+            type = feudatory
+        }
     }
 }
 me_duuchuu.21 = {
