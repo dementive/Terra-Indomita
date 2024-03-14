@@ -52,6 +52,33 @@ deity_hinukan = { # CULTURE
 	}
 }
 
+deity_ikiryo = { # WAR
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		has_variable = ghost_of_tsushima_var
+		OR = {
+			common_deity_trigger = {
+				RELIGION = okinawa_religion
+			}
+			deity:omen_ikiryo = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_3
+	passive_modifier = { naval_morale_modifier = deity_naval_morale_modifier_svalue }
+	omen = { hostile_attrition = omen_hostile_attrition_svalue } #Bonus from Omen
+	religion = okinawa_religion
+	deity_category = war #This Deity uses a War slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		naval_apotheosis_effect = yes
+	}
+}
+
 deity_fuuru = { # WAR
 	trigger = {
 		polytheistic_check_religion_trigger = yes

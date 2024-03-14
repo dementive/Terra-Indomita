@@ -1711,12 +1711,22 @@ me_duuchuu.12 = {
 
     title = me_duuchuu_12_title
     desc = me_duuchuu_12_desc
-    picture = great_library
+    picture = north_african_naval_path_1_event
 
     option = {
         name = "me_duuchuu_12.a"
         custom_tooltip = me_duuchuu_12_tooltip
-
+        random_province = {
+            limit = {
+                is_in_area = zhuya_area
+            }
+            set_owned_by = root
+        }
+        area:zhuya_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
     }
 }
 me_duuchuu.130 = {
@@ -1773,12 +1783,15 @@ me_duuchuu.14 = {
 
     title = me_duuchuu_14_title
     desc = me_duuchuu_14_desc
-    picture = great_library
+    picture = china_art_14_event
 
     option = {
         name = "me_duuchuu_14.a"
         custom_tooltip = me_duuchuu_14_tooltip
-
+        add_country_modifier = {
+            name = conquerers_of_kumaso
+            duration = -1
+        }
     }
 }
 me_duuchuu.15 = {
@@ -1786,12 +1799,19 @@ me_duuchuu.15 = {
 
     title = me_duuchuu_15_title
     desc = me_duuchuu_15_desc
-    picture = great_library
+    picture = assassination
 
     option = {
         name = "me_duuchuu_15.a"
         custom_tooltip = me_duuchuu_15_tooltip
-
+        add_country_modifier = {
+            name = conquerers_of_matsura
+            duration = -1
+        }
+        add_country_modifier = {
+            name = ghost_in_tsushima
+            duration = -1
+        }
     }
 }
 me_duuchuu.16 = {
@@ -1799,12 +1819,17 @@ me_duuchuu.16 = {
 
     title = me_duuchuu_16_title
     desc = me_duuchuu_16_desc
-    picture = great_library
+    picture = great_work_celebration
 
     option = {
         name = "me_duuchuu_16.a"
         custom_tooltip = me_duuchuu_16_tooltip
-
+        custom_tooltip = ghost_deity_tt
+        p:9305 = {
+            set_province_deity = deity:omen_ikiryo
+        }
+        set_variable = ghost_of_tsushima_var
+        remove_country_modifier = ghost_in_tsushima
     }
 }
 me_duuchuu.17 = {
@@ -1858,6 +1883,38 @@ me_duuchuu.20 = {
         custom_tooltip = me_duuchuu_20_tooltip
         change_government = pirate_kingdom
         change_law = egyption_succession_law
+    }
+}
+me_duuchuu.21 = {
+    type = country_event
+
+    title = me_duuchuu_21_title
+    desc = me_duuchuu_21_desc
+    picture = china_art_9_event
+
+    immediate = {
+        random_country = {
+            limit = {
+                owns = p:8764
+            }
+            save_scope_as = yan_country
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_21.a"
+        custom_tooltip = me_duuchuu_21_tooltip
+        add_treasury = -100
+        p:8764 = {
+            set_owned_by = root
+            add_province_modifier = {
+                name = duuchuu_colony
+                duration = -1
+            }
+        }
+        scope:yan_country ={
+            add_treasury = 100
+        }
     }
 }
 me_duuchuu.22 = {
