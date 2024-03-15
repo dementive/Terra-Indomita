@@ -465,10 +465,6 @@
                 add_treasury = -100
                 add_political_influence = 35
                 add_stability = 10
-                add_country_modifier = {
-                    name = change_deity
-                    duration = 365
-                }
                 random_owned_province = {
                     limit = {
                         has_city_status = yes
@@ -621,7 +617,7 @@
                 add_treasury = 300
                 add_political_influence = 100
                 add_innovation = 1
-                add_splendor = { amount = "200" }
+                add_splendor = { amount = "300" }
             }
         }
     }
@@ -768,6 +764,7 @@
         }
         allow = {
             custom_tooltip = {
+                text = "duuchuu_trust_tt"
                 trigger_if = {
                     limit = {
                         any_country = {
@@ -776,14 +773,13 @@
                         }
                     }
                     any_country = {
-                        tag = duuchuu
+                        primary_culture = duuchuu
                         opinion = {
                             target = root 
                             value >= 135               
                         }
                     }
                 }
-                text = "duuchuu_trust_tt"
             }
         }
         bypass = {
