@@ -1,0 +1,2343 @@
+﻿namespace = me_xiongnu_3
+
+me_xiongnu_3.1 = {
+    type = country_event
+
+    title = me_xiongnu_3_1_title
+    desc = me_xiongnu_3_1_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_1.a"
+		custom_tooltip = xiongnu_missions_3_task_1_claims
+    }
+}
+
+me_xiongnu_3.2 = {
+    type = country_event
+
+    title = me_xiongnu_3_2_title
+    desc = me_xiongnu_3_2_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+	option = { # Treat them nicely
+		name = "me_xiongnu_3_2.a"
+		add_manpower = -10
+		p:8681 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_2.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8681 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_2.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 16
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		add_manpower = 10
+		p:8681 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.3 = {
+    type = country_event
+
+    title = me_xiongnu_3_3_title
+    desc = me_xiongnu_3_3_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_3.a"
+		add_manpower = -10
+		p:8384 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_3.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8384 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_3.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 18
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:8384 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.4 = {
+    type = country_event
+
+    title = me_xiongnu_3_4_title
+    desc = me_xiongnu_3_4_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_3.a"
+		add_manpower = -10
+		p:8956 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_4.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8956 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_4.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 18
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:8956 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.5 = {
+    type = country_event
+
+    title = me_xiongnu_3_5_title
+    desc = me_xiongnu_3_5_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_5.a"
+		add_country_modifier = {
+			name = "xiongnu_chewed"
+			duration = 7300
+		}
+		add_manpower = -10
+		p:9126 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_5.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 3
+		}
+		add_country_modifier = {
+			name = "xiongnu_chewed"
+			duration = 7300
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:9126 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_5.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 9
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:9126 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.6 = {
+    type = country_event
+
+    title = me_xiongnu_3_6_title
+    desc = me_xiongnu_3_6_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_6.a"
+		add_manpower = -10
+		p:8718 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_6.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8718 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+	option = { # Sack the city
+		name = "me_xiongnu_3_6.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 18
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:8718 = {
+			reduce_province_rank_effect = yes
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.7 = {
+    type = country_event
+
+    title = me_xiongnu_3_7_title
+    desc = me_xiongnu_3_7_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_7.a"
+		add_manpower = -10
+		add_country_modifier = {
+			name = "xiongnu_spared_linzi"
+			duration = 7300
+		}
+		p:8504 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_7.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8504 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_7.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 16
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		add_innovation = 3
+		p:8504 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.8 = {
+    type = country_event
+
+    title = me_xiongnu_3_8_title
+    desc = me_xiongnu_3_8_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_8.a"
+		add_manpower = -10
+		current_ruler = {
+			add_trait = extravagant
+		}
+		p:8433 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_8.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8433 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_8.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 16
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:8433 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.9 = {
+    type = country_event
+
+    title = me_xiongnu_3_9_title
+    desc = me_xiongnu_3_9_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_9.a"
+		add_manpower = -10
+		p:9651 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_9.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:9651 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_9.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 16
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:9651 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.10 = {
+    type = country_event
+
+    title = me_xiongnu_3_10_title
+    desc = me_xiongnu_3_10_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_10.a"
+		add_manpower = -10
+		p:9101 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_10.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:9101 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_10.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 16
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:9101 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.11 = {
+    type = country_event
+
+    title = me_xiongnu_3_11_title
+    desc = me_xiongnu_3_11_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_11.a"
+		custom_tooltip = xiongnu_missions_3_task_11_claims
+    }
+}
+
+me_xiongnu_3.12 = {
+    type = country_event
+
+    title = me_xiongnu_3_12_title
+    desc = me_xiongnu_3_12_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_12.a"
+		add_manpower = -10
+		p:8313 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_12.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8313 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_12.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 18
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:8313 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.13 = {
+    type = country_event
+
+    title = me_xiongnu_3_13_title
+    desc = me_xiongnu_3_13_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_13.a"
+		add_manpower = -10
+		p:8866 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_13.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8866 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_13.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 16
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:8866 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.14 = {
+    type = country_event
+
+    title = me_xiongnu_3_14_title
+    desc = me_xiongnu_3_14_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_14.a"
+		add_manpower = -10
+		p:8972 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_14.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8972 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_14.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 16
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:8972 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.15 = {
+    type = country_event
+
+    title = me_xiongnu_3_15_title
+    desc = me_xiongnu_3_15_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_15.a"
+		add_manpower = -10
+		add_country_modifier = {
+			name = "xiongnu_ships_southern_china"
+			duration = 7300
+		}
+		p:9140 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_15.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 3
+		}
+		add_country_modifier = {
+			name = "xiongnu_ships_southern_china"
+			duration = 7300
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:9140 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_15.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 9
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		p:9140 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.16 = {
+    type = country_event
+
+    title = me_xiongnu_3_16_title
+    desc = me_xiongnu_3_16_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_16.a"
+		custom_tooltip = xiongnu_missions_3_task_16_claims
+    }
+}
+
+me_xiongnu_3.17 = {
+    type = country_event
+
+    title = me_xiongnu_3_17_title
+    desc = me_xiongnu_3_17_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_17.a"
+		add_country_modifier = {
+			name = "xiongnu_heavenly_horses"
+			duration = -1
+		}
+    }
+}
+
+me_xiongnu_3.18 = {
+    type = country_event
+
+    title = me_xiongnu_3_18_title
+    desc = me_xiongnu_3_18_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:554
+
+    option = {
+        name = "me_xiongnu_3_18.a"
+		p:8379 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+		}
+		add_manpower = 20
+		add_treasury = 250
+    }
+}
+
+me_xiongnu_3.1800 = {
+    type = country_event
+
+    title = me_xiongnu_3_1800_title
+    desc = me_xiongnu_3_1800_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:554
+
+	immediate = {
+		trigger_event = {
+			id = me_xiongnu_3.1801
+			days = 15
+		}
+	}
+
+    option = {
+        name = "me_xiongnu_3_1800.a"
+    }
+}
+
+me_xiongnu_3.1801 = {
+    type = country_event
+
+    title = me_xiongnu_3_1801_title
+    desc = me_xiongnu_3_1801_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:554
+
+	immediate = {
+		trigger_event = {
+			id = me_xiongnu_3.1802
+			days = 15
+		}
+	}
+
+    option = {
+        name = "me_xiongnu_3_1801.a"
+		p:8379 = {
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+		}
+		add_treasury = 250
+    }
+}
+
+me_xiongnu_3.1802 = {
+    type = country_event
+
+    title = me_xiongnu_3_1802_title
+    desc = me_xiongnu_3_1802_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:554
+
+	immediate = {
+		trigger_event = {
+			id = me_xiongnu_3.1803
+			days = 15
+		}
+	}
+
+    option = {
+        name = "me_xiongnu_3_1802.a"
+		p:8379 = {
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+		}
+		add_treasury = 250
+    }
+}
+
+me_xiongnu_3.1803 = {
+    type = country_event
+
+    title = me_xiongnu_3_1803_title
+    desc = me_xiongnu_3_1803_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:554
+
+    option = {
+        name = "me_xiongnu_3_1803.a"
+		p:8379 = {
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+		}
+		add_treasury = 250
+    }
+}
+
+me_xiongnu_3.19 = {
+    type = country_event
+
+    title = me_xiongnu_3_19_title
+    desc = me_xiongnu_3_19_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_19.a"
+		add_country_modifier = {
+			name = "xiongnu_enslaved_chinese"
+			duration = 7300
+		}
+    }
+}
+
+me_xiongnu_3.20 = {
+    type = country_event
+
+    title = me_xiongnu_3_20_title
+    desc = me_xiongnu_3_20_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_20.a"
+		add_splendor = {
+			amount = "800"
+		}
+		add_country_modifier = {
+			name = "xiongnu_hun_storm"
+			duration = 14600
+		}
+		custom_tooltip = xiongnu_missions_3_task_20_claims_persia
+		hidden_effect = {
+			region:bactriana_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+			region:ariana_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+			region:parthia_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+			region:persis_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+	option = {
+        name = "me_xiongnu_3_20.b"
+		add_splendor = {
+			amount = "800"
+		}
+		add_country_modifier = {
+			name = "xiongnu_hun_storm"
+			duration = 14600
+		}
+		custom_tooltip = xiongnu_missions_3_task_20_claims_steppe
+		hidden_effect = {
+			region:sakia_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+			region:scytho_siberian_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+			region:central_asian_steppes_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+			region:sarmatia_asiatica_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+			region:taurica_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+			region:scythia_region = {
+				every_region_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+}
+
+me_xiongnu_3.21 = {
+    type = country_event
+
+    title = me_xiongnu_3_21_title
+    desc = me_xiongnu_3_21_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_21.a"
+		set_capital = p:8742
+		p:8742 = {
+			add_permanent_province_modifier = {
+				name = "xiongnu_chinese_capital"
+			}
+		}
+    }
+}
+
+me_xiongnu_3.22 = {
+    type = country_event
+
+    title = me_xiongnu_3_22_title
+    desc = me_xiongnu_3_22_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+	immediate = {
+		hidden_effect = {
+			every_character = {
+				limit = {
+					OR = {
+						from_ruler_family = yes
+						is_minor_character = no
+					}
+				}
+				set_culture = xiongnu_chinese
+			}
+			capital_scope = {
+				every_pops_in_province = {
+					limit = {
+						OR = {
+							pop_type = citizen
+							pop_type = nobles
+							pop_type = freemen
+							pop_type = tribesmen
+						}
+					}
+					set_pop_culture = xiongnu_chinese
+				}
+			}
+			ordered_owned_province = {
+				order_by = total_population
+				max = 25
+				check_range_bounds = no
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					limit = {
+						OR = {
+							pop_type = citizen
+							pop_type = nobles
+							pop_type = freemen
+							pop_type = tribesmen
+						}
+						pop_culture = xiongnu
+					}
+					set_pop_culture = xiongnu_chinese
+					max = 20
+					check_range_bounds = no
+				}
+			}
+		}
+	}
+
+    option = {
+        name = "me_xiongnu_3_22.a"
+		add_innovation = 5
+		set_primary_culture_cleanup_effect = {
+			NEW_PRIMARY_CULTURE = xiongnu_chinese
+			MAKE_OLD_CULTURE_INTEGRATED = yes
+		}
+    }
+}
+
+me_xiongnu_3.2200 = {
+    type = country_event
+
+    title = me_xiongnu_3_2200_title
+    desc = me_xiongnu_3_2200_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_2200.a"
+		add_manpower = -20
+    }
+}
+
+me_xiongnu_3.2201 = {
+    type = country_event
+
+    title = me_xiongnu_3_2201_title
+    desc = me_xiongnu_3_2201_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_2201.a"
+		add_political_influence = -50
+    }
+}
+
+me_xiongnu_3.2202 = {
+    type = country_event
+
+    title = me_xiongnu_3_2202_title
+    desc = me_xiongnu_3_2202_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_2202.a"
+		current_ruler = {
+			add_popularity = -25
+		}
+    }
+}
+
+me_xiongnu_3.2203 = {
+    type = country_event
+
+    title = me_xiongnu_3_2203_title
+    desc = me_xiongnu_3_2203_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	
+	trigger = {
+		NOT = {
+			has_country_modifier = upset_xiongnu_chars
+		}
+	}
+
+    option = {
+        name = "me_xiongnu_3_2203.a"
+		add_country_modifier = {
+			name = upset_xiongnu_chars
+			duration = 3650
+		}
+    }
+	option = {
+        name = "me_xiongnu_3_2203.b"
+		add_treasury = -1000
+		add_centralization = 10
+    }
+}
+
+me_xiongnu_3.23 = {
+    type = country_event
+
+    title = me_xiongnu_3_23_title
+    desc = me_xiongnu_3_23_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_23.a"
+		change_government = chinese_empire
+		add_country_modifier = {
+			name = formable_country_huge_modifier_china
+			duration = 7600
+		}
+		capital_scope = {
+			capital_formable_large_effect = yes
+			formable_capital_modifier_large_effect = yes
+		}
+		add_4_free_province_investments = yes
+		trigger_event = chinese_flavor.2
+    }
+	option = {
+        name = "me_xiongnu_3_23.b"
+		change_country_name = "XIONGNU_EMPIRE"
+		change_government = chinese_empire
+		add_country_modifier = {
+			name = formable_country_huge_modifier_china
+			duration = 7600
+		}
+		capital_scope = {
+			capital_formable_large_effect = yes
+			formable_capital_modifier_large_effect = yes
+		}
+		add_4_free_province_investments = yes
+		trigger_event = chinese_flavor.2
+    }
+}
+
+me_xiongnu_3.24 = {
+    type = country_event
+
+    title = me_xiongnu_3_24_title
+    desc = me_xiongnu_3_24_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_24.a"
+		add_stability = 5
+		add_war_exhaustion = -5
+    }
+}
+
+me_xiongnu_3.25 = {
+    type = country_event
+
+    title = me_xiongnu_3_25_title
+    desc = me_xiongnu_3_25_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_25.a"
+		add_manpower = -10
+		p:8446 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_25.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 6
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8446 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_25.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 16
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		add_manpower = 10
+		p:8446 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.26 = {
+    type = country_event
+
+    title = me_xiongnu_3_26_title
+    desc = me_xiongnu_3_26_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = { # Treat them nicely
+		name = "me_xiongnu_3_26.a"
+		add_manpower = -10
+		p:8553 = {
+			add_province_modifier = {
+				name = province_improvement_merciful_conqueror
+				duration = 3650
+			}
+		}
+	}
+
+	option = { # Bring a few things back home
+		name = "me_xiongnu_3_26.b"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 9
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 5
+		}
+		p:8553 = {
+			if = {
+				limit = {
+					has_province_modifier = province_diminishment_medium_looted
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_medium_looted
+				duration = 3650
+			}
+			custom_tooltip = neutral_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 8
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 3650
+			}
+		}
+	}
+
+	option = { # Sack the city
+		name = "me_xiongnu_3_26.c"
+		add_treasury = {
+			value = has_monthly_income
+			multiply = 20
+		}
+		current_ruler = {
+			add_prominence = prominence_medium
+			add_popularity = 10
+		}
+		add_manpower = 10
+		p:8553 = {
+			reduce_province_rank_effect = yes
+			remove_building_level = fortress_building
+			if = {
+				limit = {
+					OR = {
+						has_province_modifier = province_diminishment_medium_looted
+						has_province_modifier = province_diminishment_super_looted
+					}
+				}
+				hidden_effect = {
+					remove_province_modifier = province_diminishment_medium_looted
+					remove_province_modifier = province_diminishment_super_looted
+				}
+			}
+			add_province_modifier = {
+				name = province_diminishment_super_looted
+				duration = 7300
+			}
+			custom_tooltip = sacking_conqueror_effect_tooltip
+			hidden_effect = {
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					max = {
+						value = total_population
+						divide = 3
+					}
+					min = {
+						value = 0
+					}
+					kill_pop = yes
+				}
+			}
+			set_variable = {
+				name = sacked_province
+				days = 10950
+			}
+		}
+	}
+}
+
+me_xiongnu_3.27 = {
+    type = country_event
+
+    title = me_xiongnu_3_27_title
+    desc = me_xiongnu_3_27_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_27.a"
+		every_owned_province = {
+			limit = {
+				trade_goods = silk
+				has_building = latifundia_building
+			}
+			add_permanent_province_modifier = {
+				name = silk_manufactories_chinese_empire
+			}
+		}
+    }
+}
+
+me_xiongnu_3.28 = {
+    type = country_event
+
+    title = me_xiongnu_3_28_title
+    desc = me_xiongnu_3_28_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_xiongnu_3_28.a"
+		add_country_modifier = {
+			name = "xiongnu_silk_road"
+			duration = 10950
+		}
+		every_owned_province = {
+			limit = {
+				OR = {
+					is_in_area = jiuquan_area
+					is_in_area = wuwei_area
+					is_in_area = xianyang_area
+				}
+				OR = {
+					has_province_rank = city_metropolis
+					has_province_rank = city
+				}
+			}
+			add_special_pop = {
+				text = "add_1_merchant_tt"
+				type = merchant
+				count = 1
+			}
+		}
+    }
+}

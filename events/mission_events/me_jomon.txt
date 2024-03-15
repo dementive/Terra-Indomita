@@ -1,0 +1,2872 @@
+﻿namespace = me_ezo
+namespace = me_emishi
+namespace = me_honshu
+namespace = me_duuchuu
+
+# Ezo
+me_ezo.1 = { # Horizons of Hokkaido
+    type = country_event
+
+    title = me_ezo_1_title
+    desc = me_ezo_1_desc
+    picture = naval_battle
+
+    option = {
+        name = "me_ezo_1.a"
+        if = {
+            limit = { tag = ESN }
+            custom_tooltip = claims_on_sunazawa_tt
+            hidden_effect = {
+                p:10558 = { add_claim = root }
+                p:10559 = { add_claim = root }
+                p:10560 = { add_claim = root }
+                p:10562 = { add_claim = root }
+            }
+            add_political_influence = -15
+        }
+        else = {
+            custom_tooltip = claims_on_sakhalin_tt
+            add_treasury = -25
+            add_political_influence = -25
+            c:TU7 = {
+                add_opinion = {
+                    target = root
+                    modifier = opinion_friendly_neighbor
+                }
+            }
+        }
+        custom_tooltip = me_ezo_1_tooltip
+    }
+}
+me_ezo.2 = { # The Three Tribes
+    type = country_event
+
+    title = me_ezo_2_title
+    desc = me_ezo_2_desc
+    picture = celtic_chiefs
+
+    option = {
+        name = "me_ezo_2.a"
+        custom_tooltip = hokkaido_unification_decision_tt
+        set_variable = hokkaido_unification_var
+    }
+}
+me_ezo.201 = { # The Three Tribes
+    type = country_event
+
+    title = me_ezo_2_title
+    desc = me_ezo_201_desc
+    picture = celtic_chiefs
+
+    option = {
+        name = "me_ezo_201.a"
+        add_country_modifier = {
+            name = hostile_ambitions_ezo
+            duration = 1825
+        }
+        custom_tooltip = me_ezo_2_tooltip
+    }
+    option = {
+        name = "me_ezo_201.b"
+        add_country_modifier = {
+            name = peaceful_ambitions_ezo
+            duration = 1825
+        }
+        custom_tooltip = me_ezo_2_tooltip
+    }
+}
+me_ezo.3 = { # Proficient Fishing
+    type = country_event
+
+    title = me_ezo_3_title
+    desc = me_ezo_3_desc
+    picture = grand_ship
+
+    option = {
+        name = "me_ezo_3.a"
+        every_owned_province = {
+            limit = {
+                OR = {
+                    province_id = 10567
+                    province_id = 10568
+                    province_id = 10575
+                }
+            }
+            add_province_modifier = {
+                name = fish_surplus_ezo_mod
+                duration = -1
+            }
+        }
+        custom_tooltip = me_ezo_3_tooltip
+    }
+}
+me_ezo.4 = { # Sap-Stone from Sakhalin
+    type = country_event
+
+    title = me_ezo_4_title
+    desc = me_ezo_4_desc
+    picture = trade_port
+
+    option = {
+        name = "me_ezo_4.a"
+        every_owned_province = {
+            limit = {
+                OR = {
+                    province_id = 10567
+                    province_id = 10568
+                    province_id = 10575
+                }
+            }
+            add_province_modifier = {
+                name = port_of_amber
+                duration = -1
+            }
+        }
+        custom_tooltip = me_ezo_4_tooltip
+    }
+}
+me_ezo.5 = { # Art of Amber
+    type = country_event
+
+    title = me_ezo_5_title
+    desc = me_ezo_5_desc
+    picture = religious_rite
+
+    option = {
+        name = "me_ezo_5.a"
+        create_country_treasure = {
+            key = amber_jewelry
+            icon = treasure_it_boii_chieftains_torc
+            modifier = {
+                local_goods_from_slaves = -4
+            }
+        }
+        p:10572 = {
+            add_province_modifier = {
+                name = hub_of_amber
+                duration = -1
+            }
+        }
+        custom_tooltip = me_ezo_5_tooltip
+    }
+}
+me_ezo.6 = { # Home in Hokkaido
+    type = country_event
+
+    title = me_ezo_6_title
+    desc = me_ezo_6_desc
+    picture = china_art_11_event
+
+    option = {
+        name = "me_ezo_6.a"
+        change_government = tribal_kingdom
+        custom_tooltip = me_ezo_6_tooltip
+    }
+}
+me_ezo.7 = { # Sunazawa Siblings
+    type = country_event
+
+    title = me_ezo_7_title
+    desc = me_ezo_7_desc
+    picture = japan_sailors_of_wa_event
+
+    option = {
+        name = "me_ezo_7.a"
+
+        custom_tooltip = me_ezo_7_tooltip
+    }
+}
+me_ezo.8 = { # Susuya Siblings
+    type = country_event
+
+    title = me_ezo_8_title
+    desc = me_ezo_8_desc
+    picture = celtic_village
+
+    option = {
+        name = "me_ezo_8.a"
+        custom_tooltip = ask_susuya_tt
+        c:TU7 = {
+            trigger_event = {
+                id = me_ezo.801
+                days = { 35 45 }
+            }
+        }
+    }
+}
+me_ezo.801 = { # Susuya Response Event
+        type = country_event
+        title = me_ezo_801_title
+        desc = me_ezo_801_desc
+        picture = china_art_2_event
+
+    option = {
+        name = "me_ezo_801.a"
+        add_country_modifier = {
+            name = ezo_investments
+            duration = 1850
+        }
+        p:12758 = { 
+            add_province_modifier = {
+                name = ezo_amber_demand
+                duration = -1
+            }
+        }
+        add_2_free_province_investments = yes
+        add_treasury = 100
+        set_variable = susuya_agrees_var
+        custom_tooltip = me_ezo_801_susuya_response_good
+    }
+    option = {
+        trigger = { is_ai = no }
+        name = "me_ezo_801.b"
+        custom_tooltip = me_ezo_801_susuya_response
+    }
+}
+me_ezo.802 = { # Susuya Deny Event
+        type = country_event
+        title = me_ezo_802_title
+        desc = me_ezo_802_desc
+        picture = council_country
+
+    option = {
+        name = "me_ezo_802.a"
+        custom_tooltip = claims_on_susuya_tt
+        hidden_effect = {
+            area:sahaliyan_area = {
+                every_area_province = {
+                    limit = { owner = c:TU7 }
+                    add_claim = root
+                }
+            }
+        }
+        custom_tooltip = me_ezo_8_tooltip
+    }
+    option = {
+        name = "me_ezo_802.b"
+        custom_tooltip = me_ezo_8_tooltip
+    }
+}
+me_ezo.803 = { # Susuya Accept Event
+        type = country_event
+        title = me_ezo_803_title
+        desc = me_ezo_803_desc
+        picture = council_country
+
+    option = {
+        name = "me_ezo_803.a"
+        root = {
+            make_subject = {
+                target = c:TU7
+                type = subject_colony
+            }
+        }
+        custom_tooltip = me_ezo_8_tooltip
+    }
+}
+me_ezo.9 = { # Playground of the Gods
+    type = country_event
+
+    title = me_ezo_9_title
+    desc = me_ezo_9_desc
+    picture = china_art_2_event
+
+    immediate = { set_variable = kamuy_mintara_var }
+
+    option = {
+        name = "me_ezo_9.a"
+        custom_tooltip = kamuy_mintara_tt
+        custom_tooltip = kamuy_mintara_2_tt
+        hidden_effect = { p:8114 = { change_province_name = "kamuy_mintara_prov" } }
+        p:10570 = { set_province_deity = deity:omen_kamuy_mintara }
+        custom_tooltip = me_ezo_9_tooltip
+    }
+}
+me_ezo.10 = { # Oshima Shallow Forts
+    type = country_event
+
+    title = me_ezo_10_title
+    desc = me_ezo_10_desc
+    picture = china_art_9_event
+
+    option = {
+        name = "me_ezo_10.a"
+        p:10567 = {
+            add_province_modifier = {
+                name = shallow_forts
+                duration = -1
+            }
+        }
+        custom_tooltip = me_ezo_10_tooltip
+    }
+}
+me_ezo.11 = { # Ishikari Animal Humor
+    type = country_event
+
+    title = me_ezo_11_title
+    desc = me_ezo_11_desc
+    picture = great_work_animals
+
+    option = {
+        name = "me_ezo_11.a"
+        add_country_modifier = {
+            name = animal_humor
+            duration = -1
+        }
+        custom_tooltip = me_ezo_11_tooltip
+    }
+}
+me_ezo.12 = { # Okhotsk Scallop Farming
+    type = country_event
+
+    title = me_ezo_12_title
+    desc = me_ezo_12_desc
+    picture = interesting_histories_fish_market
+
+    option = {
+        name = "me_ezo_12.a"
+        p:10572 = {
+            add_province_modifier = {
+                name = birthplace_of_scallop_farming
+                duration = -1
+            }
+        }
+        custom_tooltip = me_ezo_12_tooltip
+    }
+}
+me_ezo.13 = { # Gods of the North
+    type = country_event
+
+    title = me_ezo_13_title
+    desc = me_ezo_13_desc
+    picture = celtic_religious_festival
+
+    option = {
+        name = "me_ezo_13.a"
+        add_country_modifier = {
+            name = nivkh_syncretism
+            duration = 3650
+        }
+        custom_tooltip = me_ezo_13_tooltip
+    }
+    option = {
+        name = "me_ezo_13.b"
+        set_country_religion = nivkh_religion
+        change_religion_effect = {
+            RELIGION = nivkh_religion
+        }
+        while = {
+            count = 10
+            random_owned_province = {
+                random_pops_in_province = {
+                    limit = {
+                        NOT = { pop_religion = nivkh_religion }
+                    }
+                    set_pop_religion = nivkh_religion
+                }
+            }
+        }
+        custom_tooltip = me_ezo_13_tooltip
+    }
+    option = {
+        name = "me_ezo_13.c"
+        c:TU7 = {
+            add_country_modifier = {
+                name = recent_convert_modifier
+                duration = 3650
+            }
+            set_country_religion = ainu_religion
+        }
+        custom_tooltip = me_ezo_13_tooltip
+    }
+}
+me_ezo.14 = { # Gods of the South
+    type = country_event
+
+    title = me_ezo_14_title
+    desc = me_ezo_14_desc
+    picture = japan_spiritual_war_event
+
+    option = {
+        name = "me_ezo_14.a"
+        add_country_modifier = {
+            name = oppose_kodo
+            duration = -1
+        }
+        custom_tooltip = me_ezo_14_tooltip
+    }
+    option = {
+        name = "me_ezo_14.b"
+        add_country_modifier = {
+            name = kodo_syncretism
+            duration = 3650
+        }
+        custom_tooltip = me_ezo_14_tooltip
+    }
+    option = {
+        name = "me_ezo_14.c"
+        set_country_religion = wa_religions
+        change_religion_effect = {
+            RELIGION = wa_religions
+        }
+        while = {
+            count = 10
+            random_owned_province = {
+                random_pops_in_province = {
+                    limit = {
+                        NOT = { pop_religion = wa_religions }
+                    }
+                    set_pop_religion = wa_religions
+                }
+            }
+        }
+        custom_tooltip = me_ezo_14_tooltip
+    }
+}
+me_ezo.15 = { # The Enlightened Ezo
+    type = country_event
+
+    title = me_ezo_15_title
+    desc = me_ezo_15_desc
+    picture = japan_mound_works_event
+
+    option = {
+        name = "me_ezo_15.a"
+        change_country_name = "ezo_name"
+        change_country_adjective = "ezo_adj"
+        if = {
+            limit = { tag = ESN }
+            change_country_color = ezo_esan_orange
+        }
+        if = {
+            limit = { tag = ESU }
+            change_country_color = ezo_ebetsu_blue
+        }
+        if = {
+            limit = { tag = KTM }
+            change_country_color = ezo_kitami_green
+        }
+        change_country_tag = YZO
+        add_4_free_province_investments = yes
+        add_innovation = 2
+        add_splendor = { amount = "200" }
+        current_ruler = { add_trait = founder }
+        custom_tooltip = me_ezo_15_tooltip
+    }
+}
+me_ezo.16 = { # Mission Tree Completion Ezo
+    type = country_event
+
+    title = me_ezo_16_title
+    desc = me_ezo_16_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_ezo_16.a"
+        custom_tooltip = me_ezo_16_tooltip
+        custom_tooltip = unlock_jomon_tree_tt
+    }
+}
+
+## Emishi ##
+# Dewa
+me_emishi.1 = { # Fun of Hit and Run
+    type = country_event
+
+    title = me_emishi_1_title
+    desc = me_emishi_1_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_1.a"
+        custom_tooltip = me_emishi_1_tooltip
+        add_country_modifier = {
+            name = emishi_tactics
+            duration = -1
+        }
+    }
+}
+# Sunazawa
+me_emishi.2 = { # Secrets of Rice
+    type = country_event
+
+    title = me_emishi_2_title
+    desc = me_emishi_2_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_2.a"
+        custom_tooltip = me_emishi_2_tooltip
+        random_owned_province = {
+            limit = { has_building = basic_settlement_infratructure_building }
+            set_trade_goods = rice
+        }
+        change_variable = {
+            name = yayoification
+            add = 1
+        }
+        add_country_modifier = {
+            name = secret_of_rice
+            duration = -1
+        }
+        custom_tooltip = yayoification_add_1_tt
+    }
+}
+# Sirakawa
+me_emishi.3 = { # Merchants by Day, Migrants by Night
+    type = country_event
+
+    title = me_emishi_3_title
+    desc = me_emishi_3_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_3.a"
+        custom_tooltip = me_emishi_3_tooltip
+        change_government = tribal_chiefdom
+        add_country_modifier = {
+            name = merchants_by_day
+            duration = -1
+        }
+    }
+}
+me_emishi.4 = { # Threats in Tohoku
+    type = country_event
+
+    title = me_emishi_4_title
+    desc = me_emishi_4_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_4.a"
+        custom_tooltip = me_emishi_4_tooltip
+        add_political_influence = -25
+        add_treasury = -50
+        custom_tooltip = tohoku_claims_tt
+        hidden_effect = {
+            area:tohoku_area = {
+                every_area_province = {
+                    add_claim = root
+                }
+            }
+        }
+        if = {
+            limit = {
+                primary_culture = sunazawa
+            }
+            custom_tooltip = hokkaido_claims_tt
+            hidden_effect = {
+                area:hokkaido_area = {
+                    every_area_province = {
+                        add_claim = root
+                    }
+                }
+            }
+        }
+    }
+}
+me_emishi.5 = { # A Jomon Jamboree
+    type = country_event
+
+    title = me_emishi_5_title
+    desc = me_emishi_5_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_5.a"
+        custom_tooltip = me_emishi_5_tooltip
+        add_country_modifier = {
+            name = jomon_jamboree
+            duration = 1825
+        }
+    }
+}
+me_emishi.6 = { # Nefarious Neighbors
+    type = country_event
+
+    title = me_emishi_6_title
+    desc = me_emishi_6_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_6.a"
+        custom_tooltip = me_emishi_6_tooltip
+        add_country_modifier = {
+            name = push_back_emishi
+            duration = 730
+        }
+        area:sinano_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:musasi_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:kaga_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+    }
+}
+me_emishi.7 = { # Cultural Corridor
+    type = country_event
+
+    title = me_emishi_7_title
+    desc = me_emishi_7_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_7.a"
+        custom_tooltip = me_emishi_7_tooltip
+        create_unit = {
+            navy = yes
+            location = p:10932
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+            add_subunit = liburnian
+        }
+    }
+}
+me_emishi.8 = { # Second Home in Hokkaido
+    type = country_event
+
+    title = me_emishi_8_title
+    desc = me_emishi_8_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_8.a"
+        custom_tooltip = me_emishi_8_tooltip
+        custom_tooltip = annex_hokkaido_tt
+        area:hokkaido_area = {
+            every_area_province = {
+                add_province_modifier = {
+                    name = sunazawa_dominance
+                    duration = 3650
+                }
+            }
+        }
+    }
+    option = {
+        name = "me_emishi_8.b"
+        custom_tooltip = me_emishi_8_tooltip
+        custom_tooltip = vassal_hokkaido_tt
+        custom_tooltip = oshima_buff_tt
+        hidden_effect = {
+            p:10567 = {
+                create_country = {
+                    name = {
+                        name = oshima
+                        adjective = "ocean_man_adj"
+                    }
+                    change_country_tag = OS1
+                    if = {
+                        limit = {
+                            primary_culture = ainu
+                        }
+                        set_primary_culture_cleanup_effect = {
+                            NEW_PRIMARY_CULTURE = sunazawa
+                            MAKE_OLD_CULTURE_INTEGRATED = yes
+                        }
+                    }
+                    set_country_religion = ainu_religion
+                    change_country_color = punjabi_orange
+                    change_government = tribal_kingdom
+                    save_scope_as = oshima_vassal
+                    reverse_add_opinion = {
+                        modifier = opinion_liberated_us
+                        target = root
+                    }
+                }
+            }
+            area:hokkaido_area = {
+                every_area_province = {
+                    limit = {
+                        owned_or_subject_owned = root
+                    }
+                    set_owned_by = scope:oshima_vassal
+                }
+            }
+            make_subject = {
+                target = scope:oshima_vassal
+                type = feudatory
+            }
+            scope:oshima_vassal = {
+                add_country_modifier = {
+                    name = oshima_vassal_mod
+                    duration = -1
+                }
+            }
+        }
+    }
+}
+me_emishi.9 = { # The Empty East
+    type = country_event
+
+    title = me_emishi_9_title
+    desc = me_emishi_9_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_9.a"
+        custom_tooltip = me_emishi_9_tooltip
+        custom_tooltip = sirakawa_settle_tt
+        hidden_effect = {
+            region:wa_region = {
+                every_region_province = {
+                    limit = {
+                        dominant_province_culture = mitinooku
+                        has_owner = no
+                    }
+                    set_owned_by = ROOT
+                }
+            }
+        }
+        if = {
+            limit = {
+                tag = MTK
+            }
+            set_capital = 9721
+        }
+        if = {
+            limit = {
+                tag = SRA
+            }
+            set_capital = 9723
+        }
+        change_government = tribal_federation
+    }
+}
+me_emishi.10 = { # Unity Amongst Emishi
+    type = country_event
+
+    title = me_emishi_10_title
+    desc = me_emishi_10_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_10.a"
+        custom_tooltip = me_emishi_10_tooltip
+        current_ruler = {
+            add_popularity = 10
+            add_trait = founder
+            add_character_experience = 5
+        }
+        add_stability = 3
+        add_political_influence = 50
+        change_country_name = "emishi_name"
+        change_country_adjective = "emishi_adj"
+        change_country_color = "emishi_electric"
+        #change_country_flag = EMISHI_FLAG
+        change_country_tag = EMI
+        add_4_free_province_investments = yes
+        add_innovation = 2
+        add_splendor = { amount = "200" }
+        if = {
+            limit = { is_tribal = yes }
+            change_government = tribal_kingdom
+            switch_government_type_event_clearup_effect = yes
+        }
+    }
+}
+me_emishi.11 = { # Disparate Differences
+    type = country_event
+
+    title = me_emishi_11_title
+    desc = me_emishi_11_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_11.a"
+        custom_tooltip = me_emishi_11_tooltip
+        add_political_influence = 75
+        add_treasury = 75
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+        }
+    }
+}
+me_emishi.12 = { # The *Blank* Elite
+    type = country_event
+
+    title = me_emishi_12_title
+    desc = me_emishi_12_desc
+    picture = china_art_12_event
+
+    option = {
+        name = "me_emishi_12.a"
+        custom_tooltip = me_emishi_12_tooltip
+        add_country_modifier = {
+            name = emishi_elite
+            duration = -1
+        }
+        set_variable = emi_elite_var
+    }
+}
+me_emishi.13 = { # Jomon Together Strong
+    type = country_event
+
+    title = me_emishi_13_title
+    desc = me_emishi_13_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_13.a"
+        custom_tooltip = me_emishi_13_tooltip
+        add_country_modifier = {
+            name = emishi_equal
+            duration = -1
+        }
+        set_variable = emi_equal_var
+    }
+}
+me_emishi.14 = { # Emergent Emishi Culture
+    type = country_event
+
+    title = me_emishi_14_title
+    desc = me_emishi_14_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_14.a"
+        custom_tooltip = me_emishi_14_tooltip
+        if = {
+            limit = { has_variable = emi_elite_var }
+            hidden_effect = {
+                every_owned_province = {
+                    every_pops_in_province = {
+                        limit = {
+                            OR = {
+                                pop_culture = root.culture
+                                pop_type = nobles
+                            }
+                            NOT = {
+                                pop_type = slaves
+                            }
+                        }
+                        set_pop_culture = emishi
+                    }
+                }
+            }
+        }
+        if = {
+            limit = { has_variable = emi_equal_var }
+            hidden_effect = {
+                every_owned_province = {
+                    every_pops_in_province = {
+                        limit = {
+                            pop_culture_group = jomon
+                            NOR = {
+                                pop_culture = ainu
+                                pop_culture = duuchuu
+                            }
+                        }
+                        random_list = { # 50/50 chance
+                            1 = { set_pop_culture = emishi }
+                            1 = {}
+                        }
+                    }
+                }
+            }
+        }
+        set_primary_culture_cleanup_effect = {
+            NEW_PRIMARY_CULTURE = emishi
+            MAKE_OLD_CULTURE_INTEGRATED = yes
+        }
+        add_country_modifier = {
+            name = emishi_assimilation
+            duration = 1825
+        }
+    }
+}
+me_emishi.15 = { # Mend Yayoi Relations
+    type = country_event
+
+    title = me_emishi_15_title
+    desc = me_emishi_15_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_15.a"
+        custom_tooltip = me_emishi_15_tooltip
+        add_country_modifier = {
+            name = yayoi_mend
+            duration = -1
+        }
+        change_variable = {
+                name = yayoification
+                add = 1
+            }
+        custom_tooltip = yayoification_add_1_tt
+    }
+}
+me_emishi.16 = { # End Yayoi Relations
+    type = country_event
+
+    title = me_emishi_16_title
+    desc = me_emishi_16_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_emishi_16.a"
+        custom_tooltip = me_emishi_16_tooltip
+        add_country_modifier = {
+            name = yayoi_end
+            duration = -1
+        }
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
+        custom_tooltip = yayoification_sub_1_tt
+    }
+}
+
+## Jomon
+me_honshu.1 = {
+    type = country_event
+
+    title = me_honshu_1_title
+    desc = me_honshu_1_desc
+    picture = tocharian_horse_adaptablity_event
+
+    option = {
+        name = "me_honshu_1.a"
+        custom_tooltip = me_honshu_1_tooltip
+    }
+}
+me_honshu.2 = {
+    type = country_event
+
+    title = me_honshu_2_title
+    desc = me_honshu_2_desc
+    picture = religious_rite
+
+    option = {
+        name = "me_honshu_2.a"
+        custom_tooltip = me_honshu_2_tooltip
+        add_country_modifier = {
+            name = spirits_honored
+            duration = -1
+        }
+        capital_scope = {
+            add_special_pop = {
+                text = "add_1_priest_tt"
+                type = priest
+                count = 1
+            }
+        }
+    }
+}
+me_honshu.3 = {
+    type = country_event
+
+    title = me_honshu_3_title
+    desc = me_honshu_3_desc
+    picture = quarry
+
+    option = {
+        name = "me_honshu_3.a"
+        custom_tooltip = me_honshu_3_tooltip
+        add_country_modifier = {
+            name = expert_pottery
+            duration = -1
+        }
+        capital_scope = {
+            add_special_pop = {
+                text = "add_1_artist_tt"
+                type = artist
+                count = 1
+            }
+        }
+    }
+}
+me_honshu.4 = {
+    type = country_event
+
+    title = me_honshu_4_title
+    desc = me_honshu_4_desc
+    picture = yue_legendary_swords_mil_trad_event
+
+    option = {
+        name = "me_honshu_4.a"
+        custom_tooltip = me_honshu_4_tooltip
+        add_country_modifier = {
+            name = bone_of_sword
+            duration = -1
+        }
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+            add_martial = 2
+        }
+    }
+}
+me_honshu.5 = {
+    type = country_event
+
+    title = me_honshu_5_title
+    desc = me_honshu_5_desc
+    picture = great_work_celebration
+
+    option = {
+        name = "me_honshu_5.a"
+        custom_tooltip = me_honshu_5_tooltip
+        add_country_modifier = {
+            name = feasts_of_victory
+            duration = -1
+        }
+    }
+}
+me_honshu.6 = {
+    type = country_event
+
+    title = me_honshu_6_title
+    desc = me_honshu_6_desc
+    picture = trade_routes_path_4_event
+
+    option = {
+        name = "me_honshu_6.a"
+        custom_tooltip = me_honshu_6_tooltip
+        change_variable = {
+            name = yayoification
+            add = 1
+        }
+        custom_tooltip = yayoification_add_1_tt
+        add_country_modifier = {
+            name = smooth_pottery
+            duration = -1
+        }
+    }
+}
+me_honshu.7 = {
+    type = country_event
+
+    title = me_honshu_7_title
+    desc = me_honshu_7_desc
+    picture = trade_routes_path_4_event
+
+    option = {
+        name = "me_honshu_7.a"
+        custom_tooltip = me_honshu_7_tooltip
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
+        custom_tooltip = yayoification_sub_1_tt
+        add_country_modifier = {
+            name = cord_pottery
+            duration = -1
+        }
+    }
+}
+me_honshu.8 = {
+    type = country_event
+
+    title = me_honshu_8_title
+    desc = me_honshu_8_desc
+    picture = japan_japanese_iron_event
+
+    option = {
+        name = "me_honshu_8.a"
+        custom_tooltip = me_honshu_8_tooltip
+        custom_tooltip = yayoification_add_1_tt
+        change_variable = {
+            name = yayoification
+            add = 1
+        }
+        add_innovation = 2
+        capital_scope = {
+            add_special_pop = {
+                text = "add_1_architect_tt"
+                type = architect
+                count = 1
+            }
+        }
+    }
+}
+me_honshu.9 = {
+    type = country_event
+
+    title = me_honshu_9_title
+    desc = me_honshu_9_desc
+    picture = chinese_path_iron_use_event
+
+    option = {
+        name = "me_honshu_9.a"
+        custom_tooltip = me_honshu_9_tooltip
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
+        custom_tooltip = yayoification_sub_1_tt
+        add_4_free_province_investments = yes
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+            add_zeal = 2
+            add_charisma = 2
+        }
+    }
+}
+me_honshu.10 = {
+    type = country_event
+
+    title = me_honshu_10_title
+    desc = me_honshu_10_desc
+    picture = farming
+
+    option = {
+        name = "me_honshu_10.a"
+        custom_tooltip = me_honshu_10_tooltip
+        custom_tooltip = yayoification_add_1_tt
+        change_variable = {
+            name = yayoification
+            add = 1
+        }
+        random_owned_province = {
+            limit = {
+                trade_goods = rice
+            }
+            add_province_modifier = {
+                name = price_of_rice
+                duration = -1
+            }
+        }
+    }
+}
+me_honshu.11 = {
+    type = country_event
+
+    title = me_honshu_11_title
+    desc = me_honshu_11_desc
+    picture = celtic_village
+
+    option = {
+        name = "me_honshu_11.a"
+        custom_tooltip = me_honshu_11_tooltip
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
+        custom_tooltip = yayoification_sub_1_tt
+        random_owned_province = {
+            limit = {
+                trade_goods = rice
+            }
+            set_trade_goods = fruits
+            add_province_modifier = {
+                name = fruits_of_labor
+                duration = -1
+            }
+        }
+    }
+}
+me_honshu.12 = {
+    type = country_event
+
+    title = me_honshu_12_title
+    desc = me_honshu_12_desc
+    picture = tocharian_steppe_bow_mastery_event
+
+    option = {
+        name = "me_honshu_12.a"
+        custom_tooltip = me_honshu_12_tooltip
+        create_country_treasure = {
+            key = bronze_magatama
+            icon = treasure_chest
+            modifier = {
+                local_pop_assimilation_speed_modifier = 0.05
+                local_population_growth = 0.05
+            }
+        }
+    }
+}
+me_honshu.13 = {
+    type = country_event
+
+    title = me_honshu_13_title
+    desc = me_honshu_13_desc
+    picture = chinese_path_yizhan_system_event
+
+    option = {
+        name = "me_honshu_13.a"
+        custom_tooltip = me_honshu_13_tooltip
+        add_country_modifier = {
+            name = no_pain_no_grain
+            duration = -1
+        }
+    }
+}
+me_honshu.14 = {
+    type = country_event
+
+    title = me_honshu_14_title
+    desc = me_honshu_14_desc
+    picture = japan_sailors_of_wa_event
+
+    option = {
+        name = "me_honshu_14.a"
+        custom_tooltip = me_honshu_14_tooltip
+        random_owned_province = {
+            limit = {
+                trade_goods = fish
+            }
+            add_province_modifier = {
+                name = bronze_hooks
+                duration = -1
+            }
+        }
+    }
+}
+me_honshu.15 = {
+    type = country_event
+
+    title = me_honshu_15_title
+    desc = me_honshu_15_desc
+    picture = interesting_histories_celt_hills
+
+    option = {
+        name = "me_honshu_15.a"
+        custom_tooltip = me_honshu_15_tooltip
+        random_owned_province = {
+            limit = {
+                has_food_trade_good_trigger = no
+            }
+            set_province_deity = deity:omen_inari
+            add_province_modifier = {
+                name = jomon_city_mod
+                duration = -1
+            }
+            set_city_status = city
+        }
+    }
+    option = {
+        name = "me_honshu_15.b"
+        custom_tooltip = me_honshu_15_tooltip
+        random_owned_province = {
+            limit = {
+                has_food_trade_good_trigger = no
+            }
+            set_province_deity = deity:omen_inari
+            add_province_modifier = {
+                name = jomon_city_mod
+                duration = -1
+            }
+            set_city_status = city
+        }
+        soft_change_religion_effect = {
+            RELIGION = wa_religions
+        }
+    }
+}
+me_honshu.16 = {
+    type = country_event
+
+    title = me_honshu_16_title
+    desc = me_honshu_16_desc
+    picture = greek_home
+
+    option = {
+        name = "me_honshu_16.a"
+        custom_tooltip = me_honshu_16_tooltip
+        capital_scope = {
+            add_province_modifier = {
+                name = jomon_city_mod
+                duration = -1
+            }
+            add_building_level = aqueduct_building
+            add_building_level = foundry_building
+            add_building_level = temple_building
+        }
+    }
+}
+me_honshu.17 = {
+    type = country_event
+
+    title = me_honshu_17_title
+    desc = me_honshu_17_desc
+    picture = shen_zhou_fuchun_mountains_event
+
+    option = {
+        name = "me_honshu_17.a"
+        custom_tooltip = me_honshu_17_tooltip
+        set_variable = inari_kamuy_var
+        custom_tooltip = unlock_inari_kamuy
+        add_treasury = -100
+        add_political_influence = 35
+        add_stability = 10
+        random_owned_province = {
+            limit = {
+                has_city_status = yes
+            }
+            add_building_level = temple_building
+        }
+    }
+}
+me_honshu.18 = {
+    type = country_event
+
+    title = me_honshu_18_title
+    desc = me_honshu_18_desc
+    picture = japan_tribal_ways_event
+
+    option = {
+        name = "me_honshu_18.a"
+        custom_tooltip = me_honshu_18_tooltip
+        create_country_treasure = {
+            key = flame_pot
+            icon = chinesepottery1
+            modifier = {
+                archers_offensive = 0.10
+                hostile_attrition = 0.05
+                local_pop_assimilation_speed_modifier = 0.05
+            }
+        }
+    }
+}
+me_honshu.19 = {
+    type = country_event
+
+    title = me_honshu_19_title
+    desc = me_honshu_19_desc
+    picture = japan_amon_arrows_event
+
+    option = {
+        name = "me_honshu_19.a"
+        custom_tooltip = me_honshu_19_tooltip
+        change_variable = {
+            name = yayoification
+            add = 1
+        }
+        custom_tooltip = yayoification_add_1_tt
+        create_country_treasure = {
+            key = dotaku_otaku
+            icon = dotaku1
+            modifier = {
+                local_pop_assimilation_speed_modifier = 0.10
+                local_defensive = 0.10
+            }
+        }
+    }
+}
+me_honshu.20 = {
+    type = country_event
+
+    title = me_honshu_20_title
+    desc = me_honshu_20_desc
+    picture = japan_amon_arrows_event
+
+    option = {
+        name = "me_honshu_20.a"
+        custom_tooltip = me_honshu_20_tooltip
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
+        custom_tooltip = yayoification_sub_1_tt
+        create_country_treasure = {
+            key = dogu_jomon
+            icon = treasure_chest
+            modifier = {
+                local_happiness_for_same_culture_modifier = 0.05
+                local_pop_conversion_speed_modifier = 0.10
+            }
+        }
+    }
+}
+me_honshu.21 = {
+    type = country_event
+
+    title = me_honshu_21_title
+    desc = me_honshu_21_desc
+    picture = china_art_11_event
+
+    option = {
+        name = "me_honshu_21.a"
+        custom_tooltip = me_honshu_21_tooltip
+        add_political_influence = -50
+        add_treasury = -100
+        custom_tooltip = add_claims_wa_tt
+    }
+}
+me_honshu.22 = {
+    type = country_event
+
+    title = me_honshu_22_title
+    desc = me_honshu_22_desc
+    picture = china_art_2_event
+
+    option = {
+        name = "me_honshu_22.a"
+        custom_tooltip = me_honshu_22_tooltip
+        area:hokkaido_area = {
+            every_area_province = {
+                create_pop = nobles
+            }
+        }
+        add_2_free_province_investments = yes
+    }
+}
+me_honshu.23 = {
+    type = country_event
+
+    title = me_honshu_23_title
+    desc = me_honshu_23_desc
+    picture = japan_spiritual_war_event
+
+    option = {
+        name = "me_honshu_23.a"
+        custom_tooltip = me_honshu_23_tooltip
+        add_treasury = 300
+        add_political_influence = 100
+        add_innovation = 1
+        add_splendor = { amount = "200" }
+    }
+}
+me_honshu.24 = {
+    type = country_event
+
+    title = me_honshu_24_title
+    desc = me_honshu_24_desc
+    picture = interesting_histories_sparta_city
+
+    immediate = {
+        p:9328 = {
+            change_province_name = upopoy
+        }
+    }
+
+    option = {
+        name = "me_honshu_24.a"
+        custom_tooltip = me_honshu_24_tooltip
+        set_capital = 9328
+        add_country_modifier = {
+            name = new_capital_enthusiasm
+            duration = 3650
+        }
+    }
+    option = {
+        name = "me_honshu_24.b"
+        custom_tooltip = me_honshu_24_tooltip
+        add_country_modifier = {
+            name = old_capital_legacy
+            duration = 3650
+        }
+    }
+}
+me_honshu.25 = {
+    type = country_event
+
+    title = me_honshu_25_title
+    desc = me_honshu_25_desc
+    picture = china_art_13_event
+
+    option = {
+        name = "me_honshu_25.a"
+        custom_tooltip = me_honshu_25_tooltip
+        add_country_modifier = {
+            name = kii_to_the_west
+            duration = -1
+        }
+    }
+}
+me_honshu.26 = {
+    type = country_event
+
+    title = me_honshu_26_title
+    desc = me_honshu_26_desc
+    picture = japan_island_tactics_event
+
+    option = {
+        name = "me_honshu_26.a"
+        custom_tooltip = me_honshu_26_tooltip
+        p:9749 = {
+            add_province_modifier = {
+                name = wine_of_kumi
+                duration = -1
+            }
+        }
+        p:9316 = {
+            add_province_modifier = {
+                name = dye_of_sanu
+                duration = -1
+            }
+        }
+        add_country_modifier = {
+            name = wine_and_dyne
+            duration = -1
+        }
+    }
+}
+me_honshu.27 = {
+    type = country_event
+
+    title = me_honshu_27_title
+    desc = me_honshu_27_desc
+    picture = great_library
+
+    option = {
+        name = "me_honshu_27.a"
+        custom_tooltip = me_honshu_27_tooltip
+
+    }
+}
+me_honshu.28 = {
+    type = country_event
+
+    title = me_honshu_28_title
+    desc = me_honshu_28_desc
+    picture = japan_tribal_ways_event
+
+    option = {
+        name = "me_honshu_28.a"
+        custom_tooltip = me_honshu_28_tooltip
+        make_subject = {
+            target = scope:liukiu_vassal_scope
+            type = feudatory
+        }
+    }
+}
+me_honshu.29 = {
+    type = country_event
+
+    title = me_honshu_29_title
+    desc = me_honshu_29_desc
+    picture = china_art_5_event
+
+    option = {
+        name = "me_honshu_29.a"
+        custom_tooltip = me_honshu_29_tooltip
+        p:9285 = {
+            every_pops_in_province = {
+                set_pop_culture = jeulmeun
+                set_pop_religion = ainu_religion
+            }
+            create_country = {
+                name = {
+                    name = jeulmeun_sub
+                    adjective = jeulmeun_adj
+                }
+                hidden_effect = {
+                    change_country_color = mauve_purple
+                    change_country_tag = JLN
+                }
+                change_government = aristocratic_monarchy
+                set_primary_culture = jeulmeun
+                set_country_religion = ainu_religion
+                save_scope_as = jeulmeun_scope
+            }
+        }
+        hidden_effect = {
+            region:jin_region = {
+                every_region_province = {
+                    limit = {                
+                        owned_or_subject_owned = root
+                    }
+                    set_owned_by = scope:jeulmeun_scope
+                    every_pops_in_province = {
+                        limit = {
+                            OR = {
+                                pop_type = citizen
+                                pop_type = nobles
+                            }
+                        }
+                        set_pop_culture = jeulmeun
+                        set_pop_religion = ainu_religion
+                    }
+                }
+            }
+        }
+        make_subject = {
+            target = scope:jeulmeun_scope
+            type = feudatory
+        }
+    }
+}
+
+# Duuchuu
+me_duuchuu.1 = {
+    type = country_event
+
+    title = me_duuchuu_1_title
+    desc = me_duuchuu_1_desc
+    picture = great_work_animals
+
+    option = {
+        name = "me_duuchuu_1.a"
+        custom_tooltip = me_duuchuu_1_tooltip
+        add_country_modifier = {
+            name = okinawa_calm
+            duration = 730
+        }
+    }
+}
+me_duuchuu.2 = {
+    type = country_event
+
+    title = me_duuchuu_2_title
+    desc = me_duuchuu_2_desc
+    picture = china_art_11_event
+
+    option = {
+        name = "me_duuchuu_2.a"
+        custom_tooltip = me_duuchuu_2_tooltip
+        create_country_treasure = {
+            key = shell_bracelet
+            icon = treasure_it_lusitanian_silver_breastplate
+            modifier = {
+                local_population_growth = 0.05
+                local_commerce_value_modifier = 0.10
+            }
+        }
+        add_1_free_province_investments = yes
+        p:9734 = {
+            create_pop = freemen
+            create_pop = freemen
+        }
+    }
+}
+me_duuchuu.3 = {
+    type = country_event
+
+    title = me_duuchuu_3_title
+    desc = me_duuchuu_3_desc
+    picture = interesting_histories_fish_market
+
+    option = {
+        name = "me_duuchuu_3.a"
+        custom_tooltip = me_duuchuu_3_tooltip
+        add_country_modifier = {
+            name = okinawa_fish
+            duration = -1
+        }
+        add_1_free_province_investments = yes
+        p:9738 = {
+            create_pop = freemen
+            create_pop = freemen
+        }
+    }
+}
+me_duuchuu.4 = {
+    type = country_event
+
+    title = me_duuchuu_4_title
+    desc = me_duuchuu_4_desc
+    picture = celtic_religious_festival
+
+    option = {
+        name = "me_duuchuu_4.a"
+        custom_tooltip = me_duuchuu_4_tooltip
+        #custom_tooltip = empower_women_tt
+        capital_scope = {
+            add_special_pop = {
+                text = "add_2_priest_tt"
+                type = priest
+                count = 2
+            }
+        }
+        random_character = {
+            limit = {
+                is_female = yes
+                has_office = office_high_priest
+            }
+            add_zeal = 5
+        }
+        random_character = {
+            limit = {
+                is_female = yes
+                has_office = office_arbitrator
+            }
+            add_zeal = 5
+        }
+        random_character = {
+            limit = {
+                is_female = yes
+                has_office = office_elder
+            }
+            add_charisma = 5
+        }
+        random_character = {
+            limit = {
+                is_female = yes
+                has_office = office_wise_person
+            }
+            add_charisma = 5
+        }
+        if = {
+            limit = {
+                current_ruler = {
+                    is_female = yes
+                }
+            }
+            current_ruler = {
+                add_focus_perk = {
+                    text = "add_1_char_perk"
+                    amount = 1
+                }
+                add_trait = prominent
+            }
+        }
+    }
+}
+me_duuchuu.5 = {
+    type = country_event
+
+    title = me_duuchuu_5_title
+    desc = me_duuchuu_5_desc
+    picture = interesting_histories_ship_port_africa
+
+    option = {
+        name = "me_duuchuu_5.a"
+        custom_tooltip = me_duuchuu_5_tooltip
+        
+        add_country_modifier = {
+            name = okinawa_boats
+            duration = -1
+        }
+        capital_scope = {
+            add_special_pop = {
+                text = "add_1_merchant_tt"
+                type = merchant
+                count = 2
+            }
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+        create_unit = {
+            navy = yes
+            location = p:10857
+        }
+    }
+}
+me_duuchuu.6 = {
+    type = country_event
+
+    title = me_duuchuu_6_title
+    desc = me_duuchuu_6_desc
+    picture = japan_sailors_of_wa_event
+
+    option = {
+        name = "me_duuchuu_6.a"
+        custom_tooltip = me_duuchuu_6_tooltip
+        add_country_modifier = {
+            name = okinawa_rice
+            duration = -1
+        }
+        add_1_free_province_investments = yes
+        p:9737 = {
+            create_pop = freemen
+            create_pop = freemen
+        }
+    }
+}
+me_duuchuu.700 = {
+    type = country_event
+
+    title = me_duuchuu_7_title
+    desc = me_duuchuu_700_desc
+    picture = yue_wild_warriors_mil_trad_event
+    left_portrait = current_ruler
+    right_portrait = scope:nuruu
+
+    immediate = {
+        random_character = {
+            limit = {
+                has_office = office_high_priest
+            }
+            save_scope_as = nuruu
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_700.a"
+        show_as_tooltip = {
+            custom_tooltip = okinawa_disaster_tt
+            add_stability = -100
+            add_treasury = -1000
+            capital_scope = {
+                random_pops_in_province = {
+                    kill_pop = yes
+                    kill_pop = yes
+                    kill_pop = yes
+                    kill_pop = yes
+                }
+            }
+            current_ruler = {
+                divorce_character = spouse
+            }
+            current_heir = {
+                death = {
+                    death_reason = death_apoplectic_rage
+                    killer = ruler
+                }
+            }
+            add_country_modifier = {
+                name = devestation
+                duration = -1
+            }
+        }
+        trigger_event = {
+            id = me_duuchuu.701
+            days = 30
+        }
+    }
+}
+me_duuchuu.701 = {
+    type = country_event
+
+    title = me_duuchuu_7_title
+    desc = me_duuchuu_701_desc
+    picture = looting_dishonor
+
+    option = {
+        name = "me_duuchuu_701.a"
+        custom_tooltip = me_duuchuu_7_tooltip
+        add_manpower = -2
+        add_stability = -3
+    }
+}
+me_duuchuu.702 = {
+    type = country_event
+
+    title = me_duuchuu_7_title
+    desc = me_duuchuu_702_desc
+    picture = Event_fire_city
+
+    option = {
+        name = "me_duuchuu_702.a"
+        custom_tooltip = me_duuchuu_7_tooltip
+        add_stability = 3
+    }
+}
+me_duuchuu.7 = {
+    type = country_event
+
+    title = me_duuchuu_7_title
+    desc = me_duuchuu_7_desc
+    picture = war_council
+
+    option = {
+        name = "me_duuchuu_7.a"
+        custom_tooltip = me_duuchuu_7_tooltip
+        area:kumaso_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:matsura_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:tutikungshan_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+        area:qilin_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+    }
+}
+me_duuchuu.8 = {
+    type = country_event
+
+    title = me_duuchuu_8_title
+    desc = me_duuchuu_8_desc
+    picture = china_art_13_event
+
+    option = {
+        name = "me_duuchuu_8.a"
+        custom_tooltip = me_duuchuu_8_tooltip
+        add_treasury = 150
+        add_political_influence = 25
+        current_ruler = {
+            add_popularity = popularity_medium
+            add_trait = confident
+        }
+        add_stability = 3
+        random_country_culture = {
+            limit = {
+                is_culture = yizhou
+            }
+            add_country_culture_modifier = {
+                name = cultural_familiarity_yaemama
+                duration = 1825
+            }
+        }
+        area:luzon_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+    }
+}
+me_duuchuu.9 = {
+    type = country_event
+
+    title = me_duuchuu_9_title
+    desc = me_duuchuu_9_desc
+    picture = trade_routes_path_4_event
+
+    option = {
+        name = "me_duuchuu_9.a"
+        custom_tooltip = me_duuchuu_9_tooltip
+        p:10839 = {
+            set_city_status = city
+            add_province_modifier = {
+                name = duuchuu_colony
+                duration = -1
+            }
+        }
+        add_treasury = -150
+    }
+    option = {
+        name = "me_duuchuu_10.c"
+        custom_tooltip = me_duuchuu_10_tooltip
+        hidden_effect = {
+            p:10839 = {
+                random_pops_in_province = {
+                    set_pop_culture = duuchuu
+                    set_pop_religion = okinawa_religion
+                }
+            }
+        }
+        p:10839 = {
+            set_city_status = city
+            create_country = {
+                name = {
+                    name = "RY2"
+                    adjective = "RY2_ADJ"
+                }
+                change_country_tag = RY2
+                hidden_effect = { change_country_color = ocean_blue }
+                if = {
+                    limit = {
+                        NOT = {
+                            primary_culture = duuchuu
+                        }
+                    }
+                    set_primary_culture_cleanup_effect = {
+                        NEW_PRIMARY_CULTURE = duuchuu
+                        MAKE_OLD_CULTURE_INTEGRATED = yes
+                    }
+                }
+                set_country_religion = okinawa_religion
+                change_government = plutocratic_monarchy
+                add_treasury = 50.0
+                save_scope_as = ry2_colony
+            }
+        }
+        make_subject = {
+            target = scope:ry2_colony
+            type = subject_colony
+        }
+    }
+    option = {
+        name = "me_duuchuu_9.b"
+        custom_tooltip = me_duuchuu_9_tooltip
+    }
+}
+me_duuchuu.10 = {
+    type = country_event
+
+    title = me_duuchuu_10_title
+    desc = me_duuchuu_10_desc
+    picture = trade_routes_path_4_event
+
+    option = {
+        name = "me_duuchuu_10.a"
+        custom_tooltip = me_duuchuu_10_tooltip
+        p:10840 = {
+            set_city_status = city
+            add_province_modifier = {
+                name = duuchuu_colony
+                duration = -1
+            }
+        }
+        add_treasury = -150
+    }
+    option = {
+        name = "me_duuchuu_10.c"
+        custom_tooltip = me_duuchuu_10_tooltip
+        hidden_effect = {
+            p:10840 = {
+                random_pops_in_province = {
+                    set_pop_culture = duuchuu
+                    set_pop_religion = okinawa_religion
+                }
+            }
+        }
+        p:10840 = {
+            set_city_status = city
+            create_country = {
+                name = {
+                    name = "RY1"
+                    adjective = "RY1_ADJ"
+                }
+                change_country_tag = RY1
+                hidden_effect = { change_country_color = ocean_blue }
+                if = {
+                    limit = {
+                        NOT = {
+                            primary_culture = duuchuu
+                        }
+                    }
+                    set_primary_culture_cleanup_effect = {
+                        NEW_PRIMARY_CULTURE = duuchuu
+                        MAKE_OLD_CULTURE_INTEGRATED = yes
+                    }
+                }
+                set_country_religion = okinawa_religion
+                change_government = plutocratic_monarchy
+                add_treasury = 50.0
+                save_scope_as = ry1_colony
+            }
+        }
+        make_subject = {
+            target = scope:ry1_colony
+            type = subject_colony
+        }
+    }
+    option = {
+        name = "me_duuchuu_10.b"
+        custom_tooltip = me_duuchuu_10_tooltip
+    }
+}
+me_duuchuu.11 = {
+    type = country_event
+
+    title = me_duuchuu_11_title
+    desc = me_duuchuu_11_desc
+    picture = china_art_19_event
+
+    option = {
+        name = "me_duuchuu_11.a"
+        custom_tooltip = me_duuchuu_11_tooltip
+        random_country_culture = {
+            limit = {
+                is_culture = igorot
+            }
+            add_country_culture_modifier = {
+                name = ichor_of_igorot
+                duration = -1
+            }
+        }
+        area:maynila_area = {
+            every_area_province = { add_claim = root }
+        }
+        current_ruler = {
+            add_trait = conqueror
+        }
+    }
+}
+me_duuchuu.12 = {
+    type = country_event
+
+    title = me_duuchuu_12_title
+    desc = me_duuchuu_12_desc
+    picture = north_african_naval_path_1_event
+
+    option = {
+        name = "me_duuchuu_12.a"
+        custom_tooltip = me_duuchuu_12_tooltip
+        random_province = {
+            limit = {
+                is_in_area = zhuya_area
+            }
+            set_owned_by = root
+        }
+        area:zhuya_area = {
+            every_area_province = {
+                add_claim = root
+            }
+        }
+    }
+}
+me_duuchuu.130 = {
+    type = country_event
+
+    title = me_duuchuu_13_title
+    desc = me_duuchuu_130_desc
+    picture = china_art_4_event
+
+    immediate = {
+        random_country = {
+            limit = {
+                owns = 9740
+            }
+            save_scope_as = osumi_owner
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_13.b"
+        custom_tooltip = me_duuchuu_13_tooltip
+        add_treasury = -50
+        scope:osumi_owner = {
+            create_country_treasure = {
+                key = shell_jewelry
+                icon = treasure_chest
+                modifier = {
+                    local_goods_from_slaves = -1
+                }
+            }
+        }
+        p:9740 = {
+            set_owned_by = root
+        }
+    }
+}
+me_duuchuu.13 = {
+    type = country_event
+
+    title = me_duuchuu_13_title
+    desc = me_duuchuu_13_desc
+    picture = japan_tribal_ways_event
+
+    option = {
+        name = "me_duuchuu_13.a"
+        custom_tooltip = me_duuchuu_13_tooltip
+        p:9740 = {
+            set_owned_by = root
+        }
+    }
+}
+me_duuchuu.14 = {
+    type = country_event
+
+    title = me_duuchuu_14_title
+    desc = me_duuchuu_14_desc
+    picture = china_art_14_event
+
+    option = {
+        name = "me_duuchuu_14.a"
+        custom_tooltip = me_duuchuu_14_tooltip
+        add_country_modifier = {
+            name = conquerers_of_kumaso
+            duration = -1
+        }
+    }
+}
+me_duuchuu.15 = {
+    type = country_event
+
+    title = me_duuchuu_15_title
+    desc = me_duuchuu_15_desc
+    picture = assassination
+
+    option = {
+        name = "me_duuchuu_15.a"
+        custom_tooltip = me_duuchuu_15_tooltip
+        add_country_modifier = {
+            name = conquerers_of_matsura
+            duration = -1
+        }
+        add_country_modifier = {
+            name = ghost_in_tsushima
+            duration = -1
+        }
+    }
+}
+me_duuchuu.16 = {
+    type = country_event
+
+    title = me_duuchuu_16_title
+    desc = me_duuchuu_16_desc
+    picture = great_work_celebration
+
+    option = {
+        name = "me_duuchuu_16.a"
+        custom_tooltip = me_duuchuu_16_tooltip
+        custom_tooltip = ghost_deity_tt
+        p:9305 = {
+            set_province_deity = deity:omen_ikiryo
+        }
+        set_variable = ghost_of_tsushima_var
+        remove_country_modifier = ghost_in_tsushima
+    }
+}
+me_duuchuu.190 = {
+    type = country_event
+
+    title = me_duuchuu_19_title
+    desc = me_duuchuu_190_desc
+    picture = china_art_4_event
+
+    immediate = {
+        random_country = {
+            limit = {
+                owns = 10555
+            }
+            save_scope_as = sado_owner
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_19.b"
+        custom_tooltip = me_duuchuu_19_tooltip
+        add_treasury = -100
+        scope:sado_owner = {
+            add_treasury = 100
+        }
+        p:10555 = {
+            set_owned_by = root
+        }
+    }
+    option = {
+        name = "me_duuchuu_19.c"
+        custom_tooltip = me_duuchuu_19_tooltip
+    }
+}
+me_duuchuu.19 = {
+    type = country_event
+
+    title = me_duuchuu_19_title
+    desc = me_duuchuu_19_desc
+    picture = japan_tribal_ways_event
+
+    option = {
+        name = "me_duuchuu_19.a"
+        custom_tooltip = me_duuchuu_19_tooltip
+        p:10555 = {
+            set_owned_by = root
+        }
+    }
+}
+me_duuchuu.18 = {
+    type = country_event
+
+    title = me_duuchuu_18_title
+    desc = me_duuchuu_18_desc
+    picture = japan_sailors_of_wa_event
+
+    immediate = {
+        current_ruler = {
+            add_popularity = 10
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_18.a"
+        custom_tooltip = me_duuchuu_18_tooltip
+        add_treasury = -100
+        add_political_influence = -25
+        p:9326 = {
+            set_city_status = city
+        }
+    }
+    option = {
+        name = "me_duuchuu_18.b"
+        custom_tooltip = me_duuchuu_18_tooltip
+    }
+}
+me_duuchuu.17 = {
+    type = country_event
+
+    title = me_duuchuu_17_title
+    desc = me_duuchuu_17_desc
+    picture = naval_battle
+
+    immediate = {
+        add_country_modifier = {
+            name = terrify_tamna
+            duration = -1
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_17.a"
+        custom_tooltip = me_duuchuu_17_tooltip
+        custom_tooltip = threaten_tamna
+        scope:tamna_terrify_scope = {
+            trigger_event = {
+                id = me_duuchuu.170
+                days = { 1 7 }
+            }
+        }
+    }
+}
+me_duuchuu.170 = {
+    type = country_event
+
+    title = me_duuchuu_17_title
+    desc = me_duuchuu_170_desc
+    picture = naval_battle
+
+    option = {
+        name = "me_duuchuu_170.a"
+        p:9285 = {
+            set_owned_by = OK1
+        }
+    }
+    option = {
+        name = "me_duuchuu_170.b"
+        custom_tooltip = okinawa_war_tt
+        c:OK1 = {
+            trigger_event = {
+                id = me_duuchuu.171
+                days = { 1 7 }
+            }
+        }
+    }
+}
+me_duuchuu.171 = {
+    type = country_event
+
+    title = me_duuchuu_17_title
+    desc = me_duuchuu_171_desc
+    picture = naval_battle
+
+    option = {
+        name = "me_duuchuu_171.a"
+        declare_war_with_wargoal = {
+            war_goal = conquer_wargoal
+            target = scope:tamna_terrify_scope
+            province = 9285
+        }
+    }
+    option = {
+        name = "me_duuchuu_171.b"
+        current_ruler = {
+            add_popularity = -10
+        }
+        p:9285 = {
+            add_claim = root
+        }
+    }
+}
+me_duuchuu.20 = {
+    type = country_event
+
+    title = me_duuchuu_20_title
+    desc = me_duuchuu_20_desc
+    picture = yue_coastal_warfare_mil_trad_event
+
+    option = {
+        name = "me_duuchuu_20.a"
+        custom_tooltip = me_duuchuu_20_tooltip
+        add_political_influence = -50
+        scope:jomon_tribe_scope = {
+            change_government = plutocratic_monarchy
+            soft_change_religion_effect = {
+                RELIGION = okinawa_religion
+            }
+        }
+    }
+    option = {
+        name = "me_duuchuu_20.b"
+        custom_tooltip = me_duuchuu_20_tooltip
+        add_political_influence = -100
+        scope:jomon_tribe_scope = {
+            change_government = plutocratic_monarchy
+            soft_change_religion_effect = {
+                RELIGION = okinawa_religion
+            }
+        }
+        make_subject = {
+            target = scope:jomon_tribe_scope
+            type = feudatory
+        }
+    }
+}
+me_duuchuu.21 = {
+    type = country_event
+
+    title = me_duuchuu_21_title
+    desc = me_duuchuu_21_desc
+    picture = china_art_9_event
+
+    immediate = {
+        random_country = {
+            limit = {
+                owns = p:8764
+            }
+            save_scope_as = yan_country
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_21.a"
+        custom_tooltip = me_duuchuu_21_tooltip
+        add_treasury = -100
+        p:8764 = {
+            set_owned_by = root
+            add_province_modifier = {
+                name = duuchuu_colony
+                duration = -1
+            }
+        }
+        scope:yan_country ={
+            add_treasury = 100
+        }
+    }
+}
+me_duuchuu.22 = {
+    type = country_event
+
+    title = me_duuchuu_22_title
+    desc = me_duuchuu_22_desc
+    picture = Event_massive_naval_battle
+
+    option = {
+        name = "me_duuchuu_22.a"
+        custom_tooltip = me_duuchuu_22_tooltip
+        change_government = pirate_kingdom
+        change_law = egyption_succession_law
+    }
+    option = {
+        name = "me_duuchuu_22.b"
+        custom_tooltip = me_duuchuu_22_tooltip
+        change_government = plutocratic_monarchy
+    }
+}
+me_duuchuu.23 = {
+    type = country_event
+
+    title = me_duuchuu_23_title
+    desc = me_duuchuu_23_desc
+    picture = Event_massive_naval_battle
+
+    immediate = {
+        random_country = {
+            limit = { owns = 9093 }
+            save_scope_as = yue_country
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_23.a"
+        custom_tooltip = me_duuchuu_23_tooltip
+        p:9093 = { set_owned_by = root }
+        reverse_add_opinion = {
+            target = scope:yue_country
+            modifier = corsica_stolen
+        }
+        scope:yue_country = {
+            trigger_event = {
+                id = me_duuchuu.230
+                #days = { 30 60 }
+                days = 1
+            }
+        }
+    }
+}
+me_duuchuu.230 = {
+    type = country_event
+
+    title = me_duuchuu_23_title
+    desc = me_duuchuu_230_desc
+    picture = Event_massive_naval_battle
+
+    immediate = {
+        show_as_tooltip = {
+            p:9093 = {
+                set_owned_by = root
+            }
+        }
+    }
+
+    option = {
+        name = "me_duuchuu_230.a"
+        current_ruler = {
+            add_popularity = subtract_popularity_large
+        }
+        c:OK1 = {
+            trigger_event = me_duuchuu.231
+        }
+        show_as_tooltip = {
+            add_opinion = {
+                target = c:OK1
+                modifier = corsica_stolen
+            }
+        }
+    }
+    option = {
+        name = "me_duuchuu_230.b"
+        declare_war_with_wargoal = {
+            war_goal = conquer_wargoal
+            province = p:9093
+            target = c:OK1
+        }
+        show_as_tooltip = {
+            add_opinion = {
+                target = c:OK1
+                modifier = corsica_stolen
+            }
+        }
+    }
+}
+me_duuchuu.231 = {
+    type = country_event
+
+    title = me_duuchuu_23_title
+    desc = me_duuchuu_231_desc
+    picture = quarry
+
+    option = {
+        name = "me_duuchuu_231.a"
+        current_ruler = {
+            add_trait = coastal_raider
+        }
+    }
+}
+me_duuchuu.24 = {
+    type = country_event
+
+    title = me_duuchuu_24_title
+    desc = me_duuchuu_24_desc
+    picture = quarry
+
+    option = {
+        name = "me_duuchuu_24.a"
+        custom_tooltip = me_duuchuu_24_tooltip
+        add_political_influence = 25
+        add_stability = 3
+        add_military_experience = 10
+        add_2_free_province_investments = yes
+        add_treasury = -150
+        add_country_modifier = {
+            name = yuta_undercutters
+            duration = -1
+        }
+    }
+    option = {
+        name = "me_duuchuu_24.b"
+        custom_tooltip = me_duuchuu_24_tooltip
+        add_country_modifier = {
+            name = nuruu_dominance
+            duration = -1
+        }
+    }
+}
+me_duuchuu.25 = {
+    type = country_event
+
+    title = me_duuchuu_25_title
+    desc = me_duuchuu_25_desc
+    picture = china_art_3_event
+
+    option = {
+        name = "me_duuchuu_25.a"
+        custom_tooltip = me_duuchuu_25_tooltip
+        hidden_effect = {
+            p:9739 = {
+                random_pops_in_province = {
+                    set_pop_culture = yaeyama
+                }
+                create_pop = freemen
+            }
+            p:9738 = {
+                random_pops_in_province = {
+                    set_pop_culture = yaeyama
+                }
+                create_pop = freemen
+            }
+            area:tutikungshan_area = {
+                every_area_province = {
+                    random_pops_in_province = {
+                        set_pop_culture = yaeyama
+                        set_pop_religion = okinawa_religion
+                    }
+                }
+            }
+            area:qilin_area = {
+                every_area_province = {
+                    random_pops_in_province = {
+                        set_pop_culture = yaeyama
+                        set_pop_religion = okinawa_religion
+                    }
+                }
+            }
+        }
+        p:10836 = {
+            create_country = {
+                name = {
+                    name = yaemama_subject
+                    adjective = yaemama_subject_adj
+                }
+                hidden_effect = { change_country_color = light_green }
+                change_government = aristocratic_republic
+                set_primary_culture = yaeyama
+                set_country_religion = okinawa_religion
+                save_scope_as = yaeyamashima_scope
+            }
+        }
+        area:tutikungshan_area = {
+            every_area_province = {
+                limit = {                
+                    owned_or_subject_owned = root 
+                }
+                set_owned_by = scope:yaeyamashima_scope
+            }
+        }
+        area:qilin_area = {
+            every_area_province = {
+                limit = {                
+                    owned_or_subject_owned = root
+                    NOR = {
+                        province_id = 10839
+                        province_id = 10840
+                    }
+                }
+                set_owned_by = scope:yaeyamashima_scope
+            }
+        }
+        make_subject = {
+            target = scope:yaeyamashima_scope
+            type = feudatory
+        }
+    }
+    option = {
+        name = "me_duuchuu_25.b"
+        custom_tooltip = me_duuchuu_25_tooltip
+        hidden_effect = {
+            p:9739 = {
+                random_pops_in_province = {
+                    set_pop_culture = yaeyama
+                }
+                create_pop = freemen
+            }
+            p:9738 = {
+                random_pops_in_province = {
+                    set_pop_culture = yaeyama
+                }
+                create_pop = freemen
+            }
+            area:tutikungshan_area = {
+                every_area_province = {
+                    random_pops_in_province = {
+                        set_pop_culture = yaeyama
+                        set_pop_religion = okinawa_religion
+                    }
+                }
+            }
+        }
+        p:10836 = {
+            create_country = {
+                name = {
+                    name = yaemama_subject
+                    adjective = yaemama_subject_adj
+                }
+                hidden_effect = { change_country_color = light_green }
+                change_government = aristocratic_republic
+                set_primary_culture = yaeyama
+                set_country_religion = okinawa_religion
+                save_scope_as = yaeyamashima_scope
+            }
+        }
+        area:tutikungshan_area = {
+            every_area_province = {
+                limit = {                
+                    owned_or_subject_owned = root 
+                }
+                set_owned_by = scope:yaeyamashima_scope
+            }
+        }
+        make_subject = {
+            target = scope:yaeyamashima_scope
+            type = feudatory
+        }
+    }
+    option = {
+        name = "me_duuchuu_25.c"
+        custom_tooltip = me_duuchuu_25_tooltip
+    }
+}
+me_duuchuu.26 = {
+    type = country_event
+
+    title = me_duuchuu_26_title
+    desc = me_duuchuu_26_desc
+    picture = japan_hacimans_blessing_event
+
+    option = {
+        name = "me_duuchuu_26.a"
+        custom_tooltip = me_duuchuu_26_tooltip
+        custom_tooltip = nansei_culture_tt
+        hidden_effect = {
+            region:wa_region = {
+                every_region_province = {
+                    limit = {
+                        owner = root
+                    }
+                    every_pops_in_province = {
+                        limit = {
+                            pop_culture = kumaso
+                        }
+                        set_pop_culture = nansei
+                    }
+                }
+            }
+        }
+    }
+    option = {
+        name = "me_duuchuu_26.c"
+        custom_tooltip = me_duuchuu_26_tooltip
+        hidden_effect = {
+            region:wa_region = {
+                every_region_province = {
+                    limit = {
+                        owner = root
+                    }
+                    every_pops_in_province = {
+                        limit = {
+                            pop_culture = kumaso
+                        }
+                        set_pop_culture = nansei
+                    }
+                }
+            }
+        }
+        p:9303 = {
+            create_country = {
+                name = {
+                    name = nansei_subject
+                    adjective = nansei_subject_adj
+                }
+                hidden_effect = {
+                    change_country_color = phrygia_red
+                    change_country_tag = NNS
+                }
+                change_government = plutocratic_monarchy
+                set_primary_culture = nansei
+                set_country_religion = okinawa_religion
+                save_scope_as = nansei_scope
+            }
+        }
+        area:matsura_area = {
+            every_area_province = {
+                limit = {
+                    NOR = {
+                        province_id = 9305
+                        province_id = 8121
+                    }
+                }
+                set_owned_by = scope:nansei_scope
+            }
+        }
+        make_subject = {
+            target = scope:nansei_scope
+            type = feudatory
+        }
+    }
+    option = {
+        name = "me_duuchuu_26.b"
+        custom_tooltip = me_duuchuu_26_tooltip
+        hidden_effect = {
+            region:wa_region = {
+                every_region_province = {
+                    limit = {
+                        owner = root
+                    }
+                    every_pops_in_province = {
+                        limit = {
+                            pop_culture = kumaso
+                        }
+                        set_pop_culture = nansei
+                    }
+                }
+            }
+        }
+        set_primary_culture_cleanup_effect = {
+            NEW_PRIMARY_CULTURE = nansei
+            MAKE_OLD_CULTURE_INTEGRATED = yes
+        }
+    }
+    option = {
+        name = "me_duuchuu_26.d"
+        custom_tooltip = me_duuchuu_26_tooltip
+        random_country_culture = {
+            limit = {
+                is_culture = kumaso
+            }
+            add_country_culture_modifier = {
+                name = denied_syncretism_okinawa
+                duration = 1825
+            }
+        }
+    }
+}
+me_duuchuu.27 = {
+    type = country_event
+
+    title = me_duuchuu_27_title
+    desc = me_duuchuu_27_desc
+    picture = ascetic
+
+    option = {
+        name = "me_duuchuu_27.a"
+        custom_tooltip = me_duuchuu_27_tooltip
+        add_country_modifier = {
+            name = way_of_te
+            duration = -1
+        }
+    }
+}

@@ -371,23 +371,6 @@ AGE_biyearly_country_pulse = {
 				age_ability_effect = yes
 			}
 		}
-
-		# Clear data from previous ages so modifiers and variables don't carry over to the new age
-		if = {
-			limit = {
-				current_date >= 550.2.1
-				current_date < 554.2.1
-			}
-			clear_all_hellenic_age_data = yes
-		}
-		if = {
-			limit = {
-				current_date >= 650.2.1
-				current_date < 654.2.1
-			}
-			clear_all_migration_age_data = yes
-		}
-
 	}
 }
 
@@ -506,6 +489,23 @@ AGE_monthly_country_pulse = {
 			}
 		}
 
+		# Clear data from previous ages so modifiers and variables don't carry over to the new age, these effects only happen one time on the month the ages transition
+		if = {
+			limit = {
+				current_date >= 550.1.1
+				current_date < 550.1.25
+			}
+			clear_all_hellenic_age_data = yes
+			trigger_event = age_transition_events.1
+		}
+		if = {
+			limit = {
+				current_date >= 650.1.1
+				current_date < 650.1.25
+			}
+			clear_all_migration_age_data = yes
+			trigger_event = age_transition_events.2
+		}
 	}
 }
 

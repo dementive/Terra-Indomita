@@ -108,7 +108,7 @@ me_mac_3_1_target_svalue = {
 
 me_mac_3_1_ongoing_svalue = {
 	value = 0
-	area:illyria_graeca_area {
+	area:illyria_graeca_area = {
 		ordered_area_province = {
 			limit = {
 				has_owner = yes
@@ -406,6 +406,7 @@ me_mac_3_4_ongoing_svalue = {
 					province_id = 64
 				}
 			}
+			add = 1
 		}
 	}
 	max = me_mac_3_4_target_svalue
@@ -421,7 +422,9 @@ me_mac_3_threat_svalue = {
 		every_sub_unit = { add = 1 }
 	}
 	every_allied_country = {
-		every_sub_unit = { add = 1 }
+		every_unit = {
+			every_sub_unit = { add = 1 }
+		}
 	}
 }
 
@@ -432,7 +435,9 @@ me_mac_3_mac_threat_svalue = {
 			every_sub_unit = { add = 1 }
 		}
 		every_allied_country = {
-			every_sub_unit = { add = 1 }
+			every_unit = {
+				every_sub_unit = { add = 1 }
+			}
 		}
 	}
 }

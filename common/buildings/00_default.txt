@@ -1554,8 +1554,6 @@ crafts_workshop_building = {
 	cost = 200
 	time = 730
 
-	max_amount = 1
-
 	modification_display = {
 		0 = local_base_trade_routes_modifier
 		1 = value_income
@@ -1753,60 +1751,6 @@ nomad_camp_building = {
 	max_amount = 1
 }
 
-sacred_enclosure_building = {
-	local_population_capacity_modifier = 0.25
-	local_population_happiness = 0.1
-	local_base_trade_routes_modifier = 0.3
-	local_citizen_desired_pop_ratio = 0.05
-	local_nobles_desired_pop_ratio = 0.01
-	local_tax_modifier = 0.3
-	local_country_civilization_value = 5
-	local_migration_speed_modifier = -0.25
-
-	potential = {
-		has_city_status = no
-		AND = {
-			exists = owner
-			owner = {
-				is_tribal = yes
-			}
-		}
-	}
-
-	allow = {
-		is_holy_site = yes
-	}
-
-	cost = 200
-	time = 730
-
-	max_amount = 1
-
-	modification_display = {
-		0 = local_base_trade_routes_modifier
-		1 = value_income
-	}
-
-	chance = {
-		modifier = {
-			is_holy_site = yes
-			add = 10
-		}
-		modifier = {
-			add = {
-				value = 5
-				multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_citizen
-			}
-		}
-	}
-}
-
 sanctuary_building = { #Sanctuary
 	local_population_capacity_modifier = 0.1
 	local_base_trade_routes_modifier = 0.3
@@ -1818,12 +1762,6 @@ sanctuary_building = { #Sanctuary
 
 	potential = {
 		has_city_status = no
-		AND = {
-			exists = owner
-			owner = {
-				is_tribal = no
-			}
-		}
 	}
 
 	allow = {
@@ -1991,8 +1929,6 @@ basic_settlement_infratructure_building = { #Farming Settlement
 	cost = 200
 	time = 730
 
-	max_amount = 1
-
 	modification_display = {
 		0 = local_goods_from_slaves
 		1 = local_monthly_food_modifier
@@ -2049,8 +1985,6 @@ enclosure_building = {
 
 	cost = 200
 	time = 730
-
-	max_amount = 1
 
 	modification_display = {
 		0 = local_manpower_modifier

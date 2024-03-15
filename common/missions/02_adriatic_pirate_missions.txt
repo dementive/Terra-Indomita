@@ -3,7 +3,9 @@
     icon = cde_looting
 
     repeatable = no
-    chance = 1000
+    chance = {
+		factor = 100
+	}
 
     potential = {
         NOT = { has_variable = mission_cooldown_var }
@@ -27,6 +29,13 @@
         complete_mission_effect = yes
         capital_scope = {
             capital_formable_small_effect = yes
+        }
+        if = {
+            limit = {
+                religion = illyrian_pantheon
+            }
+            custom_tooltip = "pirate_cult_var_tt"
+            set_variable = pirate_cult_var
         }
     }
     
@@ -54,6 +63,7 @@
 				}
 	        }
         }
+
         on_completion = {
             add_innovation = 1
             trigger_event = me_adriatic_pirate.1
@@ -75,26 +85,23 @@
             }
         }
     }
+
     01_adriatic_pirate_missions_task_2 = { #Raiding Parties
         icon = "task_battle"
         allow = {
             num_of_ships >= 25
-            custom_tooltip = {
-                text = adriatic_piracy_illyrian_piracy_tt
-               has_military_bonus = illyrian_piracy_path_1
-                }
         }
+
         on_completion = {
             custom_tooltip = pirate_illyria_claims_everywhere_tt
             trigger_event = me_adriatic_pirate.2
-            show_as_tooltip = {
-                add_country_modifier = {
-                    name = adriatic_raiding_parties
-                    duration = -1
-                }
+            add_country_modifier = {
+                name = adriatic_raiding_parties
+                duration = -1
             }
         }
     }
+
     01_adriatic_pirate_missions_task_3 = { #Pirate Shipyards
         requires = {01_adriatic_pirate_missions_task_1}
         icon = "task_political"
@@ -117,27 +124,25 @@
                has_military_bonus = illyrian_piracy_path_6
                 }
         }
+
         on_completion = {
             random_owned_province = {
                 limit = { is_coastal = yes }
+                found_city_effect = yes
+                add_province_modifier = {
+                    name = illyrian_pirate_shipyard
+                    duration = -1
+                }
+                add_province_modifier = {
+                    name = illyrian_pirate_unrest
+                    duration = 3650
+                }
                 save_scope_as = illyrian_pirate_shipyard_province
             }
-            scope:illyrian_pirate_shipyard_province = {
-                set_city_status = city
-        			add_province_modifier = {
-        				name = illyrian_pirate_shipyard
-        				duration = -1
-        			}
-                    add_province_modifier = {
-        				name = illyrian_pirate_unrest
-        				duration = 3650
-        			}
-            }
             trigger_event = me_adriatic_pirate.3
-            show_as_tooltip = {
-            }
         }
     }
+
     01_adriatic_pirate_missions_task_4 = { #Our Fates Are One
         icon = "task_diplomatic"
         requires = {01_adriatic_pirate_missions_task_1}
@@ -173,11 +178,9 @@
                 }
             }
             trigger_event = me_adriatic_pirate.4
-
-            show_as_tooltip = {
-            }
         }
     }
+
     01_adriatic_pirate_missions_task_5 = { # A Sailor's Rations
         icon = "task_religion"
         requires = {01_adriatic_pirate_missions_task_4}
@@ -198,12 +201,10 @@
         }
         on_completion = {
             trigger_event = me_adriatic_pirate.5
-            show_as_tooltip = {
-        		add_country_modifier = {
-        				name = sailors_rations_adriatic_modifier
-        				duration = -1
-        		}
-            }
+            add_country_modifier = {
+                name = sailors_rations_adriatic_modifier
+                duration = -1
+        }
         }
     }
     01_adriatic_pirate_missions_task_6 = {
@@ -256,9 +257,6 @@
         		duration = -1
         	}
             trigger_event = me_adriatic_pirate.7
-            show_as_tooltip = {
-
-            }
         }
     }
     01_adriatic_pirate_missions_task_8 = { #Stealing the Scythe
@@ -271,10 +269,13 @@
 		}
 
         allow = {
-            political_influence >= 15
+        custom_tooltip = {
+            text = adriatic_piracy_illyrian_piracy_tt
+            has_military_bonus = illyrian_piracy_path_1
+            }
         }
+
         on_completion = {
-            add_political_influence = -15
             p:470 = {
 				add_claim = root
 			}
@@ -283,9 +284,6 @@
                 duration = 3650
             }
             trigger_event = me_adriatic_pirate.8
-            show_as_tooltip = {
-
-            }
         }
     }
     01_adriatic_pirate_missions_task_9 = { #Epirote Raiders
@@ -313,6 +311,7 @@
         on_completion = {
             add_treasury = -100
             add_manpower = -2
+            add_1_free_province_investments = yes
             p:470 = {
 				add_province_modifier = {
                     name = pirate_haven_modifier
@@ -323,9 +322,6 @@
                 add_provincial_claim_effect = yes
             }
             trigger_event = me_adriatic_pirate.9
-            show_as_tooltip = {
-
-            }
         }
     }
     01_adriatic_pirate_missions_task_10 = { #Calling All Pirates
@@ -333,12 +329,12 @@
         requires = {01_adriatic_pirate_missions_task_4}
         duration = 365
         allow = {
-            political_influence >= 50
-            treasury >= 100
+            political_influence >= 25
+            treasury >= 50
         }
         on_completion = {
-            add_political_influence = -50
-            add_treasury = -100
+            add_political_influence = -25
+            add_treasury = -50
             add_country_modifier = {
                 name = calling_all_pirates_adriatic_modifier
                 duration = 1825
@@ -347,9 +343,6 @@
             trigger_event = { 
                 id = me_adriatic_pirate.27 
                 days = 180
-            }
-            show_as_tooltip = {
-
             }
         }
     }
@@ -363,6 +356,10 @@
 			}
         }
 
+        bypass = {
+            owns_or_subject_owns = 64
+        }
+
         allow = {
             owns_or_subject_owns_area = epirus_area
         }
@@ -370,11 +367,13 @@
             create_unit = {
                 navy = no
                 name = "Pirate Liberators"
-                location = capital_scope
+                location = root.capital_scope
                 hidden_effect = {
                 add_subunit = light_infantry
                 add_subunit = light_infantry
-                add_subunit = light_infantry                                         
+                add_subunit = light_infantry
+                add_subunit = light_cavalry
+                add_subunit = light_cavalry                                            
                 add_food = 150
                 add_morale = 3
                 }
@@ -388,9 +387,6 @@
                 target = p:64.owner
             }
             trigger_event = me_adriatic_pirate.11
-            show_as_tooltip = {
-
-            }
         }
     }
     01_adriatic_pirate_missions_task_12 = { #Seizing Meligounis
@@ -401,12 +397,15 @@
 			scope:province = { province_id = 1472 }
 		}
 
+        bypass = {
+            owns_or_subject_owns = 1472
+        }
+
         allow = {
             num_of_ships >= 50
-            political_influence >= 15
         }
         on_completion = {
-            add_political_influence = -15
+
             p:1472 = {
                 add_claim = root
             }
@@ -416,13 +415,10 @@
                 target = p:1472.owner
             }
             add_country_modifier = {
-				name = "motivated_soldiers"
+				name = "we_will_succeed"
 				duration = 1095
 			}
             trigger_event = me_adriatic_pirate.12
-            show_as_tooltip = {
-
-            }
         }
     }
     01_adriatic_pirate_missions_task_13 = { #Squeezing The Strait
@@ -462,9 +458,6 @@
                 add_provincial_claim_effect = yes
             }
             trigger_event = me_adriatic_pirate.13
-            show_as_tooltip = {
-
-            }
         }
     }
     01_adriatic_pirate_missions_task_14 = { #Libernian Liburnians
@@ -486,11 +479,9 @@
         on_completion = {
             add_treasury = -125
             trigger_event = me_adriatic_pirate.14
-            show_as_tooltip = {
-                add_country_modifier = {
-                    name = libernian_liburnian_modifier
-                    duration = -1
-                }
+            add_country_modifier = {
+                name = libernian_liburnian_modifier
+                duration = -1
             }
         }
     }
@@ -726,14 +717,13 @@
 				}
 			}
             trigger_event = me_adriatic_pirate.15
-            show_as_tooltip = {
-
-            }
         }
     }
     01_adriatic_pirate_missions_task_16 = { #Fearsomely Arrayed
         icon = "task_battle"
         requires = {01_adriatic_pirate_missions_task_14}
+        duration = 90
+
         allow = {
             capital_scope = {
                 is_importing_trade_good = leather
@@ -741,7 +731,6 @@
             military_experience >= 30
             invention = sibyna_inv
             invention = illyrian_helmet_inv
-            
         }
         on_completion = {
             add_military_experience = -30
@@ -750,9 +739,6 @@
                 duration = -1
             }
             trigger_event = me_adriatic_pirate.16
-            show_as_tooltip = {
-
-            }
         }
     }
 
@@ -765,7 +751,7 @@
                 text = you_need_to_form_pirate_illyria
                 tag = ILL
             }
-            }
+        }
 
         on_completion = {
             set_country_heritage = illyrian_pirate_heritage
@@ -783,8 +769,15 @@
         icon = "task_battle"
         duration = 365
         requires = {01_adriatic_pirate_missions_task_9 01_adriatic_pirate_missions_task_10}
+
+        highlight = {
+			scope:province = {
+				is_in_area = epirus_area
+			}
+        }
         
         allow = {
+            owns_or_subject_owns_area = epirus_area
             trigger_if = {
                 limit = {
                     p:266.owner = {
@@ -794,16 +787,12 @@
                 is_ai = yes
             }
             num_of_ships >= 75
-    }
+        }
         on_completion = {
             trigger_event = me_adriatic_pirate.18
-
             trigger_event = { 
                 id = me_adriatic_pirate.21 
                 days = 14 # 2 weeks
-            }
-
-            show_as_tooltip = {
             }
         }
     }
@@ -840,6 +829,7 @@
         on_completion = {
             add_treasury = -250
             add_manpower = -3
+            add_innovation = 2
             area:sporades_area = {
                 add_provincial_claim_effect = yes
             }
@@ -847,6 +837,9 @@
                 add_provincial_claim_effect = yes
             }
             area:cyprus_area = {
+                add_provincial_claim_effect = yes
+            }
+            area:crete_area = {
                 add_provincial_claim_effect = yes
             }
             p:266 = {
@@ -872,104 +865,96 @@
                 }
 			}
             trigger_event = me_adriatic_pirate.19
-            show_as_tooltip = {
-            }
         }
     }
 
     01_adriatic_pirate_missions_task_20 = { #Wherever the Water Touches
-    icon = "task_conquest"
-    duration = 730
-    requires = {01_adriatic_pirate_missions_task_6 }
-    final = yes
-    allow = {
-        treasury >= 500
-}
-    on_completion = {
-        hidden_effect = {
-            every_province = {
-                limit = {
-                  OR = { is_coastal = yes num_of_port_building >= 1} 
+        icon = "task_conquest"
+        duration = 730
+        requires = {01_adriatic_pirate_missions_task_6 }
+        final = yes
+        allow = {
+            treasury >= 500
+        }
+        on_completion = {
+            hidden_effect = {
+                every_province = {
+                    limit = {
+                      OR = { is_coastal = yes num_of_port_building >= 1} 
+                    }
+                    add_claim = root
+                  }
+            }
+            add_treasury = -500
+            trigger_event = me_adriatic_pirate.20
+        }
+    }
+
+    01_adriatic_pirate_missions_task_21 = { #Philosophers and Pirates
+        icon = "task_diplomatic"
+        duration = 365
+        requires = {01_adriatic_pirate_missions_task_3}
+
+        highlight = {
+            scope:province = {
+                has_owner = yes
+                owner = ROOT
+                has_city_status = yes
+            }
+        }
+        
+        allow = {
+            treasury >= 150
+            hidden:capital_scope.state = {
+                trade_good_surplus = {
+                    target = stone
+                    value >= 2
                 }
-                add_claim = root
-              }
-        }
-        add_treasury = -500
-        trigger_event = me_adriatic_pirate.20
-        show_as_tooltip = {
-        }
-    }
-}
-
-01_adriatic_pirate_missions_task_21 = { #Philosophers and Pirates
-    icon = "task_diplomatic"
-    duration = 365
-    requires = {01_adriatic_pirate_missions_task_3}
-
-    highlight = {
-        scope:province = {
-            has_owner = yes
-            owner = ROOT
-            has_city_status = yes
-        }
-    }
-    
-    allow = {
-        treasury >= 150
-        hidden:capital_scope.state = {
-            trade_good_surplus = {
-                target = stone
-                value >= 2
             }
         }
 
-}
-    on_completion = {
-        add_treasury = -150
-        add_innovation = 2
-        random_owned_province = {
-            limit = { has_city_status = yes }
-            add_province_modifier = {
-                name = illyrian_pirate_library_center
-                duration = -1
+        on_completion = {
+            add_treasury = -150
+            add_innovation = 2
+            random_owned_province = {
+                limit = { has_city_status = yes }
+                add_province_modifier = {
+                    name = illyrian_pirate_library_center
+                    duration = -1
+                }
+                save_scope_as = 01_adriatic_pirate_missions_task_21_var
             }
-        }
-                
-        trigger_event = me_adriatic_pirate.24
-        show_as_tooltip = {
+            trigger_event = me_adriatic_pirate.24
         }
     }
-}
 
-01_adriatic_pirate_missions_task_22 = { #Polluted by Pirates
-    icon = "task_expansion"
-    duration = 730
-    requires = {01_adriatic_pirate_missions_task_21 }
-    
-    allow = {
-       #Have 10 ports in the illyria region
-       custom_tooltip = {
-        text = adriatic_pirate_missions_task_22_tt
-        any_owned_province = {
-            count >= 10
-            has_building = port_building
-            OR = {
-                is_in_area = histria_area
-                is_in_area = dalmatia_occidentalis_area
-                is_in_area = dalmatia_centralis_area
-                is_in_area = illyria_graeca_area
+    01_adriatic_pirate_missions_task_22 = { #Polluted by Pirates
+        icon = "task_expansion"
+        duration = 730
+        requires = {01_adriatic_pirate_missions_task_21 }
+        
+        allow = {
+           #Have 10 ports in the illyria region
+           custom_tooltip = {
+                text = adriatic_pirate_missions_task_22_tt
+                any_owned_province = {
+                    count >= 10
+                    has_building = port_building
+                    OR = {
+                        is_in_area = histria_area
+                        is_in_area = dalmatia_occidentalis_area
+                        is_in_area = dalmatia_centralis_area
+                        is_in_area = illyria_graeca_area
+                    }
+                }
             }
         }
-    }
-}
-    on_completion = {
+        on_completion = {
             add_country_modifier = {
                 name = adriatic_polluted_pirates_mod
                 duration = -1
             }
-        trigger_event = me_adriatic_pirate.26
-        show_as_tooltip = {
+            trigger_event = me_adriatic_pirate.26
         }
     }
-}
 }

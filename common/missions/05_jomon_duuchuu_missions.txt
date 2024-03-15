@@ -1,0 +1,896 @@
+﻿jomon_duuchuu_missions = {
+    header = "missionrhodesgreeks"
+    icon = "egypt_4"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        primary_culture = duuchuu
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+    on_completion = {
+        change_government = yamato_empire
+    }
+    jomon_duuchuu_missions_task_1 = {
+        icon = "task_calm"
+        allow = {}
+        on_completion = {
+            trigger_event = me_duuchuu.1
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = okinawa_calm
+                    duration = 730
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_2 = {
+        icon = "task_economical"
+        highlight = {
+            scope:province = {
+                trade_goods = base_metals
+            }
+        }
+        requires = { jomon_duuchuu_missions_task_1 }
+        allow = {
+            p:9690_scope.state  = {
+                incoming_trade_routes >= 3
+            }
+            hidden:capital_scope.state = {
+                trade_good_surplus = {
+                    target = base_metals
+                    value >= 2
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.2
+            show_as_tooltip = {
+                create_country_treasure = {
+                    key = shell_bracelet
+                    icon = treasure_it_lusitanian_silver_breastplate
+                    modifier = {
+                        local_population_growth = 0.05
+                        local_commerce_value_modifier = 0.10
+                    }
+                }
+                add_1_free_province_investments = yes
+                p:9734 = {
+                    create_pop = freemen
+                    create_pop = freemen
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_3 = {
+        icon = "task_zeus_cornucopia"
+        requires = { jomon_duuchuu_missions_task_1 }
+        highlight = {
+            scope:province = {
+                province_id = 9738
+            }
+        }
+        allow = {
+            hidden:p:9738 = {
+                has_building = basic_settlement_infratructure_building
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.3
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = okinawa_fish
+                    duration = -1
+                }
+                add_1_free_province_investments = yes
+                p:9738 = {
+                    create_pop = freemen
+                    create_pop = freemen
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_4 = {
+        icon = "task_artemis"
+        requires = { jomon_duuchuu_missions_task_1 }
+        allow = {
+            custom_tooltip = {
+                any_character = {
+                    is_female = yes
+                    has_office = office_high_priest
+                }
+                text = okinawa_high_priest_tt
+            }
+            custom_tooltip = {
+                any_character = {
+                    is_female = yes
+                    has_office = office_elder
+                }
+                text = okinawa_elder_tt
+            }
+            custom_tooltip = {
+                any_character = {
+                    is_female = yes
+                    has_office = office_arbitrator
+                }
+                text = okinawa_arbitrator_tt
+            }
+            custom_tooltip = {
+                any_character = {
+                    is_female = yes
+                    has_office = office_wise_person
+                }
+                text = okinawa_wise_person_tt
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.4
+            show_as_tooltip = {
+                custom_tooltip = empower_women_tt
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_priest_tt"
+                        type = priest
+                        count = 1
+                    }
+                }
+                hidden_effect = {
+                    random_character = {
+                        limit = {
+                            is_female = yes
+                            has_office = office_high_priest
+                        }
+                        add_zeal = 5
+                    }
+                    random_character = {
+                        limit = {
+                            is_female = yes
+                            has_office = office_elder
+                        }
+                        add_zeal = 5
+                    }
+                    random_character = {
+                        limit = {
+                            is_female = yes
+                            has_office = office_arbitrator
+                        }
+                        add_zeal = 5
+                    }
+                    random_character = {
+                        limit = {
+                            is_female = yes
+                            has_office = office_wise_person
+                        }
+                        add_zeal = 5
+                    }
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_5 = {
+        icon = "task_expansion"
+        requires = { jomon_duuchuu_missions_task_1 }
+        allow = {
+            num_of_ships >= 10
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.5
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = okinawa_boats
+                    duration = -1
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_merchant_tt"
+                        type = merchant
+                        count = 2
+                    }
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+                create_unit = {
+                    navy = yes
+                    location = p:10857
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_6 = {
+        icon = "task_political"
+        requires = { jomon_duuchuu_missions_task_1 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    trade_goods = cowrie_shells
+                    trade_goods = rice
+                }
+            }
+        }
+        allow = {
+            capital_scope = {
+                OR = {
+                    is_importing_trade_good = cowrie_shells
+                    is_importing_trade_good = rice
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.6
+            show_as_tooltip = {
+                add_1_free_province_investments = yes
+                p:9737 = {
+                    create_pop = freemen
+                    create_pop = freemen
+                }
+                add_country_modifier = {
+                    name = okinawa_rice
+                    duration = -1
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_7 = {
+        icon = "task_happiness"
+        duration = 365
+        requires = { jomon_duuchuu_missions_task_2 jomon_duuchuu_missions_task_3 jomon_duuchuu_missions_task_4 jomon_duuchuu_missions_task_5 jomon_duuchuu_missions_task_6 }
+        allow = {
+            custom_tooltip = {
+                any_character = {
+                    is_female = yes
+                    has_office = office_high_priest
+                }
+                text = okinawa_high_priest_tt
+            }
+        }
+        on_start = {
+            trigger_event = me_duuchuu.700
+            show_as_tooltip = {
+                custom_tooltip = okinawa_oracle_tt_2
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.7
+            show_as_tooltip = {
+                custom_tooltip = okinawa_oracle_tt
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_8 = {
+        icon = "task_battle"
+        requires = { jomon_duuchuu_missions_task_7 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = tutikungshan_area
+                    is_in_area = qilin_area
+                }
+            }
+        }
+        allow = {
+            OR = {
+                owns_or_subject_owns_area = tutikungshan_area
+                owns_or_subject_owns_area = qilin_area
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.8
+            show_as_tooltip = {
+                add_treasury = 150
+                current_ruler = {
+                    add_popularity = popularity_medium
+                    add_trait = confident
+                }
+                add_stability = 3
+                random_country_culture = {
+                    limit = {
+                        is_culture = yizhou
+                    }
+                    add_country_culture_modifier = {
+                        name = cultural_familiarity_yaemama
+                        duration = 1825
+                    }
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_9 = {
+        icon = "task_economical"
+        requires = { jomon_duuchuu_missions_task_8 }
+        highlight = {
+            scope:province = {
+                province_id = 10839
+            }
+        }
+        allow = {
+            owns = 10839
+            p:10839 = {
+                has_building = port_building
+            }
+            hidden:p:10839.state = {
+                calc_true_if = {
+                    amount >= 1
+                    state_improvement_civic_trigger = yes
+                }
+            }   
+            treasury >= 150
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.9
+            show_as_tooltip = {
+                p:10839 = {
+                    set_city_status = city
+                    add_province_modifier = {
+                        name = duuchuu_colony
+                        duration = -1
+                    }
+                }
+                add_treasury = -150
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_10 = {
+        icon = "task_economical"
+        requires = { jomon_duuchuu_missions_task_8 }
+        highlight = {
+            scope:province = {
+                province_id = 10840
+            }
+        }
+        allow = {
+            owns = 10840
+            p:10840 = {
+                has_building = port_building
+            }
+            hidden:p:10840.state = {
+                calc_true_if = {
+                    amount >= 1
+                    state_improvement_civic_trigger = yes
+                }
+            }
+            treasury >= 150
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.10
+            show_as_tooltip = {
+                p:10840 = {
+                    set_city_status = city
+                    add_province_modifier = {
+                        name = duuchuu_colony
+                        duration = -1
+                    }
+                }
+                add_treasury = -150
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_11 = {
+        icon = "task_dying_gaul"
+        requires = { jomon_duuchuu_missions_task_9 jomon_duuchuu_missions_task_10 }
+        highlight = {
+            scope:province = {
+                dominant_province_culture = igorot
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = luzon_area
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.11
+            show_as_tooltip = {
+                random_country_culture = {
+                    limit = {
+                        is_culture = igorot
+                    }
+                    add_country_culture_modifier = {
+                        name = ichor_of_igorot
+                        duration = -1
+                    }
+                }
+                area:maynila_area = {
+                    every_area_province = { add_claim = root }
+                }
+                current_ruler = {
+                    add_trait = conqueror
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_12 = {
+        icon = "task_expansion"
+        duration = 365
+        requires = { jomon_duuchuu_missions_task_11 }
+        highlight = {
+            scope:province = {
+                is_in_area = zhuya_area
+            }
+        }
+        allow = {
+            country_population >= 80
+            custom_tooltip = {
+                text = does_not_have_naval_expansion_tt
+                has_variable = naval_expansion_var
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.12
+            show_as_tooltip = {
+                random_province = {
+                    limit = {
+                        is_in_area = zhuya_area
+                    }
+                    set_owned_by = root
+                }
+                area:zhuya_area = {
+                    every_area_province = {
+                        add_claim = root
+                    }
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_13 = {
+        icon = "task_diplomatic"
+        requires = { jomon_duuchuu_missions_task_7 }
+        highlight = {
+            scope:province = {
+                province_id = 9740
+            }
+        }
+        allow = {
+            OR = {
+                custom_tooltip = {
+                    any_country = { owns = 9740 }
+                    text = okinawa_osumi_tt
+                }
+                p:9734 = {
+                    total_population >= 6
+                }
+            }
+        }
+        on_completion = {
+            if = {
+                limit = {
+                    p:9740 = {
+                        has_owner = yes
+                        NOT = { owner = root }
+                    }
+                }
+                trigger_event = me_duuchuu.130
+                show_as_tooltip = {
+                    custom_tooltip = okinawa_make_an_offer_tt
+                }
+            }
+            if = {
+                limit = {
+                    p:9740 = {
+                        has_owner = no
+                    }
+                }
+                trigger_event = me_duuchuu.13
+                show_as_tooltip = {
+                    p:9740 = {
+                        set_owned_by = root
+                    }
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_14 = {
+        icon = "task_battle"
+        requires = { jomon_duuchuu_missions_task_13 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 9693
+                    province_id = 9690
+                    province_id = 9689
+                    province_id = 9759
+                }
+            }
+        }
+        allow = { owns_or_subject_owns_area = kumaso_area }
+        on_completion = {
+            trigger_event = me_duuchuu.14
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = conquerers_of_kumaso
+                    duration = -1
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_15 = {
+        icon = "task_conquest"
+        requires = { jomon_duuchuu_missions_task_13 }
+        highlight = {
+            scope:province = {
+                is_in_area = matsura_area
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = matsura_area
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.15
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = conquerers_of_matsura
+                    duration = -1
+                }
+                custom_tooltip = haunted_tt
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_16 = {
+        icon = "task_religion"
+        requires = { jomon_duuchuu_missions_task_15 }
+        highlight = {
+            scope:province = {
+                province_id = 9305
+            }
+        }
+        allow = {
+            p:9305 = {
+                dominant_province_religion = okinawa_religion
+            }
+            treasury >= 150
+            political_influence >= 100
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.16
+            show_as_tooltip = {
+                custom_tooltip = ghost_deity_tt
+                p:9305 = {
+                    set_province_deity = deity:omen_ikiryo
+                }
+                custom_tooltip = haunted_tt_2
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_17 = {
+        icon = "task_durga"
+        duration = 180
+        requires = { jomon_duuchuu_missions_task_13 }
+        highlight = {
+            scope:province = {
+                province_id = 9285
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                text = duuchuu_yoink_tt
+                any_navy = {
+                    any_sub_unit = {
+                        count >= 30
+                    }
+                    has_commander = yes
+                }
+            }
+            custom_tooltip = {
+                text = 7_martial_admiral_needed_tt
+                any_character = {
+                    is_admiral = yes
+                    martial >= 7
+                }
+            }
+        }
+        on_completion = {
+            random_country = {
+                limit = { owns = 9285 }
+                save_scope_as = tamna_terrify_scope
+            }
+            trigger_event = me_duuchuu.17
+            show_as_tooltip = {
+                p:9285 = {
+                    add_claim = root
+                }
+                add_country_modifier = {
+                    name = terrify_tamna
+                    duration = -1
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_18 = {
+        icon = "task_economical"
+        requires = { jomon_duuchuu_missions_task_16 }
+        highlight = {
+            scope:province = {
+                province_id = 9326
+            }
+        }
+        allow = {
+            owns = 9326
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.18
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_19 = {
+        icon = "task_expansion"
+        requires = { jomon_duuchuu_missions_task_16 }
+        highlight = {
+            scope:province = {
+                province_id = 10555
+            }
+        }
+        allow = {
+            OR = {
+                custom_tooltip = {
+                    any_country = { owns = 10555 }
+                    text = okinawa_sado_tt
+                }
+                p:9305 = {
+                    total_population >= 15
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.19
+            show_as_tooltip = {
+                if = {
+                    limit = {
+                        p:10555 = {
+                            has_owner = yes
+                            NOT = { owner = root }
+                        }
+                    }
+                    trigger_event = me_duuchuu.19
+                    show_as_tooltip = {
+                        custom_tooltip = okinawa_make_an_offer_tt
+                    }
+                }
+                if = {
+                    limit = {
+                        p:10555 = {
+                            has_owner = no
+                        }
+                    }
+                    trigger_event = me_duuchuu.190
+                    show_as_tooltip = {
+                        p:10555 = {
+                            set_owned_by = root
+                        }
+                    }
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_20 = {
+        icon = "task_political"
+        requires = { jomon_duuchuu_missions_task_18 jomon_duuchuu_missions_task_19 }
+        allow = {
+            custom_tooltip = {
+                any_country = {
+                    country_culture_group = jomon
+                    alliance_with = root
+                }
+                text = "alliance_jomon_tt"
+            }
+            political_influence >= 100
+        }
+        on_completion = {
+            random_country = {
+                limit = {
+                    country_culture_group = jomon
+                    alliance_with = root
+                }
+                save_scope_as = jomon_tribe_scope
+            }
+            trigger_event = me_duuchuu.20
+            show_as_tooltip = {
+                custom_tooltip = send_request_tt
+            }
+        }
+        final = yes
+    }
+    jomon_duuchuu_missions_task_21 = {
+        icon = "task_economical"
+        requires = { jomon_duuchuu_missions_task_17 jomon_duuchuu_missions_task_14 }
+        highlight = {
+            scope:province = {
+                province_id = 8764
+            }
+        }
+        allow = {
+            p:9285 = {
+                num_of_port_building = 2
+                has_building = commerce_building
+            }
+            treasury >= 100
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.21
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_22 = {
+        icon = "task_heracles"
+        requires = { jomon_duuchuu_missions_task_7 }
+        allow = {
+            has_military_bonus = japan_pacific_pirates
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.22
+            show_as_tooltip = {
+                change_government = pirate_kingdom
+                change_law = egyption_succession_law
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_23 = {
+        icon = "task_expansion"
+        requires = { jomon_duuchuu_missions_task_22 }
+        highlight = {
+            scope:province = {
+                province_id = 9093
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                text = duuchuu_yoink_tt_2
+                any_navy = {
+                    any_sub_unit = {
+                        count >= 30
+                    }
+                    has_commander = yes
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.23
+            show_as_tooltip = {
+                reverse_add_opinion = {
+                    target = YUE
+                    modifier = corsica_stolen
+                }
+                p:9093 = {
+                    set_owned_by = root
+                }
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_24 = {
+        icon = "task_religion"
+        requires = { jomon_duuchuu_missions_task_7 }
+        allow = {
+            custom_tooltip = {
+                any_character = {
+                    is_female = yes
+                    has_office = office_wise_person
+                    zeal >= 8
+                }
+                text = okinawa_wise_person_tt_2
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.24
+            show_as_tooltip = {
+                custom_tooltip = yuta_1_tt
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_25 = {
+        icon = "task_diplomatic"
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = tutikungshan_area
+                    is_in_area = qilin_area
+                }
+            }
+        }
+        requires = { jomon_duuchuu_missions_task_8 jomon_duuchuu_missions_task_24 }
+        allow = {
+            owns_or_subject_owns_area = tutikungshan_area
+            owns_or_subject_owns_area = qilin_area
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.25
+            show_as_tooltip = {
+                custom_tooltip = yuta_1_tt
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_26 = {
+        icon = "task_atlas"
+        requires = { jomon_duuchuu_missions_task_25 jomon_duuchuu_missions_task_15 }
+        allow = {
+            owns_or_subject_owns_area = matsura_area
+            owns_or_subject_owns_area = kumaso_area
+            political_influence >= 35
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.26
+            show_as_tooltip = {
+                custom_tooltip = kumaso_decision_tt
+            }
+        }
+    }
+    jomon_duuchuu_missions_task_27 = {
+        icon = "task_shiva"
+        requires = { jomon_duuchuu_missions_task_25 }
+        allow = {
+            military_experience >= 25
+            military_tech >= 5
+            political_influence >= 35
+            OR = {
+                custom_tooltip = {
+                    text = does_not_have_loyalty_and_respect_tt
+                    has_variable = loyalty_and_respect_var
+                }
+                current_ruler = { martial >= 8 }
+            }
+        }
+        on_completion = {
+            trigger_event = me_duuchuu.27
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = way_of_te
+                    duration = -1
+                }
+            }
+        }
+    }
+}

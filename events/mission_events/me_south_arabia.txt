@@ -133,7 +133,7 @@ south_arabia.8 = { # absorb ma'in
         add_aggressive_expansion = -5
         p:4674 = {
             while = {
-                count >= 5
+                count = 5
                 random_pops_in_province = {
                     limit = {
                         NOT = {
@@ -270,6 +270,12 @@ south_arabia.14 = { #try to sway shalcaw
     picture = interesting_histories_india_city
     left_portrait = current_ruler
     right_portrait = c:SHW.current_ruler
+
+    trigger = {
+        c:SHW = {
+            has_land = yes
+        }
+    }
 
     option = { # do try
     	name = south_arabia.14.a
@@ -577,7 +583,7 @@ south_arabia.25 = { # shalcaw yes
     option = {
     	name = south_arabia.25.a
         make_subject = {
-            target = c:SHW
+            target = c:DIO
             type = subject_colony 
         }
     }
@@ -3378,7 +3384,7 @@ south_arabia.89 = { # himyarite rebellion
             hidden_effect = {
                 create_unit = {
                     navy = no
-                    location = capital_scope
+                    location = root.capital_scope
                     while = {
                         count = 4
                         add_subunit = camels
@@ -3438,7 +3444,7 @@ south_arabia.89 = { # himyarite rebellion
             hidden_effect = {
                 create_unit = {
                     navy = no
-                    location = capital_scope
+                    location = root.capital_scope
                     while = {
                         count = 4
                         add_subunit = camels

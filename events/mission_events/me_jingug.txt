@@ -1,0 +1,771 @@
+﻿namespace = me_jingug
+
+me_jingug.1 = {
+    type = country_event
+
+    title = me_jingug_1_title
+    desc = me_jingug_1_desc
+    picture = bai_xueshi_contending_greenery_among_thousands_of_peaks_event
+	left_portrait = root.current_ruler
+	left_portrait = c:MSU.current_ruler
+	left_portrait = c:SOB.current_ruler
+	right_portrait = c:JSN.current_ruler
+	right_portrait = c:BAE.current_ruler
+	right_portrait = c:GRI.current_ruler
+
+    option = {
+        name = "me_jingug_1.a"
+		hidden_effect = {
+			root = {
+				release_subject = c:MSU
+				release_subject = c:SOB
+				release_subject = c:BAE
+				release_subject = c:GRI
+			}
+		}
+		if = {
+			limit = {
+				c:MSU = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = MSU
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:SOB = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = SOB
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:BAE = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = BAE
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:GRI = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = GRI
+					type = feudatory
+				}
+			}
+		}
+    }
+}
+
+me_jingug.100 = {
+    type = country_event
+
+    title = me_jingug_100_title
+    desc = me_jingug_100_desc
+    picture = great_work_architect
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_100.a"
+		add_treasury = -80
+		add_political_influence = -30
+    }
+}
+
+me_jingug.2 = {
+    type = country_event
+
+    title = me_jingug_2_title
+    desc = me_jingug_2_desc
+    picture = grand_ship
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_2.a"
+        add_country_modifier = {
+			name = jingug_sails
+			duration = 7300
+		}
+		p:9285 = {
+			add_claim = root
+		}
+    }
+}
+
+me_jingug.3 = {
+    type = country_event
+
+    title = me_jingug_3_title
+    desc = me_jingug_3_desc
+    picture = tang_yin_making_tea_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_3.a"
+        add_treasury = 50
+		add_country_modifier = {
+			name = jingug_bronze
+			duration = 7300
+		}
+    }
+}
+
+me_jingug.4 = {
+    type = country_event
+
+    title = me_jingug_4_title
+    desc = me_jingug_4_desc
+    picture = steppe_raiders_path_2a_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_4.a"
+        custom_tooltip = missions_jingug_task_4_claims
+    }
+}
+
+me_jingug.5 = {
+    type = country_event
+
+    title = me_jingug_5_title
+    desc = me_jingug_5_desc
+    picture = Wang_Hui_23_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:anti_kodo_priest
+
+	immediate = {
+		create_character = {
+			culture = root.culture
+			religion = root.religion
+			age = 47
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				bad_martial_effect = yes
+				good_charisma_effect = yes
+				good_finesse_effect = yes
+				amazing_zeal_effect = yes
+				add_trait = zealous
+				add_trait = pious
+				add_zeal = 3
+				good_zeal_trait_effect = yes
+			}
+			save_scope_as = anti_kodo_priest
+		}
+	}
+
+    option = {
+        name = "me_jingug_5.a"
+        custom_tooltip = missions_jingug_task_5_some_kodos_will_convert
+		hidden_effect = {
+			root = {
+				release_subject = c:GOJ
+				release_subject = c:DGN
+				release_subject = c:ANY
+				release_subject = c:GYA
+				release_subject = c:MRM
+				release_subject = c:BLO
+				release_subject = c:BUS
+			}
+		}
+		if = {
+			limit = {
+				c:GOJ = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = GOJ
+					type = feudatory
+				}
+			}
+			c:GOJ = {
+				set_country_religion = yi_religions
+			}
+		}
+		if = {
+			limit = {
+				c:DGN = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = DGN
+					type = feudatory
+				}
+			}
+			c:DGN = {
+				set_country_religion = yi_religions
+			}
+		}
+		if = {
+			limit = {
+				c:ANY = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = ANY
+					type = feudatory
+				}
+			}
+			c:ANY = {
+				set_country_religion = yi_religions
+			}
+		}
+		if = {
+			limit = {
+				c:GYA = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = GYA
+					type = feudatory
+				}
+			}
+			c:GYA = {
+				set_country_religion = yi_religions
+			}
+		}
+		if = {
+			limit = {
+				c:MRM = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = MRM
+					type = feudatory
+				}
+			}
+			c:MRM = {
+				set_country_religion = yi_religions
+			}
+		}
+		if = {
+			limit = {
+				c:BLO = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = BLO
+					type = feudatory
+				}
+			}
+			c:BLO = {
+				set_country_religion = yi_religions
+			}
+		}
+		if = {
+			limit = {
+				c:BUS = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = BUS
+					type = feudatory
+				}
+			}
+			c:BUS = {
+				set_country_religion = yi_religions
+			}
+		}
+		hidden_effect = {
+			area:mahan_south_area = {
+				every_area_province = {
+					limit = {
+						any_pops_in_province = {
+							NOT = {
+								pop_religion = root.religion 
+							}
+						}
+					}
+					random_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_religion = root.religion  
+							}
+						}
+						set_pop_religion = root.religion 
+					}
+				}
+			}
+			area:byeonhan_area = {
+				every_area_province = {
+					limit = {
+						any_pops_in_province = {
+							NOT = {
+								pop_religion = root.religion 
+							}
+						}
+					}
+					random_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_religion = root.religion  
+							}
+						}
+						set_pop_religion = root.religion 
+					}
+				}
+			}
+			p:9295 = {
+				random_pops_in_province = {
+					limit = {
+						NOT = {
+							pop_religion = root.religion  
+						}
+					}
+					set_pop_religion = root.religion 
+				}
+			}
+		}
+    }
+}
+
+me_jingug.6 = {
+    type = country_event
+
+    title = me_jingug_6_title
+    desc = me_jingug_6_desc
+    picture = qiu_ying_song_of_pipa_at_xunyang_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_6.a"
+        p:8121 = {
+			add_claim = root
+		}
+		p:9304 = {
+			add_claim = root
+		}
+		p:9305 = {
+			add_claim = root
+		}
+    }
+}
+
+me_jingug.7 = {
+    type = country_event
+
+    title = me_jingug_7_title
+    desc = me_jingug_7_desc
+    picture = mauryan_coastal_path_7_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_7.a"
+        create_country_treasure = {
+			key = "ritual_bronze_daggers_jingug"
+			icon = "chinesesword1"
+			modifier = {
+				local_tribesmen_happyness = 0.2
+				local_manpower_modifier = 0.1
+			}
+		}
+		add_political_influence = 60
+    }
+}
+
+me_jingug.8 = {
+    type = country_event
+
+    title = me_jingug_8_title
+    desc = me_jingug_8_desc
+    picture = shen_zhou_fuchun_mountains_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_8.a"
+        add_political_influence = 50
+		current_ruler = {
+			add_popularity = 20
+		}
+    }
+}
+
+me_jingug.9 = {
+    type = country_event
+
+    title = me_jingug_9_title
+    desc = me_jingug_9_desc
+    picture = celtic_village
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_9.a"
+        hidden_effect = {
+			root = {
+				release_subject = c:GIJ
+				release_subject = c:SOM
+				release_subject = c:YED
+				release_subject = c:GUB
+			}
+		}
+		if = {
+			limit = {
+				c:GIJ = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = GIJ
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:SOM = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = SOM
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:YED = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = YED
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:GUB = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = GUB
+					type = feudatory
+				}
+			}
+		}
+		p:9290 = {
+			if = {
+				limit = {
+					NOR = { 
+						has_province_rank = city 
+						has_province_rank = city_metropolis
+					} 
+				}
+				custom_tooltip = "time_to_complete_city_tt"
+				hidden_effect = {
+					add_province_modifier = {
+						name = founding_city_in_progress
+						duration = 730
+					}
+				}
+				trigger_event = {
+					id = state_improvement.6
+					days = 730
+				}
+			}
+			else = {
+				create_state_pop = freemen
+				create_state_pop = freemen
+				create_state_pop = freemen
+			}
+		}
+    }
+}
+
+me_jingug.10 = {
+    type = country_event
+
+    title = me_jingug_10_title
+    desc = me_jingug_10_desc
+    picture = china_art_16_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_10.a"
+        custom_tooltip = missions_jingug_task_10_claims
+    }
+}
+
+me_jingug.11 = {
+    type = country_event
+
+    title = me_jingug_11_title
+    desc = me_jingug_11_desc
+    picture = chinese_path_building_the_wall_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_11.a"
+        add_2_free_province_investments = yes
+    }
+}
+
+me_jingug.12 = {
+    type = country_event
+
+    title = me_jingug_12_title
+    desc = me_jingug_12_desc
+    picture = city_construction
+	left_portrait = root.current_ruler
+	
+	immediate = {
+		random_owned_province = {
+			limit = {
+				is_in_area = mahan_area
+				num_of_used_building_slots >= 3
+				total_population >= 20
+			}
+			add_permanent_province_modifier = {
+				name = jingug_capital
+			}
+			save_scope_as = province_1_cap
+		}
+		random_owned_province = {
+			limit = {
+				is_in_area = byeonhan_area
+				num_of_used_building_slots >= 3
+				total_population >= 20
+			}
+			add_permanent_province_modifier = {
+				name = jingug_capital
+			}
+			save_scope_as = province_2_cap
+		}
+		random_owned_province = {
+			limit = {
+				is_in_area = lelang_area
+				num_of_used_building_slots >= 3
+				total_population >= 20
+			}
+			add_permanent_province_modifier = {
+				name = jingug_capital
+			}
+			save_scope_as = province_3_cap
+		}
+	}
+
+    option = {
+        name = "me_jingug_12.a"
+        set_capital = scope:province_1_cap
+		scope:province_1_cap = {
+			create_state_pop = citizen
+			create_state_pop = citizen
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+		}
+    }
+	option = {
+        name = "me_jingug_12.b"
+        set_capital = scope:province_2_cap
+		scope:province_2_cap = {
+			create_state_pop = citizen
+			create_state_pop = citizen
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+		}
+    }
+	option = {
+        name = "me_jingug_12.c"
+        set_capital = scope:province_3_cap
+		scope:province_3_cap = {
+			create_state_pop = citizen
+			create_state_pop = citizen
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+		}
+    }
+}
+
+me_jingug.13 = {
+    type = country_event
+
+    title = me_jingug_13_title
+    desc = me_jingug_13_desc
+    picture = japan_japanese_iron_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_13.a"
+        hidden_effect = {
+			root = {
+				release_subject = c:YOH
+				release_subject = c:SRO
+				release_subject = c:GEG
+				release_subject = c:UYU
+				release_subject = c:SJG
+			}
+		}
+		add_country_modifier = {
+			name = domineering_jingug
+			duration = 3650
+		}
+		if = {
+			limit = {
+				c:YOH = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = YOH
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:SRO = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = SRO
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:GEG = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = GEG
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:UYU = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = UYU
+					type = feudatory
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:SJG = {
+					has_land = yes
+				}
+			}
+			root = {
+				make_subject = {
+					target = SJG
+					type = feudatory
+				}
+			}
+		}
+    }
+}
+
+me_jingug.14 = {
+    type = country_event
+
+    title = me_jingug_14_title
+    desc = me_jingug_14_desc
+    picture = ea_tribal_path_looting_in_all_directions_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_14.a"
+        custom_tooltip = missions_jingug_task_14_claims
+    }
+}
+
+me_jingug.15 = {
+    type = country_event
+
+    title = me_jingug_15_title
+    desc = me_jingug_15_desc
+    picture = japan_tribal_ways_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_15.a"
+        custom_tooltip = missions_jingug_task_15_every_wa_province_gets
+		show_as_tooltip = {
+			random_owned_province = {
+				limit = {
+					is_in_region = wa_region
+				}
+				add_province_modifier = {
+					name = big_in_japan_jingug
+					duration = 10950
+				}
+			}
+		}
+		add_military_experience = 10
+    }
+}
+
+me_jingug.16 = {
+    type = country_event
+
+    title = me_jingug_16_title
+    desc = me_jingug_16_desc
+    picture = chinese_emperor
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_jingug_16.a"
+		add_stability = 20
+		add_country_modifier = {
+			name = united_jingug
+			duration = -1
+		}
+    }
+}

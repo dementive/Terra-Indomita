@@ -1,0 +1,623 @@
+﻿ezo_missions = {
+    header = "mission_image_japan"
+    icon = "cde_tribal_raid"
+
+    repeatable = no
+    chance = {
+        factor = 1000
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        primary_culture = ainu
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+    on_completion = {
+        trigger_event = me_ezo.16
+    }
+
+    ezo_missions_task_1 = { # Horizons of Hokkaido
+        icon = "task_diplomatic"
+        duration = 30
+        requires = {}
+        allow = {
+            trigger_if = {
+                limit = {
+                    tag = ESN
+                }
+                political_influence >= 15
+                num_of_ships >= 5
+            }
+            trigger_else = {
+                political_influence >= 25
+                treasury >= 25
+            }
+        }
+        on_completion = {
+            trigger_event = me_ezo.1
+            show_as_tooltip = {
+                if = {
+                    limit = {
+                        tag = ESN
+                    }
+                    custom_tooltip = claims_on_sunazawa_tt
+                    add_political_influence = -15
+                }
+                else = {
+                    custom_tooltip = claims_on_sakhalin_tt
+                    add_treasury = -25
+                    add_political_influence = -25
+                }
+            }
+        }
+    }
+
+    ezo_missions_task_2 = { # The Three Tribes
+        icon = "task_conquest"
+        duration = 30
+        bypass = {
+            OR = {
+                c:KTM = { has_land = no }
+                c:ESU = { has_land = no }
+                c:ESN = { has_land = no }
+                owns_or_subject_owns_area = hokkaido_area
+            }
+            owns_or_subject_owns_area = hokkaido_area
+        }
+        highlight = {
+            scope:province = {
+                OR = {
+                    owner = c:ESN
+                    owner = c:ESU
+                    owner = c:KTM
+                }
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                any_country = {
+                    primary_culture = ainu
+                    NOT = { this = root }
+                    opinion = {
+                        target = root 
+                        value >= 125            
+                    }
+                }
+                text = "hokkaido_opinion_tt"
+            }
+        }
+        on_start = {
+            trigger_event = me_ezo.2
+        }
+        on_completion = {
+            trigger_event = me_ezo.201
+            set_variable = hokkaido_unification_var
+            show_as_tooltip = {
+                custom_tooltip = hokkaido_unification_decision_tt
+            }
+        }
+    }
+    ezo_missions_task_3 = { # Proficient Fishing
+        icon = "task_expansion"
+        requires = { ezo_missions_task_2 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10567
+                    province_id = 10568
+                    province_id = 10575
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns = 10567
+            owns_or_subject_owns = 10568
+            owns_or_subject_owns = 10575
+            any_owned_province = {
+                trade_goods = fish
+                has_building = basic_settlement_infratructure_building
+            }
+        }
+        on_completion = {
+            trigger_event = me_ezo.3
+            show_as_tooltip = {
+                every_owned_province = {
+                    limit = {
+                        OR = {
+                            province_id = 10567
+                            province_id = 10568
+                            province_id = 10575
+                        }
+                    }
+                    add_province_modifier = {
+                        name = fish_surplus_ezo_mod
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    ezo_missions_task_4 = { # Sap-Stone of Sakhalin
+        icon = "task_economical"
+        requires = { ezo_missions_task_2 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10569
+                    province_id = 10570
+                    province_id = 10571
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns = 10569
+            owns_or_subject_owns = 10570
+            owns_or_subject_owns = 10571
+            OR = {
+                p:10570 = { has_building = settlement_market }
+                p:10571 = { has_building = settlement_market }
+                p:10569 = { has_building = settlement_market }
+            }
+            OR = {
+                p:10570 = { has_building = port_building }
+                p:10571 = { has_building = port_building }
+                p:10569 = { has_building = port_building }
+            }
+            trigger_if = {
+                limit = { c:TU7 = { has_land = yes } }
+                custom_tooltip = {
+                    any_country = {
+                        tag = TU7
+                        opinion = {
+                            target = root 
+                            value >= 75            
+                        }
+                    }
+                    text = "susuya_opinion_tt"
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_ezo.4
+            show_as_tooltip = {
+                every_owned_province = {
+                    limit = {
+                        OR = {
+                            province_id = 10569
+                            province_id = 10570
+                            province_id = 10571
+                        }
+                    }
+                    add_province_modifier = {
+                        name = port_of_amber
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    ezo_missions_task_5 = { # Art of Amber
+        icon = "task_political"
+        requires = { ezo_missions_task_2 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10572
+                    province_id = 10573
+                    province_id = 10574
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns = 10572
+            owns_or_subject_owns = 10573
+            owns_or_subject_owns = 10574
+            OR = {
+                custom_tooltip = {
+                    capital_scope = {
+                        is_importing_trade_good = amber
+                        hidden:state = {
+                            trade_good_imports = {
+                                target = amber
+                                value >= 2
+                            }
+                        }  
+                    }
+                    text = foreign_amber_tt
+                }
+                custom_tooltip = {
+                    text = local_amber_tt
+                    any_owned_province = {
+                        trade_goods = amber
+                        num_goods_produced >= 1
+                    }
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_ezo.5
+            show_as_tooltip = {
+                create_country_treasure = {
+                    key = amber_jewelry
+                    icon = treasure_it_boii_chieftains_torc
+                    modifier = {
+                        local_goods_from_slaves = -4
+                    }
+                }
+                p:10572 = {
+                    add_province_modifier = {
+                        name = hub_of_amber
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    ezo_missions_task_6 = { # Home in Hokkaido
+        icon = "task_happiness"
+        requires = { ezo_missions_task_3 ezo_missions_task_4 ezo_missions_task_5 }
+        highlight = { scope:province = { is_in_area = hokkaido_area } }
+        allow = { owns_or_subject_owns_area = hokkaido_area }
+        on_completion = {
+            trigger_event = me_ezo.6
+            show_as_tooltip = { change_government = tribal_kingdom }
+        }
+    }
+
+    ## ESAN
+    ezo_missions_task_7 = { # Sunazawa Siblings
+        icon = "task_diplomatic"
+        potential = { tag = ESN }
+        requires = { ezo_missions_task_1 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 10558
+                    province_id = 10559
+                    province_id = 10560
+                    province_id = 10562
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns = 10558
+            owns_or_subject_owns = 10559
+            owns_or_subject_owns = 10560
+            owns_or_subject_owns = 10562
+            custom_tooltip = {
+                any_integrated_culture = {
+                    is_culture = sunazawa
+                }
+                text = "esan_mixed_culture"
+            }
+        }
+        on_completion = {
+            trigger_event = me_ezo.7
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = sunazawa_siblings
+                    duration = -1
+                }
+            }
+            every_owned_province = {
+                limit = {
+                    OR = {
+                        province_id = 10558
+                        province_id = 10559
+                        province_id = 10560
+                        province_id = 10562
+                    }
+                }
+                add_province_modifier = {
+                    name = sunazawa_acceptance
+                    duration = 1825
+                }
+            }
+        }
+    }
+
+    ## EBETSU-KITAMI
+    ezo_missions_task_8 = { # Susuya Siblings
+        icon = "task_diplomatic"
+        duration = 60
+        bypass = {
+            OR = {
+                c:TU7 = { has_land = no }
+                c:TU7 = { is_subject_of = root }
+            }
+        }
+        potential = {
+            OR = {
+                tag = KTM
+                tag = ESU
+            }
+        }
+        highlight = { scope:province = { owner = c:TU7 } }
+        requires = { ezo_missions_task_1 }
+        allow = {
+            custom_tooltip = {
+                any_country = {
+                    tag = TU7
+                    opinion = {
+                        target = root 
+                        value >= 180            
+                    }
+                }
+                text = "susuya_opinion_2_tt"
+            } 
+        }
+        on_start = { trigger_event = me_ezo.8 }
+        on_bypass = {
+            area:sahaliyan_area = {
+                every_area_province = {
+                    limit = { is_in_area = sahaliyan_area }
+                    add_claim = root
+                }
+            }
+        }
+        on_completion = {
+            show_as_tooltip = { custom_tooltip = susuya_subject_tt }
+            if = {
+                limit = { c:TU7 = { has_variable = susuya_agrees_var } }
+                trigger_event = me_ezo.803
+            }
+            else = {
+                limit = { c:TU7 = { NOT = { has_variable = susuya_agrees_var } } }
+                trigger_event = me_ezo.802
+            }
+        }
+    }
+    ezo_missions_task_9 = { # Playground of the Gods
+        icon = "task_atlas"
+        requires = { ezo_missions_task_1 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    province_id = 8114
+                    province_id = 10570
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = hokkaido_area
+            custom_tooltip = {
+                text = playground_of_the_gods_tt
+                p:5993 = {
+                    OR = {
+                        NOR = { 
+                            has_province_modifier = generic_barbarian_spawn_place
+                            has_province_modifier = minor_barbarian_spawn_place
+                            has_province_modifier = major_barbarian_spawn_place
+                        }
+                        any_neighbor_province = {
+                            count >= 2
+                            civilization_value >= 30
+                        }
+                    }
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_ezo.9
+            show_as_tooltip = {
+                custom_tooltip = kamuy_mintara_tt
+                custom_tooltip = kamuy_mintara_2_tt
+                p:10570 = { set_province_deity = deity:omen_kamuy_mintara }
+            }
+        }
+    }
+    ezo_missions_task_10 = { # Oshima Shallow Forts
+        icon = "task_battle"
+        highlight = { scope:province = { province_id = 10567 } }
+        potential = { tag = ESN }
+        requires = { ezo_missions_task_3 }
+        allow = {
+            OR = {
+                p:10567 = {
+                    has_building = fortress_building
+                }
+                custom_tooltip = {
+                    p:10567.state = {
+                        state_improvement_military_trigger = yes
+                    }
+                    text = military_province_investment_oshima_tt
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_ezo.10
+            show_as_tooltip = {
+                p:10567 = {
+                    add_province_modifier = {
+                        name = shallow_forts
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    ezo_missions_task_11 = { # Ishikari Animal Humor
+        icon = "task_battle"
+        highlight = {
+            scope:province = {
+                province_id = 10569
+            }
+        }
+        potential = { tag = ESU }
+        requires = { ezo_missions_task_4 }
+        allow = {
+            OR = {
+                has_deity_in_pantheon = deity:omen_cikap
+                has_deity_in_pantheon = deity:omen_kimun
+                has_deity_in_pantheon = deity:omen_kina_sut
+                has_deity_in_pantheon = deity:omen_yushkep
+            }
+        }
+        on_completion = {
+            trigger_event = me_ezo.11
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = animal_humor
+                    duration = -1
+                }
+            }
+        }
+    }
+    ezo_missions_task_12 = { # Okhotsk Scallop Farming
+        icon = "task_battle"
+        highlight = {
+            scope:province = {
+                province_id = 10572
+            }
+        }
+        potential = { tag = KTM }
+        requires = { ezo_missions_task_5 }
+        allow = {
+            p:10572 = {
+                total_population >= 10
+                civilization_value >= 10
+            }
+        }
+        on_completion = {
+            trigger_event = me_ezo.12
+            show_as_tooltip = {
+                p:10572 = {
+                    add_province_modifier = {
+                        name = birthplace_of_scallop_farming
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    ezo_missions_task_13 = { # Gods of the North
+        icon = "task_religion"
+        duration = 180
+        potential = {
+            OR = {
+                tag = KTM
+                tag = ESU
+            }
+        }
+        highlight = { scope:province = { dominant_province_religion = nivkh_religion } }
+        requires = { ezo_missions_task_9 ezo_missions_task_8 }
+        allow = {
+
+        }
+        on_completion = {
+            trigger_event = me_ezo.13
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = nivkh_syncretism
+                    duration = 3650
+                }
+            }
+        }
+    }
+    ezo_missions_task_14 = { # Gods of the South
+        icon = "task_religion"
+        duration = 180
+        potential = { tag = ESN }
+        highlight = { scope:province = { dominant_province_religion = wa_religions } }
+        requires = { ezo_missions_task_9 ezo_missions_task_7 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_ezo.14
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = kodo_syncretism
+                    duration = -1
+                }
+            }
+        }
+    }
+    ezo_missions_task_15 = { # The Enlightened Ezo
+        icon = "task_happiness"
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = hokkaido_area
+                    province_id = 8114
+                }
+            }
+        }
+        requires = { ezo_missions_task_14 ezo_missions_task_13 ezo_missions_task_6 }
+        allow = {
+            #custom_tooltip = {
+                #text = all_investments_ezo_tt
+                capital_scope.state = {
+                    #calc_true_if = {
+                        #amount >= 4
+                        state_improvement_religious_trigger = yes    
+                        state_improvement_civic_trigger = yes
+                        state_improvement_oratory_trigger = yes
+                        any_state_province = {
+                            OR = {
+                                has_province_modifier = state_improvement_military
+                                has_province_modifier = state_improvement_manpower
+                            }
+                        }
+                    #}
+                }
+            #}
+        }
+        on_completion = {
+            trigger_event = me_ezo.15
+            show_as_tooltip = {
+                change_country_name = "ezo_name"
+                change_country_adjective = "ezo_adj"
+                add_4_free_province_investments = yes
+                add_innovation = 2
+                add_splendor = {
+                    amount = "300"
+                }
+            }
+        }
+        final = yes
+    }
+    ezo_missions_task_17 = { # For AI Only
+        icon = "task_zeus_cornucopia"
+        potential = {
+            is_ai = yes
+            primary_culture = ainu
+            NOT = { any_country = { tag = YZO } }
+        }
+        highlight = { scope:province = { is_in_area = hokkaido_area } }
+        allow = {
+            owns_or_subject_owns_area = hokkaido_area
+            NOT = { any_country = { tag = YZO } }
+        }
+        on_completion = {
+            change_country_name = "ezo_name"
+            change_country_adjective = "ezo_adj"
+            change_country_tag = YZO
+            change_government = tribal_kingdom
+            switch_government_type_event_clearup_effect = yes
+            add_2_free_province_investments = yes
+            if = {
+                limit = { tag = ESN }
+                change_country_color = ezo_esan_orange
+            }
+            if = {
+                limit = { tag = ESU }
+                change_country_color = ezo_ebetsu_blue
+            }
+            if = {
+                limit = { tag = KTM }
+                change_country_color = ezo_kitami_green
+            }
+        }
+        final = yes
+    }
+}

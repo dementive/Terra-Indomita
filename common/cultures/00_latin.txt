@@ -11,15 +11,17 @@
 	secondary_navy = hexere
 	flank_navy = liburnian
 	
-	use_latin_name_rules = yes
+	#use_latin_name_rules = yes #Note - use_latin_name_rules breaks localization for female_names
 	
-	male_names = {
-		Appius Agrippa Aulus Caelus Decimus Decius Drusus Faustus Gaius Gnaeus Lucius Mamercus Manius Marcus Mettius Opiter 
-		Publius Postumus Proculus Quintus Secundus Septimus Servius Sextus Spurius Tertius Titus Tiberius Volero Volumnius Octavius
-		Statius Tullus Volesus Vopiscus Caeso Paullus Hostus Numerius Sertor Potitus Vibius Cossus Arruns Camillus
+	male_names = { #Oscan praenomina - should be fine for most Italic cultures
+		Ancus Attius Decius Herius Marius Mettius Minatus Minius 
+		Nerius Novius Numa Numerius Ovius Paccius Pompo Salvius 
+		Seppius Statius Taurus Trebius Vettius Vibius        
 	}
 	female_names = {
-		none
+		Anca Attia Decia Heria Maria Mettia Minata Minia 
+		Neria Novia Numa Numeria Ovia Paccia Pompa Salvia 
+		Seppia Stattia Trebia Vettia Vibia        
 	}
 	family = {
 		Aburius.Aburia.Aburii.Aburian
@@ -292,15 +294,126 @@
 		NICKNAME_ZENO
 		NICKNAME_ZOILUS
 		NICKNAME_ZOSIMUS
+		#Female Birth Order
+		NICKNAME_PRIMA
+		NICKNAME_SECUNDA
+		NICKNAME_TERTIA
+		NICKNAME_QUARTA
+		NICKNAME_QUINTA
+		NICKNAME_SEPTA
+		NICKNAME_SEPTIMA
+		NICKNAME_OCTAVA
+		NICKNAME_NONA
+		NICKNAME_DECIMA
+		NICKNAME_UNDECIMA
+		NICKNAME_DUODECIMA
 	}
 
-	female_order = {
-		Prima Secunda Tertia Quarta Quinta Septa Septima Octava Nona Decima Undecima Duodecima
-	}
+	#female_order = {
+		#Prima Secunda Tertia Quarta Quinta Septa Septima Octava Nona Decima Undecima Duodecima
+	#}
 
 	culture = {
-		roman = { levy_template = levy_roman }
-		venetic = {}
+		roman = { 
+			levy_template = levy_roman
+			male_names = { #Added missing praenomina
+				Appius Agrippa Aulus Caelus Decimus Decius Drusus Faustus Gaius Gnaeus Lucius Mamercus Manius Marcus Mettius Opiter 
+				Publius Postumus Proculus Quintus Secundus Septimus Servius Sextus Spurius Tertius Titus Tiberius Volero Volumnius Octavius
+				Statius Tullus Volesus Vopiscus Caeso Paullus Hostus Numerius Sertor Potitus Vibius Cossus Arruns Camillus
+				Amulius Flavius Gallus Herius Primus Ancus Nonus
+			}
+			female_names = { #Added female praenomina
+				Gaia Lucia Marca Publia Quinta Tita Tiberia Sexta Aula Decima
+				Gnaea Spuria Mania Servia Appia Numeria Vibia
+				Amulia Camilla Decia Drusa Fausta Flavia Galla Heria
+				Hosta Opitera Octavia Postuma Prima Procula Secunda Tertia Anca 
+				Caesula Maio Mamerca Maxima Mino Paulla Septima 
+				Statia Titia Tulla Volusa Vopisca
+			}
+		}
+		venetic = {
+			levy_template = levy_venetic		
+			male_names = {	
+				Aimos Afros Aplisikos Arsoetigo Bagsono Egotore Egests Ersinos Egotor Egetor Enogenes
+				Enokleves Fonts Fougonts Fugios Fremaistos Hostihevos Iante Iuvants Kantes Karamnos Lamusos Muskials
+				Naisons Osts Oppos Pilpots Pledes Verkano Voltiomnos Veignos Vante Vants Votos Voltigene Voltigenes 
+				Akuts Fremo Fremaistos Keutinos Ktulistos Moldo Resunkos Suros Tomatorios Vantkenio 		
+				Albarenos Alero Anteto Andetico Aplisikos Arbos Ariuns Askolo Afros Atto Baito Bellenes Boiialns
+				Boiio Boios Broicoko Broico Budicako Buticakos Deipiiariko Deipiiaris Dilliko Dillis Ebos Einaios Einao Eneicos
+				Eneis Eneto Enetios Ennons Feugo Fonto Fremaistios Gaio Gaiios Graiko Henotos Houvos Hovos Hutto Huttos Kastiko
+				Kastis Kataks Kello Kellos Kolo Klutavis Ametiko Ametis Kvito Lants Lante Lavsko Lemetor Luks Metso 
+				Moldono Muskials Muskialo Nagalkno Nagalo Naisonko Naisons Naisos Okicaiko Okicais Ossoko 
+				Ossos Panarios Panaros Pelonikos Pelonis Pletes Raitevios Raitevos Reitos Resunkos Resuns Rebetono
+				Sikos Siaks Segtios Taino Tekios Turico Trosto Trisikos Uko Urkleios Urkles Usedis Uposetios Vantkes Vasseno Veignos Veimes Vennonis
+				Vennon Verkondar Verkvalos
+            }
+			female_names = {
+				Aima Aklona Andeta Afra Aplisia Arsoetiga Bagsonia Egotora Egesta Ersina Egotora Egetora 
+				Enokleva Fetiana Fonta Fougonta Fugia Fukssia Fremaista Frutana Hostiheva Ianta Iuvanta Kanta Lamusa Muskiala
+				Naisona Neirka Nerka Osta Ostia Oppa Pilpota Pleda Verkana Veigna Vanta Vota
+				Akuta Frema Fremaistina Keutina Ktulista Molda Resunkia Suria Tomatoria Vantkenia		
+				Apia Askolia Ataina Atta Baitonia Brigdina Bukka Ebua Efa Iuanta Ituria Ikeveioneia Kolia
+				Kuikuta Makna Moldona Musta Ostina Otnia Reitia Rebetona Taina Trostia Urkleia Urkleina
+				Usedica Vantkenia Venna Verkondarna
+			}			
+			family = {	
+				Aimio.Aimia.Aimii.Aimian
+				Aklonio.Aklonia.Aklonii.Aklonian
+				Andetio.Andetia.Andetii.Andetian
+				Afrinio.Afrinia.Afrinii.Afrinian
+				Aplisinio.Aplisinia.Aplisinii.Aplisinian
+				Arsoetigio.Arsoetigia.Arsoetigii.Arsoetigian
+				Albarenios.Albarenia.Albarenii.Albarenian
+				Bagsonio.Bagsonia.Bagsonii.Bagsonian
+				Broicokos.Broicoka.Broicoki.Broicokan
+				Egotorio.Egotoria.Egotorii.Egotorian
+				Egestio.Egestia.Egestii.Egestian
+				Ersinio.Ersinia.Ersinii.Ersinian
+				Egetorio.Egetoria.Egetorii.Egetorian
+				Eneikos.Eneika.Eneiki.Eneikan
+				Enogenio.Enogenia.Enogenii.Enogenian
+				Enoklevio.Enoklevia.Enoklevii.Enoklevian
+				Fontio.Fontia.Fontii.Fontian
+				Fougontio.Fougontia.Fougontii.Fougontian
+				Fuginio.Fuginia.Fuginii.Fuginian
+				Fremaistio.Fremaistia.Fremaistii.Fremaistian
+				Fakios.Fakia.Fakii.Fakian
+				Hostihevio.Hostihevia.Hostihevii.Hostihevian
+				Iantio.Iantia.Iantii.Iantian
+				Iuvantio.Iuvantia.Iuvantii.Iuvantian
+				Kantio.Kantia.Kantii.Kantian
+				Karamnio.Karamnia.Karamnii.Karamnian
+				Lamusio.Lamusia.Lamusii.Lamusian
+				Makknos.Makkna.Makkni.Makknan
+				Muskialonio.Muskialonia.Muskialonii.Muskialonian
+				Naisonio.Naisonia.Naisonii.Naisonian
+				Neirkio.Neirkia.Neirkii.Neirkian
+				Nerkio.Nerkia.Nerkii.Nerkian
+				Ostio.Ostia.Ostii.Ostian
+				Oppio.Oppia.Oppii.Oppian
+				Ossokos.Ossoka.Ossoki.Ossokan
+				Pilpotio.Pilpotia.Pilpotii.Pilpotian
+				Pledio.Pledia.Pledii.Pledian
+				Verkanio.Verkania.Verkanii.Verkanian
+				Voltiomnio.Voltiomnia.Voltiomnii.Voltiomnian
+				Veignio.Veignia.Veignii.Veignian
+				Vantio.Vantia.Vantii.Vantian
+				Votio.Votia.Votii.Votian
+				Voltigenio.Voltigenia.Voltigenii.Voltigenian
+				Akutio.Akutia.Akutii.Akutian
+				Fremio.Fremia.Fremii.Fremian
+				Fremaistinio.Fremaistinia.Fremaistinii.Fremaistinian
+				Keutinio.Keutinia.Keutinii.Keutinian
+				Ktulistio.Ktulistia.Ktulistii.Ktulistian
+				Klutavikos.Klutavika.Klutaviki.Klutavikan
+				Moldio.Moldia.Moldii.Moldian
+				Resunkio.Resunkia.Resunkii.Resunkian
+				Suronio.Suronia.Suronii.Suronian
+				Tomatorinio.Tomatorinia.Tomatorinii.Tomatorinian
+				Tritikonikos.Tritikonika.Tritikoniki.Tritikonikan
+				Vantkinio.Vantkinia.Vantkinii.Vantkinian
+			}		
+		}
 		ligurian = {}
 		etruscan = {
 			levy_template = levy_etruscan
@@ -637,347 +750,626 @@
 		}
 		rhaetian = {
 			levy_template = levy_rhaetian
-			male_names = {
-				Amtnie Amuni Anche Anthai Aninas Arunth Araz Arzni Arnth Autu Aule Cei Ceile Ceisi
-				Cire Cnaive Clate Cruthni Cuinte Cursni Fapi Felce Felsnas Fulu Hapre Hirumina Husi
-				Carcuna Carthasie Ceisie Cavie Larce Laris Larth Larthuza Laucie Lauche Lethei
-				Licine Lucer Mamurce Marce Murila Numna Pesna Petru Plikasnas Plute Presnte
-				Pumpu Puplie Cupe Ranazu Rasce Ruvfe Ruifre Sanchuna Scarpe Sethre Spitus Spurie Squrie
-				Tarchi Teitur Thefri Thucer Ticusna Tite Tlesna Tursikina Tusnute Uchsie Uchulni Usele
-				Vel Velchaie Velthur Venel Vetus Vipie
+			male_names = { #attested: kastrie esimne esumne lavisie t/θarie remie visteχa piθ/tie lasθe lavise vassa tula φausu laθur azi piθamne essθu klevie knuse lasta φelturie piri χika φrima vaþanu lasta piti piθiave reiθus laśanu ketanu elχanu tulanu estanu lumene tenaχi φelzurie terunie enike kaθiave pitale reiθe tnake kanise valθikie ustiþu χaisuru azi-le  laseke reituse(speculative by Schumacher) φutiχi velθie munie 
+				Azi Elkganu Enike Esimne Essthu Estanu Esumne Kanise Kathiave Ketanu Kgaisuru Kgika Klevie Knuse
+				Laseke Lassanu Lasta Lasthe Lathur Lavise Lavisie Lumene Munie Phausu Phelturie Phelzurie Phrima Phutikgi
+				Pitale Pithamne Pithiave Pithie Piti Pitie Piri Reithe Reituse Remie Tarie Tenakgi Terunie Tnake Tharie Tula 
+				Tulanu Ustitsu Valthikie Vassa Vatsanu Velthie 
+
+				#notes on attested raetic: þ as 'ts'-source:Some remarks on the personal name system of Raetic,CORINNA SALOMON-  θ as dental stop 'th'/'t''?-source:Raetic,CORINNA SALOMON - χ, I've arbitrarilly assigned the letters 'kg', as it corresponds to the same venetic caracter for g, and seems to be exchanged with c in etruscan cognates, (it also corresponds to K in some celtic loan names, and some names in Raetic subsitute χ for g), φ as 'ph' as it is cognate with words that have either f or b, and is suggested by Salomon to be substituted with P.
 			}
-			female_names = {
-				Anina Aprthni Apunei Arunthia Arzna Arntha Ati Aula Ceia Culni Cursi Cusua Fasthi
-				Hasthi Hercnei Kanuta Larthi Lethi Luci Matun Metli Numni Pulia Racu Ramtha Ranthu
-				Ravnthu Satlnei Sela Semni Sethri Squria Squlina Tanchuil Tarcha Teituri Thanchvil
-				Thana Thefrina Thestia Thuceru Ticusnei Titi Veli Velchina Venela Vesi Vipi
+			female_names = { #attested: aruse piri χeli χari/kari remi laviśa lavise kunina kara siara φelna χevisiana arusna perkusi
+				Aruse Arusna Kara Kari Kgari Kgeli Kgevisiana Lavise Lavissa Perkusi Phelna Piri Remi Siara
 			}
-			family = { #Here
-				Uclina.Uclinei.Uclinii.Ucli
-				Acnatru.Acnatrui.Acnatrui.Acnatr
-				Acriena.Acrienei.Acriena.Acrinian
-				Acvilnas.Acvilnei.Acvilnas.Acvilnian
-				Afunas.Afunei.Afunas.Afunian
-				Aisina.Aisinei.Aisina.Aisinian
-				Alethnas.Alethnei.Alethnas.Alethnasian
-				Alfi.Alfi.Alfi.Alfian
-				Alfni.Alfni.Alfni.Alfnian
-				Alsinas.Alsinei.Alsinas.Alsinasian
-				Alvethna.Alvethnei.Alvethna.Alvethnian
-				Amuni.Amuni.Amuni.Amunian
-				Anani.Aninei.Anani.Ananian
-				Aneithur.Aneithuri.Aneithur.Aneithurian
-				Anes.Anis.Anes.Anesian
-				Aninas.Aninei.Aninas.Aninasian
-				Anthiaia.Anthiaei.Anthiaia.Anthiaian
-				Apatru.Apatrui.Apatru.Apatrian
-				Apianas.Apianei.Apianas.Apianian
-				Apries.Apria.Apries.Apriesian
-				Aprthnas.Aprthnei.Aprthnas.Aprthnasian
-				Apunas.Apunei.Apunas.Apunian
-				Apvcuia.Apvcuia.Apvcuia.Apvcuian
-				Araziia.Arazei.Araziia.Arazian
-				Arnthna.Arnthi.Arnthna.Arnthnian
-				Aremsnas.Aremsnei.Aremsnas.Aremsnasian
-				Arnies.Arnia.Arnies.Arniesian
-				Arthunas.Arth.Arthunas.Arthunian
-				Arunzina.Arunzinei.Arunzina.Arunzian
-				Arznas.Arznei.Arznas.Arnznasian
-				Ateina.Ateinei.Ateina.Ateinian
-				Atelinas.Atelinei.Atelinas.Atelinian
-				Aties.Atia.Aties.Atian
-				Atnas.Atnei.Atnas.Atnasian
-				Ufle.Ufli.Ufle.Uflian
-				Aucana.Aucanei.Aucana.Aucanian
-				Auclina.Auclinei.Auclina.Auclinian
-				Aves.Avenei.Aves.Avesian
-				Aznie.Aznia.Aznie.Aznesian
-				Cafates.Cafati.Cafates.Cafatian
-				Cahate.Cahati.Cahate.Cahatian
-				Ceie.Ceinei.Ceie.Ceian
-				Cale.Cali.Cale.Calian
-				Caliathe.Calitahi.Caliathe.Caliathian
-				Calisna.Calisnei.Calisna.Calisnan
-				Camitlnas.Camitlnei.Camitlnas.Camitlan
-				Camnas.Camnai.Camnas.Camnasian
-				Campanes.Campanis.Campanes.Campanian
-				Canatnes.Canatnei.Canatnes.Canatnian
-				Carpnate.Carpnati.Carpnate.Carpnatian
-				Carsu.Carsui.Carsu.Carsunian
-				Catne.Catni.Catne.Catnian
-				Cazi.Cazi.Cazi.Cazian
-				Ceisinies.Ceisinia.Ceisinies.Ceisinian
-				Celatina.Celatinei.Celatina.Celatinian
-				Cheiras.Cheirei.Cheiras.Cheirian
-				Churcles.Churcles.Churcles.Churclian
-				Churinas.Churinei.Churinas.Churinian
-				Cicunias.Cicuniei.Cicunias.Cicunian
-				Cilnii.Cilnei.Cilnii.Cilnian
-				Cisvite.Cisviti.Cisvite.Cisvitian
-				Clute.Clutei.Clute.Clutian
-				Clavtiethur.Clavtiethuri.Clavtiethur.Clavtiethurian
-				Clevsinas.Clevsinei.Clevsinas.Clevsinian
-				Cneuna.Cneunei.Cneuna.Cneunian
-				Cravzathura.Cravzathurei.Cravzathura.Cravzathurian
-				Creicese.Creicesa.Creicese.Creicesian
-				Crepus.Crepui.Crepus.Crepian
-				Cuclni.Cuclni.Cuclni.Cuclinian
-				Cucrinathur.Cucrinathuri.Cucrinathur.Cucrinathurian
-				Curunas.Curunei.Curunas.Curunian
-				Cusinas.Cusinei.Cusinas.Cusinian
-				Cusuthur.Cusuthuri.Cusuthur.Cusuthurian
-				Cvinte.Cvinti.Cvinte.Cvintian
-				Cuthnas.Cuthnei.Cuthnas.Cuthnian
-				Cutu.Cutu.Cutu.Cute
-				Ecnate.Ecnati.Ecnate.Ecnatian
-				Einana.Einanei.Einana.Einanian
-				Eucle.Eucli.Eucle.Euclian
-				Ezpus.Ezpui.Ezpus.Ezpusian
-				Fapi.Fapi.Fapi.Fapian
-				Felces.Felcis.Felces.Felcian
-				Felsnas.Felsnei.Felsnas.Felsnasian
-				Felsni.Felsni.Felsni.Felsnian
-				Felusce.Felusci.Felusce.Feluscian
-				Fisis.Fisis.Fisis.Fisisian
-				Fulni.Fulni.Fulni.Fulnian
-				Fulu.Fului.Fulu.Fulian
-				Fulvena.Fulvenas.Fulvena.Fulvenian
-				Hanu.Hanunia.Hanu.Hanian
-				Hapisna.Hapisnei.Hapisna.Hapisnian
-				Hapre.Hapri.Hapre.Haprian
-				Hepni.Hepni.Hepni.Hepnian
-				Havrnas.Havrnei.Havrnas.Havrinian
-				Hele.Heli.Hele.Helian
-				Hercnas.Hercnei.Hercnas.Hercnasian
-				Herma.Hermei.Herma.Hermian
-				Hermenas.Hermenei.Hermenas.Hermenian
-				Hirsuneie.Hirsuneia.Hirsuneie.Hirsnusian
-				Hulchnie.Hulchnia.Hulchnie.Hulchnian
-				Hupni.Hupni.Hupni.Hupnid
-				Ceicna.Ceicnei.Ceicna.Ceicnian
-				Cansinei.Cansineie.Cansinei.Cansinian
-				Culeniie.Culeniia.Culeniie.Culenian
-				Curtinas.Curtinei.Curtinas.Curtinian
-				Lapicane.Lapicani.Lapicane.Lapicanian
-				Larani.Larani.Larani.Laranian
-				Larecena.Larecenei.Larecena.Larecinian
-				Larna.Larnei.Larna.Larnian
-				Lucina.Lucinei.Lucina.Lucinian
-				Larecena.Larecenei.Larecena.Larecinian
-				Lartle.Lartli.Lartle.Lartlian
-				Latherna.Lathernei.Latherna.Lathernian
-				Latni.Latni.Latni.Latnian
-				Leinies.Leinia.Leinies.Leinisian
-				Lethe.Lethi.Lethe.Lethian
-				Luisna.Luisnei.Luisna.Luisnian
-				Macre.Macri.Macre.Macrian
-				Malamena.Malamenas.Malamena.Malamenian
-				Marcna.Marcnei.Marcna.Marcnid
-				Marcnithur.Marcnithuri.Marcnithur.Marcnithurian
-				Matulna.Matulnei.Matulna.Matulnid
-				Mutunas.Matunei.Mutunas.Mutunid
-				Meclas.Meclei.Meclas.Meclid
-				Mefanates.Mefanatis.Mefanates.Mefanatian
-				Melacina.Melacinei.Melacina.Malacinian
-				Meluta.Melutei.Meluta.Melutid
-				Metle.Metli.Metle.Metlid
-				Minie.Minia.Minie.Minian
-				Murias.Murei.Murias.Murian
-				Murinas.Murinei.Murinas.Murinid
-				Nerinei.Nerineie.Nerinei.Nereinian
-				Ninie.Ninia.Ninie.Ninian
-				Nuiclnas.Nuiclnei.Nuiclnas.Nuiclian
-				Numclanie.Numclania.Numclanie.Numclanid
-				Numnas.Numnei.Numnas.Numnid
-				Nuni.Nuni.Nuni.Nunian
-				Nufre.Nufri.Nufre.Nufrian
-				Pachie.Pachia.Pachie.Pachid
-				Peithunas.Peithunei.Peithunas.Peithunid
-				Palazus.Palazui.Palazus.Palazusian
-				Paprsina.Paprsinei.Paprsina.Paprsinid
-				Papathnas.Papathnei.Papathnas.Papathnid
-				Papni.Papni.Papni.Papnid
-				Parmne.Parmni.Parmne.Paramnian
-				Partunus.Partunui.Partunus.Partunid
-				Paziathe.Paziathi.Paziathe.Paziathid
-				Percumsna.Percumsnei.Percumsna.Percumid
-				Petrnii.Petrnei.Petrnii.Petrnid
-				Phersnalas.Phersnalei.Phersnalas.Phersnalid
-				Phursethna.Phursethnei.Phursethna.Phursethid
-				Pinies.Pinia.Pinies.Pinian
-				Pithe.Pithi.Pithe.Pithid
-				Platia.Platiei.Platia.Platian
-				Plute.Pluti.Plute.Plutian
-				Plecus.Plecui.Plecus.Plecid
-				Plinia.Pliniei.Plinia.Plinian
-				Prastna.Prastnei.Prastna.Prastnid
-				Precuthur.Precuthuri.Precuthur.Precuthurian
-				Presnte.Presnti.Presnte.Presntid
-				Puince.Puinci.Puince.Puincian
-				Pulenas.Pulenei.Pulenas.Pulenian
-				Pumpli.Pumpli.Pumpli.Pumplid
-				Pumpna.Pumpnei.Pumpna.Pumpnid
-				Pumpus.Pumpui.Pumpus.Pumpid
-				Pupena.Pupena.Pupena.Pupenian
-				Puplina.Puplinei.Puplina.Puplinian
-				Purni.Purni.Purni.Purnid
-				Purzena.Purzenei.Purzena.Purzenian
-				Puslina.Puslinei.Puslina.Puslenian
-				Pustmina.Pustminei.Pustmina.Pustminian
-				Rufi.Rufi.Rufi.Rufid
-				Ramnuna.Ramnunei.Ramnuna.Ramnunian
-				Ranazu.Ranazuia.Ranazu.Ranazunian
-				Rasunies.Rasunia.Rasunies.Rasunian
-				Remzna.Remznei.Remzna.Remznid
-				Riertu.Riertui.Riertu.Riertunian
-				Rufres.Rufris.Rufres.Rufrid
-				Rusci.Rusci.Rusci.Ruscid
-				Santu.Santui.Santu.Santid
-				Safice.Safici.Safice.Saficinian
-				Salini.Salini.Salini.Salinian
-				Saties.Satia.Saties.Satinian
-				Satlna.Satlnei.Satlna.Satlnid
-				Savpunias.Savpuniei.Savpunias.Savpunid
-				Scevas.Scevei.Scevas.Scevid
-				Scurfiu.Scurfiui.Scurfiu.Scurfid
-				Sefre.Sefri.Sefre.Sefrid
-				Seiante.Seianti.Seiante.Seiantid
-				Seitithe.Seitithi.Seitithe.Seitithid
-				Semne.Semni.Semne.Semnid
-				Sentinate.Sentinei.Sentinate.Sentinatid
-				Sepu.Sepia.Sepu.Sepid
-				Sethre.Sethra.Sethre.Sethrid
-				Silgatana.Silgatanei.Silgatana.Silgatanian
-				Sinu.Sinui.Sinu.Sinid
-				Siprisni.Siprisni.Siprisni.Siprisnian
-				Slanzu.Slanzui.Slanzu.Slanzid
-				Spantu.Spantui.Spantu.Spantid
-				Spite.Spiti.Spite.Spitid
-				Spurinas.Spurina.Spurinas.Spurinian
-				Srutzna.Srutznei.Srutzna.Srutznid
-				Statlanes.Statlanis.Statlanes.Statlanian
-				Supelnas.Supelnei.Supelnas.Supelnid
-				Suthrina.Surthinei.Suthrina.Suthrinian
-				Sveitus.Sveitui.Sveitus.Sveitid
-				Svelthienas.Svelthienei.Svelthienas.Svelthinian
-				Tarchunies.Tarchunia.Tarchunies.Tarchunian
-				Tarcnas.Tarcnei.Tarcnas.Tarcnid
-				Tarna.Tarnei.Tarna.Tarnid
-				Teithurna.Teithurnei.Teithurna.Teithurnid
-				Teitur.Teituri.Teitur.Teiturid
-				Telathur.Telathuri.Telathur.Telathurid
-				Telicles.Telicles.Telicles.Teliclid
-				Tetnies.Tetnia.Tetnies.Tetnid
-				Thactra.Thactrei.Thactra.Thactrian
-				Thansina.Thansi.Thansina.Thansinian
-				Thefri.Thefri.Thefri.Thefrid
-				Thucerna.Thucernei.Thucerna.Thucernid
-				Thusatur.Thusaturi.Thusatur.Thusaturnian
-				Tiphile.Tiphili.Tiphile.Tiphilid
-				Titie.Titia.Titie.Titid
-				Tlesna.Tlesna.Tlesna.Tlesnian
-				Tularia.Tulariei.Tularia.Tularian
-				Tulumnes.Tulumnis.Tulumnes.Tulumnian
-				Turmna.Turmnei.Turmna.Turmnid
-				Thursethna.Thursethnei.Thursethna.Thursethnid
-				Trepe.Trepi.Trepe.Trepian
-				Tutna.Tutnei.Tutna.Tutnid
-				Tutes.Tutis.Tutes.Tutid
-				Ucrine.Ucrini.Ucrine.Ucrinian
-				Uftave.Uftavi.Uftave.Uftavian
-				Ulthes.Ulthis.Ulthes.Ulthian
-				Ultimne.Ultimni.Ultimne.Ultimnid
-				Ulzna.Ulznei.Ulzna.Ulznid
-				Ursmna.Ursmnei.Ursmna.Ursmnid
-				Uslna.Ulsnei.Uslna.Uslnid
-				Vania.Vaniei.Vania.Vanid
-				Varati.Varati.Varati.Varatian
-				Velara.Velaruna.Velara.Velarian
-				Velcheina.Velcheinei.Velcheina.Velchenian
-				Velchas.Velchei.Velchas.Velchid
-				Velcii.Velcei.Velcii.Velcian
-				Vlesi.Vlesi.Vlesi.Vlesian
-				Velie.Velia.Velie.Velian
-				Velna.Velnei.Velna.Velnid
-				Velethna.Velethnei.Velethna.Velethnid
-				Velimnas.Velimnei.Velimnas.Velimnid
-				Velthina.Velthinei.Velthina.Velthinid
-				Velthinathur.Velthinathuri.Velthinathur.Velthinathurian
-				Velthurna.Velthurnei.Velthurna.Velthurian
-				Venala.Venalei.Venala.Venalian
-				Venete.Veneti.Venete.Venetian
-				Verate.Verati.Verate.Veratian
-				Vestarenies.Vestarenia.Vestarenies.Vestarenian
-				Vestirci.Vestircina.Vestirci.Vestircian
-				Vete.Vetui.Vete.Vetian
-				Vilasnas.Vilasnei.Vilasnas.Vilasnian
-				Visnas.Visnei.Visnas.Visnasian
-				Vipena.Vipenei.Vipena.Vipenian
-				Vipinans.Vipinanei.Vipinans.Vipinansian
-				Vipithur.Vipithuri.Vipithur.Vipithurid
-				Zalthu.Zalthui.Zalthu.Zalthid
-				Zane.Zani.Zane.Zanid
-				Zertnei.Zertneie.Zertnei.Zertneian
-				Zili.Zilina.Zili.Zilinid
-			}
-			nickname = {
-				NICKNAME_ACILU
-				NICKNAME_ACRATE
-				NICKNAME_APURTHE
-				NICKNAME_CAMPANE
-				NICKNAME_CEICE
-				NICKNAME_CENCU
-				NICKNAME_CREICE
-				NICKNAME_CESU
-				NICKNAME_CRESPE
-				NICKNAME_CURCES
-				NICKNAME_CUTHNA
-				NICKNAME_HERMA
-				NICKNAME_LATINI
-				NICKNAME_NUFRE
-				NICKNAME_NUSTE
-				NICKNAME_PALPE
-				NICKNAME_PAPA
-				NICKNAME_PREZU
-				NICKNAME_PURCE
-				NICKNAME_SENATE
-				NICKNAME_SEPU
-				NICKNAME_SINU
-				NICKNAME_TREPUNI
-				NICKNAME_TREPU
-				NICKNAME_TUMU
-				NICKNAME_TURSIKINA
-				NICKNAME_VENALA
-				NICKNAME_VENTESE
-				NICKNAME_VERU
-				NICKNAME_ZALLE
-				NICKNAME_PALPENIA #female from here
-				NICKNAME_PAPANIA
-				NICKNAME_PREZUNIA
-				NICKNAME_PURCENIA
-				NICKNAME_SENATINA
-				NICKNAME_SEPUNIA
-				NICKNAME_SINUNIA
-				NICKNAME_TREPUNIA
-				NICKNAME_TREPIA
-				NICKNAME_TUMUNIA
-				NICKNAME_TURSIKINIA
-				NICKNAME_VENALANIA
-				NICKNAME_VERUNA
-				NICKNAME_VENTESA
-				NICKNAME_ZALLENIA
+			family = {  
+                Arussnu.Arussna.Arussnas.Arussnid
+                Esiumninu.Esiumnina.Esiumnines.Esiumninian
+                Esminu.Esmina.Esmines.Esminid
+                Esthu.Esthuna.Esthnes.Esthunid
+                Ethunnu.Ethunna.Ethunnes.Ethunnian
+                Helanu.Helana.Helanas.Helanian
+                Kanissnu.Kanissna.Kanissnes.Kanissnid
+                Kapassunu.Kapassuna.Kapassunes.Kapassunid
+                Kaszrinu.Kaszrina.Kaszrines.Kaszrinian
+                Kuhilinu.Kuhilina.Kuhilines.Kuhilinian
+                Lassanu.Lassana.Lassanes.Lassanian
+                Lavisealu.Lavisealuna.Lavisealas.Lavisealunid
+                Lavisnu.Lavisna.Lavisnes.Lavisnid
+                Lumennu.Lumenna.Lumennas.Lumennian
+                Lupnu.Lupna.Lupnes.Lupnid
+                Metinu.Metina.Metines.Metinid
+                Nutsnu.Nutsna.Nutsnes.Nutsnid
+                Phausu.Phausuna.Phauses.Phausunid
+                Phelvinu.Phelvina.Phelvines.Phelvinian
+                Phutikginu.Phutikgina.Phutikgines.Phutikginian
+                Pithamnu.Pithamna.Pithamnes.Pithamnid
+                Reithussnu.Reithussna.Reithussnas.Reithussnid
+                Reminu.Remina.Remines.Reminian
+                Ssikganu.Ssikgana.Ssikganes.Ssikganid
+                Susinu.Susina.Susinas.Susinian
+                Tassnu.Tassna.Tassnes.Tassnian
+                Tenaginu.Tenagina.Tenagines.Tenaginian
+                Tharnu.Tharna.Tharis.Tharid
+                Thaukgrilinu.Thaugrilina.Thaukgrilines.Thaugrilinid
+                Thianu.Thiana.Thianes.Thianian
+                Tiprukgnu.Tiprukgna.Tiprukgnis.Tiprukgnid
+                Tulanu.Tulana.Tulanas.Tulanid
+                Valthikinu.Valthikina.Valthikines.Valthikinian
+                Velkganu.Velkgana.Velkganes.Velkganian
+                Vinuthalinu.Vinuthalina.Vinuthalines.Vinuthalinian
+                Vistekganu.Vistekgana.Vistekganes.Vistekganid
+
+				#attested: esθu θarna/θaris(gen) aruśna/aruśnas(gen) kaszrinu eθunnu piθamnu/a esminu lavisealu visteχanu remina/nu tulanu helanu metinu valθikinu susinu φutiχinu φelvinu kaniśnu nuþnu śiχanu reiθuśnu θianu kapaśunu lupnu tipruχnu vinuθalina θauχrilina vaiθina taśna kuhilina lumennu lavisnu tenaginu esiumninu laśanu φausu velχanu/velisanes(gen)  
 			}
 		}
-		umbrian = {}
-		samnite = { levy_template = levy_samnite }
-		siculian = {}
-		bruttian = {}
-		lucanian = {}
+		umbrian = {
+		    male_names = { #sources: https://openhumanitiesdata.metajnl.com/articles/10.5334/johd.65 https://www.academia.edu/35452644/Umbrian_lexicon_of_the_minor_inscriptions_2019_10_18
+                Aulus Afidius Ahal Alez Amerens Atiedias Atiedian Cais Casilate Cureias Cumnios Blaisius Duquius Efieus Faletnus Fucius Hoius Iatinos Iuquos Kunos Lucius 
+                Museias Nero Numisius Nauius Ouius Paukis Pacius Petronius Publius Paie Peiersias Peraznanios Punicates Rufer Ruthius Salius Septimos Sextus Servius 
+                Sertor Spector Tetteies Titus Variens Vibius Vipius Vibis Vufiuneus Vesticius
+            }
+            female_names = {
+                Apiaia Arentia Cerealia Hedusa Nonia Pumperia Rita Ruthia Tupleia Vibia
+            }
+            family = {
+                Ahatrunius.Ahatrunia.Ahatrunii.Ahatrunian
+                Apiaies.Apiaia.Apiaii.Apiaian
+                Atrius.Atria.Atrii.Atrian
+                Arunthius.Arunthia.Arunthii.Arunthian
+                Babrius.Babria.Babrii.Babrian
+                Betvedius.Betvedia.Betvedii.Betvedian
+                Blaisiis.Blaisia.Blaisii.Blaisian
+                Foltonius.Foltonia.Foltonii.Foltonian
+                Fulonius.Fulonia.Fulonii.Fulonian
+                Gauies.Gauia.Gauii.Gauian
+                Hatrunius.Hatrunia.Hatrunii.Hatrunian
+                Hurtenius.Hurtenia.Hurtenii.Hurtenian
+                Iueskanus.Iueskana.Iueskanes.Iueskanian
+                Cabies.Cabia.Cabii.Cabian
+                Caltinius.Caltinia.Caltinii.Caltinian
+                Camerens.Cameria.Camerii.Camerian
+                Casilas.Casila.Casili.Casilan
+                Cluvies.Cluvia.Cluvii.Cluvian
+                Clauernius.Clauernia.Clauernii.Clauernian
+                Manius.Mania.Manii.Manian
+                Miletinus.Miletina.Miletini.Miletinan
+                Numisius.Numisia.Numisii.Numisian
+                Nurtinius.Nurtinia.Nurtinii.Nurtinian
+                Perunius.Perunia.Perunii.Perunian
+                Salvius.Salvia.Salvii.Salvian
+                Satanus.Satana.Satanes.Satanan
+                Seltius.Seltia.Seltii.Seltian
+                Talenatus.Talenas.Talenate.Talenatian
+                Tlatius.Tlatia.Tlatii.Tlatian
+                Trutitis.Trutitia.Trutitii.Trutitian
+                Tupleius.Tupleia.Tupleii.Tupleian
+                Petronius.Petrunia.Petrunii.Petrunian
+                Puplecius.Puplecia.Puplecii.Puplecian
+                Puponius.Puponia.Puponii.Puponian
+                Varies.Varia.Varii.Varian
+                Venedius.Venedia.Venedii.Venedian
+                Vistinius.Vistinia.Vistinii.Vistinian
+            }
+		}
 		north_picena = {}
 		south_picena = {}
-		histrian = {}
 		elymian = {}
 		sicanian = {}
+		samnite = { 
+			levy_template = levy_samnite 
+			male_names = { 
+                #Sabellian proper #sources: https://www.academia.edu/82019398/A_Grammar_of_the_Oscan_Language_Part_I_Inflection_2023_08_23&nav_from=75cdcc04-3151-461d-bb7d-480d5e10632d&rw_pos=0 https://www.academia.edu/34386277/Lexicon_of_the_PraeSamnites_Frentani_Samnites_and_Hirpini_coins_of_the_Social_War_2021_06_11
+                Aulis Aufilus Baitis Banttieis Bantieis Caisidis Cauius Ceis Efiis Eviis Gavis Gaavis Gnaivis Gaius Heirene Heirens Heris Kailenus Kaisillieis Kerins Kerrins Kluvatz Kumnis Luvkis Lukidel Mamercis Maras Maraeus Minaz Minis Marius Mettius Minatus Minathis Mais Marahis Minis Mitilis Mudis Melmis Nuvis Niumsis Oufilus Ovisos Pakis Rufiis Stenis Statis Stenis Titus Trebis Uvis Veliis Venelis Vinux Uhtavis Vibis Uvis 
+                #Central Italic names #sources: https://www.academia.edu/34386270/Lexicon_of_the_central_Italic_languages_2021_12_11
+                Arghillus Cauius Caeso Charitus Egnatius Lucius Minas Minis Niumsis Numerius Nounis Obellius Publius Pompo Popdis Postumus Sextus Seppius Statis Titus Trebius Vibius 
+            }
+            female_names = {
+                #Sabellian proper
+                Ahtica Basias Iegia Papla Siviiu Uviiu
+                #Central Italic names 
+                Grata Iouia Ouia Pacia Prisma Saluta Suntla Tertia Vara Vibia
+            }
+            family = {
+                #Sabellian proper - note that most of the feminine inflections are a simple '-a' unless specifically shown otherwise in inscriptions
+                Arkius.Arkia.Arkii.Arkian
+                Aadiis.Aadia.Aadii.Aadian
+                Adariis.Adaria.adarii.adarian
+                Anniis.Annia.Annii.Annian
+                Asinis.Asinia.Asinii.Asinian
+                Atriis.Atriia.Atrii.Atrian
+                Babbiis.Babbia.Babbii.Babbian
+                Basis.Basia.Basii.Basian
+                Beniis.Benia.Benii.Benian
+                Beitiis.Beitia.Beitii.Beitian
+                Brutiis.Brutia.Brutii.Brutian
+                Cusies.Cusia.Cusiei.Cusian
+                Dekiis.Dekia.Dekii.Dekian
+                Dekitiis.Dekitia.Dekitii.Dekitian
+                Diriis.Diria.Dirii.Dirian
+                Duiis.Duia.Duii.Duian
+                Enniis.Ennia.Ennii.Ennian
+                Fisanis.Fisania.Fisanii.Fisanian
+                Fuvfdis.Fuvfdia.Fuvfdii.Fuvfdian
+                Flaviis.Flavia.Flavii.Flavian
+                Galliis.Galliu.Gallii.Gallian
+                Gaviis.Gavia.Gavii.Gavian
+                Gnaiviis.Gnaivia.Gnaivii.Gnaivian
+                Heiis.Heia.Heii.Heian
+                Heleviis.Helevia.Helevii.Helevian
+                Hurtiis.Hurtia.Hurtii.Hurtian
+                Husidiis.Husidia.Husidii.Husidian
+                Husiniis.Husinia.Husinii.Husinian
+                Kalaviis.Kalavia.Kalavii.Kalavian
+                Kampaniis.Kampania.Kampanii.Kampanian
+                Kattiis.Kattia.Kattii.Kattian
+                Kepiis.Kepia.Kepii.Kepian
+                Kiipiis.Kiipia.Kiipii.Kiipian
+                Kluvatiis.Kluvatia.Kluvatii.Kluvatian
+                Klippiis.Klippia.Klippii.Klippian
+                Kudiis.Kudia.Kudii.Kudian
+                Kureliis.Kurelia.Kurelii.Kurelia
+                Luvkiis.Luvkiu.Luvkii.Luvkian
+                Magiis.Magiu.Magii.Magian
+                Mamios.Mamia.Mamii.Mamian
+                Mahiis.Mahia.Mahii.Mahian
+                Metiis.Metia.Metii.Metian
+                Niumeriis.Niumeria.Niumerii.Niumerian
+                Niumediis.Niumedian.Niumedii.Niumedian
+                Niumsdiis.Niumsdia.Niumsdii.Niumsdian
+                Nuviis.Nuvia.Nuvii.Nuvian
+                Pupaiis.Pupaian.Pupaii.Pupaian
+                Paapaiis.Paapaia.Paapaii.Paapaian
+                Pakkuiis.Pakkuia.Pakkuii.Pakkuian
+                Pumptiis.Pumptia.Pumptii.Pumptian
+                Pupeliis.Pupelia.Pupelii.Pupelian
+                Pafiis.Pafia.Pafii.Pafia
+                Peracis.Peracia.Peracii.Peracian
+                Rufriis.Rufria.Rufrii.Rufrian
+                Sattiis.Sattia.Sattii.Sattian
+                Statiis.Statia.Statii.Statian
+                Staiis.Staia.Staii.Staian
+                Tanunis.Tanuna.Tanuni.Tanunan
+                Tintiriis.Tintiria.Tintirii.Tintirian
+                Variis.Varia.Varii.Varian
+                Valavennis.Valavenna.Valavenni.Valavennan
+                Veleiis.Veleia.Veleii.Veleian
+                Vesulliais.Vesulliaia.Vesulliai.Vesulliaian
+                Urufiis.Urufia.Urufii.Urufian
+                Uviis.Uvia.Uvii.Uvian
+                Vuliis.Vulia.Vulii.Vulian
+                #Central Italic names
+                Accaes.Acca.Accaei.Accaean
+                Alfius.Alfia.Alfii.Alfian
+                Allius.Allia.Allii.Allian
+                Annaes.Annaea.Annaei.Annaean
+                Anaiedius.Anaiedia.Anaiedii.Anaiedian
+                Annius.Annia.Annii.Annian
+                Anniaes.Anniaea.Anniaei.Anniaean
+                Anies.Aniea.Aniei.Aniean
+                Aninius.Aninia.Aninii.Aninian
+                Apidius.Apidia.Apidii.Apidian
+                Apunius.Apunia.Apunii.Apunian
+                Atius.Atia.Atii.Atian
+                Atiedius.Atiedia.Atiedii.Atiedian
+                Aufidius.Aufidia.Aufidii.Aufidian
+                Burtius.Burtia.Burtii.Burtian
+                Caeedius.Caeedia.Caeedii.Caeedian
+                Caesius.Caesia.Caesii.Caesian
+                Cantouius.Cantouia.Cantouii.Cantouian
+                Catis.Cattia.Cattii.Cattian
+                Cisiedius.Cisiedia.Cisiedii.Cisiedian
+                Cossutius.Cossutia.Cossutii.Cossutian
+                Cristidis.Cristidia.Cristidii.Cristidian
+                Comenius.Comenia.Comenii.Comenian
+                Decrius.Decria.Decrii.Decrian
+                Decirius.Deciria.Decirii.Decirian
+                Ebedius.Ebedia.Ebedii.Ebedian
+                Fadatronius.Fadatronia.Fadatronii.Fadatronian
+                Helevius.Helevia.Helevii.Helevian
+                Licinius.Licinia.Licinii.Licinian
+                Lucius.Lucia.Lucius.Lucii
+                Magius.Magia.Magii.Magian
+                Metius.Metia.Metii.Metian
+                Musesus.Musesa.Musesi.Musesan
+                Obellius.Obellia.Obellii.Obellian
+                Optorius.Optoria.Optorii.Optorian
+                Ouius.Ouia.Ouii.Ouian
+                Oviedius.Oviedia.Oviedii.Oviedian
+                Pacuuius.Pacuuia.Pacuuii.Pacuuian
+                Pacius.Pacia.Pacii.Pacian
+                Papius.Papia.Papii.Papian
+                Pedlies.Pedlia.Pedlii.Pedlian
+                Peticius.Peticia.Peticii.Petician
+                Petiedius.Petiedia.Petiedii.Petiedian
+                Petronius.Petronia.Petronii.Petronian
+                Pomponius.Pomponia.Pomponii.Pomponian
+                Plautius.Plautia.Plautii.Plautian
+                Polfenis.Polfenia.Polfenii.Polfenian
+                Pontius.Pontia.Pontii.Pontian
+                Popidius.Popidia.Popidii.Popidian
+                Rufrius.Rufria.Rufrii.Rufrian
+                Sabidius.Sabidia.Sabidii.Sabidian
+                Salvidienus.Salvidiena.Salvidieni.Salvidienan
+                Salvidius.Salvidia.Salvidii.Salvidian
+                Sarius.Saria.Sarii.Sarian
+                Scaefius.Scaefia.Scaefii.Scaefian
+                Sontius.Sontia.Sontii.Sontian
+                Sullius.Sullia.Sullii.Sullian
+                Seius.Seia.Seii.Seian
+                Staedius.Staedia.Staedii.Staedian
+                Sucidius.Sucidia.Sucidii.Sucidian
+                Suellius.Suellia.Suellii.Suellian
+                Suetedius.Suetedia.Suetedii.Suetedian
+                Taflenius.Taflenia.Taflenii.Taflenian
+                Tatius.Tatia.Tatii.Tatian
+                Tettius.Tettia.Tettii.Tettian
+                Titis.Titia.Titii.Titian
+                Valerius.Valeria.Valerii.Valerian
+                Vettius.Vettia.Vettii.Vettian
+                Vibidius.Vibidia.Vibidii.Vibidian
+                Vibius.Vibia.Vibii.Vibian
+                Umbrenus.Umbrena.Umbreni.Umbrenan
+            }
+            nickname = {
+                #Sabellian proper 
+                NAME_AUFINIIS
+                NAME_FLAKIS
+                NAME_MITILIS
+                NAME_MUTILUS
+                NAME_STAFIDINS
+                NAME_GNAIVIS
+                #Central Italic names
+                NAME_GRAECUS
+                NAME_HERACLITUS
+                NAME_RUSTICUS
+                NAME_SALVATOR
+                NAME_CALVANS
+                NAME_CETUR  
+            }
+	    }
+		siculian = {
+            male_names = { 
+                Alaponis Arax Avis Avdiis Auilis Bannis Bantinis Cauius Caris Gavis Gnaius Heirens Helvos Heris Itiis Itius Kerrins Keis Kluvaz Luvkis Loikis Luktiis Maras Minaz Minis Minios Mais Mamereks Marahis Makis Metis Numsis Niumsis Numpsius Nympsius Nouios Nopsis Uvis Uhtavis Pakis pakul Pumpuf Perkens Plasos Polliis Silis Sossos Spedis Spellis Stenis Trebis Trebas Ouddiis Ovidius Varis Vibis
+            }
+            female_names = {
+                Alafiu Bantina Emauta Kaiaida Kaidika Kaidia Kaunota Minaka Minata Nuvia Nuvila Nopsia Novia Treda Vibia
+            }
+            family = {
+                Aboliis.Abolia.Abolii.Abolian
+                Afaries.Afaria.Afarii.Afarian
+                Alafis.Alafa.Alafi.Alafan
+                Alaponies.Alaponia.Alaponii.Alaponian
+                Arriis.Arria.Arrii.Arrian
+                Arrontiis.Arrontia.Arrontii.Arrontian
+                Artoriis.Artoria.Artorii.Artorian
+                Aselliis.Asellia.Asellii.Asellian
+                Audadis.Audadua.Audadi.Audadan
+                Audais.Audaia.Audai.Audaian
+                Avdiis.Avdia.Avdii.Avdian
+                Barabiis.Barabia.Barabii.Barabian
+                Bividis.Bivida.Bividi.Bividan
+                Bothroniis.Bothronia.Bothronii.Bothronian
+                Caedikis.Caedika.Caediki.Caedikan
+                Caisidis.Caisida.Caisidi.Caisidan
+                Comnis.Comna.Comni.Comnan
+                Dekkiis.Dekkia.Dekkii.Dekkian
+                Datiis.Datia.Datii.Datian
+                Diris.Dira.Diri.Diran
+                Erounts.Erounta.Erounti.Erountan
+                Fadis.Fada.Fadi.Fadan
+                Festies.Festia.Festii.Festian
+                Gaukiis.Gaukia.Gaukii.Gaukian
+                Heriis.Heria.Herii.Herian
+                Horiis.Horia.Horii.Horian
+                Hortis.Horta.Horti.Hortan
+                Imiis.Imia.Imii.Imian
+                Kaidikis.Kaidika.Kaidiki.Kaidikan
+                Kailiis.Kailia.Kailii.Kailian
+                Kepiis.Kepia.Kepii.Kepian
+                Kotteis.Kottea.Kottei.Kottean
+                Loikis.Loika.Loiki.Loikan
+                Maraiis.Maraia.Maraii.Maraian
+                Maisis.Maisa.Maisi.Maisan
+                Mamerekies.Mamerekia.Mamerekii.Mamerekian
+                Nanonis.Nanona.Nanoni.Nanonan
+                Opsiis.Opsia.Opsii.Opsian
+                Platorius.Platoria.Platorii.Platorian
+                Pumpunis.Pumpuna.Pumpuni.Pumpunan
+                Pakidiis.Pakidia.Pakidii.Pakidian
+                pakulliis.pakullia.pakullii.pakullian
+                Percenniis.Percennia.Percennii.Percennian
+                Puinikis.Puinika.Puiniki.Puinikan
+                Pokidis.Pokida.Pokidi.Pokidan
+                Polliis.Pollia.Pollii.Pollian
+                Poppalais.Poppalaia.Poppalai.Poppalaian
+                Pomponis.Pompona.Pomponi.Pomponan
+                Rais.Raia.Rai.Raian
+                Soies.Soia.Soii.Soian
+                Statiis.Statia.Statii.Statian
+                Sabidis.Sabida.Sabidi.Sabidan
+                Scalaponiis.Scalaponia.Scalaponii.Scalaponian
+                Slabiis.Slabia.Slabii.Slabian
+                Spelis.Spelia.Speli.Spelian
+                Stalliis.Stallia.Stallii.Stallian
+                Statiis.Statia.Statii.Statian
+                Suriis.Suria.Surii.Surian
+                Titidiis.Titidia.Titidii.Titidian
+                Toureiis.Toureia.Toureii.Toureian
+                Touriis.Touria.Tourii.Tourian
+                Trebatiis.Trebatia.Trebatii.Trebatian
+                Upsiis.Upsia.Upsii.Upsian
+                Viris.Viria.Viri.Virian
+                Variis.Varia.Varii.Varian
+                Vinlenis.Vinlena.Vinleni.Vinlenan
+            }
+            nickname = {
+                #Lucani-Bruttian
+                NAME_SAIPINS
+                #Sabellian proper 
+                NAME_AUFINIIS
+                NAME_FLAKIS
+                NAME_MITILIS
+                NAME_MUTILUS
+                NAME_STAFIDINS
+                NAME_GNAIVIS
+            }
+		}
+		bruttian = {#sources: https://www.academia.edu/34554069/Lexicon_of_Oscan_Lucania_and_Bruttium_2023_11_09
+            male_names = { 
+                Alaponis Arax Avis Avdiis Auilis Bannis Bantinis Cauius Caris Gavis Gnaius Heirens Helvos Heris Itiis Itius Kerrins Keis Kluvaz Luvkis Loikis Luktiis Maras Minaz Minis Minios Mais Mamereks Marahis Makis Metis Numsis Niumsis Numpsius Nympsius Nouios Nopsis Uvis Uhtavis Pakis pakul Pumpuf Perkens Plasos Polliis Silis Sossos Spedis Spellis Stenis Trebis Trebas Ouddiis Ovidius Varis Vibis
+            }
+            female_names = {
+                Alafiu Bantina Emauta Kaiaida Kaidika Kaidia Kaunota Minaka Minata Nuvia Nuvila Nopsia Novia Treda Vibia
+            }
+            family = {
+                Aboliis.Abolia.Abolii.Abolian
+                Afaries.Afaria.Afarii.Afarian
+                Alafis.Alafa.Alafi.Alafan
+                Alaponies.Alaponia.Alaponii.Alaponian
+                Arriis.Arria.Arrii.Arrian
+                Arrontiis.Arrontia.Arrontii.Arrontian
+                Artoriis.Artoria.Artorii.Artorian
+                Aselliis.Asellia.Asellii.Asellian
+                Audadis.Audadua.Audadi.Audadan
+                Audais.Audaia.Audai.Audaian
+                Avdiis.Avdia.Avdii.Avdian
+                Barabiis.Barabia.Barabii.Barabian
+                Bividis.Bivida.Bividi.Bividan
+                Bothroniis.Bothronia.Bothronii.Bothronian
+                Caedikis.Caedika.Caediki.Caedikan
+                Caisidis.Caisida.Caisidi.Caisidan
+                Comnis.Comna.Comni.Comnan
+                Dekkiis.Dekkia.Dekkii.Dekkian
+                Datiis.Datia.Datii.Datian
+                Diris.Dira.Diri.Diran
+                Erounts.Erounta.Erounti.Erountan
+                Fadis.Fada.Fadi.Fadan
+                Festies.Festia.Festii.Festian
+                Gaukiis.Gaukia.Gaukii.Gaukian
+                Heriis.Heria.Herii.Herian
+                Horiis.Horia.Horii.Horian
+                Hortis.Horta.Horti.Hortan
+                Imiis.Imia.Imii.Imian
+                Kaidikis.Kaidika.Kaidiki.Kaidikan
+                Kailiis.Kailia.Kailii.Kailian
+                Kepiis.Kepia.Kepii.Kepian
+                Kotteis.Kottea.Kottei.Kottean
+                Loikis.Loika.Loiki.Loikan
+                Maraiis.Maraia.Maraii.Maraian
+                Maisis.Maisa.Maisi.Maisan
+                Mamerekies.Mamerekia.Mamerekii.Mamerekian
+                Nanonis.Nanona.Nanoni.Nanonan
+                Opsiis.Opsia.Opsii.Opsian
+                Platorius.Platoria.Platorii.Platorian
+                Pumpunis.Pumpuna.Pumpuni.Pumpunan
+                Pakidiis.Pakidia.Pakidii.Pakidian
+                pakulliis.pakullia.pakullii.pakullian
+                Percenniis.Percennia.Percennii.Percennian
+                Puinikis.Puinika.Puiniki.Puinikan
+                Pokidis.Pokida.Pokidi.Pokidan
+                Polliis.Pollia.Pollii.Pollian
+                Poppalais.Poppalaia.Poppalai.Poppalaian
+                Pomponis.Pompona.Pomponi.Pomponan
+                Rais.Raia.Rai.Raian
+                Soies.Soia.Soii.Soian
+                Statiis.Statia.Statii.Statian
+                Sabidis.Sabida.Sabidi.Sabidan
+                Scalaponiis.Scalaponia.Scalaponii.Scalaponian
+                Slabiis.Slabia.Slabii.Slabian
+                Spelis.Spelia.Speli.Spelian
+                Stalliis.Stallia.Stallii.Stallian
+                Statiis.Statia.Statii.Statian
+                Suriis.Suria.Surii.Surian
+                Titidiis.Titidia.Titidii.Titidian
+                Toureiis.Toureia.Toureii.Toureian
+                Touriis.Touria.Tourii.Tourian
+                Trebatiis.Trebatia.Trebatii.Trebatian
+                Upsiis.Upsia.Upsii.Upsian
+                Viris.Viria.Viri.Virian
+                Variis.Varia.Varii.Varian
+                Vinlenis.Vinlena.Vinleni.Vinlenan
+            }
+            nickname = {
+                #Lucani-Bruttian
+                NAME_SAIPINS
+                #Sabellian proper 
+                NAME_AUFINIIS
+                NAME_FLAKIS
+                NAME_MITILIS
+                NAME_MUTILUS
+                NAME_STAFIDINS
+                NAME_GNAIVIS
+            }
+		}
+		lucanian = {#sources: https://www.academia.edu/34554069/Lexicon_of_Oscan_Lucania_and_Bruttium_2023_11_09
+            male_names = { 
+                Alaponis Arax Avis Avdiis Auilis Bannis Bantinis Cauius Caris Gavis Gnaius Heirens Helvos Heris Itiis Itius Kerrins Keis Kluvaz Luvkis Loikis Luktiis Maras Minaz Minis Minios Mais Mamereks Marahis Makis Metis Numsis Niumsis Numpsius Nympsius Nouios Nopsis Uvis Uhtavis Pakis pakul Pumpuf Perkens Plasos Polliis Silis Sossos Spedis Spellis Stenis Trebis Trebas Ouddiis Ovidius Varis Vibis
+            }
+            female_names = {
+                Alafiu Bantina Emauta Kaiaida Kaidika Kaidia Kaunota Minaka Minata Nuvia Nuvila Nopsia Novia Treda Vibia
+            }
+            family = {
+                Aboliis.Abolia.Abolii.Abolian
+                Afaries.Afaria.Afarii.Afarian
+                Alafis.Alafa.Alafi.Alafan
+                Alaponies.Alaponia.Alaponii.Alaponian
+                Arriis.Arria.Arrii.Arrian
+                Arrontiis.Arrontia.Arrontii.Arrontian
+                Artoriis.Artoria.Artorii.Artorian
+                Aselliis.Asellia.Asellii.Asellian
+                Audadis.Audadua.Audadi.Audadan
+                Audais.Audaia.Audai.Audaian
+                Avdiis.Avdia.Avdii.Avdian
+                Barabiis.Barabia.Barabii.Barabian
+                Bividis.Bivida.Bividi.Bividan
+                Bothroniis.Bothronia.Bothronii.Bothronian
+                Caedikis.Caedika.Caediki.Caedikan
+                Caisidis.Caisida.Caisidi.Caisidan
+                Comnis.Comna.Comni.Comnan
+                Dekkiis.Dekkia.Dekkii.Dekkian
+                Datiis.Datia.Datii.Datian
+                Diris.Dira.Diri.Diran
+                Erounts.Erounta.Erounti.Erountan
+                Fadis.Fada.Fadi.Fadan
+                Festies.Festia.Festii.Festian
+                Gaukiis.Gaukia.Gaukii.Gaukian
+                Heriis.Heria.Herii.Herian
+                Horiis.Horia.Horii.Horian
+                Hortis.Horta.Horti.Hortan
+                Imiis.Imia.Imii.Imian
+                Kaidikis.Kaidika.Kaidiki.Kaidikan
+                Kailiis.Kailia.Kailii.Kailian
+                Kepiis.Kepia.Kepii.Kepian
+                Kotteis.Kottea.Kottei.Kottean
+                Loikis.Loika.Loiki.Loikan
+                Maraiis.Maraia.Maraii.Maraian
+                Maisis.Maisa.Maisi.Maisan
+                Mamerekies.Mamerekia.Mamerekii.Mamerekian
+                Nanonis.Nanona.Nanoni.Nanonan
+                Opsiis.Opsia.Opsii.Opsian
+                Platorius.Platoria.Platorii.Platorian
+                Pumpunis.Pumpuna.Pumpuni.Pumpunan
+                Pakidiis.Pakidia.Pakidii.Pakidian
+                pakulliis.pakullia.pakullii.pakullian
+                Percenniis.Percennia.Percennii.Percennian
+                Puinikis.Puinika.Puiniki.Puinikan
+                Pokidis.Pokida.Pokidi.Pokidan
+                Polliis.Pollia.Pollii.Pollian
+                Poppalais.Poppalaia.Poppalai.Poppalaian
+                Pomponis.Pompona.Pomponi.Pomponan
+                Rais.Raia.Rai.Raian
+                Soies.Soia.Soii.Soian
+                Statiis.Statia.Statii.Statian
+                Sabidis.Sabida.Sabidi.Sabidan
+                Scalaponiis.Scalaponia.Scalaponii.Scalaponian
+                Slabiis.Slabia.Slabii.Slabian
+                Spelis.Spelia.Speli.Spelian
+                Stalliis.Stallia.Stallii.Stallian
+                Statiis.Statia.Statii.Statian
+                Suriis.Suria.Surii.Surian
+                Titidiis.Titidia.Titidii.Titidian
+                Toureiis.Toureia.Toureii.Toureian
+                Touriis.Touria.Tourii.Tourian
+                Trebatiis.Trebatia.Trebatii.Trebatian
+                Upsiis.Upsia.Upsii.Upsian
+                Viris.Viria.Viri.Virian
+                Variis.Varia.Varii.Varian
+                Vinlenis.Vinlena.Vinleni.Vinlenan
+            }
+            nickname = {
+                #Lucani-Bruttian
+                NAME_SAIPINS
+                #Sabellian proper 
+                NAME_AUFINIIS
+                NAME_FLAKIS
+                NAME_MITILIS
+                NAME_MUTILUS
+                NAME_STAFIDINS
+                NAME_GNAIVIS
+            }
+		}
+		histrian = {
+			male_names = {	
+				Aimos Afros Aplisikos Arsoetigo Bagsono Egotore Egests Ersinos Egotor Egetor Enogenes
+				Enokleves Fonts Fougonts Fugios Fremaistos Hostihevos Iante Iuvants Kantes Karamnos Lamusos Muskials
+				Naisons Osts Oppos Pilpots Pledes Verkano Voltiomnos Veignos Vante Vants Votos Voltigene Voltigenes 
+				Akuts Fremo Fremaistos Keutinos Ktulistos Moldo Resunkos Suros Tomatorios Vantkenio 		
+				Albarenos Alero Anteto Andetico Aplisikos Arbos Ariuns Askolo Afros Atto Baito Bellenes Boiialns
+				Boiio Boios Broicoko Broico Budicako Buticakos Deipiiariko Deipiiaris Dilliko Dillis Ebos Einaios Einao Eneicos
+				Eneis Eneto Enetios Ennons Feugo Fonto Fremaistios Gaio Gaiios Graiko Henotos Houvos Hovos Hutto Huttos Kastiko
+				Kastis Kataks Kello Kellos Kolo Klutavis Ametiko Ametis Kvito Lants Lante Lavsko Lemetor Luks Metso 
+				Moldono Muskials Muskialo Nagalkno Nagalo Naisonko Naisons Naisos Okicaiko Okicais Ossoko 
+				Ossos Panarios Panaros Pelonikos Pelonis Pletes Raitevios Raitevos Reitos Resunkos Resuns Rebetono
+				Sikos Siaks Segtios Taino Tekios Turico Trosto Trisikos Uko Urkleios Urkles Usedis Uposetios Vantkes Vasseno Veignos Veimes Vennonis
+				Vennon Verkondar Verkvalos
+            }
+			female_names = {
+				Aima Aklona Andeta Afra Aplisia Arsoetiga Bagsonia Egotora Egesta Ersina Egotora Egetora 
+				Enokleva Fetiana Fonta Fougonta Fugia Fukssia Fremaista Frutana Hostiheva Ianta Iuvanta Kanta Lamusa Muskiala
+				Naisona Neirka Nerka Osta Ostia Oppa Pilpota Pleda Verkana Veigna Vanta Vota
+				Akuta Frema Fremaistina Keutina Ktulista Molda Resunkia Suria Tomatoria Vantkenia		
+				Apia Askolia Ataina Atta Baitonia Brigdina Bukka Ebua Efa Iuanta Ituria Ikeveioneia Kolia
+				Kuikuta Makna Moldona Musta Ostina Otnia Reitia Rebetona Taina Trostia Urkleia Urkleina
+				Usedica Vantkenia Venna Verkondarna
+			}			
+			family = {	
+				Aimio.Aimia.Aimii.Aimian
+				Aklonio.Aklonia.Aklonii.Aklonian
+				Andetio.Andetia.Andetii.Andetian
+				Afrinio.Afrinia.Afrinii.Afrinian
+				Aplisinio.Aplisinia.Aplisinii.Aplisinian
+				Arsoetigio.Arsoetigia.Arsoetigii.Arsoetigian
+				Albarenios.Albarenia.Albarenii.Albarenian
+				Bagsonio.Bagsonia.Bagsonii.Bagsonian
+				Broicokos.Broicoka.Broicoki.Broicokan
+				Egotorio.Egotoria.Egotorii.Egotorian
+				Egestio.Egestia.Egestii.Egestian
+				Ersinio.Ersinia.Ersinii.Ersinian
+				Egetorio.Egetoria.Egetorii.Egetorian
+				Eneikos.Eneika.Eneiki.Eneikan
+				Enogenio.Enogenia.Enogenii.Enogenian
+				Enoklevio.Enoklevia.Enoklevii.Enoklevian
+				Fontio.Fontia.Fontii.Fontian
+				Fougontio.Fougontia.Fougontii.Fougontian
+				Fuginio.Fuginia.Fuginii.Fuginian
+				Fremaistio.Fremaistia.Fremaistii.Fremaistian
+				Fakios.Fakia.Fakii.Fakian
+				Hostihevio.Hostihevia.Hostihevii.Hostihevian
+				Iantio.Iantia.Iantii.Iantian
+				Iuvantio.Iuvantia.Iuvantii.Iuvantian
+				Kantio.Kantia.Kantii.Kantian
+				Karamnio.Karamnia.Karamnii.Karamnian
+				Lamusio.Lamusia.Lamusii.Lamusian
+				Makknos.Makkna.Makkni.Makknan
+				Muskialonio.Muskialonia.Muskialonii.Muskialonian
+				Naisonio.Naisonia.Naisonii.Naisonian
+				Neirkio.Neirkia.Neirkii.Neirkian
+				Nerkio.Nerkia.Nerkii.Nerkian
+				Ostio.Ostia.Ostii.Ostian
+				Oppio.Oppia.Oppii.Oppian
+				Ossokos.Ossoka.Ossoki.Ossokan
+				Pilpotio.Pilpotia.Pilpotii.Pilpotian
+				Pledio.Pledia.Pledii.Pledian
+				Verkanio.Verkania.Verkanii.Verkanian
+				Voltiomnio.Voltiomnia.Voltiomnii.Voltiomnian
+				Veignio.Veignia.Veignii.Veignian
+				Vantio.Vantia.Vantii.Vantian
+				Votio.Votia.Votii.Votian
+				Voltigenio.Voltigenia.Voltigenii.Voltigenian
+				Akutio.Akutia.Akutii.Akutian
+				Fremio.Fremia.Fremii.Fremian
+				Fremaistinio.Fremaistinia.Fremaistinii.Fremaistinian
+				Keutinio.Keutinia.Keutinii.Keutinian
+				Ktulistio.Ktulistia.Ktulistii.Ktulistian
+				Klutavikos.Klutavika.Klutaviki.Klutavikan
+				Moldio.Moldia.Moldii.Moldian
+				Resunkio.Resunkia.Resunkii.Resunkian
+				Suronio.Suronia.Suronii.Suronian
+				Tomatorinio.Tomatorinia.Tomatorinii.Tomatorinian
+				Tritikonikos.Tritikonika.Tritikoniki.Tritikonikan
+				Vantkinio.Vantkinia.Vantkinii.Vantkinian
+			}
+		}
 	}
 	
 	barbarian_names = { BRUTTII CAMUNNI CARACENI CENOMANI EUGANEI FRINIATES LIBURNI LIGURES LEPONTII LUCANI MAMERTINI PATAVINI PENTRI }

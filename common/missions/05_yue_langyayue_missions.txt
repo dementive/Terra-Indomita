@@ -1,0 +1,927 @@
+﻿missions_yue_langyayue = {
+	header = "mission_image_china"
+    icon = "seleukid_1"
+
+    repeatable = no
+    chance = {
+        factor = 1000
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+		tag = NYE
+		is_subject = no
+        has_civil_war = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_yue_state.90
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+
+	on_completion = {
+        complete_mission_effect = yes
+    }
+
+    missions_yue_langyayue_task_1 = { #Recover Wu
+        icon = "task_conquest"
+		requires = { missions_yue_langyayue_task_20 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = wu_area
+					is_in_area = yancheng_area
+					is_in_area = danyang_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = wu_area
+			owns_area = yancheng_area
+			owns_area = danyang_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_langyayue.1
+			show_as_tooltip = {
+				remove_country_modifier = fall_of_yue_mod
+				p:9651 = {
+					add_building_level = fortress_building
+				}
+			}
+            custom_tooltip = missions_yue_state_task_20_claims
+			hidden_effect = {
+				area:lujiang_area = { mission_area_claim_effect = yes }
+				area:jiangxia_area = { mission_area_claim_effect = yes }
+				area:yicheng_area = { mission_area_claim_effect = yes }
+				area:yuzhang_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_2 = { #Fortify Langya
+        icon = "task_economical"
+
+		highlight = {
+			scope:province = {
+				province_id = 9089
+			}
+		}
+
+        allow = {
+			p:8527 = {
+				fort_level >= 2
+			}
+			p:8527.state = {
+				state_improvement_military_trigger = yes
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yue_langyayue.2
+            show_as_tooltip = {
+				p:8527 = {
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					add_permanent_province_modifier = { 
+						name = restored_kuaiji_mod 
+					}
+				}
+            }
+            custom_tooltip = missions_yue_state_task_5_claims
+			hidden_effect = {
+				area:donghai_area = { mission_area_claim_effect = yes }
+				area:langya_area = { mission_area_claim_effect = yes }
+				area:beihai_area = { mission_area_claim_effect = yes }
+				area:donglai_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_3 = { #In Need of Allies
+        icon = "task_diplomatic"
+
+		bypass = {
+			num_of_provinces >= 30
+		}
+
+        allow = {
+			NOT = {
+				alliance_with = c:CHU
+			}
+			custom_tooltip = {
+				text = missions_yue_state_task_3_chinese_ally
+				any_country = {
+					has_land = yes
+					any_owned_province = {
+						OR = {
+							is_in_region = yu_region
+							is_in_region = qing_region
+							is_in_region = ji_region
+							is_in_region = bing_region
+							is_in_region = yong_region
+							is_in_region = xu_region
+						}
+					}
+					alliance_with = root
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.3
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = yue_found_allies
+					duration = 3650
+				}
+            }
+        }
+    }
+
+    missions_yue_langyayue_task_4 = { #Forging Bronze Swords
+        icon = "task_happiness"
+		requires = { missions_yue_langyayue_task_1 }
+		duration = 180
+
+        highlight = {
+			 scope:province = {
+				owned_or_subject_owned = root
+				trade_goods = base_metals
+            }
+        }
+
+        allow = {
+			custom_tooltip = {
+				text = missions_yue_state_task_4_base_metals_blacksmith
+				any_owned_province = {
+					trade_goods = base_metals
+					has_building = settlement_blacksmith
+				}
+			}
+			custom_tooltip = {
+				text = missions_yue_state_task_4_base_metals_mine
+				any_owned_province = {
+					trade_goods = base_metals
+					has_building = slave_mine_building
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.4
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = yue_state_bronze_swords
+					duration = 10950
+				}
+            }
+        }
+    }
+
+    missions_yue_langyayue_task_5 = { #Southern Yue State
+        icon = "task_political"
+		requires = { missions_yue_langyayue_task_20 missions_yue_langyayue_task_3 }
+
+        highlight = {
+			 scope:province = {
+				OR = {
+					owned_or_subject_owned = c:YUE
+					province_id = 9089
+				}
+            }
+        }
+
+        allow = {
+			trigger_if = {
+                limit = {
+                    c:YUE = {
+						has_land = yes
+					}
+                }
+                OR = {
+					alliance_with = c:YUE
+					hidden:c:YUE = {
+						is_guaranteed_by = root
+					}
+				}
+            }
+			trigger_if = {
+                limit = {
+                    c:YUE = {
+						has_land = no
+					}
+                }
+                owns = 8527
+            }
+		}
+
+        on_completion = {
+			if = {
+				limit = {
+					c:YUE = {
+						has_land = yes
+					}
+				}
+				root = {
+					make_subject = {
+						target = YUE
+						type = feudatory
+					}
+				}
+				trigger_event = me_yue_langyayue.5
+			}
+			else = {
+				p:8527 = {
+					create_state_pop = citizen
+					create_state_pop = citizen
+					create_state_pop = freemen
+					create_state_pop = freemen
+				}
+				trigger_event = me_yue_langyayue.500
+			}
+			custom_tooltip = missions_yue_state_task_15_claims
+			hidden_effect = {
+				area:jianan_area = { mission_area_claim_effect = yes }
+				area:luling_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_6 = { #Horn of Plenty
+        icon = "task_artemis"
+		requires = { missions_yue_langyayue_task_2 }
+
+		allow = {
+			custom_tooltip = {
+            	text = missions_yue_state_task_6_three_provinces_with_rice
+            	any_owned_province = {
+	                count >= 3
+	                trade_goods = rice
+	                num_of_basic_settlement_infratructure_building >= 1
+	                has_construction = no
+	            }
+            }
+			custom_tooltip = {
+				text = missions_yue_state_task_6_state_with_4_rice
+				any_country_state = {
+					trade_good_surplus = { target = rice value >= 4 }
+				}
+			}
+			
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.6
+            show_as_tooltip = {
+				add_3_free_province_investments = yes
+            }
+        }
+    }
+
+    missions_yue_langyayue_task_7 = { #Restore Navy
+        icon = "task_zeus_cornucopia"
+		requires = { missions_yue_langyayue_task_5 }
+		duration = 365
+
+        allow = {
+			treasury >= 100
+			any_owned_province = {
+				count >= 5
+				is_port = yes
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.7
+			custom_tooltip = missions_yue_state_task_7_navy_reward
+            custom_tooltip = missions_yue_state_task_7_claims
+			hidden_effect = {
+				area:tutikungshan_area = { mission_area_claim_effect = yes }
+				area:qilin_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_8 = { #Island of Yizhou
+        icon = "task_expansion"
+		requires = { missions_yue_langyayue_task_7 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = tutikungshan_area
+					is_in_area = qilin_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = tutikungshan_area
+			owns_area = qilin_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.8
+            custom_tooltip = missions_yue_state_task_8_claims
+			hidden_effect = {
+				area:luzon_area = { mission_area_claim_effect = yes }
+				area:maynila_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_9 = { #The Thunder Strikes
+        icon = "task_heracles"
+		requires = { missions_yue_langyayue_task_1 missions_yue_langyayue_task_5 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = lujiang_area
+					is_in_area = jiangxia_area
+					is_in_area = yicheng_area
+					is_in_area = yuzhang_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = yuzhang_area
+			owns_area = lujiang_area
+			owns_area = jiangxia_area
+			owns_area = yicheng_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.9
+            custom_tooltip = missions_yue_state_task_9_claims
+			hidden_effect = {
+				area:luling_area = { mission_area_claim_effect = yes }
+				area:guiyang_area = { mission_area_claim_effect = yes }
+				area:changsha_area = { mission_area_claim_effect = yes }
+				area:lingling_area = { mission_area_claim_effect = yes }
+				area:changde_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_10 = { #Art of War
+        icon = "task_battle"
+		requires = { missions_yue_langyayue_task_9 missions_yue_langyayue_task_15 }
+
+        allow = {
+			has_this_omen = deity:omen_suntzu
+			military_experience >= 50
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.10
+            show_as_tooltip = {
+				add_military_experience = -50
+				add_country_modifier = {
+					name = yue_art_of_war
+					duration = -1
+				}
+            }
+        }
+    }
+
+    missions_yue_langyayue_task_11 = { #Revenge on Qi
+        icon = "task_dying_gaul"
+		requires = { missions_yue_langyayue_task_2 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = donghai_area
+					is_in_area = langya_area
+					is_in_area = beihai_area
+					is_in_area = donglai_area
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns_area = donghai_area
+			owns_or_subject_owns_area = langya_area
+			owns_or_subject_owns_area = beihai_area
+			owns_or_subject_owns_area = donglai_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.11
+            custom_tooltip = missions_yue_state_task_11_claims
+			hidden_effect = {
+				c:QII = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				area:pei_area = { mission_area_claim_effect = yes }
+				area:peng_area = { mission_area_claim_effect = yes }
+				area:shanyang_area = { mission_area_claim_effect = yes }
+				area:taishan_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_12 = { #Magic Canal
+        icon = "task_zeus_cornucopia"
+		requires = { missions_yue_langyayue_task_18 }
+		duration = 365
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = guiyang_area
+					is_in_area = luling_area
+				}
+            }
+        }
+
+        allow = {
+			manpower >= 10
+			owns_area = guiyang_area
+			owns_area = luling_area
+		}
+
+		on_start = {
+			trigger_event = me_yue_state.1200
+			show_as_tooltip = {
+				add_manpower = -10
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.12
+            show_as_tooltip = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 9043
+							province_id = 9044
+							province_id = 9045
+							province_id = 9122
+							province_id = 9119
+						}
+					}
+					add_permanent_province_modifier = {
+						name = "magic_canal_china"
+					}
+				}
+				p:9043 = {
+					if = {
+						limit = {
+							NOR = { 
+								has_province_rank = city 
+								has_province_rank = city_metropolis
+							} 
+						}
+						custom_tooltip = "time_to_complete_city_tt"
+						hidden_effect = {
+							add_province_modifier = {
+								name = founding_city_in_progress
+								duration = 730
+							}
+						}
+						trigger_event = {
+							id = state_improvement.6
+							days = 730
+						}
+					}
+					else = {
+						create_state_pop = freemen
+						create_state_pop = freemen
+						create_state_pop = freemen
+						create_state_pop = freemen
+					}
+					add_special_pop = {
+						text = "add_1_architect_tt"
+						type = architect
+						count = 1
+					}
+				}
+            }
+        }
+    }
+
+    missions_yue_langyayue_task_13 = { #Austronesian Tribute
+        icon = "task_calm"
+		requires = { missions_yue_langyayue_task_8 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = luzon_area
+					is_in_area = maynila_area
+				}
+            }
+        }
+
+        allow = {
+			OR = {
+				owns_area = luzon_area
+				owns_area = maynila_area
+				any_subject = {
+					any_owned_province = {
+						count >= 3
+						OR = {
+							is_in_area = luzon_area
+							is_in_area = maynila_area
+						}
+					}
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.13
+            show_as_tooltip = {
+				if = {
+					limit = {
+						any_subject = {
+							any_owned_province = {
+								count >= 3
+								OR = {
+									is_in_area = luzon_area
+									is_in_area = maynila_area
+								}
+							}
+						}
+					}
+					add_country_modifier = {
+						name = yue_southern_trade
+						duration = 10950
+					}
+				}
+				else = {
+					random_owned_province = {
+						limit = {
+							OR = {
+								is_in_area = luzon_area
+								is_in_area = maynila_area
+							}
+						}
+						if = {
+							limit = {
+								NOR = { 
+									has_province_rank = city 
+									has_province_rank = city_metropolis
+								} 
+							}
+							custom_tooltip = "time_to_complete_city_tt"
+							hidden_effect = {
+								add_province_modifier = {
+									name = founding_city_in_progress
+									duration = 730
+								}
+							}
+							trigger_event = {
+								id = state_improvement.6
+								days = 730
+							}
+						}
+						else = {
+							create_state_pop = freemen
+							create_state_pop = freemen
+							create_state_pop = freemen
+							create_state_pop = freemen
+						}
+						add_special_pop = {
+							text = "add_1_merchant_tt"
+							type = merchant
+							count = 1
+						}
+					}
+				}
+            }
+        }
+    }
+
+    missions_yue_langyayue_task_14 = { #Lady of Yue
+        icon = "task_athena"
+		requires = { missions_yue_langyayue_task_4 }
+
+        allow = {
+			political_influence >= 50
+			military_experience >= 10
+			any_character = {
+				is_female = yes
+				martial >= 10
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.14
+            show_as_tooltip = {
+				add_political_influence = -50
+				add_military_experience = -10
+				set_gender_equality = yes
+            }
+        }
+    }
+
+    missions_yue_langyayue_task_15 = { #Conquer Yue Tribes
+        icon = "task_expansion"
+		requires = { missions_yue_langyayue_task_5 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					owned_or_subject_owned = c:OUY
+					owned_or_subject_owned = c:MNY
+				}
+			}
+        }
+
+        allow = {
+			OR = {
+				c:OUY = {
+					has_land = no
+				}
+				hidden:c:OUY = { is_subject_of = root }
+			}
+			owns_or_subject_owns = 9101
+			OR = {
+				c:MNY = {
+					has_land = no
+				}
+				hidden:c:MNY = { is_subject_of = root }
+			}
+			owns_or_subject_owns = 9105
+			owns_or_subject_owns = 9107
+		}
+
+        on_completion = {
+            trigger_event = me_yue_langyayue.15
+			custom_tooltip = missions_yue_state_task_16_claims
+			hidden_effect = {
+				area:nanhai_area = { mission_area_claim_effect = yes }
+				area:cangwu_area = { mission_area_claim_effect = yes }
+				area:hepu_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_16 = { #The Yellow River
+        icon = "task_atlas"
+		requires = { missions_yue_langyayue_task_7 missions_yue_langyayue_task_22 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = linzi_area
+					is_in_area = jinan_area
+					is_in_area = qiansheng_area
+					is_in_area = pingyuan_area
+					is_in_area = bohai_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = linzi_area
+			owns_area = jinan_area
+			owns_area = qiansheng_area
+			owns_area = pingyuan_area
+			owns_area = bohai_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_langyayue.16
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = "langyayue_naval_dominance"
+					duration = 10950
+				}
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_17 = { #Invade Nanyue
+        icon = "task_conquest"
+		requires = { missions_yue_langyayue_task_15 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = nanhai_area
+					is_in_area = cangwu_area
+					is_in_area = hepu_area
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns_area = nanhai_area
+			owns_or_subject_owns_area = cangwu_area
+			owns_or_subject_owns_area = hepu_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.17
+            custom_tooltip = missions_yue_state_task_17_claims
+			hidden_effect = {
+				area:yulin_area = { mission_area_claim_effect = yes }
+				area:jiaozhi_area = { mission_area_claim_effect = yes }
+				area:jiuzhen_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_18 = { #Miao Miao
+        icon = "task_religion"
+		requires = { missions_yue_langyayue_task_9 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = luling_area
+					is_in_area = guiyang_area
+					is_in_area = changsha_area
+					is_in_area = lingling_area
+					is_in_area = changde_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = luling_area
+			owns_area = guiyang_area
+			owns_area = changsha_area
+			owns_area = lingling_area
+			owns_area = changde_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.18
+            show_as_tooltip = {
+				if = {
+					limit = {
+						any_country_culture = {
+							is_culture = sanmiao
+						}
+					}
+					random_country_culture = {
+						limit = {
+							this.culture = culture:sanmiao
+						}
+						ROOT = { 
+							integrate_country_culture = PREV 
+						}
+					}
+				}
+				add_country_modifier = {
+					name = yue_civilisation_effort
+					duration = 7300
+				}
+            }
+        }
+    }
+
+    missions_yue_langyayue_task_19 = { #Imprison the Hung
+        icon = "task_durga"
+		requires = { missions_yue_langyayue_task_18 missions_yue_langyayue_task_17 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = yulin_area
+					is_in_area = jiaozhi_area
+					is_in_area = jiuzhen_area
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns_area = yulin_area
+			owns_or_subject_owns_area = jiaozhi_area
+			owns_or_subject_owns_area = jiuzhen_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.19
+            custom_tooltip = missions_yue_state_task_19_claims
+			hidden_effect = {
+				region:nanzhong_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_20 = { #Reclaim the Northern Lands
+        icon = "task_atlas"
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = guangling_area
+					is_in_area = jiujiang_area
+					is_in_area = linhuai_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = guangling_area
+			owns_area = jiujiang_area
+			owns_area = linhuai_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_langyayue.20
+			custom_tooltip = missions_yue_state_task_90_claims
+			hidden_effect = {
+				area:wu_area = { mission_area_claim_effect = yes }
+				area:yancheng_area = { mission_area_claim_effect = yes }
+				area:danyang_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_yue_langyayue_task_21 = { #Forge a Royal Sword
+        icon = "task_apollo"
+		requires = { missions_yue_langyayue_task_10 missions_yue_langyayue_task_19 }
+		final = yes
+		duration = 365
+
+        allow = {
+			treasury >= 250
+			legitimacy >= 95
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.21
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = restored_yue_state
+					duration = -1
+				}
+				create_country_treasure = {
+					key = "yue_royal_sword"
+					icon = "chinesesword1"
+					modifier = {
+						local_goods_from_slaves = -2
+						local_unrest = -1
+						local_ship_recruit_speed = 0.25
+					}
+				}
+            }
+        }
+    }
+	missions_yue_langyayue_task_22 = { #Unwarranted Mildness
+        icon = "task_political"
+		requires = { missions_yue_langyayue_task_11 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = pei_area
+					is_in_area = peng_area
+					is_in_area = shanyang_area
+					is_in_area = taishan_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = pei_area
+			owns_area = peng_area
+			owns_area = shanyang_area
+			owns_area = taishan_area
+		}
+
+        on_completion = {
+            trigger_event = me_yue_state.22
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = yue_learnt_from_generosity
+					duration = 10950
+				}
+			}
+        }
+    }
+}

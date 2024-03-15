@@ -3,14 +3,18 @@
 	icon = "seleukid_1"
 
 	repeatable = no
-	chance = 1000
+	chance = {
+	    factor = 1000
+	}
 
 	potential = {
 		NOT = { has_variable = qi_mission_cooldown_var }
 		tag = QII
 	}
 
-	abort = {}
+	abort = {
+		ai_mission_back_out_trigger = yes
+	}
 
 	on_start = {
 		start_mission_ai_effect = yes
@@ -25,6 +29,7 @@
 	}
 
 	on_completion = {
+		complete_mission_effect = yes
 		add_4_free_province_investments = yes
 		add_legitimacy = 25
 		capital_scope = {

@@ -215,6 +215,9 @@
 					tag = PES
 				}
 				AND = {
+					tag = FGD
+				}
+				AND = {
 					tag = MAP
 				}
 				AND = {
@@ -257,7 +260,7 @@
 						tag = SMN
 						tag = SBN
 						tag = MCM
-						tag = X33
+						tag = QUA
 					}
 				}
 				AND = {
@@ -300,9 +303,69 @@
 				AND = {
 					tag = NBP
 				}
+				AND = {
+					tag = ALB
+				}
+				AND = {
+					OR = {
+						primary_culture = venetic
+						primary_culture = histrian
+					}
+					OR = {
+						tag = VNT
+						ROOT = {
+							has_variable = venetic_country_that_formed_veneto
+						}
+					}
+				}
+				AND = {
+					tag = ETR
+				}
+				AND = {
+					tag = GTE
+				}
+				AND = {
+					tag = CRD
+				}
+				AND = {
+					OR = {
+						primary_culture = rhaetian
+						tag = RAE
+					}
+				}
+				AND = {
+					primary_culture = turdetanian
+				}
+				AND = {
+					OR = {
+						primary_culture = umbrian
+						tag = UMB
+					}
+				}
+				AND = {
+					tag = ARY
+				}
+				AND = {
+					tag = COL
+				}
+				AND = {
+					primary_culture = messapian
+				}
+				AND = {
+					OR = {
+						tag = KIO
+						tag = MIT
+					}
+				}
+				AND = {
+					tag = SAM
+				}
+				AND = {
+					tag = YDD
+				}
             }
         }
-        current_date > 451.1.1
+		current_date > 451.1.1
     }
 }
 
@@ -635,7 +698,7 @@ food_trade_good_trigger = {
 		trade_goods = cattle
 		trade_goods = vegetables
 		trade_goods = fruits
-		trade_goods = honey
+		trade_goods = olive
 		trade_goods = dates
 		trade_goods = rice
 		trade_goods = citrus
@@ -2478,7 +2541,6 @@ generic_block_trigger = {
 				OR = {
 					is_in_region = ariana_region
 					is_in_region = media_region
-					is_in_region = gedrosia_region
 					is_in_region = mesopotamia_region
 					is_in_region = persis_region
 				}
@@ -3224,7 +3286,7 @@ ai_mission_back_out_trigger = {
 egy_wedding_trigger = {
 	NOR = {
         p:790 = { is_previous_owner = $COUNTRY$ }
-        war_with = $COUNTRY$`
+        war_with = $COUNTRY$
     }
     exists = $FAMILY$
 }

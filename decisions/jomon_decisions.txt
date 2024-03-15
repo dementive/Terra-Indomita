@@ -1,0 +1,371 @@
+﻿country_decisions = {
+
+	city_of_fish_oshima = {
+		potential = {
+			tag = ESN
+			p:10567 = { has_city_status = yes }
+		}
+		highlight = { scope:province = { province_id = 10567 } }
+		allow = {
+			treasury >= 200
+			p:10567 = {
+				has_building = port_building
+				has_building = commerce_building
+				has_building = fortress_building
+			}
+		}
+
+		effect = {
+			p:10567 = {
+				set_trade_goods = fish
+				add_province_modifier = {
+					name = city_of_fish
+					duration = 3650
+				}
+			}
+			add_treasury = -200
+			add_stability = -3
+		}
+		
+		ai_will_do = { base = 0 }
+	}
+
+	peaceful_unification_of_hokkaido = {
+		potential = {
+			primary_culture = ainu
+			has_variable = hokkaido_unification_var
+			NOT = { has_variable = hokkaido_unified_var }
+			c:ESN = { has_land = yes }
+			c:ESU = { has_land = yes }
+			c:KTM = { has_land = yes }
+		}
+		highlight = {
+			scope:province = {
+				OR = {
+					owner = c:ESN
+					owner = c:ESU
+					owner = c:KTM
+				}
+			}
+		}
+
+		allow = {
+			trigger_if = {
+				limit = { tag = ESN }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESU
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esu_tt"
+	            }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = KTM
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_ktm_tt"
+	            }
+	        }
+			trigger_if = {
+				limit = { tag = ESU }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESN
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esn_tt"
+	            }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = KTM
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_ktm_tt"
+	            }
+	        }
+	        trigger_if = {
+				limit = { tag = KTM }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESU
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esu_tt"
+	            }
+	            custom_tooltip = {
+	                any_country = {
+	                    tag = ESN
+	                    opinion = {
+	                        target = root 
+	                        value >= 190
+	                    }
+	                }
+	                text = "peaceful_uni_esn_tt"
+	            }
+	        }
+	        centralization >= 10
+	        stability >= 50
+	        current_ruler = {
+	        	OR = {
+	        		popularity >= 50
+	        		charisma >= 8
+	        		has_trait = silver_tongued
+	        	}
+	        }
+	        #trigger_else = {
+	        #    custom_tooltip = {
+	        #        any_country = {
+	        #            tag = ESN
+	        #            opinion = {
+	        #                target = root 
+	        #                value >= 190
+	        #            }
+	        #        }
+	        #        text = "peaceful_uni_esn_tt"
+	        #    }
+	        #    custom_tooltip = {
+	        #        any_country = {
+	        #            tag = ESU
+	        #            opinion = {
+	        #                target = root 
+	        #                value >= 190
+	        #            }
+	        #        }
+	        #        text = "peaceful_uni_esu_tt"
+	        #    }
+	        #    custom_tooltip = {
+	        #        any_country = {
+	        #            tag = KTM
+	        #            opinion = {
+	        #                target = root 
+	        #                value >= 190
+	        #            }
+	        #        }
+	        #        text = "peaceful_uni_ktm_tt"
+	        #    }
+	        #}
+		}
+
+		effect = {
+			set_variable = hokkaido_unified_var
+			if = {
+				limit = { tag = ESN }
+				c:ESU = { every_owned_province = { set_owned_by = root } }
+				c:KTM = { every_owned_province = { set_owned_by = root } }
+			}
+			if = {
+				limit = { tag = ESU }
+				c:ESN = { every_owned_province = { set_owned_by = root } }
+				c:KTM = { every_owned_province = { set_owned_by = root } }
+			}
+			if = {
+				limit = { tag = KTM }
+				c:ESN = { every_owned_province = { set_owned_by = root } }
+				c:ESU = { every_owned_province = { set_owned_by = root } }
+			}
+			hidden_effect = { area:hokkaido_area = { every_area_province = { add_claim = root } } }
+			#else = {
+			#	c:ESN = { every_owned_province = { set_owned_by = root } }
+			#	c:ESU = { every_owned_province = { set_owned_by = root } }
+			#	c:KTM = { every_owned_province = { set_owned_by = root } }
+			#}
+		}
+		ai_will_do = { base = 0 }
+
+	}
+
+	hostile_unification_of_hokkaido = {
+		potential = {
+			primary_culture = ainu
+			has_variable = hokkaido_unification_var
+			NOT = { has_variable = hokkaido_unified_var }
+			c:ESN = { has_land = yes }
+			c:ESU = { has_land = yes }
+			c:KTM = { has_land = yes }
+		}
+		highlight = {
+			scope:province = {
+				OR = {
+					owner = c:ESN
+					owner = c:ESU
+					owner = c:KTM
+				}
+			}
+		}
+
+		allow = {
+			OR = {
+				diplomatic_stance = domination_stance
+				diplomatic_stance = warmongering_stance
+			}
+			NOR = {
+				has_truce_with = c:ESN
+				has_truce_with = c:ESU
+				has_truce_with = c:KTM
+			}
+		}
+
+		effect = {
+			set_variable = hokkaido_unified_var
+			if = {
+				limit = { tag = ESN }
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = ESU
+				}
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = KTM
+				}
+			}
+			if = {
+				limit = { tag = ESU }
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = ESN
+				}
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = KTM
+				}
+			}
+			if = {
+				limit = { tag = KTM }
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = ESU
+				}
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = ESN
+				}
+			}
+			hidden_effect = { area:hokkaido_area = { every_area_province = { add_claim = root } } }
+			#else = {
+			#	declare_war_with_wargoal = {
+			#		war_goal = imperial_conquest_wargoal
+			#		target = ESU
+			#	}
+			#	declare_war_with_wargoal = {
+			#		war_goal = imperial_conquest_wargoal
+			#		target = ESN
+			#	}
+			#	declare_war_with_wargoal = {
+			#		war_goal = imperial_conquest_wargoal
+			#		target = KTM
+			#	}
+			#}
+		}
+		ai_will_do = { base = 0 }
+	}
+	yayoify_jomon = {
+		potential = {
+			tag = AIU
+			NOT = { has_variable = completed_tree_jomon_var }
+		}
+
+		allow = {
+			custom_tooltip = yayoification_level_tt
+			custom_tooltip = can_yayoify_tt
+			var:yayoification >= 3
+			owns_or_subject_owns_region = wa_region
+		}
+
+		effect = {
+			hidden_effect = {
+				every_owned_province = {
+					every_pops_in_province = {
+						limit = {
+							OR = {
+								AND = {
+									pop_culture_group = japan
+									pop_type = freemen
+								}
+								AND = {
+									pop_culture_group = jomon
+									pop_type = citizen
+									pop_type = nobles
+								}
+							}
+						}
+						set_pop_culture = jomon_yayoi
+					}
+				}
+			}
+			change_government = yamato_empire
+			set_primary_culture = jomon_yayoi
+			set_variable = completed_tree_jomon_var
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+	}
+
+	neutral_jomon = {
+		potential = {
+			tag = AIU
+			NOT = { has_variable = completed_tree_jomon_var }
+		}
+
+		allow = {
+			custom_tooltip = yayoification_level_tt
+			custom_tooltip = neutral_jomon_tt
+			var:yayoification < 3
+			var:yayoification > 0
+			owns_or_subject_owns_region = wa_region
+		}
+
+		effect = {
+			change_government = yamato_empire
+			set_variable = completed_tree_jomon_var
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+	}
+
+	jomonify_jomon = {
+		potential = {
+			tag = AIU
+			NOT = { has_variable = completed_tree_jomon_var }
+		}
+
+		allow = {
+			custom_tooltip = yayoification_level_tt
+			custom_tooltip = can_jomonify_tt
+			var:yayoification <= 0
+			owns_or_subject_owns_region = wa_region
+		}
+
+		effect = {
+			change_government = steppe_horde
+			set_variable = completed_tree_jomon_var
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+	}
+
+}	

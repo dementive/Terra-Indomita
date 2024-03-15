@@ -1,0 +1,698 @@
+﻿lu_missions = {
+	header = "mission_image_china"
+    icon = "cde_religious_rite"
+
+    repeatable = no
+    chance = {
+        factor = 1000
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+		tag = LUU
+		is_subject = no
+        has_civil_war = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
+    on_start = {
+        start_mission_ai_effect = yes
+		if = {
+			limit = {
+				c:BII = {
+					has_land = yes
+				}
+				c:LUU = {
+					has_land = yes
+				}
+			}
+			trigger_event = me_lu.90
+		}
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+
+	on_completion = {
+        complete_mission_effect = yes
+    }
+
+    lu_missions_task_1 = { #Arming for War
+        icon = "task_conquest"
+		monthly_on_action = lu_missions_task_1_monthly_pulse
+		duration = 365
+
+		bypass = {
+			num_of_cities >= 50
+		}
+
+        allow = {
+			custom_tooltip = {
+				text = lu_missions_task_1_marshal_7
+				any_character = {
+					has_office = office_marshal
+					martial >= 7
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_lu.1
+            custom_tooltip = lu_missions_task_1_claims
+			hidden_effect = {
+				c:SNG = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				area:linzi_area = { mission_area_claim_effect = yes }
+				area:langya_area = { mission_area_claim_effect = yes }
+				area:jinan_area = { mission_area_claim_effect = yes }
+				area:taishan_area = { mission_area_claim_effect = yes }
+				area:dong_area = { mission_area_claim_effect = yes }
+			}
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = battle_of_changshao_mod
+					duration = 3650
+				}
+            }
+        }
+    }
+
+    lu_missions_task_2 = { #Lu Etiquette
+        icon = "task_diplomatic"
+
+        allow = {
+			current_ruler = {
+				has_triggered_character_modifier = foreign_affairs_focus_triggered_mod
+			}
+			legitimacy >= 95
+		}
+
+        on_completion = {
+            trigger_event = me_lu.2
+			show_as_tooltip = {
+				add_country_modifier = {
+					name = "lu_etiquette_mod"
+					duration = -1
+				}
+			}
+        }
+    }
+
+    lu_missions_task_3 = { #Dominate the Small States
+        icon = "task_expansion"
+		duration = 15
+
+		bypass = {
+			c:ZOU = {
+				has_land = no
+			}
+			c:TNG = {
+				has_land = no
+			}
+			c:NII = {
+				has_land = no
+			}
+		}
+
+        highlight = {
+			 scope:province = {
+				OR = {
+					owned_or_subject_owned = c:ZOU
+					owned_or_subject_owned = c:TNG
+					owned_or_subject_owned = c:NII
+				}
+            }
+        }
+
+        allow = {
+			treasury >= 30
+			diplomatic_stance = vassaling_stance
+		}
+		
+		on_start = {
+			add_treasury = -30
+			if = {
+				limit = {
+					c:ZOU = {
+						has_land = yes
+					}
+				}
+				c:ZOU = {
+					trigger_event = me_lu.3
+				}
+			}
+			if = {
+				limit = {
+					c:NII = {
+						has_land = yes
+					}
+				}
+				c:NII = {
+					trigger_event = me_lu.3
+				}
+			}
+			if = {
+				limit = {
+					c:TNG = {
+						has_land = yes
+					}
+				}
+				c:TNG = {
+					trigger_event = me_lu.3
+				}
+			}
+		}
+
+        on_completion = {
+            custom_tooltip = lu_missions_task_3_offer_small_states
+			trigger_event = me_lu.300
+			c:BII = {
+				every_owned_province = {
+					add_claim = root
+				}
+			}
+        }
+    }
+
+    lu_missions_task_4 = { #Seize Song
+        icon = "task_expansion"
+		requires = { lu_missions_task_1 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					owned_or_subject_owned = c:SNG
+					is_in_area = peng_area
+					is_in_area = shanyang_area
+					province_id = 8462
+					province_id = 8424
+					province_id = 8433
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns_area = peng_area
+			owns_or_subject_owns_area = shanyang_area
+			owns_or_subject_owns = 8462
+			owns_or_subject_owns = 8424
+			owns_or_subject_owns = 8433
+		}
+
+        on_completion = {
+            trigger_event = me_lu.4
+            custom_tooltip = lu_missions_task_4_claims
+			hidden_effect = {
+				area:pei_area = { mission_area_claim_effect = yes }
+				area:jiujiang_area = { mission_area_claim_effect = yes }
+				area:linhuai_area = { mission_area_claim_effect = yes }
+				area:lujiang_area = { mission_area_claim_effect = yes }
+				area:donghai_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    lu_missions_task_5 = { #Land of All Rituals and Music
+        icon = "task_calm"
+		requires = { lu_missions_task_2 }
+
+        allow = {
+			has_country_modifier = stability_investment
+			current_ruler = {
+				custom_tooltip = {
+                    text = does_not_have_observe_rituals_tt
+                    has_variable = observe_rituals_var
+                }
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_lu.5
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = lu_rituals_music_mod
+					duration = -1
+				}
+				add_stability = 10
+            }
+        }
+    }
+
+    lu_missions_task_6 = { #Destroy the Last Huanen
+        icon = "task_conquest"
+		requires = { lu_missions_task_3 }
+
+		bypass = {
+			has_country_modifier = revenge_of_last_huanen
+		}
+
+        highlight = {
+			 scope:province = {
+				OR = {
+					owned_or_subject_owned = c:BII
+					province_id = 8548
+				}
+            }
+        }
+
+        allow = {
+			owns = 8548
+			c:BII = {
+				has_land = no
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_lu.6
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = destroyed_last_huanen
+					duration = 10950
+				}
+            }
+        }
+    }
+
+    lu_missions_task_7 = { #Weaken Qi
+        icon = "task_diplomatic"
+		requires = { lu_missions_task_1 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = linzi_area
+					is_in_area = langya_area
+					is_in_area = jinan_area
+					is_in_area = taishan_area
+					is_in_area = dong_area
+				}
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 25
+				OR = {
+					is_in_area = linzi_area
+					is_in_area = langya_area
+					is_in_area = jinan_area
+					is_in_area = taishan_area
+					is_in_area = dong_area
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_lu.7
+            custom_tooltip = lu_missions_task_7_claims
+			hidden_effect = {
+				c:QII = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    lu_missions_task_8 = { #Confucius Says
+        icon = "task_happiness"
+		requires = { lu_missions_task_5 }
+
+		bypass = {
+			NOT = {
+				religion = confucian
+			}
+		}
+
+        allow = {
+			has_this_omen = deity:omen_confucius #char:520
+			has_law = religious_integration_efforts
+			any_owned_province = {
+				count >= 25
+				dominant_province_religion = confucian
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_lu.8
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = confucius_lu_mod
+					duration = -1
+				}
+            }
+        }
+    }
+
+    lu_missions_task_9 = { #Temple of Confucius
+        icon = "task_political"
+		requires = { lu_missions_task_5 }
+
+        allow = {
+			p:8533 = {
+				owner = root
+				has_building = temple_building
+				has_building = shrine_building
+				dominant_province_religion = confucian
+				province_has_special_pop = {
+					text = "prov_has_1_priest_tt"
+					type = priest
+					count = 1
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_lu.9
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = temple_of_confucius_country_mod
+					duration = -1
+				}
+				every_owned_province = {
+					limit = {
+						is_in_area = taishan_area
+					}
+					add_permanent_province_modifier = {
+						name = temple_of_confucius_state_mod
+					}
+				}
+            }
+        }
+    }
+
+    lu_missions_task_10 = { #Check Chu
+        icon = "task_battle"
+		requires = { lu_missions_task_4 lu_missions_task_6 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = pei_area
+					is_in_area = jiujiang_area
+					is_in_area = linhuai_area
+					is_in_area = lujiang_area
+					is_in_area = donghai_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = pei_area
+			owns_area = jiujiang_area
+			owns_area = linhuai_area
+			owns_area = lujiang_area
+			owns_area = donghai_area
+		}
+
+        on_completion = {
+            trigger_event = me_lu.10
+            custom_tooltip = lu_missions_task_10_claims
+			hidden_effect = {
+				area:guangling_area = { mission_area_claim_effect = yes }
+				area:yancheng_area = { mission_area_claim_effect = yes }
+				area:wu_area = { mission_area_claim_effect = yes }
+				area:danyang_area = { mission_area_claim_effect = yes }
+				area:yuzhang_area = { mission_area_claim_effect = yes }
+				area:kuaiji_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    lu_missions_task_11 = { #Finance Astronomy
+        icon = "task_atlas"
+		requires = { lu_missions_task_5 }
+		duration = 365
+
+        allow = {
+			treasury >= 250
+		}
+
+        on_completion = {
+            trigger_event = me_lu.11
+            show_as_tooltip = {
+				add_research = {
+					technology = religious_tech
+					value = 50
+				}
+				create_character = {
+					age = 35
+					culture = root.culture
+					religion = root.religion
+					no_traits = yes
+					no_stats = yes
+					hidden_effect = {
+						bad_martial_effect = yes
+						amazing_charisma_effect = yes
+						amazing_finesse_effect = yes
+						average_zeal_effect = yes
+						add_trait = scholar
+						good_zeal_trait_effect = yes
+						good_charisma_trait_effect = yes
+					}
+                }
+            }
+        }
+    }
+
+    lu_missions_task_12 = { #Destroy Qi
+        icon = "task_expansion"
+		requires = { lu_missions_task_7 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = linzi_area
+					is_in_area = langya_area
+					is_in_area = jinan_area
+					is_in_area = taishan_area
+					is_in_area = pingyuan_area
+					is_in_area = qiansheng_area
+					is_in_area = beihai_area
+					is_in_area = donglai_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = linzi_area
+			owns_area = langya_area
+			owns_area = jinan_area
+			owns_area = taishan_area
+			owns_area = pingyuan_area
+			owns_area = qiansheng_area
+			owns_area = beihai_area
+			owns_area = donglai_area
+		}
+
+        on_completion = {
+            trigger_event = me_lu.12
+            custom_tooltip = lu_missions_task_12_claims
+			hidden_effect = {
+				region:yu_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    lu_missions_task_13 = { #Liberate Yue
+        icon = "task_political"
+		requires = { lu_missions_task_10 }
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = guangling_area
+					is_in_area = yancheng_area
+					is_in_area = wu_area
+					is_in_area = danyang_area
+					is_in_area = yuzhang_area
+					is_in_area = kuaiji_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = guangling_area
+			owns_area = yancheng_area
+			owns_area = wu_area
+			owns_area = danyang_area
+			owns_area = yuzhang_area
+			owns_area = kuaiji_area
+		}
+
+        on_completion = {
+            trigger_event = me_lu.13
+            show_as_tooltip = {
+				if = {
+					limit = {
+						any_country_culture = {
+							is_culture = wuyue
+						}
+					}
+					random_country_culture = {
+						limit = {
+							this.culture = culture:wuyue
+						}
+						ROOT = { 
+							integrate_country_culture = PREV 
+						}
+					}
+				}
+				add_military_experience = 10
+				add_manpower = 20
+            }
+        }
+    }
+
+    lu_missions_task_14 = { #Western Brethern
+        icon = "task_diplomatic"
+		requires = { lu_missions_task_12 }
+
+		highlight = {
+			scope:province = {
+				is_in_area = henan_area
+            }
+        }
+
+        allow = {
+			trigger_if = {
+                limit = {
+                    c:ZHO = {
+						has_land = yes
+					}
+                }
+                OR = {
+					alliance_with = c:ZHO
+					hidden:c:ZHO = {
+						is_guaranteed_by = root
+					}
+				}
+            }
+			trigger_if = {
+                limit = {
+                    c:ZHO = {
+						has_land = no
+					}
+                }
+                owns_area = henan_area
+            }
+		}
+
+        on_completion = {
+            if = {
+				limit = {
+					c:ZHO = {
+						has_land = yes
+					}
+				}
+				trigger_event = me_lu.14
+				show_as_tooltip = {
+					root = {
+						make_subject = {
+							target = ZHO
+							type = feudatory
+						}
+					}
+					current_ruler = {
+						add_trait = zhou_bloodline
+					}
+				}
+			}
+			else = {
+				trigger_event = me_lu.1400
+				show_as_tooltip = {
+					add_political_influence = 100
+					add_legitimacy = 20
+					current_ruler = {
+						add_trait = zhou_bloodline
+					}
+				}
+			}
+        }
+    }
+
+    lu_missions_task_15 = { #Spring and Autumn Annals
+        icon = "task_calm"
+		requires = { lu_missions_task_8 }
+		duration = 365
+
+        allow = {
+			treasury >= 200
+			political_influence >= 25
+		}
+
+		on_start = {
+			trigger_event = me_lu.1500
+			show_as_tooltip = {
+				add_treasury = -200
+				add_political_influence = -25
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_lu.15
+            show_as_tooltip = {
+				create_country_treasure = {
+					key = "lu_spring_autumn_annals"
+					icon = "chinascroll3"
+					modifier = {
+						local_research_points_modifier = 0.25
+						local_nobles_desired_pop_ratio = 0.1
+					}
+				}
+				add_stability = 10
+            }
+        }
+    }
+
+    lu_missions_task_16 = { #Shaohao's Ruins
+        icon = "task_religion"
+		requires = { lu_missions_task_13 lu_missions_task_14 lu_missions_task_15 }
+		final = yes
+
+        allow = {
+			p:8533 = {
+				owner = root
+				num_of_used_building_slots >= 10
+				total_population >= 40
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_lu.16
+            show_as_tooltip = {
+				add_legitimacy = 20
+				p:8533 = {
+					set_city_status = city_metropolis
+					add_permanent_province_modifier = {
+						name = shahoa_ruins_mod
+					}
+					add_special_pop = {
+						text = "add_3_priest_tt"
+						type = priest
+						count = 3
+					}
+				}
+				add_splendor = {
+					amount = "100"
+				}
+            }
+        }
+    }
+}

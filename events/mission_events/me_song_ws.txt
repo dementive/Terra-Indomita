@@ -1,0 +1,677 @@
+﻿namespace = me_song_ws
+
+me_song_ws.1 = {
+    type = country_event
+
+    title = me_song_ws_1_title
+    desc = me_song_ws_1_desc
+    picture = Wang_Hui_12_event
+	left_portrait = root.current_ruler
+	right_portrait = c:LUU.current_ruler
+
+    option = {
+        name = "me_song_ws_1.a"
+		c:LUU = {
+			every_owned_province = {
+				add_claim = root
+			}
+		}
+    }
+}
+
+me_song_ws.2 = {
+    type = country_event
+
+    title = me_song_ws_2_title
+    desc = me_song_ws_2_desc
+    picture = japan_japanese_iron_event
+	left_portrait = root.current_ruler
+	right_portrait = c:CHU.current_ruler
+
+    option = {
+        name = "me_song_ws_2.a"
+		add_1_free_province_investments = yes
+    }
+}
+
+me_song_ws.3 = {
+    type = country_event
+
+    title = me_song_ws_3_title
+    desc = me_song_ws_3_desc
+    picture = dai_jin_returning_late_from_a_spring_outing_2_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:song_heir
+	
+	immediate = {
+		random_character = {
+			limit = {
+				is_alive = yes
+				is_primary_heir = yes
+			}
+			save_scope_as = song_heir
+		}
+	}
+
+    option = {
+        name = "me_song_ws_3.a"
+		add_country_modifier = {
+			name = song_secured_succ
+			duration = 10950
+		}
+    }
+}
+
+me_song_ws.4 = {
+    type = country_event
+
+    title = me_song_ws_4_title
+    desc = me_song_ws_4_desc
+    picture = dai_jin_returning_late_from_a_spring_outing_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_song_ws_4.a"
+		add_country_modifier = {
+			name = court_of_song
+			duration = 7300
+		}
+    }
+}
+
+me_song_ws.400 = {
+    type = country_event
+
+    title = me_song_ws_400_title
+    desc = me_song_ws_400_desc
+    picture = war_chest
+	left_portrait = root.current_ruler
+
+	immediate = {
+		trigger_event = {
+			id = me_song_ws.401
+			days = 90
+		}
+	}
+
+    option = {
+        name = "me_song_ws_400.a"
+		add_treasury = -200
+    }
+}
+
+me_song_ws.401 = {
+    type = country_event
+
+    title = me_song_ws_401_title
+    desc = me_song_ws_401_desc
+    picture = Wang_Hui_5_event
+	left_portrait = root.current_ruler
+
+	immediate = {
+		trigger_event = {
+			id = me_song_ws.402
+			days = 20
+		}
+	}
+
+    option = {
+        name = "me_song_ws_401.a"
+
+    }
+}
+
+me_song_ws.402 = { #war vs peace
+    type = country_event
+
+    title = me_song_ws_402_title
+    desc = me_song_ws_402_desc
+    picture = bakery
+	left_portrait = root.current_ruler
+	right_portrait = scope:peace_minister
+	right_portrait = scope:war_minister
+
+	immediate = {
+		trigger_event = {
+			id = me_song_ws.403
+			days = 20
+		}
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_foreign_minister
+					has_office = office_praetor
+					has_office = office_arbitrator
+				}
+			}
+			save_scope_as = peace_minister
+		}
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_master_of_the_guard
+					has_office = office_tribune_of_the_soldiers
+					has_office = office_warchief
+				}
+			}
+			save_scope_as = war_minister
+		}
+	}
+
+    option = {
+        name = "me_song_ws_402.a"
+		scope:peace_minister = {
+			add_loyalty = loyalty_trusted_servant
+			add_charisma = 2
+		}
+		current_ruler = {
+			add_charisma = 1
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+	option = {
+        name = "me_song_ws_402.b"
+		scope:war_minister = {
+			add_loyalty = loyalty_trusted_servant
+			add_martial = 2
+		}
+		current_ruler = {
+			add_martial = 1
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+me_song_ws.403 = { #divine vs world
+    type = country_event
+
+    title = me_song_ws_403_title
+    desc = me_song_ws_403_desc
+    picture = chinese_favorable_conditions
+	left_portrait = root.current_ruler
+	right_portrait = scope:divine_minister
+	right_portrait = scope:interior_minister
+
+	immediate = {
+		trigger_event = {
+			id = me_song_ws.404
+			days = 20
+		}
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_high_priest_monarchy
+					has_office = office_high_priest
+					has_office = office_pontifex
+				}
+			}
+			save_scope_as = divine_minister
+		}
+		random_character = {
+			limit = {
+				OR = {
+					has_office = office_steward
+					has_office = office_magistrate
+					has_office = office_plebeian_aedile
+				}
+			}
+			save_scope_as = interior_minister
+		}
+	}
+
+    option = {
+        name = "me_song_ws_403.a"
+		scope:divine_minister = {
+			add_loyalty = loyalty_trusted_servant
+			add_zeal = 2
+		}
+		current_ruler = {
+			add_zeal = 1
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+	option = {
+        name = "me_song_ws_403.b"
+		scope:interior_minister = {
+			add_loyalty = loyalty_trusted_servant
+			add_finesse = 2
+		}
+		current_ruler = {
+			add_finesse = 1
+			add_focus_experience = {
+				text = "add_25_focus_xp"
+				amount = 25
+			}
+		}
+    }
+}
+
+me_song_ws.404 = { #technology focus
+    type = country_event
+
+    title = me_song_ws_404_title
+    desc = me_song_ws_404_desc
+    picture = shen_zhou_poetic_feeling_bottom_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:religious_researcher
+	right_portrait = scope:oratory_researcher
+	right_portrait = scope:martial_researcher
+	left_portrait = scope:finesse_researcher
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_tech_office_of = religious_tech
+			}
+			save_scope_as = religious_researcher
+		}
+		random_character = {
+			limit = {
+				has_tech_office_of = oratory_tech
+			}
+			save_scope_as = oratory_researcher
+		}
+		random_character = {
+			limit = {
+				has_tech_office_of = military_tech
+			}
+			save_scope_as = martial_researcher
+		}
+		random_character = {
+			limit = {
+				has_tech_office_of = civic_tech
+			}
+			save_scope_as = finesse_researcher
+		}
+	}
+
+    option = {
+        name = "me_song_ws_404.a"
+		scope:oratory_researcher = {
+			add_loyalty = loyalty_trusted_servant
+			add_trait = obsessive
+		}
+		add_research = {
+			technology = oratory_tech
+			value = 25
+		}
+    }
+	option = {
+        name = "me_song_ws_404.b"
+		scope:religious_researcher = {
+			add_loyalty = loyalty_trusted_servant
+			add_trait = scholar
+		}
+		add_research = {
+			technology = religious_tech
+			value = 25
+		}
+    }
+	option = {
+        name = "me_song_ws_404.c"
+		add_research = {
+			technology = religious_tech
+			value = 5
+		}
+		add_research = {
+			technology = military_tech
+			value = 5
+		}
+		add_research = {
+			technology = oratory_tech
+			value = 5
+		}
+		add_research = {
+			technology = civic_tech
+			value = 5
+		}
+    }
+}
+
+me_song_ws.5 = {
+    type = country_event
+
+    title = me_song_ws_5_title
+    desc = me_song_ws_5_desc
+    picture = great_work_animals
+	left_portrait = root.current_ruler
+	right_portrait = char:520
+
+    option = {
+        name = "me_song_ws_5.a"
+		add_country_modifier = {
+			name = song_confucius_mod
+			duration = 3650
+		}
+    }
+}
+
+me_song_ws.6 = {
+    type = country_event
+
+    title = me_song_ws_6_title
+    desc = me_song_ws_6_desc
+    picture = chinese_path_temporary_response_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:ally_song.current_ruler
+
+	immediate = {
+		random_country = {
+			limit = {
+				has_land = yes
+				alliance_with = root
+			}
+			save_scope_as = ally_song
+		}
+	}
+
+    option = {
+        name = "me_song_ws_6.a"
+		custom_tooltip = song_missions_task_6_claims
+    }
+}
+
+me_song_ws.7 = {
+    type = country_event
+
+    title = me_song_ws_7_title
+    desc = me_song_ws_7_desc
+    picture = tang_yin_thatched_cottage_in_western_mountains_2_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_song_ws_7.a"
+		remove_country_modifier = song_king_zhou_mod
+    }
+}
+
+me_song_ws.8 = {
+    type = country_event
+
+    title = me_song_ws_8_title
+    desc = me_song_ws_8_desc
+    picture = chinese_path_retreat_to_advance_event
+	left_portrait = root.current_ruler
+	right_portrait = c:WEI.current_ruler
+
+    option = {
+        name = "me_song_ws_8.a"
+		add_military_experience = 10
+		current_ruler = {
+			add_popularity = 20
+		}
+    }
+}
+
+me_song_ws.9 = {
+    type = country_event
+
+    title = me_song_ws_9_title
+    desc = me_song_ws_9_desc
+    picture = china_art_4_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_song_ws_9.a"
+		current_ruler = {
+			add_popularity = 10
+		}
+		add_legitimacy = 10
+    }
+}
+
+me_song_ws.10 = {
+    type = country_event
+
+    title = me_song_ws_10_title
+    desc = me_song_ws_10_desc
+    picture = chinese_path_junxian_system_event
+	left_portrait = root.current_ruler
+	right_portrait = c:QII.current_ruler
+
+	immediate = {
+		add_stability = 10
+		add_military_experience = 10
+	}
+
+    option = {
+        name = "me_song_ws_10.a"
+		custom_tooltip = me_song_ws_10_han_claims
+		hidden_effect = {
+			c:HAN = {
+				every_owned_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+	option = {
+        name = "me_song_ws_10.b"
+		custom_tooltip = me_song_ws_10_qii_claims
+		hidden_effect = {
+			c:QII = {
+				every_owned_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+	option = {
+        name = "me_song_ws_10.c"
+		custom_tooltip = me_song_ws_10_wei_claims
+		hidden_effect = {
+			c:WEI = {
+				every_owned_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+	option = {
+        name = "me_song_ws_10.d"
+		custom_tooltip = me_song_ws_10_chu_claims
+		hidden_effect = {
+			c:CHU = {
+				every_owned_province = {
+					add_claim = root
+				}
+			}
+		}
+    }
+}
+
+me_song_ws.11 = {
+    type = country_event
+
+    title = me_song_ws_11_title
+    desc = me_song_ws_11_desc
+    picture = chinese_emperor
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_song_ws_11.a"
+		add_country_modifier = {
+			name = song_final_mod
+			duration = -1
+		}
+		current_ruler = {
+			add_popularity = 25
+			add_focus_perk = {
+				text = "add_2_char_perk"
+				amount = 2
+			}
+			add_trait = ambitious
+			add_trait = song_bloodline
+		}
+    }
+}
+
+me_song_ws.12 = {
+    type = country_event
+
+    title = me_song_ws_12_title
+    desc = me_song_ws_12_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+	right_portrait = char:524
+
+    option = {
+        name = "me_song_ws_12.a"
+		add_country_modifier = {
+			name = song_mozi_mod
+			duration = -1
+		}
+    }
+}
+
+me_song_ws.13 = {
+    type = country_event
+
+    title = me_song_ws_13_title
+    desc = me_song_ws_13_desc
+    picture = Wang_Hui_8_event
+	left_portrait = root.current_ruler
+	right_portrait = char:659
+
+    option = {
+        name = "me_song_ws_13.a"
+		add_innovation = 1
+    }
+}
+
+me_song_ws.14 = {
+    type = country_event
+
+    title = me_song_ws_14_title
+    desc = me_song_ws_14_desc
+    picture = great_work_architect
+	left_portrait = root.current_ruler
+	right_portrait = char:659
+
+    option = {
+        name = "me_song_ws_14.a"
+		add_country_modifier = {
+			name = song_zhuangzi_mod
+			duration = 3650
+		}
+		create_country_treasure = {
+			key = "song_zhuangzi"
+			icon = "chinaart1"
+			modifier = {
+				local_nobles_happyness = 0.1
+				local_citizen_happyness = 0.1
+			}
+		}
+    }
+}
+
+me_song_ws.15 = {
+    type = country_event
+
+    title = me_song_ws_15_title
+    desc = me_song_ws_15_desc
+    picture = slaves_working
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_song_ws_15.a"
+		add_manpower = 10
+		capital_scope = {
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+		}
+    }
+}
+
+me_song_ws.16 = {
+    type = country_event
+
+    title = me_song_ws_16_title
+    desc = me_song_ws_16_desc
+    picture = interesting_histories_generic_market
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_song_ws_16.a"
+		add_2_free_province_investments = yes
+		capital_scope = {
+			add_special_pop = {
+				text = "add_1_merchant_tt"
+				type = merchant
+				count = 1
+			}
+		}
+    }
+}
+
+me_song_ws.17 = {
+    type = country_event
+
+    title = me_song_ws_17_title
+    desc = me_song_ws_17_desc
+    picture = interesting_histories_fish_market
+	left_portrait = root.current_ruler
+	right_portrait = scope:master_trader_song
+	
+	immediate = {
+		create_character = {
+			culture = root.culture
+			religion = root.religion
+			age = 27
+			no_stats = yes
+			hidden_effect = {
+				bad_martial_effect = yes
+				average_charisma_effect = yes
+				amazing_finesse_effect = yes
+				bad_zeal_effect = yes
+				add_trait = master_of_trade_trait
+			}
+			save_scope_as = master_trader_song
+		}		
+	}
+
+    option = {
+        name = "me_song_ws_17.a"
+		add_country_modifier = {
+			name = trade_policy_song_1
+			duration = 10950
+		}
+    }
+	option = {
+        name = "me_song_ws_17.b"
+		add_country_modifier = {
+			name = trade_policy_song_2
+			duration = 10950
+		}
+    }
+}
+
+me_song_ws.99 = {
+    type = country_event
+
+    title = me_song_ws_99_title
+    desc = me_song_ws_99_desc
+    picture = Wang_Hui_6_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_song_ws_99.a"
+		add_country_modifier = {
+			name = song_king_zhou_mod
+			duration = -1
+		}
+		add_legitimacy = -20
+    }
+}

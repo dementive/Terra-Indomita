@@ -1,0 +1,811 @@
+﻿namespace = me_zhao
+
+me_zhao.1 = {
+    type = country_event
+
+    title = me_zhao_1_title
+    desc = me_zhao_1_desc
+    picture = steppe_raiders_path_1_event
+	left_portrait = root.current_ruler
+	right_portrait = char:630
+
+    option = {
+        name = "me_zhao_1.a"
+        add_political_influence = -25
+		add_country_modifier = {
+			name = hufu_riding_zhao
+			duration = -1
+		}
+		char:630 = {
+			remove_trait = abrasive
+			remove_trait = two_faced
+			remove_trait = inferiority_complex
+			force_add_trait = good_natured
+		}
+    }
+}
+
+me_zhao.2 = {
+    type = country_event
+
+    title = me_zhao_2_title
+    desc = me_zhao_2_desc
+    picture = chinese_path_recruiting_talented_people_event
+	left_portrait = root.current_ruler
+	right_portrait = char:629
+
+    option = {
+        name = "me_zhao_2.a"
+        add_political_influence = 20
+		current_ruler.family = {
+			add_prestige = -200
+		}
+    }
+}
+
+me_zhao.3 = {
+    type = country_event
+
+    title = me_zhao_3_title
+    desc = me_zhao_3_desc
+    picture = steppe_raiders_path_2a_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhao_3.a"
+        add_manpower = 10
+		add_military_experience = 5
+		p:8681 = {
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+		}
+    }
+}
+
+me_zhao.4 = {
+    type = country_event
+
+    title = me_zhao_4_title
+    desc = me_zhao_4_desc
+    picture = steppe_raiders_path_3_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhao_4.a"
+        add_stability = 10
+		p:9512 = {
+			set_conquered_by = root
+		}
+		p:9515 = {
+			set_conquered_by = root
+		}
+		every_owned_province = {
+			limit = {
+				is_in_area = wuyuan_area
+			}
+			add_civilization_value = 5
+		}
+    }
+}
+
+me_zhao.5 = {
+    type = country_event
+
+    title = me_zhao_5_title
+    desc = me_zhao_5_desc
+    picture = Wang_Hui_12_event
+	left_portrait = root.current_ruler
+	right_portrait = c:LOF.current_ruler
+	right_portrait = c:LNH.current_ruler
+	right_portrait = c:HEZ.current_ruler
+
+    option = {
+        name = "me_zhao_5.a"
+		hidden_effect = {
+			root = {
+				release_subject = c:LOF
+				release_subject = c:LNH
+				release_subject = c:HEZ
+			}
+		}
+		root = {
+			make_subject = {
+		    	target = LOF
+		    	type = feudatory
+		    }
+		}
+		root = {
+			make_subject = {
+		    	target = LNH
+		    	type = feudatory
+		    }
+		}
+		root = {
+			make_subject = {
+		    	target = HEZ
+		    	type = feudatory
+		    }
+		}
+    }
+	
+	option = {
+        name = "me_zhao_5.b"
+        add_country_modifier = {
+			name = zhao_levy_mission_mod
+			duration = 7300
+		}
+    }
+}
+
+me_zhao.6 = {
+    type = country_event
+
+    title = me_zhao_6_title
+    desc = me_zhao_6_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhao_6.a"
+        add_country_modifier = {
+			name = zhao_idioms
+			duration = -1
+		}
+    }
+}
+
+me_zhao.7 = {
+    type = country_event
+
+    title = me_zhao_7_title
+    desc = me_zhao_7_desc
+    picture = china_art_19_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhao_7.a"
+        add_2_free_province_investments = yes
+		p:8636 = {
+			create_state_pop = nobles
+			create_state_pop = citizen
+			create_state_pop = citizen
+			create_state_pop = freemen
+			create_state_pop = freemen
+			create_state_pop = freemen
+		}
+    }
+}
+
+me_zhao.8 = {
+    type = country_event
+
+    title = me_zhao_8_title
+    desc = me_zhao_8_desc
+    picture = chinese_path_retreat_to_advance_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhao_8.a"
+        custom_tooltip = zhao_missions_task_8_claims_tt
+    }
+}
+
+me_zhao.9 = {
+    type = country_event
+
+    title = me_zhao_9_title
+    desc = me_zhao_9_desc
+    picture = greek_antigonid_path_3_event
+	left_portrait = char:622
+	left_portrait = char:624
+	right_portrait = char:626
+	right_portrait = char:630
+
+    option = {
+        name = "me_zhao_9.a"
+        set_as_ruler = char:626
+		hidden_effect = {
+			trigger_event = {
+				id = me_zhao.900
+				days = 15
+			}
+		}
+    }
+}
+
+me_zhao.900 = {
+    type = country_event
+
+    title = me_zhao_900_title
+    desc = me_zhao_900_desc
+    picture = assassination
+	left_portrait = char:622
+	left_portrait = char:624
+	right_portrait = char:626
+	right_portrait = char:630
+
+    option = {
+        name = "me_zhao_900.a"
+        char:630 = {
+	    	death = {
+				killer = char:624
+	    		death_reason = death_murder
+	    	}
+	    }
+		hidden_effect = {
+			trigger_event = {
+				id = me_zhao.901
+				days = 15
+			}
+		}
+    }
+}
+
+me_zhao.901 = {
+    type = country_event
+
+    title = me_zhao_901_title
+    desc = me_zhao_901_desc
+    picture = mauryan_coastal_path_4_event
+	left_portrait = char:626
+	right_portrait = char:624
+	right_portrait = char:622
+
+    option = {
+        name = "me_zhao_901.a"
+        char:624 = {
+	    	death = {
+	    		death_reason = death_execution
+	    	}
+	    }
+		imprison = {
+			target = char:622
+		}
+		hidden_effect = {
+			char:622 = {
+				add_health = 20
+			}
+			trigger_event = {
+				id = me_zhao.902
+				days = 100
+			}
+		}
+    }
+}
+
+me_zhao.902 = {
+    type = country_event
+
+    title = me_zhao_902_title
+    desc = me_zhao_902_desc
+    picture = china_art_8_event
+	left_portrait = char:626
+	right_portrait = char:622
+
+    option = {
+        name = "me_zhao_902.a"
+        char:622 = {
+			add_nickname = Wuling
+	    	death = {
+	    		death_reason = death_old_ailment
+	    	}
+	    }
+		add_tyranny = 5
+    }
+}
+
+
+me_zhao.10 = {
+    type = country_event
+
+    title = me_zhao_10_title
+    desc = me_zhao_10_desc
+    picture = china_art_10_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:gongsun_char
+	
+	immediate = {
+		create_character = {
+			first_name = "Long"
+			family_name = "Gongsun"
+			culture = root.culture
+			religion = root.religion
+			age = 35
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				bad_martial_effect = yes
+				amazing_finesse_effect = yes
+				amazing_charisma_effect = yes
+				amazing_zeal_effect = yes
+				add_trait = wise
+				add_trait = poet
+				add_trait = zealous
+				add_trait = intelligent
+				add_trait = scholar
+				add_zeal = 2
+			}
+			save_scope_as = gongsun_char
+        }
+	}
+
+    option = {
+        name = "me_zhao_10.a"
+        add_treasury = -50
+		add_political_influence = -20
+		add_innovation = 1
+    }
+}
+
+me_zhao.11 = {
+    type = country_event
+
+    title = me_zhao_11_title
+    desc = me_zhao_11_desc
+    picture = caravan_guards_path_2_event
+	left_portrait = root.current_ruler
+	right_portrait = c:WEI.current_ruler
+
+    option = {
+        name = "me_zhao_11.a"
+        custom_tooltip = zhao_missions_task_11_claims_tt
+    }
+}
+
+me_zhao.12 = {
+    type = country_event
+
+    title = me_zhao_12_title
+    desc = me_zhao_12_desc
+    picture = war_council
+	left_portrait = root.current_ruler
+	left_portrait = scope:xiangru_char
+	right_portrait = c:QIN.current_ruler
+	
+	immediate = {
+		create_character = {
+			first_name = "Xiangru"
+			family_name = "Lin"
+			culture = root.culture
+			religion = root.religion
+			age = 33
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				bad_martial_effect = yes
+				good_finesse_effect = yes
+				amazing_charisma_effect = yes
+				good_zeal_effect = yes
+				add_trait = silver_tongued
+				add_trait = intimidating
+				add_trait = charming
+				add_charisma = 2
+			}
+			save_scope_as = xiangru_char
+        }
+	}
+
+    option = {
+        name = "me_zhao_12.a"
+		add_country_modifier = {
+			name = zhao_heshibi
+			duration = 7300
+		}
+		hidden_effect = {
+			c:QIN = {
+				trigger_event = me_zhao.1200
+			}
+		}
+    }
+}
+
+me_zhao.1200 = {
+    type = country_event
+
+    title = me_zhao_1200_title
+    desc = me_zhao_1200_desc
+    picture = war_council
+	left_portrait = root.current_ruler
+	right_portrait = c:ZHA.current_ruler
+
+    option = {
+        name = "me_zhao_1200.a"
+		add_aggressive_expansion = 5
+    }
+}
+
+me_zhao.13 = {
+    type = country_event
+
+    title = me_zhao_13_title
+    desc = me_zhao_13_desc
+    picture = quarry
+	left_portrait = root.current_ruler
+	right_portrait = char:626
+
+    option = {
+        name = "me_zhao_13.a"
+		add_legitimacy = 20
+		add_splendor = {
+			amount = 100
+		}
+    }
+}
+
+me_zhao.14 = {
+    type = country_event
+
+    title = me_zhao_14_title
+    desc = me_zhao_14_desc
+    picture = china_art_19_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:zhao_she_character
+	right_portrait = scope:zhao_kuo_character
+	
+	immediate = {
+		create_character = {
+			first_name = "She"
+			family_name = "Zhao"
+			culture = root.culture
+			religion = root.religion
+			age = 40
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				good_martial_effect = yes
+				amazing_finesse_effect = yes
+				amazing_charisma_effect = yes
+				good_zeal_effect = yes
+				add_martial = 2
+				add_trait = silver_tongued
+			}
+			save_scope_as = zhao_she_character
+        }
+		create_character = {
+			first_name = "Kuo"
+			family_name = "Zhao"
+			culture = qin
+			religion = chinese_religions
+			age = 16
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				bad_martial_effect = yes
+				bad_finesse_effect = yes
+				good_charisma_effect = yes
+				bad_zeal_effect = yes
+				add_trait = tactically_inflexible
+				add_trait = daring
+			}
+			father = scope:zhao_she_character
+			save_scope_as = zhao_kuo_character
+		}
+	}
+
+    option = {
+        name = "me_zhao_14.a"
+        add_military_experience = -5
+		add_political_influence = -25
+    }
+}
+
+me_zhao.15 = {
+    type = country_event
+
+    title = me_zhao_15_title
+    desc = me_zhao_15_desc
+    picture = Wang_Hui_24_event
+	left_portrait = root.current_ruler
+	right_portrait = c:HAN.current_ruler
+
+    option = {
+        name = "me_zhao_15.a"
+        if = {
+			limit = {
+				c:HAN = {
+					is_subject_of = root
+				}
+			}
+			custom_tooltip = zhao_missions_task_15_annex_han
+			hidden_effect = {
+				c:HAN = {
+					every_owned_province = {
+						set_conquered_by = root
+					}
+				}
+			}
+		}
+		else = {
+			p:8384 = {
+				ordered_pops_in_province = {
+					limit = {
+						NOT = {
+							pop_culture = root.culture
+						}
+						NOT = {  
+							pop_type = slaves
+						}
+					}
+					order_by = pop_hapiness
+					max = 3
+					set_pop_culture = root.culture
+				}
+			}
+		}
+    }
+}
+
+me_zhao.16 = {
+    type = country_event
+
+    title = me_zhao_16_title
+    desc = me_zhao_16_desc
+    picture = tibetan_guerrilla_path_1_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:li_mu_character
+	
+	immediate = {
+		create_character = {
+			first_name = "Mu"
+			family_name = "Li"
+			culture = root.culture
+			religion = root.religion
+			age = 30
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				amazing_martial_effect = yes
+				amazing_finesse_effect = yes
+				good_charisma_effect = yes
+				average_zeal_effect = yes
+				add_trait = steadfast
+				add_trait = stubborn
+				add_trait = original_thinker
+				add_martial = 4
+				positive_martial_trait_effect = yes
+			}
+			save_scope_as = li_mu_character
+        }
+	}
+
+    option = {
+        name = "me_zhao_16.a"
+        add_military_experience = -10
+		add_political_influence = -25
+    }
+}
+
+me_zhao.17 = {
+    type = country_event
+
+    title = me_zhao_17_title
+    desc = me_zhao_17_desc
+    picture = greek_antigonid_path_6_event
+	left_portrait = root.current_ruler
+	right_portrait = char:628
+
+    option = {
+        name = "me_zhao_17.a"
+		add_research = {
+			technology = military_tech
+			value = 25
+		}
+		p:8368 = {
+			add_province_modifier = {
+				name = lian_po_defensive
+				duration = 10950
+			}
+		}
+    }
+}
+
+me_zhao.18 = {
+    type = country_event
+
+    title = me_zhao_18_title
+    desc = me_zhao_18_desc
+    picture = steppe_raiders_path_2b_event
+	left_portrait = root.current_ruler
+	right_portrait = c:XNU.current_ruler
+
+    option = {
+        name = "me_zhao_18.a"
+        add_stability = 10
+		add_war_exhaustion = -5
+    }
+}
+
+me_zhao.19 = {
+    type = country_event
+
+    title = me_zhao_19_title
+    desc = me_zhao_19_desc
+    picture = greek_states_path_2_event
+	left_portrait = root.current_ruler
+	right_portrait = c:QIN.current_ruler
+
+    option = {
+        name = "me_zhao_19.a"
+        custom_tooltip = zhao_missions_task_19_claims_tt
+    }
+}
+
+me_zhao.20 = {
+    type = country_event
+
+    title = me_zhao_20_title
+    desc = me_zhao_20_desc
+    picture = mauryan_coastal_path_1_event
+	left_portrait = root.current_ruler
+	right_portrait = c:YAN.current_ruler
+
+    option = {
+        name = "me_zhao_20.a"
+        random_owned_province = {
+			limit = {
+				num_of_port_building > 0
+			}
+			owner = {
+				create_unit = {
+					navy = yes
+					location = prev.prev
+					hidden_effect = {
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+					}
+				}
+			}
+		}
+    }
+}
+
+me_zhao.21 = {
+    type = country_event
+
+    title = me_zhao_21_title
+    desc = me_zhao_21_desc
+    picture = Wang_Hui_23_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhao_21.a"
+        add_legitimacy = 20
+		add_2_free_province_investments = yes
+		p:8379 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:8446 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:8956 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+    }
+}
+
+me_zhao.22 = {
+    type = country_event
+
+    title = me_zhao_22_title
+    desc = me_zhao_22_desc
+    picture = edge_of_world_path_1_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhao_22.a"
+        add_military_experience = 20
+    }
+}
+
+me_zhao.23 = {
+    type = country_event
+
+    title = me_zhao_23_title
+    desc = me_zhao_23_desc
+    picture = china_art_6_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_zhao_23.a"
+        custom_tooltip = zhao_missions_task_23_enable_decision_academy
+    }
+}
+
+me_zhao.24 = {
+    type = country_event
+
+    title = me_zhao_24_title
+    desc = me_zhao_24_desc
+    picture = chinese_path_good_management_event
+	left_portrait = root.current_ruler
+	left_portrait = char:622
+	right_portrait = char:546
+	right_portrait = char:547
+
+    option = {
+        name = "me_zhao_24.a"
+        add_country_modifier = {
+			name = zhao_final_mod
+			duration = -1
+		}
+		add_political_influence = 100
+		current_ruler = {
+			add_popularity = 25
+			add_focus_perk = {
+				text = "add_2_char_perk"
+				amount = 2
+			}
+			add_trait = ambitious
+			add_trait = zhao_bloodline
+		}
+    }
+}
+
+me_zhao.25 = {
+    type = country_event
+
+    title = me_zhao_25_title
+    desc = me_zhao_25_desc
+    picture = china_art_3_event
+	left_portrait = root.current_ruler
+	left_portrait = char:626
+	right_portrait = char:629
+	right_portrait = char:630
+
+    option = {
+        name = "me_zhao_25.a"
+		current_ruler = {
+			add_focus_perk = {
+				text = "add_1_char_perk"
+				amount = 1
+			}
+		}
+    }
+}

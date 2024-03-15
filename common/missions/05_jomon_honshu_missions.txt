@@ -1,0 +1,858 @@
+﻿jomon_honshu_missions = {
+    header = "mission_image_japan"
+    icon = "seleukid_1"
+
+    repeatable = no
+    chance = 1000
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = AIU
+    }
+
+    abort = {}
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+    on_completion = {}
+    jomon_honshu_missions_task_1 = { # The Duality of Jo-Man
+        icon = "task_durga"
+        allow = {}
+        on_completion = {
+            trigger_event = me_honshu.1
+            show_as_tooltip = {
+
+            }
+        }
+    }
+    jomon_honshu_missions_task_2 = { # Honor the Spirits
+        icon = "task_religion"
+        requires = { jomon_honshu_missions_task_1 }
+        allow = {
+            has_country_modifier = stability_investment
+            custom_tooltip = {
+                any_owned_province = {
+                    count >= 7
+                    is_holy_site = yes
+                }
+                text = "honor_spirits_tt"
+            }
+            capital_scope = {
+                OR = {
+                    has_building = shrine_building
+                    has_building = temple_building
+                }
+            }
+            has_any_omen = yes
+        }
+        on_completion = {
+            trigger_event = me_honshu.2
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = spirits_honored
+                    duration = -1
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_priest_tt"
+                        type = priest
+                        count = 1
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_3 = { # Pots and Pans
+        icon = "task_economical"
+        requires = { jomon_honshu_missions_task_1 }
+        allow = {
+            capital_scope = {
+                is_importing_trade_good = earthware
+            }
+            any_owned_province = {
+                num_goods_produced >= 3
+                trade_goods = earthware
+            }
+        }
+        on_completion = {
+            trigger_event = me_honshu.3
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = expert_pottery
+                    duration = -1
+                }
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_artist_tt"
+                        type = artist
+                        count = 1
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_4 = { # Bone of My Sword
+        icon = "task_battle"
+        requires = { jomon_honshu_missions_task_1 }
+        allow = {
+            military_experience >= 20
+            capital_scope = {
+                has_building = military_building
+            }
+            hidden:capital_scope.state = {
+                state_improvement_military_trigger = yes
+            }
+        }
+        on_completion = {
+            trigger_event = me_honshu.4
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = bone_of_sword
+                    duration = -1
+                }
+                current_ruler = {
+                    add_focus_perk = {
+                        text = "add_1_char_perk"
+                        amount = 1
+                    }
+                    add_martial = 2
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_5 = { # A Feast of Victory
+        icon = "task_zeus_cornucopia"
+        requires = { jomon_honshu_missions_task_1 }
+        allow = {
+            any_owned_province = {
+                has_food_trade_good_trigger = yes
+                num_goods_produced >= 3
+            }
+            capital_scope = {
+                has_building = population_building
+            }
+            has_country_modifier = hold_games_modifier
+        }
+        on_completion = {
+            trigger_event = me_honshu.5
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = feasts_of_victory
+                    duration = -1
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_6 = { # Smooth Pottery
+        icon = "task_happiness"
+        requires = { jomon_honshu_missions_task_3 }
+        allow = {
+            any_country_culture = {
+                this.culture.culture_group = culture_group:japan
+                has_country_culture_modifier = patronizing_local_literature
+            }
+            custom_tooltip = yayoification_level_tt
+        }
+        bypass = { has_completed_mission_task = jomon_honshu_missions_task_7 }
+        on_bypass = { set_variable = smooth_bypass }
+        on_completion = {
+            trigger_event = me_honshu.6
+            show_as_tooltip = {
+                custom_tooltip = yayoification_add_1_tt
+                add_country_modifier = {
+                    name = smooth_pottery
+                    duration = -1
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_7 = { # Chord Pottery
+        icon = "task_happiness"
+        requires = { jomon_honshu_missions_task_3 }
+        allow = {
+            OR = {
+                p:9717 = {
+                    province_dominant_culture_group = jomon
+                    num_goods_produced >= 2
+                }
+                p:9321 = {
+                    province_dominant_culture_group = jomon
+                    num_goods_produced >= 2
+                }
+                p:9690 = {
+                    province_dominant_culture_group = jomon
+                    num_goods_produced >= 2
+                }
+            }
+            custom_tooltip = yayoification_level_tt
+        }
+        bypass = { has_completed_mission_task = jomon_honshu_missions_task_6 }
+        on_bypass = { set_variable = cord_bypass }
+        on_completion = {
+            trigger_event = me_honshu.7
+            show_as_tooltip = {
+                custom_tooltip = yayoification_sub_1_tt
+                add_country_modifier = {
+                    name = cord_pottery
+                    duration = -1
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_8 = { # Bronze Age
+        icon = "task_diplomatic"
+        requires = { jomon_honshu_missions_task_4 }
+        allow = {
+            any_owned_province = {
+                trade_goods = base_metals
+                has_building = slave_mine_building
+            }
+            any_owned_province = {
+                trade_goods = precious_metals
+                has_building = slave_mine_building
+            }
+            custom_tooltip = yayoification_level_tt
+        }
+        bypass = { has_completed_mission_task = jomon_honshu_missions_task_9 }
+        on_bypass = { set_variable = bronze_bypass }
+        on_completion = {
+            trigger_event = me_honshu.8
+            show_as_tooltip = {
+                custom_tooltip = yayoification_add_1_tt
+                add_innovation = 2
+                capital_scope = {
+                    add_special_pop = {
+                        text = "add_1_architect_tt"
+                        type = architect
+                        count = 1
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_9 = { # Neo-Neolithic
+        icon = "task_diplomatic"
+        requires = { jomon_honshu_missions_task_4 }
+        allow = {
+            capital_scope.state = {
+                trade_good_surplus = {
+                    target = stone
+                    value >= 2
+                }
+            }
+            capital_scope = {
+                is_importing_trade_good = iron
+            }
+            custom_tooltip = yayoification_level_tt
+        }
+        bypass = { has_completed_mission_task = jomon_honshu_missions_task_8 }
+        on_bypass = { set_variable = neolithic_bypass }
+        on_completion = {
+            trigger_event = me_honshu.9
+            show_as_tooltip = {
+                custom_tooltip = yayoification_sub_1_tt
+                add_4_free_province_investments = yes
+                current_ruler = {
+                    add_focus_perk = {
+                        text = "add_1_char_perk"
+                        amount = 1
+                    }
+                    add_zeal = 2
+                    add_charisma = 2
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_10 = { # The Price of Rice
+        icon = "task_economical"
+        requires = { jomon_honshu_missions_task_5 }
+        allow = {
+            calc_true_if = {
+                amount >= 7
+                any_owned_province = {
+                    has_building = basic_settlement_infratructure_building
+                    trade_goods = rice
+                }
+            }
+            custom_tooltip = yayoification_level_tt
+        }
+        bypass = { has_completed_mission_task = jomon_honshu_missions_task_11 }
+        on_bypass = { set_variable = rice_bypass }
+        on_completion = {
+            trigger_event = me_honshu.10
+            show_as_tooltip = {
+                custom_tooltip = yayoification_add_1_tt
+                random_owned_province = {
+                    limit = {
+                        trade_goods = rice
+                    }
+                    add_province_modifier = {
+                        name = price_of_rice
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_11 = { # Fruits of Our Labor
+        icon = "task_economical"
+        requires = { jomon_honshu_missions_task_5 }
+        allow = {
+            capital_scope.state = {
+                trade_good_surplus = {
+                    target = citrus
+                    value >= 3
+                }
+                trade_good_surplus = {
+                    target = vegetables
+                    value >= 3
+                }
+            }
+            any_owned_province = {
+                trade_goods = rice
+            }
+            custom_tooltip = yayoification_level_tt
+        }
+        bypass = { has_completed_mission_task = jomon_honshu_missions_task_10 }
+        on_bypass = { set_variable = fruit_bypass }
+        on_completion = {
+            trigger_event = me_honshu.11
+            show_as_tooltip = {
+                custom_tooltip = yayoification_sub_1_tt
+                random_owned_province = {
+                    limit = {
+                        trade_goods = rice
+                    }
+                    set_trade_goods = fruits
+                    add_province_modifier = {
+                        name = fruits_of_labor
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_12 = { # Bronze Magatamas
+        icon = "task_apollo"
+        requires = { jomon_honshu_missions_task_7 jomon_honshu_missions_task_8 }
+        allow = {}
+        bypass = {
+            OR = {
+                has_variable = cord_bypass
+                has_variable = bronze_bypass
+            }
+        }
+        on_completion = {
+            trigger_event = me_honshu.12
+            show_as_tooltip = {
+                create_country_treasure = {
+                    key = bronze_magatama
+                    icon = treasure_chest
+                    modifier = {
+                        local_pop_assimilation_speed_modifier = 0.05
+                        local_population_growth = 0.05
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_13 = { # No Pain, No Grain
+        icon = "task_atlas"
+        requires = { jomon_honshu_missions_task_9 jomon_honshu_missions_task_10 }
+        bypass = {
+            OR = {
+                has_variable = rice_bypass
+                has_variable = neolithic_bypass
+            }
+        }
+        on_completion = {
+            trigger_event = me_honshu.13
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = no_pain_no_grain
+                    duration = -1
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_14 = { # Bronze Fishing Hooks
+        icon = "task_zeus_cornucopia"
+        requires = { jomon_honshu_missions_task_8 jomon_honshu_missions_task_11 }
+        bypass = {
+            OR = {
+                has_variable = fruit_bypass
+                has_variable = bronze_bypass
+            }
+        }
+        allow = {}
+        on_completion = {
+            trigger_event = me_honshu.14
+            show_as_tooltip = {
+                random_owned_province = {
+                    limit = {
+                        trade_goods = fish
+                    }
+                    add_province_modifier = {
+                        name = bronze_hooks
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_15 = { # Red Fox Fantasy
+        icon = "task_religion"
+        requires = { jomon_honshu_missions_task_2 }
+        allow = {
+            has_deity_in_pantheon = deity:omen_inari
+        }
+        on_completion = {
+            trigger_event = me_honshu.15
+            show_as_tooltip = {
+                random_owned_province = {
+                    limit = {
+                        has_food_trade_good_trigger = no
+                    }
+                    set_province_deity = deity:omen_inari
+                    add_province_modifier = {
+                        name = jomon_city_mod
+                        duration = -1
+                    }
+                    set_city_status = city
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_16 = { # Hearths in our Hearts
+        icon = "task_religion"
+        requires = { jomon_honshu_missions_task_2 }
+        allow = {
+            has_deity_in_pantheon = deity:omen_fuchi
+        }
+        on_completion = {
+            trigger_event = me_honshu.16
+            show_as_tooltip = {
+                capital_scope = {
+                    add_province_modifier = {
+                        name = jomon_city_mod
+                        duration = -1
+                    }
+                    add_building_level = aqueduct_building
+                    add_building_level = foundry_building
+                    add_building_level = temple_building
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_17 = { # Inari Shrines
+        icon = "task_artemis"
+        requires = { jomon_honshu_missions_task_15 }
+        allow = {
+            treasury >= 100
+        }
+        on_completion = {
+            trigger_event = me_honshu.17
+            show_as_tooltip = {
+                set_variable = inari_kamuy_var
+                custom_tooltip = unlock_inari_kamuy
+                add_treasury = -100
+                add_political_influence = 35
+                add_stability = 10
+                random_owned_province = {
+                    limit = {
+                        has_city_status = yes
+                    }
+                    add_building_level = temple_building
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_18 = { # Flame Pots
+        icon = "task_economical"
+        requires = { jomon_honshu_missions_task_6 jomon_honshu_missions_task_7 jomon_honshu_missions_task_16 }
+        allow = {}
+        on_completion = {
+            trigger_event = me_honshu.18
+            show_as_tooltip = {
+                create_country_treasure = {
+                    key = flame_pot
+                    icon = chinesepottery1
+                    modifier = {
+                        archers_offensive = 0.10
+                        hostile_attrition = 0.05
+                        local_pop_assimilation_speed = 0.10
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_19 = { # Dotaku Otakus
+        icon = "task_heracles"
+        requires = { jomon_honshu_missions_task_6 jomon_honshu_missions_task_8 }
+        allow = {
+            custom_tooltip = yayoification_level_tt
+        }
+        bypass = {
+            OR = {
+                has_variable = smooth_bypass
+                has_variable = bronze_bypass
+            }
+        }
+        on_completion = {
+            custom_tooltip = yayoification_add_1_tt
+            trigger_event = me_honshu.19
+            show_as_tooltip = {
+                create_country_treasure = {
+                    key = dotaku_otaku
+                    icon = dotaku1
+                    modifier = {
+                        local_pop_assimilation_speed_modifier = 0.10
+                        local_defensive = 0.10
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_20 = { # Dozens of Dogu
+        icon = "task_expansion"
+        requires = { jomon_honshu_missions_task_7 jomon_honshu_missions_task_9 }
+        allow = {
+            custom_tooltip = yayoification_level_tt
+        }
+        bypass = {
+            OR = {
+                has_variable = cord_bypass
+                has_variable = neolithic_bypass
+            }
+        }
+        on_completion = {
+            custom_tooltip = yayoification_sub_1_tt
+            trigger_event = me_honshu.20
+            show_as_tooltip = {
+                create_country_treasure = {
+                    key = dogu_jomon
+                    icon = treasure_chest
+                    modifier = {
+                        local_happiness_for_same_culture_modifier = 0.05
+                        local_pop_conversion_speed_modifier = 0.10
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_21 = { # A Tale of Four Islands
+        icon = "task_shiva"
+        duration = 180
+        highlight = {
+            scope:province = {
+                is_in_region = wa_region
+            }
+        }
+        allow = {
+            political_influence >= 50
+            treasury >= 100
+        }
+        on_completion = {
+            trigger_event = me_honshu.21
+            show_as_tooltip = {
+                add_political_influence = -50
+                add_treasury = -100
+                custom_tooltip = add_claims_wa_tt
+            }
+        }
+    }
+    jomon_honshu_missions_task_22 = { # Beauty of Hokkaido
+        icon = "task_economical"
+        requires = { jomon_honshu_missions_task_21 }
+        highlight = {
+            scope:province = {
+                is_in_area = hokkaido_area
+            }
+        }
+        allow = {
+            area:hokkaido_area = {
+                any_area_province = {
+                    count >= 3
+                    total_population >= 12
+                }
+            }
+        }
+        on_completion = {
+            trigger_event = me_honshu.22
+            show_as_tooltip = {
+                area:hokkaido_area = {
+                    every_area_province = {
+                        create_pop = nobles
+                    }
+                }
+                add_2_free_province_investments = yes
+            }
+        }
+    }
+    jomon_honshu_missions_task_23 = { # Harmony in Honshu
+        icon = "task_happiness"
+        requires = { jomon_honshu_missions_task_21 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = mino_area
+                    is_in_area = yamato_area
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = mino_area
+            owns_or_subject_owns_area = yamato_area
+        }
+        on_completion = {
+            trigger_event = me_honshu.23
+            show_as_tooltip = {
+                add_treasury = 300
+                add_political_influence = 100
+                add_innovation = 1
+                add_splendor = { amount = "300" }
+            }
+        }
+    }
+    jomon_honshu_missions_task_24 = { # Capital of Harmony
+        icon = "task_religion"
+        requires = { jomon_honshu_missions_task_23 }
+        highlight = {
+            scope:province = {
+                province_id = 9328
+            }
+        }
+        allow = {
+            owns = 9328
+        }
+        on_completion = {
+            trigger_event = me_honshu.24
+            show_as_tooltip = {
+                custom_tooltip = upopoy_tt
+                p:9328 = {
+                    change_province_name = upopoy
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_25 = { # Kii to the West
+        icon = "task_conquest"
+        requires = { jomon_honshu_missions_task_23 }
+        highlight = {
+            scope:province = {
+                is_in_area = kii_area
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = kii_area
+        }
+        on_completion = {
+            trigger_event = me_honshu.25
+            show_as_tooltip = {
+                add_country_modifier = {
+                    name = kii_to_the_west
+                    duration = -1
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_26 = { # The Shikoku Shoreline
+        icon = "task_expansion"
+        requires = { jomon_honshu_missions_task_21 }
+        highlight = {
+            scope:province = {
+                is_in_area = iya_area
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = iya_area
+        }
+        on_completion = {
+            trigger_event = me_honshu.26
+            show_as_tooltip = {
+                p:9749 = {
+                    add_province_modifier = {
+                        name = wine_of_kumi
+                        duration = -1
+                    }
+                }
+                p:9316 = {
+                    add_province_modifier = {
+                        name = dye_of_sanu
+                        duration = -1
+                    }
+                }
+                add_country_modifier = {
+                    name = wine_and_dyne
+                    duration = -1
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_27 = { # If the Kyushu Fits
+        icon = "task_political"
+        requires = { jomon_honshu_missions_task_21 }
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = matsura_area
+                    province_id = 9689
+                    province_id = 9759
+                    province_id = 9690
+                    province_id = 9693
+                }
+            }
+        }
+        allow = {
+            owns_or_subject_owns_area = matsura_area
+            owns_or_subject_owns = 9689
+            owns_or_subject_owns = 9759
+            owns_or_subject_owns = 9690
+            owns_or_subject_owns = 9693
+        }
+        on_completion = {
+            trigger_event = me_honshu.27
+            show_as_tooltip = {
+                area:matsura_area = {
+                    random_area_province = {
+                        add_province_modifier = {
+                            name = trade_routes_to_korea
+                            duration = -1
+                        }
+                        create_pop = freemen
+                    }
+                }
+                area:kumaso_area = {
+                    random_area_province = {
+                        add_province_modifier = {
+                            name = trade_routes_to_china
+                            duration = -1
+                        }
+                        create_pop = freemen
+                    }
+                    random_area_province = {
+                        add_province_modifier = {
+                            name = trade_routes_to_formosa
+                            duration = -1
+                        }
+                        create_pop = freemen
+                    }
+                }
+            }
+        }
+    }
+    jomon_honshu_missions_task_28 = { # The Distant Duuchuu
+        icon = "task_political"
+        requires = { jomon_honshu_missions_task_27 }
+        highlight = {
+            scope:province = {
+                is_in_area = kumaso_area
+                NOR = {
+                    province_id = 9689
+                    province_id = 9759
+                    province_id = 9690
+                    province_id = 9693
+                }
+            }
+        }
+        allow = {
+            custom_tooltip = {
+                text = "duuchuu_trust_tt"
+                trigger_if = {
+                    limit = {
+                        any_country = {
+                            primary_culture = duuchuu
+                            has_land = yes
+                        }
+                    }
+                    any_country = {
+                        primary_culture = duuchuu
+                        opinion = {
+                            target = root 
+                            value >= 135               
+                        }
+                    }
+                }
+            }
+        }
+        bypass = {
+            owns_or_subject_owns_area = kumaso_area
+        }
+        on_completion = {
+            random_country = {
+                limit = {
+                    primary_culture = duuchuu
+                    has_land = yes
+                }
+                save_scope_as = liukiu_vassal_scope
+            }
+            trigger_event = me_honshu.28
+            show_as_tooltip = {
+                custom_tooltip = vassalize_duuchuu_tt
+            }
+        }
+    }
+    jomon_honshu_missions_task_29 = { # The Jeulmeun Revival
+        icon = "task_expansion"
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = mahan_area
+                    is_in_area = mahan_south_area
+                    is_in_area = byeonhan_area
+                    is_in_area = jinhan_area
+                }
+            }
+        }
+        requires = { jomon_honshu_missions_task_22 jomon_honshu_missions_task_23 jomon_honshu_missions_task_26 jomon_honshu_missions_task_27 }
+        allow = {
+            owns_or_subject_owns = 9285
+            calc_true_if = {
+                amount >= 2
+                owns_or_subject_owns_area = mahan_area
+                owns_or_subject_owns_area = mahan_south_area
+                owns_or_subject_owns_area = byeonhan_area
+                owns_or_subject_owns_area = jinhan_area
+            }
+        }
+        on_completion = {
+            trigger_event = me_honshu.29
+            show_as_tooltip = {
+                custom_tooltip = jeulmeun_tt
+            }
+        }
+    }
+    jomon_honshu_missions_task_30 = { # Final
+        icon = "task_durga"
+        highlight = {
+            scope:province = {
+                OR = {
+                    is_in_area = mahan_area
+                    is_in_area = mahan_south_area
+                    is_in_area = byeonhan_area
+                    is_in_area = jinhan_area
+                }
+            }
+        }
+        requires = { jomon_honshu_missions_task_12 jomon_honshu_missions_task_13 jomon_honshu_missions_task_14 jomon_honshu_missions_task_18 jomon_honshu_missions_task_19 jomon_honshu_missions_task_20 }
+        allow = {
+            custom_tooltip = {
+                has_variable = completed_tree_jomon_var
+                text = "complete_tree_jomon_tt"
+            }
+        }
+        on_completion = {
+            trigger_event = me_honshu.30
+            show_as_tooltip = {
+            }
+        }
+        final = yes
+    }
+}

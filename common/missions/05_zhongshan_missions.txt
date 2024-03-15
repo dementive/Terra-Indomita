@@ -1,0 +1,783 @@
+﻿zhongshan_missions = {
+    header = "mission_image_china"
+    icon = "cde_treasury_plundered"
+
+    repeatable = no
+    chance = {
+        factor = 1000
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = ZHS
+		is_subject = no
+        has_civil_war = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_zhongshan.17
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+
+    on_completion = {
+		complete_mission_effect = yes
+	}
+
+    zhongshan_missions_task_1 = { #Repairing Defenses
+        icon = "task_economical"
+		duration = 365
+
+        allow = {
+			manpower >= 4
+			treasury >= 50
+			p:8686 = {
+				owner = root
+				province_has_special_pop = {
+					text = "prov_has_1_architect_tt"
+					type = architect
+					count = 1
+				}
+			}
+		}
+
+		on_start = {
+			trigger_event = me_zhongshan.100
+			show_as_tooltip = {
+				add_manpower = -4
+				add_treasury = -50
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.1
+            show_as_tooltip = {
+				remove_country_modifier = crumbling_zhongshan
+				add_stability = 5
+            }
+        }
+    }
+
+    zhongshan_missions_task_2 = { #Petition Qi
+        icon = "task_atlas"
+
+		bypass = {
+			OR = {
+				c:QII = {
+					has_land = no
+				}
+				num_of_cities >= 25
+			}
+		}
+
+        allow = {
+			war = no
+			political_influence >= 25
+			hidden:current_ruler = {
+				has_triggered_character_modifier = foreign_affairs_focus_triggered_mod
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.2
+			c:QII = {
+				trigger_event = me_zhongshan.200
+			}
+            show_as_tooltip = {
+				add_political_influence = -25
+				c:QII = {
+					add_guarantee = root
+					add_country_modifier = {
+						name = zhongshan_petitioned
+						duration = 7300
+					}
+					add_political_influence = 25
+				}
+            }
+        }
+    }
+
+    zhongshan_missions_task_3 = { #Promoting The Di
+        icon = "task_political"
+
+        allow = {
+			political_influence >= 50
+			custom_tooltip = {
+				text = integrated_di_tt
+				any_country_culture = {
+					culture = culture:baidi
+					has_pop_type_right = nobles
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.3
+            show_as_tooltip = {
+				add_political_influence = -50
+				create_character = {
+					culture = baidi
+					religion = hu_religions
+                }
+				create_character = {
+					culture = baidi
+					religion = hu_religions
+                }
+				create_character = {
+					culture = baidi
+					religion = hu_religions
+                }
+				if = {
+					limit = {
+						any_country_culture = {
+							is_culture = baidi
+						}
+					}
+					random_country_culture = {
+						limit = { culture = culture:baidi }
+						add_country_culture_modifier = {
+							name = "integrated_di"
+							duration = 7300
+						}
+					}
+				}
+				if = {
+					limit = {
+						any_country_culture = {
+							is_culture = ji
+						}
+					}
+					random_country_culture = {
+						limit = { culture = culture:ji }
+						add_country_culture_modifier = {
+							name = pissed_off_ji
+							duration = 7300
+						}
+					}
+				}
+			}
+        }
+    }
+
+    zhongshan_missions_task_4 = { #Destabilizing Zhao
+        icon = "task_expansion"
+		requires = { zhongshan_missions_task_1 }
+
+		bypass = {
+			c:LOF = {
+				NOT = { is_subject_of = c:ZHA }
+				has_land = no
+			}
+			c:LNH = {
+				NOT = { is_subject_of = c:ZHA }
+				has_land = no
+			}
+			c:HEZ = {
+				NOT = { is_subject_of = c:ZHA }
+				has_land = no
+			}
+		}
+
+        allow = {
+			trigger_if = {
+				limit = {
+					c:LOF = {
+						is_subject_of = c:ZHA
+						has_land = yes
+					}
+				}
+				hidden:c:LOF = {
+					opinion = {
+						target = root
+						value >= 75
+					}
+				}
+			}
+			trigger_if = {
+				limit = {
+					c:LNH = {
+						is_subject_of = c:ZHA
+						has_land = yes
+					}
+				}
+				hidden:c:LNH = {
+					opinion = {
+						target = root
+						value >= 75
+					}
+				}
+			}
+			trigger_if = {
+				limit = {
+					c:HEZ = {
+						is_subject_of = c:ZHA
+						has_land = yes
+					}
+				}
+				hidden:c:HEZ = {
+					opinion = {
+						target = root
+						value >= 75
+					}
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.4
+            custom_tooltip = zhongshan_missions_task_4_claims
+			hidden_effect = {
+				area:hengshan_area = { mission_area_claim_effect = yes }
+				area:julu_area = { mission_area_claim_effect = yes }
+				area:dai_area = { mission_area_claim_effect = yes }
+				area:yuyang_area = { mission_area_claim_effect = yes }
+				area:youbeiping_area = { mission_area_claim_effect = yes }
+			}
+            show_as_tooltip = {
+				if = {
+					limit = {
+						c:LOF = {
+							is_subject_of = c:ZHA
+							has_land = yes
+						}
+					}
+					c:LOF = {
+						add_country_modifier = {
+							name = zhongshan_leage_of_public_weal
+							duration = 7300
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:LNH = {
+							is_subject_of = c:ZHA
+							has_land = yes
+						}
+					}
+					c:LNH = {
+						add_country_modifier = {
+							name = zhongshan_leage_of_public_weal
+							duration = 7300
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:HEZ = {
+							is_subject_of = c:ZHA
+							has_land = yes
+						}
+					}
+					c:HEZ = {
+						add_country_modifier = {
+							name = zhongshan_leage_of_public_weal
+							duration = 7300
+						}
+					}
+				}
+				c:ZHA = {
+					add_country_modifier = {
+						name = "zhongshan_inspired_disloyalty"
+						duration = 7300
+					}
+				}
+            }
+			custom_tooltip = zhongshan_missions_task_4_can_declare_on_zhao
+        }
+    }
+
+    zhongshan_missions_task_5 = { #Hufu Riding And Archery
+        icon = "task_battle"
+		requires = { zhongshan_missions_task_3 }
+		duration = 120
+
+        allow = {
+			military_experience >= 10
+			custom_tooltip = {
+				text = zhongshan_missions_task_5_baidi_marshal
+				any_character = {
+					has_office = office_marshal
+					has_culture = baidi
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.5
+            show_as_tooltip = {
+				add_military_experience = -10
+				add_country_modifier = {
+					name = hufu_riding_zhao
+					duration = -1
+				}
+            }
+        }
+    }
+
+    zhongshan_missions_task_6 = { #Befriending Qi
+        icon = "task_diplomatic"
+		requires = { zhongshan_missions_task_2 }
+
+		bypass = {
+			c:QII = {
+				has_land = no
+			}
+		}
+
+        allow = {
+			trigger_if = {
+				limit = {
+					c:QII = {
+						has_land = yes
+					}
+				}
+				hidden:current_ruler = {
+					is_friend = c:QII.current_ruler
+				}
+				OR = {
+					alliance_with = c:QII
+					hidden:c:QII = {
+						opinion = {
+							target = root
+							value >= 100
+						}
+					}
+				}
+				any_character = {
+					is_female = yes
+					is_married = no
+					age >= 16
+					age <= 30
+					has_trait = zhongshan_bloodline
+				}
+				any_character = {
+					is_primary_heir = yes
+					is_female = no
+					is_married = no
+					age >= 16
+					has_trait = zhongshan_bloodline
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.6
+            custom_tooltip = zhongshan_missions_task_6_arrange_royal_marriages
+        }
+    }
+
+    zhongshan_missions_task_7 = { #Honor Ancestors
+        icon = "task_religion"
+		requires = { zhongshan_missions_task_1 zhongshan_missions_task_3 }
+
+        allow = {
+			p:8686 = {
+				owner = root
+				is_holy_site = yes
+			}
+			current_ruler = {
+				wealth >= 200
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.7
+            show_as_tooltip = {
+				current_ruler = {
+					add_gold = -200
+				}
+				add_legitimacy = 20
+				create_country_treasure = {
+					key = "zhongshan_funerary_items"
+					icon = "teapot1"
+					modifier = {
+						local_happiness_for_same_religion_modifier = 0.1
+						local_pop_conversion_speed = 0.25
+					}
+				}
+            }
+        }
+    }
+
+    zhongshan_missions_task_8 = { #Carve Up Zhao
+        icon = "task_conquest"
+		requires = { zhongshan_missions_task_4 }
+
+		highlight = {
+			 scope:province = {
+                OR = {
+					is_in_area = hengshan_area
+					is_in_area = julu_area
+					is_in_area = dai_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = hengshan_area
+			owns_area = julu_area
+			owns_area = dai_area
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.8
+            custom_tooltip = zhongshan_missions_task_8_claims
+			hidden_effect = {
+				c:ZHA = {
+					every_owned_province = {
+						add_claim = root
+					}
+				}
+				region:bing_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    zhongshan_missions_task_9 = { #Deal With Yan
+        icon = "task_athena"
+		requires = { zhongshan_missions_task_4 }
+
+		highlight = {
+			 scope:province = {
+                OR = {
+					is_in_area = youbeiping_area
+					is_in_area = yuyang_area
+					is_in_area = shanggu_area
+					province_id = 8742
+				}
+            }
+        }
+
+        allow = {
+			owns_area = youbeiping_area
+			owns_area = yuyang_area
+			owns_area = shanggu_area
+			owns = 8742
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.9
+            custom_tooltip = zhongshan_missions_task_9_claims
+			hidden_effect = {
+				area:liaoxi_area = { mission_area_claim_effect = yes }
+				area:liaodong_area = { mission_area_claim_effect = yes }
+				area:wuhuan_area = { mission_area_claim_effect = yes }
+				area:raole_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    zhongshan_missions_task_10 = { #Steppe Heritage
+        icon = "task_calm"
+		requires = { zhongshan_missions_task_5 zhongshan_missions_task_7 }
+
+        allow = {
+			custom_tooltip = {
+				text = tribal_ally_tt
+				any_allied_country = {
+					is_tribal = yes
+				}
+			}
+			hidden:capital_scope.state = {
+				trade_good_surplus = { target = steppe_horses value >= 1 }
+				trade_good_surplus = { target = horses value >= 1 }
+				trade_good_surplus = { target = fur value >= 1 }
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.10
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = "zhongshan_steppe_heritage"
+					duration = 10950
+				}
+				add_manpower = 20
+            }
+        }
+    }
+
+    zhongshan_missions_task_11 = { #Silver Winged Beasts
+        icon = "task_apollo"
+		requires = { zhongshan_missions_task_13 }
+		duration = 365
+
+        allow = {
+			treasury >= 150
+			hidden:capital_scope = {
+				province_has_special_pop = {
+					text = "prov_has_2_artist_tt"
+					type = artist
+					count = 2
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.11
+            show_as_tooltip = {
+				add_treasury = -150
+				add_2_free_province_investments = yes
+				create_country_treasure = {
+					key = "zhongshan_silver_winged_beasts"
+					icon = "bronzedragon3"
+					modifier = {
+						local_pop_assimilation_speed_modifier = 0.1
+						local_country_civilization_value = 5
+						local_monthly_civilization = 0.03
+					}
+				}
+            }
+        }
+    }
+
+    zhongshan_missions_task_12 = { #Fall Of Zhao
+        icon = "task_dying_gaul"
+		requires = { zhongshan_missions_task_8 zhongshan_missions_task_9 }
+
+		highlight = {
+			 scope:province = {
+                OR = {
+					province_id = 8681
+					province_id = 8636
+					owned_or_subject_owned = c:ZHA
+				}
+            }
+        }
+
+        allow = {
+			owns = 8681
+			owns = 8636
+			c:ZHA = {
+				has_land = no
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.12
+            custom_tooltip = zhongshan_missions_task_12_claims
+			hidden_effect = {
+				area:hedong_area = { mission_area_claim_effect = yes }
+				region:ji_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+            show_as_tooltip = {
+				add_military_experience = 20
+            }
+        }
+    }
+
+    zhongshan_missions_task_13 = { #Exploit Tin and Copper Mines
+        icon = "task_artemis"
+		requires = { zhongshan_missions_task_7 }
+		duration = 90
+
+        allow = {
+			custom_tooltip = {
+				text = bronze_mine_tt
+				any_owned_province = {
+					trade_goods = base_metals
+					has_building = slave_mine_building
+				}
+			}
+			custom_tooltip = {
+				text = blacksmith_tt
+				any_owned_province = {
+					has_building = settlement_blacksmith
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.13
+            show_as_tooltip = {
+				add_treasury = 250
+				create_country_treasure = {
+					key = "zhongshan_bronze_trident"
+					icon = "chinesesword2"
+					modifier = {
+						local_start_experience = 15
+						local_manpower_modifier = 0.25
+					}
+				}
+            }
+        }
+    }
+
+    zhongshan_missions_task_14 = { #Tame The Steppe
+        icon = "task_durga"
+		requires = { zhongshan_missions_task_9 zhongshan_missions_task_10 }
+
+		highlight = {
+			 scope:province = {
+                OR = {
+					is_in_region = modong_region
+					is_in_region = shuofang_region
+				}
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 30
+				custom_tooltip = {
+					text = is_in_modong_shuofang
+					OR = {
+						is_in_region = modong_region
+						is_in_region = shuofang_region
+					}
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.14
+            custom_tooltip = zhongshan_missions_task_14_claims
+			hidden_effect = {
+				region:shuofang_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+				region:modong_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    zhongshan_missions_task_15 = { #Return To The Steppe
+        icon = "task_heracles"
+		requires = { zhongshan_missions_task_14 }
+		final = yes
+		prevented_by = { zhongshan_missions_task_16 }
+
+        allow = {
+			political_influence >= 100
+			legitimacy >= 95
+			stability >= 50
+			military_experience >= 40
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.15
+            show_as_tooltip = {
+				change_government = steppe_empire
+				add_political_influence = -100
+				add_legitimacy = -20
+				add_stability = -10
+				add_country_modifier = {
+					name = "zhongshan_steppe_mod"
+					duration = -1
+				}
+            }
+        }
+    }
+
+    zhongshan_missions_task_16 = { #Our Next Stop Is China
+        icon = "task_zeus_cornucopia"
+		requires = { zhongshan_missions_task_12 zhongshan_missions_task_11 }
+		final = yes
+		prevented_by = { zhongshan_missions_task_15 }
+
+		highlight = {
+			 scope:province = {
+                OR = {
+					is_in_region = yong_region
+					is_in_region = yu_region
+					is_in_region = ji_region
+				}
+            }
+        }
+
+        allow = {
+			p:8686 = {
+				civilization_value >= 50
+				OR = { 
+					has_province_rank = city 
+					has_province_rank = city_metropolis
+				} 
+			}
+			any_owned_province = {
+				count >= 30
+				custom_tooltip = {
+					text = is_in_yong_yu_ji
+					is_in_region = yong_region
+					is_in_region = yu_region
+					is_in_region = ji_region
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_zhongshan.16
+            custom_tooltip = zhongshan_missions_task_16_claims
+			hidden_effect = {
+				region:yu_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+				region:yong_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+            show_as_tooltip = {
+				add_political_influence = 100
+				add_country_modifier = {
+					name = zhongshan_final_mod
+					duration = -1
+				}
+            }
+        }
+    }
+
+    zhongshan_missions_task_17 = {
+        icon = "task_political"
+		bypass = {
+			OR = {
+				c:QII = {
+					has_land = no
+				}
+				num_of_cities >= 25
+			}
+		}
+		potential = {
+			is_ai = yes
+		}
+        allow = {
+			is_ai = yes
+			p:8686 = {
+				controller = c:ZHA
+			}
+		}
+        on_completion = {
+            root.current_ruler = {
+				move_country = c:QII
+			}
+        }
+    }
+}

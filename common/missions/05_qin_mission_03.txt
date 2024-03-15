@@ -3,27 +3,35 @@
     icon = "macedon_4"
 
     repeatable = no
-    chance = 1000
+    chance = {
+        factor = 1000
+    }
 
     potential = {
-        NOT = { has_variable = mission_cooldown_var_3 }
+        NOT = { has_variable = mission_cooldown_var }
         has_completed_mission = qin_02_li_si
         tag = QIN
     }
 
-    abort = {}
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
     on_start = {
         start_mission_ai_effect = yes
     }
+
     on_abort = {
         custom_tooltip = general_mission_cooldown_tt
         set_variable = {
-            name = mission_cooldown_var_3
+            name = mission_cooldown_var
             days = 7300
         }
     }
+
     on_completion = {
         #Form qin empire country, get empire gov
+		complete_mission_effect = yes
 		change_government = chinese_empire
 		add_country_modifier = {
 			name = formable_country_huge_modifier_china
@@ -35,6 +43,7 @@
 		}
 		trigger_event = chinese_flavor.2
     }
+
     qin_03_empire_task_1 = { #Wei Liao
         icon = "task_battle"
 		duration = 180
@@ -94,7 +103,7 @@
     }
     qin_03_empire_task_3 = { #The Great Wang Jian
         icon = "task_conquest"
-		duration = 365
+		duration = 180
         allow = {}
         on_completion = {
             trigger_event = me_qin_empire.3
@@ -174,7 +183,7 @@
     }
     qin_03_empire_task_5 = { #Wei Liauzi
         icon = "task_diplomatic"
-		duration = 1095
+		duration = 730
         requires = { qin_03_empire_task_2 }
         allow = {}
         on_completion = {
@@ -192,7 +201,7 @@
     }
     qin_03_empire_task_6 = { #Planning Unification
         icon = "task_political"
-		duration = 365
+		duration = 180
         requires = { qin_03_empire_task_4 }
 		highlight = {
 			scope:province = {
@@ -458,6 +467,13 @@
     qin_03_empire_task_13 = { #End the Zhou Dynasty
         icon = "task_expansion"
 		duration = 180
+
+        highlight = {
+			 scope:province = {
+				owned_or_subject_owned = c:ZHO
+            }
+        }
+
         allow = {}
 		bypass = {
 			c:ZHO = { 
@@ -479,6 +495,16 @@
     qin_03_empire_task_14 = { #New Mandate of Heaven
         icon = "task_diplomatic"
         requires = { qin_03_empire_task_13 }
+
+        highlight = {
+			 scope:province = {
+				OR = {
+					owned_or_subject_owned = c:ZHO
+					province_id = 8379
+				}
+            }
+        }
+
         allow = {
 			owns = 8379
 			c:ZHO = {

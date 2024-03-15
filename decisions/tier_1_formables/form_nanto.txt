@@ -1,0 +1,91 @@
+﻿country_decisions = {
+	
+	#form Nanto
+	form_nanto = {
+		
+		potential = {
+			num_of_cities >= 1
+			capital_scope = {
+				is_in_area = kumaso_area
+				any_pops_in_province = {
+					pop_culture = duuchuu
+				}
+			}
+			primary_culture = kumaso
+			NOT = {
+				tag = NNS
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 9734
+					province_id = 9737
+				}
+			}
+		}
+		
+		allow = {
+			custom_tooltip = {
+				text = "formable_not_nanto_exists"
+				NOT = {
+					any_country = {
+						tag = NNS
+					}
+				}
+			}
+			can_form_nation_trigger = yes
+			owns = 9734
+			owns = 9737
+			primary_culture = kumaso
+			capital_scope = {
+				is_in_area = kumaso_area
+			}
+		}
+		
+		effect = {
+			custom_tooltip = "tier_1_formable_tooltip"
+			change_country_name = "NANTO_NAME"
+			hidden_effect = { change_country_color = magid_blue }
+			hidden_effect = {
+				change_country_adjective = "NANTO_ADJECTIVE"
+				change_country_tag = "NNS"
+			}
+			capital_scope = {
+				capital_formable_small_effect = yes
+				formable_capital_modifier_normal_effect = yes
+			}
+			add_2_free_province_investments = yes
+			hidden_effect = {
+				capital_scope = {
+					random_pops_in_province = {
+						set_pop_culture = nansei
+					}
+				}
+			}
+			set_primary_culture_cleanup_effect = {
+			    NEW_PRIMARY_CULTURE = nansei
+			    MAKE_OLD_CULTURE_INTEGRATED = yes
+			}
+			set_country_religion = okinawa_religion
+			every_owned_province = {
+				limit = {
+					any_pops_in_province = {
+						pop_culture = duuchuu
+					}
+				}
+				every_pops_in_province = {
+					set_pop_culture = nansei
+					set_pop_religion = okinawa_religion
+				}
+			}
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+		
+	}
+	
+}

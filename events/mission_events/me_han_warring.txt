@@ -1,0 +1,805 @@
+﻿namespace = me_han_warring
+
+me_han_warring.1 = {
+    type = country_event
+
+    title = me_han_warring_1_title
+    desc = me_han_warring_1_desc
+    picture = Lang_Shining_event
+	left_portrait = root.current_ruler
+	right_portrait = c:ZHO.current_ruler
+
+    option = {
+        name = "me_han_warring_1.a"
+		add_aggressive_expansion = -10
+		add_country_modifier = {
+			name = lobbied_as_han
+			duration = 7300
+		}
+    }
+}
+
+me_han_warring.2 = {
+    type = country_event
+
+    title = me_han_warring_2_title
+    desc = me_han_warring_2_desc
+    picture = celtic_gallic_path_2_event
+	left_portrait = root.current_ruler
+	right_portrait = c:CHU.current_ruler
+
+    option = {
+        name = "me_han_warring_2.a"
+		custom_tooltip = han_warring_missions_task_2_claims
+    }
+}
+
+me_han_warring.3 = {
+    type = country_event
+
+    title = me_han_warring_3_title
+    desc = me_han_warring_3_desc
+    picture = Wang_Hui_4_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_han_warring_3.a"
+		add_political_influence = -70
+		change_law = scholarly_pursuits_law
+		change_law = established_courts_for_landholders
+    }
+}
+
+me_han_warring.4 = {
+    type = country_event
+
+    title = me_han_warring_4_title
+    desc = me_han_warring_4_desc
+    picture = Wang_Hui_6_event
+	left_portrait = root.current_ruler
+	left_portrait = c:ZHO.current_ruler
+	right_portrait = c:QIN.current_ruler
+	right_portrait = c:ZHA.current_ruler
+	right_portrait = c:QII.current_ruler
+	left_portrait = c:WEI.current_ruler
+
+	immediate = {
+		if = {
+			limit = {
+				c:WEI = {
+					has_land = yes
+				}
+			}
+			c:WEI = {
+				trigger_event = {
+					id = me_han_warring.401
+					days = 30
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:QII = {
+					has_land = yes
+				}
+			}
+			c:QII = {
+				trigger_event = {
+					id = me_han_warring.401
+					days = 30
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:ZHA = {
+					has_land = yes
+				}
+			}
+			c:ZHA = {
+				trigger_event = {
+					id = me_han_warring.401
+					days = 30
+				}
+			}
+		}
+	}
+
+    option = {
+        name = "me_han_warring_4.a"
+		add_treasury = -150
+		trigger_event = {
+			id = me_han_warring.400
+			days = 60
+		}
+    }
+}
+
+me_han_warring.400 = {
+    type = country_event
+
+    title = me_han_warring_400_title
+    desc = me_han_warring_400_desc
+    picture = Wang_Hui_3_event
+	left_portrait = root.current_ruler
+	left_portrait = c:ZHO.current_ruler
+	right_portrait = c:QIN.current_ruler
+	right_portrait = c:ZHA.current_ruler
+	right_portrait = c:QII.current_ruler
+	left_portrait = c:WEI.current_ruler
+
+    option = {
+        name = "me_han_warring_400.a"
+		show_as_tooltip = {
+			add_opinion = {
+				modifier = coalition_han_bonus
+				target = c:WEI
+			}
+			add_opinion = {
+				modifier = coalition_han_bonus
+				target = c:QII
+			}
+			add_opinion = {
+				modifier = coalition_han_bonus
+				target = c:ZHA
+			}
+		}
+		add_opinion = {
+			modifier = coalition_han_against_qin
+			target = c:QIN
+		}
+		hidden_effect = {
+			reverse_add_opinion = {
+				modifier = coalition_han_against_qin
+				target = c:QIN
+			}
+		}
+		if = {
+			limit = {
+				alliance_with = WEI
+			}
+			show_as_tooltip = {
+				add_alliance = c:WEI
+			}
+		}
+		if = {
+			limit = {
+				alliance_with = QII
+			}
+			show_as_tooltip = {
+				add_alliance = c:QII
+			}
+		}
+		if = {
+			limit = {
+				alliance_with = ZHA
+			}
+			show_as_tooltip = {
+				add_alliance = c:ZHA
+			}
+		}
+    }
+}
+
+me_han_warring.401 = {
+    type = country_event
+
+    title = me_han_warring_401_title
+    desc = me_han_warring_401_desc
+    picture = Wang_Hui_2_event
+	left_portrait = root.current_ruler
+	right_portrait = c:HAN.current_ruler
+	right_portrait = c:QIN.current_ruler
+	
+	immediate = {
+		add_treasury = 50
+		add_opinion = {
+			modifier = coalition_han_bonus
+			target = c:HAN
+		}
+		hidden_effect = {
+			reverse_add_opinion = {
+				modifier = coalition_han_bonus
+				target = c:HAN
+			}
+		}
+		add_opinion = {
+			modifier = coalition_han_against_qin
+			target = c:QIN
+		}
+		hidden_effect = {
+			reverse_add_opinion = {
+				modifier = coalition_han_against_qin
+				target = c:QIN
+			}
+		}
+	}
+
+    option = {
+        name = "me_han_warring_401.a"
+		ai_chance = {
+			base = 66
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_allied_country = {
+						tag = HAN
+					}
+				}
+			}
+			add_alliance = c:HAN
+		}
+    }
+	option = {
+        name = "me_han_warring_401.b"
+		ai_chance = {
+			base = 34
+		}
+    }
+}
+
+me_han_warring.5 = {
+    type = country_event
+
+    title = me_han_warring_5_title
+    desc = me_han_warring_5_desc
+    picture = Wang_Hui_12_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_han_warring_5.a"
+		add_1_free_province_investments = yes
+    }
+}
+
+me_han_warring.6 = {
+    type = country_event
+
+    title = me_han_warring_6_title
+    desc = me_han_warring_6_desc
+    picture = Wang_Hui_15_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_han_warring_6.a"
+		p:8384 = {
+			add_permanent_province_modifier = {
+				name = han_capital_mod
+			}
+		}
+    }
+}
+
+me_han_warring.7 = {
+    type = country_event
+
+    title = me_han_warring_7_title
+    desc = me_han_warring_7_desc
+    picture = tang_yin_making_tea_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:han_fei_character
+
+    immediate = {
+		add_political_influence = -25
+		add_treasury = -25
+		create_character = {
+			first_name = "Fei"
+			family = c:HAN.fam:Fji1
+			culture = root.culture
+			religion = root.religion
+			age = 25
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				bad_martial_effect = yes
+				amazing_charisma_effect = yes
+				good_finesse_effect = yes
+				amazing_zeal_effect = yes
+				add_zeal = 4
+				add_trait = han_bloodline
+				add_trait = just
+				add_trait = intelligent
+				add_trait = scholar
+				add_trait = energetic
+				add_trait = assertive
+				good_zeal_trait_effect = yes
+			}
+			save_scope_as = han_fei_character
+        }
+		set_variable = {
+			name = han_fei_character_scope_variable
+			value = scope:han_fei_character
+		}
+    }
+	option = {
+		name = "me_han_warring_7.a"
+	}
+}
+
+me_han_warring.8 = {
+    type = country_event
+
+    title = me_han_warring_8_title
+    desc = me_han_warring_8_desc
+    picture = event_chinese_man_before_battle
+	left_portrait = root.current_ruler
+	right_portrait = c:QIN.current_ruler
+
+    option = {
+        name = "me_han_warring_8.a"
+		add_stability = 10
+    }
+}
+
+me_han_warring.9 = {
+    type = country_event
+
+    title = me_han_warring_9_title
+    desc = me_han_warring_9_desc
+    picture = Wang_Hui_14_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_han_warring_9.a"
+		custom_tooltip = han_warring_missions_task_9_claims
+    }
+}
+
+me_han_warring.10 = {
+    type = country_event
+
+    title = me_han_warring_10_title
+    desc = me_han_warring_10_desc
+    picture = shen_zhou_fuchun_mountains_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:zheng_guo_char
+	
+	immediate = {
+		create_character = {
+			first_name = "Zheng"
+			family_name = "Guo"
+			culture = c:HAN.culture
+			religion = c:HAN.religion
+			age = 36
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				bad_martial_effect = yes
+				good_charisma_effect = yes
+				amazing_finesse_effect = yes
+				good_zeal_effect = yes
+				good_zeal_trait_effect = yes
+				good_finesse_trait_effect = yes
+				add_trait = energetic
+				add_trait = wise
+				add_trait = shrewd
+			}
+			save_scope_as = zheng_guo_char
+		}
+	}
+
+    option = {
+        name = "me_han_warring_10.a"
+		every_owned_province = {
+			limit = {
+				is_in_area = yueyang_area
+			}
+			add_permanent_province_modifier = {
+				name = zhengguo_canal_mod
+			}
+		}
+    }
+}
+
+me_han_warring.11 = {
+    type = country_event
+
+    title = me_han_warring_11_title
+    desc = me_han_warring_11_desc
+    picture = Wang_Hui_8_event
+	left_portrait = root.current_ruler
+	right_portrait = c:QIN.current_ruler
+	
+	immediate = {
+		c:QIN = {
+			trigger_event = me_han_warring.1100
+		}
+	}
+
+    option = {
+        name = "me_han_warring_11.a"
+		add_treasury = -25
+		c:QIN = {
+			add_truce = {
+				target = root
+				duration = 5475
+			}
+		}
+    }
+}
+
+me_han_warring.1100 = {
+    type = country_event
+
+    title = me_han_warring_1100_title
+    desc = me_han_warring_1100_desc
+    picture = Wang_Hui_7_event
+	left_portrait = root.current_ruler
+	right_portrait = c:HAN.current_ruler
+
+    option = {
+        name = "me_han_warring_1100.a"
+		add_treasury = -200
+		trigger_event = {
+			id = me_han_warring.1101
+			days = 365
+		}
+		add_truce = {
+			target = c:HAN
+			duration = 5475
+		}
+    }
+}
+
+me_han_warring.1101 = {
+    type = country_event
+
+    title = me_han_warring_1101_title
+    desc = me_han_warring_1101_desc
+    picture = Wang_Hui_9_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:zheng_guo_char
+	
+	immediate = {
+		create_character = {
+			first_name = "Zheng"
+			family_name = "Guo"
+			culture = c:HAN.culture
+			religion = c:HAN.religion
+			age = 36
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				bad_martial_effect = yes
+				good_charisma_effect = yes
+				amazing_finesse_effect = yes
+				good_zeal_effect = yes
+				good_zeal_trait_effect = yes
+				good_finesse_trait_effect = yes
+				add_trait = energetic
+				add_trait = wise
+				add_trait = shrewd
+			}
+			save_scope_as = zheng_guo_char
+		}
+	}
+
+    option = {
+        name = "me_han_warring_1101.a"
+		every_owned_province = {
+			limit = {
+				is_in_area = yueyang_area
+			}
+			add_permanent_province_modifier = {
+				name = zhengguo_canal_mod
+			}
+		}
+    }
+}
+
+me_han_warring.12 = {
+    type = country_event
+
+    title = me_han_warring_12_title
+    desc = me_han_warring_12_desc
+    picture = Wang_Hui_16_event
+	left_portrait = root.current_ruler
+	right_portrait = var:han_fei_character_scope_variable
+
+    option = {
+        name = "me_han_warring_12.a"
+		add_country_modifier = {
+			name = han_feizi_mod
+			duration = -1
+		}
+		create_country_treasure = {
+			key = "han_feizi_treasure"
+			icon = "chinascroll2"
+			modifier = {
+				local_happiness_for_same_religion_modifier = 0.1
+				local_research_points_modifier = 0.2
+			}
+		}
+    }
+}
+
+me_han_warring.13 = {
+    type = country_event
+
+    title = me_han_warring_13_title
+    desc = me_han_warring_13_desc
+    picture = Wang_Hui_20_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_han_warring_13.a"
+		add_2_free_province_investments = yes
+		p:8408 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:8446 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:8956 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+    }
+}
+
+me_han_warring.14 = {
+    type = country_event
+
+    title = me_han_warring_14_title
+    desc = me_han_warring_14_desc
+    picture = Wang_Hui_17_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_han_warring_14.a"
+		p:8636 = {
+			ordered_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_culture = root.culture
+					}
+					NOT = {  
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = 3
+				set_pop_culture = root.culture
+			}
+		}
+		p:8628 = {
+			if = {
+				limit = {
+					NOR = { 
+						has_province_rank = city 
+						has_province_rank = city_metropolis
+					} 
+				}
+				custom_tooltip = "time_to_complete_city_tt"
+				hidden_effect = {
+					add_province_modifier = {
+						name = founding_city_in_progress
+						duration = 730
+					}
+				}
+				trigger_event = {
+					id = state_improvement.6
+					days = 730
+				}
+			}
+			else = { 
+				hidden_effect = {
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+				}
+			}
+		}
+    }
+}
+
+me_han_warring.15 = {
+    type = country_event
+
+    title = me_han_warring_15_title
+    desc = me_han_warring_15_desc
+    picture = china_art_20_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_han_warring_15.a"
+		custom_tooltip = han_warring_missions_task_15_all_our_yellow_river_provinces
+		show_as_tooltip = {
+			random_owned_province = {
+				limit = {
+					OR = {
+						is_in_area = henei_area
+						is_in_area = wei_area
+						is_in_area = henan_area
+						is_in_area = daliang_area
+						is_in_area = dong_area
+					}
+				}
+				add_permanent_province_modifier = {
+					name = han_yellow_river_mod
+				}
+			}
+		}
+    }
+}
+
+me_han_warring.16 = {
+    type = country_event
+
+    title = me_han_warring_16_title
+    desc = me_han_warring_16_desc
+    picture = event_chinese_man_before_battle
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_han_warring_16.a"
+		add_military_experience = 20
+    }
+}
+
+me_han_warring.17 = {
+    type = country_event
+
+    title = me_han_warring_17_title
+    desc = me_han_warring_17_desc
+    picture = chinese_emperor
+	left_portrait = root.current_ruler
+	right_portrait = char:539
+
+    option = {
+        name = "me_han_warring_17.a"
+		add_country_modifier = {
+			name = han_final_mod
+			duration = -1
+		}
+		add_political_influence = 100
+		current_ruler = {
+			add_popularity = 25
+			add_focus_perk = {
+				text = "add_2_char_perk"
+				amount = 2
+			}
+			add_trait = ambitious
+			add_trait = han_bloodline
+		}
+    }
+}
+
+me_han_warring.18 = {
+    type = country_event
+
+    title = me_han_warring_18_title
+    desc = me_han_warring_18_desc
+    picture = celtic_britannic_path_2_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_han_warring_18.a"
+		add_military_experience = 20
+		add_country_modifier = {
+			name = han_xbows_swords
+			duration = -1
+		}
+    }
+}
+
+me_han_warring.100 = {
+    type = country_event
+
+    title = me_han_warring_100_title
+    desc = me_han_warring_100_desc
+    picture = chinese_huaxia_path_1_event
+	left_portrait = root.current_ruler
+	right_portrait = char:698
+	right_portrait = char:699
+	right_portrait = char:700
+	
+	immediate = {
+		char:699 = {
+			add_rival = char:700
+		}
+	}
+
+    option = {
+        name = "me_han_warring_100.a"
+		trigger = {
+			char:698 = {
+				is_alive = yes
+				is_ruler = no
+			}
+		}
+		char:698 = {
+			remove_all_positions = yes
+			move_country = c:QIN
+		}
+		c:QIN = {
+			add_truce = {
+                target = root
+                duration = 1825
+            }
+		}
+		char:700 = {
+			remove_all_positions = yes
+			move_country = c:CHU
+		}
+		trigger_event = {
+			id = me_han_warring.101
+			days = 30
+		}
+		ai_chance = {
+            factor = 100
+		}
+    }
+
+	option = {
+        name = "me_han_warring_100.b"
+		char:700 = {
+			remove_all_positions = yes
+			move_country = c:CHU
+		}
+		trigger_event = {
+			id = me_han_warring.101
+			days = 30
+		}
+		ai_chance = {
+            factor = 0
+		}
+    }
+}
+
+me_han_warring.101 = {
+    type = country_event
+
+    title = me_han_warring_101_title
+    desc = me_han_warring_101_desc
+    picture = ma_yuan_on_a_mountain_path_in_spring_event
+	left_portrait = root.current_ruler
+	left_portrait = char:699
+	right_portrait = char:700
+
+    option = {
+        name = "me_han_warring_101.a"
+		c:CHU = {
+			imprison = {
+				target = char:700
+			}
+		}
+    }
+}

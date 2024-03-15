@@ -326,7 +326,9 @@
 		on_completion = {
 			p:418 = { save_scope_as = ant_fortress_scope }
 			show_as_tooltip = {
-				ant_fortress_effect = yes
+				scope:ant_fortress_scope = {
+					ant_fortress_effect = yes
+				}
 				if = {
 		            limit = {
 		                NOT = { has_country_modifier = ant_01_4_cmod }
@@ -649,14 +651,14 @@
 						custom_tooltip = antigonid_02_aspiration_10_pop_tt
 						if = {
 							limit = { has_city_status = yes }
-							set_city_status = settlement
+							destroy_city_effect = yes
 						}
 					}
 				}
 				p:391 = {
 					if = {
 						limit = { has_city_status = no }
-						set_city_status = city
+						found_city_effect = yes
 					}
 					change_province_name = "Demetrias"
 					while = {

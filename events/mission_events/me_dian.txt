@@ -1,0 +1,809 @@
+﻿namespace = me_dian
+
+me_dian.1 = {
+    type = country_event
+
+    title = me_dian_1_title
+    desc = me_dian_1_desc
+    picture = war_council
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_1.a"
+		c:SMI = {
+			every_owned_province = {
+				add_claim = root
+			}
+		}
+		p:8908 = {
+			add_claim = root
+		}
+		p:8919 = {
+			add_claim = root
+		}
+    }
+}
+
+me_dian.2 = {
+    type = country_event
+
+    title = me_dian_2_title
+    desc = me_dian_2_desc
+    picture = celtic_village
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_2.a"
+		area:yulin_area = { mission_area_claim_effect = yes }
+		area:jiaozhi_area = { mission_area_claim_effect = yes }
+		area:hong_area = { mission_area_claim_effect = yes }
+    }
+}
+
+me_dian.3 = {
+    type = country_event
+
+    title = me_dian_3_title
+    desc = me_dian_3_desc
+    picture = china_art_5_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_3.a"
+		add_war_exhaustion = -5
+		add_country_modifier = {
+			name = "dian_agriculture"
+			duration = 7300
+		}
+    }
+}
+
+me_dian.4 = {
+    type = country_event
+
+    title = me_dian_4_title
+    desc = me_dian_4_desc
+    picture = chinese_emperor
+	left_portrait = root.current_ruler
+	right_portrait = var:zhuang_qiao_character_scope_variable
+	
+	immediate = {
+		hidden_effect = {
+			var:zhuang_qiao_character_scope_variable = {
+				move_country = root
+			}
+			create_character = {
+				culture = chu
+				religion = chinese_religions
+				age = 32
+				no_stats = yes
+				hidden_effect = {
+					amazing_martial_effect = yes
+					average_finesse_effect = yes
+					average_charisma_effect = yes
+					average_zeal_effect = yes
+				}
+			}
+			create_character = {
+				culture = chu
+				religion = chinese_religions
+				age = 34
+				no_stats = yes
+				hidden_effect = {
+					average_martial_effect = yes
+					amazing_finesse_effect = yes
+					average_charisma_effect = yes
+					average_zeal_effect = yes
+				}
+			}
+			create_character = {
+				culture = chu
+				religion = chinese_religions
+				age = 28
+				no_stats = yes
+				hidden_effect = {
+					average_martial_effect = yes
+					average_finesse_effect = yes
+					amazing_charisma_effect = yes
+					average_zeal_effect = yes
+				}
+			}
+			create_character = {
+				culture = chu
+				religion = chinese_religions
+				age = 40
+				no_stats = yes
+				hidden_effect = {
+					average_martial_effect = yes
+					average_finesse_effect = yes
+					average_charisma_effect = yes
+					amazing_zeal_effect = yes
+				}
+			}
+		}
+		capital_scope = {
+			define_pop = {
+				type = citizen
+				culture = chu
+				religion = chinese_religions
+			}
+			define_pop = {
+				type = freemen
+				culture = chu
+				religion = chinese_religions
+			}
+			define_pop = {
+				type = freemen
+				culture = chu
+				religion = chinese_religions
+			}
+		}
+	}
+
+    option = {
+        name = "me_dian_4.a"
+		change_government = despotic_monarchy
+		switch_government_type_event_clearup_effect = yes
+		root.current_ruler = {
+			death = { death_reason = death_execution }
+		}
+		set_as_ruler = var:zhuang_qiao_character_scope_variable
+		random_country_culture = {
+			limit = {
+				this.culture = culture:chu
+			}
+			ROOT = {
+				integrate_country_culture = PREV 
+			}
+		}
+    }
+}
+
+me_dian.400 = {
+    type = country_event
+
+    title = me_dian_400_title
+    desc = me_dian_400_desc
+    picture = japan_spiritual_war_event
+	left_portrait = root.current_ruler
+	right_portrait = scope:zhuang_qiao_char
+
+	immediate = {
+		create_character = {
+			first_name = "Qiao"
+			family_name = "Zhuang"
+			culture = chu
+			religion = chinese_religions
+			age = 33
+			no_stats = yes
+			no_traits = yes
+			hidden_effect = {
+				amazing_martial_effect = yes
+				amazing_finesse_effect = yes
+				amazing_charisma_effect = yes
+				average_zeal_effect = yes
+				add_trait = conqueror
+				add_trait = assertive
+				add_trait = energetic
+				add_trait = chu_bloodline
+			}
+			save_scope_as = zhuang_qiao_char
+        }
+		set_variable = {
+			name = zhuang_qiao_character_scope_variable
+			value = scope:zhuang_qiao_char
+		}
+		hidden_effect = {
+			scope:zhuang_qiao_char = {
+				move_country = c:MER
+			}
+		}
+	}
+
+    option = {
+        name = "me_dian_400.a"
+		add_war_exhaustion = 2
+    }
+}
+
+me_dian.401 = {
+    type = country_event
+
+    title = me_dian_401_title
+    desc = me_dian_401_desc
+    picture = japan_spiritual_war_event
+	left_portrait = root.current_ruler
+	right_portrait = var:zhuang_qiao_character_scope_variable
+	
+	immediate = {
+		imprison = {
+			target = root.current_ruler
+		}
+		random_character = {
+			limit = {
+				is_clan_chief = yes
+				prisoner = no
+			}
+			save_scope_as = first_chief
+		}
+		imprison = {
+			target = scope:first_chief
+		}
+		random_character = {
+			limit = {
+				is_clan_chief = yes
+				prisoner = no
+			}
+			save_scope_as = second_chief
+		}
+		imprison = {
+			target = scope:second_chief
+		}
+		hidden_effect = {
+			capital_scope = {
+				define_pop = {
+					type = freemen
+					culture = chu
+					religion = chinese_religions
+				}
+			}
+		}
+	}
+
+    option = {
+        name = "me_dian_401.a"
+		add_war_exhaustion = 3
+    }
+}
+
+me_dian.5 = {
+    type = country_event
+
+    title = me_dian_5_title
+    desc = me_dian_5_desc
+    picture = army_desert
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_5.a"
+		c:YLG = {
+			every_owned_province = {
+				limit = {
+					NOT = {
+						is_in_area = zangke_area
+					}
+				}
+				add_claim = root
+			}
+		}
+		area:zangke_area = { mission_area_claim_effect = yes }
+    }
+}
+
+me_dian.6 = {
+    type = country_event
+
+    title = me_dian_6_title
+    desc = me_dian_6_desc
+    picture = steppe_cavalry
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_6.a"
+		area:hepu_area = { mission_area_claim_effect = yes }
+		area:jiuzhen_area = { mission_area_claim_effect = yes }
+    }
+}
+
+me_dian.7 = {
+    type = country_event
+
+    title = me_dian_7_title
+    desc = me_dian_7_desc
+    picture = Wang_Hui_19_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_7.a"
+		create_country_treasure = {
+			key = "dian_bronze_house"
+			icon = "teapot1"
+			modifier = {
+				local_building_slot = 1
+			}
+		}
+		create_country_treasure = {
+			key = "dian_servant_with_parasol"
+			icon = "bronzenao2"
+			modifier = {
+				local_slaves_output = 0.15
+			}
+		}
+    }
+}
+
+me_dian.8 = {
+    type = country_event
+
+    title = me_dian_8_title
+    desc = me_dian_8_desc
+    picture = great_library
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_8.a"
+		add_innovation = 4
+		add_country_modifier = {
+			name = "dian_advanced_tech"
+			duration = 7300
+		}
+    }
+}
+
+me_dian.9 = {
+    type = country_event
+
+    title = me_dian_9_title
+    desc = me_dian_9_desc
+    picture = china_art_5_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_9.a"
+		custom_tooltip = dian_missions_task_9_claims
+    }
+}
+
+me_dian.10 = {
+    type = country_event
+
+    title = me_dian_10_title
+    desc = me_dian_10_desc
+    picture = Wang_Hui_16_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_10.a"
+		add_2_free_province_investments = yes
+		create_country_treasure = {
+			key = "dian_shell_vessel"
+			icon = "teapot1"
+			modifier = {
+				local_tax_modifier = 0.1
+				local_food_capacity = 250
+			}
+		}
+    }
+}
+
+me_dian.11 = {
+    type = country_event
+
+    title = me_dian_11_title
+    desc = me_dian_11_desc
+    picture = china_art_16_event
+	left_portrait = root.current_ruler
+	right_portrait = var:zhuang_qiao_character_scope_variable
+
+    option = {
+        name = "me_dian_11.a"
+		add_country_modifier = {
+			name = dian_dynasty_tombs
+			duration = -1
+		}
+    }
+}
+
+me_dian.1100 = {
+    type = country_event
+
+    title = me_dian_1100_title
+    desc = me_dian_1100_desc
+    picture = china_art_16_event
+	left_portrait = root.current_ruler
+	right_portrait = var:zhuang_qiao_character_scope_variable
+
+    option = {
+        name = "me_dian_1100.a"
+		add_country_modifier = {
+			name = dian_dynasty_tombs
+			duration = -1
+		}
+    }
+}
+
+me_dian.12 = {
+    type = country_event
+
+    title = me_dian_12_title
+    desc = me_dian_12_desc
+    picture = chinese_path_iron_use_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_12.a"
+		area:yongchang_area = { mission_area_claim_effect = yes }
+		area:pubu_area = { mission_area_claim_effect = yes }
+    }
+}
+
+me_dian.13 = {
+    type = country_event
+
+    title = me_dian_13_title
+    desc = me_dian_13_desc
+    picture = event_chinese_man_buildings
+	left_portrait = root.current_ruler
+	left_portrait = scope:foreign_minister_dian
+	right_portrait = c:ZHO.current_ruler
+	right_portrait = c:ZHA.current_ruler
+	right_portrait = c:QII.current_ruler
+
+	immediate = {
+		add_political_influence = -25
+		add_treasury = -100
+		random_character = {
+			limit = {
+				has_office = office_foreign_minister
+			}
+			save_scope_as = foreign_minister_dian
+		}
+	}
+
+    option = {
+		trigger = {
+			c:ZHO = {
+				has_land = yes
+			}
+		}
+        name = "me_dian_13.a"
+		show_as_tooltip = {
+			add_opinion = { modifier = dian_embassy target = c:ZHO }
+			reverse_add_opinion = { modifier = dian_embassy target = c:ZHO }
+		}
+		trigger_event = {
+			id = me_dian.1300
+			days = 90
+		}
+    }
+	option = {
+		trigger = {
+			c:ZHA = {
+				has_land = yes
+			}
+		}
+        name = "me_dian_13.b"
+		show_as_tooltip = {
+			add_opinion = { modifier = dian_embassy target = c:ZHA }
+			reverse_add_opinion = { modifier = dian_embassy target = c:ZHA }
+		}
+		trigger_event = {
+			id = me_dian.1301
+			days = 90
+		}
+    }
+	option = {
+		trigger = {
+			c:QII = {
+				has_land = yes
+			}
+		}
+        name = "me_dian_13.c"
+		show_as_tooltip = {
+			add_opinion = { modifier = dian_embassy target = c:QII }
+			reverse_add_opinion = { modifier = dian_embassy target = c:QII }
+		}
+		trigger_event = {
+			id = me_dian.1302
+			days = 90
+		}
+    }
+}
+
+me_dian.1300 = {
+    type = country_event
+
+    title = me_dian_1300_title
+    desc = me_dian_1300_desc
+    picture = event_chinese_man_buildings
+	left_portrait = root.current_ruler
+	left_portrait = scope:foreign_minister_dian
+	right_portrait = c:ZHO.current_ruler
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_foreign_minister
+			}
+			save_scope_as = foreign_minister_dian
+		}
+	}
+
+    option = {
+        name = "me_dian_1300.a"
+		add_opinion = { modifier = dian_embassy target = c:ZHO }
+		reverse_add_opinion = { modifier = dian_embassy target = c:ZHO }
+		add_country_modifier = {
+			name = "dian_embassy_zhou"
+			duration = 7300
+		}
+    }
+}
+
+me_dian.1301 = {
+    type = country_event
+
+    title = me_dian_1301_title
+    desc = me_dian_1301_desc
+    picture = event_chinese_man_buildings
+	left_portrait = root.current_ruler
+	left_portrait = scope:foreign_minister_dian
+	right_portrait = c:ZHA.current_ruler
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_foreign_minister
+			}
+			save_scope_as = foreign_minister_dian
+		}
+	}
+
+    option = {
+        name = "me_dian_1301.a"
+		add_opinion = { modifier = dian_embassy target = c:ZHA }
+		reverse_add_opinion = { modifier = dian_embassy target = c:ZHA }
+		add_country_modifier = {
+			name = "dian_embassy_zhao"
+			duration = 7300
+		}
+    }
+}
+
+me_dian.1302 = {
+    type = country_event
+
+    title = me_dian_1302_title
+    desc = me_dian_1302_desc
+    picture = event_chinese_man_buildings
+	left_portrait = root.current_ruler
+	left_portrait = scope:foreign_minister_dian
+	right_portrait = c:QII.current_ruler
+
+	immediate = {
+		random_character = {
+			limit = {
+				has_office = office_foreign_minister
+			}
+			save_scope_as = foreign_minister_dian
+		}
+	}
+
+    option = {
+        name = "me_dian_1302.a"
+		add_opinion = { modifier = dian_embassy target = c:QII }
+		reverse_add_opinion = { modifier = dian_embassy target = c:QII }
+		add_country_modifier = {
+			name = "dian_embassy_qi"
+			duration = 7300
+		}
+    }
+}
+
+me_dian.14 = {
+    type = country_event
+
+    title = me_dian_14_title
+    desc = me_dian_14_desc
+    picture = dai_jin_returning_late_from_a_spring_outing_2_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_14.a"
+		add_military_experience = 20
+         custom_tooltip = dian_missions_task_14_claims
+    }
+}
+
+me_dian.15 = {
+    type = country_event
+
+    title = me_dian_15_title
+    desc = me_dian_15_desc
+    picture = china_art_11_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_15.a"
+		p:8914 = {
+			add_permanent_province_modifier = {
+				name = dian_new_capital
+			}
+		}
+    }
+}
+
+me_dian.1500 = {
+    type = country_event
+
+    title = me_dian_1500_title
+    desc = me_dian_1500_desc
+    picture = china_art_11_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_1500.a"
+		add_manpower = -10
+    }
+}
+
+me_dian.16 = {
+    type = country_event
+
+    title = me_dian_16_title
+    desc = me_dian_16_desc
+    picture = steppe_raiders_path_2b_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_16.a"
+		create_country_treasure = {
+			key = "dian_steppe_vessel"
+			icon = "golddragon1"
+			modifier = {
+				local_output_modifier = 0.05
+			}
+		}
+    }
+}
+
+me_dian.1600 = {
+    type = country_event
+
+    title = me_dian_1600_title
+    desc = me_dian_1600_desc
+    picture = steppe_raiders_path_2b_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_1600.a"
+		capital_scope = {
+			add_special_pop = {
+				text = "add_1_artist_tt"
+				type = artist
+				count = 1
+			}
+		}
+		add_treasury = -200
+    }
+}
+
+me_dian.17 = {
+    type = country_event
+
+    title = me_dian_17_title
+    desc = me_dian_17_desc
+    picture = road_construction
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_17.a"
+		add_country_modifier = {
+			name = highway_india_dian
+			duration = -1
+		}
+    }
+	option = {
+        name = "me_dian_17.b"
+		add_manpower = -10
+		add_country_modifier = {
+			name = highway_india_dian
+			duration = -1
+		}
+		trigger_event = {
+			id = me_dian.1700
+			days = 90
+		}
+    }
+}
+
+me_dian.1700 = {
+    type = country_event
+
+    title = me_dian_1700_title
+    desc = me_dian_1700_desc
+    picture = road_construction
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_1700.a"
+		p:8914 = {
+			add_road_towards = 9621
+		}
+		p:9621 = {
+			add_road_towards = 8920
+		}
+		p:8920 = {
+			add_road_towards = 8919
+		}
+		p:8919 = {
+			add_road_towards = 8918
+		}
+		p:8918 = {
+			add_road_towards = 8917
+		}
+		p:8917 = {
+			add_road_towards = 8916
+		}
+		trigger_event = {
+			id = me_dian.1701
+			days = 90
+		}
+    }
+}
+
+me_dian.1701 = {
+    type = country_event
+
+    title = me_dian_1701_title
+    desc = me_dian_1701_desc
+    picture = road_construction
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_1701.a"
+		p:8916 = {
+			add_road_towards = 8952
+		}
+		p:8952 = {
+			add_road_towards = 9405
+		}
+		p:9405 = {
+			add_road_towards = 8955
+		}
+		p:8955 = {
+			add_road_towards = 9403
+		}
+		p:9403 = {
+			add_road_towards = 9776
+		}
+    }
+}
+
+me_dian.18 = {
+    type = country_event
+
+    title = me_dian_18_title
+    desc = me_dian_18_desc
+    picture = chinese_path_training_priority_event
+	left_portrait = root.current_ruler
+
+    option = {
+        name = "me_dian_18.a"
+		add_country_modifier = {
+			name = dian_final_mod
+			duration = -1
+		}
+		add_political_influence = 100
+		current_ruler = {
+			add_focus_perk = {
+				text = "add_1_char_perk"
+				amount = 1
+			}
+		}
+    }
+}
+
+me_dian.90 = {
+    type = country_event
+
+    title = me_dian_90_title
+    desc = me_dian_90_desc
+    picture = chinese_path_retreat_to_advance_event
+	left_portrait = root.current_ruler
+	right_portrait = c:CHU.current_ruler
+
+    option = {
+        name = "me_dian_90.a"
+    }
+}

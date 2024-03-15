@@ -1,0 +1,675 @@
+﻿song_missions = {
+    header = "mission_image_china"
+    icon = "cde_treasury_plundered"
+
+    repeatable = no
+    chance = {
+        factor = 1000
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = SNG
+		is_subject = no
+        has_civil_war = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_song_ws.99
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+
+    on_completion = {
+		complete_mission_effect = yes
+	}
+
+    song_missions_task_1 = { #Finish the Job
+        icon = "task_expansion"
+
+		highlight = {
+			 scope:province = {
+				province_id = 8428
+            }
+        }
+
+        allow = {
+			owns = 8428
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.1
+			c:LUU = {
+				every_owned_province = {
+					add_claim = root
+				}
+			}
+        }
+    }
+
+    song_missions_task_2 = { #Pounce on Chu
+        icon = "task_conquest"
+
+		highlight = {
+			scope:province = {
+				NOT = {
+					owned_or_subject_owned = root
+				}
+				OR = {
+					is_in_area = huaiyang_area
+					is_in_area = pei_area
+					is_in_area = jiujiang_area
+					is_in_area = linhuai_area
+					is_in_area = guangling_area
+					is_in_area = donghai_area
+				}
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 20
+				OR = {
+					is_in_area = huaiyang_area
+					is_in_area = pei_area
+					is_in_area = jiujiang_area
+					is_in_area = linhuai_area
+					is_in_area = guangling_area
+					is_in_area = donghai_area
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.2
+            show_as_tooltip = {
+				add_1_free_province_investments = yes
+            }
+        }
+    }
+
+    song_missions_task_3 = { #Contested Successions
+        icon = "task_political"
+		requires = { song_missions_task_15 }
+
+        allow = {
+			custom_tooltip = {
+				text = song_missions_task_3_no_pretender_lower_than_60_loyalty
+				NOT = {
+					any_character = {
+						is_pretender = yes
+						loyalty <= 70
+					}
+				}
+			}
+			legitimacy >= 95
+			OR = {
+				has_law = agnatic_succession_law
+				has_law = cognatic_succession_law
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.3
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = song_secured_succ
+					duration = 10950
+				}
+            }
+        }
+    }
+
+    song_missions_task_4 = { #Extravagant King
+        icon = "task_economical"
+		requires = { song_missions_task_1 song_missions_task_2 }
+		duration = 180
+
+		highlight = {
+			scope:province = {
+				owner = root
+				is_capital = yes
+            }
+        }
+
+        allow = {
+			treasury >= 200
+			hidden:capital_scope = {
+				province_has_special_pop = {
+					text = "prov_has_1_artist_tt"
+					type = artist
+					count = 1
+				}
+			}
+		}
+
+		on_start = {
+			show_as_tooltip = {
+				add_treasury = -200
+			}
+			trigger_event = me_song_ws.400
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.4
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = court_of_song
+					duration = 7300
+				}
+            }
+        }
+    }
+
+    song_missions_task_5 = { #Grave of Confucius
+        icon = "task_calm"
+		requires = { song_missions_task_1 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					province_id = 8533
+					province_id = 8472
+					province_id = 8535
+					province_id = 8534
+					province_id = 8481
+					province_id = 8485
+					province_id = 8487
+				}
+            }
+        }
+
+        allow = {
+			owns = 8533
+			owns = 8472
+			owns = 8535
+			owns = 8534
+			owns = 8481
+			owns = 8485
+			owns = 8487
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.5
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = song_confucius_mod
+					duration = 3650
+				}
+            }
+        }
+    }
+
+    song_missions_task_6 = { #Opportunistic Alliance
+        icon = "task_political"
+		requires = { song_missions_task_2 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					owned_or_subject_owned = c:YAN
+					owned_or_subject_owned = c:QIN
+					owned_or_subject_owned = c:ZHA
+				}
+            }
+        }
+
+		bypass = {
+			c:YAN = {
+				has_land = no
+			}
+			c:QIN = {
+				has_land = no
+			}
+			c:ZHA = {
+				has_land = no
+			}
+		}
+
+        allow = {
+			OR = {
+				alliance_with = c:YAN
+				alliance_with = c:QIN
+				alliance_with = c:ZHA
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.6
+            custom_tooltip = song_missions_task_6_claims
+			hidden_effect = {
+				area:daliang_area = { mission_area_claim_effect = yes }
+				area:jiyin_area = { mission_area_claim_effect = yes }
+				area:huaiyang_area = { mission_area_claim_effect = yes }
+				area:donghai_area = { mission_area_claim_effect = yes }
+				area:dong_area = { mission_area_claim_effect = yes }
+				area:shanyang_area = { mission_area_claim_effect = yes }
+				area:taishan_area = { mission_area_claim_effect = yes }
+				area:langya_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    song_missions_task_7 = { #Reputation of King Zhou
+        icon = "task_diplomatic"
+		requires = { song_missions_task_3 song_missions_task_4 }
+
+        allow = {
+			current_ruler = {
+				custom_tooltip = {
+                    text = does_not_have_true_ruler_tt
+                    has_variable = true_ruler_var
+                }
+				popularity >= 90
+				character_experience >= 90
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.7
+            show_as_tooltip = {
+				remove_country_modifier = song_king_zhou_mod
+            }
+        }
+    }
+
+    song_missions_task_8 = { #Wedge Wei
+        icon = "task_battle"
+		requires = { song_missions_task_6 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					province_id = 8397
+					province_id = 8396
+					is_in_area = daliang_area
+					is_in_area = jiyin_area
+					is_in_area = huaiyang_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = daliang_area
+			owns_area = jiyin_area
+			owns_area = huaiyang_area
+			owns = 8397
+			owns = 8396
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.8
+            show_as_tooltip = {
+				add_military_experience = 10
+				current_ruler = {
+					add_popularity = 20
+				}
+            }
+        }
+    }
+
+    song_missions_task_9 = { #Tidying Up
+        icon = "task_conquest"
+		requires = { song_missions_task_5 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					province_id = 8537
+					province_id = 8538
+					owned_or_subject_owned = c:BII
+					owned_or_subject_owned = c:NYE
+				}
+            }
+        }
+
+        allow = {
+			owns = 8537
+			owns = 8538
+			c:BII = {
+				has_land = no
+			}
+			c:NYE = {
+				has_land = no
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.9
+            show_as_tooltip = {
+				current_ruler = {
+					add_popularity = 10
+				}
+				add_legitimacy = 10
+            }
+        }
+    }
+
+    song_missions_task_10 = { #Repell Qi
+        icon = "task_expansion"
+		requires = { song_missions_task_4 song_missions_task_6 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = donghai_area
+					is_in_area = dong_area
+					is_in_area = shanyang_area
+					is_in_area = taishan_area
+					is_in_area = langya_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = donghai_area
+			owns_area = dong_area
+			owns_area = shanyang_area
+			owns_area = taishan_area
+			owns_area = langya_area
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.10
+            show_as_tooltip = {
+				add_stability = 10
+				current_ruler = {
+					add_popularity = 20
+				}
+            }
+			custom_tooltip = song_missions_task_10_choose_claims
+        }
+    }
+
+    song_missions_task_11 = { #A Warring State
+        icon = "task_atlas"
+		requires = { song_missions_task_7 song_missions_task_8 song_missions_task_9 song_missions_task_10 }
+		final = yes
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					owned_or_subject_owned = c:YAN
+					owned_or_subject_owned = c:QIN
+					owned_or_subject_owned = c:ZHA
+					owned_or_subject_owned = c:QII
+					owned_or_subject_owned = c:WEI
+					owned_or_subject_owned = c:CHU
+					owned_or_subject_owned = c:HAN
+				}
+            }
+        }
+
+        allow = {
+			num_of_cities >= 75
+			OR = {
+				c:QII = { has_land = no }
+				c:HAN = { has_land = no }
+				c:YAN = { has_land = no }
+				c:ZHA = { has_land = no }
+				c:QIN = { has_land = no }
+				c:WEI = { has_land = no }
+				c:CHU = { has_land = no }
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.11
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = song_final_mod
+					duration = -1
+				}
+				current_ruler = {
+					add_popularity = 25
+					add_focus_perk = {
+						text = "add_2_char_perk"
+						amount = 2
+					}
+					add_trait = ambitious
+					add_trait = song_bloodline
+				}
+            }
+        }
+    }
+
+    song_missions_task_12 = { #The Word of Mozi
+        icon = "task_apollo"
+		requires = { song_missions_task_5 }
+
+        allow = {
+			num_of_cities >= 50
+			has_this_omen = deity:omen_mozi #char:524
+			custom_tooltip = {
+				text = bharat_missions_task_7_tooltip
+				religious_unity > 0.8
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.12
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = song_mozi_mod
+					duration = -1
+				}
+            }
+        }
+    }
+
+    song_missions_task_13 = { #Zhuang Zhou
+        icon = "task_political"
+
+		bypass = {
+			char:659 = {
+				is_alive = no
+			}
+		}
+
+        allow = {
+			char:659 = {
+				is_alive = yes
+				has_tech_office_of = religious_tech
+				character_experience >= 70
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.13
+            show_as_tooltip = {
+				add_innovation = 1
+            }
+        }
+    }
+
+    song_missions_task_14 = { #Zhuangzi
+        icon = "task_athena"
+		duration = 90
+		requires = { song_missions_task_13 }
+
+		bypass = {
+			char:659 = {
+				is_alive = no
+			}
+		}
+
+        allow = {
+			political_influence >= 25
+			char:659 = {
+				is_alive = yes
+				has_tech_office_of = religious_tech
+				character_experience >= 75
+				loyalty >= 70
+			}
+		}
+
+		on_start = {
+			add_political_influence = -25
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.14
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = song_zhuangzi_mod
+					duration = 3650
+				}
+				create_country_treasure = {
+					key = "song_zhuangzi"
+					icon = "chinaart1"
+					modifier = {
+						local_nobles_happyness = 0.1
+						local_citizen_happyness = 0.1
+					}
+				}
+            }
+        }
+    }
+
+    song_missions_task_15 = { #Food Supply
+        icon = "task_happiness"
+
+		highlight = {
+			scope:province = {
+				owner = root
+				OR = {
+					is_capital = yes
+					can_build_building = basic_settlement_infratructure_building
+				}
+            }
+        }
+        allow = {
+			any_owned_province = {
+				count >= 3
+				has_building = basic_settlement_infratructure_building
+			}
+			capital_scope.state = {
+				trade_good_surplus = { target = grain value >= 2 }
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.15
+            show_as_tooltip = {
+				add_manpower = 10
+				capital_scope = {
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+				}
+            }
+        }
+    }
+
+    song_missions_task_16 = { #Cultivate Markets
+        icon = "task_religion"
+		requires = { song_missions_task_2 song_missions_task_15 }
+
+		highlight = {
+			scope:province = {
+				owner = root
+				OR = {
+					is_capital = yes
+					province_id = 8424
+					province_id = 8469
+					province_id = 8540
+				}
+            }
+        }
+
+        allow = {
+			custom_tooltip = {
+				text = song_missions_task_16_port_with_commercial_district
+				any_owned_province = {
+					is_port = yes
+					has_building = commerce_building
+				}
+			}
+			capital_scope.state = {
+				incoming_trade_routes >= 5
+			}
+			p:8424.state = {
+				incoming_trade_routes >= 2
+			}
+			p:8469.state = {
+				incoming_trade_routes >= 2
+			}
+			p:8540.state = {
+				incoming_trade_routes >= 2
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.16
+            show_as_tooltip = {
+				add_2_free_province_investments = yes
+				capital_scope = {
+					add_special_pop = {
+						text = "add_1_merchant_tt"
+						type = merchant
+						count = 1
+					}
+				}
+            }
+        }
+    }
+
+    song_missions_task_17 = { #Trade Policy
+        icon = "task_economical"
+		requires = { song_missions_task_16 }
+
+		highlight = {
+			scope:province = {
+				owner = root
+				is_capital = yes
+            }
+        }
+
+        allow = {
+			has_monthly_income >= 10
+			hidden:capital_scope = {
+				province_has_special_pop = {
+					text = "prov_has_2_merchant_tt"
+					type = merchant
+					count = 2
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_song_ws.17
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = trade_policy_song_1
+					duration = 10950
+				}
+				create_character = {
+					culture = root.culture
+					religion = root.religion
+					age = 27
+					no_stats = yes
+					hidden_effect = {
+						bad_martial_effect = yes
+						average_charisma_effect = yes
+						amazing_finesse_effect = yes
+						bad_zeal_effect = yes
+						add_trait = master_of_trade_trait
+					}
+				}
+            }
+        }
+    }
+}

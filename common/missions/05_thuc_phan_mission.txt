@@ -1,0 +1,466 @@
+﻿thuc_phan_missions = {
+    header = "mission_image_general"
+    icon = "cde_new_city_founded"
+
+    repeatable = no
+    chance = {
+        factor = 1000
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+		tag = XOU
+		is_subject = no
+        has_civil_war = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+	
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+	
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+	
+    on_completion = {
+		complete_mission_effect = yes
+	}
+	
+    thuc_phan_missions_task_1 = { #Rice Farms
+        icon = "task_calm"
+		duration = 730
+        allow = {
+			treasury >= 50
+			political_influence > 20
+		}
+		
+		on_start = {
+			add_treasury = -50
+			add_political_influence = -20
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.1
+            show_as_tooltip = {
+				p:9178 = {
+					add_permanent_province_modifier = {
+						name = "thuc_phan_rice"
+					}
+					#add_building_level = basic_settlement_infratructure_building
+					create_state_pop = citizen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = freemen
+					create_state_pop = tribesmen
+					create_state_pop = tribesmen
+				}
+            }
+        }
+    }
+	
+    thuc_phan_missions_task_2 = { #Fill the Treasury
+        icon = "task_economical"
+		requires = { thuc_phan_missions_task_1 }
+		
+        allow = {
+			treasury >= 250
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.2
+            show_as_tooltip = {
+				add_1_free_province_investments = yes
+				add_political_influence = 25
+            }
+        }
+    }
+	
+    thuc_phan_missions_task_3 = { #Defence against the Hung
+        icon = "task_battle"
+		requires = { thuc_phan_missions_task_1 }
+		
+		highlight = {
+			scope:province = {
+				is_in_area = jiaozhi_area
+				owner = root
+			}
+		}
+		
+        allow = {
+			capital_scope = {
+				fort_level >= 1
+			}
+			any_owned_province = {
+				is_in_area = jiaozhi_area
+				fort_level >= 1
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.3
+            show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						fort_level >= 1
+						is_capital = no
+					}
+					create_state_pop = tribesmen
+					create_state_pop = tribesmen
+				}
+				add_military_experience = 5
+				add_stability = 5
+            }
+        }
+    }
+	
+    thuc_phan_missions_task_4 = { #Rise of Thuc Phan
+        icon = "task_diplomatic"
+		duration = 180
+		
+        allow = {
+			political_influence >= 50
+			stability >= 50
+		}
+		
+		on_start = {
+			add_political_influence = -50
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.4
+            show_as_tooltip = {
+				add_stability = -10
+				create_character = {
+					first_name = "Thuc"
+					family_name = "Phan"
+					culture = root.culture
+					religion = root.religion
+					age = 20
+					no_stats = yes
+					no_traits = yes
+					#amazing_martial_effect = yes
+					#amazing_finesse_effect = yes
+					#amazing_charisma_effect = yes
+					#amazing_zeal_effect = yes
+				}
+            }
+			change_law = absolute_authority
+			custom_tooltip = thuc_phan_missions_task_4_thuc_phan_becomes_ruler
+			custom_tooltip = thuc_phan_missions_task_4_claims
+			hidden_effect = {
+				area:yulin_area = { mission_area_claim_effect = yes }
+				area:xinggu_area = { mission_area_claim_effect = yes }
+				area:jiaozhi_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+    thuc_phan_missions_task_5 = { #Unite the Northern Tribes
+        icon = "task_political"
+		requires = { thuc_phan_missions_task_4 }
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 8942
+					province_id = 9419
+				}
+			}
+		}
+		
+        allow = {
+			centralization >= 25
+			owns = 8942
+			owns = 9419
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.5
+            show_as_tooltip = {
+				add_political_influence = 25
+				add_stability = 10
+            }
+        }
+    }
+	
+    thuc_phan_missions_task_6 = { #March to the South
+        icon = "task_expansion"
+		requires = { thuc_phan_missions_task_3 thuc_phan_missions_task_5 }
+		
+		highlight = {
+			scope:province = {
+				owned_or_subject_owned = c:LCV
+			}
+		}
+		
+		bypass = {
+			c:LCV = {
+				has_land = no
+			}
+		}
+		
+        allow = {
+			custom_tooltip = {
+				text = "thuc_phan_missions_task_6_at_war_with_hung"
+				any_countries_at_war_with  = {
+					tag = LCV
+				}
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.6
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = "thuc_phan_military_mod"
+					duration = 3650
+				}
+            }
+			custom_tooltip = thuc_phan_missions_task_6_claims
+			hidden_effect = {
+				area:hong_area = { mission_area_claim_effect = yes }
+				area:jiuzhen_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+    thuc_phan_missions_task_7 = { #Conquest of Hanoi
+        icon = "task_conquest"
+		requires = { thuc_phan_missions_task_6 }
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = jiaozhi_area
+					owned_or_subject_owned = c:LCV
+				}
+			}
+		}
+		
+        allow = {
+			owns_area = jiaozhi_area
+			c:LCV = {
+				has_land = no
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.7
+            show_as_tooltip = {
+				add_centralization = 25
+				current_ruler = {
+					add_focus_perk = {
+						text = "add_1_char_perk"
+						amount = 1
+					}
+					add_popularity = 25
+				}
+            }
+        }
+    }
+	
+    thuc_phan_missions_task_8 = { #A New Kingdom
+        icon = "task_apollo"
+		requires = { thuc_phan_missions_task_7 }
+		
+        allow = {
+			centralization >= 80
+			political_influence >= 50
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.8
+            show_as_tooltip = {
+				add_political_influence = -50
+				change_government = despotic_monarchy
+				switch_government_type_event_clearup_effect = yes
+            }
+			custom_tooltip = thuc_phan_missions_task_8_claims
+			hidden_effect = {
+				area:hepu_area = { mission_area_claim_effect = yes }
+				area:cangwu_area = { mission_area_claim_effect = yes }
+				area:nanhai_area = { mission_area_claim_effect = yes }
+				area:zhuya_area = { mission_area_claim_effect = yes }
+				area:rinan_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+	
+    thuc_phan_missions_task_9 = { #Co Lao Citadel
+        icon = "task_atlas"
+		duration = 1825
+		requires = { thuc_phan_missions_task_7 }
+		
+		highlight = {
+			scope:province = {
+				province_id = 9188
+			}
+		}
+		
+        allow = {
+			treasury >= 250
+			owns = 9188
+			p:9188 = {
+				province_has_special_pop = {
+					text = "prov_has_1_architect_tt"
+					type = architect 
+					count = 1
+				}
+			}
+		}
+		
+		on_start = {
+			trigger_event = me_thuc_phan.900
+			trigger_event = {
+				id = me_thuc_phan.901 #Kim Quy
+				days = { 365 730 }
+			}
+			trigger_event = {
+				id = me_thuc_phan.902 #Magical Crossbow
+				days = { 1095 1460 }
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.9
+            show_as_tooltip = {
+				p:9188 = {
+					add_permanent_province_modifier = {
+						name = "co_lao_citadel"
+					}
+				}
+            }
+        }
+    }
+	
+    thuc_phan_missions_task_10 = { #The Northern T(h)reat
+        icon = "task_artemis"
+		requires = { thuc_phan_missions_task_8 thuc_phan_missions_task_9 }
+		final = yes
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = yulin_area
+					is_in_area = hepu_area
+					is_in_area = cangwu_area
+					is_in_area = nanhai_area
+				}
+			}
+		}
+		
+        allow = {
+			owns_area = yulin_area
+			owns_area = hepu_area
+			owns_area = cangwu_area
+			owns_area = nanhai_area
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.10
+            show_as_tooltip = {
+				add_2_free_province_investments = yes
+				current_ruler = {
+					add_focus_perk = {
+						text = "add_3_char_perk"
+						amount = 3
+					}
+					add_trait = ambitious
+				}
+            }
+        }
+    }
+	
+    thuc_phan_missions_task_11 = { #The Southern Coast
+        icon = "task_political"
+		requires = { thuc_phan_missions_task_7 }
+		
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = jiuzhen_area
+					is_in_area = rinan_area
+					is_in_area = lam_ap_area
+				}
+			}
+		}
+		
+        allow = {
+			owns_area = jiuzhen_area
+			owns_area = rinan_area
+			owns_area = lam_ap_area
+			any_owned_province = {
+				num_of_port_building >= 1
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.11
+            show_as_tooltip = {
+				add_military_experience = 10
+				random_owned_province = {
+					limit = {
+						num_of_port_building > 0
+					}
+					owner = {
+						create_unit = {
+							navy = yes
+							location = prev.prev
+							hidden_effect = {
+								add_subunit = liburnian
+								add_subunit = liburnian
+								add_subunit = liburnian
+								add_subunit = liburnian
+								add_subunit = liburnian
+								add_subunit = liburnian
+								add_subunit = liburnian
+								add_subunit = liburnian
+								add_subunit = liburnian
+								add_subunit = liburnian
+							}
+						}
+					}
+				}
+            }
+        }
+    }
+	
+    thuc_phan_missions_task_12 = { #The Two People
+        icon = "task_diplomatic"
+		requires = { thuc_phan_missions_task_8 }
+		duration = 90
+		
+        allow = {
+			any_country_culture = {
+				is_culture = lacviet
+				is_integrated = yes
+			}
+		}
+		
+        on_completion = {
+            trigger_event = me_thuc_phan.12
+            show_as_tooltip = {
+				change_country_name = "AU_LAC_FORMABLE"
+				hidden_effect = {
+					change_country_adjective = "AU_LAC_ADJECTIVE"
+				}
+				add_country_modifier = {
+					name = "au_lac_formation"
+					duration = -1
+				}
+				capital_scope = {
+					capital_formable_large_effect = yes
+					formable_capital_modifier_large_effect = yes
+				}
+            }
+        }
+    }
+}

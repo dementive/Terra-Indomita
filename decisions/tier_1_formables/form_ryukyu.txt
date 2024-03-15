@@ -1,0 +1,64 @@
+﻿country_decisions = {
+	form_ryukyu = { # Ryukyu
+		
+		potential = {
+			num_of_cities >= 1
+			tag = OK1
+			NOT = {
+				any_country = {
+					num_of_cities >= 1
+					tag = RYU
+				}
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = kumaso_area
+					is_in_area = qilin_area
+					is_in_area = tutikungshan_area
+					province_id = 8121
+					province_id = 9305
+					province_id = 9285
+				}
+			}
+		}
+		
+		allow = {
+			can_form_nation_trigger = yes
+			owns_or_subject_owns_area = kumaso_area
+			owns_or_subject_owns_area = qilin_area
+			owns_or_subject_owns_area = tutikungshan_area
+			owns_or_subject_owns = 8121
+			owns_or_subject_owns = 9305
+			owns_or_subject_owns = 9285
+		}
+		
+		effect = {
+			custom_tooltip = "tier_1_formable_tooltip"
+			change_country_name = "RYU_NAME"
+			add_innovation = 2
+			hidden_effect = {
+				change_country_adjective = "RYU_ADJECTIVE"
+				change_country_color = frost_blue
+				change_country_tag = RYU
+				#change_country_flag = LIGURIA_FLAG					
+			}
+			capital_scope = {
+				establish_city_effect = yes
+				capital_formable_tribal_effect = yes
+				formable_capital_modifier_tribal_effect = yes
+			}
+			random_owned_province = {
+				limit = { NOT = { this = capital_scope } }
+				establish_city_effect = yes
+			}
+			add_4_free_province_investments = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+}

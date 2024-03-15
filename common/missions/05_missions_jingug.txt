@@ -1,0 +1,1114 @@
+﻿missions_jingug = {
+    header = "mission_image_china"
+    icon = "cde_demetrius_fleet"
+
+    repeatable = no
+    chance = {
+        factor = 1000
+    }
+
+    potential = {
+        NOT = { has_variable = mission_cooldown_var }
+        tag = JNG
+		is_subject = no
+        has_civil_war = no
+    }
+
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
+
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = mission_cooldown_var
+            days = 7300
+        }
+    }
+
+    on_completion = {
+		complete_mission_effect = yes
+	}
+
+    missions_jingug_task_1 = { #Northern Conference
+        icon = "task_political"
+		duration = 120
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					province_id = 9283
+					province_id = 9596
+					province_id = 9608
+					province_id = 9597
+				}
+            }
+        }
+
+        allow = {
+			treasury >= 80
+			political_influence >= 30
+			owns_or_subject_owns_area = mahan_area
+		}
+
+		on_start = {
+			trigger_event = me_jingug.100
+			show_as_tooltip = {
+				add_treasury = -80
+				add_political_influence = -30
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.1
+            show_as_tooltip = {
+				if = {
+					limit = {
+						c:MSU = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = MSU
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:SOB = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = SOB
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:BAE = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = BAE
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:GRI = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = GRI
+							type = feudatory
+						}
+					}
+				}
+            }
+			custom_tooltip = missions_jingug_task_1_claims
+			hidden_effect = {
+				area:lelang_area = { mission_area_claim_effect = yes }
+				area:liaodong_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_jingug_task_2 = { #Setting Sail
+        icon = "task_expansion"
+
+        allow = {
+			num_of_ships >= 15
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.2
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = jingug_sails
+					duration = 7300
+				}
+            }
+			p:9285 = {
+				add_claim = root
+			}
+        }
+    }
+
+    missions_jingug_task_3 = { #Bronzecraft
+        icon = "task_economical"
+
+		highlight = {
+			 scope:province = {
+				owner = root
+				trade_goods = base_metals
+            }
+        }
+
+        allow = {
+			custom_tooltip = {
+				text = missions_jingug_task_3_blacksmith_on_bronze
+				any_owned_province = {
+					trade_goods = base_metals
+					has_building = settlement_blacksmith
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.3
+            show_as_tooltip = {
+				add_treasury = 50
+				add_country_modifier = {
+					name = jingug_bronze
+					duration = 7300
+				}
+            }
+        }
+    }
+
+    missions_jingug_task_4 = { #Conquest of Joseon
+        icon = "task_battle"
+		requires = { missions_jingug_task_1 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = lelang_area
+					is_in_area = liaodong_area
+				}
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 10
+				is_in_area = lelang_area
+			}
+			OR = {
+				owns_area = liaodong_area
+				c:JSN = {
+					has_land = no
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.4
+			show_as_tooltip = {
+				current_ruler = {
+					add_popularity = 20
+				}
+			}
+            custom_tooltip = missions_jingug_task_4_claims
+			hidden_effect = {
+				area:lintun_area = { mission_area_claim_effect = yes }
+				area:xuantu_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_jingug_task_5 = { #Convert the Kodo
+        icon = "task_religion"
+		duration = 90
+		requires = { missions_jingug_task_1 }
+
+		bypass = {
+			religion = wa_religions
+		}
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = mahan_south_area
+					province_id = 9599
+				}
+            }
+        }
+
+        allow = {
+			area:mahan_south_area = {
+				any_area_province = {
+					count >= 7
+                    has_owner = yes
+					dominant_province_religion = root.religion
+					owner = root
+				}
+			}
+			p:9599 = {
+				dominant_province_religion = root.religion
+				is_holy_site = no
+				province_has_special_pop = {
+					text = "prov_has_1_priest_tt"
+					type = priest
+					count = 1
+				}
+			}
+			owns_or_subject_owns_area = byeonhan_area
+			owns_or_subject_owns = 9295
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.5
+            show_as_tooltip = {
+				if = {
+					limit = {
+						c:GOJ = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = GOJ
+							type = feudatory
+						}
+					}
+					c:GOJ = {
+						set_country_religion = yi_religions
+					}
+				}
+				if = {
+					limit = {
+						c:DGN = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = DGN
+							type = feudatory
+						}
+					}
+					c:DGN = {
+						set_country_religion = yi_religions
+					}
+				}
+				if = {
+					limit = {
+						c:ANY = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = ANY
+							type = feudatory
+						}
+					}
+					c:ANY = {
+						set_country_religion = yi_religions
+					}
+				}
+				if = {
+					limit = {
+						c:GYA = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = GYA
+							type = feudatory
+						}
+					}
+					c:GYA = {
+						set_country_religion = yi_religions
+					}
+				}
+				if = {
+					limit = {
+						c:MRM = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = MRM
+							type = feudatory
+						}
+					}
+					c:MRM = {
+						set_country_religion = yi_religions
+					}
+				}
+				if = {
+					limit = {
+						c:BLO = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = BLO
+							type = feudatory
+						}
+					}
+					c:BLO = {
+						set_country_religion = yi_religions
+					}
+				}
+				if = {
+					limit = {
+						c:BUS = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = BUS
+							type = feudatory
+						}
+					}
+					c:BUS = {
+						set_country_religion = yi_religions
+					}
+				}
+				create_character = {
+					culture = root.culture
+					religion = root.religion
+					age = 47
+					no_stats = yes
+					no_traits = yes
+					hidden_effect = {
+						bad_martial_effect = yes
+						good_charisma_effect = yes
+						good_finesse_effect = yes
+						amazing_zeal_effect = yes
+						add_trait = zealous
+						add_trait = pious
+						add_zeal = 3
+						good_zeal_trait_effect = yes
+					}
+				}
+            }
+			custom_tooltip = missions_jingug_task_5_some_kodos_will_convert
+			hidden_effect = {
+				area:mahan_south_area = {
+					every_area_province = {
+						limit = {
+							any_pops_in_province = {
+								NOT = {
+									pop_religion = root.religion 
+								}
+							}
+						}
+						random_pops_in_province = {
+							limit = {
+								NOT = {
+									pop_religion = root.religion  
+								}
+							}
+							set_pop_religion = root.religion 
+						}
+					}
+				}
+				area:byeonhan_area = {
+					every_area_province = {
+						limit = {
+							any_pops_in_province = {
+								NOT = {
+									pop_religion = root.religion 
+								}
+							}
+						}
+						random_pops_in_province = {
+							limit = {
+								NOT = {
+									pop_religion = root.religion  
+								}
+							}
+							set_pop_religion = root.religion 
+						}
+					}
+				}
+				p:9295 = {
+					random_pops_in_province = {
+						limit = {
+							NOT = {
+								pop_religion = root.religion  
+							}
+						}
+						set_pop_religion = root.religion 
+					}
+				}
+			}
+        }
+    }
+
+    missions_jingug_task_6 = { #Island Tamna
+        icon = "task_political"
+		requires = { missions_jingug_task_2 }
+
+		highlight = {
+			 scope:province = {
+				province_id = 9285
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns = 9285
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.6
+            p:8121 = {
+				add_claim = root
+			}
+			p:9304 = {
+				add_claim = root
+			}
+			p:9305 = {
+				add_claim = root
+			}
+        }
+    }
+
+    missions_jingug_task_7 = { #Ritual Bronze Daggers
+        icon = "task_calm"
+		requires = { missions_jingug_task_3 missions_jingug_task_5 }
+		duration = 365
+
+        allow = {
+			treasury >= 100
+			custom_tooltip = {
+				text = missions_jingug_task_7_any_artist
+				any_owned_province = {
+					province_has_special_pop = {
+						text = "prov_has_1_artist_tt"
+						type = artist
+						count = 1
+					}
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.7
+            show_as_tooltip = {
+				create_country_treasure = {
+					key = "ritual_bronze_daggers_jingug"
+					icon = "chinesesword1"
+					modifier = {
+						local_tribesmen_happyness = 0.2
+						local_manpower_modifier = 0.1
+					}
+				}
+				add_political_influence = 60
+            }
+        }
+    }
+
+    missions_jingug_task_8 = { #Northern Jin
+        icon = "task_battle"
+		requires = { missions_jingug_task_4 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = lintun_area
+					is_in_area = xuantu_area
+				}
+            }
+        }
+
+        allow = {
+			owns_area = lintun_area
+			owns_area = xuantu_area
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.8
+            show_as_tooltip = {
+				add_political_influence = 50
+				current_ruler = {
+					add_popularity = 20
+				}
+            }
+        }
+    }
+
+    missions_jingug_task_9 = { #Tribal Center of Jinhan
+        icon = "task_artemis"
+		requires = { missions_jingug_task_5 }
+
+		highlight = {
+			 scope:province = {
+				is_in_area = jinhan_area
+				is_coastal = no
+				NOT = { province_id = 9295 }
+            }
+        }
+
+        allow = {
+			p:9290 = {
+				owner = root
+				fort_level >= 1
+				civilization_value >= 20
+			}
+			c:GIJ = {
+				OR = {
+					has_land = no
+					AND = {
+						is_subject_of = root
+						opinion = {
+							target = root
+							value >= 190
+						}
+					}
+				}
+			}
+			c:SOM = {
+				OR = {
+					has_land = no
+					AND = {
+						is_subject_of = root
+						opinion = {
+							target = root
+							value >= 190
+						}
+					}
+				}
+			}
+			c:YED = {
+				OR = {
+					has_land = no
+					AND = {
+						is_subject_of = root
+						opinion = {
+							target = root
+							value >= 190
+						}
+					}
+				}
+			}
+			c:GUB = {
+				OR = {
+					has_land = no
+					AND = {
+						is_subject_of = root
+						opinion = {
+							target = root
+							value >= 190
+						}
+					}
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.9
+            show_as_tooltip = {
+				if = {
+					limit = {
+						c:GIJ = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = GIJ
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:SOM = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = SOM
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:YED = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = YED
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:GUB = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = GUB
+							type = feudatory
+						}
+					}
+				}
+				p:9290 = {
+					if = {
+						limit = {
+							NOR = { 
+								has_province_rank = city 
+								has_province_rank = city_metropolis
+							} 
+						}
+						custom_tooltip = "time_to_complete_city_tt"
+						hidden_effect = {
+							add_province_modifier = {
+								name = founding_city_in_progress
+								duration = 730
+							}
+						}
+						trigger_event = {
+							id = state_improvement.6
+							days = 730
+						}
+					}
+					else = {
+						create_state_pop = freemen
+						create_state_pop = freemen
+						create_state_pop = freemen
+					}
+				}
+            }
+        }
+    }
+
+    missions_jingug_task_10 = { #Claim the Islands
+        icon = "task_expansion"
+		requires = { missions_jingug_task_6 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					province_id = 8121
+					province_id = 9304
+					province_id = 9305
+				}
+            }
+        }
+
+        allow = {
+			owns_or_subject_owns = 8121
+			owns_or_subject_owns = 9304
+			owns_or_subject_owns = 9305
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.10
+            custom_tooltip = missions_jingug_task_10_claims
+			hidden_effect = {
+				area:matsura_area = { mission_area_claim_effect = yes }
+				area:kii_area = { mission_area_claim_effect = yes }
+				area:kumaso_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    missions_jingug_task_11 = { #Northern Wall
+        icon = "task_heracles"
+		requires = { missions_jingug_task_8 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = lintun_area
+					is_in_area = xuantu_area
+					is_in_area = liaodong_area
+				}
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 5
+				fort_level >= 1
+				OR = {
+					is_in_area = lintun_area
+					is_in_area = xuantu_area
+					is_in_area = liaodong_area
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.11
+            show_as_tooltip = {
+				add_2_free_province_investments = yes
+            }
+        }
+    }
+
+    missions_jingug_task_12 = { #Capitals of Jingug
+        icon = "task_apollo"
+		requires = { missions_jingug_task_8 missions_jingug_task_9 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = mahan_area
+					is_in_area = byeonhan_area
+					is_in_area = lelang_area
+				}
+				OR = {
+					has_province_rank = city 
+					has_province_rank = city_metropolis
+				}
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				is_in_area = mahan_area
+				num_of_used_building_slots >= 3
+				total_population >= 20
+			}
+			any_owned_province = {
+				is_in_area = byeonhan_area
+				num_of_used_building_slots >= 3
+				total_population >= 20
+			}
+			any_owned_province = {
+				is_in_area = lelang_area
+				num_of_used_building_slots >= 3
+				total_population >= 20
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.12
+			custom_tooltip = missions_jingug_task_12_choose_new_capital
+            show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						is_in_area = mahan_area
+						num_of_used_building_slots >= 3
+						total_population >= 20
+					}
+					add_permanent_province_modifier = {
+						name = jingug_capital
+					}
+				}
+				random_owned_province = {
+					limit = {
+						is_in_area = byeonhan_area
+						num_of_used_building_slots >= 3
+						total_population >= 20
+					}
+					add_permanent_province_modifier = {
+						name = jingug_capital
+					}
+				}
+				random_owned_province = {
+					limit = {
+						is_in_area = lelang_area
+						num_of_used_building_slots >= 3
+						total_population >= 20
+					}
+					add_permanent_province_modifier = {
+						name = jingug_capital
+					}
+				}
+            }
+        }
+    }
+
+    missions_jingug_task_13 = { #Dominate the Eastern Coast
+        icon = "task_political"
+		requires = { missions_jingug_task_9 missions_jingug_task_10 }
+
+		highlight = {
+			 scope:province = {
+				is_in_area = jinhan_area
+				is_coastal = yes
+            }
+        }
+
+        allow = {
+			diplomatic_stance = domination_stance
+			current_ruler = {
+				custom_tooltip = {
+                    text = does_not_have_assert_authority_tt
+                    has_variable = assert_authority_var
+                }
+			}
+			owns_or_subject_owns_area = jinhan_area
+			c:YOH = {
+				OR = {
+					has_land = no
+					AND = {
+						is_subject_of = root
+						opinion = {
+							target = root
+							value >= 190
+						}
+					}
+				}
+			}
+			c:SRO = {
+				OR = {
+					has_land = no
+					AND = {
+						is_subject_of = root
+						opinion = {
+							target = root
+							value >= 190
+						}
+					}
+				}
+			}
+			c:GEG = {
+				OR = {
+					has_land = no
+					AND = {
+						is_subject_of = root
+						opinion = {
+							target = root
+							value >= 190
+						}
+					}
+				}
+			}
+			c:UYU = {
+				OR = {
+					has_land = no
+					AND = {
+						is_subject_of = root
+						opinion = {
+							target = root
+							value >= 190
+						}
+					}
+				}
+			}
+			c:SJG = {
+				OR = {
+					has_land = no
+					AND = {
+						is_subject_of = root
+						opinion = {
+							target = root
+							value >= 190
+						}
+					}
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.13
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = domineering_jingug
+					duration = 3650
+				}
+				if = {
+					limit = {
+						c:YOH = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = YOH
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:SRO = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = SRO
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:GEG = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = GEG
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:UYU = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = UYU
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:SJG = {
+							has_land = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = SJG
+							type = feudatory
+						}
+					}
+				}
+            }
+        }
+    }
+
+    missions_jingug_task_14 = { #Across the Sea
+        icon = "task_conquest"
+		requires = { missions_jingug_task_10 }
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_area = matsura_area
+					is_in_area = kii_area
+					is_in_area = kumaso_area
+				}
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 20
+				OR = {
+					is_in_area = matsura_area
+					is_in_area = kii_area
+					is_in_area = kumaso_area
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.14
+			custom_tooltip = missions_jingug_task_14_claims
+            hidden_effect = {
+				region:wa_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    missions_jingug_task_15 = { #Big in Japan
+        icon = "task_athena"
+		requires = { missions_jingug_task_14 }
+
+		highlight = {
+			 scope:province = {
+				is_in_region = wa_region
+            }
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 42
+				custom_tooltip = {
+					text = is_in_region_wa
+					is_in_region = wa_region
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.15
+			custom_tooltip = missions_jingug_task_15_every_wa_province_gets
+            show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						is_in_region = wa_region
+					}
+					add_province_modifier = {
+						name = big_in_japan_jingug
+						duration = 10950
+					}
+				}
+				add_military_experience = 10
+            }
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						is_in_region = wa_region
+					}
+					add_province_modifier = {
+						name = big_in_japan_jingug
+						duration = 10950
+					}
+				}
+			}
+        }
+    }
+
+	missions_jingug_task_16 = { #United Kingdom
+        icon = "task_atlas"
+		requires = { missions_jingug_task_12 missions_jingug_task_13 }
+		final = yes
+
+		highlight = {
+			 scope:province = {
+				OR = {
+					is_in_region = jin_region
+					is_in_area = liaodong_area
+				}
+            }
+        }
+
+        allow = {
+			owns_region = jin_region
+			owns_area = liaodong_area
+			legitimacy >= 95
+			current_ruler = {
+				popularity >= 80
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_jingug.16
+            show_as_tooltip = {
+				add_stability = 20
+				add_country_modifier = {
+					name = united_jingug
+					duration = -1
+				}
+            }
+        }
+    }
+}

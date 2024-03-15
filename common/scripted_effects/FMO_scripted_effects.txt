@@ -32,6 +32,7 @@
     }
 }
 add_civilization_scaling_gold_cost_effect = {
+    increment_civ_investment_count = yes
     if = {
         limit = {
             has_variable = num_civ_investments
@@ -49,7 +50,7 @@ add_civilization_scaling_gold_cost_effect = {
             custom_tooltip = CIVILIZATION_GOLD_SCALE_TT
         }
         hidden_effect = {
-            every_state_province = {
+            if = {
                 limit = {
                     exists = holding_owner
                 }

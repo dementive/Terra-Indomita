@@ -69,12 +69,8 @@ me_adriatic_pirate.3 = {
         name = "me_adriatic_pirate_3.a"
         custom_tooltip = me_adriatic_pirate_3_tooltip
         show_as_tooltip = {
-            random_owned_province = {
-                limit = { is_coastal = yes }
-                save_scope_as = illyrian_pirate_shipyard_province
-            }
             scope:illyrian_pirate_shipyard_province = {
-                set_city_status = city
+                found_city_effect = yes
         			add_province_modifier = {
         				name = illyrian_pirate_shipyard
         				duration = -1
@@ -98,6 +94,34 @@ me_adriatic_pirate.4 = {
     right_portrait = scope:random_pirate_representative
 
     immediate = {
+        create_unit = {
+            navy = yes
+            name = "Teuta's Fleet"
+            location = p:2538
+            hidden_effect = {
+            add_subunit = trireme
+            add_subunit = trireme
+            add_subunit = trireme
+            add_subunit = trireme
+            add_subunit = trireme
+            add_subunit = trireme
+            add_subunit = trireme
+            add_subunit = trireme
+            add_subunit = trireme
+            add_subunit = liburnian                                              
+            add_subunit = liburnian
+            add_subunit = liburnian    
+            add_subunit = liburnian 
+            add_subunit = liburnian   
+            add_subunit = liburnian                                              
+            add_subunit = liburnian
+            add_subunit = liburnian    
+            add_subunit = liburnian 
+            add_subunit = liburnian  
+            add_food = 200
+            add_morale = 2
+            }
+        }
         create_character = {
                 female = yes
                 first_name = "Teuta"
@@ -116,7 +140,8 @@ me_adriatic_pirate.4 = {
                     good_martial_effect = yes
                     good_charisma_effect = yes
                     good_finesse_effect = yes
-                    force_add_trait = pillager
+                    add_trait = oarmaster
+                    add_trait = coastal_raider
                     scope:random_pirate_representative = {
                         add_character_modifier = {
                             name = illyrian_pirate_queen
@@ -124,7 +149,26 @@ me_adriatic_pirate.4 = {
                         }
                     }
                 }
-                
+            }
+            ordered_navy = {
+                limit = {
+                    unit_size >= 20
+                }
+                order_by = unit_size
+                max = 1
+                save_scope_as = teuta_raider_navy
+            }
+            hidden_effect = {
+                scope:teuta_raider_navy = {
+                    if = {
+                        limit = { exists = commander }
+                        commander = { remove_command = yes }
+                        set_as_commander = scope:random_pirate_representative
+                    }
+                    else = {
+                        set_as_commander = scope:random_pirate_representative
+                    }
+                }
             }
         }
 
@@ -309,6 +353,7 @@ me_adriatic_pirate.9 = {
         show_as_tooltip = {
             add_treasury = -100
             add_manpower = -2
+            add_1_free_province_investments = yes
             p:470 = {
 				add_province_modifier = {
                     name = pirate_haven_modifier
@@ -345,8 +390,8 @@ me_adriatic_pirate.10 = {
         name = "me_adriatic_pirate_10.a"
         custom_tooltip = me_adriatic_pirate_10_tooltip
         show_as_tooltip = {
-            add_political_influence = -50
-            add_treasury = -100
+            add_political_influence = -25
+            add_treasury = -50
             add_country_modifier = {
                 name = calling_all_pirates_adriatic_modifier
                 duration = 1825
@@ -369,7 +414,7 @@ me_adriatic_pirate.11 = {
             create_unit = {
                 navy = no
                 name = "Pirate Liberators"
-                location = capital_scope
+                location = root.capital_scope
                 hidden_effect = {
                 add_subunit = light_infantry
                 add_subunit = light_infantry
@@ -510,13 +555,10 @@ me_adriatic_pirate.17 = {
     option = {
         name = "me_adriatic_pirate_17.a"
         custom_tooltip = me_adriatic_pirate_17_tooltip
-        show_as_tooltip = {
-            add_country_modifier = {
-                name = illyrian_pirate_ships_of_doom
-                duration = -1
-            }
+        add_country_modifier = {
+            name = illyrian_pirate_ships_of_doom
+            duration = -1
         }
-
     }
 }
 
@@ -548,6 +590,7 @@ me_adriatic_pirate.19 = {
         show_as_tooltip = {
             add_treasury = -250
             add_manpower = -3
+            add_innovation = 2
             area:sporades_area = {
                 add_provincial_claim_effect = yes
             }
@@ -731,13 +774,12 @@ me_adriatic_pirate.24 = {
         show_as_tooltip = {
             add_treasury = -150
             add_innovation = 2
-            random_owned_province = {
-                limit = { has_city_status = yes }
+            scope:01_adriatic_pirate_missions_task_21_var = {
                 add_province_modifier = {
                     name = illyrian_pirate_library_center
                     duration = -1
+                }
             }
-        }
         }
 
     }
@@ -857,6 +899,12 @@ me_adriatic_pirate.27 = {
                 name = illyrian_pirate_civil_war
                 days = -1
             }
+            if = {
+                limit = {
+                    scope:random_pirate_representative = { is_married = yes }
+                }
+                scope:random_pirate_representative = { divorce_character = spouse }
+            }
             start_civil_war = scope:random_pirate_representative
             scope:random_pirate_representative.employer = {
                 save_scope_as = civil_war_country
@@ -898,102 +946,106 @@ me_adriatic_pirate.27 = {
                     }
                 }
             }
-            scope:civil_war_country = {
-                add_military_experience = 200
-                add_stability = 25
-                add_political_influence = 200
-                add_country_modifier = {
-                    name = civil_war_buff_ai
-                    duration = 3650
-                }
-                if = {
-                    limit = {
-                        tag = ROM
+            hidden_effect = {
+                scope:civil_war_country = {
+                    add_military_experience = 200
+                    add_stability = 25
+                    add_political_influence = 200
+                    add_country_modifier = {
+                        name = civil_war_buff_ai
+                        duration = 3650
                     }
-                    change_law = testamentum_militis
-                }
-                else_if = {
-                    limit = {
-                        tag = CAR
-                    }
-                    change_law = republic_military_recruitment_car_2
-                }
-                else = {
-                    change_law = republican_recruitment_3
-                }
-                random_country_culture = {
-                    limit = {
-                        is_integrated = no
-                    }
-                    weight = {
-                        modifier = {
-                            factor = country_culture_pop_count
+                    if = {
+                        limit = {
+                            tag = ROM
                         }
+                        change_law = testamentum_militis
                     }
-                    scope:civil_war_country = {
-                        integrate_country_culture = prev
-                    }
-                }
-                random_country_culture = {
-                    limit = {
-                        is_integrated = no
-                    }
-                    weight = {
-                        modifier = {
-                            factor = country_culture_pop_count
+                    else_if = {
+                        limit = {
+                            tag = CAR
                         }
+                        change_law = republic_military_recruitment_car_2
                     }
-                    scope:civil_war_country = {
-                        integrate_country_culture = prev
+                    else = {
+                        change_law = republican_recruitment_3
                     }
-                }
-                random_country_culture = {
-                    limit = {
-                        is_integrated = no
-                    }
-                    weight = {
-                        modifier = {
-                            factor = country_culture_pop_count
+                    random_country_culture = {
+                        limit = {
+                            is_integrated = no
                         }
-                    }
-                    scope:civil_war_country = {
-                        integrate_country_culture = prev
-                    }
-                }
-                add_treasury = 4000
-                random_country_culture = {
-                    limit = {
-                        is_integrated = no
-                    }
-                    weight = {
-                        modifier = {
-                            factor = country_culture_pop_count
-                        }
-                    }
-                    scope:civil_war_country = {
-                        integrate_country_culture = prev
-                    }
-                }
-                every_governorships = {
-                    random_governorship_state = {
-                        if = {
-                            limit = {
-                                has_governor = no
+                        weight = {
+                            modifier = {
+                                factor = country_culture_pop_count
                             }
-                            scope:civil_war_country = {
-                                create_character = {
-                                    female = no
-                                    age = 32
-                                    save_scope_as = sbgnq1
+                        }
+                        scope:civil_war_country = {
+                            integrate_country_culture = prev
+                        }
+                    }
+                    random_country_culture = {
+                        limit = {
+                            is_integrated = no
+                        }
+                        weight = {
+                            modifier = {
+                                factor = country_culture_pop_count
+                            }
+                        }
+                        scope:civil_war_country = {
+                            integrate_country_culture = prev
+                        }
+                    }
+                    random_country_culture = {
+                        limit = {
+                            is_integrated = no
+                        }
+                        weight = {
+                            modifier = {
+                                factor = country_culture_pop_count
+                            }
+                        }
+                        scope:civil_war_country = {
+                            integrate_country_culture = prev
+                        }
+                    }
+                    add_treasury = 4000
+                    random_country_culture = {
+                        limit = {
+                            is_integrated = no
+                        }
+                        weight = {
+                            modifier = {
+                                factor = country_culture_pop_count
+                            }
+                        }
+                        scope:civil_war_country = {
+                            integrate_country_culture = prev
+                        }
+                    }
+                    hidden_effect = {
+                        every_governorships = {
+                            random_governorship_state = {
+                                if = {
+                                    limit = {
+                                        has_governor = no
+                                    }
+                                    scope:civil_war_country = {
+                                        create_character = {
+                                            female = no
+                                            age = 32
+                                            save_scope_as = sbgnq1
+                                        }
+                                    }
+                                    random_state_province = {
+                                        set_as_governor = scope:sbgnq1
+                                    }
                                 }
-                            }
-                            random_state_province = {
-                                set_as_governor = scope:sbgnq1
-                            }
-                        }
-                        every_state_province = {
-                            every_pops_in_province = {
-                                set_pop_culture = scope:civil_war_country.culture
+                                every_state_province = {
+                                    every_pops_in_province = {
+                                        set_pop_culture = scope:civil_war_country.culture
+                                    }
+                                }
                             }
                         }
                     }
@@ -1014,7 +1066,7 @@ me_adriatic_pirate.27 = {
 			limit = {
 				is_ai = no
 			}
-			add_stability = -25
+			add_stability = -10
 		}
 		trigger_event = {
 			id = me_adriatic_pirate.30

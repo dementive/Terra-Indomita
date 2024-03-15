@@ -19,8 +19,8 @@ tylos_missions = {
     repeatable = no
 
     chance = {
-        factor = 50000
-    }
+		factor = 100
+	}
 
     abort = {
         ai_mission_back_out_trigger = yes
@@ -162,7 +162,11 @@ tylos_missions = {
         duration = 365
 
     	allow = {
-            hidden:p:7202 = {
+            trigger_if = {
+                limit = {
+                    is_republic = yes
+                }
+                hidden:p:7202 = {
                 has_building = theathre_building
             }
             job_holder:office_pontifex = {
@@ -171,6 +175,22 @@ tylos_missions = {
             }
             treasury >= 100
             manpower >= 15
+            }
+            trigger_else_if = {
+                limit = {
+                    is_monarchy = yes
+                }
+                hidden:p:7202 = {
+                has_building = theathre_building
+            }
+            current_ruler = {
+                corruption <= 5
+            }
+            tyranny <= 5
+            treasury >= 100
+            manpower >= 15
+            }
+
     	}
 
     	on_completion = {
@@ -193,6 +213,16 @@ tylos_missions = {
 				}
 			}
         }
+
+        bypass = {
+			owns_or_subject_owns = 941
+        	owns_or_subject_owns = 944
+        	owns_or_subject_owns = 964
+        	owns_or_subject_owns = 971
+			owns_or_subject_owns = 969
+        	owns_or_subject_owns = 4779
+        	owns_or_subject_owns = 4780
+		}
 
     	allow = {
             custom_tooltip = {
@@ -330,7 +360,9 @@ tylos_missions = {
         bypass = {
             OR = {
                 not = { exists = c:SEL }
-                not = { exists = c:GRH }
+                c:GRH = {
+                    has_land = no
+                }
                 is_subject = no
                 NOT = { is_subject_of = c:SEL }
             }
@@ -419,16 +451,24 @@ tylos_missions = {
 		}
 
     	allow = {  # of cities in capital province >=3 zorgo didnt do this bc hes mad lazy
-            capital_scope = {
+            hidden:p:7202 = {
                 num_of_population_building >= 2
                 num_of_port_building >= 3
                 num_of_forum_building >= 1
-                province_income >= 20  
+                province_income >= 12  
                 province_unrest <= 3
                 governor_policy = encourage_trade 
             }
             hidden:p:7202 = {
                 has_province_rank = city_metropolis
+            }
+            trigger_if = {
+                limit = { 
+                    NOT = {
+                        owns = 7202
+                    } 
+                }
+                owns = 7202
             }
             num_of_ships >= 100 
             manpower >= 16
@@ -466,7 +506,7 @@ tylos_missions = {
                     incoming_trade_routes >= 4
                 }
             }
-            has_monthly_income >= 6
+            has_monthly_income >= 5
     	}
 
     	on_completion = {
@@ -475,7 +515,12 @@ tylos_missions = {
                     name = tylos_makes_room_for_more
                     duration = -1
                 }
-                add_building_level = port_building
+                if = {
+                    limit = {
+                        can_build_building = port_building
+                    }
+                    add_building_level = port_building
+                }
             }
             p:7202 = {
                 define_pop = {
@@ -562,14 +607,21 @@ tylos_missions = {
 			}
         }
 
+        bypass = {
+            owns = 7210
+        }
+
         duration = 365
 
     	allow = {
             num_of_ships >= 50
-            job_holder:office_tribune_of_the_soldiers = {
-                loyalty >= 65
-                corruption <= 15
-                martial >= 9
+            trigger_if = {
+                limit = { is_republic = yes }
+                job_holder:office_tribune_of_the_soldiers = {
+                    loyalty >= 65
+                    corruption <= 15
+                    martial >= 9
+                }
             }
             invention = pirate_spawn_chance_inv_1
     	}
@@ -875,14 +927,6 @@ tylos_missions = {
         }
 
     	allow = {
-            trigger_if = {
-                limit = {
-                    exists = p:7216.owner
-                }
-                p:7216.owner = {
-                    opinion = { target = root value <= 0 }
-                }
-            }
             political_influence >= 20
             p:7203 = {
                 owner = root
@@ -1016,7 +1060,12 @@ tylos_missions = {
                     name = tylos_develop_strait_mod
                     duration = -1
                 }
-                add_building_level = port_building
+                if = {
+                    limit = {
+                        can_build_building = port_building
+                    }
+                    add_building_level = port_building
+                }
             }
         }
     }

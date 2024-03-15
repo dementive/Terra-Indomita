@@ -3,7 +3,9 @@
     icon = "cde_tarim_basin_silk_road"
 
     repeatable = no
-    chance = 1000
+    chance = {
+		factor = 100
+	}
 
     potential = {
         NOT = { has_variable = mission_cooldown_var }
@@ -11,7 +13,9 @@
         tag = TIB
     }
 
-    abort = {}
+    abort = {
+		ai_mission_back_out_trigger = yes
+	}
     on_start = {
         start_mission_ai_effect = yes
     }
@@ -420,7 +424,7 @@
 			scope:province = {
 				owner = root
 				OR = {
-					is_in_region = himalayan_region
+					is_in_region = xiyu_region
 				}
 			}
 		}
@@ -430,7 +434,7 @@
                 text = 03_tibet_mission_task_8_tt
                 any_owned_province = {
                     count >= 5
-                    is_in_region = himalayan_region
+                    is_in_region = xiyu_region
                     has_city_status = yes
                 }
             }
@@ -440,7 +444,7 @@
             ordered_owned_province = {
         		order_by = total_population
         		limit = {
-        			is_in_region = himalayan_region
+        			is_in_region = xiyu_region
 	        		has_city_status = yes
         		}
         		max = 1
