@@ -140,7 +140,12 @@ character_bg = {
 			OR = {
 				is_ruler = yes
 				is_co_ruler = yes
-				is_spouse_of = employer.current_ruler
+				trigger_if = {
+					limit = {
+						exists = employer.current_ruler
+					}
+					is_spouse_of = employer.current_ruler
+				}
 			}
 			this.culture.culture_group = culture_group:chinese
 			is_general = no

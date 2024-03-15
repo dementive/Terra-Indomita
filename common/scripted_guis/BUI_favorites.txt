@@ -10,11 +10,19 @@
 	}
 
 	is_shown = {
-		scope:player = {
-			is_target_in_variable_list = {
-				name = fav_territories
-				target = prev
+		trigger_if = {
+			limit = {
+				exists = scope:player
 			}
+			scope:player = {
+				is_target_in_variable_list = {
+					name = fav_territories
+					target = prev
+				}
+			}
+		}
+		trigger_else = {
+			always = no
 		}
 	}
 
