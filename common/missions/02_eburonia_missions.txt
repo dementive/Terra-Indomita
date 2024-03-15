@@ -121,14 +121,19 @@
 
         highlight = {
             scope:province = {
-                OR = {
-                    owner = c:VMD
-                    owner = {
-                        capital_scope = {
-                            is_in_area = bellovacia_area
-                        }
-                        NOT = {
-                            tag = NRV
+                trigger_if = {
+                    limit = {
+                        exists = owner
+                    }
+                    OR = {
+                        owner = c:VMD
+                        owner = {
+                            capital_scope = {
+                                is_in_area = bellovacia_area
+                            }
+                            NOT = {
+                                tag = NRV
+                            }
                         }
                     }
                 }
@@ -155,12 +160,17 @@
 
         highlight = {
             scope:province = {
-                owner = {
-                    capital_scope = {
-                        is_in_area = morinia_area  
+                trigger_if = {
+                    limit = {
+                        exists = owner
                     }
-                    NOR = {
-                        tag = MNP    
+                    owner = {
+                        capital_scope = {
+                            is_in_area = morinia_area  
+                        }
+                        NOR = {
+                            tag = MNP    
+                        }
                     }
                 }
             }   

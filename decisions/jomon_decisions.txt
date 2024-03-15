@@ -14,6 +14,7 @@
 				has_building = fortress_building
 			}
 		}
+
 		effect = {
 			p:10567 = {
 				set_trade_goods = fish
@@ -47,6 +48,7 @@
 				}
 			}
 		}
+
 		allow = {
 			trigger_if = {
 				limit = { tag = ESN }
@@ -159,6 +161,7 @@
 	        #    }
 	        #}
 		}
+
 		effect = {
 			set_variable = hokkaido_unified_var
 			if = {
@@ -184,6 +187,7 @@
 			#}
 		}
 		ai_will_do = { base = 0 }
+
 	}
 
 	hostile_unification_of_hokkaido = {
@@ -204,6 +208,7 @@
 				}
 			}
 		}
+
 		allow = {
 			OR = {
 				diplomatic_stance = domination_stance
@@ -215,6 +220,7 @@
 				has_truce_with = c:KTM
 			}
 		}
+
 		effect = {
 			set_variable = hokkaido_unified_var
 			if = {
@@ -268,5 +274,98 @@
 		}
 		ai_will_do = { base = 0 }
 	}
+	yayoify_jomon = {
+		potential = {
+			tag = AIU
+			NOT = { has_variable = completed_tree_jomon_var }
+		}
 
-}
+		allow = {
+			custom_tooltip = yayoification_level_tt
+			custom_tooltip = can_yayoify_tt
+			var:yayoification >= 3
+			owns_or_subject_owns_region = wa_region
+		}
+
+		effect = {
+			hidden_effect = {
+				every_owned_province = {
+					every_pops_in_province = {
+						limit = {
+							OR = {
+								AND = {
+									pop_culture_group = japan
+									pop_type = freemen
+								}
+								AND = {
+									pop_culture_group = jomon
+									pop_type = citizen
+									pop_type = nobles
+								}
+							}
+						}
+						set_pop_culture = jomon_yayoi
+					}
+				}
+			}
+			change_government = yamato_empire
+			set_primary_culture = jomon_yayoi
+			set_variable = completed_tree_jomon_var
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+	}
+
+	neutral_jomon = {
+		potential = {
+			tag = AIU
+			NOT = { has_variable = completed_tree_jomon_var }
+		}
+
+		allow = {
+			custom_tooltip = yayoification_level_tt
+			custom_tooltip = neutral_jomon_tt
+			var:yayoification < 3
+			var:yayoification > 0
+			owns_or_subject_owns_region = wa_region
+		}
+
+		effect = {
+			change_government = yamato_empire
+			set_variable = completed_tree_jomon_var
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+	}
+
+	jomonify_jomon = {
+		potential = {
+			tag = AIU
+			NOT = { has_variable = completed_tree_jomon_var }
+		}
+
+		allow = {
+			custom_tooltip = yayoification_level_tt
+			custom_tooltip = can_jomonify_tt
+			var:yayoification <= 0
+			owns_or_subject_owns_region = wa_region
+		}
+
+		effect = {
+			change_government = steppe_horde
+			set_variable = completed_tree_jomon_var
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+
+	}
+
+}	
