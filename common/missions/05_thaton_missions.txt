@@ -3,7 +3,9 @@
     icon = "seleukid_1"
 
     repeatable = no
-    chance = 1000
+    chance = {
+        factor = 1000
+    }
 
     potential = {
         NOT = { has_variable = mission_cooldown_var }
@@ -158,7 +160,7 @@
     }
     thaton_missions_task_4 = { # Trade Routes to the East
         icon = "task_economical"
-        requires { thaton_missions_task_2 thaton_missions_task_3 }
+        requires = { thaton_missions_task_2 thaton_missions_task_3 }
         highlight = { scope:province = { is_in_area = tenasserim_area }}
         allow = {
             owns_or_subject_owns_area = tenasserim_area
