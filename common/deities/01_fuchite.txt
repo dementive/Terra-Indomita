@@ -263,6 +263,36 @@ deity_cironnuo = { # WAR
 	}
 }
 
+deity_inari_kamuy = { # FERTILITY
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		has_variable = unlock_inari_kamuy
+		OR = {
+			common_deity_trigger = {
+				RELIGION = ainu_religion
+			}
+			deity:omen_cironnuo = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_japan_9
+	passive_modifier = { ship_repair_at_sea = 0.01 }
+	omen = { global_slaves_output = omen_global_slaves_output_svalue } #Bonus from Omen
+	religion = ainu_religion
+	deity_category = fertility #This Deity uses a Fertility slot.
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	
+	on_activate = {
+		military_apotheosis_manpower_effect = yes
+		storm_of_the_century_effect = {
+			REGION = china_seas_region
+		}
+	}
+}
+
 deity_kina_sut = { # ECONOMY
 	trigger = {
 		polytheistic_check_religion_trigger = yes

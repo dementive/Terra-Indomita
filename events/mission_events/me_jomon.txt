@@ -501,7 +501,7 @@ me_emishi.2 = { # Secrets of Rice
             limit = { has_building = basic_settlement_infratructure_building }
             set_trade_goods = rice
         }
-        change_local_variable = {
+        change_variable = {
             name = yayoification
             add = 1
         }
@@ -906,7 +906,7 @@ me_emishi.15 = { # Mend Yayoi Relations
             name = yayoi_mend
             duration = -1
         }
-        change_local_variable = {
+        change_variable = {
                 name = yayoification
                 add = 1
             }
@@ -927,10 +927,10 @@ me_emishi.16 = { # End Yayoi Relations
             name = yayoi_end
             duration = -1
         }
-        change_local_variable = {
-                name = yayoification
-                add = -1
-            }
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
         custom_tooltip = yayoification_sub_1_tt
     }
 }
@@ -941,16 +941,11 @@ me_honshu.1 = {
 
     title = me_honshu_1_title
     desc = me_honshu_1_desc
-    picture = great_library
+    picture = tocharian_horse_adaptablity_event
 
     option = {
         name = "me_honshu_1.a"
         custom_tooltip = me_honshu_1_tooltip
-        #region:wa_region = {
-        #    every_region_province = {
-        #        set_owned_by = root
-        #    }
-        #}
     }
 }
 me_honshu.2 = {
@@ -958,12 +953,22 @@ me_honshu.2 = {
 
     title = me_honshu_2_title
     desc = me_honshu_2_desc
-    picture = great_library
+    picture = religious_rite
 
     option = {
         name = "me_honshu_2.a"
         custom_tooltip = me_honshu_2_tooltip
-
+        add_country_modifier = {
+            name = spirits_honored
+            duration = -1
+        }
+        capital_scope = {
+            add_special_pop = {
+                text = "add_1_priest_tt"
+                type = priest
+                count = 1
+            }
+        }
     }
 }
 me_honshu.3 = {
@@ -971,12 +976,22 @@ me_honshu.3 = {
 
     title = me_honshu_3_title
     desc = me_honshu_3_desc
-    picture = great_library
+    picture = quarry
 
     option = {
         name = "me_honshu_3.a"
         custom_tooltip = me_honshu_3_tooltip
-
+        add_country_modifier = {
+            name = expert_pottery
+            duration = -1
+        }
+        capital_scope = {
+            add_special_pop = {
+                text = "add_1_artist_tt"
+                type = artist
+                count = 1
+            }
+        }
     }
 }
 me_honshu.4 = {
@@ -984,12 +999,22 @@ me_honshu.4 = {
 
     title = me_honshu_4_title
     desc = me_honshu_4_desc
-    picture = great_library
+    picture = yue_legendary_swords_mil_trad_event
 
     option = {
         name = "me_honshu_4.a"
         custom_tooltip = me_honshu_4_tooltip
-
+        add_country_modifier = {
+            name = bone_of_sword
+            duration = -1
+        }
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+            add_martial = 2
+        }
     }
 }
 me_honshu.5 = {
@@ -997,12 +1022,15 @@ me_honshu.5 = {
 
     title = me_honshu_5_title
     desc = me_honshu_5_desc
-    picture = great_library
+    picture = great_work_celebration
 
     option = {
         name = "me_honshu_5.a"
         custom_tooltip = me_honshu_5_tooltip
-
+        add_country_modifier = {
+            name = feasts_of_victory
+            duration = -1
+        }
     }
 }
 me_honshu.6 = {
@@ -1010,12 +1038,20 @@ me_honshu.6 = {
 
     title = me_honshu_6_title
     desc = me_honshu_6_desc
-    picture = great_library
+    picture = trade_routes_path_4_event
 
     option = {
         name = "me_honshu_6.a"
         custom_tooltip = me_honshu_6_tooltip
-
+        change_variable = {
+            name = yayoification
+            add = 1
+        }
+        custom_tooltip = yayoification_add_1_tt
+        add_country_modifier = {
+            name = smooth_pottery
+            duration = -1
+        }
     }
 }
 me_honshu.7 = {
@@ -1023,12 +1059,20 @@ me_honshu.7 = {
 
     title = me_honshu_7_title
     desc = me_honshu_7_desc
-    picture = great_library
+    picture = trade_routes_path_4_event
 
     option = {
         name = "me_honshu_7.a"
         custom_tooltip = me_honshu_7_tooltip
-
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
+        custom_tooltip = yayoification_sub_1_tt
+        add_country_modifier = {
+            name = cord_pottery
+            duration = -1
+        }
     }
 }
 me_honshu.8 = {
@@ -1036,12 +1080,24 @@ me_honshu.8 = {
 
     title = me_honshu_8_title
     desc = me_honshu_8_desc
-    picture = great_library
+    picture = japan_japanese_iron_event
 
     option = {
         name = "me_honshu_8.a"
         custom_tooltip = me_honshu_8_tooltip
-
+        custom_tooltip = yayoification_add_1_tt
+        change_variable = {
+            name = yayoification
+            add = 1
+        }
+        add_innovation = 2
+        capital_scope = {
+            add_special_pop = {
+                text = "add_1_architect_tt"
+                type = architect
+                count = 1
+            }
+        }
     }
 }
 me_honshu.9 = {
@@ -1049,12 +1105,25 @@ me_honshu.9 = {
 
     title = me_honshu_9_title
     desc = me_honshu_9_desc
-    picture = great_library
+    picture = chinese_path_iron_use_event
 
     option = {
         name = "me_honshu_9.a"
         custom_tooltip = me_honshu_9_tooltip
-
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
+        custom_tooltip = yayoification_sub_1_tt
+        add_4_free_province_investments = yes
+        current_ruler = {
+            add_focus_perk = {
+                text = "add_1_char_perk"
+                amount = 1
+            }
+            add_zeal = 2
+            add_charisma = 2
+        }
     }
 }
 me_honshu.10 = {
@@ -1062,12 +1131,25 @@ me_honshu.10 = {
 
     title = me_honshu_10_title
     desc = me_honshu_10_desc
-    picture = great_library
+    picture = farming
 
     option = {
         name = "me_honshu_10.a"
         custom_tooltip = me_honshu_10_tooltip
-
+        custom_tooltip = yayoification_add_1_tt
+        change_variable = {
+            name = yayoification
+            add = 1
+        }
+        random_owned_province = {
+            limit = {
+                trade_goods = rice
+            }
+            add_province_modifier = {
+                name = price_of_rice
+                duration = -1
+            }
+        }
     }
 }
 me_honshu.11 = {
@@ -1075,12 +1157,26 @@ me_honshu.11 = {
 
     title = me_honshu_11_title
     desc = me_honshu_11_desc
-    picture = great_library
+    picture = celtic_village
 
     option = {
         name = "me_honshu_11.a"
         custom_tooltip = me_honshu_11_tooltip
-
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
+        custom_tooltip = yayoification_sub_1_tt
+        random_owned_province = {
+            limit = {
+                trade_goods = rice
+            }
+            set_trade_goods = fruits
+            add_province_modifier = {
+                name = fruits_of_labor
+                duration = -1
+            }
+        }
     }
 }
 me_honshu.12 = {
@@ -1088,12 +1184,19 @@ me_honshu.12 = {
 
     title = me_honshu_12_title
     desc = me_honshu_12_desc
-    picture = great_library
+    picture = tocharian_steppe_bow_mastery_event
 
     option = {
         name = "me_honshu_12.a"
         custom_tooltip = me_honshu_12_tooltip
-
+        create_country_treasure = {
+            key = bronze_magatama
+            icon = treasure_chest
+            modifier = {
+                local_pop_assimilation_speed_modifier = 0.05
+                local_population_growth = 0.05
+            }
+        }
     }
 }
 me_honshu.13 = {
@@ -1101,12 +1204,15 @@ me_honshu.13 = {
 
     title = me_honshu_13_title
     desc = me_honshu_13_desc
-    picture = great_library
+    picture = chinese_path_yizhan_system_event
 
     option = {
         name = "me_honshu_13.a"
         custom_tooltip = me_honshu_13_tooltip
-
+        add_country_modifier = {
+            name = no_pain_no_grain
+            duration = -1
+        }
     }
 }
 me_honshu.14 = {
@@ -1114,12 +1220,20 @@ me_honshu.14 = {
 
     title = me_honshu_14_title
     desc = me_honshu_14_desc
-    picture = great_library
+    picture = japan_sailors_of_wa_event
 
     option = {
         name = "me_honshu_14.a"
         custom_tooltip = me_honshu_14_tooltip
-
+        random_owned_province = {
+            limit = {
+                trade_goods = fish
+            }
+            add_province_modifier = {
+                name = bronze_hooks
+                duration = -1
+            }
+        }
     }
 }
 me_honshu.15 = {
@@ -1127,12 +1241,40 @@ me_honshu.15 = {
 
     title = me_honshu_15_title
     desc = me_honshu_15_desc
-    picture = great_library
+    picture = interesting_histories_celt_hills
 
     option = {
         name = "me_honshu_15.a"
         custom_tooltip = me_honshu_15_tooltip
-
+        random_owned_province = {
+            limit = {
+                has_food_trade_good_trigger = no
+            }
+            set_province_deity = deity:omen_inari
+            add_province_modifier = {
+                name = jomon_city_mod
+                duration = -1
+            }
+            set_city_status = city
+        }
+    }
+    option = {
+        name = "me_honshu_15.b"
+        custom_tooltip = me_honshu_15_tooltip
+        random_owned_province = {
+            limit = {
+                has_food_trade_good_trigger = no
+            }
+            set_province_deity = deity:omen_inari
+            add_province_modifier = {
+                name = jomon_city_mod
+                duration = -1
+            }
+            set_city_status = city
+        }
+        soft_change_religion_effect = {
+            RELIGION = wa_religions
+        }
     }
 }
 me_honshu.16 = {
@@ -1140,12 +1282,20 @@ me_honshu.16 = {
 
     title = me_honshu_16_title
     desc = me_honshu_16_desc
-    picture = great_library
+    picture = greek_home
 
     option = {
         name = "me_honshu_16.a"
         custom_tooltip = me_honshu_16_tooltip
-
+        capital_scope = {
+            add_province_modifier = {
+                name = jomon_city_mod
+                duration = -1
+            }
+            add_building_level = aqueduct_building
+            add_building_level = foundry_building
+            add_building_level = temple_building
+        }
     }
 }
 me_honshu.17 = {
@@ -1153,12 +1303,26 @@ me_honshu.17 = {
 
     title = me_honshu_17_title
     desc = me_honshu_17_desc
-    picture = great_library
+    picture = shen_zhou_fuchun_mountains_event
 
     option = {
         name = "me_honshu_17.a"
         custom_tooltip = me_honshu_17_tooltip
-
+        set_variable = inari_kamuy_var
+        custom_tooltip = unlock_inari_kamuy
+        add_treasury = -100
+        add_political_influence = 35
+        add_stability = 10
+        add_country_modifier = {
+            name = change_deity
+            duration = 365
+        }
+        random_owned_province = {
+            limit = {
+                has_city_status = yes
+            }
+            add_building_level = temple_building
+        }
     }
 }
 me_honshu.18 = {
@@ -1166,12 +1330,20 @@ me_honshu.18 = {
 
     title = me_honshu_18_title
     desc = me_honshu_18_desc
-    picture = great_library
+    picture = japan_tribal_ways_event
 
     option = {
         name = "me_honshu_18.a"
         custom_tooltip = me_honshu_18_tooltip
-
+        create_country_treasure = {
+            key = flame_pot
+            icon = chinesepottery1
+            modifier = {
+                archers_offensive = 0.10
+                hostile_attrition = 0.05
+                local_pop_assimilation_speed_modifier = 0.05
+            }
+        }
     }
 }
 me_honshu.19 = {
@@ -1179,12 +1351,24 @@ me_honshu.19 = {
 
     title = me_honshu_19_title
     desc = me_honshu_19_desc
-    picture = great_library
+    picture = japan_amon_arrows_event
 
     option = {
         name = "me_honshu_19.a"
         custom_tooltip = me_honshu_19_tooltip
-
+        change_variable = {
+            name = yayoification
+            add = 1
+        }
+        custom_tooltip = yayoification_add_1_tt
+        create_country_treasure = {
+            key = dotaku_otaku
+            icon = dotaku1
+            modifier = {
+                local_pop_assimilation_speed_modifier = 0.10
+                local_defensive = 0.10
+            }
+        }
     }
 }
 me_honshu.20 = {
@@ -1192,12 +1376,231 @@ me_honshu.20 = {
 
     title = me_honshu_20_title
     desc = me_honshu_20_desc
-    picture = great_library
+    picture = japan_amon_arrows_event
 
     option = {
         name = "me_honshu_20.a"
         custom_tooltip = me_honshu_20_tooltip
+        change_variable = {
+            name = yayoification
+            add = -1
+        }
+        custom_tooltip = yayoification_sub_1_tt
+        create_country_treasure = {
+            key = dogu_jomon
+            icon = treasure_chest
+            modifier = {
+                local_happiness_for_same_culture_modifier = 0.05
+                local_pop_conversion_speed_modifier = 0.10
+            }
+        }
+    }
+}
+me_honshu.21 = {
+    type = country_event
 
+    title = me_honshu_21_title
+    desc = me_honshu_21_desc
+    picture = china_art_11_event
+
+    option = {
+        name = "me_honshu_21.a"
+        custom_tooltip = me_honshu_21_tooltip
+        add_political_influence = -50
+        add_treasury = -100
+        custom_tooltip = add_claims_wa_tt
+    }
+}
+me_honshu.22 = {
+    type = country_event
+
+    title = me_honshu_22_title
+    desc = me_honshu_22_desc
+    picture = china_art_2_event
+
+    option = {
+        name = "me_honshu_22.a"
+        custom_tooltip = me_honshu_22_tooltip
+        area:hokkaido_area = {
+            every_area_province = {
+                create_pop = nobles
+            }
+        }
+        add_2_free_province_investments = yes
+    }
+}
+me_honshu.23 = {
+    type = country_event
+
+    title = me_honshu_23_title
+    desc = me_honshu_23_desc
+    picture = japan_spiritual_war_event
+
+    option = {
+        name = "me_honshu_23.a"
+        custom_tooltip = me_honshu_23_tooltip
+        add_treasury = 300
+        add_political_influence = 100
+        add_innovation = 1
+        add_splendor = { amount = "200" }
+    }
+}
+me_honshu.24 = {
+    type = country_event
+
+    title = me_honshu_24_title
+    desc = me_honshu_24_desc
+    picture = interesting_histories_sparta_city
+
+    immediate = {
+        p:9328 = {
+            change_province_name = upopoy
+        }
+    }
+
+    option = {
+        name = "me_honshu_24.a"
+        custom_tooltip = me_honshu_24_tooltip
+        set_capital = 9328
+        add_country_modifier = {
+            name = new_capital_enthusiasm
+            duration = 3650
+        }
+    }
+    option = {
+        name = "me_honshu_24.b"
+        custom_tooltip = me_honshu_24_tooltip
+        add_country_modifier = {
+            name = old_capital_legacy
+            duration = 3650
+        }
+    }
+}
+me_honshu.25 = {
+    type = country_event
+
+    title = me_honshu_25_title
+    desc = me_honshu_25_desc
+    picture = china_art_13_event
+
+    option = {
+        name = "me_honshu_25.a"
+        custom_tooltip = me_honshu_25_tooltip
+        add_country_modifier = {
+            name = kii_to_the_west
+            duration = -1
+        }
+    }
+}
+me_honshu.26 = {
+    type = country_event
+
+    title = me_honshu_26_title
+    desc = me_honshu_26_desc
+    picture = japan_island_tactics_event
+
+    option = {
+        name = "me_honshu_26.a"
+        custom_tooltip = me_honshu_26_tooltip
+        p:9749 = {
+            add_province_modifier = {
+                name = wine_of_kumi
+                duration = -1
+            }
+        }
+        p:9316 = {
+            name = dye_of_sanu
+            duration = -1
+        }
+        add_country_modifier = {
+            name = wine_and_dyne
+            duration = -1
+        }
+    }
+}
+me_honshu.27 = {
+    type = country_event
+
+    title = me_honshu_27_title
+    desc = me_honshu_27_desc
+    picture = great_library
+
+    option = {
+        name = "me_honshu_27.a"
+        custom_tooltip = me_honshu_27_tooltip
+
+    }
+}
+me_honshu.28 = {
+    type = country_event
+
+    title = me_honshu_28_title
+    desc = me_honshu_28_desc
+    picture = japan_tribal_ways_event
+
+    option = {
+        name = "me_honshu_28.a"
+        custom_tooltip = me_honshu_28_tooltip
+        make_subject = {
+            target = scope:liukiu_vassal_scope
+            type = feudatory
+        }
+    }
+}
+me_honshu.29 = {
+    type = country_event
+
+    title = me_honshu_29_title
+    desc = me_honshu_29_desc
+    picture = china_art_5_event
+
+    option = {
+        name = "me_honshu_29.a"
+        custom_tooltip = me_honshu_29_tooltip
+        p:9285 = {
+            every_pops_in_province = {
+                set_pop_culture = jeulmeun
+                set_pop_religion = ainu_religion
+            }
+            create_country = {
+                name = {
+                    name = jeulmeun_sub
+                    adjective = jeulmeun_adj
+                }
+                hidden_effect = {
+                    change_country_color = mauve_purple
+                    change_country_tag = JLN
+                }
+                change_government = aristocratic_monarchy
+                set_primary_culture = jeulmeun
+                set_country_religion = ainu_religion
+                save_scope_as = jeulmeun_scope
+            }
+        }
+        hidden_effect = {
+            region:jin_region = {
+                every_region_province = {
+                    limit = {                
+                        owned_or_subject_owned = root
+                    }
+                    set_owned_by = scope:jeulmeun_scope
+                    every_pops_in_province = {
+                        limit = {
+                            OR = {
+                                pop_type = citizen
+                                pop_type = nobles
+                            }
+                        }
+                        set_pop_culture = jeulmeun
+                        set_pop_religion = ainu_religion
+                    }
+                }
+            }
+        }
+        make_subject = {
+            target = scope:jeulmeun_scope
+            type = feudatory
+        }
     }
 }
 
