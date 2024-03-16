@@ -315,7 +315,7 @@ me_xiongnu_01.14 = { #event chain
 
     title = me_xiongnu_01_14_title
     desc = me_xiongnu_01_14_desc
-    picture = great_library
+    picture = steppe_raiders_path_1_event
 	left_portrait = root.current_ruler
 	left_portrait = root.current_ruler.spouse
 	right_portrait = var:modun_character_scope_variable
@@ -338,7 +338,7 @@ me_xiongnu_01.1400 = { #event chain
 
     title = me_xiongnu_01_1400_title
     desc = me_xiongnu_01_1400_desc
-    picture = great_library
+    picture = steppe_raiders_path_1_event
 	left_portrait = var:modun_character_scope_variable
 
     option = {
@@ -358,7 +358,7 @@ me_xiongnu_01.1401 = { #event chain
 
     title = me_xiongnu_01_1401_title
     desc = me_xiongnu_01_1401_desc
-    picture = great_library
+    picture = steppe_raiders_path_1_event
 	left_portrait = var:modun_character_scope_variable
 
     option = {
@@ -366,6 +366,11 @@ me_xiongnu_01.1401 = { #event chain
 		var:modun_character_scope_variable = {
 			remove_all_positions = yes
 			move_country = root
+		}
+		hidden_effect = {
+			var:modun_character_scope_variable = {
+				remove_character_modifier = foreign_citizen
+			}
 		}
 		trigger_event = {
 			id = me_xiongnu_01.1402
@@ -379,7 +384,7 @@ me_xiongnu_01.1402 = { #event chain
 
     title = me_xiongnu_01_1402_title
     desc = me_xiongnu_01_1402_desc
-    picture = great_library
+    picture = steppe_raiders_path_1_event
 	left_portrait = var:modun_character_scope_variable
 	right_portrait = root.current_ruler
 
@@ -400,7 +405,7 @@ me_xiongnu_01.1403 = { #event chain
 
     title = me_xiongnu_01_1403_title
     desc = me_xiongnu_01_1403_desc
-    picture = great_library
+    picture = ea_tribal_path_warriors_creed_event
 	left_portrait = var:modun_character_scope_variable
 	right_portrait = root.current_ruler
 
@@ -410,6 +415,9 @@ me_xiongnu_01.1403 = { #event chain
 			death = { death_reason = death_execution }
 		}
 		set_as_ruler = var:modun_character_scope_variable
+		var:modun_character_scope_variable = {
+			add_popularity = 60
+		}
     }
 }
 
