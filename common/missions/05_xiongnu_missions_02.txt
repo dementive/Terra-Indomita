@@ -538,7 +538,6 @@
 			custom_tooltip = {
 				text = xiongnu_missions_2_task_8_blacksmith_on_gold
 				any_owned_province = {
-					trade_goods = precious_metals
 					has_building = settlement_blacksmith
 				}
 			}
@@ -700,7 +699,12 @@
 			p:10529.state = {
 				has_state_modifier = state_improvement_religious
 			}
-			has_law = syncretization_law_tribal
+			OR = {
+				has_law = syncretization_law_tribal
+				has_law = religious_integration_efforts
+				has_law = monarchy_religious_mandate_military
+				has_law = republican_religious_3
+			}
 		}
 
         on_completion = {
