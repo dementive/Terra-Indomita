@@ -481,3 +481,28 @@ indomita_bloodlines_startup.50 = { #yamato_bloodline - YMT
 	}
 
 }
+
+indomita_bloodlines_startup.51 = { #bloodline_xiongnu_luandi - XNU
+
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		tag = XNU
+	}
+
+	immediate = {
+		every_character = {
+			limit = {
+				has_same_family = char:615
+			}
+			force_add_trait = bloodline_xiongnu_luandi
+
+		}
+		hidden_effect = {
+			trigger_event = { id = bloodlines_setup_completion.1 }
+		}
+
+	}
+
+}
