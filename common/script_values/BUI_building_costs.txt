@@ -246,3 +246,22 @@ cost_modifiers = {
 
   multiply = 0.25
 }
+
+possible_roads_to_build = {
+  every_neighbor_province = {
+      limit = {
+          NOT = { has_road_towards = root }
+          exists = owner
+          OR = {
+              owner = root.owner
+              owner = { is_subject_of = root.owner }
+          }
+      }
+      add = 1
+  }
+}
+
+road_building_province_cost = {
+  value = possible_roads_to_build
+  multiply = 50
+}

@@ -1,0 +1,50 @@
+﻿# TODO - This should work just like the FMO colonization system does and take time and show the progress in the outliner with a modifier.
+
+#build_roads_sgui = {
+#    scope = province
+
+#    is_shown = {
+#        any_neighbor_province = {
+#            NOT = { has_road_towards = root }
+#            exists = owner
+#            OR = {
+#                owner = root.owner
+#                owner = { is_subject_of = root.owner }
+#            }
+#        }
+#    }
+
+#    is_valid = {
+#        exists = owner
+#        hidden:owner = {
+#            civic_tech > 4
+#            treasury >= root.road_building_province_cost
+#        }
+#        total_population >= 20
+#    }
+
+#    effect = {
+#        every_neighbor_province = {
+#            limit = {
+#                NOT = { has_road_towards = root }
+#                exists = owner
+#                OR = {
+#                    owner = root.owner
+#                    owner = { is_subject_of = root.owner }
+#                }
+#            }
+#            add_road_towards = root
+#        }
+#        if = {
+#            limit = {
+#                exists = owner
+#            }
+#            owner = {
+#                add_treasury = {
+#                    value = root.road_building_province_cost
+#                    multiply = -1
+#                }
+#            }
+#        }
+#    }
+#}

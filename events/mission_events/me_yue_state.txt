@@ -432,12 +432,19 @@ me_yue_state.18 = {
 
     option = {
         name = "me_yue_state_18.a"
-		random_country_culture = {
+		if = {
 			limit = {
-				this.culture = culture:miao
+				any_country_culture = {
+					is_culture = sanmiao
+				}
 			}
-			ROOT = { 
-				integrate_country_culture = PREV 
+			random_country_culture = {
+				limit = {
+					this.culture = culture:sanmiao
+				}
+				ROOT = { 
+					integrate_country_culture = PREV 
+				}
 			}
 		}
 		add_country_modifier = {
