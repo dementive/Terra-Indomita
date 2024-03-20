@@ -1,0 +1,1776 @@
+#Succession/election
+succession_laws = {
+	potential = {
+		is_monarchy = yes
+	}
+	
+	agnatic_succession_law = {
+		allow = {
+		}
+		succession = agnatic
+	}
+	
+	cognatic_succession_law = {
+		allow = {
+		}
+		succession = cognatic
+	}
+	
+	agnatic_seniority_succession_law = {
+		allow = {
+		}
+		succession = agnatic_seniority
+	}
+	
+	elective_succession_law = {
+		allow = {
+		}
+		succession = elective_monarchy
+	}
+	
+	egyption_succession_law = {
+		allow = {
+			has_primary_heir = yes
+			OR = {
+				current_ruler = {
+					is_female = no
+					country = {
+						any_character = {
+							from_ruler_family = yes
+							is_female = yes
+						}
+					}
+				}
+				current_ruler = {
+					is_female = yes
+					country = {
+						any_character = {
+							from_ruler_family = yes
+							is_female = no
+						}
+					}
+				}
+			}
+		}
+		succession = old_egyptian_succession
+	}
+}
+election_laws_republic = { # Electoral Reforms
+	potential = {
+		is_republic = yes 
+		NOT = {
+			tag = ROM
+		}
+	}
+	republican_election_1 = {
+		modifier = {
+			stability_cost_modifier = -0.05
+		}
+	}
+	republican_election_2 = {
+		modifier = {
+			election_term_duration = 5
+		}
+	}
+	republican_election_3 = {
+		allow = {
+			NOT = {
+				hidden:current_ruler = {
+					party_type = oligarchic_party
+				}
+			}
+		}
+		modifier = {
+			election_term_duration = -3
+		}
+	}
+	republican_election_4 = {
+		allow = {
+			hidden:current_ruler = {
+				party_type = oligarchic_party
+			}
+		}
+		modifier = {
+			election_term_duration = 45
+		}
+	}
+}
+election_laws_rome = { # Electoral Reforms
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	leges_genuciae = {
+		modifier = {
+			stability_cost_modifier = -0.05
+		}
+	}
+	senatus_consultum_ultimum = {
+		modifier = {
+			election_term_duration = 5
+		}
+	}
+	lex_antonia = {
+		allow = {
+			NOT = {
+				hidden:current_ruler = {
+					party_type = populares_party
+				}
+			}
+		}
+		modifier = {
+			election_term_duration = -3
+		}
+	}
+	princeps_civitatis = {
+		allow = {
+			hidden:current_ruler = {
+				party_type = populares_party
+			}
+		}
+		modifier = {
+			election_term_duration = 45
+		}
+	}
+}
+#military
+military_laws_monarchy = {
+	potential = {
+		is_monarchy = yes
+	}
+	
+	relaxed_recruiting_standards = { #Noble Retinues - Macedon
+		modifier = {
+			levy_size_multiplier = 0.05
+			global_cohort_start_experience = 5
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	
+	recruit_from_nobles = {	#Military Service - Sparta
+		modifier = {
+			levy_size_multiplier = 0.1
+			happiness_for_same_culture_modifier = 0.04
+			happiness_for_wrong_culture_modifier = -0.04
+			happiness_for_wrong_culture_group_modifier = -0.04
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	
+	mercenary_reliance = {
+		modifier = {
+			mercenary_land_maintenance_cost = -0.1
+			recruit_mercenary_cost_modifier = -0.1
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	
+	work_for_the_best = { #Royal Guard - Diadochi
+		allow = {
+			rank >= regional_power
+		}
+		modifier = {
+			discipline = 0.05
+			levy_size_multiplier = 0.03
+		}
+		on_enact = {
+			custom_tooltip = legions_in_capital_region
+			set_legion_recruitment = capital
+		}
+	}
+	
+	standing_army_law = { #Roman Empire
+		allow = {
+			invention = discipline_inv_5
+			rank >= great_power
+		}
+		modifier = {
+			army_maintenance_cost = -0.15
+		}
+		on_enact = {
+			custom_tooltip = legions_in_any_region
+			set_legion_recruitment = enabled
+		}
+	}
+}
+military_laws_republic = { # Military Reforms
+	potential = {
+		is_republic = yes
+		NOR = {
+			tag = ROM
+			tag = CAR
+		}
+	}
+	republican_recruitment_3 = {
+		modifier = {
+			levy_size_multiplier = 0.05
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	republican_recruitment_1 = { 
+		modifier = {
+			levy_size_multiplier = 0.025
+			war_exhaustion = -0.04
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	republican_recruitment_2 = {
+		allow = {
+			invention = global_cohort_recruit_speed_inv
+			rank >= regional_power
+		}
+		modifier = {
+			global_manpower_modifier = 0.05
+			levy_size_multiplier = 0.025
+		}
+		on_enact = {
+			custom_tooltip = legions_in_capital_region
+			set_legion_recruitment = capital
+		}
+	}
+	republican_recruitment_4 = {
+		allow = {
+			invention = discipline_inv_5
+			OR = {
+				rank >= great_power
+				custom_tooltip = {
+					text = marian_event_fired
+					has_variable = had_military_reforms 
+				}
+			}
+		}
+		modifier = {
+			discipline = 0.05
+		}
+		on_enact = {
+			custom_tooltip = legions_in_any_region
+			set_legion_recruitment = enabled
+		}
+	}
+}
+military_laws_rome = { # Military Reforms
+	potential = {
+		is_republic = yes 
+		tag = ROM
+	}
+	testamentum_militis = { #Servian System
+		modifier = {
+			levy_size_multiplier = 0.05
+			manpower_recovery_speed = 0.05
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	} 
+	lex_porcia = { #Polybian System
+		modifier = {
+			levy_size_multiplier = 0.075
+			war_exhaustion = -0.04
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	punic_reforms = {
+		allow = {
+			invention = global_cohort_recruit_speed_inv
+			rank >= regional_power
+		}
+		modifier = {
+			global_manpower_modifier = 0.1
+			levy_size_multiplier = 0.025
+		}
+		on_enact = {
+			custom_tooltip = legions_in_capital_region
+			set_legion_recruitment = capital
+		}
+	}
+	marian_reforms = {
+		allow = {
+			invention = discipline_inv_5
+			OR = {
+				rank >= great_power
+				custom_tooltip = {
+					text = marian_event_fired
+					has_variable = had_military_reforms
+				}
+			}
+		}
+		modifier = {
+			discipline = 0.05
+		}
+		on_enact = {
+			custom_tooltip = legions_in_any_region
+			set_legion_recruitment = enabled
+		}
+	}
+}
+military_laws_car = {
+	potential = {
+		is_republic = yes 
+		tag = CAR
+	}
+	military_law_1_car = { #magonid levy
+		modifier = {
+			levy_size_multiplier = 0.05
+			recruit_mercenary_cost_modifier = -0.1
+		}
+	}
+	military_law_2_car = {	#Military Service - Sparta
+		modifier = {
+			levy_size_multiplier = 0.03
+			loyalty_gain_chance_modifier = -0.05
+			mercenary_land_maintenance_cost = -0.1
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	military_law_3_car = {#merc reliance
+		modifier = {
+			mercenary_land_maintenance_cost = -0.1
+			recruit_mercenary_cost_modifier = -0.2
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	military_law_4_car = { #sacred band
+		allow = {
+			rank >= regional_power
+		}
+		modifier = {
+			discipline = 0.05
+			levy_size_multiplier = 0.025
+			global_cohort_start_experience = 5
+		}
+		on_enact = {
+			custom_tooltip = legions_in_capital_region
+			set_legion_recruitment = capital
+		}
+	}
+	
+	military_law_5_car = { #barcid reforms
+		allow = {
+			invention = discipline_inv_5
+			rank >= great_power
+		}
+		modifier = {
+			attrition = -0.15
+			global_manpower_modifier = 0.05
+		}
+		on_enact = {
+			custom_tooltip = legions_in_any_region
+			set_legion_recruitment = enabled
+		}
+	}
+}
+###economic
+economic_laws_monarchy = {
+	potential = {
+		is_monarchy = yes
+	}
+	economic_law_1_mon = { #property tax
+		modifier = {
+			global_freemen_happyness = -0.05
+			global_tax_modifier = 0.05
+		}
+		allow = {
+			or = {
+				invention = civic_base_2
+				invention = global_tax_modifier_inv_1
+			}
+		}
+	}
+	economic_law_2_mon = { #land tithe
+		modifier = {
+			global_nobles_output = 0.03
+			war_exhaustion = -0.02
+			global_tax_modifier = -0.05
+		}
+		allow = {
+			or = {
+				invention = civic_tax_1
+				invention = global_tribesmen_output_inv_3
+			}
+		}
+	}
+	economic_law_3_mon = { #tax farming base
+		
+		modifier = {
+			#"Monthly Ruler Corruption + 0.05"
+			#"Monthly Governor Corruption + 0.05"
+			monthly_tyranny = 0.02
+			monthly_corruption = 0.05
+			global_tax_modifier = 0.15
+
+		}
+	}
+	economic_law_4_mon = { #reel in the tax farmers
+		modifier = {
+			global_citizen_happyness = 0.04
+			global_freemen_happyness = 0.04
+			global_citizen_output = 0.03
+			monthly_corruption = 0.03
+			#"Monthly Ruler Corruption + 0.02"
+			#"Monthly Governor Corruption + 0.03"
+		}
+		allow = {
+			civic_tech >= 12
+		}
+	}
+	economic_law_5_mon = { #standardized tax sanctions
+		modifier = {
+			global_tax_modifier = 0.1
+			global_population_happiness = 0.02
+		}
+		allow = {
+			civic_tech >= 12
+			rank >= great_power
+		}
+	}
+}
+economic_laws_republic = {
+	potential = {
+		is_republic = yes
+		nor = {
+			tag = ROM
+			tag = CAR
+		}
+	}
+	
+	economic_law_1_rep = { #war taxesIn the early stages oif ancient society, direct taxation was not only unusual; the beauracracy just was not sophistcated enough to tax properly. However, a direct tax was ususally levied during times of war to protect the city state. IN Ancinet greece< nobles were very oproud of adding more to the tax 
+		modifier = {
+			war_exhaustion = -0.005
+			global_nobles_output = 0.03
+			monthly_corruption = -0.02
+			global_tax_modifier = -0.05
+		}
+		allow = {
+			rank < regional_power
+		}
+	}
+	economic_law_2_rep = { # land taxes
+		modifier = {
+			global_slaves_output = 0.05
+		}
+		allow = {
+			rank >= regional_power
+		}
+	}
+	economic_law_3_rep = { #tax farming base
+		
+		modifier = {
+			#"Monthly Ruler Corruption + 0.05"
+			#"Monthly Governor Corruption + 0.05"
+			monthly_tyranny = 0.02
+			monthly_corruption = 0.05
+			global_tax_modifier = 0.15
+
+		}
+	}
+	economic_law_4_rep = { #reel in the tax farmers
+		modifier = {
+			global_citizen_happyness = 0.04
+			global_freemen_happyness = 0.04
+			global_citizen_output = 0.03
+			monthly_corruption = 0.03
+			#"Monthly Ruler Corruption + 0.02"
+			#"Monthly Governor Corruption + 0.03"
+		}
+		allow = {
+			civic_tech >= 12
+		}
+	}
+	economic_law_5_rep = { #bureacratic taxation
+	
+		allow = {
+			rank >= great_power
+			civic_tech >= 15
+		}
+		modifier = {
+			global_tax_modifier = 0.05
+			monthly_governor_wage = 0.1
+			global_population_happiness = 0.02
+		}
+	}
+}
+economic_laws_rome = {
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	
+	war_taxes = { 
+		modifier = {
+			monthly_corruption = -0.02
+			global_freemen_output = 0.04
+
+		}
+	}
+	
+	publicani = {
+		modifier = {
+			monthly_corruption = 0.05
+			global_tax_modifier = 0.12
+		}
+	}
+	
+	remove_poll_tax = { 
+		modifier = {
+			global_citizen_happyness = 0.08
+			global_citizen_output = 0.3
+			global_import_commerce_modifier = -0.5
+		}
+	}
+	
+	noble_exemptions = { 
+		modifier = {
+			monthly_political_influence_modifier = 0.05
+			global_nobles_output = -0.05
+			global_nobles_happyness = 0.08
+		}
+	}
+}
+#maritime
+naval_laws_monarchy = {
+	potential = {
+		is_monarchy = yes
+	}
+	
+	naval_law_1_mon = { #slave oarsmen
+		modifier = {
+			trireme_offensive = 0.05
+		}
+	}
+	naval_law_2_mon = {#shrewd business tactics
+		allow  = {
+			num_of_ports >= 1
+			or = {
+				invention = trireme_discipline_inv_1
+			}
+		}
+		on_enact = {
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			global_commerce_modifier = 0.15
+			diplomatic_reputation = -3
+		}
+	}
+	
+	naval_law_3_mon = { #anti priary
+		allow = {
+			num_of_ports >= 1
+			invention = trireme_discipline_inv_1
+		}
+		on_enact = {
+			custom_tooltip = enables_root_out_pirates_tt
+		}
+		modifier = {
+			anti_piracy_cb = yes
+			global_citizen_happyness = 0.04
+		}
+	}
+	naval_law_4 = {#royal fleet
+		modifier = {
+			octere_cost = -0.05
+			mega_galley_cost = -0.05
+			navy_maintenance_cost = -0.1
+		}
+		allow = {
+			rank >= great_power
+			military_tech >= 14
+		}
+	}
+}
+marititme_laws_republic = {
+	potential = {
+		is_republic = yes
+		NOR = {
+			tag = ROM
+			tag = CAR
+		}
+	}
+	
+	republican_mediterranean_1 = {
+		modifier = {
+			manpower_recovery_speed = 0.05
+		}
+	}
+	
+	republican_mediterranean_2 = {
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			global_import_commerce_modifier = 0.25
+		}
+	}
+	
+	republican_mediterranean_3 = {
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			global_export_commerce_modifier = 0.25
+		}
+		on_enact = {
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	republican_mediterranean_4 = {
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			anti_piracy_cb = yes
+			happiness_for_same_culture_modifier = 0.05  
+		}
+	}
+}
+maritime_laws_rome = {
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	
+	naval_law_1_rom = { #land over sea
+		modifier = {
+			ship_cost = 0.05
+			naval_damage_taken = 0.05 
+		}
+	}
+	naval_law_2_rom = {#punic reforms
+		modifier = {
+			trireme_cost = -0.1
+			tetrere_cost = -0.1
+			global_ship_recruit_speed = 0.2
+		}
+		#on_enact = {
+		#	add_invention = corvus
+		#}
+	}
+	naval_law_3_rom = { #Caecilia
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+		on_enact = {
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	naval_law_4_rom = { #lex_gabinia
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			anti_piracy_cb = yes
+		}
+		on_enact = {
+			custom_tooltip = enables_root_out_pirates_tt
+		}
+	}
+	naval_law_5_rom = {#mare nostrum
+		allow  = {
+			num_of_ports >= 1
+			rank >= great_power
+		}
+		modifier = {
+			navy_maintenance_cost = -0.1 
+		}
+	}
+}
+marititme_laws_car = {
+	potential = {
+		is_republic = yes
+		tag = CAR
+	}
+	
+	maritime_car_1 = {
+		modifier = {
+			manpower_recovery_speed = 0.05
+			global_import_commerce_modifier = -0.1
+			global_citizen_happyness = 0.04
+		}
+	}
+	
+	maritime_car_2 = { #Trade over might
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			global_commerce_modifier = 0.25
+			naval_damage_done = -0.1
+			naval_morale_modifier = -0.1
+			ship_cost = 0.1
+		}
+	}
+	
+	maritime_car_3 = { #shrewd trade tactics
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			price_state_investment_oratory_cost_modifier = -0.1
+		}
+		on_enact = {
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	maritime_car_4 = { #Naval Supremacy
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			anti_piracy_cb = yes
+			navy_maintenance_cost = -0.1
+			naval_morale_modifier = 0.05
+			ship_cost = -0.1 
+		}
+	}
+}
+#trade
+trade_laws = {
+	potential = {
+		or = {
+			is_monarchy = yes
+			is_republic = yes
+		}
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	trade_law_1 = { #import dutues
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+	}
+	trade_law_2 = { #subsidized grain 
+		modifier = {
+			manpower_recovery_speed = 0.05
+			price_state_investment_oratory_cost_modifier = -0.1
+		}
+		allow = {
+			num_of_ports >= 1
+		}
+	}
+	trade_law_3 = { #merchant rights
+		modifier = {
+			global_import_commerce_modifier = -0.2
+			global_citizen_happyness = 0.04
+			global_capital_trade_routes = 1
+		}
+	}
+	trade_law_4 = {#remove tariffs
+		modifier = {
+			global_citizen_happyness = 0.1
+			global_state_trade_routes = 0.1
+			global_import_commerce_modifier = -2
+		}
+	}
+}
+##religious
+religious_laws_monarchy = {
+	potential = {
+		is_monarchy = yes
+	}
+	
+	religious_law_1_mon = { #non intereference policy
+		modifier = {
+			happiness_for_same_religion_modifier = happiness_small_svalue
+		}
+	}
+	religious_law_2_mon = { #religious gtoleratoon 
+		
+		allow  = {
+			invention = omen_power_inv_4
+		}
+		modifier = {
+			global_pop_conversion_speed = -0.1
+			happiness_for_wrong_culture_group_modifier = 0.03
+		}
+	}
+	religious_law_3_mon = { #religious convesrion 
+		
+		allow  = {
+			invention = omen_power_inv_4
+		}
+		modifier = {
+			global_pop_conversion_speed = 0.2
+		}
+	}
+	
+	religious_law_4_mon = {#state sponsored religion 
+		allow  = {
+			invention = omen_power_inv_4
+		}
+		modifier = {
+			stability_cost_modifier = -0.15
+		}
+	}
+	religious_law_5_mon = { #ruler cult
+		modifier = {
+			monthly_legitimacy = 0.05
+			omen_power = 0.1
+		}
+		allow = {
+			invention = omen_power_inv_5
+		}
+	}
+}
+religious_laws_republic = {
+	potential = {
+		is_republic = yes
+		NOT = {
+			tag = ROM
+		}
+	}
+	
+	republican_religious_1 = {
+		modifier = {
+			happiness_for_same_religion_modifier = happiness_small_svalue
+		}
+	}
+	
+	republican_religious_2 = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			omen_power = 0.15
+		}
+	}
+	
+	republican_religious_3 = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+	}
+	
+	republican_religious_4 = {
+	
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			stability_cost_modifier = -0.33
+		}
+	}
+}
+religious_laws_rome = {
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	
+	grant_religious_freedoms = {
+		modifier = {
+			happiness_for_same_religion_modifier = happiness_small_svalue
+		}
+	}
+	
+	lex_ogulnia = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		
+		modifier = {
+			omen_power = 0.15
+		}
+	}
+	
+	lex_aelia_et_fufia = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+	}
+	
+	lex_domitia_de_sacerdotiis = {
+	
+		allow = {
+			civic_tech >= 3
+		}
+	
+		modifier = {
+			stability_cost_modifier = -0.33
+		}
+	}
+}
+##citizenship
+citizen_laws = {
+	potential = {
+		or = {
+			is_monarchy = yes
+			is_republic = yes
+		}
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	
+	citizen_law_1 = { #cultural Primacy
+		modifier = {
+			cultural_integration_speed_modifier = -0.2
+			happiness_for_same_culture_modifier = 0.04
+		}
+	}
+	citizen_law_2 = {#relax citizenship
+		modifier = {
+			global_citizen_city_desired_pop_ratio = 0.1
+			global_nobles_happyness = -0.03
+		}
+		allow = {
+			invention = citizen_promotion_cost_modifier_inv
+		}
+	}
+	citizen_law_3 = { #strict citizenship
+		
+		allow  = {
+			invention = citizen_promotion_cost_modifier_inv
+		}
+		modifier = {
+			global_freemen_city_desired_pop_ratio = 0.10
+		}
+	}
+	
+	citizen_law_4 = { #multi cultural citizenship
+	
+		allow  = {
+			rank >= great_power
+		}
+		modifier = {
+			cultural_integration_speed_modifier = 0.2
+		}
+	}
+}
+citizen_laws_rome = { # Citizenship Laws
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	lex_aternia = {
+		modifier = {
+			global_tax_modifier = 0.05
+		}
+	}
+	lex_fufia_caninia = {
+		allow = {
+			civic_tech >= 9
+		}
+		
+		modifier = {
+			global_slaves_city_desired_pop_ratio = 0.15
+		}
+	}
+	lex_plautia_papiria = {
+	
+		allow = {
+			civic_tech >= 9
+		}
+	
+		modifier = {
+			global_citizen_city_desired_pop_ratio = 0.1
+		}
+	}
+	lex_aelia_sentia = {
+	
+		allow = {
+			civic_tech >= 9
+		}
+		modifier = {
+			global_freemen_city_desired_pop_ratio = 0.1
+		}
+		
+	}
+}
+#social mobility
+social_laws = {
+	potential = {
+		or = {
+			is_monarchy = yes
+			is_republic = yes
+		}
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	social_law_1  = {#ancient tradition
+		modifier = {
+			global_nobles_happyness = 0.03
+			global_pop_promotion_speed_modifier = -0.1
+			global_pop_promotion_speed_modifier = -0.1
+		}
+	}
+	social_law_2 = { #bloodline purity
+		modifier = {
+
+		}
+	}
+	social_law_3 = {
+		modifier = {
+
+		}
+	}
+	social_law_4 = { #meritocracy
+		modifier = {
+			global_pop_promotion_speed_modifier = 0.2
+			global_pop_promotion_speed_modifier = 0.2
+			global_citizen_city_desired_pop_ratio = 0.05
+		}
+	}
+}
+##government
+domestic_laws_monarchy = {
+	potential = {
+		or  = {
+			is_monarchy = yes
+			is_republic = yes
+		}
+		rank >= great_power
+		civic_tech >= 12
+	}
+	domestic_law_1 = { #base
+		modifier = {
+
+		}
+	}
+	domestic_law_2 = {
+		modifier = {
+			global_tax_modifier = -0.15
+			global_population_growth = 0.06
+			build_cost = -0.05
+		}
+		allow = {
+			civic_tech >= 12
+		}
+	}
+	domestic_law_3 = {
+		modifier = {
+			global_tax_modifier = -0.1
+			monthly_local_governor_wage = -0.05
+			global_monthly_state_loyalty = 0.02
+		}
+		allow = {
+			civic_tech >= 12
+		}
+	}
+	domestic_law_4 = { #corruption crackdown
+		modifier = {
+			monthly_corruption = -0.05
+			governor_loyalty = -5
+			global_population_happiness = 0.02
+		}
+		allow = {
+			civic_tech >= 15
+		}
+		on_enact = {
+			add_country_modifier = {
+				name = iu_modifier_1
+				duration = 3650 #10 years
+			}
+			#governors lose 5 corruption immediately
+			#triggers pulse event in which any character having 10 corruption triggers an event to fire 
+		}
+	}
+	domestic_law_5 = { #beuracratic administration
+		modifier = {
+			monthly_governor_wage = 0.15
+			global_monthly_state_loyalty = 0.02
+			global_population_happiness = 0.02
+
+		}
+		allow = {
+			civic_tech >= 18
+		}
+	}
+}
+administration_laws_mon = {
+	potential= {
+		is_monarchy = yes
+	}
+
+	administration_law_1_mon = { #autonomous_satrap
+
+	}
+}
+contract_laws_monarchy = {
+	potential = {
+		is_monarchy = yes
+	}
+	
+	no_contract_law = {
+		modifier = {
+			monthly_corruption = -0.05
+		}
+	}
+	
+	public_notaries_law = {
+		allow = {
+			invention = tyranny_inv_2
+		}
+		modifier = {
+			monthly_wage_modifier = -0.2
+			character_loyalty = -5
+		}
+	}
+	
+	vast_bureaucracy = {
+		allow = {
+			invention = tyranny_inv_2
+		}
+		modifier = {
+			monthly_governor_wage = -0.15
+			governor_loyalty = -10
+		}
+	}
+}
+legitimacy_laws_monarchy = {
+	potential = {
+		is_monarchy = yes
+	}
+	
+	renowned_lineage = {
+		monthly_legitimacy = 0.02
+		monthly_political_influence = 0.05
+	}
+	
+	scholarly_pursuits_law = {
+	
+		allow = {
+			invention = scientific_patronage_inv
+		}
+		modifier = {
+			research_points_modifier = 0.2
+			global_citizen_happyness = 0.06
+		}
+	}
+	
+	royal_bureaucracy = {
+	
+		allow = {
+			invention = scientific_patronage_inv
+		}
+		modifier = {
+			monthly_legitimacy = 0.2
+			global_nobles_happyness = 0.06
+		}
+	}
+}
+assembly_laws_republic = { # Endorse Legislative Body
+	potential = {
+		is_republic = yes
+		NOT = {
+			tag = ROM
+		}
+	}
+	
+	republic_corruption_2 = { 
+		modifier = {
+			monthly_corruption = -0.1
+		}
+	}
+	
+	republic_corruption_3 = {
+		modifier = {
+			fabricate_claim_cost_modifier = -0.5
+		}
+	}
+	
+	republic_corruption_1 = {
+		modifier = {
+			monthly_tyranny = -0.02
+		}
+		on_enact = {
+			custom_tooltip = "enables_curiate_assembly_tt"
+		}
+	}
+	
+	republic_corruption_4 = { 
+		modifier = {
+			monthly_political_influence_modifier = 0.05
+		}
+		on_enact = {
+			custom_tooltip = "enables_war_council_tt"
+		}
+	}
+}
+assembly_laws_rome = { # Assembly Endorsement
+
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	
+	assembly_law_1_rom = { #traditional system lex_acilia_repetundarum
+		modifier = {
+			monthly_corruption = -0.05
+
+		}
+		on_enact = {
+			custom_tooltip = "enables_curiate_assembly_tt"
+			custom_tooltip = "enables_war_council_tt"
+		}
+	}
+	
+	assembly_law_2_rom = { #Lex Hortensia (plebsicites now law)
+		modifier = {
+			global_citizen_happyness = 0.02
+			global_freemen_happyness = 0.04
+		}
+		on_enact = {
+			custom_tooltip = "enables_curiate_assembly_tt"
+			custom_tooltip = "enables_war_council_tt"
+		}
+	}
+	assembly_law_3_rom  = { #senatorial domination
+		modifier = {
+			monthly_tyranny = 0.03
+			monthly_political_influence_modifier = 0.1
+			global_nobles_happyness = 0.04
+		}
+	}
+	assembly_law_4_rom = { #expand centuriate assmepbly
+		modifier = {
+			monthly_tyranny = -0.02
+			global_freemen_happyness = 0.06
+			enact_law_cost_modifier = -0.1
+		}
+		on_enact = {
+			custom_tooltip = "enables_curiate_assembly_tt"
+			custom_tooltip = "enables_war_council_tt"
+		}
+	}
+	assembly_law_5_rom  = { #sullas reforms
+		modifier = {
+			monthly_tyranny = 0.05
+			stability_monthly_change = 0.02
+			enact_law_cost_modifier = -0.1
+		}
+	}
+}
+###integration
+divinity_laws = { #divintiystatues
+	potential = {
+		is_monarchy = yes
+	}
+	
+	humility_status_law = { 
+	
+		allow = {
+			always = yes
+		}
+	
+		modifier = {
+			global_freemen_happyness = happiness_large_svalue
+		}
+		
+		on_enact = {
+			custom_tooltip = can_nominate_heir_at_high_legitimacy
+		}
+	}
+	
+	elevate_monarch_monarchy = {
+		
+		allow  = {
+			current_ruler = {
+				zeal >= 10
+				popularity >= 90
+			}
+			legitimacy >= 90
+		}
+		
+		modifier = {
+			ruler_popularity_gain = 0.25
+			agressive_expansion_impact = -0.2
+		}
+			
+		on_enact = {
+			custom_tooltip = can_always_nominate_heirs
+		}
+	}
+
+
+}
+#divinity_statutes_jewish = {
+#	potential = {
+#		is_monarchy = yes
+#		religion = judaism
+#	}
+#	
+#	humility_status_law = { 
+#		modifier = {
+#			global_freemen_happyness = happiness_large_svalue
+#		}
+#		
+#		on_enact = {
+#			custom_tooltip = can_nominate_heir_at_high_legitimacy
+#		}
+#	}
+#	
+#	elevate_prophet_monarch_monarchy = {
+#		
+#		allow  = {
+#			current_ruler = {
+#				zeal >= 10
+#				popularity >= 90
+#			}
+#			legitimacy >= 90
+#		}
+#		
+#		modifier = {
+#			ruler_popularity_gain = 0.25
+#			agressive_expansion_impact = -0.2
+#		}
+#			
+#		on_enact = {
+#			custom_tooltip = can_always_nominate_heirs
+#		}
+#	}
+#}
+subject_laws = {
+	potential = { 
+		is_monarchy = yes
+	}
+	
+	trusted_beyond_measure = {
+		modifier = {
+			subject_opinions = 15
+		}
+	} 
+	
+	king_of_kings = {
+		
+		allow = {
+			num_of_cities >= 100
+			
+		}
+		modifier = {
+			integrate_speed = 0.3
+			diplomatic_relations = 2
+		}
+	}	
+}
+integration_laws = { 
+	potential = {
+		or = {
+			is_monarchy = yes
+			is_republic = yes
+		}
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	integration_law_1 = { #war council/rite of conqyest
+		modifier = {
+			agressive_expansion_impact = -0.05
+		}
+	}
+	integration_law_2 = { #rights for foeginers
+		allow  = {
+			civic_tech >= 6
+			or = {
+				invention = civic_foreign_2b
+				invention = happiness_for_wrong_culture_modifier_inv_2
+			}
+		}
+		modifier = {
+			global_nobles_happyness = 0.02
+			global_pop_demotion_speed = 6
+		}
+	}
+	integration_law_3 = { #ad hoc  integration
+		allow  = {
+			civic_tech >= 8
+		}
+		modifier = {
+			agressive_expansion_monthly_decay = -0.01
+		}
+	}
+	integration_law_4 = { #stable integration
+		allow  = {
+			civic_tech >= 12
+		}
+		modifier = {
+			agressive_expansion_monthly_change = -0.02
+			global_pop_assimilation_speed_modifier = 0.05
+		}
+	}
+	integration_law_5 = { #bureaucratic integration
+		allow = {
+			civic_tech >= 15
+		}
+		modifier = {
+			agressive_expansion_monthly_change = -0.03
+			global_monthly_state_loyalty = 0.02
+			monthly_governor_wage = 0.05
+		}
+	}
+}
+integration_laws_rome = { # Integration Laws
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	lex_canuleia = {
+		modifier = {
+			global_freemen_happyness = happiness_small_svalue
+		}
+	}
+	lex_papia = {
+		allow  = {
+			civic_tech >= 6
+		}
+		modifier = {
+			global_nobles_happyness = 0.02
+			global_pop_demotion_speed = 6
+		}
+	}
+	lex_licinia = {
+		allow  = {
+			civic_tech >= 6
+		}
+		modifier = {
+			global_citizen_output = 0.2
+		}
+	}
+	lex_hortensia = {
+		allow  = {
+			civic_tech >= 6
+		}
+		modifier = {
+			happiness_for_same_culture_modifier = 0.05
+		}
+	}
+}
+###land 
+land_laws = {
+	potential = {
+		or = {
+			is_monarchy = yes
+			is_republic = yes
+		}
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	land_law_1 = { #protect inheritance
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.1
+			global_freemen_happyness = 0.04
+		}
+	}
+
+	land_law_2 = {#soldier land grants
+		modifier = {
+			army_maintenance_cost = -0.05
+			global_freemen_desired_pop_ratio = 0.15
+			global_freemen_city_desired_pop_ratio = -0.15
+		}
+		allow = {
+			or = {
+				invention = army_maintenance_cost_inv_2
+				invention = martial_veterans_1
+			}
+		}
+	}
+	land_law_3 = {#noble slave estates
+		modifier = {
+			global_nobles_happyness = 0.06
+			global_slaves_desired_pop_ratio = -0.5
+			global_slaves_city_desired_pop_ratio = -0.5
+			holding_income_modifier = 0.2
+		}
+	}
+	land_law_4 = {#extensive land reform -- part of even chain to move around freemen back to the settlements, unable to unlock any other law for a yearand then automatically switches to next law
+		modifier = {
+			global_migration_speed = 0.2
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_nobles_happyness = -0.08
+		}
+		allow = {
+			has_variable = land_reform
+		}
+	}
+	land_law_5 = {
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			#global_proles_city_desired_pop_ratio = -0.1
+			happiness_for_same_culture_modifier = 0.04
+			global_nobles_happyness = -0.04
+		}
+		allow = {
+			has_variable = land_reform_finsihed
+		}
+	}
+}
+land_laws_rom = { # Land Reforms
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	land_law_1_rom = { #cassian_reform
+		modifier = {
+			agressive_expansion_impact = -0.10
+			global_slaves_output = -0.
+		}
+	}
+	land_law_2_rom = { #lex_servilia_glaucia
+	
+		allow = {
+			civic_tech >= 11
+		}
+		modifier = {
+			global_migration_speed = 1.5
+			global_pop_promotion_speed = 6
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+		}
+	}
+	land_law_3_rom = { #slave_latifundia
+		
+		allow = {
+			invention = global_goods_from_slaves_inv
+		}
+		modifier = {
+			global_nobles_happyness = 0.08
+			holding_income_modifier = 0.33
+			global_slaves_desired_pop_ratio = 0.1
+			global_goods_from_slaves = -2
+			holdings_possible_for_character = 2
+		}
+	}
+	land_law_4_rom = {#lex_agraria
+	
+		allow = {
+			civic_tech >= 11
+		}
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_slaves_desired_pop_ratio = -0.1
+			global_slaves_city_desired_pop_ratio = 0.1
+		}
+	}
+	land_law_5_rom = {
+		
+		allow = {
+			civic_tech >= 12
+		}
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.25
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_slaves_desired_pop_ratio = -0.15
+			global_slaves_city_desired_pop_ratio = 0.15
+			global_proles_desired_pop_ratio = -0.5
+		}
+	}
+}
+slave_laws = {
+	potential = {
+		or = {
+			is_monarchy = yes
+			is_republic = yes
+		}
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	slave_law_1 = { #pow's
+		modifier = {
+			enslavement_efficiency = 0.05
+		}
+	}
+	slave_law_2 = {#slave economy
+		modifier = {
+			global_slaves_happyness = 0.06
+			global_slaves_desired_pop_ratio = 0.15
+		}
+		allow = {
+			rank >= regional_power
+		}
+	}
+	slave_law_3 = {#slave rights
+		modifier = {
+			global_slaves_happyness = 0.06
+			global_slaves_output = -0.2
+			global_slaves_desired_pop_ratio = 0.1
+		}
+		allow = {
+			OR = {
+				invention = global_slaves_output_inv_2
+				invention = civic_slaves_1
+			}
+		}
+	}
+	slave_law_4 = {#encourage manumission
+		modifier = {
+			global_slaves_desired_pop_ratio = -0.1
+			global_pop_promotion_speed_modifier = 0.2
+		}
+		allow = {
+			or = {
+				invention = civic_slaves_3b
+				invention = freemen_promotion_cost_modifier_inv
+			}
+		}
+	}
+	slave_law_5 = {#outlaw slavery  
+		modifier = {
+			global_slaves_desired_pop_ratio = -2
+			global_freemen_desired_pop_ratio = 0.33
+			happiness_for_same_culture_modifier = 0.08
+		}
+		on_enact = {
+			add_stability = -30
+			add_country_modifier = {
+				name = iu_modifier_1
+				duration = 3650 #10 years
+			}
+			#add_country_modifier = { 
+			#	name = iu_modifier_2
+			#	duration = 1000 
+			#}
+		}
+	}
+}
+#Chinese Laws
