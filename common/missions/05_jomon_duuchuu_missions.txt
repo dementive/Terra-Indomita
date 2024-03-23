@@ -46,8 +46,11 @@
         }
         requires = { jomon_duuchuu_missions_task_1 }
         allow = {
-            p:9690_scope.state  = {
-                incoming_trade_routes >= 3
+            trigger_if = {
+                limit = { exists = p:9690.state }
+                p:9690.state = {
+                    incoming_trade_routes >= 3
+                }
             }
             hidden:capital_scope.state = {
                 trade_good_surplus = {
