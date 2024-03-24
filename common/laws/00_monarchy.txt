@@ -55,13 +55,67 @@
 	}
 }
 
-monarchy_military_reforms = {
+monarchy_legitimacy_laws = { # Royal Council
 	potential = {
 		is_monarchy = yes
 	}
-	nor = {
-		tag = ROM
-		tag = CAR
+	#assembly_law_1_spa = {#gerousia
+	#	potential = {
+	#		tag = SPA
+	#	}
+	#	allow = {no}
+	#	modifier = {monthly_legitimacy = 0.02}
+	#}
+	renowned_lineage = { #renown lineage
+		modifier = {
+			monthly_legitimacy = 0.02
+			monthly_political_influence = 0.05
+		}
+		
+	}
+	
+	assembly_law_2_mon = {  #court advisores
+		modifier = {
+			monthly_corruption = -0.05
+			monthly_legitimacy = 0.02
+		}
+	}
+	
+	scholarly_pursuits_law = { #patronize schoarls
+		allow = {
+			invention = scientific_patronage_inv
+		}
+		modifier = {
+			research_points_modifier = 0.2
+			global_citizen_happyness = 0.06
+		}
+	}
+	
+	assembly_law_4_mon = { #religious assembly
+		modifier = {
+			monthly_political_influence_modifier = 0.05
+		}
+
+		on_enact = {
+			custom_tooltip = "enables_centuriate_assembly_tt"
+		}
+	}
+	royal_bureaucracy = { #nobles ingovenrment
+		modifier = {
+			monthly_legitimacy = 0.05
+			#num_of_expected_jobs = 1
+			global_nobles_happyness = 0.06
+		}
+	}
+}
+
+
+####
+
+
+monarchy_military_reforms = {
+	potential = {
+		is_monarchy = yes
 	}
 
 	
@@ -134,17 +188,23 @@ monarchy_maritime_laws = {
 	potential = {
 		is_monarchy = yes
 	}
-	
-	slave_oarsmen = {
+	slave_oarsmen = { #slave oarsmen
 		modifier = {
-			price_state_investment_oratory_cost_modifier = -0.1
+			trireme_offensive = 0.05
 		}
 	}
-	
-	free_ports_monarchy_law = {
+	naval_law_2_mon = {#shipbuilding initiative
+		modifier = {
+			ship_cost = -0.05
+			global_ship_recruit_speed = -0.2
+		}
+	}
+	free_ports_monarchy_law = {#shrewd business tactics
 		allow  = {
 			num_of_ports >= 1
-			invention = trireme_discipline_inv_1
+			or = {
+				invention = trireme_discipline_inv_1
+			}
 		}
 		on_enact = {
 			if = {
@@ -174,12 +234,14 @@ monarchy_maritime_laws = {
 			}
 		}
 		modifier = {
-			global_commerce_modifier = 0.15
-			diplomatic_reputation = -5
+			global_export_commerce_modifier = -0.1
+			global_import_commerce_modifier = 0.2
+			diplomatic_reputation = -1
+			mercenary_naval_maintenance_cost = -0.1
 		}
 	}
 	
-	antipiracy_edict = {
+	antipiracy_edict = { #anti priary
 		allow = {
 			num_of_ports >= 1
 			invention = trireme_discipline_inv_1
@@ -190,6 +252,18 @@ monarchy_maritime_laws = {
 		modifier = {
 			anti_piracy_cb = yes
 			global_citizen_happyness = 0.04
+			naval_morale = 0.1
+		}
+	}
+	naval_law_5_mon = {#royal fleet
+		modifier = {
+			octere_cost = -0.05
+			mega_galley_cost = -0.05
+			navy_maintenance_cost = -0.1
+		}
+		allow = {
+			rank >= great_power
+			military_tech >= 14
 		}
 	}
 	
@@ -199,56 +273,190 @@ monarchy_economic_law = {
 	potential = {
 		is_monarchy = yes
 	}
-	
-	land_tithe = {
+	tax_law_1_mon = { #property tax
+		modifier = {
+			global_freemen_happyness = -0.05
+			global_tax_modifier = 0.05
+		}
+		allow = {
+			or = {
+				invention = civic_base_2
+				invention = global_tax_modifier_inv_1
+			}
+		}
+	}
+	land_tithe = { #land tithe
+		modifier = {
+			global_nobles_output = 0.03
+			war_exhaustion = -0.02
+			global_tax_modifier = -0.05
+		}
+		allow = {
+			or = {
+				invention = civic_tax_1
+				invention = global_tribesmen_output_inv_3
+			}
+		}
+	}
+	tax_law_3_mon = { #tax farming base
+		modifier = {
+			#"Monthly Ruler Corruption + 0.05"
+			#"Monthly Governor Corruption + 0.05"
+			monthly_tyranny = 0.02
+			monthly_corruption = 0.05
+			global_tax_modifier = 0.15
+
+		}
+	}
+	tax_law_4_mon = { #reel in the tax farmers
+		modifier = {
+			global_citizen_happyness = 0.04
+			global_freemen_happyness = 0.04
+			global_citizen_output = 0.03
+			monthly_corruption = 0.03
+			#"Monthly Ruler Corruption + 0.02"
+			#"Monthly Governor Corruption + 0.03"
+		}
+		allow = {
+			civic_tech >= 12
+		}
+	}
+	tax_law_5_mon = { #standardized tax sanctions
+		modifier = {
+			global_tax_modifier = 0.1
+			global_population_happiness = 0.02
+		}
+		allow = {
+			civic_tech >= 12
+			rank >= great_power
+		}
+	}
+}
+governor_laws_monarchy = {
+	potential = {
+		or  = {
+			is_monarchy = yes
+		}
 
 	}
-	
-	local_investment_policy = {
-		
-		allow = {
-			invention = global_tribesmen_output_inv_3
-		}
+	governor_law_1_mon = { #base
 		modifier = {
-			global_population_growth = 0.05
+
+		}
+	}
+	local_investment_policy = { #local investnebt
+		modifier = {
 			global_tax_modifier = -0.15
+			global_population_growth = 0.06
+			build_cost = -0.05
 		}
-	}
-	
-	heritage_tax_exemption = {
-	
 		allow = {
-			invention = global_tribesmen_output_inv_3
-		}
-		modifier = {
-			global_nobles_happyness = 0.06
-			global_nobles_output = -0.03
+			civic_tech >= 10
+			rank >= great_power
 		}
 	}
-	
+	heritage_tax_exemption = { #benign neglect
+		modifier = {
+			global_tax_modifier = -0.1
+			monthly_local_governor_wage = -0.05
+			global_monthly_state_loyalty = 0.02
+		}
+		allow = {
+			civic_tech >= 10
+			rank >= great_power
+		}
+	}
+	governor_law_4_mon = { #corruption crackdown
+		modifier = {
+			monthly_corruption = -0.05
+			governor_loyalty = -5
+			global_population_happiness = 0.02
+		}
+		allow = {
+			civic_tech >= 12
+			rank >= great_power
+		}
+		on_enact = {
+			add_country_modifier = {
+				name = iu_modifier_3
+				duration = 3650 #10 years
+			}
+			#governors lose 5 corruption immediately
+			#triggers pulse event in which any character having 10 corruption triggers an event to fire 
+		}
+	}
+	governor_law_5_mon = { #burecratic administration
+		modifier = {
+			monthly_governor_wage = 0.1
+			global_monthly_state_loyalty = 0.02
+			global_population_happiness = 0.02
+
+		}
+		allow = {
+			civic_tech >= 15
+			rank >= great_power
+			or = {
+				has_law = administration_law_3_mon
+				has_law = administration_law_4_mon
+				has_law = administration_law_5_mon
+			}
+		}
+	}
+}
+trade_laws_mon = {
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	trade_law_1_mon = { #import dutues
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+	}
+	trade_law_2_mon = { #subsidized shipments 
+		modifier = {
+			price_state_investment_oratory_cost_modifier = -0.1
+		}
+		allow = {
+			num_of_ports >= 1
+		}
+	}
+	trade_law_3_mon = { #merchant rights
+		modifier = {
+			global_import_commerce_modifier = -0.2
+			global_citizen_output = 0.04
+		}
+	}
+	trade_law_4_mon = {#remove tariffs
+		modifier = {
+			global_citizen_happyness = 0.1
+			global_import_commerce_modifier = -2
+		}
+	}
 }
 
 monarchy_citizen_law = {
 	potential = {
 		is_monarchy = yes
 	}
-	
-	foreign_law_for_minorities = {
-		
+	citizen_law_1 = { #cultural Primacy
+		modifier = {
+			cultural_integration_speed_modifier = -0.2
+			happiness_for_wrong_culture_modifier = -0.04
+		}
 	}
-	
-	increased_citizenship_quotas = {
-		
-		allow  = {
+	increased_citizenship_quotas = {#relax citizenship
+		modifier = {
+			global_citizen_city_desired_pop_ratio = 0.1
+			global_nobles_happyness = -0.03
+		}
+		allow = {
 			invention = citizen_promotion_cost_modifier_inv
 		}
-		modifier = {
-			global_citizen_city_desired_pop_ratio = 0.10
-		}
 	}
-	
-	established_courts_for_landholders = {
-	
+	citizen_law_3 = { #strict citizenship
+		
 		allow  = {
 			invention = citizen_promotion_cost_modifier_inv
 		}
@@ -257,70 +465,108 @@ monarchy_citizen_law = {
 		}
 	}
 	
+	citizen_law_4 = { #multi cultural citizenship
+	
+		allow  = {
+			rank >= great_power
+		}
+		modifier = {
+			cultural_integration_speed_modifier = 0.2
+			happiness_for_same_culture_modifier = 0.04
+		}
+	}
+
+	#foreign_law_for_minorities = {
+	#	
+	#}
+	#
+	#increased_citizenship_quotas = {
+	#	
+	#	allow  = {
+	#		invention = citizen_promotion_cost_modifier_inv
+	#	}
+	#	modifier = {
+	#		global_citizen_city_desired_pop_ratio = 0.10
+	#	}
+	#}
+	#
+	#established_courts_for_landholders = {
+	#
+	#	allow  = {
+	#		invention = citizen_promotion_cost_modifier_inv
+	#	}
+	#	modifier = {
+	#		global_freemen_city_desired_pop_ratio = 0.10
+	#	}
+	#}
+	
 }
 
-monarchy_religious_laws = {
+social_laws_mon = {
 	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	social_law_1_mon  = {#ancient tradition
+		modifier = {
+			global_nobles_happyness = 0.03
+			global_pop_promotion_speed_modifier = -0.1
+			global_pop_promotion_speed_modifier = -0.1
+		}
+	}
+	social_law_2_mon = { #revoke 
+		modifier = {
+			happiness_for_same_culture_modifier = 0.04
+			global_freemen_happyness = -0.08
+		}
+	}
+	social_law_3_mon = { #meritocracy
+		modifier = {
+			global_pop_promotion_speed_modifier = 0.25
+			global_pop_demotion_speed_modifier = 0.2
+			global_citizen_city_desired_pop_ratio = 0.05
+		}
+	}
+}
+
+monarchy_subject_laws = {
+	potential = { 
 		is_monarchy = yes
 	}
 	
-	religious_tolerance_monarchy = {
-
-	}
+	trusted_beyond_measure = {
+		modifier = {
+			subject_opinions = 15
+		}
+	} 
 	
-	religious_integration_efforts = {
+	king_of_kings = {
 		
-		allow  = {
-			invention = omen_power_inv_4
+		allow = {
+			num_of_cities >= 100
+			
 		}
 		modifier = {
-			global_pop_conversion_speed = 0.25
-			global_pop_conversion_speed_modifier = 0.3
+			integrate_speed = 0.3
+			diplomatic_relations = 2
 		}
-	}
-	
-	monarchy_religious_mandate_military = { 
-		allow  = {
-			invention = omen_power_inv_4
-		}
-		modifier = {
-			global_pop_assimilation_speed = 0.25
-			global_pop_assimilation_speed_modifier = 0.3
-		}
-	}
-	
-}
-
-monarchy_legitimacy_laws = {
-	potential = {
-		is_monarchy = yes
-	}
-	
-	renowned_lineage = {
+	}	
+	subject_laws_3_mon = { #
 		
-	}
-	
-	scholarly_pursuits_law = {
-	
 		allow = {
-			invention = scientific_patronage_inv
+			num_of_cities >= 500
+			has_law = elevate_monarch_monarchy
+			has_law = religious_law_5_mon
+			
 		}
 		modifier = {
-			research_points_modifier = 0.2
-			global_citizen_happyness = 0.06
+			integrate_speed = 0.2
+			diplomatic_reputation = 2
+			subject_opinions = 25
+			diplomatic_relations = 2
 		}
-	}
-	
-	royal_bureaucracy = {
-	
-		allow = {
-			invention = scientific_patronage_inv
-		}
-		modifier = {
-			monthly_legitimacy = 0.2
-			global_nobles_happyness = 0.06
-		}
-	}
+	}	
 }
 
 monarchy_contract_law = {
@@ -328,76 +574,127 @@ monarchy_contract_law = {
 		is_monarchy = yes
 	}
 	
-	no_contract_law = {
-	
-	}
-	
-	public_notaries_law = {
-		allow = {
-			invention = tyranny_inv_2
+	no_contract_law = { #autonomous_satrap
+		modifier = {
+			governor_loyalty  = -3
+			global_tax_modifier = -0.1
+			global_monthly_state_loyalty = 0.02
 		}
+	}
+	administration_law_2_mon = { #deveolved administration
 		modifier = {
 			monthly_wage_modifier = -0.2
-			character_loyalty = -5
+			monthly_corruption = 0.05
+			global_unrest = -1
+		}
+		allow = {
+			nor = {
+				has_law = corruption_law_3_rep
+				has_law = corruption_law_4_rep
+				has_law = corruption_law_5_rep
+				has_law = corruption_law_3_rom
+				has_law = corruption_law_4_rom
+				has_law = corruption_law_5_rom
+				has_law = corruption_law_3_mon
+				has_law = corruption_law_4_mon
+				has_law = corruption_law_5_mon
+			}
 		}
 	}
-	
-	vast_bureaucracy = {
+	administration_law_3_mon = { #centalized buerecracy
+		modifier = {
+			global_tax_modifier = 0.05
+			monthly_wage_modifier = 0.1
+			global_monthly_state_loyalty = 0.03
+		}
 		allow = {
+			civic_tech >= 12
 			invention = tyranny_inv_2
 		}
+	}
+	public_notaries_law = { #public notaries
 		modifier = {
+			global_tax_modifier = 0.05
+			monthly_wage_modifier = -0.1
+			global_monthly_state_loyalty = 0.04
+			character_loyalty = -5
+		}
+		allow = {
+			or = {
+				has_law = administration_law_3_mon
+				has_law = administration_law_5_mon
+			}
+		}
+	}
+	vast_bureaucracy = { #military oversight
+		modifier = {
+			global_monthly_state_loyalty = 0.04
+			change_governor_policy_cost_modifier = -0.5
+			governor_loyalty = -5
+			global_unrest = 1
 			monthly_governor_wage = -0.15
-			governor_loyalty = -10
+		}
+		allow = {
+			or = {
+				has_law = administration_law_3_mon
+				has_law = administration_law_4_mon
+			}
 		}
 	}
 }
-
-monarchy_divinity_statutes = {
+monarchy_religious_laws = {
 	potential = {
 		is_monarchy = yes
-		NOT = {
-			religion = judaism
-		}
 	}
 	
-	humility_status_law = { 
-	
-		allow = {
-			always = yes
-		}
-	
+	religious_law_1_mon = { #non intereference policy
 		modifier = {
-			global_freemen_happyness = happiness_large_svalue
-		}
-		
-		on_enact = {
-			custom_tooltip = can_nominate_heir_at_high_legitimacy
+			happiness_for_same_religion_modifier = happiness_small_svalue
 		}
 	}
-	
-	elevate_monarch_monarchy = {
+	religious_tolerance_monarchy = { #religious gtoleratoon 
 		
 		allow  = {
-			current_ruler = {
-				zeal >= 8
-				popularity >= 95
-			}
-			legitimacy >= 95
-			stability >= 70
+			invention = omen_power_inv_4
 		}
-		
 		modifier = {
-			ruler_popularity_gain = 0.25
-			agressive_expansion_impact = -0.2
+			global_pop_conversion_speed = -0.1
+			happiness_for_wrong_culture_group_modifier = 0.03
 		}
-			
-		on_enact = {
-			custom_tooltip = can_always_nominate_heirs
+	}
+	religious_integration_efforts = { #religious convesrion 
+		
+		allow  = {
+			invention = omen_power_inv_4
+		}
+		modifier = {
+			global_pop_conversion_speed = 0.2
+		}
+	}
+	
+	monarchy_religious_mandate_military = {#state sponsored religion 
+		allow  = {
+			invention = omen_power_inv_4
+		}
+		modifier = {
+			stability_cost_modifier = -0.15
+		}
+	}
+	religious_law_5_mon = { #ruler cult
+		modifier = {
+			monthly_legitimacy = 0.05
+			omen_power = 0.1
+			deify_ruler_cost_modifier = -0.1
+		}
+		allow = {
+			invention = omen_power_inv_5
+
 		}
 	}
 	
 }
+
+
 
 jewish_monarchy_divinity_statutes = {
 	potential = {
@@ -437,26 +734,475 @@ jewish_monarchy_divinity_statutes = {
 	}
 }
 
-monarchy_subject_laws = {
-	potential = { 
-		is_monarchy = yes
+
+monarchy_integration_laws = { 
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	integration_law_1_mon = { #war council/rite of conqyest
+		modifier = {
+			agressive_expansion_impact = -0.05
+		}
+		allow  = {
+			rank <= regional_power
+		}
 	}
 	
-	trusted_beyond_measure = {
-		modifier = {
-			subject_opinions = 15
+	integration_law_2_mon = { #ad hoc  integration
+		allow  = {
+			civic_tech >= 4
 		}
-	} 
-	
-	king_of_kings = {
-		
+		modifier = {
+			agressive_expansion_monthly_decay = 0.01
+		}
+		allow  = {
+			rank = regional_power
+		}
+	}
+	foreign_law_for_minorities = { #rights for foeginers
+		allow  = {
+			civic_tech >= 6
+			or = {
+				invention = civic_foreign_2b
+				invention = happiness_for_wrong_culture_modifier_inv_2
+			}
+		}
+		modifier = {
+			happiness_for_wrong_culture_group_modifier = 0.03
+			agressive_expansion_monthly_decay = 0.01
+		}
+	}
+	integration_law_4_mon = { #stable integration
+		allow  = {
+			civic_tech >= 12
+		}
+		modifier = {
+			agressive_expansion_monthly_change = -0.02
+			global_pop_assimilation_speed_modifier = 0.05
+		}
+	}
+	integration_law_5_mon = { #bureaucratic integration
 		allow = {
-			num_of_cities >= 100
-			
+			civic_tech >= 15
 		}
 		modifier = {
-			integrate_speed = 0.3
-			diplomatic_relations = 2
+			agressive_expansion_monthly_change = -0.03
+			global_monthly_state_loyalty = 0.02
 		}
 	}
+}
+monarchy_land_laws = {
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	land_law_1_mon = { #protect inheritance
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.1
+			global_freemen_happyness = 0.04
+		}
+	}
+
+	land_law_2_mon = {#soldier land grants
+		modifier = {
+			army_maintenance_cost = -0.05
+			global_freemen_desired_pop_ratio = 0.15
+			global_freemen_city_desired_pop_ratio = -0.15
+		}
+		allow = {
+			or = {
+				invention = army_maintenance_cost_inv_2
+				invention = martial_veterans_1
+			}
+			civic_tech >= 7
+		}
+	}
+	land_law_3_mon = {#noble slave estates
+		modifier = {
+			global_nobles_happyness = 0.06
+			global_slaves_desired_pop_ratio = 0.1
+			holding_income_modifier = 0.2
+		}
+		allow = {civic_tech >= 7}
+	}
+	land_law_4_mon = {#extensive land reform -- part of even chain to move around freemen back to the settlements, unable to unlock any other law for a yearand then automatically switches to next law
+		modifier = {
+			global_migration_speed = 0.2
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_nobles_happyness = -0.08
+		}
+		allow = {
+			has_variable = land_reform
+		}
+		allow = {
+			civic_tech >= 11
+		}
+	}
+	land_law_5_mon = {
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			#global_proles_city_desired_pop_ratio = -0.1
+			happiness_for_same_culture_modifier = 0.04
+			global_nobles_happyness = -0.04
+		}
+		allow = {
+			civic_tech >= 12
+		}
+		allow = {
+			has_variable = land_reform_finsihed
+		}
+	}
+}
+judicial_laws_mon = {
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+
+	judicial_law_1_mon = {  #NONE
+		modifier = { 
+		}
+	}
+	
+	judicial_law_2_mon = {  #local_courts
+		modifier = { 
+			happiness_for_wrong_culture_group_modifier = 0.03
+			global_unrest = -1
+		}
+		allow = {
+			oratory_tech >= 4
+
+		}
+	}
+	established_courts_for_landholders = {  #establish courts for landowners
+		modifier = { 
+			global_freemen_happyness = 0.04
+			court_building_cost = -0.05
+		}
+		allow = {
+			oratory_tech >= 10
+
+		}
+	}
+	judicial_law_4_mon = {  #right of appeal
+		modifier = { 
+			global_citizen_happyness = 0.04
+			monthly_tyranny = -0.02
+		}
+		allow = {
+			oratory_tech >= 12
+
+		}
+	}
+	judicial_law_5_mon = {  #standardized code
+		modifier = { 
+			stability_monthly_change = 0.02
+			happiness_for_same_culture_modifier = 0.02
+		}
+		allow = {
+			oratory_tech >= 16
+
+		}
+	}
+}
+corruption_laws_mon = {
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	corruption_law_1_mon = {  # none
+
+		modifier = { 
+
+		}
+	}
+	corruption_law_2_mon = {  #sanctions
+
+		modifier = { 
+			monthly_corruption = -0.03
+		}
+	}
+	corruption_law_3_mon = {  #close eye
+		modifier = { 
+			monthly_corruption = -0.05
+		}
+		allow = {
+			civic_tech >= 6
+
+		}
+	}
+	corruption_law_4_mon = {  #increased efforts
+		modifier = { 
+			monthly_corruption = -0.08
+			
+			global_tax_modifier = -0.1
+		}
+		allow = {
+			civic_tech >= 10
+
+		}
+	}
+	corruption_law_5_mon = {  #harsh punsihments 
+
+		modifier = { 
+			monthly_corruption = -0.08
+			monthly_tyranny = 0.04
+		}
+		allow = {
+			civic_tech >= 10
+
+		}
+	}
+}
+slave_laws = {
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	slave_law_1 = { #pow's
+		modifier = {
+			enslavement_efficiency = 0.05
+		}
+	}
+	slave_law_2 = {#slave economy
+		modifier = {
+			global_slaves_output = 0.04
+			global_slaves_desired_pop_ratio = 0.15
+		}
+		allow = {
+			rank >= regional_power
+		}
+	}
+	slave_law_3 = {#slave rights
+		modifier = {
+			global_slaves_happyness = 0.06
+			global_slaves_output = -0.3
+			global_slaves_desired_pop_ratio = 0.1
+		}
+		allow = {
+			OR = {
+				invention = global_slaves_output_inv_2
+				invention = civic_slaves_1
+			}
+		}
+	}
+	slave_law_4 = { #limited manumission
+		modifier = {
+			global_pop_promotion_speed_modifier = 0.2
+		}
+		allow = {
+			or = {
+				invention = civic_slaves_3b
+				invention = freemen_promotion_cost_modifier_inv
+			}
+		}
+	}
+	slave_law_5 = {#encourage manumission
+		modifier = {
+			global_slaves_desired_pop_ratio = -0.1
+			global_pop_promotion_speed_modifier = 0.2
+		}
+		allow = {
+			or = {
+				invention = civic_slaves_3b
+				invention = freemen_promotion_cost_modifier_inv
+			}
+		}
+	}
+}
+monarchy_grain_laws = {
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	grain_law_1_mon = { #grain shipment
+		modifier = {
+			manpower_recovery_speed = 0.05
+		}
+		#on_enact = {
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_8
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_8 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_9
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_9 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_10
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_10 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#}
+	}
+	grain_law_2_mon = { #ad hoc intevention
+		modifier = {
+			global_freemen_happyness = 0.02
+			#global_prole_happyness = 0.04
+		}
+		#on_enact = {
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_8 #ad hoc intervention
+		#			duration = -1
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_9
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_9 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_10
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_10 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#}
+	}
+	grain_law_3_mon = { #subsideized grain
+		modifier = {
+			global_freemen_happyness = 0.02
+			#global_prole_happyness = 0.04
+		}
+		#on_enact = {
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_9 #ad hoc intervention
+		#			duration = -1
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_8
+		#		}
+		#	}
+		#}
+	}
+	grain_law_4_mon = { #grain dole
+		modifier = {
+			global_freemen_happyness = 0.02
+		}
+		#on_enact = {
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_10 #ad hoc intervention
+		#			duration = -1
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_8
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_9
+		#		}
+		#	}
+		#}
+	}
+	grain_law_5_mon = { #bread and circus
+		modifier = {
+			global_population_happiness = 0.04
+			global_tax_modifier = -0.2
+			global_unrest = -2
+		}
+	}
+}
+monarchy_divinity_statutes = {
+	potential = {
+		is_monarchy = yes
+		not = {religion = judaism}
+	}
+	
+	humility_status_law = { 
+	
+		allow = {
+			always = yes
+		}
+	
+		modifier = {
+			global_freemen_happyness = happiness_large_svalue
+		}
+		
+		on_enact = {
+			custom_tooltip = can_nominate_heir_at_high_legitimacy
+		}
+	}
+	
+	elevate_monarch_monarchy = {
+		
+		allow  = {
+			current_ruler = {
+				zeal >= 8
+				popularity >= 95
+			}
+			legitimacy >= 95
+			stability >= 70
+		}
+		
+		modifier = {
+			ruler_popularity_gain = 0.25
+			agressive_expansion_impact = -0.2
+		}
+			
+		on_enact = {
+			custom_tooltip = can_always_nominate_heirs
+		}
+	}
+	
 }
