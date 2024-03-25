@@ -46,10 +46,10 @@
         }
         requires = { jomon_duuchuu_missions_task_1 }
         allow = {
-            trigger_if = {
-                limit = { exists = p:9690.state }
-                p:9690.state = {
-                    incoming_trade_routes >= 3
+            p:capital_scope.state = {
+                calc_true_if = {
+                    amount >= 1
+                    state_improvement_oratory_trigger = yes
                 }
             }
             hidden:capital_scope.state = {
@@ -465,12 +465,10 @@
         }
         allow = {
             country_population >= 80
-			current_ruler = {
-				custom_tooltip = {
-					text = does_not_have_naval_expansion_tt
-					has_variable = naval_expansion_var
-				}
-			}
+            custom_tooltip = {
+                text = does_not_have_naval_expansion_tt
+                has_variable = naval_expansion_var
+            }
         }
         on_completion = {
             trigger_event = me_duuchuu.12
