@@ -66,6 +66,7 @@ monarchy_legitimacy_laws = { # Royal Council
 	#	allow = {no}
 	#	modifier = {monthly_legitimacy = 0.02}
 	#}
+	#assembly_law_1_dia = Comapanions?
 	renowned_lineage = { #renown lineage
 		modifier = {
 			monthly_legitimacy = 0.02
@@ -89,6 +90,7 @@ monarchy_legitimacy_laws = { # Royal Council
 			research_points_modifier = 0.2
 			global_citizen_happyness = 0.06
 		}
+		#ADD SPECUIAL POP Bonus IN THIS KAW FOR SCHOALRS
 	}
 	
 	assembly_law_4_mon = { #religious assembly
@@ -97,7 +99,7 @@ monarchy_legitimacy_laws = { # Royal Council
 		}
 
 		on_enact = {
-			custom_tooltip = "enables_centuriate_assembly_tt"
+			custom_tooltip = "enables_curiate_assembly_tt"
 		}
 	}
 	royal_bureaucracy = { #nobles ingovenrment
@@ -105,6 +107,7 @@ monarchy_legitimacy_laws = { # Royal Council
 			monthly_legitimacy = 0.05
 			#num_of_expected_jobs = 1
 			global_nobles_happyness = 0.06
+			character_loyalty = 2
 		}
 	}
 }
@@ -193,7 +196,7 @@ monarchy_maritime_laws = {
 			trireme_offensive = 0.05
 		}
 	}
-	naval_law_2_mon = {#shipbuilding initiative
+	paid_crews_law = {#shipbuilding initiative
 		modifier = {
 			ship_cost = -0.05
 			global_ship_recruit_speed = -0.2
@@ -273,7 +276,7 @@ monarchy_economic_law = {
 	potential = {
 		is_monarchy = yes
 	}
-	tax_law_1_mon = { #property tax
+	capitation_tax = { #property tax
 		modifier = {
 			global_freemen_happyness = -0.05
 			global_tax_modifier = 0.05
@@ -672,7 +675,7 @@ monarchy_religious_laws = {
 		}
 	}
 	
-	monarchy_religious_mandate_military = {#state sponsored religion 
+	encourage_cults_monarchy = {#state sponsored religion 
 		allow  = {
 			invention = omen_power_inv_4
 		}
@@ -680,7 +683,7 @@ monarchy_religious_laws = {
 			stability_cost_modifier = -0.15
 		}
 	}
-	religious_law_5_mon = { #ruler cult
+	monarchy_religious_mandate_military = { #ruler cult
 		modifier = {
 			monthly_legitimacy = 0.05
 			omen_power = 0.1
@@ -803,6 +806,7 @@ monarchy_land_laws = {
 		modifier = {
 			global_freemen_desired_pop_ratio = 0.1
 			global_freemen_happyness = 0.04
+			global_freemen_city_desired_pop_ratio = -0.1
 		}
 	}
 
@@ -997,6 +1001,8 @@ slave_laws = {
 	slave_law_4 = { #limited manumission
 		modifier = {
 			global_pop_promotion_speed_modifier = 0.2
+			global_slaves_happyness = 0.06
+			global_slaves_output = -0.3
 		}
 		allow = {
 			or = {
