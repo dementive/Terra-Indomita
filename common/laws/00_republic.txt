@@ -257,7 +257,7 @@ corruption_laws_rom = { # Assembly Endorsement
 		tag = ROM
 	}
 	
-	lex_acilia_repetundarum = { #traditional system lex_acilia_repetundarum
+	lex_pubilia = { #traditional system lex_acilia_repetundarum
 		modifier = {
 			monthly_corruption = -0.05
 
@@ -270,10 +270,10 @@ corruption_laws_rom = { # Assembly Endorsement
 		}
 	}
 	
-	assembly_law_2_rom = { #Lex Hortensia (plebsicites now law)
+	assembly_law_2_rom = { #Lexpand centuriate assmepbly
 		modifier = {
-			global_citizen_happyness = 0.02
-			global_freemen_happyness = 0.04
+			monthly_tyranny = -0.02
+			global_freemen_happyness = 0.06
 		}
 		on_enact = {
 			custom_tooltip = "enables_curiate_assembly_tt"
@@ -292,11 +292,10 @@ corruption_laws_rom = { # Assembly Endorsement
 			custom_tooltip = "enables_war_council_tt"
 		}
 	}
-	assembly_law_4_rom = { #expand centuriate assmepbly
+	assembly_law_4_rom = { #Lex Atinia
 		modifier = {
-			monthly_tyranny = -0.02
-			global_freemen_happyness = 0.06
-			
+			global_citizen_output = 0.02
+			global_freemen_output = 0.02
 		}
 		on_enact = {
 			custom_tooltip = "enables_curiate_assembly_tt"
@@ -473,7 +472,7 @@ republic_military_recruitment_laws_rom = { # Military Reforms
 			set_legion_recruitment = disabled
 		}
 	} 
-	lex_porcia = { #Polybian System
+	military_law_2_rom = { #Polybian System
 		modifier = {
 			levy_size_multiplier = 0.075
 			war_exhaustion = -0.04
@@ -510,6 +509,8 @@ republic_military_recruitment_laws_rom = { # Military Reforms
 		}
 		modifier = {
 			discipline = 0.05
+			army_maintenance_cost = -0.1
+			loyalty_gain_chance = 0.1
 		}
 		on_enact = {
 			custom_tooltip = legions_in_any_region
@@ -523,6 +524,7 @@ republic_military_recruitment_laws_rom = { # Military Reforms
 		modifier = {
 			global_defensive = 0.05
 			discipline = 0.05
+			army_maintenance_cost = 0.05
 		}
 		on_enact = {
 			custom_tooltip = legions_in_any_region
@@ -550,7 +552,7 @@ republican_mediterranean_laws = {
 	republican_mediterranean_2 = {#shipbuilding initiative
 		modifier = {
 			ship_cost = -0.05
-			global_ship_recruit_speed = -0.2
+			global_ship_recruit_speed = 0.2
 		}
 	}
 	republican_mediterranean_3 = {#shrewd business tactics
@@ -625,7 +627,7 @@ republican_mediterranean_laws_rom = {
 		tag = ROM
 	}
 	
-	lex_terentia_cassia = { #land over sea
+	naval_law_1_rom = { #land over sea
 		modifier = {
 			ship_cost = 0.05
 			naval_damage_taken = 0.05 
@@ -658,7 +660,7 @@ republican_mediterranean_laws_rom = {
 			}
 		}
 	}
-	lex_caecilia = { #Caecilia
+	naval_law_3_rom = { #socci navales
 		allow  = {
 			num_of_ports >= 1
 		}
@@ -931,7 +933,7 @@ tax_laws_rom = { #civil gtributim
 		tag = ROM
 	}
 	
-	tax_law_1_rom = { #civil tributim
+	tax_law_1_rom = { #civile tributim
 		modifier = {
 			war_exhaustion = -0.005
 			global_nobles_output = 0.03
@@ -1004,6 +1006,7 @@ trade_laws_republic = {
 	trade_law_2_rep = { #subsidized shipments 
 		modifier = {
 			price_state_investment_oratory_cost_modifier = -0.1
+			global_commerce_modifier = 0.05
 		}
 		allow = {
 			num_of_ports >= 1
@@ -1037,7 +1040,7 @@ trade_laws_rom = {
 			global_import_commerce_modifier = 0.2
 		}
 	}
-	trade_law_2_rom = { #lex fremtnatria 
+	trade_law_2_rom = { #AMphroa
 		modifier = {
 			price_state_investment_oratory_cost_modifier = -0.1
 		}
@@ -1239,21 +1242,21 @@ republican_social_laws = {
 			tag = CAR
 		}
 	}
-	social_law_1  = {#ancient tradition
+	social_law_1_rep  = {#ancient tradition
 		modifier = {
 			global_nobles_happyness = 0.03
 			global_pop_promotion_speed_modifier = -0.1
 			global_pop_promotion_speed_modifier = -0.1
 		}
 	}
-	social_law_2 = { #revoke 
+	social_law_2_rep = { #revoke 
 		modifier = {
 			happiness_for_same_culture_modifier = 0.04
 			global_freemen_happyness = -0.08
 		}
 	}
 
-	social_law_3 = { #meritocracy
+	social_law_3_rep = { #meritocracy
 		modifier = {
 			global_pop_promotion_speed_modifier = 0.25
 			global_pop_demotion_speed_modifier = 0.2
@@ -1409,7 +1412,7 @@ domestic_laws_rep = {
 		}
 	}
 }
-domestic_laws_rome = {
+domestic_laws_rom = {
 	potential = {
 		tag = ROM
 	}
@@ -1440,7 +1443,7 @@ domestic_laws_rome = {
 			rank >= great_power
 		}
 	}
-	domestic_law_4_rom = { #Lex Calpurnia de repetundis Established a permanent extortion court.
+	lex_calpurnia = { #Lex Calpurnia de repetundis Established a permanent extortion court.
 
 		modifier = {
 			monthly_corruption = -0.05
@@ -1748,7 +1751,7 @@ subject_laws_rep = {
 			
 		}
 		modifier = {
-			integrate_speed = 0.3
+			subject_opinions = 15
 			diplomatic_relations = 2
 		}
 	}	
@@ -1760,6 +1763,7 @@ subject_laws_rep = {
 		}
 		modifier = {
 			integrate_speed = 0.3
+			diplomatic_reputation = 2
 		}
 	}
 }
@@ -2257,26 +2261,27 @@ judicial_laws_rom = {
 			civic_tech >= 5
 		}
 	}
+	lex_porcia = { #lex porcia rights of appea
+		modifier = { 
+			global_freemen_happyness = 0.05
+			monthly_tyranny = -0.033
+		}
+		allow = {
+			oratory_tech >= 7
+
+		}
+	}
 	judicial_law_3_rom = {  #lex Cassia tabellaria (secfet ballots injury decisions)
 		modifier = { 
 			stability_monthly_change = 0.02
 			court_building_cost = -0.05
 		}
 		allow = {
-			oratory_tech >= 6
-
-		}
-	}
-	judicial_law_4_rom = { #lex porcia rights of appea
-		modifier = { 
-			global_freemen_happyness = 0.05
-			monthly_tyranny = -0.033
-		}
-		allow = {
 			oratory_tech >= 10
 
 		}
 	}
+	
 	judicial_law_5_rom = {  #lex aurelia jury reform
 		modifier = { 
 			happiness_for_same_culture_modifier = 0.04
@@ -2387,7 +2392,7 @@ roman_corruption_laws = {
 			custom_tooltip = against_electoral_bribery
 		}	#fires new event chain from new scheme. basiscally a character that is close to becoming ruler will spend monthly wage and gain corruption to gain prominence and popularity to weasel their way into the position. depending on both, even if the character does not get elected ruler, they can gain an office through a hideden event that is easily unseen by a distracted player. This process allows corruption and incompetence into the government that is not easily detected by the player. However, with this law, these schemes can be stopped throguh an event chain. Caught characters will pay a fine to the state and have corruption sanctions placed upon them. Practically a slap on the wrist. Chance of success 25%
 	}
-	corruption_law_4_rom = {  #lex cassia de senatu - Required any senator to be expelled from the senate if they had been convicted of a crime, or if their power (imperium) had been revoked while serving as a magistrate.
+	lex_cassia_de_senatu = {  #lex cassia de senatu - Required any senator to be expelled from the senate if they had been convicted of a crime, or if their power (imperium) had been revoked while serving as a magistrate.
 		modifier = { 
 			monthly_corruption = -0.05
 		}
@@ -2511,9 +2516,9 @@ slave_laws_rom = {
 			}
 		}
 	}
-	slave_law_4_rom = { #limited manumission Lex Fufia Caninia
+	lex_fufia_caninia = { #limited manumission Lex Fufia Caninia
 		modifier = {
-			global_pop_promotion_speed_modifier = 0.2
+			global_pop_promotion_speed_modifier = 0.1
 		}
 		allow = {
 			or = {
@@ -2522,9 +2527,9 @@ slave_laws_rom = {
 			}
 		}
 	}
-	slave_law_5_rom = {#encourage manumission
+	lex_aelia_sentia = {#encourage manumission
 		modifier = {
-			global_slaves_desired_pop_ratio = -0.1
+			global_slaves_desired_pop_ratio = -0.05
 			global_pop_promotion_speed_modifier = 0.2
 		}
 		allow = {
@@ -2536,15 +2541,14 @@ slave_laws_rom = {
 	}
 }
 
-grain_laws = {
+grain_laws_rep = {
 	potential = {
-		or = {
-			is_republic = yes
-		}
+		is_republic = yes
+		not = {tag = ROM}
 	}
-	grain_law_1 = { #grain shipment
+	grain_law_1_rep = { #grain shipment
 		modifier = {
-			manpower_recovery_speed = 0.05
+
 		}
 		#on_enact = {
 		#	random_owned_province = {
@@ -2588,10 +2592,9 @@ grain_laws = {
 		#	}
 		#}
 	}
-	grain_law_2 = { #ad hoc intevention
+	grain_law_2_rep = { #ad hoc intevention
 		modifier = {
-			global_freemen_happyness = 0.02
-			#global_prole_happyness = 0.04
+			manpower_recovery_speed = 0.05#global_prole_happyness = 0.04
 		}
 		#on_enact = {
 		#	random_owned_province = {
@@ -2631,7 +2634,7 @@ grain_laws = {
 		#	}
 		#}
 	}
-	grain_law_3 = { #subsideized grain
+	grain_law_3_rep = { #subsideized grain
 		modifier = {
 			global_freemen_happyness = 0.02
 			#global_prole_happyness = 0.04
@@ -2651,7 +2654,7 @@ grain_laws = {
 		#	}
 		#}
 	}
-	grain_law_4 = { #grain dole
+	grain_law_4_rep = { #grain dole
 		modifier = {
 			global_freemen_happyness = 0.02
 		}
@@ -2673,7 +2676,152 @@ grain_laws = {
 		#	}
 		#}
 	}
-	grain_law_5 = { #bread and circus
+	grain_law_5_rep = { #bread and circus
+		modifier = {
+			global_population_happiness = 0.04
+			global_tax_modifier = -0.2
+			global_unrest = -2
+		}
+	}
+}
+grain_laws_rom = {
+	potential = {
+		or = {
+			is_republic = yes
+		}
+		tag = ROM
+	}
+	grain_law_1_rom = { #ad hoc intervention
+		modifier = {
+
+		}
+		#on_enact = {
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_8
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_8 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_9
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_9 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_10
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_10 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#}
+	}
+	lex_sempronia_frumentaria = { #ad hoc intevention
+		modifier = {
+			manpower_recovery_speed = 0.05#global_prole_happyness = 0.04
+		}
+		#on_enact = {
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_8 #ad hoc intervention
+		#			duration = -1
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_9
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_9 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = iu_modifier_10
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_10 #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_11 #revoke grain
+		#			duration = 3650
+		#		}
+		#	}
+		#}
+	}
+	lex_terentia_cassia = { #subsideized grain
+		modifier = {
+			global_freemen_happyness = 0.02
+			#global_prole_happyness = 0.04
+		}
+		#on_enact = {
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_9 #ad hoc intervention
+		#			duration = -1
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_8
+		#		}
+		#	}
+		#}
+	}
+	lex_clodia = { #grain dole
+		modifier = {
+			global_freemen_happyness = 0.02
+		}
+		#on_enact = {
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#		}
+		#		add_province_modifier = {
+		#			name = iu_modifier_10 #ad hoc intervention
+		#			duration = -1
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_8
+		#		}
+		#		remove_province_modifier = {
+		#			name = iu_modifier_9
+		#		}
+		#	}
+		#}
+	}
+	grain_law_5_rom = { #bread and circus
 		modifier = {
 			global_population_happiness = 0.04
 			global_tax_modifier = -0.2
