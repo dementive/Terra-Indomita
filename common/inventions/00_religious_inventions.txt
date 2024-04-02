@@ -1,79 +1,18 @@
-﻿# Level 0
+# Level 0
 religious_1 = {
 	technology = religious_tech
 	color = hsv { 0.55 0.9 0.9 }
 
 	# Level 0
-	ruler_popularity_gain_inv_1 = {
-		modifier = { ruler_popularity_gain = 0.02 }
-		ai_will_do = {
-			modifier = {
-				add = 500000
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank >= regional_power
-				}
-			}
-		}
-	}
-
-	# Level 1	
 	happiness_for_wrong_group_modifier_inv_1 = { 
 		modifier = { happiness_for_wrong_culture_group_modifier = wrong_culture_group_small  }
-		requires = { ruler_popularity_gain_inv_1 }
-		ai_will_do = {
-			modifier = {
-				add = 500000
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank >= regional_power
-				}
-			}
-		}
 	}
-
-	global_unrest_inv_1 = {
-		modifier = { happiness_for_same_culture_modifier = 0.02 }
-		requires = { ruler_popularity_gain_inv_1 }
-		
-	}		
-
-	# Level 2
-	global_unrest_inv_2 = {
-		modifier = { happiness_for_same_culture_modifier = 0.02 }
+	research_points_modifier_inv_2 = { #moral_education
+		modifier = { global_monthly_civilization = 0.01 }
 		requires = { happiness_for_wrong_group_modifier_inv_1 }
-		keystone = yes
-		on_activate = { custom_tooltip = "unlocks_temple_tt" }
-		ai_will_do = {
-			modifier = {
-				add = 500000
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank >= regional_power
-				}
-			}
-		}
 	}
-	
-	gw_effect_zeal_education_inv = {
+	gw_effect_zeal_education_inv = { #theologial colleges
+		requires = { research_points_modifier_inv_2 }
 		on_activate = { 
 			if = {
 				limit = {
@@ -83,192 +22,139 @@ religious_1 = {
 			}
 		}
 		modifier = { max_research_efficiency = 0.25 }
-		requires = { global_unrest_inv_2 }
+		
 		icon_override = gw_icon
 		keystone = yes
 	}
-
-	ruler_popularity_gain_inv_2 = {
-		modifier = { ruler_popularity_gain = 0.02 }
-		requires = { global_unrest_inv_1 }
-	}	
-
-	global_monthly_state_loyalty_inv = {
-		modifier = { global_monthly_state_loyalty = 0.02 }
-		requires = { global_unrest_inv_1 }
+	religious_tech_investment_inv_1 = { #recording tradition
+		modifier = { global_monthly_civilization = 0.01 }
+		requires = { happiness_for_wrong_group_modifier_inv_1 }
 	}
-
-	technology_cost_inv_1 = {
-		modifier = { global_monthly_food_modifier = 0.1 }
-		requires = { global_unrest_inv_1 }
-	}		
-
-	# Level 3
-	omen_power_inv_1 = { 
+	religious_calendar_inv = { #religious calendar
+		modifier = { global_monthly_civilization = 0.01 }
+		requires = { religious_tech_investment_inv_1 }
+	}
+	omen_power_inv_3 = { #expanded religious holdiays
+		modifier = { deify_ruler_cost_modifier = 0.01 }
+		requires = { happiness_for_wrong_group_modifier_inv_1 }
+	}
+	religious_tech_investment_inv_2 = { #rscribes
+		modifier = { 
+			global_monthly_civilization = 0.01
+			max_research_efficiency = 0.15
+		}
+		requires = { religious_wisodm_3 religious_wisodm_+-] }
+	}
+	technology_cost_inv_4 = { #shorthand Writing
+		modifier = { 
+		culture_citizen_happiness = 0.4
+		 max_research_efficiency = 0.15
+		}
+		requires = { religious_wisodm_3 religious_wisodm_+-] }
+	}
+	omen_power_inv_5 = { #trasnlated symbology 
+		modifier = { deify_ruler_cost_modifier = -0.25 }
+		requires = { technology_cost_inv_4 }
+		on_activate = {
+			custom_tooltip = "rulers_gain_2_additional_zeal"
+		}
+		keystone = yes
+	}	
+	religious_wisdom_inv_1 = { #expanded libraires
+		modifier = {
+			research_points_modifier = = 0.1
+			max_research_efficiency = 0.1
+		}
+	}
+	technology_cost_inv_5 = { #zero
+		modifier = {
+			global_citizen_output = 0.06	
+		}
+		keystone = yes
+		requires_or = { religious_wisdom_inv_1 }
+		on_activate = {
+			add_4_free_province_investments = yes
+		}
+	}
+	religious_wisdom_inv_2 = {#state sponsered philosophy
+		modifier = { 
+			happiness_for_same_culture_modifier = 0.04
+		}
+		requires = { religious_wisdom_inv_1 divine_equality_inv religious_wisdom_inv_5}
+		keystone = yes
+		on_activate = {
+			custom_tooltip = "choose_cult"
+		}
+	}
+	religious_wisdom_inv_3 = {#state atheism
+		modifier = { 
+			omen_power = -1
+		}
+		requires = { religious_wisdom_inv_2 }
+		keystone = yes
+		allow = {
+			is_ai = no
+		}
+		on_activate = {
+			custom_tooltip = "dethrone_god"
+		}
+	}
+	happiness_for_wrong_group_modifier_inv_2 = { #minor syncretism
+		modifier = {
+			happiness_for_wrong_culture_group_modifier = 0.03
+		}
+		requires = { happiness_for_wrong_group_modifier_inv_1 }
+	}
+	stability_inv_2 = {#tolerated cults
+		modifier = {
+			happiness_for_wrong_culture_group_modifier = 0.03
+		}
+		requires = { happiness_for_wrong_group_modifier_inv_2 }
+	}
+	global_tribesmen_output_inv_5 = { #right to religious observance
+		modifier = {
+			global_tribesmen_output = 0.03
+		}
+		requires = { stability_inv_2 }
+	}
+	happiness_for_wrong_group_modifier_inv_3 = { #major Syncretism
+		modifier = { 
+			happiness_for_wrong_culture_group_modifier = 0.15  
+			omen_power = 0.15
+			global_pop_conversion_speed_modifier = -0.9
+		}
+		keystone = yes
+		requires = { global_tribesmen_output_inv_5 }
+		potential = { 
+			trigger_if = {
+				limit = {
+					is_ai = yes
+				}
+				is_ai = no
+			}
+		}
+	}
+	divine_equality_inv = { #equalitu under the divince
+		modifier = { happiness_for_same_religion_modifier = 0.03 }
+		requires = { global_tribesmen_output_inv_5 }
+	}
+	############
+	###BRANCH 2
+	############
+	global_unrest_inv_2 = { #OPEN RELIGION
+		modifier = { happiness_for_same_culture_modifier = 0.02 }
+		keystone = yes
+		on_activate = { custom_tooltip = "unlocks_temple_tt" }
+	}
+	omen_power_inv_1 = { #Hierarchichal haruspiation
 		modifier = { omen_power = 0.025 }
 		requires = { global_unrest_inv_2 }		
 	}
-
-	happiness_for_wrong_group_modifier_inv_2 = { 
-		modifier = { happiness_for_wrong_culture_group_modifier = wrong_culture_group_small  }
+	stability_inv_1 = { #cONTRACTUAL oBLIGATION
+		modifier = { stability_cost_modifier = -0.025 }
 		requires = { global_unrest_inv_2 }
-		ai_will_do = {
-			modifier = {
-				add = 100
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank >= regional_power
-				}
-				is_monarchy = yes
-			}
-		}
-	}		
-
-	war_exhaustion_inv = {
-		modifier = { war_exhaustion = -0.01 }
-		requires = { ruler_popularity_gain_inv_2 }
-	}	
-
-	global_slaves_happyness_inv = {
-		modifier = { global_slaves_happyness = happiness_small_svalue }
-		requires = { global_monthly_state_loyalty_inv }
-	}	
-
-	global_population_growth_inv_1 = {
-		modifier = { 
-			global_population_growth = 0.01 
-			global_monthly_food_modifier = 0.025
-		}
-		requires = { technology_cost_inv_1 }
-	} 	
-
-	technology_cost_inv_2 = {
-		modifier = { price_state_investment_religious_cost_modifier = -0.05 }
-		on_activate = {
-			add_1_free_province_investments = yes
-		}
-		requires = { technology_cost_inv_1 }
 	} 
-
-	#New Invictus invention
-	astrology_inv = {
-    	modifier = { happiness_for_same_religion_modifier = 0.05 }
-        requires = { technology_cost_inv_1 }
-        allow = {
-			OR = {
-				country_culture_group = east_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_east_levantine_culture
-					has_variable = mesopotamian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_mesopotamian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-
-	subterranean_dwellings_inv = {
-    	modifier = { global_population_capacity_modifier = 0.05 }
-        
-        requires = { happiness_for_wrong_group_modifier_inv_1 }
-        allow = {
-			OR = {
-				country_culture_group = anatolian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_anatolian_culture
-					has_variable = anatolian_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:anatolian
-					}
-				}
-			}
-		} 
-    }
-
-    #New Invictus invention
-	hittite_case_law_inv = {
-    	modifier = { global_monthly_civilization = 0.02 }
-        
-        requires = { subterranean_dwellings_inv }
-        allow = {
-			OR = {
-				country_culture_group = anatolian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_anatolian_culture
-					has_variable = anatolian_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:anatolian
-					}
-				}
-			}
-		} 
-    }
-
-	# Level 4
-	stability_inv_1 = {
-		modifier = { stability_cost_modifier = -0.025 }
-		requires = { omen_power_inv_1 }
-	}	
-
-	stability_inv_2 = {
-		modifier = { stability_cost_modifier = -0.025 }
-		requires = { happiness_for_wrong_group_modifier_inv_2 }
-		ai_will_do = {
-			modifier = {
-				add = 100
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank >= regional_power
-				}
-				is_monarchy = yes
-			}
-		}
-	}
-
-	dalmatia_weapons_cult_inv = {
-		modifier = { discipline = 0.025 }
-		requires = { stability_inv_2 }
-
-		allow = {
-			primary_culture = greco_illyrian
-		}
-	}
-
-	danubian_horsemen_inv = {
-		modifier = { 
-			light_cavalry_morale = 0.05
-			global_pop_conversion_speed_modifier = 0.05
-		}
-		requires = { stability_inv_2 }
-		allow = {
-			OR = {
-				primary_culture = moesi
-				primary_culture = getian
-				primary_culture = buridavensi
-			}
-		}
-	}
-
-	stability_inv_3 = {
+	stability_inv_3 = { #staTE burials
 		modifier = { 
 			stability_cost_modifier = -0.05 
 			price_state_investment_religious_cost_modifier = -0.1
@@ -278,196 +164,40 @@ religious_1 = {
 			add_1_free_province_investments = yes
 		}
 		keystone = yes
-		requires_or = { war_exhaustion_inv global_slaves_happyness_inv }
-	}			
-
-	call_omen_cost_modifier_inv = {
+		requires = { stability_inv_1 }
+	}	
+	ruler_popularity_gain_inv_2 = { #sponsored games
+		modifier = { ruler_popularity_gain = 0.02 }
+		requires = { stability_inv_1 }
+	}
+	war_exhaustion_inv = { #dsicplined civilians
+		modifier = { war_exhaustion = -0.01 }
+		requires = { ruler_popularity_gain_inv_2 }
+	}
+	omen_duration_inv_5 = { #war dedication
+		modifier = { 
+			omen_power = 0.05 
+			recruit_general_cost_modifier = -0.15
+			land_morale_modifier = 0.05
+		}
+		keystone = yes
+		requires_or = { stability_inv_3 ruler_popularity_gain_inv_2 }
+	}
+	call_omen_cost_modifier_inv = { #reinterpreted pridiges
 		modifier = { omen_power = 0.025 }
-		requires = { global_monthly_state_loyalty_inv }
+		requires = { omen_power_inv_1 }
 	}
-
-	dardanian_death_currency_inv = {
-		modifier = { 
-			global_nobles_output = 0.08
-			global_tax_modifier = -0.05 
-		}
-		requires = { call_omen_cost_modifier_inv }
-		allow = {
-			primary_culture = dardanian
-		}
-	}
-
-	technology_cost_inv_3 = {
-		modifier = { happiness_for_same_culture_modifier = 0.02 }
-		requires = { global_population_growth_inv_1 }
-	}  	
-
-	global_tribesmen_happyness_inv = {
-		modifier = { global_tribesmen_happyness = happiness_small_svalue }
-		requires = { global_population_growth_inv_1 }
-	} 
-
-	religious_tech_investment_inv_1 = { 
-		modifier = { global_monthly_civilization = 0.01  }
-		requires = { technology_cost_inv_2 }
-	}
-
-	#New Invictus invention
-	polygamy_inv = {
-		modifier = { 
-			 global_population_growth = 0.05
-		}
-		requires = { war_exhaustion_inv }
-		allow = {
-			OR = {
-				country_culture_group = illyrian_group
-				country_culture_group = dacia_group
-				country_culture_group = thrace_group
-				custom_tooltip = {
-					text = integrated_any_haemic_culture
-					has_variable = haemic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:illyrian_group
-							this.culture.culture_group = culture_group:dacia_group
-							this.culture.culture_group = culture_group:thrace_group
-						}
-					}
-				}
-			}
-		}
-	}
-
-	#New Invictus invention
-	mago_inv = { 
-        modifier = {
-        	global_population_growth = 0.03
-        	global_monthly_food_modifier = 0.05
-        }
-        
-        requires = { global_population_growth_inv_1 }
-        allow = {
-			OR = {
-				country_culture_group = numidian
-				country_culture_group = fezzani
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_numidian_culture
-					has_variable = numidian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:numidian
-							this.culture.culture_group = culture_group:fezzani
-						}
-					}
-				}
-				country_culture_group = west_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_punic_culture
-					has_variable = punic_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:west_levantine
-					}
-				}
-			}
-		} 
-    }
-
-    #New Invictus invention
-	temple_estates_inv = {
-    	modifier = {
-    		global_pop_conversion_speed_modifier = 0.1
-    		enact_holy_site_cost_modifier = -0.3
-    	}
-        
-        requires = { hittite_case_law_inv }
-        allow = {
-			OR = {
-				country_culture_group = anatolian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_anatolian_culture
-					has_variable = anatolian_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:anatolian
-					}
-				}
-			}
-		} 
-    }
-		
-    #New Invictus invention
-    oasis_agriculture_inv = { 
-        modifier = {
-        	global_population_growth = 0.05
-        	global_monthly_food_modifier = 0.05
-        }
-        
-        requires = { global_population_growth_inv_1 }
-        allow = {
-			OR = {
-				country_culture_group = south_levantine
-				country_culture_group = south_arabian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_arabian_culture
-					has_variable = arabian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:south_arabian
-						}
-					}
-				}
-			}
-		} 
-    }
-
-
-	# Level 5
-	omen_power_inv_4 = { 
+	omen_power_inv_4 = { #proscribed canon
 		modifier = { 
 			omen_power = 0.1 
 			happiness_for_same_religion_modifier = 0.03
 		}
-		requires_or = { stability_inv_1 stability_inv_2 }
+		requires_or = { stability_inv_1 omen_power_inv_1 }
 		keystone = yes
-		ai_will_do = {
-			modifier = {
-				add = 100
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank >= regional_power
-				}
-				is_monarchy = yes
-			}
-		}
 		on_activate = {
 			if = {
 				limit = { is_monarchy = yes }
 				custom_tooltip = conversion_policy_law_unlock
-				if = {
-					limit = { is_ai = yes }
-					if = {
-						limit = { religious_unity <= 0.5 }
-						change_law = religious_integration_efforts
-					}
-					else = {
-						change_law = monarchy_religious_mandate_military
-					}
-				}
 			}
 			random_character = {
 				limit = {
@@ -477,48 +207,479 @@ religious_1 = {
 			}
 		}
 	}
-	
-	god_is_dead = {
-		modifier = { 
-			omen_power = -0.9
-		}
+	omen_duration_inv_1 = {#grand temples
+		modifier = { temple_building_cost = -0.1  }
 		requires = { omen_power_inv_4 }
-		keystone = yes
-		allow = {
-			is_ai = no
-		}
 		on_activate = {
-			custom_tooltip = "dethrone_god"
+			if = {
+				limit = {
+					has_dlc = "Heirs of Alexander"
+				}
+				custom_tooltip = "allow_gw_effect_omen_doctrine"
+			}
 		}
 	}
-
-	global_unrest_inv_3 = {
-		modifier = { happiness_for_same_religion_modifier = 0.02 }
-		requires_or = { stability_inv_3 call_omen_cost_modifier_inv }
-	}	
-
-	ruler_popularity_gain_inv_4 = {
-		modifier = { ruler_popularity_gain = 0.02 }
-		requires = { global_tribesmen_happyness_inv }
-	}	
-
-	global_freemen_happyness_inv = {
-		modifier = { global_freemen_happyness = 0.02 }
-		requires = { religious_tech_investment_inv_1 }
-	} 		
-	
-	global_population_growth_inv_3 = {
-		modifier = { global_population_growth = 0.02 }
-		requires = { religious_tech_investment_inv_1 }
+	omen_power_inv_2 = { #legendary foundarion
+		modifier = { deify_ruler_cost_modifier = -0.15 }
+		requires = { omen_duration_inv_1 }
 	}
+	omen_duration_inv_4 = {#household gods
+		modifier = { price_found_city_cost_modifier = -0.1 }
+		requires = { omen_power_inv_4 }
+	}
+	stability_inv_4 = {#household priests
+		modifier = { stability_cost_modifier = -0.05 }
+		requires = { omen_duration_inv_4 }
+	}
+	religious_wisdom_inv_5 = {#state sponsored religion
+		modifier = { 
+			omen_power = 0.025
+			global_pop_conversion_speed_modifier = 0.05
+			monthly_legitimacy = 0.02 
+		}
+		requires = { stability_inv_4 }
+	}
+	stability_inv_5 = { #formualic worship
+		modifier = { 
+			global_pop_conversion_speed = 0.5
+		}
+		keystone = yes
+		requires = { global_unrest_inv_5 }
+	}
+	land_morale_recovery_inv_2 = {#oracles and soothsayers
+		modifier = { global_population_happiness = 0.01 }
+		requires = { stability_inv_5 }
+	}
+	omen_duration_inv_3 = {#ban witchcraft
+		modifier = { 
+			global_pop_conversion_speed_modifier = 0.05
+			happiness_for_wrong_culture_group_modifier = -0.03 
+		}
+		requires = { land_morale_recovery_inv_2 }
+	}
+	#######
+	#branch 3
+	########
+	technology_cost_inv_1 = {#herbalism
+		modifier = { global_monthly_food_modifier = 0.1 }
+		
+	}
+	technology_cost_inv_2 = {#alumen
+		modifier = { price_state_investment_religious_cost_modifier = -0.05 }
+		on_activate = {
+			add_1_free_province_investments = yes
+		}
+		requires = { technology_cost_inv_1 }
+	}
+	global_population_growth_inv_1 = {#grain rations
+		modifier = { 
+			global_population_growth = 0.01 
+			global_monthly_food_modifier = 0.025
+		}
+		requires = { technology_cost_inv_2 }
+	}
+	global_population_growth_inv_2 = {#bread stamp
+		modifier = { 
+			global_monthly_food_modifier = 0.05
+			global_population_growth = 0.05
+		}
+		keystone = yes
+		requires = {  global_population_growth_inv_1 }
+	}
+	########
+	#technology
+	#####
+	technology_cost_inv_3 = { #pewter
+		modifier = { happiness_for_same_culture_modifier = 0.02 }
+		requires = { technology_cost_inv_1 }
+	}
+	global_citizen_happyness_inv = {#glass
+		modifier = { global_citizen_happyness = happiness_small_svalue }
+		requires_or = { technology_cost_inv_3 }
+	}
+	global_population_growth_inv_3 = {#obsterics
+		modifier = { global_population_growth = 0.02 }
+		requires = { technology_cost_inv_3 }
+	}
+	#########
+	#Cu,tural calendar
+	##########
 
-	#New Invictus invention
-	winemaking_inv = {
+	italic_julian_calendar_inv = {
+        modifier = { monthly_corruption = -0.01 }
+        requires = { religious_calendar_inv }
+        allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+    }
+    gallic_celtic_calendar_inv = {
+    	modifier = { global_tribesmen_output = 0.1 }
+        requires = { religious_calendar_inv }
+        allow = {
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
+				}
+			}
+		}
+    }
+    imperial_calendar_invention = {
+		allow = { tag = SEL } # SEL
+		
+		requires = { religious_calendar_inv }
+		modifier = { global_population_capacity_modifier = 0.05 }
+	}
+	hindu_calendar_inv = {
+    	modifier = { global_monthly_civilization = 0.01 }
+        requires = { religious_calendar_inv }
+        allow = {
+			OR = {
+				religion = hindu
+				religion = buddhism
+				religion = jainism
+			}
+		}
+    }
+    solar_calendar_inv = {
+    	modifier = { global_monthly_civilization = 0.01 }
+        
+        requires = { religious_calendar_inv }
+        allow = {
+			OR = {
+				country_culture_group = north_african
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_egyptian_culture
+					has_variable = egyptian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:north_african
+					}
+				}
+				country_culture_group = meroitic_group
+				country_culture_group = aksumite_group
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_nubian_culture
+					OR = {
+					has_variable = nubian_science
+					has_variable = new_egyptian_dynasty
+					}
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
+					}
+				}
+			}
+		} 
+    }
+    ##########
+    #AGRICULTRE
+    #########
+    channeled_irrigation_invention = {
+		allow = { tag = ANU } # ANU
+		requires = { technology_cost_inv_1 }  
+		
+		modifier = { global_goods_from_slaves = -1 }
+	}
+    latin_agriculture_inv = { #de re rsutica
+    	modifier = { global_monthly_food_modifier = 0.1 }
+    	requires = { technology_cost_inv_1 } 
+    	allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+    }
+    greek_agriculture_inv = { #theophrastus
+    	modifier = {
+    		global_monthly_food_modifier = 0.05
+    		global_population_growth = 0.01
+    	}
+    	requires = { technology_cost_inv_1 } 
+    	allow = {
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:hellenic
+					}
+				}
+			}
+		}
+    }
+    hindu_agriculture_inv = { #de re rsutica
+    	modifier = { religious_tech_investment = 0.05 }
+    	requires = { technology_cost_inv_1 } 
+    	allow = {
+			OR = {
+				religion = hindu
+				religion = buddhism
+				religion = jainism
+			}
+		}
+    }
+    chinese_agriculture_inv = { #herbal pharmaceuticlas
+    	modifier = { global_population_growth = 0.03 }
+    	requires = { technology_cost_inv_1 } 
+    	allow = {
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+
+    }
+    gallic_celtic_plough_inv = {
+    	modifier = { global_tribesmen_output = 0.1 
+    				 global_population_growth = 0.01 }
+        requires = { technology_cost_inv_1 }
+        allow = {
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
+				}
+			}
+		}
+    }
+    italic_bacon_inv = {
+      	modifier = { global_monthly_food_modifier = 0.01 }
+        requires = { technology_cost_inv_1 }
+        allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+    }
+    italic_lex_frumentaria_inv = {
+        modifier = {
+			global_slaves_happyness = 0.03 
+			global_freemen_happyness = 0.03
+		}
+        requires = { global_population_growth_inv_2 }
+        allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+
+    }
+
+
+   	###########cultuerwal specific
+    brahmi_script_invention = {
+		requires = { religious_tech_investment_inv_2 }
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		
+		modifier = { happiness_for_same_culture_modifier = 0.025 }
+	}
+	indian_hindu_number_system_inv = {
+        modifier = { research_points_modifier = 0.05
+        			 global_tax_modifier = 0.05 }
+        requires_or = { brahmi_script_invention }
+        allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+    }
+    indian_cataract_surgery_inv = {
+        modifier = { global_population_capacity_modifier = 0.05 }
+        requires = { technology_cost_inv_3 }
+        allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+    }
+    indian_tube_drawn_technology_inv = {
+        modifier = { global_commerce_modifier = 0.1 }
+        requires = { global_citizen_happyness_inv }
+        allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:aryan
+							this.culture.culture_group = culture_group:pracyan
+							this.culture.culture_group = culture_group:indian
+						}
+					}
+				}
+			}
+		}
+    }
+    ##############
+    ##invictus
+    ############
+    winemaking_inv = {
 		modifier = { 
 			happiness_for_wrong_culture_group_modifier = 0.05
 		}
 
-		requires = { call_omen_cost_modifier_inv }
+		requires = { technology_cost_inv_1 }
         allow = {
 			OR = {
 			country_culture_group = iberia
@@ -548,8 +709,6 @@ religious_1 = {
 			}
 		}
 	}
-
-	#New Invictus invention
 	cult_of_the_serpent_inv = {
 		modifier = { 
 			 happiness_for_same_religion_modifier = 0.03
@@ -575,8 +734,6 @@ religious_1 = {
 			}
 		}
 	}
-
-	#New Invictus invention
 	threshing_board_inv = { 
         modifier = {
         	global_population_capacity_modifier = 0.05
@@ -613,40 +770,7 @@ religious_1 = {
 			}
 		} 
     }
-
-    #New Invictus invention
-#    great_dam_of_marib_inv = { 
-#        modifier = {
-#			global_population_capacity_modifier = 0.1
-#			global_monthly_food_modifier = 0.05
-#			global_population_growth = 0.01
-#        }
-#     
-#       requires = { oasis_agriculture_inv }
-#       allow = {
-#			OR = {
-#				country_culture_group = south_levantine
-#				custom_tooltip = {
-#					#Need a new text
-#					text = integrated_any_arabian_culture
-#					has_variable = arabian_science
-#					any_country_culture = {
-#						is_integrated = yes
-#						this.culture.culture_group = culture_group:south_levantine
-#					}
-#				}
-#			}
-#		}
-#		on_activate = {
-#			trigger_event = {
-#				id = dam_of_marib.1
-#				days = -1
-#			}	
-#		}		 
-#    }
-
-	#New Invictus invention
-	hair_braids_inv = {
+    hair_braids_inv = {
 		modifier = {
 			global_pop_promotion_speed_modifier = 0.05
 			happiness_for_same_religion_modifier = deity_happiness_for_same_religion_modifier
@@ -659,70 +783,6 @@ religious_1 = {
 			}
 		}
 	}
-
-
-	# Level 6
-	omen_duration_inv_1 = {
-		modifier = { build_cost = -0.05   }
-		requires = { omen_power_inv_4 }
-		on_activate = {
-			if = {
-				limit = {
-					has_dlc = "Heirs of Alexander"
-				}
-				custom_tooltip = "allow_gw_effect_omen_doctrine"
-			}
-		}
-	}
-
-	tripartite_cellae_building_inv = {
-		modifier = { 
-			build_cost = 0.05
-			omen_power = 0.1
-		}
-		requires = { omen_duration_inv_1 }
-		allow = {
-			primary_culture = etruscan
-		}
-	}
-
-	global_population_growth_inv_4 = {
-		modifier = { global_population_growth = 0.02 }
-		requires = { global_unrest_inv_3 }
-	}
-
-	ruler_popularity_gain_inv_3 = {
-		modifier = { ruler_popularity_gain = 0.02 }
-		requires = { global_unrest_inv_3 }
-	}	
-
-	global_population_growth_inv_2 = {
-		modifier = { 
-			global_monthly_food_modifier = 0.05
-			global_population_growth = 0.05
-		}
-		keystone = yes
-		requires_or = { technology_cost_inv_3 ruler_popularity_gain_inv_4 }
-	} 		
-
-	technology_cost_inv_4 = {
-		modifier = { 
-			happiness_for_same_religion_modifier = 0.04 
-			global_citizen_happyness = 0.04
-		}
-		keystone = yes
-		on_activate = {
-			random_character = {
-				limit = {
-					has_doctor_office_trigger = yes
-				}
-				add_finesse = 4
-			}
-		}
-		requires_or = { global_freemen_happyness_inv global_population_growth_inv_3 }
-	}
-
-	#New Invictus invention
 	incineration_inv = {
 		modifier = { 
 			omen_power = 0.025
@@ -748,8 +808,6 @@ religious_1 = {
 			}
 		}
 	}	
-
-	#New Invictus invention
 	ritual_tattooing_inv = {
 		modifier = { 
 			 global_freemen_output = 0.03
@@ -775,8 +833,6 @@ religious_1 = {
 			}
 		}
 	}
-
-	#New Invictus invention
 	child_sacrifice_inv = {
 		modifier = { stability_monthly_change = 0.02 }
 		requires = { threshing_board_inv }
@@ -803,8 +859,6 @@ religious_1 = {
 			}
 		}
 	}
-
-	#New Invictus invention
 	oasis_ammon_ra_inv = { 
         modifier = { global_pop_conversion_speed_modifier = 0.1 }
         
@@ -828,8 +882,6 @@ religious_1 = {
 			}
 		} 
     }
-
-    #New Invictus invention
     book_of_the_dead_inv = {
     	modifier = { happiness_for_same_religion_modifier = 0.05 }
         
@@ -866,76 +918,7 @@ religious_1 = {
 			}
 		} 
     }
-
-    #New Invictus invention
-    carpets_inv = {
-    	modifier = { 
-    		character_loyalty = 2
-    	}
-        
-        requires_or = { ruler_popularity_gain_inv_4 global_freemen_happyness_inv }
-        allow = {
-			OR = {
-				country_culture_group = anatolian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_anatolian_culture
-					has_variable = anatolian_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:anatolian
-					}
-				}
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-
-
-	# Level 6 - 9 DLC
-	omen_power_inv_2 = { 
-		modifier = { deify_ruler_cost_modifier = -0.1 }
-		requires = { global_unrest_inv_4 }
-	}
-
-	omen_duration_inv_2 = {
-		modifier = { deify_ruler_cost_modifier = -0.1 }
-		requires = { omen_power_inv_2 }
-	}
-
-	thracian_heroes_inv = {
-		modifier = { happiness_for_wrong_culture_group_modifier = 0.03 }
-		requires = { omen_duration_inv_2 }
-		allow = {
-			primary_culture = moesi
-		}
-	}
-
-	omen_power_inv_3 = { 
-		modifier = { deify_ruler_cost_modifier = -0.1 }
-		requires_or = { omen_duration_inv_2 omen_duration_inv_5}
-	}	
-
-	omen_power_inv_5 = { 
-		modifier = { deify_ruler_cost_modifier = -0.25 }
-		requires_or = { omen_power_inv_3 land_morale_recovery_inv_5 }
-		on_activate = {
-			custom_tooltip = "rulers_gain_2_additional_zeal"
-		}
-		keystone = yes
-	}	
-
-	#New Invictus invention
-	burial_towers_inv = {
+    burial_towers_inv = {
 		modifier = { 
 			happiness_for_same_religion_modifier = 0.03
 		}
@@ -959,9 +942,6 @@ religious_1 = {
 			}
 		}
 	}
-
-
-	#New Invictus Invention
 	alexander_legacy_inv = {
 		modifier = {
 			monthly_legitimacy = 0.05
@@ -980,8 +960,6 @@ religious_1 = {
 			}
 		}
 	}
-
-	#New Invictus invention
 	pyramidal_tombs_inv = { 
         modifier = { omen_power = 0.075 }
         
@@ -1005,8 +983,6 @@ religious_1 = {
 			}
 		} 
     }
-
-    #New Invictus invention
     embalming_inv = {
     	modifier = { 
     		omen_power = 0.05
@@ -1046,59 +1022,21 @@ religious_1 = {
 			}
 		} 
     }
-
-
-	# Level 7
-	land_morale_recovery_inv_1 = {
-		modifier = { land_morale_recovery = 0.02 }
-		requires = { omen_duration_inv_1 }		
-		on_activate = {
-			if = {
-				limit = {
-					has_dlc = "Heirs of Alexander"
-				}
-				custom_tooltip = "allow_gw_effect_strong_generals"
-				custom_tooltip = "allow_gw_effect_strong_admirals"
+    god_king_inv = {
+    	modifier = { 
+    		monthly_legitimacy = 0.03
+    		omen_power = 0.05
+    	}
+        
+        requires = { embalming_inv }
+        allow = {
+        	OR = {
+        		tag = KSH
+				tag = EGY
+				tag = EGT
 			}
 		}
 	}
-
-	omen_duration_inv_4 = {
-		modifier = { price_found_city_cost_modifier = -0.1 }
-		requires = { omen_duration_inv_1 }
-	}
-
-	ruler_popularity_gain_inv_5 = {
-		modifier = { ruler_popularity_gain = 0.02 }
-		requires = { global_population_growth_inv_4 }
-	}
-		
-	monthly_corruption_inv = { 
-		modifier = { monthly_corruption = -0.01  }
-		requires = { ruler_popularity_gain_inv_3 }
-	}
-
-	hindu_sati_inv = { 
-		modifier = { 
-			omen_power = 0.1
-			global_population_growth = -0.03
-		}
-		requires = { monthly_corruption_inv }
-		allow = {
-			OR = {
-				RELIGION = hindu
-				RELIGION = agama
-				primary_culture = triballoi
-			}			
-		}
-	}
-
-	global_citizen_happyness_inv = {
-		modifier = { global_citizen_happyness = happiness_small_svalue }
-		requires_or = { global_population_growth_inv_2 technology_cost_inv_4 }
-	}
-
-	#New Invictus invention
 	dream_divination_inv = { 
         modifier = { monthly_wage_modifier = -0.05 }
         
@@ -1122,31 +1060,152 @@ religious_1 = {
 			}
 		} 
     }
-
-    #New Invictus invention
-    god_king_inv = {
-    	modifier = { 
-    		monthly_legitimacy = 0.03
-    		omen_power = 0.05
-    	}
-        
-        requires = { embalming_inv }
+    astrology_inv = {
+    	modifier = { happiness_for_same_religion_modifier = 0.05 }
+        requires = { global_unrest_inv_2 }
         allow = {
-        	OR = {
-        		tag = KSH
-				tag = EGY
-				tag = EGT
+			OR = {
+				country_culture_group = east_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_east_levantine_culture
+					has_variable = mesopotamian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_mesopotamian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+    }
+    subterranean_dwellings_inv = {
+    	modifier = { global_population_capacity_modifier = 0.05 }
+        
+        requires = { happiness_for_wrong_group_modifier_inv_1 }
+        allow = {
+			OR = {
+				country_culture_group = anatolian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_anatolian_culture
+					has_variable = anatolian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:anatolian
+					}
+				}
+			}
+		} 
+    }
+	hittite_case_law_inv = {
+    	modifier = { global_monthly_civilization = 0.02 }
+        
+        requires = { subterranean_dwellings_inv }
+        allow = {
+			OR = {
+				country_culture_group = anatolian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_anatolian_culture
+					has_variable = anatolian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:anatolian
+					}
+				}
+			}
+		} 
+    }
+    polygamy_inv = {
+		modifier = { 
+			 global_population_growth = 0.05
+		}
+		requires = { war_exhaustion_inv }
+		allow = {
+			OR = {
+				country_culture_group = illyrian_group
+				country_culture_group = dacia_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_haemic_culture
+					has_variable = haemic_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:illyrian_group
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
 			}
 		}
 	}
-
-	#New Invictus invention
-     kaaba_pilgrimage_inv = { 
+	mago_inv = { 
         modifier = {
-        	global_pop_conversion_speed_modifier = 0.1
+        	global_population_growth = 0.03
+        	global_monthly_food_modifier = 0.05
         }
         
-        requires = { ruler_popularity_gain_inv_3 }
+        requires = { global_population_growth_inv_1 }
+        allow = {
+			OR = {
+				country_culture_group = numidian
+				country_culture_group = fezzani
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_numidian_culture
+					has_variable = numidian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:numidian
+							this.culture.culture_group = culture_group:fezzani
+						}
+					}
+				}
+				country_culture_group = west_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_punic_culture
+					has_variable = punic_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:west_levantine
+					}
+				}
+			}
+		} 
+    }
+    temple_estates_inv = {
+    	modifier = {
+    		global_pop_conversion_speed_modifier = 0.1
+    		enact_holy_site_cost_modifier = -0.3
+    	}
+        
+        requires = { hittite_case_law_inv }
+        allow = {
+			OR = {
+				country_culture_group = anatolian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_anatolian_culture
+					has_variable = anatolian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:anatolian
+					}
+				}
+			}
+		} 
+    }
+    oasis_agriculture_inv = { 
+        modifier = {
+        	global_population_growth = 0.05
+        	global_monthly_food_modifier = 0.05
+        }
+        
+        requires = { global_population_growth_inv_1 }
         allow = {
 			OR = {
 				country_culture_group = south_levantine
@@ -1166,84 +1225,36 @@ religious_1 = {
 			}
 		} 
     }
-
-
-	# Level 8
-	land_morale_recovery_inv_3 = {
-		modifier = { land_morale_recovery = 0.02 }
-		requires = { land_morale_recovery_inv_1 }
-	}	
-
-	land_morale_recovery_inv_2 = {
-		modifier = { land_morale_recovery = 0.02 }
-		requires = { land_morale_recovery_inv_1 }
-	}	
-
-	stability_inv_4 = {
-		modifier = { stability_cost_modifier = -0.05 }
-		requires = { omen_duration_inv_4 }
-	}	
-
-	omen_duration_inv_3 = {
-		modifier = { global_pop_conversion_speed_modifier = 0.05 }
-		requires = { omen_duration_inv_4 }
-	}		
-
-	naval_morale_recovery_inv_4 = {
-		modifier = { naval_morale_recovery = 0.02 }
-		requires_or = { ruler_popularity_gain_inv_5 monthly_corruption_inv }
-	}		
-
-	# Level 9
-	global_manpower_modifier_inv_1 = {
-		modifier = { 
-			global_manpower_modifier = 0.05
-			max_mercenary_stacks = 1
-			levy_size_multiplier = 0.02
-		}
-		keystone = yes
-		requires_or = { land_morale_recovery_inv_3 land_morale_recovery_inv_2 }
-	}
-
-	happiness_for_wrong_group_modifier_inv_3 = { 
-		modifier = { 
-			happiness_for_wrong_culture_group_modifier = 0.15  
-			omen_power = 0.15
-			global_pop_conversion_speed_modifier = -0.9
-		}
-		keystone = yes
-		requires = { stability_inv_4 }
-		potential = { 
-			trigger_if = {
-				limit = {
-					is_ai = yes
+    kaaba_pilgrimage_inv = { 
+        modifier = {
+        	global_pop_conversion_speed_modifier = 0.1
+        }
+        
+        requires = { global_unrest_inv_2 }
+        allow = {
+			OR = {
+				country_culture_group = south_levantine
+				country_culture_group = south_arabian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_arabian_culture
+					has_variable = arabian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:south_levantine
+							this.culture.culture_group = culture_group:south_arabian
+						}
+					}
 				}
-				is_ai = no
 			}
-		}
-	}	
-
-	global_unrest_inv_5 = {
-		modifier = { happiness_for_same_culture_modifier = 0.02 }
-		requires = { omen_duration_inv_3 }
-	}	
-
-	global_unrest_inv_4 = {
-		modifier = { 
-			happiness_for_same_culture_modifier = 0.04
-			monthly_corruption = -0.03
-			ruler_popularity_gain = 0.1
-		}
-		keystone = yes
-		requires_or = { naval_morale_recovery_inv_4 global_citizen_happyness_inv }
-	}
-
-	#New Invictus invention
-	chandragupta_legacy_inv = {
+		} 
+    }
+    chandragupta_legacy_inv = {
 		modifier = {
 			global_population_happiness = 0.03
 		}
-		requires = { global_manpower_modifier_inv_1 }
+		requires = { happiness_for_wrong_group_modifier_inv_1 }
 		allow = {
 			OR = {
 				current_ruler = {
@@ -1252,107 +1263,396 @@ religious_1 = {
 				tag = BHA
 			}
 		}
-	}		
-
-	# Level 10
-	global_manpower_modifier_inv_3 = {
-		modifier = { global_manpower_modifier = 0.025 }
-		requires = { global_manpower_modifier_inv_1 }
 	}
-
-	land_morale_recovery_inv_4 = {
-		modifier = { land_morale_recovery = 0.02 }
-		requires = { global_manpower_modifier_inv_1 }
-	}	
-
-	religious_tech_investment_inv_2 = { 
+	cured_ham_inv = {
 		modifier = { 
-			global_monthly_civilization = 0.02  
+			supply_train_cost = -0.1
+			global_supply_limit_modifier = 0.05
+		}
+		
+		requires = { global_population_growth_inv_1 }
+		allow = {
+			OR = {
+				country_culture_group = celt_iberia
+				country_culture_group = iberia
+				custom_tooltip = {
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
+					}
+				}
+			}
+		}
+	}
+	############
+	#Philosophy#
+	############
+    greek_stoicism_inv = {
+        modifier = {
+			research_points_modifier = 0.05
+			happiness_for_same_culture_modifier = 0.05 
 			max_research_efficiency = 0.25
 		}
-		requires = { global_unrest_inv_4 }
-		keystone = yes
-	}		
-
-	# Level 11
-	omen_duration_inv_5 = {
-		modifier = { 
-			omen_power = 0.05 
-			recruit_general_cost_modifier = -0.15
-			land_morale_modifier = 0.05
+        requires = { religious_wisdom_inv_2 }
+        allow = {
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:hellenic
+					}
+				}
+			}
 		}
-		keystone = yes
-		requires_or = { global_manpower_modifier_inv_3 land_morale_recovery_inv_4 }
-	}	
-
-	stability_inv_5 = {
-		modifier = { 
-			global_pop_conversion_speed = 0.5
-			global_pop_conversion_speed_modifier = 0.15
+    }
+    greek_epicureanism_inv = {
+        modifier = { monthly_corruption = -0.01 
+                     happiness_for_same_culture_modifier = 0.05}
+        requires = { religious_wisdom_inv_2 }
+		allow = {
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					has_variable = greek_science
+					any_country_culture = {
+						is_integrated = yes
+						is_greek_culture_group_trigger = yes
+					}
+				}
+			}
 		}
-		keystone = yes
-		requires = { global_unrest_inv_5 }
-	}			
+    }
+    #######INVICTUS
+    eternal_pyramids_inv = {
+    	modifier = { 
+    		stability_monthly_change = 0.03
+    		monthly_legitimacy = 0.03
+    	}
+        
+        requires = { solar_calendar_inv }
+        allow = {
+			OR = {
+				country_culture_group = north_african
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_egyptian_culture
+					has_variable = egyptian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:north_african
+					}
+				}
+				country_culture_group = meroitic_group
+				country_culture_group = aksumite_group
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_nubian_culture
+					OR = {
+					has_variable = nubian_science
+					has_variable = new_egyptian_dynasty
+					}
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
+					}
+				}
+			}
+		} 
+    }
+    cosmetics_inv = {
+    	modifier = { global_nobles_happyness = 0.03 }
+        
+        requires = { eternal_pyramids_inv }
+        allow = {
+			OR = {
+				country_culture_group = north_african
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_egyptian_culture
+					has_variable = egyptian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:north_african
+					}
+				}
+			}
+		} 
+    }
+    beer_inv = { 
+        modifier = { 
+        	global_freemen_happyness = 0.05
+        }
+        
+        requires = { technology_cost_inv_2 }
+        allow = {
+			OR = {
+				country_culture_group = north_african
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_egyptian_culture
+					has_variable = egyptian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:north_african
+					}
+				}
+				country_culture_group = east_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_east_levantine_culture
+					has_variable = mesopotamian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_mesopotamian_culture_group_trigger = yes
+					}
+				}
+				country_culture_group = meroitic_group
+				country_culture_group = aksumite_group
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_nubian_culture
+					OR = {
+					has_variable = nubian_science
+					has_variable = new_egyptian_dynasty
+					}
+					any_country_culture = {
+						is_integrated = yes
+						is_old_egyptian_culture_group_trigger = yes
+					}	
+				}
+			}
+		} 
+    }
+    meroitic_script_inv = { 
+        modifier = {
+        	research_points_modifier = 0.05
+        	global_monthly_civilization = 0.01
+        }
+        
+        requires = { eternal_pyramids_inv }
+        allow = {
+			OR = {
+				country_culture_group = meroitic_group
+				country_culture_group = aksumite_group
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_nubian_culture
+					OR = {
+					has_variable = nubian_science
+					has_variable = new_egyptian_dynasty
+					}
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
+					}
+				}
+			}
+		} 
+    }
+    mint_toothpaste_inv = {
+    	modifier = { global_citizen_happyness = 0.03 }
+        
+        requires = { cosmetics_inv }
+        allow = {
+			OR = {
+				country_culture_group = north_african
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_egyptian_culture
+					has_variable = egyptian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:north_african
+					}
+				}
+			}
+		} 
+    }
+    ink_inv = {
+    	modifier = { global_tax_modifier = 0.05 }
+        
+        requires = { cosmetics_inv }
+        allow = {
+			OR = {
+				country_culture_group = north_african
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_egyptian_culture
+					has_variable = egyptian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:north_african
+					}
+				}
+			}
+		} 
+    }
+    sexagesimal_inv = {
+    	modifier = { research_points_modifier = 0.075 }
+        
+        requires = { beer_inv }
+        allow = {
+			OR = {
+				country_culture_group = east_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_east_levantine_culture
+					has_variable = mesopotamian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_mesopotamian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+    }
+    saqiya_inv = { 
+        modifier = {
+        	global_population_growth = 0.05
+        	global_monthly_food_modifier = 0.05
+        }
+        
+        requires = { meroitic_script_inv }
+        allow = {
+			OR = {
+				country_culture_group = meroitic_group
+				country_culture_group = aksumite_group
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_nubian_culture
+					OR = {
+					has_variable = nubian_science
+					has_variable = new_egyptian_dynasty
+					}
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
+					}
+				}
+			}
+		} 
+    }
+    water_clock_inv = {
+    	modifier = { monthly_political_influence_modifier = 0.05 }
+        
+        requires_or = { mint_toothpaste_inv ink_inv }
+        allow = {
+			OR = {
+				country_culture_group = north_african
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_egyptian_culture
+					has_variable = egyptian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:north_african
+					}
+				}
+			}
+		} 
+    }
+    cuneiform_inv = {
+    	modifier = { country_civilization_value = 5 }
+        
+        requires = { sexagesimal_inv }
+        allow = {
+			OR = {
+				country_culture_group = east_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_east_levantine_culture
+					has_variable = mesopotamian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_mesopotamian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+    }
+    cylinder_seals_inv = {
+    	modifier = { character_loyalty = 3 }
+        
+        requires = { cuneiform_inv }
+        allow = {
+			OR = {
+				country_culture_group = east_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_east_levantine_culture
+					has_variable = mesopotamian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_mesopotamian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+    }
+    qunnabu_inv = {
+    	modifier = { 
+    		global_population_happiness = 0.03
+    		
+    	}
+        
+        requires = { cylinder_seals_inv }
+        allow = {
+			OR = {
+				country_culture_group = east_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_east_levantine_culture
+					has_variable = mesopotamian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_mesopotamian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+    }
 
-	naval_morale_recovery_inv_5 = {
-		modifier = { naval_morale_recovery = 0.02 }
-		requires = { religious_tech_investment_inv_2 }
-	}
 
-	global_population_growth_inv_5 = {
-		modifier = { global_monthly_food_modifier = 0.15 }
-		requires = { religious_tech_investment_inv_2 }
-	} 	
-
-	# Level 12
-	global_manpower_modifier_inv_2 = {
-		modifier = { global_manpower_modifier = 0.025 }
-		requires_or = { omen_duration_inv_5 stability_inv_5 }
-	}	
-
-	naval_morale_recovery_inv_1 = {
-		modifier = { naval_morale_recovery = 0.02 }
-		requires = { global_population_growth_inv_5 }
-	}		
-
-	naval_morale_recovery_inv_3 = {
-		modifier = { naval_morale_recovery = 0.02 }
-		requires = { naval_morale_recovery_inv_5 }
-	}	
-
-	# Level 13
-	naval_morale_recovery_inv_2 = {
-		modifier = { naval_morale_recovery = 0.02 }
-		requires = { global_manpower_modifier_inv_2 }
-	}		
-
-	land_morale_recovery_inv_5 = {
-		modifier = { land_morale_recovery = 0.02 }
-		requires = { global_manpower_modifier_inv_2 }
-	}		
-
-	global_manpower_modifier_inv_4 = {
-		modifier = { global_manpower_modifier = 0.025 }
-		requires_or = { naval_morale_recovery_inv_1 naval_morale_recovery_inv_3 }
-	} 
-
-	# Level 14
-	global_manpower_modifier_inv_5 = {
-		modifier = { global_manpower_modifier = 0.025 }
-		requires_or = { naval_morale_recovery_inv_2 land_morale_recovery_inv_5 }
-	}	
-
-	# Level 15
-	technology_cost_inv_5 = {
-		modifier = { 
-			happiness_for_same_religion_modifier = 0.06
-			global_citizen_output = 0.06
-			global_manpower_modifier = 0.1
-		}
-		keystone = yes
-		requires_or = { global_manpower_modifier_inv_5 global_manpower_modifier_inv_4 }
-		on_activate = {
-			add_4_free_province_investments = yes
-		}
-	} 
-}
+#	chinese_philosophy_inv_1 = { #Confucianism
+ #   	modifier = { stability_monthly_change = 0.02 }
+ #   	requires = { religious_wisdom_inv_2 } 
+ #   	allow = {
+#			OR = {
+#				country_culture_group = chinese
+#				country_culture_group = yue
+#				country_culture_group = yi
+#				custom_tooltip = {
+#					text = integrated_any_chinese_culture
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:chinese
+#							this.culture.culture_group = culture_group:yue
+#							this.culture.culture_group = culture_group:yi
+#						}
+#					}
+#				}
+#			}
+#		}
+#		on_activate = {
+#			
+#		}
+#
+#   }

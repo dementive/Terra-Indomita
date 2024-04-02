@@ -2693,53 +2693,53 @@ grain_laws_rom = {
 	}
 	grain_law_1_rom = { #ad hoc intervention
 		modifier = {
-
+			global_freemen_happyness = 0.02
 		}
 		#on_enact = {
 		#	random_owned_province = {
 		#		limit = {
 		#			is_capital = yes
-		#			has_province_modifier = iu_modifier_8
+		#			has_province_modifier = grain_shipments_modifier
 		#		}
 		#		remove_province_modifier = {
-		#			name = iu_modifier_8 #ad hoc intervention
+		#			name = grain_shipments_modifier #ad hoc intervention
 		#		}
 		#		add_province_modifier = {
-		#			name = iu_modifier_11 #revoke grain
+		#			name = revoked_grain_modifier #revoke grain
 		#			duration = 3650
 		#		}
 		#	}
 		#	random_owned_province = {
 		#		limit = {
 		#			is_capital = yes
-		#			has_province_modifier = iu_modifier_9
+		#			has_province_modifier = subsidized_grain_modifier
 		#		}
 		#		remove_province_modifier = {
-		#			name = iu_modifier_9 #ad hoc intervention
+		#			name = subsidized_grain_modifier
 		#		}
 		#		add_province_modifier = {
-		#			name = iu_modifier_11 #revoke grain
+		#			name = revoked_grain_modifier #revoke grain
 		#			duration = 3650
 		#		}
 		#	}
 		#	random_owned_province = {
 		#		limit = {
 		#			is_capital = yes
-		#			has_province_modifier = iu_modifier_10
+		#			has_province_modifier = grain_dole_modifier
 		#		}
 		#		remove_province_modifier = {
-		#			name = iu_modifier_10 #ad hoc intervention
+		#			name = grain_dole_modifier
 		#		}
 		#		add_province_modifier = {
-		#			name = iu_modifier_11 #revoke grain
+		#			name = revoked_grain_modifier
 		#			duration = 3650
 		#		}
 		#	}
 		#}
 	}
-	lex_sempronia_frumentaria = { #ad hoc intevention
+	lex_sempronia_frumentaria = { #grain shipments
 		modifier = {
-			manpower_recovery_speed = 0.05#global_prole_happyness = 0.04
+			manpower_recovery_speed = 0.02#global_prole_happyness = 0.04
 		}
 		#on_enact = {
 		#	random_owned_province = {
@@ -2747,33 +2747,33 @@ grain_laws_rom = {
 		#			is_capital = yes
 		#		}
 		#		add_province_modifier = {
-		#			name = iu_modifier_8 #ad hoc intervention
+		#			name = grain_shipments_modifier
 		#			duration = -1
 		#		}
 		#	}
 		#	random_owned_province = {
 		#		limit = {
 		#			is_capital = yes
-		#			has_province_modifier = iu_modifier_9
+		#			has_province_modifier = subsidized_grain_modifier
 		#		}
 		#		remove_province_modifier = {
-		#			name = iu_modifier_9 #ad hoc intervention
+		#			name = subsidized_grain_modifier #ad
 		#		}
 		#		add_province_modifier = {
-		#			name = iu_modifier_11 #revoke grain
+		#			name = revoked_grain_modifier #revoke grain
 		#			duration = 3650
 		#		}
 		#	}
 		#	random_owned_province = {
 		#		limit = {
 		#			is_capital = yes
-		#			has_province_modifier = iu_modifier_10
+		#			has_province_modifier = grain_dole_modifier
 		#		}
 		#		remove_province_modifier = {
-		#			name = iu_modifier_10 #ad hoc intervention
+		#			name = grain_dole_modifier #ad hoc intervention
 		#		}
 		#		add_province_modifier = {
-		#			name = iu_modifier_11 #revoke grain
+		#			name = revoked_grain_modifier #revoke grain
 		#			duration = 3650
 		#		}
 		#	}
@@ -2782,6 +2782,7 @@ grain_laws_rom = {
 	lex_terentia_cassia = { #subsideized grain
 		modifier = {
 			global_freemen_happyness = 0.02
+			manpower_recovery_speed = 0.02
 			#global_prole_happyness = 0.04
 		}
 		#on_enact = {
@@ -2790,11 +2791,30 @@ grain_laws_rom = {
 		#			is_capital = yes
 		#		}
 		#		add_province_modifier = {
-		#			name = iu_modifier_9 #ad hoc intervention
+		#			name = subsidized_grain_modifier
 		#			duration = -1
 		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = grain_shipments_modifier
+		#		}
 		#		remove_province_modifier = {
-		#			name = iu_modifier_8
+		#			name = grain_shipments_modifier #ad
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = grain_dole_modifier
+		#		}
+		#		remove_province_modifier = {
+		#			name = grain_dole_modifier #ad hoc intervention
+		#		}
+		#		add_province_modifier = {
+		#			name = revoked_grain_modifier #revoke grain
+		#			duration = 3650
 		#		}
 		#	}
 		#}
@@ -2802,6 +2822,7 @@ grain_laws_rom = {
 	lex_clodia = { #grain dole
 		modifier = {
 			global_freemen_happyness = 0.02
+			manpower_recovery_speed = 0.05
 		}
 		#on_enact = {
 		#	random_owned_province = {
@@ -2809,14 +2830,26 @@ grain_laws_rom = {
 		#			is_capital = yes
 		#		}
 		#		add_province_modifier = {
-		#			name = iu_modifier_10 #ad hoc intervention
+		#			name = grain_dole_modifier
 		#			duration = -1
 		#		}
-		#		remove_province_modifier = {
-		#			name = iu_modifier_8
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = subsidized_grain_modifier
 		#		}
 		#		remove_province_modifier = {
-		#			name = iu_modifier_9
+		#			name = subsidized_grain_modifier #ad
+		#		}
+		#	}
+		#	random_owned_province = {
+		#		limit = {
+		#			is_capital = yes
+		#			has_province_modifier = grain_shipments_modifier
+		#		}
+		#		remove_province_modifier = {
+		#			name = grain_shipments_modifier #ad hoc intervention
 		#		}
 		#	}
 		#}
