@@ -21,6 +21,7 @@
 	}
 
 	heavy_infantry_discipline_inv = { #military punshiment
+		icon_override = war
 		modifier = { 
 			heavy_infantry_discipline = 0.025
 			spearmen_discipline = 0.025
@@ -43,7 +44,7 @@
 		modifier = { 
 			land_morale_recovery = 0.02
 		}
-		requires = { martial_punishment_inv }
+		requires = { heavy_infantry_discipline_inv }
 	}
 
 	global_start_experience_inv_2 = { #BASIC training
@@ -77,8 +78,9 @@
 	global_cohort_recruit_speed_inv = { #professional training
 		modifier = {
 			discipline = 0.05
-			experience_decay = - 0.005
+			experience_decay = -0.005
 		}
+		requires = { experience_decay_inv_1 }
 		keystone = yes
 		on_activate = {
 			if = {
@@ -107,7 +109,6 @@
 				factor = 100
 			}
 		}
-		requires = { experience_decay_inv_1 }
 	}
 	martial_unit_inv = { #unit cohesion
 		modifier = {
@@ -115,7 +116,7 @@
 		}
 		allow = {
 			nor = {
-				primary_culture = roman
+				tag = ROM
 				country_culture_group = hellenic
 			}
 		}
@@ -127,7 +128,7 @@
 			heavy_infantry_defensive = 0.05
 		}
 		allow = {
-			primary_culture = roman
+			tag = ROM
 		}
 		requires = { cohort_reinforcement_speed_inv }
 	}
@@ -150,8 +151,7 @@
 		}
 		allow = {
 			nor = {
-				primary_culture = roman
-				country_culture_group = hellenic
+				tag = ROM
 			}
 		}
 		on_activate = {
@@ -188,8 +188,8 @@
 				is_tribal = no
 			}
 		}
-		requires = {  discipline_inv_3 }
-		requires_or = {  greek_unit_inv martial_unit_inv }
+		requires = { discipline_inv_3 }
+		requires_or = { greek_unit_inv martial_unit_inv }
 	}
 	discipline_inv_5 = { #cohort
 		modifier = {
@@ -198,7 +198,7 @@
 			supply_train_cost = -0.1
 		}
 		allow = {
-			primary_culture = roman
+			tag = ROM
 		}
 		on_activate = {
 			custom_tooltip = "allow_all_legion_law"
@@ -256,11 +256,10 @@
 			}
 		}
 		requires = { land_morale_recovery_inv_3 }
-
 	}
 	army_maintenance_cost_inv_2 = { #retirment opportunities
 		modifier = { 
-			army_maintenance_cost = - 0.05
+			army_maintenance_cost = -0.05
 			loyalty_gain_chance = -0.05
 		}
 		requires = { global_cohort_recruit_speed_inv }
@@ -286,10 +285,6 @@
 						}
 					}
 					create_state_pop = freemen
-					add_state_modifier = {
-						name = iu_modifier_4
-						duration = 10000
-					}
 				}
 			}
 		}
@@ -338,7 +333,7 @@
 	experience_decay_inv_2 = { #veteran reassignment
 		requires = { discipline_inv_3 }
 		modifier = { 
-			experience_decay = - 0.005
+			experience_decay = -0.005
 			land_morale_recovery = 0.04
 		}
 	}
@@ -381,7 +376,7 @@
 	}
 	land_unit_attrition_inv = { #army surgeons "War is the only proper school for surgeons"
 		modifier = { 
-			land_unit_attrition = -0.1   
+			land_unit_attrition = -0.1
 			global_supply_limit_modifier = 0.15
 		}
 		on_activate = {
@@ -486,10 +481,10 @@
 	#BArbarian
 	####
 	gallic_timbered_roads_inv = {
-    	modifier = { army_maintenance_cost = -0.1
-    				 army_movement_speed = 0.1 }
-        requires = { global_supply_limit_modifier_inv_3 }
-        allow = {
+		modifier = { army_maintenance_cost = -0.1
+					 army_movement_speed = 0.1 }
+		requires = { global_supply_limit_modifier_inv_3 }
+		allow = {
 			OR = {
 				country_culture_group = gallic
 				country_culture_group = celto_pannonian_group
@@ -507,18 +502,18 @@
 				}
 			}
 		}
-    }
-    ######
-    #INVICTUS
-    ####
-    backgammon_inv = {
-    	modifier = { 
-    		discipline = 0.025
-    		global_start_experience = 2.5
-    	}
-        
-        requires = { military_tech_investment_inv_1 }
-        allow = {
+	}
+	######
+	#INVICTUS
+	####
+	backgammon_inv = {
+		modifier = { 
+			discipline = 0.025
+			global_start_experience = 2.5
+		}
+		
+		requires = { military_tech_investment_inv_1 }
+		allow = {
 			OR = {
 				country_culture_group = east_levantine
 				custom_tooltip = {
@@ -532,8 +527,8 @@
 				}
 			}
 		} 
-    }
-    draco_inv = {
+	}
+	draco_inv = {
 		modifier = { character_loyalty = 3 }
 		requires = { heavy_infantry_discipline_inv }
 		allow = {
@@ -571,16 +566,16 @@
 		}
 	}
 	postal_service_inv = {
-    	modifier = {
-    		horse_skirmishers_movement_speed = 0.1
-    		light_cavalry_movement_speed = 0.1
-    		heavy_cavalry_movement_speed = 0.1
-    		camels_movement_speed = 0.1
-    		horse_archers_movement_speed = 0.1
-    	}
-        
-        requires = { global_start_experience_inv_3 }
-        allow = {
+		modifier = {
+			horse_skirmishers_movement_speed = 0.1
+			light_cavalry_movement_speed = 0.1
+			heavy_cavalry_movement_speed = 0.1
+			camels_movement_speed = 0.1
+			horse_archers_movement_speed = 0.1
+		}
+		
+		requires = { global_start_experience_inv_3 }
+		allow = {
 			OR = {
 				country_culture_group = persia
 				custom_tooltip = {
@@ -594,12 +589,11 @@
 				}
 			}
 		} 
-    }
-    decimal_command_inv = {
-    	modifier = { discipline = 0.025 }
-        
-        requires = { postal_service_inv }
-        allow = {
+	}
+	decimal_command_inv = {
+		modifier = { discipline = 0.025 }
+		requires = { postal_service_inv }
+		allow = {
 			OR = {
 				country_culture_group = persia
 				custom_tooltip = {
@@ -613,15 +607,15 @@
 				}
 			}
 		} 
-    }
-    khatru_inv = {
-    	modifier = {
-			 army_maintenance_cost = -0.025   		
+	}
+	khatru_inv = {
+		modifier = {
+			 army_maintenance_cost = -0.025 		
 			 global_tax_modifier = 0.025
-    	}
-        
-        requires = { decimal_command_inv }
-        allow = {
+		}
+		
+		requires = { decimal_command_inv }
+		allow = {
 			OR = {
 				country_culture_group = persia
 				custom_tooltip = {
@@ -635,7 +629,7 @@
 				}
 			}
 		} 
-    }
+	}
 }
 
 
@@ -643,9 +637,8 @@
 military_inventions = {
 	technology = military_tech
 	color = hsv { 0 0.6 0.9 }
-	# Level 0
 	buy_military_tradition_inv = { #material scince
-		modifier = { army_weight_modifier = -0.1  }
+		modifier = { army_weight_modifier = -0.1 }
 	}
 	helmet_inv = { #stylized helmets
 		modifier = {
@@ -663,29 +656,27 @@ military_inventions = {
 		modifier = { 
 			heavy_infantry_cost = -0.1
 			spearmen_cost = -0.1
-			axemen_cost = -0.1
-			pikemen_cost = -0.1 
 		}
 		keystone = yes
 		requires = { saddle_inv }
 		on_activate = { custom_tooltip = "enables_foundry_building_tt" }
 	}
-	############################################
-	#####CULTURAL METALWORKING SHENANIGANS######
-	############################################
-	###########
-	##Metals
-	#######
+	#############################################
+	######CULTURAL METALWORKING SHENANIGANS######
+	#############################################
+	############
+	###Metals
+	########
 	gallic_noric_steel_inv = {
-    	modifier = { 
-    		light_infantry_offensive = 0.05
-    		heavy_infantry_offensive = 0.05
+		modifier = { 
+			light_infantry_offensive = 0.05
+			heavy_infantry_offensive = 0.05
 			spearmen_offensive = 0.05
 			axemen_offensive = 0.05
-    	}
-        requires = { heavy_infantry_cost_inv }
-        allow = {
-        	NOr = { 
+		}
+		requires = { heavy_infantry_cost_inv }
+		allow = {
+			NOr = { 
 				invention = indian_crucible_steel_inv 
 				invention = chinese_steel_inv 
 			}
@@ -727,13 +718,13 @@ military_inventions = {
 				set_trade_goods = wootz_steel
 			}
 		}
-    }
-    indian_wootz_steel_inv = {
-        modifier = { 
-        	global_tribesmen_output = 0.01
-            global_population_growth = 0.01
-        }
-        requires = { heavy_infantry_cost_inv }
+	}
+	indian_wootz_steel_inv = {
+		modifier = { 
+			global_tribesmen_output = 0.01
+			global_population_growth = 0.01
+		}
+		requires = { heavy_infantry_cost_inv }
 		allow = {
 			OR = {
 				country_culture_group = aryan
@@ -780,17 +771,17 @@ military_inventions = {
 				set_trade_goods = wootz_steel
 			}
 		}
-    }
-    indian_crucible_steel_inv = {
-        modifier = { 
-        	light_infantry_offensive = 0.05
-    		heavy_infantry_offensive = 0.05
+	}
+	indian_crucible_steel_inv = {
+		modifier = { 
+			light_infantry_offensive = 0.05
+			heavy_infantry_offensive = 0.05
 			axemen_offensive = 0.05
 		}
 		requires = { indian_wootz_steel_inv }
-        allow = {
-        	NOr = { 
-				invention = gallic_noric_steel_inv  
+		allow = {
+			NOr = { 
+				invention = gallic_noric_steel_inv
 				invention = chinese_steel_inv 
 			}
 			OR = {
@@ -845,9 +836,8 @@ military_inventions = {
 				set_trade_goods = wootz_steel
 			}
 		}
-
-    }    
-    chinese_steel_inv = { #chinese Steel
+	}
+	chinese_steel_inv = { #chinese Steel
 		modifier = {
 			pikemen_offensive = 0.03
 			chariots_offensive = 0.03
@@ -1138,11 +1128,11 @@ military_inventions = {
 		requires = {helmet_inv}
 	}
 	gallic_montefortino_helmet_inv = {
-    	modifier = { light_infantry_discipline = 0.05 
-    				 heavy_infantry_discipline = 0.05 }
-        requires = { gallic_celtic_plough_inv gallic_chainmail_inv }
-        allow = {
-        	NOr = { 
+		modifier = { light_infantry_discipline = 0.05 
+					 heavy_infantry_discipline = 0.05 }
+		requires = { gallic_celtic_plough_inv gallic_chainmail_inv }
+		allow = {
+			NOr = { 
 				invention = greek_helmet_inv_1
 				invention = greek_helmet_inv_2
 				invention = greek_helmet_inv_3
@@ -1181,14 +1171,14 @@ military_inventions = {
 				invention = chinese_helmet_inv_2
 			}
 		}
-    }
-    indian_helmet_inv_1 = { #śirāstrāṇa 
-    	modifier = { 
-    		axemen_discipline = 0.03
-    	}
-    	requires = { helmet_inv } 
-    	allow = {
-    		NOr = { 
+	}
+	indian_helmet_inv_1 = { #śirāstrāṇa 
+		modifier = { 
+			axemen_discipline = 0.03
+		}
+		requires = { helmet_inv } 
+		allow = {
+			NOr = { 
 				invention = greek_helmet_inv_1
 				invention = greek_helmet_inv_2
 				invention = greek_helmet_inv_3
@@ -1227,14 +1217,14 @@ military_inventions = {
 				invention = chinese_helmet_inv_2
 			}
 		}
-    }
-    chinese_helmet_inv_1 = { #warring states helmet
-    	modifier = {
-    		pikemen_discipline = 0.03
-    		archers_discipline = 0.03
-    	}
-    	allow = {
-    		NOr = { 
+	}
+	chinese_helmet_inv_1 = { #warring states helmet
+		modifier = {
+			pikemen_discipline = 0.03
+			archers_discipline = 0.03
+		}
+		allow = {
+			NOr = { 
 				invention = greek_helmet_inv_1
 				invention = greek_helmet_inv_2
 				invention = greek_helmet_inv_3
@@ -1273,14 +1263,14 @@ military_inventions = {
 				invention = chinese_helmet_inv_2
 			}
 		}
-    }
-    chinese_helmet_inv_2 = { #lamellar helmet
-    	modifier = {
-    		pikemen_discipline = 0.03
-    		heavy_infantry_discipline = 0.03
-    	}
-    	allow = {
-    		NOr = { 
+	}
+	chinese_helmet_inv_2 = { #lamellar helmet
+		modifier = {
+			pikemen_discipline = 0.03
+			heavy_infantry_discipline = 0.03
+		}
+		allow = {
+			NOr = { 
 				invention = greek_helmet_inv_1
 				invention = greek_helmet_inv_2
 				invention = greek_helmet_inv_3
@@ -1319,12 +1309,11 @@ military_inventions = {
 				invention = chinese_helmet_inv_1
 			}
 		}
-    }
-				
-    #######
-    #Armour
-    #######
-    greek_armour_inv_1 = { #phalanx Cuirass
+	}			
+	#######
+	#Armour
+	#######
+	greek_armour_inv_1 = { #phalanx Cuirass
 		modifier = {
 			spearmen_defensive = 0.03
 			pikemen_defensive = 0.03
@@ -1356,7 +1345,7 @@ military_inventions = {
 
 			}
 		}
-		requires = {helmet_inv}
+		requires = {heavy_infantry_cost_inv}
 	}
 	greek_armour_inv_2 = { #Linothorax 
 		modifier = {
@@ -1390,7 +1379,7 @@ military_inventions = {
 
 			}
 		}
-		requires = {helmet_inv}
+		requires = {heavy_infantry_cost_inv}
 	}
 	latin_armour_inv_1 = { #Lorica hamata
 		modifier = {
@@ -1420,7 +1409,7 @@ military_inventions = {
 
 			}
 		}
-		requires = {helmet_inv}
+		requires = {heavy_infantry_cost_inv}
 	}
 	latin_armour_inv_2 = { #Lorica segmentata 
 		modifier = {
@@ -1449,7 +1438,7 @@ military_inventions = {
 
 			}
 		}
-		requires = {helmet_inv}
+		requires = {heavy_infantry_cost_inv}
 	}
 	chinese_armour_inv_1 = { #lamellar armour
 		modifier = {
@@ -1483,7 +1472,7 @@ military_inventions = {
 
 			}
 		}
-		requires = {helmet_inv}
+		requires = {heavy_infantry_cost_inv}
 	}
 	chinese_armour_inv_2 = { #qin armour
 		modifier = {
@@ -1516,7 +1505,7 @@ military_inventions = {
 
 			}
 		}
-		requires = {helmet_inv}
+		requires = {heavy_infantry_cost_inv}
 	}
 	indian_armour_inv_1 = { #Lohajālika armour
 		modifier = {
@@ -1565,9 +1554,9 @@ military_inventions = {
 
 			}
 		}
-		requires = {helmet_inv}
+		requires = {heavy_infantry_cost_inv}
 	}
-	indian_armour_inv_2 = { #Kavacha  armour
+	indian_armour_inv_2 = { #Kavacha armour
 		modifier = {
 			axemen_defensive = 0.05
 		}
@@ -1613,17 +1602,17 @@ military_inventions = {
 
 			}
 		}
-		requires = {helmet_inv}
+		requires = {heavy_infantry_cost_inv}
 	}
-    gallic_chainmail_inv = {
-    	modifier = { 
-    		light_infantry_defensive  = 0.05 
+	gallic_chainmail_inv = {
+		modifier = { 
+			light_infantry_defensive = 0.05 
 			heavy_infantry_defensive = 0.05
-    		axemen_defensive = 0.05
-    		spearmen_defensive = 0.05
+			axemen_defensive = 0.05
+			spearmen_defensive = 0.05
 		}
-    	requires = { gallic_noric_steel_inv }
-        allow = {
+		requires = { heavy_infantry_cost_inv }
+		allow = {
 			OR = {
 				country_culture_group = gallic
 				country_culture_group = celto_pannonian_group
@@ -1641,15 +1630,15 @@ military_inventions = {
 				}
 			}
 		}
-    }
-    ########
-    ##Saddles
-    #######
-    gallic_four_horned_saddle_inv = {
-    	modifier = { light_cavalry_offensive = 0.05 
-    				 heavy_cavalry_offensive = 0.05 
-    				 horse_skirmishers_offensive = 0.05}
-        requires = { saddle_inv }
+	}
+	########
+	##Saddles
+	#######
+	gallic_four_horned_saddle_inv = {
+		modifier = { light_cavalry_offensive = 0.05 
+					 heavy_cavalry_offensive = 0.05 
+					 horse_skirmishers_offensive = 0.05}
+		requires = { saddle_inv }
 		allow = {
 			nor = {
 				invention = scythian_saddle_inv
@@ -1680,12 +1669,12 @@ military_inventions = {
 				invention = bitless_bridle_inv
 			}
 		}
-    }
-    scythian_saddle_inv = {
-    	modifier = { light_cavalry_discipline = 0.05 
-    				 heavy_cavalry_discipline = 0.05 
-    				 horse_archers_discipline = 0.1}
-        requires = { saddle_inv }
+	}
+	scythian_saddle_inv = {
+		modifier = { light_cavalry_discipline = 0.05 
+					 heavy_cavalry_discipline = 0.05 
+					 horse_archers_discipline = 0.1}
+		requires = { saddle_inv }
 		allow = {
 			nor = {
 				invention = gallic_four_horned_saddle_inv
@@ -1716,15 +1705,15 @@ military_inventions = {
 				invention = bitless_bridle_inv
 			}
 		}
-    }
-    indian_toe_stirrup_inv = {
-        modifier = { light_cavalry_discipline = 0.05
-        			 camels_discipline = 0.05
-        			 heavy_cavalry_discipline = 0.05
-        			 horse_archers_discipline = 0.05 }
-        requires = { saddle_inv }
-        allow = {
-        	nor = {
+	}
+	indian_toe_stirrup_inv = {
+		modifier = { light_cavalry_discipline = 0.05
+					 camels_discipline = 0.05
+					 heavy_cavalry_discipline = 0.05
+					 horse_archers_discipline = 0.05 }
+		requires = { saddle_inv }
+		allow = {
+			nor = {
 				invention = gallic_four_horned_saddle_inv
 				invention = scythian_saddle_inv
 				invention = bitless_bridle_inv
@@ -1768,9 +1757,9 @@ military_inventions = {
 				invention = bitless_bridle_inv
 			}
 		}
-    }
-    bitless_bridle_inv = { 
-        modifier = { 
+	}
+	bitless_bridle_inv = { 
+		modifier = { 
 			light_cavalry_defensive = 0.05
 			heavy_cavalry_defensive = 0.05
 			light_cavalry_offensive = 0.05
@@ -1778,10 +1767,10 @@ military_inventions = {
 			horse_skirmishers_offensive = 0.05
 			horse_skirmishers_defensive = 0.05
 		}
-        
-        requires = { saddle_inv }
-        allow = {
-        	nor = {
+		
+		requires = { saddle_inv }
+		allow = {
+			nor = {
 				invention = gallic_four_horned_saddle_inv
 				invention = scythian_saddle_inv
 				invention = indian_toe_stirrup_inv
@@ -1810,15 +1799,23 @@ military_inventions = {
 				invention = indian_toe_stirrup_inv
 			}
 		} 
-    }
-    #######
-    #shield
-    #######
-    greek_shield_inv_1 = { #hoplon/aspis
+	}
+	#######
+	#shield
+	#######
+	greek_shield_inv_1 = { #hoplon/aspis
 		modifier = {
 			spearmen_defensive = 0.03
 		}
 		allow = {
+			NOr = { 
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
 			OR = {
 				country_culture_group = hellenic
 				country_culture_group = dacia_group
@@ -1838,13 +1835,12 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = greek_shield_inv_1
 				invention = greek_shield_inv_2
 				invention = greek_shield_inv_3
 				invention = greek_shield_inv_4
 				invention = italic_pilum_scutum_inv
-				invention = chinese_shield
-				invention = chinese_shield
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
 			}
 		}
 		requires = {helmet_inv}
@@ -1854,6 +1850,14 @@ military_inventions = {
 			pikemen_defensive = 0.03
 		}
 		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
 			OR = {
 				country_culture_group = hellenic
 				custom_tooltip = {
@@ -1870,12 +1874,11 @@ military_inventions = {
 		potential = { 
 			NOr = { 
 				invention = greek_shield_inv_1
-				invention = greek_shield_inv_2
 				invention = greek_shield_inv_3
 				invention = greek_shield_inv_4
 				invention = italic_pilum_scutum_inv
-				invention = chinese_shield
-				invention = chinese_shield
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
 			}
 		}
 		requires = {helmet_inv}
@@ -1885,6 +1888,14 @@ military_inventions = {
 			heavy_infantry_defensive = 0.03
 		}
 		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
 			OR = {
 				country_culture_group = hellenic
 				country_culture_group = dacia_group
@@ -1906,11 +1917,10 @@ military_inventions = {
 			NOr = { 
 				invention = greek_shield_inv_1
 				invention = greek_shield_inv_2
-				invention = greek_shield_inv_3
 				invention = greek_shield_inv_4
 				invention = italic_pilum_scutum_inv
-				invention = chinese_shield
-				invention = chinese_shield
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
 			}
 		}
 		requires = {helmet_inv}0
@@ -1920,6 +1930,14 @@ military_inventions = {
 			light_infantry_defensive = 0.03
 		}
 		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
 			OR = {
 				country_culture_group = hellenic
 				custom_tooltip = {
@@ -1935,24 +1953,35 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = greek_helmet_inv_3 
-				invention = greek_helmet_inv_5 
-				invention = greek_helmet_inv_5 
-				invention = greek_helmet_inv_5 
-
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
 			}
 		}
-		requires = {helmet_inv}0
+		requires = {helmet_inv}
 	}
 	italic_pilum_scutum_inv = {
-		modifier = { heavy_infantry_offensive = 0.03
-                     heavy_infantry_defensive = 0.03
-                     spearmen_offensive = 0.03
-                     spearmen_defensive = 0.03
-                     light_infantry_offensive = 0.03
-                     light_infantry_defensive = 0.03 }
-		requires = { italic_etruscan_pottery_inv }
+		modifier = { 
+			heavy_infantry_offensive = 0.03
+			heavy_infantry_defensive = 0.03
+			spearmen_offensive = 0.03
+			spearmen_defensive = 0.03
+			light_infantry_offensive = 0.03
+			light_infantry_defensive = 0.03 
+		}
+		requires_or = { latin_armour_inv_1 latin_armour_inv_2 }
 		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
 			OR = {
 				country_culture_group = latin
 				custom_tooltip = {
@@ -1962,12 +1991,22 @@ military_inventions = {
 						this.culture.culture_group = culture_group:latin
 					}
 				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
 			}
 		}
 	}
 	italic_lituus_inv = { # Brass trumpets
-        modifier = { discipline = 0.025 }
-        requires = { italic_pilum_scutum_inv }
+		modifier = { discipline = 0.025 }
+		requires = { italic_pilum_scutum_inv }
 		allow = {
 			OR = {
 				country_culture_group = latin
@@ -1980,13 +2019,21 @@ military_inventions = {
 				}
 			}
 		}
-    }
-  	chinese_shield = { #dao shield
+	}
+	chinese_shield_inv_1 = { #dao shield
 		modifier = {
 			heavy_infantry_defensive = 0.03
 			pikemen_defensive = 0.03
 		}
 		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_2
+			}
 			OR = {
 				country_culture_group = chinese
 				country_culture_group = yue
@@ -2006,21 +2053,30 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = greek_helmet_inv_3 
-				invention = greek_helmet_inv_5 
-				invention = greek_helmet_inv_5 
-				invention = greek_helmet_inv_5 
-
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_2
 			}
 		}
 		requires = {helmet_inv}
 	}
-    chinese_shield = { #hook shield
+	chinese_shield_inv_2 = { #hook shield
 		modifier = {
 			heavy_infantry_defensive = 0.03
 			heavy_infantry_offensive = 0.03
 		}
 		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+			}
 			OR = {
 				country_culture_group = chinese
 				country_culture_group = yue
@@ -2040,11 +2096,12 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = greek_helmet_inv_3 
-				invention = greek_helmet_inv_5 
-				invention = greek_helmet_inv_5 
-				invention = greek_helmet_inv_5 
-
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
 			}
 		}
 		requires = {helmet_inv}
@@ -2076,11 +2133,68 @@ military_inventions = {
 		}
 		requires = {helmet_inv}
 	}
+	#sarissa_inv = { #phalanx Cuirass
+		modifier = {
+			spearmen_offensive = 0.03
+			pikemen_offensive = 0.03
+		}
+		allow = {
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = dacia_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		requires = {helmet_inv}
+	#}
+	#gladius_inv = {
+		modifier = { 
+			heavy_infantry_offensive = 0.03
+			light_infantry_offensive = 0.03}
+		requires = { italic_etruscan_pottery_inv }
+		allow = {
+			OR = {
+				country_culture_group = latin
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+	#}
+	#jian_inv = { #jian sowrd
+	#}
+	##tomora_inv = {
+		modifier = {
+			warelephant_offensive = 0.03
+		}
+	#}
+	##xiphos_inv = {
+	#}
+	##kopis_inv = {}
+	##spatha_inv = {}
+	##hasta_inv = {}
+	##falcata_inv = {}
+	#nistrimsa_inv = {}
 	##########################
 	##FORTIFICATIONS AND SIEGE
 	##########################
-
-	base_defensive_inv = { #city fortificaitons
+	base_defensive_inv = {
 		modifier = { global_defensive = 0.1 }
 		keystone = yes
 		requires = { buy_military_tradition_inv }
@@ -2116,40 +2230,40 @@ military_inventions = {
 		requires = {global_defensive_inv_3 siege_speed_inv_3}
 	}
 	siege_engineers_inv_1 = { #sapping
-		modifier = { siege_engineers = 1  }
+		modifier = { siege_engineers = 1 }
 		on_activate = {
 			custom_tooltip = "allow_gw_effect_siege_doctrine"
 		}
-		requires = {  buy_military_tradition_inv }
+		requires = { buy_military_tradition_inv }
 	}
 	assault_ability_inv = { #siege ladders
-		modifier = { assault_ability = 0.05  }
+		modifier = { assault_ability = 0.05 }
 		on_activate = {
 			custom_tooltip = "allow_gw_effect_siege_doctrine"
 		}
-		requires = {  siege_engineers_inv_1 }
+		requires = { siege_engineers_inv_1 }
 	}
 	siege_speed_inv_3 = { #investment
 		modifier = { siege_ability = 0.025 }
-		requires = {  global_defensive_inv_4 }
+		requires = { global_defensive_inv_4 }
 	}
 	siege_engine_inv_1 = { #siege engines
 		modifier = { 
 			siege_ability = 0.04
 			assault_ability = 0.02
 		 }
-		requires = {  assault_ability_inv }
+		requires = { assault_ability_inv }
 	}
 	siege_speed_inv_2 = { #siege towers
 		modifier = { 
 			siege_ability = 0.02
 			assault_ability = 0.04
 		}
-		requires = {  assault_ability_inv }
+		requires = { assault_ability_inv }
 	}
 	siege_engineers_inv_5 = { #siege ramp
 		modifier = { 
-			engineer_cohort_cost = -0.1  
+			engineer_cohort_cost = -0.1
 			siege_ability = 0.05
 			land_unit_attrition = -0.05
 		}
@@ -2163,24 +2277,24 @@ military_inventions = {
 			land_unit_attrition = -0.05
 			engineer_cost = -0.1
 		}
-		requires = {  siege_engineers_inv_5 }
+		requires = { siege_engineers_inv_5 }
 	}
 	siege_speed_inv_1 = { #extra ordinance
 		modifier = { 
-			engineer_maintenance_cost =  -0.1
+			engineer_cohort_maintenance_cost = -0.1
 		}
-		requires = {  siege_engine_inv_2 }
+		requires = { siege_engine_inv_2 }
 	}
 	#######
 	##Culutural Fortifications
 	#########
 	gallic_oppidum_inv = {
-    	modifier = { 
-			global_defensive  = 0.1 
-    		fort_limit = 1
-    		commerce_value = 0.01 
+		modifier = { 
+			global_defensive = 0.1 
+			fort_limit = 1
+			commerce_value = 0.01 
 		}
-        requires = { global_defensive_inv_3 }
+		requires = { global_defensive_inv_3 }
 		allow = {
 			OR = {
 				country_culture_group = gallic
@@ -2199,8 +2313,8 @@ military_inventions = {
 				}
 			}
 		}
-    }
-    global_defensive_inv_1 = { #pentapostos
+	}
+	global_defensive_inv_1 = { #pentapostos
 		modifier = { global_defensive = 0.05 }
 		requires = { base_defensive_inv } 
 		allow = {
@@ -2351,10 +2465,10 @@ military_inventions = {
 			}
 		}
 	}
+	###############
+	##INVICTUS
 	##############
-	#INVICTUS
-	#############
-	iberian_cavalry_inv = {
+	#iberian_cavalry_inv = {
 		modifier = { 
 			heavy_cavalry_offensive = 0.1 
 			heavy_cavalry_defensive = 0.1 
@@ -2392,8 +2506,8 @@ military_inventions = {
 				}
 			}
 		}
-	}
-	falconry_inv = {
+	#}
+	#falconry_inv = {
 		modifier = { army_maintenance_cost = -0.025 }
 		requires = { buy_military_tradition_inv }
 		allow = {
@@ -2409,8 +2523,8 @@ military_inventions = {
 				}
 			}
 		}
-	}
-	illyrian_helmet_inv = {
+	#}
+	#illyrian_helmet_inv = {
 		modifier = { spearmen_defensive = 0.10 }
 		requires = { helmet_inv }
 		allow = {
@@ -2428,18 +2542,18 @@ military_inventions = {
 				}
 			}
 		}
-	}
-	
-    kikkuli_inv = {
-    	modifier = { 
-    		heavy_cavalry_morale = 0.05
-    		light_cavalry_morale = 0.05
-    		horse_skirmishers_morale = 0.05
-    		horse_archers_morale = 0.05
-    	}
-        
-        requires = { saddle_inv }
-        allow = {
+	#}
+	#
+	#kikkuli_inv = {
+		modifier = { 
+			heavy_cavalry_morale = 0.05
+			light_cavalry_morale = 0.05
+			horse_skirmishers_morale = 0.05
+			horse_archers_morale = 0.05
+		}
+		
+		requires = { saddle_inv }
+		allow = {
 			OR = {
 				country_culture_group = anatolian
 				custom_tooltip = {
@@ -2453,8 +2567,8 @@ military_inventions = {
 				}
 			}
 		} 
-    }
-    castella_inv = { 
+	#}
+	#castella_inv = { 
 		modifier = { 
 			global_defensive = 0.05 
 			garrison_size = 0.05
@@ -2478,15 +2592,15 @@ military_inventions = {
 				}
 			}
 		}
-	}
-	bloomeries_inv = { 
-        modifier = {
-        	slaves_move_cost_modifier = -0.15
-        	global_tax_modifier = 0.05
-        }
-        
-        requires = { heavy_infantry_cost_inv }
-        allow = {
+	#}
+	#bloomeries_inv = { 
+		modifier = {
+			slaves_move_cost_modifier = -0.15
+			global_tax_modifier = 0.05
+		}
+		
+		requires = { heavy_infantry_cost_inv }
+		allow = {
 			OR = {
 				country_culture_group = meroitic_group
 				country_culture_group = aksumite_group
@@ -2507,14 +2621,14 @@ military_inventions = {
 				}
 			}
 		} 
-    }
-    royal_iron_monopoly_inv = { 
-        modifier = {
-        	global_goods_from_slaves = -1
-        }
-        
-        requires = { bloomeries_inv }
-        allow = {
+	#}
+	#royal_iron_monopoly_inv = { 
+		modifier = {
+			global_goods_from_slaves = -1
+		}
+		
+		requires = { bloomeries_inv }
+		allow = {
 			OR = {
 				country_culture_group = meroitic_group
 				country_culture_group = aksumite_group
@@ -2535,9 +2649,9 @@ military_inventions = {
 				}
 			}
 		} 
-    }
-    helepolis_inv = { 
-		modifier = { siege_engineers = 1  }
+	#}
+	#helepolis_inv = { 
+		modifier = { siege_engineers = 1 }
 		requires = { siege_engineers_inv_6 }
 		allow = {
 			OR = {
@@ -2547,8 +2661,8 @@ military_inventions = {
 			}
 		}
 		keystone = yes
-	}
-	boetia_flamethrower_inv = { 
+	#}
+	#boetia_flamethrower_inv = { 
 		requires = { siege_speed_inv_3 }
 		modifier = { 
 			assault_ability = 0.1
@@ -2562,7 +2676,8 @@ military_inventions = {
 				}
 			}
 		}
-	}
+	#}
+}
 }
 naval_tree = {
 	technology = military_tech
@@ -2607,7 +2722,7 @@ naval_tree = {
 		requires = { liburnian_invention_1 }
 	}
 	siege_engineers_inv_2 = { #naval supply lines
-		modifier = { siege_engineers = 1  }
+		modifier = { siege_engineers = 1 }
 		requires = { trireme_discipline_inv_3 }
 	}
 	naval_rostra_inv_1 = { #wooden rostra
@@ -2620,6 +2735,7 @@ naval_tree = {
 			naval_damage_done = 0.05
 			ship_capture_chance = 0.01
 		}
+		requires = { naval_rostra_inv_1 } 
 	}
 	
 	trireme_discipline_inv_5 = { #Harpax
@@ -2705,7 +2821,7 @@ naval_tree = {
 		requires = { katapharct_inv }
 	}
 	navy_maintenance_cost_inv_1 = {#priactes amnesty
-		modifier = { navy_maintenance_cost = -0.05  }
+		modifier = { navy_maintenance_cost = -0.05 }
 		requires = { ship_command_inv_1 }
 		on_activate = {
 			if = {
@@ -2750,7 +2866,7 @@ naval_tree = {
 			}
 		}
 	}
-	blockade_efficiency_inv = {#experienced  sea fares
+	blockade_efficiency_inv = {#experienced sea fares
 		requires = { trireme_discipline_inv_1 }
 		modifier = { blockade_efficiency = 0.2 }
 	}
@@ -2800,11 +2916,11 @@ naval_tree = {
 			octere_defensive = -0.1
 		}
 		keystone = yes
-		requires = { double_bow_and_stern_inv_1  }	
+		requires = { double_bow_and_stern_inv_1 }	
 			
 	}
 	navy_movement_speed_inv = { #lateen sails
-		requires = { double_bow_and_stern_inv_2 naval_rostra_inv_4 blockade_efficiency_inv}
+		requires = { double_bow_and_stern_inv_2 naval_weapon_platform_inv_3 siege_engineers_inv_2}
 		modifier = { 
 			navy_movement_speed = 0.05
 			naval_range = 0.05
@@ -2841,7 +2957,7 @@ naval_tree = {
 		allow = { 
 			or = {
 				tag = SYR
-				owns =  84
+				owns = 84
 			} #SYR
 		}
 		modifier = { global_ship_start_experience = 10 }
@@ -2866,12 +2982,12 @@ naval_tree = {
 		}
 	}
 	sewn_planks_inv = { 
-        modifier = { 
-        	naval_range = 0.25
-        }
-        
-        requires = { pirate_spawn_chance_inv_1 }
-        allow = {
+		modifier = { 
+			naval_range = 0.25
+		}
+		
+		requires = { pirate_spawn_chance_inv_1 }
+		allow = {
 			OR = {
 				country_culture_group = aryan
 				country_culture_group = pracyan
@@ -2924,15 +3040,15 @@ naval_tree = {
 				tag = TLM
 			}
 		} 
-    }	
-    monsoon_navigation_inv = { 
-        modifier = { 
-        	diplomatic_range_modifier = 1.5
-        	control_range_modifier = 0.33
-        }
-        
-        requires = { sewn_planks_inv }
-        allow = {
+	}	
+	monsoon_navigation_inv = { 
+		modifier = { 
+			diplomatic_range_modifier = 1.5
+			control_range_modifier = 0.33
+		}
+		
+		requires = { sewn_planks_inv }
+		allow = {
 			OR = {
 				country_culture_group = aryan
 				country_culture_group = pracyan
@@ -2985,14 +3101,14 @@ naval_tree = {
 				tag = TLM
 			}
 		} 
-    }
-    beden_inv = { 
-        modifier = { 
-        	naval_morale_recovery = 0.1
-        }
-        
-        requires = { sewn_planks_inv }
-        allow = {
+	}
+	beden_inv = { 
+		modifier = { 
+			naval_morale_recovery = 0.1
+		}
+		
+		requires = { sewn_planks_inv }
+		allow = {
 			OR = {
 				country_culture_group = meroitic_group
 				country_culture_group = aksumite_group
@@ -3013,15 +3129,15 @@ naval_tree = {
 				}
 			}
 		} 
-    }
-    dhow_inv = { 
-        modifier = { 
-        	global_ship_start_experience = 5
-        	global_ship_recruit_speed = 0.15
-        }
-        
-        requires = { sewn_planks_inv }
-        allow = {
+	}
+	dhow_inv = { 
+		modifier = { 
+			global_ship_start_experience = 5
+			global_ship_recruit_speed = 0.15
+		}
+		
+		requires = { sewn_planks_inv }
+		allow = {
 			OR = {
 				country_culture_group = south_levantine
 				country_culture_group = south_arabian
@@ -3039,15 +3155,15 @@ naval_tree = {
 				}
 			}
 		} 
-    }
-    greek_cartography_inv = {
-        modifier = { 
-        	diplomatic_range_modifier = 0.05
-            global_commerce_modifier = 0.05
-            army_movement_speed = 0.05 
-        }
-        requires = { pirate_spawn_chance_inv_1 }                    
-        allow = {
+	}
+	greek_cartography_inv = {
+		modifier = { 
+			diplomatic_range_modifier = 0.05
+			global_commerce_modifier = 0.05
+			army_movement_speed = 0.05 
+		}
+		requires = { pirate_spawn_chance_inv_1 }
+		allow = {
 			OR = {
 				country_culture_group = hellenic
 				custom_tooltip = {
@@ -3059,14 +3175,14 @@ naval_tree = {
 				}
 			}
 		}
-    }
-    greek_advanced_astronomy_inv_1 = { # Astrolabe
-        modifier = { 
-        	global_commerce_modifier = 0.05
-        	naval_range = 0.05
-        }
-        requires = { greek_cartography_inv }
-        allow = {
+	}
+	greek_advanced_astronomy_inv_1 = { # Astrolabe
+		modifier = { 
+			global_commerce_modifier = 0.05
+			naval_range = 0.05
+		}
+		requires = { greek_cartography_inv }
+		allow = {
 			OR = {
 				country_culture_group = hellenic
 				custom_tooltip = {
@@ -3078,12 +3194,14 @@ naval_tree = {
 				}
 			}
 		}
-    }
-    greek_advanced_astronomy_inv_2 = { # Antikythera and Differential Gears
-        modifier = { diplomatic_range_modifier = 0.02 
-                     naval_morale_modifier = 0.05 }
-        requires = { greek_advanced_astronomy_inv_1 }
-        allow = {
+	}
+	greek_advanced_astronomy_inv_2 = { # Antikythera and Differential Gears
+		modifier = { 
+			diplomatic_range_modifier = 0.02 
+			naval_morale_modifier = 0.05
+		}
+		requires = { greek_advanced_astronomy_inv_1 }
+		allow = {
 			OR = {
 				country_culture_group = hellenic
 				custom_tooltip = {
@@ -3095,20 +3213,20 @@ naval_tree = {
 				}
 			}
 		}
-    }
-    ##########
-    #InVICTUS
-    ########
-    cotton_trade_inv = { 
-        modifier = { 
-        	global_commerce_modifier = 0.2
-        }
-        
-        requires = { pirate_spawn_chance_inv_1 }
-        allow = { tag = TYO } 
-    }
-    serial_production_inv = {
-		modifier = { global_ship_recruit_speed = 0.2  }
+	}
+	##########
+	#InVICTUS
+	########
+	cotton_trade_inv = { 
+		modifier = { 
+			global_commerce_modifier = 0.2
+		}
+		
+		requires = { pirate_spawn_chance_inv_1 }
+		allow = { tag = TYO } 
+	}
+	serial_production_inv = {
+		modifier = { global_ship_recruit_speed = 0.2 }
 		requires = { naval_tactic_inv_3 }
 		 allow = {
 			OR = {
@@ -3125,15 +3243,15 @@ naval_tree = {
 			}
 		}
 	}
-    imperial_navy_inv = {
-    	modifier = {
-    		navy_maintenance_cost = -0.05
-    		diplomatic_range_modifier = 0.75
-    		naval_range = 0.3
-    	}
-        
-        requires = { trireme_discipline_inv_1 }
-        allow = {
+	imperial_navy_inv = {
+		modifier = {
+			navy_maintenance_cost = -0.05
+			diplomatic_range_modifier = 0.75
+			naval_range = 0.3
+		}
+		
+		requires = { trireme_discipline_inv_1 }
+		allow = {
 			OR = {
 				country_culture_group = persia
 				custom_tooltip = {
@@ -3147,8 +3265,8 @@ naval_tree = {
 				}
 			}
 		} 
-    }
-    periplus_inv = {
+	}
+	periplus_inv = {
 		modifier = { naval_range = 0.1 
 					 diplomatic_range_modifier = 0.1 }
 		requires = { serial_production_inv }
@@ -3168,12 +3286,12 @@ naval_tree = {
 		}
 	}
 	hieroglyphs_inv = {
-    	modifier = { 
-    		country_civilization_value = 5 
-    	}
-        
-        requires = { solar_calendar_inv }
-        allow = {
+		modifier = { 
+			country_civilization_value = 5 
+		}
+		
+		requires = { solar_calendar_inv }
+		allow = {
 			OR = {
 				country_culture_group = north_african
 				custom_tooltip = {
@@ -3187,5 +3305,5 @@ naval_tree = {
 				}
 			}
 		} 
-    }
+	}
 }
