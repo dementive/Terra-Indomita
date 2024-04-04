@@ -647,17 +647,17 @@ military_inventions = {
 	buy_military_tradition_inv = { #material scince
 		modifier = { army_weight_modifier = -0.1  }
 	}
-	martial_armour_1 = { #stylized helmets
+	helmet_inv = { #stylized helmets
 		modifier = {
 			discipline = 0.025
 		}
 		requires = { buy_military_tradition_inv }
 	}
-	martial_armour_2 = {#saddle
+	saddle_inv = {#saddle
 		modifier = {
 			heavy_cavalry_discipline = 0.05
 		}
-		requires = { martial_armour_1 }
+		requires = { helmet_inv }
 	}
 	heavy_infantry_cost_inv = { #blacksmith
 		modifier = { 
@@ -667,7 +667,7 @@ military_inventions = {
 			pikemen_cost = -0.1 
 		}
 		keystone = yes
-		requires = { martial_armour_2 }
+		requires = { saddle_inv }
 		on_activate = { custom_tooltip = "enables_foundry_building_tt" }
 	}
 	############################################
@@ -685,6 +685,10 @@ military_inventions = {
     	}
         requires = { heavy_infantry_cost_inv }
         allow = {
+        	NOr = { 
+				invention = indian_crucible_steel_inv 
+				invention = chinese_steel_inv 
+			}
 			OR = {
 				country_culture_group = gallic
 				country_culture_group = celto_pannonian_group
@@ -703,6 +707,13 @@ military_inventions = {
 				}
 			}
 		}
+		potential = { 
+			NOr = { 
+				invention = gallic_noric_steel_inv 
+				invention = indian_crucible_steel_inv 
+				invention = chinese_steel_inv 
+			}
+		}
 		on_activate = {
 			random_owned_province = {
 				limit = {
@@ -713,7 +724,7 @@ military_inventions = {
 					trade_goods = iron
 					has_city_status = no
 				}
-				set_trade_goods = noricum_steel
+				set_trade_goods = wootz_steel
 			}
 		}
     }
@@ -766,7 +777,7 @@ military_inventions = {
 					trade_goods = iron
 					has_city_status = no
 				}
-				set_trade_goods = steel
+				set_trade_goods = wootz_steel
 			}
 		}
     }
@@ -776,8 +787,12 @@ military_inventions = {
     		heavy_infantry_offensive = 0.05
 			axemen_offensive = 0.05
 		}
-		requires = { indian_cataract_surgery_inv }
+		requires = { indian_wootz_steel_inv }
         allow = {
+        	NOr = { 
+				invention = gallic_noric_steel_inv  
+				invention = chinese_steel_inv 
+			}
 			OR = {
 				country_culture_group = aryan
 				country_culture_group = pracyan
@@ -810,6 +825,27 @@ military_inventions = {
 				}
 			}
 		}
+		potential = { 
+			NOr = { 
+				invention = gallic_noric_steel_inv 
+				invention = indian_crucible_steel_inv 
+				invention = chinese_steel_inv 
+			}
+		}
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					trade_goods = iron
+					has_city_status = yes
+				}
+				alternative_limit = {
+					trade_goods = iron
+					has_city_status = no
+				}
+				set_trade_goods = wootz_steel
+			}
+		}
+
     }    
     chinese_steel_inv = { #chinese Steel
 		modifier = {
@@ -819,6 +855,10 @@ military_inventions = {
 			military_tech_investment = 0.05
 		}
 		allow = {
+			NOr = { 
+				invention = gallic_noric_steel_inv 
+				invention = indian_crucible_steel_inv 
+			}
 			OR = {
 				country_culture_group = chinese
 				country_culture_group = yue
@@ -838,11 +878,22 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-
+				invention = gallic_noric_steel_inv 
+				invention = indian_crucible_steel_inv 
+				invention = chinese_steel_inv 
+			}
+		}
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					trade_goods = iron
+					has_city_status = yes
+				}
+				alternative_limit = {
+					trade_goods = iron
+					has_city_status = no
+				}
+				set_trade_goods = wootz_steel
 			}
 		}
 		requires = {heavy_infantry_cost_inv}
@@ -850,12 +901,23 @@ military_inventions = {
 	#######
 	#Helmets
 	#######
-	martial_helmet_gre_1 = { #korinthian / chalcidian
+	greek_helmet_inv_1 = { #korinthian / chalcidian
 		modifier = {
 			spearmen_discipline = 0.03
 			spearmen_morale = 0.03
 		}
 		allow = {
+			NOr = { 
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+
+			}
 			OR = {
 				country_culture_group = hellenic
 				country_culture_group = dacia_group
@@ -875,99 +937,35 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3
-				invention = martial_helmet_gre_4
-				invention = martial_helmet_gre_2
-				invention = martial_helmet_lat_1
-				invention = martial_helmet_bar_1
-				invention = martial_helmet_ind_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_helmet_gre_3 = { #phrygian
-		modifier = {
-			pikemen_morale = 0.03
-			pikemen_discipline = 0.03
-		}
-		allow = {
-			or = {
-				OR = {
-					country_culture_group = hellenic
-					country_culture_group = anatolian
-					custom_tooltip = {
-						text = integrated_any_hellenic_culture
-						any_country_culture = {
-							is_integrated = yes
-							OR = {
-								this.culture.culture_group = culture_group:hellenic
-								this.culture.culture_group = culture_group:anatolian
-							}
-						}
-					}
-				}
-				current_date > 550.1.1
-			}
-		}
-		potential = { 
-			NOr = { 
-				invention = martial_helmet_gre_1
-				invention = martial_helmet_gre_4
-				invention = martial_helmet_gre_2
-				invention = martial_helmet_lat_1
-				invention = martial_helmet_bar_1
-				invention = martial_helmet_ind_1
-
-			}
-		}
-		requires = {martial_armour_1}
-	}
-	martial_helmet_gre_4 = { #boetian
-		modifier = {
-			heavy_cavalry_defensive = 0.03
-			heavy_cavalry_morale = 0.03
-		}
-		allow = {
-			or = {
-				OR = {
-					country_culture_group = hellenic
-					country_culture_group = anatolian
-					country_culture_group = latin
-					custom_tooltip = {
-						text = integrated_any_celtic_culture
-						any_country_culture = {
-							is_integrated = yes
-							OR = {
-								this.culture.culture_group = culture_group:hellenic
-								this.culture.culture_group = culture_group:anatolian
-								this.culture.culture_group = culture_group:latin
-							}
-						}
-					}
-				}
-				current_date > 550.1.1
-			}
-		}
-		potential = { 
-			NOr = { 
-				invention = martial_helmet_gre_1
-				invention = martial_helmet_gre_3
-				invention = martial_helmet_gre_2
-				invention = martial_helmet_lat_1
-				invention = martial_helmet_bar_1
-				invention = martial_helmet_ind_1
-
-			}
-		}
-		requires = {martial_armour_1}
-	}
-	martial_helmet_gre_2 = { #attic
+	greek_helmet_inv_2 = { #attic
 		modifier = {
 			heavy_infantry_discipline = 0.03
 			spearmen_discipline = 0.03
 		}
 		allow = {
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
 			OR = {
 				country_culture_group = hellenic
 				country_culture_group = anatolian
@@ -991,23 +989,127 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_1
-				invention = martial_helmet_gre_4
-				invention = martial_helmet_gre_3
-				invention = martial_helmet_lat_1
-				invention = martial_helmet_bar_1
-				invention = martial_helmet_ind_1
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
+		}
+		requires = {helmet_inv}
+	}
+	greek_helmet_inv_3 = { #phrygian
+		modifier = {
+			pikemen_morale = 0.03
+			pikemen_discipline = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = anatolian
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:anatolian
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_helmet_lat_1 = { #gaela
+	greek_helmet_inv_4 = { #boetian
 		modifier = {
-			heavy_infantry_defensive = 0.03
-			heavy_infantry_discipline = 0.03
+			heavy_cavalry_discipline = 0.03
+			heavy_cavalry_morale = 0.03
 		}
 		allow = {
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = anatolian
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:anatolian
+							this.culture.culture_group = culture_group:latin
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
+		}
+		requires = {helmet_inv}
+	}
+	latin_helmet_inv_1 = { #gaela
+		modifier = {
+			heavy_infantry_discipline = 0.05
+		}
+		allow = {
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
 			OR = {
 				country_culture_group = latin
 				custom_tooltip = {
@@ -1023,23 +1125,33 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_1
-				invention = martial_helmet_gre_4
-				invention = martial_helmet_gre_2
-				invention = martial_helmet_gre_3
-				invention = martial_helmet_bar_1
-				invention = martial_helmet_ind_1
-
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_helmet_bar_1 = { #montefornia helmet
-    	modifier = { 
-			heavy_infantry_discipline = 0.03 
-    	}
-    	requires = { martial_armour_1 } 
-    	allow = {
+	gallic_montefortino_helmet_inv = {
+    	modifier = { light_infantry_discipline = 0.05 
+    				 heavy_infantry_discipline = 0.05 }
+        requires = { gallic_celtic_plough_inv gallic_chainmail_inv }
+        allow = {
+        	NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
 			OR = {
 				country_culture_group = gallic
 				country_culture_group = celto_pannonian_group
@@ -1059,23 +1171,33 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_1
-				invention = martial_helmet_gre_4
-				invention = martial_helmet_gre_2
-				invention = martial_helmet_gre_3
-				invention = martial_helmet_lat_1
-				invention = martial_helmet_ind_1
-
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
 			}
 		}
-
     }
-    martial_helmet_ind_1 = { #śirāstrāṇa 
+    indian_helmet_inv_1 = { #śirāstrāṇa 
     	modifier = { 
     		axemen_discipline = 0.03
     	}
-    	requires = { martial_armour_1 } 
+    	requires = { helmet_inv } 
     	allow = {
+    		NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
 			OR = {
 				country_culture_group = gallic
 				country_culture_group = celto_pannonian_group
@@ -1095,20 +1217,114 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_1
-				invention = martial_helmet_gre_4
-				invention = martial_helmet_gre_2
-				invention = martial_helmet_gre_3
-				invention = martial_helmet_bar_1
-				invention = martial_helmet_lat_1
-
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
 			}
 		}
     }
+    chinese_helmet_inv_1 = { #warring states helmet
+    	modifier = {
+    		pikemen_discipline = 0.03
+    		archers_discipline = 0.03
+    	}
+    	allow = {
+    		NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
+		}
+    }
+    chinese_helmet_inv_2 = { #lamellar helmet
+    	modifier = {
+    		pikemen_discipline = 0.03
+    		heavy_infantry_discipline = 0.03
+    	}
+    	allow = {
+    		NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+			}
+		}
+    }
+				
     #######
     #Armour
     #######
-    martial_armour_gre_1 = { #phalanx Cuirass
+    greek_armour_inv_1 = { #phalanx Cuirass
 		modifier = {
 			spearmen_defensive = 0.03
 			pikemen_defensive = 0.03
@@ -1133,16 +1349,16 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_armour_gre_2 = { #Linothorax 
+	greek_armour_inv_2 = { #Linothorax 
 		modifier = {
 			spearmen_defensive = 0.03
 			heavy_infantry_defensive = 0.03
@@ -1167,16 +1383,16 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_armour_lat_1 = { #Lorica hamata
+	latin_armour_inv_1 = { #Lorica hamata
 		modifier = {
 			light_infantry_defensive = 0.03
 			heavy_infantry_defensive = 0.03
@@ -1197,16 +1413,16 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_armour_lat_2 = { #Lorica segmentata 
+	latin_armour_inv_2 = { #Lorica segmentata 
 		modifier = {
 			heavy_infantry_defensive = 0.05
 		}
@@ -1226,16 +1442,16 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_armour_qin_1 = { #lamellar armour
+	chinese_armour_inv_1 = { #lamellar armour
 		modifier = {
 			archers_defensive = 0.03
 			pikemen_defensive = 0.03
@@ -1260,16 +1476,16 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_armour_qin_2 = { #qin armour
+	chinese_armour_inv_2 = { #qin armour
 		modifier = {
 			pikemen_defensive = 0.05
 		}
@@ -1293,16 +1509,16 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_armour_ind_1 = { #Lohajālika armour
+	indian_armour_inv_1 = { #Lohajālika armour
 		modifier = {
 			axemen_defensive = 0.03
 			heavy_infantry_defensive = 0.03
@@ -1342,16 +1558,16 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	martial_armour_ind_2 = { #Kavacha  armour
+	indian_armour_inv_2 = { #Kavacha  armour
 		modifier = {
 			axemen_defensive = 0.05
 		}
@@ -1390,14 +1606,14 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
     gallic_chainmail_inv = {
     	modifier = { 
@@ -1433,8 +1649,13 @@ military_inventions = {
     	modifier = { light_cavalry_offensive = 0.05 
     				 heavy_cavalry_offensive = 0.05 
     				 horse_skirmishers_offensive = 0.05}
-        requires = { gallic_celtic_calendar_inv }
+        requires = { saddle_inv }
 		allow = {
+			nor = {
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+			}
 			OR = {
 				country_culture_group = gallic
 				country_culture_group = celto_pannonian_group
@@ -1452,13 +1673,25 @@ military_inventions = {
 				}
 			}
 		}
+		potential = {
+			nor = {
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+			}
+		}
     }
     scythian_saddle_inv = {
     	modifier = { light_cavalry_discipline = 0.05 
     				 heavy_cavalry_discipline = 0.05 
     				 horse_archers_discipline = 0.1}
-        requires = { gallic_celtic_calendar_inv }
+        requires = { saddle_inv }
 		allow = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+			}
 			OR = {
 				country_culture_group = caucasian
 				country_culture_group = scythia
@@ -1476,14 +1709,26 @@ military_inventions = {
 				}
 			}
 		}
+		potential = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+			}
+		}
     }
     indian_toe_stirrup_inv = {
         modifier = { light_cavalry_discipline = 0.05
         			 camels_discipline = 0.05
         			 heavy_cavalry_discipline = 0.05
         			 horse_archers_discipline = 0.05 }
-        requires = { indian_wootz_steel_inv }
+        requires = { saddle_inv }
         allow = {
+        	nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = scythian_saddle_inv
+				invention = bitless_bridle_inv
+			}
 			OR = {
 				country_culture_group = aryan
 				country_culture_group = pracyan
@@ -1516,11 +1761,60 @@ military_inventions = {
 				}
 			}
 		}
+		potential = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = scythian_saddle_inv
+				invention = bitless_bridle_inv
+			}
+		}
+    }
+    bitless_bridle_inv = { 
+        modifier = { 
+			light_cavalry_defensive = 0.05
+			heavy_cavalry_defensive = 0.05
+			light_cavalry_offensive = 0.05
+			heavy_cavalry_offensive = 0.05
+			horse_skirmishers_offensive = 0.05
+			horse_skirmishers_defensive = 0.05
+		}
+        
+        requires = { saddle_inv }
+        allow = {
+        	nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+			}
+			OR = {
+				country_culture_group = numidian
+				country_culture_group = fezzani
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_numidian_culture
+					has_variable = numidian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:numidian
+							this.culture.culture_group = culture_group:fezzani
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+			}
+		} 
     }
     #######
     #shield
     #######
-    greek_shield_1 = { #hoplon/aspis
+    greek_shield_inv_1 = { #hoplon/aspis
 		modifier = {
 			spearmen_defensive = 0.03
 		}
@@ -1544,16 +1838,18 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield
+				invention = chinese_shield
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	greek_shield_2 = { #telamon
+	greek_shield_inv_2 = { #telamon
 		modifier = {
 			pikemen_defensive = 0.03
 		}
@@ -1573,16 +1869,18 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield
+				invention = chinese_shield
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
-	greek_shield_3 = { #thueros
+	greek_shield_inv_3 = { #thueros
 		modifier = {
 			heavy_infantry_defensive = 0.03
 		}
@@ -1606,16 +1904,18 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield
+				invention = chinese_shield
 			}
 		}
-		requires = {martial_armour_1}0
+		requires = {helmet_inv}0
 	}
-	greek_shield_4 = { #pelte shield
+	greek_shield_inv_4 = { #pelte shield
 		modifier = {
 			light_infantry_defensive = 0.03
 		}
@@ -1635,14 +1935,14 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}0
+		requires = {helmet_inv}0
 	}
 	italic_pilum_scutum_inv = {
 		modifier = { heavy_infantry_offensive = 0.03
@@ -1681,7 +1981,40 @@ military_inventions = {
 			}
 		}
     }
-  
+  	chinese_shield = { #dao shield
+		modifier = {
+			heavy_infantry_defensive = 0.03
+			pikemen_defensive = 0.03
+		}
+		allow = {
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+
+			}
+		}
+		requires = {helmet_inv}
+	}
     chinese_shield = { #hook shield
 		modifier = {
 			heavy_infantry_defensive = 0.03
@@ -1707,14 +2040,14 @@ military_inventions = {
 		}
 		potential = { 
 			NOr = { 
-				invention = martial_helmet_gre_3 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
-				invention = martial_helmet_gre_5 
+				invention = greek_helmet_inv_3 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
+				invention = greek_helmet_inv_5 
 
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
 	########
 	#Weapons
@@ -1741,7 +2074,7 @@ military_inventions = {
 				}
 			}
 		}
-		requires = {martial_armour_1}
+		requires = {helmet_inv}
 	}
 	##########################
 	##FORTIFICATIONS AND SIEGE
@@ -2027,7 +2360,7 @@ military_inventions = {
 			heavy_cavalry_defensive = 0.1 
 		}
 		
-		requires = { martial_armour_2 }
+		requires = { saddle_inv }
 		allow = {
 			OR = {
 				country_culture_group = celt_iberia
@@ -2079,7 +2412,7 @@ military_inventions = {
 	}
 	illyrian_helmet_inv = {
 		modifier = { spearmen_defensive = 0.10 }
-		requires = { martial_armour_1 }
+		requires = { helmet_inv }
 		allow = {
 			OR = {
 				country_culture_group = illyrian_group
@@ -2096,36 +2429,7 @@ military_inventions = {
 			}
 		}
 	}
-	bitless_bridle_inv = { 
-        modifier = { 
-			light_cavalry_defensive = 0.05
-			heavy_cavalry_defensive = 0.05
-			light_cavalry_offensive = 0.05
-			heavy_cavalry_offensive = 0.05
-			horse_skirmishers_offensive = 0.05
-			horse_skirmishers_offensive = 0.05
-		}
-        
-        requires = { martial_armour_2 }
-        allow = {
-			OR = {
-				country_culture_group = numidian
-				country_culture_group = fezzani
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_numidian_culture
-					has_variable = numidian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:numidian
-							this.culture.culture_group = culture_group:fezzani
-						}
-					}
-				}
-			}
-		} 
-    }
+	
     kikkuli_inv = {
     	modifier = { 
     		heavy_cavalry_morale = 0.05
@@ -2134,7 +2438,7 @@ military_inventions = {
     		horse_archers_morale = 0.05
     	}
         
-        requires = { martial_armour_2 }
+        requires = { saddle_inv }
         allow = {
 			OR = {
 				country_culture_group = anatolian
