@@ -2314,7 +2314,7 @@ military_inventions = {
 		modifier = { 
 			heavy_infantry_offensive = 0.03
 			light_infantry_offensive = 0.03}
-		requires = { italic_etruscan_pottery_inv }
+		requires = { heavy_infantry_cost_inv }
 		allow = {
 			OR = {
 				country_culture_group = celt_iberia
@@ -2334,11 +2334,35 @@ military_inventions = {
 			}
 		}
 	}
+	falcata_inv = {# the falcata was prized by hannibal as he was perdoanlly equipped woth it and equipped his army woth the weapon. like the kopis, it was a secondary arm to the spearmen while still being a well manufactured primary weapon for infantry if needed 
+		modifier = { 
+			heavy_infantry_offensive = 0.03
+			spearmen_defensive = 0.03}
+		requires = { heavy_infantry_cost_inv }
+		allow = {
+			OR = {
+				country_culture_group = celt_iberia
+				country_culture_group = iberia
+				tag = CAR
+				custom_tooltip = {
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
+					}
+				}
+			}
+		}
+	}
 	spatha_inv = {
 		modifier = { 
 			heavy_infantry_offensive = 0.03
 			heavy_cavalry_offensive = 0.03}
-		requires = { italic_etruscan_pottery_inv }
+		requires = { heavy_infantry_cost_inv }
 		allow = {
 			OR = {
 				country_culture_group = gallic
@@ -2546,10 +2570,11 @@ military_inventions = {
 			}
 		}
 	}
+	falcata_inv = {}
 	##xiphos_inv = {}
 	##kopis_inv = {}
 	##hasta_inv = {}
-	##falcata_inv = {}
+
 	#nistrimsa_inv = {}
 	
 	##########################
