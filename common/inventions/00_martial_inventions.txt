@@ -43,6 +43,7 @@ martial_1 = {
 	land_morale_recovery_inv_5 = { #seveere strictures
 		modifier = { 
 			land_morale_recovery = 0.02
+			discipline = 0.01
 		}
 		requires = { heavy_infantry_discipline_inv }
 	}
@@ -239,12 +240,13 @@ martial_1 = {
 	land_morale_recovery_inv_3 = { #regimental standard
 		modifier = { 
 			land_morale_recovery = 0.02
+			land_morale_modifier = 0.02
 		}
 		requires_or = { discipline_inv_5 martial_unit_inv_2 }
 	}
 	land_morale_recovery_inv_1 = { #oath of brotherhood
 		modifier = { 
-			land_morale_recovery = 0.02
+			land_morale_recovery = 0.03
 		}
 		on_activate = {
 			if = {
@@ -347,6 +349,7 @@ martial_1 = {
 		requires = { discipline_inv_4 }
 		modifier = { 
 			land_morale_recovery = 0.02
+			loyalty_chance_gain_modifier = -0.01
 		}
 	}
 	global_supply_limit_modifier_inv_2 = { #fighting season
@@ -503,6 +506,50 @@ martial_1 = {
 			}
 		}
 	}
+	dhanurveda_inv = { #vedic trestise on archery and military sciences
+		modifier = { 
+			archers_offensive = 0.05
+			chariots_offensive = 0.05
+			warelephant_offensive = 0.05
+			discipline = 0.02
+			global_start_experience = 2
+		}
+		keystone = yes
+		requires = { heavy_infantry_cost_inv }
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+	}
 	######
 	#INVICTUS
 	####
@@ -591,7 +638,7 @@ martial_1 = {
 		} 
 	}
 	decimal_command_inv = {
-		modifier = { discipline = 0.025 }
+		modifier = { discipline = 0.02 }
 		requires = { postal_service_inv }
 		allow = {
 			OR = {
@@ -610,10 +657,9 @@ martial_1 = {
 	}
 	khatru_inv = {
 		modifier = {
-			 army_maintenance_cost = -0.025 		
-			 global_tax_modifier = 0.025
+			 army_maintenance_cost = -0.02 		
+			 global_tax_modifier = 0.02
 		}
-		
 		requires = { decimal_command_inv }
 		allow = {
 			OR = {
@@ -642,7 +688,7 @@ military_inventions = {
 	}
 	helmet_inv = { #stylized helmets
 		modifier = {
-			discipline = 0.025
+			discipline = 0.02
 		}
 		requires = { buy_military_tradition_inv }
 	}
@@ -653,9 +699,12 @@ military_inventions = {
 		requires = { helmet_inv }
 	}
 	heavy_infantry_cost_inv = { #blacksmith
+		icon_overide ={}
 		modifier = { 
 			heavy_infantry_cost = -0.1
 			spearmen_cost = -0.1
+			pikemen_cost = -0.1
+			axemen_cost = -0.1
 		}
 		keystone = yes
 		requires = { saddle_inv }
@@ -777,6 +826,7 @@ military_inventions = {
 			light_infantry_offensive = 0.05
 			heavy_infantry_offensive = 0.05
 			axemen_offensive = 0.05
+			spearmen_offensive = 0.05
 		}
 		requires = { indian_wootz_steel_inv }
 		allow = {
@@ -839,9 +889,9 @@ military_inventions = {
 	}
 	chinese_steel_inv = { #chinese Steel
 		modifier = {
-			pikemen_offensive = 0.03
-			chariots_offensive = 0.03
-			heavy_infantry_offensive = 0.03
+			pikemen_offensive = 0.05
+			chariots_offensive = 0.05
+			heavy_infantry_offensive = 0.05
 			military_tech_investment = 0.05
 		}
 		allow = {
@@ -1006,7 +1056,6 @@ military_inventions = {
 				invention = indian_helmet_inv_1
 				invention = chinese_helmet_inv_1
 				invention = chinese_helmet_inv_2
-
 			}
 			OR = {
 				country_culture_group = hellenic
@@ -1923,7 +1972,7 @@ military_inventions = {
 				invention = chinese_shield_inv_2
 			}
 		}
-		requires = {helmet_inv}0
+		requires = {helmet_inv}
 	}
 	greek_shield_inv_4 = { #pelte shield
 		modifier = {
@@ -2041,7 +2090,7 @@ military_inventions = {
 				}
 			}
 		}
-	potential = {}
+		potential = {}
 	}
 		
 		
@@ -2158,7 +2207,7 @@ military_inventions = {
 		}
 		requires = {helmet_inv}
 	}
-	#sarissa_inv = { #phalanx Cuirass
+	sarissa_inv = { #sar=ssa
 		modifier = {
 			spearmen_offensive = 0.03
 			pikemen_offensive = 0.03
@@ -2182,7 +2231,85 @@ military_inventions = {
 			}
 		}
 		requires = {helmet_inv}
-	#}
+	}
+	urumi_inv = { # urumi whip sword
+		modifier = { axemen_offensive = 0.05 }
+		requires = { heavy_infantry_cost_inv }
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = {
+		}
+	}
+	chakram_inv = {
+		modifier = { light_infantry_offensive 0.03 }
+		requires = { saddle_inv }
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = {
+		}
+	}
 	gladius_inv = {
 		modifier = { 
 			heavy_infantry_offensive = 0.03
@@ -2207,15 +2334,16 @@ military_inventions = {
 			}
 		}
 	}
-	gladius_inv = {
+	spatha_inv = {
 		modifier = { 
 			heavy_infantry_offensive = 0.03
 			heavy_cavalry_offensive = 0.03}
 		requires = { italic_etruscan_pottery_inv }
 		allow = {
 			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
 				country_culture_group = celt_iberia
-				country_culture_group = iberia
 				tag = ROM
 				custom_tooltip = {
 					text = integrated_any_iberian_culture
@@ -2231,13 +2359,117 @@ military_inventions = {
 			}
 		}
 	}
-	#jian_inv = { #jian sowrd }
-	##tomora_inv = {
-	#	modifier = { warelephant_offensive = 0.03 }
-	#}
+	jian_inv = { 
+		modifier = {
+			heavy_infantry_offensive = 0.03
+		}
+		requires = { heavy_infantry_cost_inv }
+		allow = {
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	pi_inv = { 
+		modifier = {
+			spearmen_offensive = 0.03
+		}
+		requires = { heavy_infantry_cost_inv }
+		allow = {
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+	}
+	ji_inv = { #halberd
+		modifier = {
+			pikemen_offensive = 0.03
+		}
+		requires = { heavy_infantry_cost_inv }
+		allow = {
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+	}
+	tomora_inv = {
+		modifier = { warelephant_offensive = 0.03 }
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+	}
 	##xiphos_inv = {}
 	##kopis_inv = {}
-	##spatha_inv = {}
 	##hasta_inv = {}
 	##falcata_inv = {}
 	#nistrimsa_inv = {}
