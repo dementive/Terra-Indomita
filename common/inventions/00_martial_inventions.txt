@@ -1,4 +1,4 @@
-﻿martial_1 = {
+martial_1 = {
 	technology = military_tech
 	color = hsv { 0 0.8 0.5 } 
 
@@ -2020,6 +2020,31 @@ military_inventions = {
 			}
 		}
 	}
+	iberian_shield_inv1 = { #caetra
+		modifier = {
+			light_infantry_discipline = 0.03
+		}
+		allow = {
+			OR = {
+				country_culture_group = celt_iberia
+				country_culture_group = iberia
+				custom_tooltip = {
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
+					}
+				}
+			}
+		}
+	potential = {}
+	}
+		
+		
 	chinese_shield_inv_1 = { #dao shield
 		modifier = {
 			heavy_infantry_defensive = 0.03
@@ -2158,34 +2183,59 @@ military_inventions = {
 		}
 		requires = {helmet_inv}
 	#}
-	#gladius_inv = {
+	gladius_inv = {
 		modifier = { 
 			heavy_infantry_offensive = 0.03
 			light_infantry_offensive = 0.03}
 		requires = { italic_etruscan_pottery_inv }
 		allow = {
 			OR = {
-				country_culture_group = latin
-				country_culture_group = latin
+				country_culture_group = celt_iberia
+				country_culture_group = iberia
+				tag = ROM
 				custom_tooltip = {
-					text = integrated_any_latin_culture
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:latin
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
 					}
 				}
 			}
 		}
-	#}
-	#jian_inv = { #jian sowrd
-	#}
-	##tomora_inv = {
-		modifier = {
-			warelephant_offensive = 0.03
+	}
+	gladius_inv = {
+		modifier = { 
+			heavy_infantry_offensive = 0.03
+			heavy_cavalry_offensive = 0.03}
+		requires = { italic_etruscan_pottery_inv }
+		allow = {
+			OR = {
+				country_culture_group = celt_iberia
+				country_culture_group = iberia
+				tag = ROM
+				custom_tooltip = {
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
+					}
+				}
+			}
 		}
+	}
+	#jian_inv = { #jian sowrd }
+	##tomora_inv = {
+	#	modifier = { warelephant_offensive = 0.03 }
 	#}
-	##xiphos_inv = {
-	#}
+	##xiphos_inv = {}
 	##kopis_inv = {}
 	##spatha_inv = {}
 	##hasta_inv = {}
@@ -2506,8 +2556,8 @@ military_inventions = {
 				}
 			}
 		}
-	#}
-	#falconry_inv = {
+	}
+	falconry_inv = {
 		modifier = { army_maintenance_cost = -0.025 }
 		requires = { buy_military_tradition_inv }
 		allow = {
@@ -2523,8 +2573,8 @@ military_inventions = {
 				}
 			}
 		}
-	#}
-	#illyrian_helmet_inv = {
+	}
+	illyrian_helmet_inv = {
 		modifier = { spearmen_defensive = 0.10 }
 		requires = { helmet_inv }
 		allow = {
@@ -2542,9 +2592,8 @@ military_inventions = {
 				}
 			}
 		}
-	#}
-	#
-	#kikkuli_inv = {
+	}
+	kikkuli_inv = {
 		modifier = { 
 			heavy_cavalry_morale = 0.05
 			light_cavalry_morale = 0.05
@@ -2567,8 +2616,8 @@ military_inventions = {
 				}
 			}
 		} 
-	#}
-	#castella_inv = { 
+	}
+	castella_inv = { 
 		modifier = { 
 			global_defensive = 0.05 
 			garrison_size = 0.05
@@ -2592,8 +2641,8 @@ military_inventions = {
 				}
 			}
 		}
-	#}
-	#bloomeries_inv = { 
+	}
+	bloomeries_inv = { 
 		modifier = {
 			slaves_move_cost_modifier = -0.15
 			global_tax_modifier = 0.05
@@ -2621,8 +2670,8 @@ military_inventions = {
 				}
 			}
 		} 
-	#}
-	#royal_iron_monopoly_inv = { 
+	}
+	royal_iron_monopoly_inv = { 
 		modifier = {
 			global_goods_from_slaves = -1
 		}
@@ -2649,8 +2698,8 @@ military_inventions = {
 				}
 			}
 		} 
-	#}
-	#helepolis_inv = { 
+	}
+	helepolis_inv = { 
 		modifier = { siege_engineers = 1 }
 		requires = { siege_engineers_inv_6 }
 		allow = {
@@ -2661,8 +2710,8 @@ military_inventions = {
 			}
 		}
 		keystone = yes
-	#}
-	#boetia_flamethrower_inv = { 
+	}
+	boetia_flamethrower_inv = { 
 		requires = { siege_speed_inv_3 }
 		modifier = { 
 			assault_ability = 0.1
@@ -2676,7 +2725,7 @@ military_inventions = {
 				}
 			}
 		}
-	#}
+	}
 }
 }
 naval_tree = {
