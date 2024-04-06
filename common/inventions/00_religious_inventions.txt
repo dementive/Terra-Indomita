@@ -62,7 +62,7 @@ religious_1 = {
 	}	
 	religious_wisdom_inv_1 = { #expanded libraires
 		modifier = {
-			research_points_modifier = = 0.1
+			research_points_modifier = 0.1
 			max_research_efficiency = 0.1
 		}
 		requires = { omen_power_inv_5 }
@@ -442,7 +442,8 @@ religious_1 = {
 		}
     }
     hindu_agriculture_inv = { #de re rsutica
-    	modifier = { religious_tech_investment = 0.05 }
+    	modifier = { global_monthly_food_modifier = 0.05
+    		global_population_growth = 0.01 }
     	requires = { technology_cost_inv_1 } 
     	allow = {
 			OR = {
@@ -1569,6 +1570,27 @@ religious_1 = {
 			}
 		} 
     }
+    hieroglyphs_inv = {
+		modifier = { 
+			country_civilization_value = 5 
+		}
+		
+		requires = { solar_calendar_inv }
+		allow = {
+			OR = {
+				country_culture_group = north_african
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_egyptian_culture
+					has_variable = egyptian_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:north_african
+					}
+				}
+			}
+		} 
+	}
     cuneiform_inv = {
     	modifier = { country_civilization_value = 5 }
         
