@@ -37,7 +37,6 @@
     }
     state_trade_inv_1 = { #Martime Patrols
 		modifier = {
-    		pirate_plunder = -0.1
 			global_population_happiness = 0.01
 			price_root_out_pirates_cost_modifier = -0.1
     	}
@@ -144,19 +143,19 @@
 		modifier = {
 			build_time = -0.1
     	}
-    	on_activate = {
-			random_owned_province = {
-				limit = {
-					trade_goods = stone
-					has_city_status = yes
-				}
-				alternative_limit = {
-					trade_goods = stone
-					has_city_status = no
-				}
-				set_trade_goods = concrete
-			}
-		}
+    	#on_activate = {
+			#random_owned_province = {
+			#	limit = {
+			#		trade_goods = stone
+			#		has_city_status = yes
+			#	}
+			#	alternative_limit = {
+			#		trade_goods = stone
+			#		has_city_status = no
+			#	}
+			#	set_trade_goods = concrete
+			#}
+		#}
 		allow = {
 			not = {
 				country_culture_group = latin
@@ -179,8 +178,8 @@
     		nor = {
     			invention = global_tax_modifier_inv_3
     			country_culture_group = hellenic
-				is_culture = etruscan
-				is_culture = roman
+				primary_culture = etruscan
+				primary_culture = roman
     		}
     	}
     	potential = {
@@ -456,20 +455,20 @@
 			random_owned_province = {
 				limit = {
 					or = {
-						trade_goods = furs
+						trade_goods = fur
 						trade_goods = leather
 					}
 					has_city_status = yes
 				}
 				alternative_limit = {
 					or = {
-						trade_goods = furs
+						trade_goods = fur
 						trade_goods = leather
 					}
 					has_city_status = no
 				}
 				add_permanent_province_modifier = {
-					name = "Tannery District"
+					name = "tannery_districts_invention"
 					duration = -1
 				}
 			}
@@ -491,7 +490,7 @@
     global_slaves_output_inv_2 = { #overseers
     	modifier = {
     		global_slaves_output = 0.03
-			rebellion_threshold = 0.05
+			#rebellion_threshold = 0.05
     	}
     	requires = { global_goods_from_slaves_inv_2 }
     }
@@ -508,7 +507,7 @@
     }
     global_slaves_output_inv_4 = { #earnede manumisison
     	modifier = {
-    		rebellion_threshold = 0.05
+    		#rebellion_threshold = 0.05
 			global_slaves_happyness = 0.03
 			global_pop_promotion_speed = 0.05
     	}
@@ -516,7 +515,7 @@
     }
     global_slaves_output_inv_6 = { #severe punishment
     	modifier = {
-    		rebellion_threshold = -0.05
+    		#rebellion_threshold = -0.05
 			global_slaves_happyness = -0.03
 			global_slaves_output = 0.08
     	}
@@ -612,11 +611,7 @@
     move_pop_cost_modifier_inv = {#coloniae
     	modifier = {
     		global_migration_speed = 0.1
-    	}
-    	hidden = {
-    		modifier = {
-    			civil_colonia_cost = -0.1
-    		}
+    		#civil_colonia_cost = -0.1
     	}
     	on_activate = {
 			if = {
@@ -655,25 +650,12 @@
     	on_activate = {
     		random_owned_province = {
 				limit = {
-					dominant_province_culture = {
-						not = {
-							scope:primary_culture 
-						}
-					}
 					has_city_status = yes
 				}
-				alternative_limit = {
-					dominant_province_culture = {
-						not = {
-							scope:primary_culture 
-						}
-					}
-					has_city_status = no
-				}
-				create_pop = freemmen
-				create_pop = freemmen
-				create_pop = freemmen
-				create_pop = freemmen
+				create_pop = freemen
+				create_pop = freemen
+				create_pop = freemen
+				create_pop = freemen
 				create_pop = citizen
 			}
     	}
@@ -723,8 +705,8 @@
         allow = {
 			OR = {
 				country_culture_group = hellenic
-				is_culture = etruscan
-				is_culture = roman
+				primary_culture = etruscan
+				primary_culture = roman
 				country_culture_group = persia
 				country_culture_group = east_levantine
 				custom_tooltip = {
@@ -743,8 +725,8 @@
         allow = {
 			OR = {
 				country_culture_group = hellenic
-				is_culture = etruscan
-				is_culture = roman
+				primary_culture = etruscan
+				primary_culture = roman
 				country_culture_group = persia
 				country_culture_group = east_levantine
 				custom_tooltip = {
@@ -817,8 +799,8 @@
     		}
     		OR = {
 				country_culture_group = hellenic
-				is_culture = etruscan
-				is_culture = roman
+				primary_culture = etruscan
+				primary_culture = roman
 				custom_tooltip = {
 					text = integrated_any_latin_culture
 					any_country_culture = {
@@ -844,8 +826,8 @@
         allow = {
     		OR = {
 				country_culture_group = hellenic
-				is_culture = etruscan
-				is_culture = roman
+				primary_culture = etruscan
+				primary_culture = roman
 				custom_tooltip = {
 					text = integrated_any_latin_culture
 					any_country_culture = {
@@ -863,8 +845,8 @@
         allow = {
     		OR = {
 				country_culture_group = hellenic
-				is_culture = etruscan
-				is_culture = roman
+				primary_culture = etruscan
+				primary_culture = roman
 				custom_tooltip = {
 					text = integrated_any_latin_culture
 					any_country_culture = {
@@ -912,19 +894,19 @@
     }
     build_time_inv = { 
         modifier = { build_time = -0.2 }
-        on_activate = {
-			random_owned_province = {
-				limit = {
-					trade_goods = stone
-					has_city_status = yes
-				}
-				alternative_limit = {
-					trade_goods = stone
-					has_city_status = no
-				}
-				set_trade_goods = concrete
-			}
-		}
+        #on_activate = {
+		#	random_owned_province = {
+		#		limit = {
+		#			trade_goods = stone
+		#			has_city_status = yes
+		#		}
+		#		alternative_limit = {
+		#			trade_goods = stone
+		#			has_city_status = no
+		#		}
+		#		set_trade_goods = concrete
+		#	}
+		#}
 		allow = {
 			OR = {
 				country_culture_group = latin
@@ -1117,9 +1099,9 @@
         }
         
         on_activate = { custom_tooltip = "enables_latifundia_building_tt" }
-    	requires = { global_goods_from_slaves_inv_2 
+    	requires = { global_goods_from_slaves_inv_2 }
         allow = {
-        	not = {invention = global_goods_from_slaves_inv_2}
+        	not = { invention = global_goods_from_slaves_inv_2 }
 			OR = {
 				country_culture_group = latin
 				custom_tooltip = {
@@ -1252,8 +1234,10 @@
 
     
     indian_trigonometric_functions_inv = {
-        modifier = { research_points_modifier = 0.05
-        			 build_time = -0.05 }
+        modifier = {
+        	research_points_modifier = 0.05
+        	build_time = -0.05
+        }
         requires_or = { civic_construction_inv_1 }
 		allow = {
 			OR = {

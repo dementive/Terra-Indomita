@@ -302,7 +302,7 @@
 			global_start_experience = 3
 			heavy_infantry_discipline = 0.03
 			spearmen_discipline = 0.03
-			heavy_axemen_discipline = 0.03
+			axemen_discipline = 0.03
 			pikemen_discipline = 0.03
 		}
 		on_activate = {
@@ -349,7 +349,7 @@
 		requires = { discipline_inv_4 }
 		modifier = { 
 			land_morale_recovery = 0.02
-			loyalty_chance_gain_modifier = -0.01
+			loyalty_gain_chance_modifier = -0.01
 		}
 	}
 	global_supply_limit_modifier_inv_2 = { #fighting season
@@ -515,7 +515,7 @@
 			global_start_experience = 2
 		}
 		keystone = yes
-		requires = { heavy_infantry_cost_inv }
+		requires = { heavy_infantry_discipline_inv }
 		allow = {
 			OR = {
 				country_culture_group = aryan
@@ -3419,7 +3419,7 @@ military_inventions = {
 						is_persian_culture_group_trigger = yes
 					}
 				}
-				is_culture = cretan
+				primary_culture = cretan
 				custom_tooltip = {
 					text = integrated_any_indian_culture
 					any_country_culture = {
@@ -3648,7 +3648,7 @@ military_inventions = {
 		modifier = { 
 			siege_ability = 0.05
 			land_unit_attrition = -0.05
-			engineer_cost = -0.1
+			engineer_cohort_cost = -0.1
 		}
 		requires = { siege_engineers_inv_5 }
 	}
@@ -4259,16 +4259,14 @@ naval_tree = {
 	navy_maintenance_cost_inv_2 = {#hoensta mistia
 		requires = { trireme_discipline_inv_1 } 
 		allow = {
-			tag = {ROM}
+			tag = ROM
 		}
 		modifier = { navy_maintenance_cost = -0.05 }
 	}
 	archimedes_principle = {
 		requires = { pirate_spawn_chance_inv_1 }
 		allow = { 
-			or = {
-				tag = SYR
-			} #SYR
+			tag = SYR
 		}
 		modifier = { global_ship_start_experience = 10 }
 	}
@@ -4451,7 +4449,7 @@ naval_tree = {
 		} 
 	}
 	beden_inv = { 
-		modifier = { k
+		modifier = {
 			naval_morale_recovery = 0.1
 		}
 		
