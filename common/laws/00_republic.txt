@@ -11,11 +11,6 @@
 			stability_cost_modifier = -0.05
 		}
 	}
-	republican_election_5 = {
-		modifier = {
-			#election_delay = -10
-		}
-	}
 	republican_election_2 = {
 		modifier = {
 			election_term_duration = 5
@@ -54,11 +49,6 @@ republic_election_car_reforms = { # Punic Electoral Reforms
 			stability_cost_modifier = -0.05
 		}
 	}
-	republican_election_car_5 = {
-		modifier = {
-			#election_delay = -10
-		}
-	}
 	republican_election_car_2 = {
 		modifier = {
 			election_term_duration = 5
@@ -95,11 +85,6 @@ republic_election_reforms_rom = { # Electoral Reforms
 	leges_genuciae = {
 		modifier = {
 			stability_cost_modifier = -0.05
-		}
-	}
-	no_term_delay = {
-		modifier = {
-			#election_delay = -10
 		}
 	}
 	senatus_consultum_ultimum = {
@@ -878,17 +863,14 @@ tax_laws_car = {
 	
 	tax_law_1_car = { #war taxesIn the early stages oif ancient society, direct taxation was not only unusual; the beauracracy just was not sophistcated enough to tax properly. However, a direct tax was ususally levied during times of war to protect the city state. IN Ancinet greece< nobles were very oproud of adding more to the tax 
 		modifier = {
-			war_exhaustion = -0.005
+			war_exhaustion = 0.01
 			global_nobles_output = 0.03
 			global_tax_modifier = -0.05
-		}
-		allow = {
-			rank < regional_power
 		}
 	}
 	tax_law_2_car = { # agricultrual tithe
 		modifier = {
-			global_slaves_output = 0.05
+			global_tax_modifier = 0.05
 		}
 		allow = {
 			rank >= regional_power
@@ -897,7 +879,7 @@ tax_laws_car = {
 	tax_law_3_car = { #tax idk 
 		
 		modifier = {
-			global_tax_modifier = 0.05
+			global_slaves_output = 0.1
 
 		}
 		allow = {
@@ -1200,7 +1182,7 @@ republic_citizen_car_laws = { # Carthage Citizenship Laws
 	republican_citizen_car_1 = { #cultural Primacy
 		modifier = {
 			cultural_integration_speed_modifier = -0.2
-			happiness_for_wrong_culture_modifier = -0.04
+			happiness_for_same_culture_modifier = -0.04
 		}
 	}
 	republican_citizen_car_2 = {#relax citizenship
@@ -1229,7 +1211,7 @@ republic_citizen_car_laws = { # Carthage Citizenship Laws
 		}
 		modifier = {
 			cultural_integration_speed_modifier = 0.2
-			happiness_for_same_culture_modifier = 0.04
+			happiness_for_wrong_culture_group_modifier = 0.04
 		}
 	}
 }
@@ -2108,6 +2090,18 @@ republican_land_reforms_car = { # Carthage Land Reforms
 		}
 		modifier = {
 			global_slaves_output = 0.25
+		}
+	}
+	republican_land_reform_car_5 = {
+		allow = {
+			civic_tech >= 12
+		}
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			#global_proles_city_desired_pop_ratio = -0.1
+			happiness_for_same_culture_modifier = 0.04
+			global_nobles_happyness = -0.04
 		}
 	}
 }
