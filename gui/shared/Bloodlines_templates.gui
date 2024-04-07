@@ -475,7 +475,77 @@ types InvictusGuiTypes
 		}
 
 
+		# Japan Council HUGE
+		icon = {
+			texture = "gfx/interface/portrait/background_ruler_japan_huge.dds"
+			spriteType = Corneredtiled
+			size = { 100% 100% }
+			modify_texture = {
+				name = "Alpha"
+				block "AlphaTexture" { texture = "gfx/interface/base_parts/portrait_x32y32bd_alpha.dds" }
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 4 4 }
+			}
+			visible = "[And( Character.HasTitle, EqualTo_string(Character.GetCulture.GetCultureGroup.GetKey, 'japan'))]"
+		}
+		# Japan Commoner
+		icon = {
+			texture = "gfx/interface/portrait/background_ruler_japan2_huge.dds"
+			spriteType = Corneredtiled
+			size = { 100% 100% }
+			modify_texture = {
+				name = "Alpha"
+				block "AlphaTexture" { texture = "gfx/interface/base_parts/portrait_x32y32bd_alpha.dds" }
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 4 4 }
+			}
+			visible = "[And( Not(Character.HasTitle), EqualTo_string(Character.GetCulture.GetCultureGroup.GetKey, 'japan'))]"
+		}
+		# CHINA BACKROUND
+		icon = {
+			texture = "gfx/interface/portrait/background_ruler_china_huge.dds"
+			spriteType = Corneredtiled
+			size = { 100% 100% }
+			modify_texture = {
+				name = "Alpha"
+				block "AlphaTexture" { texture = "gfx/interface/base_parts/portrait_x32y32bd_alpha.dds" }
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 4 4 }
+			}
 
+			visible = "[And( And( Character.IsRuler, EqualTo_string(Character.GetCulture.GetCultureGroup.GetKey, 'chinese')), And( Not(Character.HasArmy), Not(Character.HasNavy)))]"
+		}
+		icon = {
+			texture = "gfx/interface/portrait/background_ruler_china_huge.dds"
+			spriteType = Corneredtiled
+			size = { 100% 100% }
+			modify_texture = {
+				name = "Alpha"
+				block "AlphaTexture" { texture = "gfx/interface/base_parts/portrait_x32y32bd_alpha.dds" }
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 4 4 }
+			}
+
+			visible = "[And( And( Character.IsConsort, EqualTo_string(Character.GetCulture.GetCultureGroup.GetKey, 'chinese')), And( Not(Character.HasArmy), Not(Character.HasNavy)))]"
+		}
+		# huge wartent for chinese tags
+		icon = {
+			texture = "gfx/interface/portrait/background_ruler_monarchy_wartent_china_huge.dds"
+			spriteType = Corneredtiled
+			size = { 100% 100% }
+			modify_texture = {
+				name = "Alpha"
+				block "AlphaTexture" { texture = "gfx/interface/base_parts/portrait_x32y32bd_alpha.dds" }
+				blend_mode = alphamultiply
+				spriteType = Corneredtiled
+				spriteborder = { 4 4 }
+			}
+			visible = "[And(Character.HasArmy, EqualTo_string(Character.GetCulture.GetCultureGroup.GetKey, 'chinese'))]"
+		}
 		# HUGE BACKGROUNDS
 		# huge background for Babylon
 		icon = {

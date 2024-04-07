@@ -495,8 +495,6 @@ base_window = {
 						size = { 240 28 }
 						layoutpolicy_horizontal = expanding
 						blockoverride "On_click" {
-							#onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Player.MakeScope ).End )]"
-							onclick = "[ExecuteConsoleCommand('gui.ClearWidgets subject_focus_window')]"
 							onclick = "[ExecuteConsoleCommand('gui.createwidget gui/subject_focus.gui subject_focus_window')]"
 						}
 						blockoverride "Center_text"
@@ -581,7 +579,7 @@ base_window = {
 													text = "[Country.GetName]"
 													tooltip = "[Country.GetDescriptiveName]"
 													max_width = 135
-													fontsize_min = 25
+													fontsize_min = 16
 													elide = right
 												}
 											}
@@ -1749,7 +1747,6 @@ base_window = {
 										visible = "[Not(DiplomaticView.GetTargetCountry.IsBarbarian)]"
 										blockoverride "On_click" {
 											onclick = "[ScriptedGui.Execute(GuiScope.SetRoot( Player.MakeScope ).AddScope('target', DiplomaticView.GetTargetCountry.MakeScope ).End)]"
-											onclick = "[ExecuteConsoleCommand('gui.ClearWidgets sell_provinces_window')]"
 											onclick = "[ExecuteConsoleCommand('gui.createwidget gui/sell_provinces.gui sell_provinces_window')]"
 										}
 										blockoverride "Center_text"
