@@ -1742,6 +1742,30 @@ base_window = {
 									text_button_square = {
 										size = { 100% 28 }
 										layoutpolicy_horizontal = expanding
+										datacontext = "[GetScriptedGui('sell_provinces')]"
+										enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot( Player.MakeScope ).AddScope('target', DiplomaticView.GetTargetCountry.MakeScope ).End)]"
+										visible = "[Not(DiplomaticView.GetTargetCountry.IsBarbarian)]"
+										blockoverride "On_click" {
+											onclick = "[ScriptedGui.Execute(GuiScope.SetRoot( Player.MakeScope ).AddScope('target', DiplomaticView.GetTargetCountry.MakeScope ).End)]"
+											onclick = "[ExecuteConsoleCommand('gui.ClearWidgets sell_provinces_window')]"
+											onclick = "[ExecuteConsoleCommand('gui.createwidget gui/sell_provinces.gui sell_provinces_window')]"
+										}
+										blockoverride "Center_text"
+										{
+											text = "sell_province"
+										}
+									}
+								}
+								margin_widget = {
+									size = { 0 28 }
+									layoutpolicy_horizontal = expanding
+									margin = { 14 0 }
+									margin_right = 7
+
+
+									text_button_square = {
+										size = { 100% 28 }
+										layoutpolicy_horizontal = expanding
 										datacontext = "[GetScriptedGui('give_up_claims')]"
 										enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot( Player.MakeScope ).AddScope('target', DiplomaticView.GetTargetCountry.MakeScope ).End)]"
 										visible = "[Not(DiplomaticView.GetTargetCountry.IsBarbarian)]"
