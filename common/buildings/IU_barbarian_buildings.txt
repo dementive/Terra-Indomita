@@ -212,24 +212,16 @@ tribal_foundry_building = {
 		has_city_status = yes
 		or = {
 			owner = {
-				is_tribal = no
+				is_tribal = yes
 			}
-			num_of_foundry_building > 0
+			num_of_tribal_foundrybuilding > 0
 		}
 	}
 	allow = {
-		AND = {
-			exists = owner
-			owner = {
-				invention = heavy_infantry_cost_inv
-			}
-		}
 		has_city_status = yes
 		owner = {
-				is_tribal = no
-		}
-		civilization_value  >= 50
-
+				is_tribal = yes
+			}
 	}
 
 	modification_display = {
@@ -315,7 +307,7 @@ storehouse_building = { #10storehouse
 		}
 	}
 }
-sacred_building = { #5 religion #shrine
+tribal_sacred_building = { #5 religion #shrine
 	local_happiness_for_same_religion_modifier = 0.1
 	local_country_civilization_value = 4
 	local_pop_assimilation_speed = 0.5
@@ -330,7 +322,7 @@ sacred_building = { #5 religion #shrine
 			owner = {
 				is_tribal = yes
 			}
-			num_of_sacred_building > 0
+			num_of_tribal_sacred_building > 0
 		}
 	}
 	allow = {
@@ -404,7 +396,7 @@ tribal_lumber_building = {
 		has_city_status = no
 		or = {
 			owner = {
-				is_tribal = no
+				is_tribal = yes
 			}
 			num_of_tribal_lumber_building > 0
 		}
@@ -413,7 +405,7 @@ tribal_lumber_building = {
 	allow = {
 		has_city_status = no
 		owner = {
-				is_tribal = no
+				is_tribal = yes
 			}
 		OR = {
 				trade_goods = wood

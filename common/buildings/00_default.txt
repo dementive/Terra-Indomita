@@ -2208,6 +2208,12 @@ great_temple_building = {
 		or = {
 			owner = {
 				is_tribal = no
+				nor = {
+					religion = roman_pantheon
+					religion = buddhism
+					religion = christianity
+					religion = judaism
+				}
 			}
 			num_of_great_temple_building > 0
 		}
@@ -2916,7 +2922,7 @@ sacred_building = { #Sanctuary
 						religion = buddhism
 					}
 				}
-				is_holy_site = yes
+				is_holy_site = no
 			}
 			num_of_sacred_building > 0
 		}
@@ -2924,7 +2930,7 @@ sacred_building = { #Sanctuary
 
 	allow = {
 		has_city_status = no
-		is_holy_site = yes
+		is_holy_site = no
 		owner = {
 			is_tribal = no
 			nor = {
@@ -3334,6 +3340,19 @@ crafts_workshop_building = {
 
 	potential = {
 		has_city_status = no
+		or = {
+			owner = {
+				is_tribal = no
+			}
+			num_of_crafts_workshop_building > 0
+		}
+	}
+
+	allow = {
+		has_city_status = no
+		owner = {
+				is_tribal = no
+			}
 	}
 
 	cost = 200
@@ -3789,12 +3808,12 @@ lumber_building = {
 	allow = {
 		has_city_status = no
 		owner = {
-				is_tribal = no
-			}
+			is_tribal = no
+		}
 		OR = {
-				trade_goods = wood
-				trade_goods = cedar
-			}
+			trade_goods = wood
+			trade_goods = cedar
+		}
 	}
 
 	chance = {
