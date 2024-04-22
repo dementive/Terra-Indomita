@@ -35,7 +35,7 @@ religious_1 = {
 		requires = { religious_tech_investment_inv_1 }
 	}
 	omen_power_inv_3 = { #expanded religious holdiays
-		modifier = { deify_ruler_cost_modifier = 0.01 }
+		modifier = { deify_ruler_cost_modifier = -0.05 }
 		requires = { religious_calendar_inv }
 	}
 	religious_tech_investment_inv_2 = { #rscribes
@@ -43,7 +43,7 @@ religious_1 = {
 			global_monthly_civilization = 0.01
 			max_research_efficiency = 0.15
 		}
-		requires = { religious_wisdom_inv_3 gw_effect_zeal_education_inv }
+		requires = { gw_effect_zeal_education_inv }
 	}
 	technology_cost_inv_4 = { #shorthand Writing  
 		modifier = { 
@@ -249,7 +249,7 @@ religious_1 = {
 	}
 	land_morale_recovery_inv_2 = {#oracles and soothsayers
 		modifier = { global_population_happiness = 0.01 }
-		requires = { stability_inv_5 }
+		requires = { call_omen_cost_modifier_inv }
 	}
 	omen_duration_inv_3 = {#ban witchcraft
 		modifier = { 
@@ -306,22 +306,7 @@ religious_1 = {
 	#Cu,tural calendar
 	##########
 
-	italic_julian_calendar_inv = {
-        modifier = { monthly_corruption = -0.01 }
-        requires = { religious_calendar_inv }
-        allow = {
-			OR = {
-				country_culture_group = latin
-				custom_tooltip = {
-					text = integrated_any_latin_culture
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:latin
-					}
-				}
-			}
-		}
-    }
+	
     gallic_celtic_calendar_inv = {
     	modifier = { global_tribesmen_output = 0.1 }
         requires = { religious_calendar_inv }
