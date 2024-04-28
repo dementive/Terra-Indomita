@@ -273,89 +273,16 @@
 	acta_diurna_invention = { #acta dirna
 		allow = { tag = ROM }
 		
-		requires = { subject_loyalty_inv }
+		requires = { global_unrest_inv_4 }
 		modifier = { happiness_for_same_culture_modifier = 0.06 }
 	}
-	###############
-	##invictus
-	#########
-	channeled_irrigation_invention = {
-		allow = { 
-			OR = {
-				tag = ANU
-				AND = {
-					tag = BHA
-					primary_culture = lankan
-				}		
-			} # ANU or Bharat
-		}
-		requires = { subject_loyalty_inv }  
-		
-		modifier = { global_goods_from_slaves = -1 }
-	}
-	alphabet_inv = {
-		modifier = { 
-			research_points_modifier = 0.05
-			happiness_for_same_culture_modifier = 0.03 
-		}
-		requires = { agressive_expansion_impact_inv_1 }
-		 allow = {
-			OR = {
-				country_culture_group = west_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_punic_culture
-					has_variable = punic_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:west_levantine
-					}
-				}
-			}
-		}
-	}
-	hundred_four_inv = {
-		modifier = {
-			stability_monthly_change = 0.04
-			character_loyalty = 2
-			monthly_tyranny = -0.02
-		}
-		requires = { alphabet_inv }
-		allow = { tag = CAR }
-	}
-	musnad_script_inv = { 
-        modifier = {
-        	research_points_modifier = 0.05
-        	country_civilization_value = 5
-        }
-        
-        requires = { book_binding_invention }
-        allow = {
-			OR = {
-				country_culture_group = south_levantine
-				country_culture_group = south_arabian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_arabian_culture
-					has_variable = arabian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:south_arabian
-						}
-					}
-				}
-			}
-		} 
-    }
     ukaz_poetry_fair_inv = { 
         modifier = {
         	monthly_corruption = -0.01
         	global_monthly_civilization = 0.01
         }
         
-        requires = { musnad_script_inv }
+        requires = { global_unrest_inv_4 }
         allow = {
 			OR = {
 				country_culture_group = south_levantine
@@ -375,18 +302,29 @@
 			}
 		} 
     }
-    achaemenid_legacy_inv = {
-		modifier = {
-			monthly_legitimacy = 0.05
-			tribute_income_modifier = 0.1
-			diplomatic_relations = 1
+    thracian_poetry_inv = { 
+		modifier = { 
+			research_points_modifier = 0.05
+			happiness_for_same_culture_modifier = 0.03
 		}
-		requires = { relation_inv_3 }
+		
+		requires = { global_unrest_inv_4 }
 		allow = {
-			OR = { 
-				tag = PER
-				current_ruler = {
-					has_trait = achaemenid
+			OR = {
+				country_culture_group = illyrian_group
+				country_culture_group = dacia_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_haemic_culture
+					has_variable = haemic_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:illyrian_group
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
 				}
 			}
 		}
@@ -427,7 +365,16 @@ oratory_2 = {
 		
 		requires_or = { monthly_character_loyalty_inv_1 diplomatic_reputation_inv_1 }
 	}
-	
+	court_procedures_inv = {
+    	modifier = { 
+    		monarchy_new_ruler_cost_modifier = -0.3
+    		monthly_corruption = -0.01
+		}
+        allow = {
+        	is_monarchy = yes
+        }
+        requires = { tyranny_inv_1 } 
+    }
 	gw_effect_fantastic_ruler_inv = { 
 		on_activate = { custom_tooltip = "allow_gw_effect_fantastic_ruler" }
 		requires = { tyranny_inv_1 }
@@ -1063,7 +1010,7 @@ oratory_2 = {
     }
     antikythera_mechanism_inv = {
 		modifier = { monthly_political_influence_modifier = 0.1 }
-		requires = { monthly_character_loyalty_inv_1 }
+		requires = { tyranny_inv_1 }
 		allow = {
 			primary_culture = aegean
 		}
@@ -1121,6 +1068,31 @@ oratory_2 = {
 			}
 		} 
     }
+    kithara_inv = { 
+		modifier = { happiness_for_wrong_culture_group_modifier = 0.03 }
+		
+		requires = { tyranny_inv_1 }
+		allow = {
+			OR = {
+				country_culture_group = illyrian_group
+				country_culture_group = dacia_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_haemic_culture
+					has_variable = haemic_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:illyrian_group
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+	}
+	
     martial_dancing_inv = {
     	modifier = { 
     		global_freemen_output = 0.03 
@@ -1169,5 +1141,6 @@ oratory_2 = {
 		}
 
 	}
+	
 }
 

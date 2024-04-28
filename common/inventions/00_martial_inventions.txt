@@ -9,7 +9,6 @@
 			add_1_free_province_investments = yes
 		}
 	}
-
 	# Level 1
 	global_start_experience_inv_3 = { #recruitment standards
 		modifier = { 
@@ -19,7 +18,6 @@
 		}
 		requires = { military_tech_investment_inv_1 }
 	}
-
 	heavy_infantry_discipline_inv = { #military punshiment
 		icon_override = war
 		modifier = { 
@@ -39,7 +37,6 @@
 			}
 		}
 	}
-
 	land_morale_recovery_inv_5 = { #seveere strictures
 		modifier = { 
 			land_morale_recovery = 0.02
@@ -47,14 +44,12 @@
 		}
 		requires = { heavy_infantry_discipline_inv }
 	}
-
 	global_start_experience_inv_2 = { #BASIC training
 		modifier = {
 			global_start_experience = 2.5 
 		}
 		requires = { military_tech_investment_inv_1 }
 	}
-
 	experience_decay_inv_1 = { #active drill
 		modifier = {
 			discipline= 0.03
@@ -115,10 +110,23 @@
 		modifier = {
 			discipline = 0.025
 		}
+		potential = {
+			nor = {
+				invention = discipline_inv_2
+				invention = decimal_command_inv
+				invention = greek_unit_inv
+			}
+		}
 		allow = {
 			nor = {
 				tag = ROM
 				country_culture_group = hellenic
+				country_culture_group = persia
+			}
+			nor = {
+				invention = discipline_inv_2
+				invention = decimal_command_inv
+				invention = greek_unit_inv
 			}
 		}
 		requires = { cohort_reinforcement_speed_inv }
@@ -128,10 +136,55 @@
 			discipline = 0.025
 			heavy_infantry_defensive = 0.05
 		}
+		potential = {
+			nor = {
+				invention = martial_unit_inv
+				invention = decimal_command_inv
+				invention = greek_unit_inv
+			}
+		}
 		allow = {
 			tag = ROM
+			nor = {
+				invention = martial_unit_inv
+				invention = decimal_command_inv
+				invention = greek_unit_inv
+			}
 		}
 		requires = { cohort_reinforcement_speed_inv }
+	}
+	decimal_command_inv = { #persian maniples
+		modifier = { 
+			discipline = 0.02 
+			general_loyalty = 1
+		}
+		potential = {
+			nor = {
+				invention = martial_unit_inv
+				invention = discipline_inv_2
+				invention = greek_unit_inv
+			}
+		}
+		requires = { cohort_reinforcement_speed_inv }
+		allow = {
+			nor = {
+				invention = martial_unit_inv
+				invention = discipline_inv_2
+				invention = greek_unit_inv
+			}
+			OR = {
+				country_culture_group = persia
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_persian_culture
+					has_variable = persian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_persian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
 	}
 	greek_unit_inv = { #supporting auxillaries
 		modifier = {
@@ -140,8 +193,20 @@
 			spearmen_defensive = 0.05
 			pikemen_defensive = 0.05
 		}
+		potential = {
+			nor = {
+				invention = martial_unit_inv
+				invention = decimal_command_inv
+				invention = discipline_inv_2
+			}
+		}
 		allow = {
 			country_culture_group = hellenic
+			nor = {
+				invention = martial_unit_inv
+				invention = decimal_command_inv
+				invention = discipline_inv_2
+			}
 		}
 		requires = { cohort_reinforcement_speed_inv }
 	}
@@ -150,9 +215,20 @@
 			discipline = 0.05
 			army_weight_modifier = -0.05
 		}
+		potential = {
+			nor = {
+				invention = khatru_inv
+				invention = discipline_inv_5
+			}
+		}
 		allow = {
 			nor = {
+				invention = khatru_inv
+				invention = discipline_inv_5
+			}
+			nor = {
 				tag = ROM
+				country_culture_group = persia
 			}
 		}
 		on_activate = {
@@ -198,8 +274,18 @@
 			army_weight_modifier = -0.05
 			supply_train_cost = -0.1
 		}
+		potential = {
+			nor = {
+				invention = khatru_inv
+				invention = martial_unit_inv_2
+			}
+		}
 		allow = {
 			tag = ROM
+			nor = {
+				invention = khatru_inv
+				invention = martial_unit_inv_2
+			}
 		}
 		on_activate = {
 			custom_tooltip = "allow_all_legion_law"
@@ -236,6 +322,38 @@
 			}
 		}
 		requires = { discipline_inv_2 discipline_inv_3 }
+	}
+	khatru_inv = {
+		modifier = {
+			discipline = 0.05
+			army_weight_modifier = -0.05
+			army_maintenance_cost = -0.02 		
+		}
+		requires = { decimal_command_inv discipline_inv_3 } 
+		potential = {
+			nor = {
+				invention = discipline_inv_5
+				invention = martial_unit_inv_2
+			}
+		}
+		allow = {
+			nor = {
+				invention = discipline_inv_5
+				invention = martial_unit_inv_2
+			}
+			OR = {
+				country_culture_group = persia
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_persian_culture
+					has_variable = persian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_persian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
 	}
 	land_morale_recovery_inv_3 = { #regimental standard
 		modifier = { 
@@ -636,59 +754,25 @@
 			}
 		} 
 	}
-	decimal_command_inv = {
-		modifier = { discipline = 0.02 }
-		requires = { postal_service_inv }
-		allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-	}
-	khatru_inv = {
-		modifier = {
-			 army_maintenance_cost = -0.02 		
-			 global_tax_modifier = 0.02
-		}
-		requires = { decimal_command_inv }
-		allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-	}
+	
+	
 }
 ####MAKE CUSTOM TOOLTIP FOR MUTUALLY EXCLUSIVE INVENTIONS
 ######MAKE SIEGE ENGINES MUTUALLY EXLCUSIVE IN CONTEXT THAT YOU CHOSE ONE OR OTHER IN GORUPS 3 TIERED : LADDERS AND RMAS, SOCRPIO BALLISTAE, SIEGE TOWERS /SIEGE ENGINES
 military_inventions = {
 	technology = military_tech
 	color = hsv { 0 0.6 0.9 }
-	buy_military_tradition_inv = { #material scince
-		modifier = { army_weight_modifier = -0.1 }
+	metallurgy_inv = { 
+		modifier = {
+			global_commerce_modifier = 0.02
+			global_tax_modifier = 0.02
+		}
 	}
 	bloomeries_inv = { 
 		modifier = {
 			global_slaves_output = 0.1
 		}
-		requires = {buy_military_tradition_inv}
+		requires = {metallurgy_inv}
 		on_activate = { custom_tooltip = "enables_foundry_building_tt" }
 	}
 	heavy_infantry_cost_inv = { #blacksmith
@@ -705,7 +789,7 @@ military_inventions = {
 		modifier = {
 			discipline = 0.02
 		}
-		requires = { bloomeries_inv } 
+		requires = { metallurgy_inv } 
 		allow = {
 			NOr = { 
 				invention = greek_helmet_inv_1
@@ -775,7 +859,7 @@ military_inventions = {
 	#############################################
 	############
 	###Metals
-	########
+	#########
 	gallic_noric_steel_inv = {
 		modifier = { 
 			light_infantry_offensive = 0.05
@@ -996,7 +1080,7 @@ military_inventions = {
 				set_trade_goods = wootz_steel
 			}
 		}
-		requires = {heavy_infantry_cost_inv}
+		requires = {bloomeries_inv}
 	}
 	royal_iron_monopoly_inv = { 
 		modifier = {
@@ -1081,7 +1165,7 @@ military_inventions = {
 
 			}
 		}
-		requires = { bloomeries_inv }
+		requires = { metallurgy_inv }
 	}
 	greek_helmet_inv_2 = { #attic
 		modifier = {
@@ -1136,7 +1220,7 @@ military_inventions = {
 				invention = chinese_helmet_inv_2
 			}
 		}
-		requires = { bloomeries_inv }
+		requires = { metallurgy_inv }
 	}
 	greek_helmet_inv_3 = { #phrygian
 		modifier = {
@@ -1187,7 +1271,7 @@ military_inventions = {
 
 			}
 		}
-		requires = { bloomeries_inv }
+		requires = { metallurgy_inv }
 	}
 	greek_helmet_inv_4 = { #boetian
 		modifier = {
@@ -1239,7 +1323,7 @@ military_inventions = {
 				invention = illyrian_helmet_inv
 			}
 		}
-		requires = { bloomeries_inv }
+		requires = { metallurgy_inv }
 	}
 	latin_helmet_inv_1 = { #gaela
 		modifier = {
@@ -1286,13 +1370,13 @@ military_inventions = {
 				invention = illyrian_helmet_inv
 			}
 		}
-		requires = { bloomeries_inv }
+		requires = { metallurgy_inv }
 	}
 	gallic_montefortino_helmet_inv = {
 		modifier = { light_infantry_discipline = 0.05 
 					 heavy_infantry_discipline = 0.05
 					 discipline = 0.01 }
-		requires = { bloomeries_inv }
+		requires = { metallurgy_inv }
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -1343,7 +1427,7 @@ military_inventions = {
 			axemen_discipline = 0.03
 			discipline = 0.01
 		}
-		requires = { bloomeries_inv } 
+		requires = { metallurgy_inv } 
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -1395,7 +1479,7 @@ military_inventions = {
 			archers_discipline = 0.03
 			discipline = 0.01
 		}
-		requires = { bloomeries_inv }
+		requires = { metallurgy_inv }
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -1447,7 +1531,7 @@ military_inventions = {
 			heavy_infantry_discipline = 0.03
 			discipline = 0.01
 		}
-		requires = { bloomeries_inv }
+		requires = { metallurgy_inv }
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -1496,7 +1580,7 @@ military_inventions = {
 	illyrian_helmet_inv = {
 		modifier = { spearmen_morale = 0.03
 			discipline = 0.01 }
-		requires = { bloomeries_inv }
+		requires = { metallurgy_inv }
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -3565,6 +3649,9 @@ military_inventions = {
 	##########################
 	##FORTIFICATIONS AND SIEGE
 	##########################
+	buy_military_tradition_inv = { #material scince
+		modifier = { army_weight_modifier = -0.1 }
+	}
 	base_defensive_inv = {
 		modifier = { global_defensive = 0.1 }
 		keystone = yes
@@ -4590,6 +4677,7 @@ naval_tree = {
 		allow = {
 			OR = {
 				country_culture_group = persia
+				is_diadochi_trigger = yes
 				custom_tooltip = {
 					#Need a new text
 					text = integrated_any_persian_culture
@@ -4608,6 +4696,7 @@ naval_tree = {
 		requires = { serial_production_inv }
 		 allow = {
 			OR = {
+				country_culture_group = hellenic
 				country_culture_group = west_levantine
 				custom_tooltip = {
 					#Need a new text

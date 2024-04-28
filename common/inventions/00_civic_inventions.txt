@@ -283,6 +283,7 @@
 			}
 		}
     }
+
     #indian 
     indian_trigonometric_functions_inv = {
         modifier = {
@@ -366,6 +367,18 @@
 		}
     	requires = { civic_construction_inv_3 }
     }
+    #caucaus
+    hillock_inv = { #Colchis Hillock
+    	requires = { civic_construction_inv_2 }
+    	modifier = {
+    		global_population_capacity_modifier = 0.05 }
+    	allow = {
+    		OR = {
+    			primary_culture = colchian
+    			tag = COL
+    		}
+    	}
+    }
     #chinese instead of crane
     zhoubi_suanjing_inv = {
     	modifier = {
@@ -398,12 +411,65 @@
 		}
     	requires_or = { civic_construction_inv_2 greek_advanced_mechanics_inv }
     }
+    #middle east wells 
+    cistern_inv = {
+		modifier = { 
+			well_building_cost = -0.1
+		}
+
+		allow = {
+			OR = {
+				primary_culture = aramaic
+				primary_culture = phoenician
+				primary_culture = hebrew
+				primary_culture = nabatean
+			}
+		}
+        
+        requires = { civic_tech_investment_inv_2 }
+	}
     global_population_growth_inv_5 = { #water mills
 		modifier = {
     		global_monthly_food_modifier = 0.1
     	}
 
     	requires = { civic_tech_investment_inv_2 }
+    }
+    horse_mill_inv = { #carthaginian hhorse mills
+        modifier = { 
+        	global_slaves_output = 0.04
+        	global_monthly_food_modifier = 0.04
+        }
+        
+        requires = { global_population_growth_inv_5 }
+        allow = {
+			OR = {
+				country_culture_group = numidian
+				country_culture_group = fezzani
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_numidian_culture
+					has_variable = numidian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:numidian
+							this.culture.culture_group = culture_group:fezzani
+						}
+					}
+				}
+				country_culture_group = west_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_punic_culture
+					has_variable = punic_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:west_levantine
+					}
+				}
+			}
+		} 
     }
     civic_construction_inv_4 = { #Concrete 
 		modifier = {
@@ -423,14 +489,130 @@
 			}
 		}
 		allow = {
-			not = {
+			nor = {
+				country_culture_group = latin
+				invention = build_time_inv
+			}
+		}
+		potential = {
+			nor = {
 				country_culture_group = latin
 				invention = build_time_inv
 			}
 		}
     	requires = { civic_tech_investment_inv_2 civic_construction_inv_2}
     }
-
+    build_time_inv = { #opus 
+        modifier = { build_time = -0.2 }
+        on_activate = {
+			random_owned_province = {
+				limit = {
+					trade_goods = stone
+					has_city_status = yes
+				}
+				alternative_limit = {
+					trade_goods = stone
+					has_city_status = no
+				}
+				set_trade_goods = concrete
+			}
+		}
+		potential = {
+			nor = {
+				invention = civic_construction_inv_4
+			}
+		}
+		allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+			not = {
+				invention = civic_construction_inv_4
+			}
+		}
+        requires = { civic_tech_investment_inv_2 civic_construction_inv_2}
+    }
+    italic_arches_inv = {
+        modifier = { 
+        	global_defensive = 0.05
+			build_time = -0.1 
+		}
+        requires = { build_time_inv }
+        allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+    }
+    italic_insulae_inv = {
+        modifier = { global_population_capacity_modifier = 0.01 }
+        requires = { ruler_popularity_gain_inv_4 }
+        allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+    }
+    #mesopotamian
+    mass_produced_bricks_inv = {
+    	modifier = { build_cost = -0.05 }
+        
+        requires_or = { civic_construction_inv_4 build_time_inv }
+        allow = {
+			OR = {
+				country_culture_group = east_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_east_levantine_culture
+					has_variable = mesopotamian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_mesopotamian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+    }
+    textile_mill_inv = {
+    	modifier = { global_freemen_output = 0.03 }
+        
+        requires = { mass_produced_bricks_inv }
+        allow = {
+			OR = {
+				country_culture_group = east_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_east_levantine_culture
+					has_variable = mesopotamian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_mesopotamian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+    }
     #TAX
 
     global_tax_modifier_inv_1 = { #property taxes
@@ -1353,74 +1535,6 @@
 			}
 		}
     }
-    build_time_inv = { #opus 
-        modifier = { build_time = -0.2 }
-        #on_activate = {
-		#	random_owned_province = {
-		#		limit = {
-		#			trade_goods = stone
-		#			has_city_status = yes
-		#		}
-		#		alternative_limit = {
-		#			trade_goods = stone
-		#			has_city_status = no
-		#		}
-		#		set_trade_goods = concrete
-		#	}
-		#}
-		allow = {
-			OR = {
-				country_culture_group = latin
-				custom_tooltip = {
-					text = integrated_any_latin_culture
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:latin
-					}
-				}
-			}
-			not = {
-				invention = civic_construction_inv_4
-			}
-		}
-        requires = { civic_tech_investment_inv_2 civic_construction_inv_2}
-    }
-    italic_arches_inv = {
-        modifier = { 
-        	global_defensive = 0.05
-			build_time = -0.1 
-		}
-        requires = { build_time_inv }
-        allow = {
-			OR = {
-				country_culture_group = latin
-				custom_tooltip = {
-					text = integrated_any_latin_culture
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:latin
-					}
-				}
-			}
-		}
-    }
-    italic_insulae_inv = {
-        modifier = { total_population_capacity_modifier = 0.01 }
-        requires = { ruler_popularity_gain_inv_4 }
-        allow = {
-			OR = {
-				country_culture_group = latin
-				custom_tooltip = {
-					text = integrated_any_latin_culture
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:latin
-					}
-				}
-			}
-		}
-    }
-    
     global_freemen_output_inv_4 = { #STATE FIRE BRIGADES
         modifier = { global_freemen_output = output_small_svalue }
         
@@ -1438,7 +1552,6 @@
 			}
 		}
     }
-    
     italic_cursuspublicus_inv = { # postal service
         modifier = { 
         	global_population_growth = 0.01
@@ -1458,7 +1571,6 @@
 			}
 		}
     }
-    
     build_cost_inv = { 
         modifier = { 
 			build_cost = -0.05
@@ -1586,34 +1698,6 @@
 			}
 		}
     }
-
-
-    
-    indian_trigonometric_functions_inv = {
-        modifier = {
-        	research_points_modifier = 0.05
-        	build_time = -0.05
-        }
-        requires_or = { civic_construction_inv_1 }
-		allow = {
-			OR = {
-				country_culture_group = aryan
-				country_culture_group = pracyan
-				country_culture_group = indian
-				custom_tooltip = {
-					text = integrated_any_indian_culture
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:aryan
-							this.culture.culture_group = culture_group:pracyan
-							this.culture.culture_group = culture_group:indian
-						}
-					}
-				}
-			}
-		}
-    }
     polished_ceramics_invention = {
 		allow = { tag = MRY } #MRY
 		modifier = { global_citizen_output = output_small_svalue }
@@ -1638,39 +1722,22 @@
 	#######
 	#iNVICTUS
 	########
+	#TRADE STUFFS
 	cotton_trade_inv = { 
 		modifier = { 
-			global_commerce_modifier = 0.2
+			global_commerce_modifier = 0.05
 		}
 		
 		requires = { capital_trade_inv_1 }
 		allow = { tag = TYO } 
 	}
-	coins_inv = {
-    	modifier = { global_tax_modifier = 0.1 }
-        
-        requires = { global_tax_modifier_inv_1 }
-        allow = {
-			OR = {
-				country_culture_group = anatolian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_anatolian_culture
-					has_variable = anatolian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_anatolian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
+	#Anatolian
     lacemaking_inv = {
     	modifier = { 
     		monthly_political_influence_modifier = 0.05
     	}
         
-        requires = { coins_inv }
+        requires = { capital_trade_inv_1 }
         allow = {
 			OR = {
 				country_culture_group = anatolian
@@ -1686,6 +1753,7 @@
 			}
 		} 
     }
+    #haemic
     illyrian_fishing_nets_inv = { 
         modifier = { 
         	global_population_growth = 0.02
@@ -1709,13 +1777,16 @@
 			}
 		}
     } 
+
+    #SCRIPT
+    #Numidian
 	numidian_script_inv = { 
         modifier = { 
         	happiness_for_same_culture_modifier = 0.03
         	research_points_modifier = 0.05
         }
         
-        requires = { research_points_modifier_inv_4 }
+        requires = { commerce_inv_5 }
         allow = {
 			OR = {
 				country_culture_group = numidian
@@ -1735,31 +1806,22 @@
 			}
 		} 
     }
-    shaduf_inv = {
-    	modifier = { global_monthly_food_modifier = 0.1 }
+    imperial_aramaic_inv = {
+    	modifier = { monthly_wage_modifier = -0.05 }
         
-        requires = { global_tax_modifier_inv_2 }
+        requires = { commerce_inv_5 }
         allow = {
 			OR = {
-				country_culture_group = north_african
+				country_culture_group = persia
 				custom_tooltip = {
 					#Need a new text
-					text = integrated_any_egyptian_culture
-					has_variable = egyptian_science
+					text = integrated_any_persian_culture
+					has_variable = persian_science
 					any_country_culture = {
 						is_integrated = yes
-						this.culture.culture_group = culture_group:north_african
+						is_persian_culture_group_trigger = yes
 					}
 				}
-			}
-		} 
-    }
-    seeder_plough_inv = {
-    	modifier = { global_monthly_food_modifier = 0.1 }
-        
-        requires = { global_tax_modifier_inv_2 }
-        allow = {
-			OR = {
 				country_culture_group = east_levantine
 				custom_tooltip = {
 					#Need a new text
@@ -1773,522 +1835,11 @@
 			}
 		} 
     }
-    thracian_metalworking_inv = { 
-        modifier = { 
-        	global_commerce_modifier = 0.05
-        }
-        
-        requires = { illyrian_fishing_nets_inv } 
-        allow = {
-			OR = {
-				country_culture_group = illyrian_group
-				country_culture_group = dacia_group
-				country_culture_group = thrace_group
-				custom_tooltip = {
-					text = integrated_any_haemic_culture
-					has_variable = haemic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:illyrian_group
-							this.culture.culture_group = culture_group:dacia_group
-							this.culture.culture_group = culture_group:thrace_group
-						}
-					}
-				}
-			}
-		}
-    }
-    bones_of_antaeus_inv = { 
-        modifier = { global_manpower_modifier = 0.05 }
-        
-        requires = { numidian_script_inv }
-        allow = {
-			OR = {
-				country_culture_group = numidian
-				country_culture_group = fezzani
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_numidian_culture
-					has_variable = numidian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:numidian
-							this.culture.culture_group = culture_group:fezzani
-						}
-					}
-				}
-			}
-		} 
-    }
-    nilometer_inv = {
-    	modifier = { global_freemen_output = 0.03 }
-        
-        requires = { shaduf_inv }
-        allow = {
-			OR = {
-				country_culture_group = north_african
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_egyptian_culture
-					has_variable = egyptian_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:north_african
-					}
-				}
-			}
-		} 
-    }
-    mass_produced_bricks_inv = {
-    	modifier = { build_cost = -0.05 }
-        
-        requires = { seeder_plough_inv }
-        allow = {
-			OR = {
-				country_culture_group = east_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_east_levantine_culture
-					has_variable = mesopotamian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_mesopotamian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-    horse_mill_inv = { 
-        modifier = { 
-        	global_slaves_output = 0.04
-        	global_monthly_food_modifier = 0.04
-        }
-        
-        requires = { bones_of_antaeus_inv }
-        allow = {
-			OR = {
-				country_culture_group = numidian
-				country_culture_group = fezzani
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_numidian_culture
-					has_variable = numidian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:numidian
-							this.culture.culture_group = culture_group:fezzani
-						}
-					}
-				}
-				country_culture_group = west_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_punic_culture
-					has_variable = punic_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:west_levantine
-					}
-				}
-			}
-		} 
-    }
-    basin_irrigation_inv = {
-    	modifier = { global_population_capacity_modifier = 0.05 }
-        
-        requires = { nilometer_inv }
-        allow = {
-			OR = {
-				country_culture_group = north_african
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_egyptian_culture
-					has_variable = egyptian_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:north_african
-					}
-				}
-			}
-		} 
-    }
-    textile_mill_inv = {
-    	modifier = { global_freemen_output = 0.03 }
-        
-        requires = { mass_produced_bricks_inv }
-        allow = {
-			OR = {
-				country_culture_group = east_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_east_levantine_culture
-					has_variable = mesopotamian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_mesopotamian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-    gum_trade_inv = { 
-        modifier = {
-        	global_commerce_modifier = 0.1
-        }
-        
-        requires = { commerce_inv_3 }
-        allow = {
-			OR = {
-				country_culture_group = south_levantine
-				country_culture_group = south_arabian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_arabian_culture
-					has_variable = arabian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:south_arabian
-						}
-					}
-				}
-				country_culture_group = meroitic_group
-				country_culture_group = aksumite_group
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_nubian_culture
-					OR = {
-						has_variable = nubian_science
-						has_variable = new_egyptian_dynasty
-					}
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:meroitic_group
-							this.culture.culture_group = culture_group:aksumite_group
-						}	
-					}
-				}
-			}
-		} 
-    }
-    cistern_inv = {
-		modifier = { 
-			global_population_capacity_modifier = 0.05 
-		}
-
-		allow = {
-			OR = {
-				primary_culture = aramaic
-				primary_culture = phoenician
-				primary_culture = hebrew
-				primary_culture = nabatean
-			}
-		}
-        
-        requires = { state_trade_inv_2 }
-	}
-	phoenician_colonies_inv = { 
-        modifier = { price_found_city_cost_modifier = -0.1 }
-        
-        requires = { horse_mill_inv }
-        allow = {
-			OR = {
-				country_culture_group = west_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_punic_culture
-					has_variable = punic_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:west_levantine
-					}
-				}
-			}
-		} 
-    }
-    canals_and_levees_inv = {
-    	modifier = { 
-    		global_capital_trade_routes = 1
-    		global_monthly_food_modifier = 0.03
-    	}
-        
-        requires = { textile_mill_inv }
-        allow = {
-			OR = {
-				country_culture_group = east_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_east_levantine_culture
-					has_variable = mesopotamian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_mesopotamian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-    myrrh_trade_inv = { 
-        modifier = {
-        	global_commerce_modifier = 0.1
-        	global_capital_trade_routes = 1
-        }
-        
-        requires = { gum_trade_inv }
-        allow = {
-			OR = {
-				country_culture_group = south_levantine
-				country_culture_group = south_arabian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_arabian_culture
-					has_variable = arabian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:south_arabian
-						}
-					}
-				}
-				country_culture_group = meroitic_group
-				country_culture_group = aksumite_group
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_nubian_culture
-					OR = {
-						has_variable = nubian_science
-						has_variable = new_egyptian_dynasty
-					}
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:meroitic_group
-							this.culture.culture_group = culture_group:aksumite_group
-						}
-					}
-				}
-			}
-		} 
-    }
-    ivory_trade_inv = { 
-        modifier = {
-        	global_export_commerce_modifier = 0.1
-        	global_capital_trade_routes = 1
-        }
-        
-        requires = { gum_trade_inv }
-        allow = {
-			OR = {
-				country_culture_group = meroitic_group
-				country_culture_group = aksumite_group
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_nubian_culture
-					OR = {
-					has_variable = nubian_science
-					has_variable = new_egyptian_dynasty
-					}
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:meroitic_group
-							this.culture.culture_group = culture_group:aksumite_group
-						}
-					}
-				}
-			}
-		} 
-    }
-    tyrian_purple_inv = { 
-        modifier = { 
-        	global_commerce_modifier = 0.1
-        	global_export_commerce_modifier = 0.025
-        }
-        
-        requires = { phoenician_colonies_inv }
-        allow = {
-			OR = {
-				country_culture_group = west_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_punic_culture
-					has_variable = punic_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:west_levantine
-					}
-				}
-			}
-		} 
-    }
-    pepper_trade_inv = { 
-        modifier = {
-        	global_commerce_modifier = 0.1
-        }
-        
-        requires = { myrrh_trade_inv }
-        allow = {
-			OR = {
-				country_culture_group = south_levantine
-				country_culture_group = south_arabian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_arabian_culture
-					has_variable = arabian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:south_arabian
-						}
-					}
-				}
-			}
-		} 
-    }
-    silent_trade_inv = { 
-        modifier = { 
-        	global_commerce_modifier = 0.1 
-        	global_capital_trade_routes = 1
-        }
-        
-        requires_or = { tyrian_purple_inv }
-        allow = {
-			OR = {
-				country_culture_group = west_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_punic_culture
-					has_variable = punic_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:west_levantine
-					}
-				}
-			}
-		} 
-    }
-    cinnamon_trade_inv = { 
-        modifier = {
-        	global_state_trade_routes = 1
-        }
-        
-        requires = { pepper_trade_inv }
-        allow = {
-			OR = {
-				country_culture_group = south_levantine
-				country_culture_group = south_arabian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_arabian_culture
-					has_variable = arabian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:south_arabian
-						}
-					}
-				}
-			}
-		} 
-    }
-    brass_coinage_inv = { #Iberian brass coinage
-        modifier = { 
-        	global_commerce_modifier = 0.05 
-        	global_tax_modifier = 0.05
-        }
-        
-        requires = { global_goods_from_slaves_inv }
-        allow = {
-			OR = {
-				country_culture_group = celt_iberia
-				country_culture_group = iberia
-				custom_tooltip = {
-					text = integrated_any_iberian_culture
-					has_variable = iberian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:celt_iberia
-							this.culture.culture_group = culture_group:iberia
-						}
-					}
-				}
-			}
-		}
-    }
-    iberian_ceramics_inv = { #Iberian ceramics
-        modifier = { 
-        	global_commerce_modifier = 0.05 
-        	global_population_growth = 0.03
-        }
-        
-        requires = { brass_coinage_inv }
-        allow = {
-			OR = {
-				country_culture_group = celt_iberia
-				country_culture_group = iberia
-				custom_tooltip = {
-					text = integrated_any_iberian_culture
-					has_variable = iberian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:celt_iberia
-							this.culture.culture_group = culture_group:iberia
-						}
-					}
-				}
-			}
-		}
-    }
-    tartessian_script_inv = { #Tartessian script
-        modifier = { 
-        	research_points_modifier = 0.05
-			happiness_for_same_culture_modifier = 0.03
-        }
-        
-        requires = { iberian_ceramics_inv }
-        allow = {
-			OR = {
-				country_culture_group = celt_iberia
-				country_culture_group = iberia
-				custom_tooltip = {
-					text = integrated_any_iberian_culture
-					has_variable = iberian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:celt_iberia
-							this.culture.culture_group = culture_group:iberia
-						}
-					}
-				}
-			}
-		}
-    }
-    hillock_inv = { #Colchis Hillock
-    	requires = { civic_tech_investment_inv_1 }
+    pahlavi_script_inv = {
     	modifier = {
-    		global_population_capacity_modifier = 0.05 }
-    	allow = {
-    		OR = {
-    			primary_culture = colchian
-    			tag = COL
-    		}
+    		character_loyalty = 1
     	}
-    }
-    kariz_inv = {
-    	modifier = { global_monthly_food_modifier = 0.05 }
-        
-        requires = { civic_construction_inv_4 }
+        requires = { commerce_inv_5 }
         allow = {
 			OR = {
 				country_culture_group = persia
@@ -2304,173 +1855,75 @@
 			}
 		} 
     }
-    imperial_diaspora_inv = {
-    	modifier = { price_found_city_cost_modifier = -0.1 }
-        
-        requires = { kariz_inv }
-        allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-    yakhchal_inv = {
-    	modifier = { global_goods_from_slaves = -1 }
-        
-        requires = { imperial_diaspora_inv }
-        allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-    kithara_inv = { 
-		modifier = { happiness_for_wrong_culture_group_modifier = 0.03 }
-		
-		requires = { oratory_tech_investment_inv_1 }
-		allow = {
-			OR = {
-				country_culture_group = illyrian_group
-				country_culture_group = dacia_group
-				country_culture_group = thrace_group
-				custom_tooltip = {
-					text = integrated_any_haemic_culture
-					has_variable = haemic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:illyrian_group
-							this.culture.culture_group = culture_group:dacia_group
-							this.culture.culture_group = culture_group:thrace_group
-						}
-					}
-				}
-			}
-		}
-	}
-	thracian_poetry_inv = { 
+    alphabet_inv = {
 		modifier = { 
 			research_points_modifier = 0.05
-			happiness_for_same_culture_modifier = 0.03
+			happiness_for_same_culture_modifier = 0.03 
 		}
-		
-		requires = { kithara_inv }
-		allow = {
+		requires = { commerce_inv_5 }
+		 allow = {
 			OR = {
-				country_culture_group = illyrian_group
-				country_culture_group = dacia_group
-				country_culture_group = thrace_group
+				country_culture_group = west_levantine
 				custom_tooltip = {
-					text = integrated_any_haemic_culture
-					has_variable = haemic_science
+					#Need a new text
+					text = integrated_any_punic_culture
+					has_variable = punic_science
 					any_country_culture = {
 						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:illyrian_group
-							this.culture.culture_group = culture_group:dacia_group
-							this.culture.culture_group = culture_group:thrace_group
-						}
+						this.culture.culture_group = culture_group:west_levantine
 					}
 				}
 			}
 		}
 	}
+	musnad_script_inv = { 
+        modifier = {
+        	research_points_modifier = 0.05
+        	country_civilization_value = 5
+        }
+        
+        requires = { commerce_inv_5 }
+        allow = {
+			OR = {
+				country_culture_group = south_levantine
+				country_culture_group = south_arabian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_arabian_culture
+					has_variable = arabian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:south_levantine
+							this.culture.culture_group = culture_group:south_arabian
+						}
+					}
+				}
+			}
+		} 
+    }
+    
+    
+    #egyptian
 	police_baboon_inv = {
     	modifier = {
     		global_unrest = -0.5
-    		global_monthly_state_loyalty = 0.03
+    		global_monthly_state_loyalty = 0.01
     	}
     	requires = { oratory_tech_investment_inv_2 }
     	allow = { country_culture_group = north_african }
     }
-    royal_gift_exchance_inv = { 
-		modifier = { 
-			character_loyalty = 2
-			loyalty_gain_chance_modifier = 0.02
-			monthly_legitimacy = 0.01
-		}
-
-		allow = {
-			primary_culture = odrysi
-		}
-		
-		requires = { monthly_governor_inv }
-	}
-	imperial_aramaic_inv = {
-    	modifier = { monthly_wage_modifier = -0.05 }
-        
-        requires = { oratory_tech_investment_inv_2 }
-        allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-				country_culture_group = east_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_east_levantine_culture
-					has_variable = mesopotamian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_mesopotamian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-    achaemenid_administration_inv = {
+	
+    polycentric_administration_inv = {
     	modifier = { 
+    		happiness_for_wrong_culture_group_modifier = 0.02 
+    		happiness_for_wrong_religion_modifier = 0.02 
     		global_monthly_state_loyalty = 0.02 
     		character_loyalty = 1
     	}
-        
-        requires = { oratory_tech_investment_inv_2 }
-        allow = {
-			OR = {
-				country_culture_group = anatolian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_anatolian_culture
-					has_variable = anatolian_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:anatolian
-					}
-				}
-			}
-		} 
-    }
-    polycentric_administration_inv = {
-    	modifier = { 
-    		happiness_for_wrong_culture_group_modifier = 0.03 
-    		diplomatic_relations = 1
+        on_activate = {
+			custom_tooltip = "Bureacracy Laws Unlocked"
     	}
-        
         requires = { imperial_aramaic_inv }
         allow = {
 			OR = {
@@ -2484,51 +1937,12 @@
 						is_persian_culture_group_trigger = yes
 					}
 				}
+				country_culture_group = anatolian
 			}
 		} 
     }
-    pahlavi_script_inv = {
-    	modifier = {
-    		character_loyalty = 1
-    	}
-        requires = { polycentric_administration_inv }
-        allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-    court_procedures_inv = {
-    	modifier = { 
-    		monarchy_new_ruler_cost_modifier = -0.3
-    		monthly_corruption = -0.01
-		}
-        
-        requires = { pahlavi_script_inv }
-        allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
+    
+    
     paradisial_gardens_inv = {
     	modifier = { monthly_political_influence_modifier = 0.1 }
         
@@ -2550,3 +1964,264 @@
     }
 
 }
+
+
+#    gum_trade_inv = { 
+#        modifier = {
+#        	global_commerce_modifier = 0.1
+#        }
+#        
+#        requires = { commerce_inv_3 }
+#        allow = {
+#			OR = {
+#				country_culture_group = south_levantine
+#				country_culture_group = south_arabian
+#				custom_tooltip = {
+#					#Need a new text
+#					text = integrated_any_arabian_culture
+#					has_variable = arabian_science
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:south_levantine
+#							this.culture.culture_group = culture_group:south_arabian
+#						}
+#					}
+#				}
+#				country_culture_group = meroitic_group
+#				country_culture_group = aksumite_group
+#				custom_tooltip = {
+#					#Need a new text
+#					text = integrated_any_nubian_culture
+#					OR = {
+#						has_variable = nubian_science
+#						has_variable = new_egyptian_dynasty
+#					}
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:meroitic_group
+#							this.culture.culture_group = culture_group:aksumite_group
+#						}	
+#					}
+#				}
+#			}
+#		} 
+#    }
+#    
+#    myrrh_trade_inv = { 
+#        modifier = {
+#        	global_commerce_modifier = 0.1
+#        	global_capital_trade_routes = 1
+#        }
+#        
+#        requires = { gum_trade_inv }
+#        allow = {
+#			OR = {
+#				country_culture_group = south_levantine
+#				country_culture_group = south_arabian
+#				custom_tooltip = {
+#					#Need a new text
+#					text = integrated_any_arabian_culture
+#					has_variable = arabian_science
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:south_levantine
+#							this.culture.culture_group = culture_group:south_arabian
+#						}
+#					}
+#				}
+#				country_culture_group = meroitic_group
+#				country_culture_group = aksumite_group
+#				custom_tooltip = {
+#					#Need a new text
+#					text = integrated_any_nubian_culture
+#					OR = {
+#						has_variable = nubian_science
+#						has_variable = new_egyptian_dynasty
+#					}
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:meroitic_group
+#							this.culture.culture_group = culture_group:aksumite_group
+#						}
+#					}
+#				}
+#			}
+#		} 
+#    }
+#    ivory_trade_inv = { 
+#        modifier = {
+#        	global_export_commerce_modifier = 0.1
+#        	global_capital_trade_routes = 1
+#        }
+#        
+#        requires = { gum_trade_inv }
+#        allow = {
+#			OR = {
+#				country_culture_group = meroitic_group
+#				country_culture_group = aksumite_group
+#				custom_tooltip = {
+#					#Need a new text
+#					text = integrated_any_nubian_culture
+#					OR = {
+#					has_variable = nubian_science
+#					has_variable = new_egyptian_dynasty
+#					}
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:meroitic_group
+#							this.culture.culture_group = culture_group:aksumite_group
+#						}
+#					}
+#				}
+#			}
+#		} 
+#    }
+#    tyrian_purple_inv = { 
+#        modifier = { 
+#        	global_commerce_modifier = 0.1
+#        	global_export_commerce_modifier = 0.025
+#        }
+#        
+#        requires = { phoenician_colonies_inv }
+#        allow = {
+#			OR = {
+#				country_culture_group = west_levantine
+#				custom_tooltip = {
+#					#Need a new text
+#					text = integrated_any_punic_culture
+#					has_variable = punic_science
+#					any_country_culture = {
+#						is_integrated = yes
+#						this.culture.culture_group = culture_group:west_levantine
+#					}
+#				}
+#			}
+#		} 
+#    }
+#    pepper_trade_inv = { 
+#        modifier = {
+#        	global_commerce_modifier = 0.1
+#        }
+#        
+#        requires = { myrrh_trade_inv }
+#        allow = {
+#			OR = {
+#				country_culture_group = south_levantine
+#				country_culture_group = south_arabian
+#				custom_tooltip = {
+#					#Need a new text
+#					text = integrated_any_arabian_culture
+#					has_variable = arabian_science
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:south_levantine
+#							this.culture.culture_group = culture_group:south_arabian
+#						}
+#					}
+#				}
+#			}
+#		} 
+#    }
+#    silent_trade_inv = { 
+#        modifier = { 
+#        	global_commerce_modifier = 0.1 
+#        	global_capital_trade_routes = 1
+#        }
+#        
+#        requires_or = { tyrian_purple_inv }
+#        allow = {
+#			OR = {
+#				country_culture_group = west_levantine
+#				custom_tooltip = {
+#					#Need a new text
+#					text = integrated_any_punic_culture
+#					has_variable = punic_science
+#					any_country_culture = {
+#						is_integrated = yes
+#						this.culture.culture_group = culture_group:west_levantine
+#					}
+#				}
+#			}
+#		} 
+#    }
+#    cinnamon_trade_inv = { 
+#        modifier = {
+#        	global_state_trade_routes = 1
+#        }
+#        
+#        requires = { pepper_trade_inv }
+#        allow = {
+#			OR = {
+#				country_culture_group = south_levantine
+#				country_culture_group = south_arabian
+#				custom_tooltip = {
+#					#Need a new text
+#					text = integrated_any_arabian_culture
+#					has_variable = arabian_science
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:south_levantine
+#							this.culture.culture_group = culture_group:south_arabian
+#						}
+#					}
+#				}
+#			}
+#		} 
+#    }
+#    iberian_ceramics_inv = { #Iberian ceramics
+#        modifier = { 
+#        	global_commerce_modifier = 0.05 
+#        	global_population_growth = 0.03
+#        }
+#        
+#        requires = { brass_coinage_inv }
+#        allow = {
+#			OR = {
+#				country_culture_group = celt_iberia
+#				country_culture_group = iberia
+#				custom_tooltip = {
+#					text = integrated_any_iberian_culture
+#					has_variable = iberian_science
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:celt_iberia
+#							this.culture.culture_group = culture_group:iberia
+#						}
+#					}
+#				}
+#			}
+#		}
+#    }
+#    tartessian_script_inv = { #Tartessian script
+#        modifier = { 
+#        	research_points_modifier = 0.05
+#			happiness_for_same_culture_modifier = 0.03
+#        }
+#        
+#        requires = { iberian_ceramics_inv }
+#        allow = {
+#			OR = {
+#				country_culture_group = celt_iberia
+#				country_culture_group = iberia
+#				custom_tooltip = {
+#					text = integrated_any_iberian_culture
+#					has_variable = iberian_science
+#					any_country_culture = {
+#						is_integrated = yes
+#						OR = {
+#							this.culture.culture_group = culture_group:celt_iberia
+#							this.culture.culture_group = culture_group:iberia
+#						}
+#					}
+#				}
+#			}
+#		}
+#    }
