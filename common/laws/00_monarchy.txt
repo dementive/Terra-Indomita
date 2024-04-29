@@ -523,13 +523,21 @@ monarchy_subject_laws = {
 	potential = { 
 		is_monarchy = yes
 	}
+	humility_status_law = { 
 	
-	trusted_beyond_measure = {
+		allow = {
+			always = yes
+		}
+	
 		modifier = {
+			global_freemen_happyness = happiness_large_svalue
 			subject_opinions = 15
 		}
-	} 
-	
+		
+		on_enact = {
+			custom_tooltip = can_nominate_heir_at_high_legitimacy
+		}
+	}
 	king_of_kings = {
 		
 		allow = {
@@ -540,22 +548,31 @@ monarchy_subject_laws = {
 			integrate_speed = 0.3
 			diplomatic_relations = 2
 		}
-	}	
-	subject_laws_3_mon = { #
+	}
+	elevate_monarch_monarchy = {
 		
-		allow = {
+		allow  = {
+			current_ruler = {
+				zeal >= 8
+				popularity >= 95
+			}
+			legitimacy >= 95
+			stability >= 70
 			num_of_cities >= 500
-			has_law = elevate_monarch_monarchy
 			has_law = religious_law_5_mon
-			
 		}
+		
 		modifier = {
 			integrate_speed = 0.2
-			diplomatic_reputation = 2
-			subject_opinions = 25
+			ruler_popularity_gain = 0.25
+			agressive_expansion_impact = -0.2
 			diplomatic_relations = 2
 		}
-	}	
+			
+		on_enact = {
+			custom_tooltip = can_always_nominate_heirs
+		}
+	}		
 }
 monarchy_contract_law = {
 	potential = {
@@ -596,8 +613,13 @@ monarchy_contract_law = {
 			global_monthly_state_loyalty = 0.03
 		}
 		allow = {
-			civic_tech >= 12
-			invention = tyranny_inv_2
+			or = {
+				and = {
+					civic_tech >= 12
+					invention = tyranny_inv_2
+				}
+				invention = polycentric_administration_inv
+			}
 		}
 	}
 	public_notaries_law = { #public notaries
@@ -1141,48 +1163,6 @@ monarchy_grain_laws = {
 			global_population_happiness = 0.04
 			global_tax_modifier = -0.2
 			global_unrest = -2
-		}
-	}
-}
-monarchy_divinity_statutes = {
-	potential = {
-		is_monarchy = yes
-		not = {religion = judaism}
-	}
-	
-	humility_status_law = { 
-	
-		allow = {
-			always = yes
-		}
-	
-		modifier = {
-			global_freemen_happyness = happiness_large_svalue
-		}
-		
-		on_enact = {
-			custom_tooltip = can_nominate_heir_at_high_legitimacy
-		}
-	}
-	
-	elevate_monarch_monarchy = {
-		
-		allow  = {
-			current_ruler = {
-				zeal >= 8
-				popularity >= 95
-			}
-			legitimacy >= 95
-			stability >= 70
-		}
-		
-		modifier = {
-			ruler_popularity_gain = 0.25
-			agressive_expansion_impact = -0.2
-		}
-			
-		on_enact = {
-			custom_tooltip = can_always_nominate_heirs
 		}
 	}
 }

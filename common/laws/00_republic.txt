@@ -115,13 +115,124 @@ republic_election_reforms_rom = { # Electoral Reforms
 		}
 	}
 }
+############
+trade_laws_republic = {
+	potential = {
+		or = {
+			is_republic = yes
+		}
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	trade_law_1_rep = { #import dutues
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+	}
+	trade_law_2_rep = { #subsidized shipments 
+		modifier = {
+			price_state_investment_oratory_cost_modifier = -0.1
+			global_commerce_modifier = 0.05
+		}
+		allow = {
+			num_of_ports >= 1
+		}
+	}
+	trade_law_3_rep = { #merchant rights
+		modifier = {
+			global_import_commerce_modifier = -0.2
+			global_citizen_output = 0.04
+		}
+	}
+	trade_law_4_rep = {#remove tariffs
+		modifier = {
+			global_citizen_happyness = 0.1
+			global_import_commerce_modifier = -2
+		}
+	}
+}
+trade_laws_rom = {
+	potential = {
+		or = {
+			is_monarchy = yes
+			is_republic = yes
+		}
+		or = {
+			tag = ROM
+		}
+	}
+	trade_law_1_rom = { #import dutues Portorttia
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+	}
+	trade_law_2_rom = { #AMphroa
+		modifier = {
+			price_state_investment_oratory_cost_modifier = -0.1
+		}
+		allow = {
+			num_of_ports >= 1
+		}
+	}
+	lex_claudia = { #lex claudia
+		modifier = {
+			monthly_corruption = -0.03
+			global_citizen_output = 0.08
+		}
+	}
+	lex_caecilia = {#Lex Cecilia devecitigalib
+		modifier = {
+			global_citizen_happyness = 0.1
+			global_state_trade_routes = 0.1
+			global_import_commerce_modifier = -2
+		}
+	}
+}
+trade_laws_car = {
+	potential = {
+		or = {
+			is_monarchy = yes
+			is_republic = yes
+		}
+		or = {
+			tag = CAR
+		}
+	}
+	trade_law_1_car = { #import dutues Portorttia
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+	}
+	trade_law_2_car = { #strategic monopolies
+		modifier = {
+			global_commerce_modifier = 0.05
+		}
+		allow = {
+			num_of_ports >= 1
+		}
+	}
+	trade_law_3_car = { #encourgae mechants
+		modifier = {
+			global_citizen_output = 0.06
+			global_citizen_happyness = 0.06
+		}
+	}
+	trade_law_4_car = {#merchant senators
+		modifier = {
+			global_nobles_city_desired_pop_ratio = 0.05
+			global_capital_trade_routes = 1
+		}
+	}
+}
 ###############
 corruption_laws = { # Endorse Legislative Body
 	potential = {
 		is_republic = yes
 		NOr = {
 			tag = ROM
-			tag = car
+			tag = CAR
 		}
 	}
 	
@@ -303,6 +414,189 @@ corruption_laws_rom = { # Assembly Endorsement
 		}
 	}
 }
+#############
+tax_laws_republic = {
+	potential = {
+		is_republic = yes
+		nor = {
+			tag = ROM
+			tag = CAR
+		}
+	}
+	
+	tax_law_1_rep = { #war taxesIn the early stages oif ancient society, direct taxation was not only unusual; the beauracracy just was not sophistcated enough to tax properly. However, a direct tax was ususally levied during times of war to protect the city state. IN Ancinet greece< nobles were very oproud of adding more to the tax 
+		modifier = {
+			war_exhaustion = -0.005
+			global_nobles_output = 0.03
+			global_tax_modifier = -0.05
+		}
+		allow = {
+			rank < regional_power
+		}
+	}
+	tax_law_2_rep = { # land taxes
+		modifier = {
+			global_slaves_output = 0.05
+		}
+		allow = {
+			rank >= regional_power
+		}
+	}
+	tax_law_3_rep = { #tax farming base
+		
+		modifier = {
+			#"Monthly Ruler Corruption + 0.05"
+			#"Monthly Governor Corruption + 0.05"
+			monthly_tyranny = 0.02
+			monthly_corruption = 0.05
+			global_tax_modifier = 0.15
+
+		}
+		allow = {
+			invention = tax_farming_inv
+		}
+	}
+	tax_law_4_rep = { #reel in the tax farmers
+		modifier = {
+			global_citizen_happyness = 0.04
+			global_freemen_happyness = 0.04
+			global_tax_modifier = 0.08
+			monthly_corruption = 0.03
+			#"Monthly Ruler Corruption + 0.02"
+			#"Monthly Governor Corruption + 0.03"
+		}
+		allow = {
+			civic_tech >= 12
+			invention = tax_farming_inv
+		}
+	}
+	tax_law_5_rep = { #bureacratic taxation
+	
+		allow = {
+			rank >= great_power
+			civic_tech >= 15
+		}
+		modifier = {
+			global_tax_modifier = 0.05
+			monthly_governor_wage = 0.1
+			global_population_happiness = 0.02
+		}
+	}
+}
+tax_laws_car = {
+	potential = {
+		is_republic = yes
+		tag = CAR
+	}
+	
+	tax_law_1_car = { #war taxesIn the early stages oif ancient society, direct taxation was not only unusual; the beauracracy just was not sophistcated enough to tax properly. However, a direct tax was ususally levied during times of war to protect the city state. IN Ancinet greece< nobles were very oproud of adding more to the tax 
+		modifier = {
+			war_exhaustion = 0.01
+			global_nobles_output = 0.03
+			global_tax_modifier = -0.05
+		}
+	}
+	tax_law_2_car = { # agricultrual tithe
+		modifier = {
+			global_tax_modifier = 0.05
+		}
+		allow = {
+			rank >= regional_power
+		}
+	}
+	tax_law_3_car = { #tax idk 
+		
+		modifier = {
+			global_slaves_output = 0.1
+
+		}
+		allow = {
+			rank > regional_power
+		}
+	}
+	tax_law_4_car = { #intorduce tax farming
+		modifier = {
+			global_tax_modifier = 0.1
+			monthly_corruption = 0.03
+		}
+		allow = {
+			civic_tech >= 12
+			rank > regional_power
+		}
+	}
+	tax_law_5_car = { #bureacratic taxation
+	
+		allow = {
+			rank >= great_power
+			civic_tech >= 15
+		}
+		modifier = {
+			global_tax_modifier = 0.05
+			monthly_governor_wage = 0.1
+			global_population_happiness = 0.02
+		}
+	}
+}
+tax_laws_rom = { #civil gtributim
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	
+	tax_law_1_rom = { #civile tributim
+		modifier = {
+			war_exhaustion = -0.005
+			global_nobles_output = 0.03
+			global_tax_modifier = -0.1
+		}
+		allow = {
+			rank < regional_power
+		}
+	}
+	tax_law_2_rom = { # tributum soli
+		modifier = {
+			global_slaves_output = 0.05
+		}
+		allow = {
+			rank >= regional_power
+		}
+	}
+	tax_law_3_rom = { #Publicani
+		modifier = {
+			#"Monthly Ruler Corruption + 0.05"
+			#"Monthly Governor Corruption + 0.05"
+			monthly_tyranny = 0.02
+			monthly_corruption = 0.05
+			global_tax_modifier = 0.15
+
+		}
+	}
+	tax_law_4_rom = { #Augustan reforms
+		modifier = {
+			global_citizen_happyness = 0.04
+			global_freemen_happyness = 0.04
+			global_tax_modifier = 0.08
+			monthly_corruption = 0.03
+			#"Monthly Ruler Corruption + 0.02"
+			#"Monthly Governor Corruption + 0.03"
+		}
+		allow = {
+			civic_tech >= 12
+		}
+	}
+	tax_law_5_rom = { #Diocletian reforms
+	
+		allow = {
+			rank >= great_power
+			civic_tech >= 15
+		}
+		modifier = {
+			global_tax_modifier = 0.05
+			monthly_governor_wage = 0.1
+			global_population_happiness = 0.02
+		}
+	}
+}
 ##############
 republic_military_recruitment_laws = { # Military Reforms
 	potential = {
@@ -394,6 +688,7 @@ republic_military_recruitment_car_laws = { # Carthage Military Reforms
 		modifier = {
 			levy_size_multiplier = 0.05
 			mercenary_land_maintenance_cost = -0.1
+			war_exhaustion = -0.02
 		}
 		on_enact = {
 			custom_tooltip = legions_in_no_region
@@ -790,300 +1085,6 @@ republican_mediterranean_car_laws = {
 		}
 	}
 }
-#############
-tax_laws_republic = {
-	potential = {
-		is_republic = yes
-		nor = {
-			tag = ROM
-			tag = CAR
-		}
-	}
-	
-	tax_law_1_rep = { #war taxesIn the early stages oif ancient society, direct taxation was not only unusual; the beauracracy just was not sophistcated enough to tax properly. However, a direct tax was ususally levied during times of war to protect the city state. IN Ancinet greece< nobles were very oproud of adding more to the tax 
-		modifier = {
-			war_exhaustion = -0.005
-			global_nobles_output = 0.03
-			global_tax_modifier = -0.05
-		}
-		allow = {
-			rank < regional_power
-		}
-	}
-	tax_law_2_rep = { # land taxes
-		modifier = {
-			global_slaves_output = 0.05
-		}
-		allow = {
-			rank >= regional_power
-		}
-	}
-	tax_law_3_rep = { #tax farming base
-		
-		modifier = {
-			#"Monthly Ruler Corruption + 0.05"
-			#"Monthly Governor Corruption + 0.05"
-			monthly_tyranny = 0.02
-			monthly_corruption = 0.05
-			global_tax_modifier = 0.15
-
-		}
-		allow = {
-			invention = tax_farming_inv
-		}
-	}
-	tax_law_4_rep = { #reel in the tax farmers
-		modifier = {
-			global_citizen_happyness = 0.04
-			global_freemen_happyness = 0.04
-			global_tax_modifier = 0.08
-			monthly_corruption = 0.03
-			#"Monthly Ruler Corruption + 0.02"
-			#"Monthly Governor Corruption + 0.03"
-		}
-		allow = {
-			civic_tech >= 12
-			invention = tax_farming_inv
-		}
-	}
-	tax_law_5_rep = { #bureacratic taxation
-	
-		allow = {
-			rank >= great_power
-			civic_tech >= 15
-		}
-		modifier = {
-			global_tax_modifier = 0.05
-			monthly_governor_wage = 0.1
-			global_population_happiness = 0.02
-		}
-	}
-}
-tax_laws_car = {
-	potential = {
-		is_republic = yes
-		tag = CAR
-	}
-	
-	tax_law_1_car = { #war taxesIn the early stages oif ancient society, direct taxation was not only unusual; the beauracracy just was not sophistcated enough to tax properly. However, a direct tax was ususally levied during times of war to protect the city state. IN Ancinet greece< nobles were very oproud of adding more to the tax 
-		modifier = {
-			war_exhaustion = 0.01
-			global_nobles_output = 0.03
-			global_tax_modifier = -0.05
-		}
-	}
-	tax_law_2_car = { # agricultrual tithe
-		modifier = {
-			global_tax_modifier = 0.05
-		}
-		allow = {
-			rank >= regional_power
-		}
-	}
-	tax_law_3_car = { #tax idk 
-		
-		modifier = {
-			global_slaves_output = 0.1
-
-		}
-		allow = {
-			rank > regional_power
-		}
-	}
-	tax_law_4_car = { #intorduce tax farming
-		modifier = {
-			global_tax_modifier = 0.1
-			monthly_corruption = 0.03
-		}
-		allow = {
-			civic_tech >= 12
-			rank > regional_power
-		}
-	}
-	tax_law_5_car = { #bureacratic taxation
-	
-		allow = {
-			rank >= great_power
-			civic_tech >= 15
-		}
-		modifier = {
-			global_tax_modifier = 0.05
-			monthly_governor_wage = 0.1
-			global_population_happiness = 0.02
-		}
-	}
-}
-tax_laws_rom = { #civil gtributim
-	potential = {
-		is_republic = yes
-		tag = ROM
-	}
-	
-	tax_law_1_rom = { #civile tributim
-		modifier = {
-			war_exhaustion = -0.005
-			global_nobles_output = 0.03
-			global_tax_modifier = -0.1
-		}
-		allow = {
-			rank < regional_power
-		}
-	}
-	tax_law_2_rom = { # tributum soli
-		modifier = {
-			global_slaves_output = 0.05
-		}
-		allow = {
-			rank >= regional_power
-		}
-	}
-	tax_law_3_rom = { #Publicani
-		modifier = {
-			#"Monthly Ruler Corruption + 0.05"
-			#"Monthly Governor Corruption + 0.05"
-			monthly_tyranny = 0.02
-			monthly_corruption = 0.05
-			global_tax_modifier = 0.15
-
-		}
-	}
-	tax_law_4_rom = { #Augustan reforms
-		modifier = {
-			global_citizen_happyness = 0.04
-			global_freemen_happyness = 0.04
-			global_tax_modifier = 0.08
-			monthly_corruption = 0.03
-			#"Monthly Ruler Corruption + 0.02"
-			#"Monthly Governor Corruption + 0.03"
-		}
-		allow = {
-			civic_tech >= 12
-		}
-	}
-	tax_law_5_rom = { #Diocletian reforms
-	
-		allow = {
-			rank >= great_power
-			civic_tech >= 15
-		}
-		modifier = {
-			global_tax_modifier = 0.05
-			monthly_governor_wage = 0.1
-			global_population_happiness = 0.02
-		}
-	}
-}
-############
-trade_laws_republic = {
-	potential = {
-		or = {
-			is_republic = yes
-		}
-		nor = {
-			tag = CAR
-			tag = ROM
-		}
-	}
-	trade_law_1_rep = { #import dutues
-		modifier = {
-			global_import_commerce_modifier = 0.2
-		}
-	}
-	trade_law_2_rep = { #subsidized shipments 
-		modifier = {
-			price_state_investment_oratory_cost_modifier = -0.1
-			global_commerce_modifier = 0.05
-		}
-		allow = {
-			num_of_ports >= 1
-		}
-	}
-	trade_law_3_rep = { #merchant rights
-		modifier = {
-			global_import_commerce_modifier = -0.2
-			global_citizen_output = 0.04
-		}
-	}
-	trade_law_4_rep = {#remove tariffs
-		modifier = {
-			global_citizen_happyness = 0.1
-			global_import_commerce_modifier = -2
-		}
-	}
-}
-trade_laws_rom = {
-	potential = {
-		or = {
-			is_monarchy = yes
-			is_republic = yes
-		}
-		or = {
-			tag = ROM
-		}
-	}
-	trade_law_1_rom = { #import dutues Portorttia
-		modifier = {
-			global_import_commerce_modifier = 0.2
-		}
-	}
-	trade_law_2_rom = { #AMphroa
-		modifier = {
-			price_state_investment_oratory_cost_modifier = -0.1
-		}
-		allow = {
-			num_of_ports >= 1
-		}
-	}
-	lex_claudia = { #lex claudia
-		modifier = {
-			monthly_corruption = -0.03
-			global_citizen_output = 0.08
-		}
-	}
-	lex_caecilia = {#Lex Cecilia devecitigalib
-		modifier = {
-			global_citizen_happyness = 0.1
-			global_state_trade_routes = 0.1
-			global_import_commerce_modifier = -2
-		}
-	}
-}
-trade_laws_car = {
-	potential = {
-		or = {
-			is_monarchy = yes
-			is_republic = yes
-		}
-		or = {
-			tag = CAR
-		}
-	}
-	trade_law_1_car = { #import dutues Portorttia
-		modifier = {
-			global_import_commerce_modifier = 0.2
-		}
-	}
-	trade_law_2_car = { #strategic monopolies
-		modifier = {
-			global_commerce_modifier = 0.05
-		}
-		allow = {
-			num_of_ports >= 1
-		}
-	}
-	trade_law_3_car = { #encourgae mechants
-		modifier = {
-			global_citizen_output = 0.06
-			global_citizen_happyness = 0.06
-		}
-	}
-	trade_law_4_car = {#merchant senators
-		modifier = {
-			global_nobles_city_desired_pop_ratio = 0.05
-			global_capital_trade_routes = 1
-		}
-	}
-}
 ###########
 republic_citizen_laws = {
 	potential = {
@@ -1219,6 +1220,141 @@ republic_citizen_car_laws = { # Carthage Citizenship Laws
 		}
 	}
 }
+#########
+republican_religious_laws = { # Religious Laws
+	potential = {
+		is_republic = yes
+		NOR = {
+			tag = ROM
+			tag = CAR
+		}
+	}
+	
+	republican_religious_1 = {
+		modifier = {
+			happiness_for_same_religion_modifier = happiness_small_svalue
+		}
+	}
+	
+	republican_religious_2 = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			omen_power = 0.15
+		}
+	}
+	
+	republican_religious_3 = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+	}
+	
+	republican_religious_4 = {
+	
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			stability_cost_modifier = -0.33
+		}
+	}	
+}
+republican_religious_car_laws = { # Carthage Religious Laws
+	potential = {
+		is_republic = yes
+		tag = CAR
+	}
+	republican_religious_car_1 = {
+		modifier = {
+			happiness_for_same_religion_modifier = happiness_small_svalue
+		}
+	}
+	republican_religious_car_2 = {
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			omen_power = 0.15
+		}
+	}
+	republican_religious_car_3 = {
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+	}
+	republican_religious_car_4 = {
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			stability_cost_modifier = -0.33
+		}
+	}
+}
+republican_religious_laws_rom = { # Religious Laws
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	
+	grant_religious_freedoms = {
+		modifier = {
+			happiness_for_same_religion_modifier = happiness_small_svalue
+		}
+	}
+	
+	lex_ogulnia = {
+		
+		allow = {
+			religious_tech >= 3
+		}
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+		on_enact = {
+			random_character = {
+				limit = {
+					is_minor_character = yes
+					zeal >= 8 
+				}
+				#add_trait = priest
+				add_trait = zealous
+			}
+		}
+	}
+	
+	lex_aelia_et_fufia = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		
+		modifier = {
+			omen_power = 0.15
+		}
+	}
+	
+	lex_domitia_de_sacerdotiis = {
+	
+		allow = {
+			civic_tech >= 3
+		}
+	
+		modifier = {
+			stability_cost_modifier = -0.33
+		}
+	}
+}
 ###########3
 republican_social_laws = {
 	potential = {
@@ -1325,6 +1461,114 @@ social_laws_car = {
 			global_pop_promotion_speed_modifier = 0.4
 			global_pop_demotion_speed_modifier = 0.4
 			happiness_for_same_culture_modifier = 0.02
+		}
+	}
+}
+##########
+subject_laws_rep = {
+	potential = {
+		is_republic = yes
+		nor = {
+			tag = ROM
+			tag = CAR
+		}
+	}
+	
+	subject_law_1_rep = { #
+		modifier = {
+			subject_opinions = 15
+			tribute_income_modifier = 0.05
+		}
+	} 
+	
+	subject_law_2_rep = {#king of kings
+		allow = {
+			num_of_cities >= 100
+			
+		}
+		modifier = {
+			subject_opinions = 15
+			diplomatic_relations = 2
+		}
+	}	
+	subject_law_3_rep = { ##king of kings
+		
+		allow = {
+			num_of_cities >= 300
+			
+		}
+		modifier = {
+			integrate_speed = 0.3
+			diplomatic_reputation = 2
+		}
+	}
+}
+subject_laws_rome = {
+	potential = { 
+		is_republic = yes
+		tag = ROM
+	}
+
+	
+	subject_law_1_rom = { #Socii
+		modifier = {
+			subject_pays_feudatory_cost_modifier = 0.1
+		}
+	} 
+	subject_law_2_rom = {#Rising Storm
+		allow = {
+			num_of_cities >= 100
+		}
+		modifier = {
+			subject_loyalty = 10
+			diplomatic_relations = 2
+		}
+	}	
+	subject_law_3_rom = { ##Masters of the Mediterranean
+		
+		allow = {
+			num_of_cities >= 500
+			
+		}
+		modifier = {
+			integrate_speed = 0.3
+			diplomatic_relations = 2
+		}
+	}
+}
+subject_laws_carthage = {
+	potential = { 
+		is_republic = yes
+		tag = CAR
+	}
+	
+	subject_law_1_car = { #institutional benevolence
+		modifier = {
+			subject_opinions = 20
+			subject_pays_tributary_cost_modifier = 0.1
+		}
+	} 
+	
+	subject_law_2_car = { #tame the numidians
+		
+		allow = {
+			num_of_cities >= 100
+			
+		}
+		modifier = {
+			global_tribesmen_happyness = 0.06
+			
+			subject_pays_tributary_cost_modifier = 0.1
+		}
+	}	
+	subject_law_3_car = { ##hegemon of africa
+		
+		allow = {
+			num_of_cities >= 300
+			
+		}
+		modifier = {
+			integrate_speed = 0.3
 		}
 	}
 }
@@ -1576,249 +1820,6 @@ administration_laws_rom = {
 				has_law = administration_law_3_rom
 				has_law = administration_law_4_rom
 			}
-		}
-	}
-}
-#########
-republican_religious_laws = { # Religious Laws
-	potential = {
-		is_republic = yes
-		NOR = {
-			tag = ROM
-			tag = CAR
-		}
-	}
-	
-	republican_religious_1 = {
-		modifier = {
-			happiness_for_same_religion_modifier = happiness_small_svalue
-		}
-	}
-	
-	republican_religious_2 = {
-		
-		allow = {
-			civic_tech >= 3
-		}
-		modifier = {
-			omen_power = 0.15
-		}
-	}
-	
-	republican_religious_3 = {
-		
-		allow = {
-			civic_tech >= 3
-		}
-		modifier = {
-			global_pop_conversion_speed_modifier = 0.2
-		}
-	}
-	
-	republican_religious_4 = {
-	
-		allow = {
-			civic_tech >= 3
-		}
-		modifier = {
-			stability_cost_modifier = -0.33
-		}
-	}	
-}
-republican_religious_car_laws = { # Carthage Religious Laws
-	potential = {
-		is_republic = yes
-		tag = CAR
-	}
-	republican_religious_car_1 = {
-		modifier = {
-			happiness_for_same_religion_modifier = happiness_small_svalue
-		}
-	}
-	republican_religious_car_2 = {
-		allow = {
-			civic_tech >= 3
-		}
-		modifier = {
-			omen_power = 0.15
-		}
-	}
-	republican_religious_car_3 = {
-		allow = {
-			civic_tech >= 3
-		}
-		modifier = {
-			global_pop_conversion_speed_modifier = 0.2
-		}
-	}
-	republican_religious_car_4 = {
-		allow = {
-			civic_tech >= 3
-		}
-		modifier = {
-			stability_cost_modifier = -0.33
-		}
-	}
-}
-republican_religious_laws_rom = { # Religious Laws
-	potential = {
-		is_republic = yes
-		tag = ROM
-	}
-	
-	grant_religious_freedoms = {
-		modifier = {
-			happiness_for_same_religion_modifier = happiness_small_svalue
-		}
-	}
-	
-	lex_ogulnia = {
-		
-		allow = {
-			religious_tech >= 3
-		}
-		modifier = {
-			global_pop_conversion_speed_modifier = 0.2
-		}
-		on_enact = {
-			random_character = {
-				limit = {
-					is_minor_character = yes
-					zeal >= 8 
-				}
-				#add_trait = priest
-				add_trait = zealous
-			}
-		}
-	}
-	
-	lex_aelia_et_fufia = {
-		
-		allow = {
-			civic_tech >= 3
-		}
-		
-		modifier = {
-			omen_power = 0.15
-		}
-	}
-	
-	lex_domitia_de_sacerdotiis = {
-	
-		allow = {
-			civic_tech >= 3
-		}
-	
-		modifier = {
-			stability_cost_modifier = -0.33
-		}
-	}
-}
-##########
-subject_laws_rep = {
-	potential = {
-		is_republic = yes
-		nor = {
-			tag = ROM
-			tag = CAR
-		}
-	}
-	
-	subject_law_1_rep = { #
-		modifier = {
-			subject_opinions = 15
-			tribute_income_modifier = 0.05
-		}
-	} 
-	
-	subject_law_2_rep = {#king of kings
-		allow = {
-			num_of_cities >= 100
-			
-		}
-		modifier = {
-			subject_opinions = 15
-			diplomatic_relations = 2
-		}
-	}	
-	subject_law_3_rep = { ##king of kings
-		
-		allow = {
-			num_of_cities >= 300
-			
-		}
-		modifier = {
-			integrate_speed = 0.3
-			diplomatic_reputation = 2
-		}
-	}
-}
-subject_laws_rome = {
-	potential = { 
-		is_republic = yes
-		tag = ROM
-	}
-
-	
-	subject_law_1_rom = { #Socii
-		modifier = {
-			subject_pays_feudatory_cost_modifier = 0.1
-		}
-	} 
-	subject_law_2_rom = {#Rising Storm
-		allow = {
-			num_of_cities >= 100
-		}
-		modifier = {
-			subject_loyalty = 10
-			diplomatic_relations = 2
-		}
-	}	
-	subject_law_3_rom = { ##Masters of the Mediterranean
-		
-		allow = {
-			num_of_cities >= 500
-			
-		}
-		modifier = {
-			integrate_speed = 0.3
-			diplomatic_relations = 2
-		}
-	}
-}
-subject_laws_carthage = {
-	potential = { 
-		is_republic = yes
-		tag = CAR
-	}
-	
-	subject_law_1_car = { #institutional benevolence
-		modifier = {
-			subject_opinions = 20
-			subject_pays_tributary_cost_modifier = 0.1
-		}
-	} 
-	
-	subject_law_2_car = { #tame the numidians
-		
-		allow = {
-			num_of_cities >= 100
-			
-		}
-		modifier = {
-			global_tribesmen_happyness = 0.06
-			
-			subject_pays_tributary_cost_modifier = 0.1
-		}
-	}	
-	subject_law_3_car = { ##hegemon of africa
-		
-		allow = {
-			num_of_cities >= 300
-			
-		}
-		modifier = {
-			integrate_speed = 0.3
 		}
 	}
 }
@@ -2425,7 +2426,6 @@ slave_laws_rep = {
 			is_republic = yes
 		}
 		nor = {
-			tag = CAR
 			tag = ROM
 		}
 	}
