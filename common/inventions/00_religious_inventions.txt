@@ -50,6 +50,9 @@ religious_1 = {
 		culture_citizen_happiness = 0.04
 		 max_research_efficiency = 0.15
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { religious_tech_investment_inv_2 }
 	}
 	omen_power_inv_5 = { #trasnlated symbology 
@@ -58,6 +61,9 @@ religious_1 = {
 		on_activate = {
 			custom_tooltip = "rulers_gain_2_additional_zeal"
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		keystone = yes
 	}	
 	religious_wisdom_inv_1 = { #expanded libraires
@@ -65,11 +71,17 @@ religious_1 = {
 			research_points_modifier = 0.1
 			max_research_efficiency = 0.1
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { omen_power_inv_5 }
 	}
 	technology_cost_inv_5 = { #zero
 		modifier = {
 			global_citizen_output = 0.06	
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		keystone = yes
 		requires = { religious_wisdom_inv_1 }
@@ -81,6 +93,9 @@ religious_1 = {
 		modifier = { 
 			happiness_for_same_culture_modifier = 0.04
 		}
+		potential = {
+			is_age = { age >= 3 }
+		}
 		requires = { religious_wisdom_inv_1 divine_equality_inv religious_wisdom_inv_5}
 		keystone = yes
 		#on_activate = {
@@ -90,6 +105,9 @@ religious_1 = {
 	religious_wisdom_inv_3 = {#state atheism
 		modifier = { 
 			omen_power = -1
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		requires = { religious_wisdom_inv_2 }
 		keystone = yes
@@ -110,11 +128,17 @@ religious_1 = {
 		modifier = {
 			happiness_for_wrong_religion_modifier = 0.03
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { happiness_for_wrong_group_modifier_inv_2 }
 	}
 	global_tribesmen_output_inv_5 = { #right to religious observance
 		modifier = {
 			global_tribesmen_output = 0.03
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
 		requires = { stability_inv_2 }
 	}
@@ -133,11 +157,17 @@ religious_1 = {
 				}
 				is_ai = no
 			}
+		} 
+		potential = {
+			is_age = { age >= 3 }
 		}
 	}
 	divine_equality_inv = { #equalitu under the divince
 		modifier = { happiness_for_same_religion_modifier = 0.03 }
-		requires = { global_tribesmen_output_inv_5 }
+		requires = { global_tribesmen_output_inv_5 } 
+		potential = {
+			is_age = { age >= 3 }
+		}
 	}
 	############
 	###BRANCH 2
@@ -222,15 +252,24 @@ religious_1 = {
 	}
 	omen_power_inv_2 = { #legendary foundarion
 		modifier = { deify_ruler_cost_modifier = -0.15 }
-		requires = { omen_duration_inv_1 }
+		requires = { omen_duration_inv_1 } 
+		potential = {
+			is_age = { age >= 2 }
+		}
 	}
 	omen_duration_inv_4 = {#household gods
 		modifier = { price_found_city_cost_modifier = -0.1 }
-		requires = { omen_power_inv_4 }
+		requires = { omen_power_inv_4 } 
+		potential = {
+			is_age = { age >= 2 }
+		}
 	}
 	stability_inv_4 = {#household priests
 		modifier = { stability_cost_modifier = -0.05 }
-		requires = { omen_duration_inv_4 }
+		requires = { omen_duration_inv_4 } 
+		potential = {
+			is_age = { age >= 2 }
+		}
 	}
 	religious_wisdom_inv_5 = {#state sponsored religion
 		modifier = { 
@@ -238,11 +277,17 @@ religious_1 = {
 			global_pop_conversion_speed_modifier = 0.05
 			monthly_legitimacy = 0.02 
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { stability_inv_4 }
 	}
 	stability_inv_5 = { #formualic worship
 		modifier = { 
 			global_pop_conversion_speed = 0.5
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		keystone = yes
 		requires = { stability_inv_4 }
@@ -255,6 +300,9 @@ religious_1 = {
 		modifier = { 
 			global_pop_conversion_speed_modifier = 0.05
 			happiness_for_wrong_religion_modifier = -0.03 
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		requires = { land_morale_recovery_inv_2 }
 	}
@@ -277,12 +325,18 @@ religious_1 = {
 			global_population_growth = 0.01 
 			global_monthly_food_modifier = 0.025
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { technology_cost_inv_2 }
 	}
 	global_population_growth_inv_2 = {#bread stamp
 		modifier = { 
 			global_monthly_food_modifier = 0.05
 			global_population_growth = 0.05
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		keystone = yes
 		requires = {  global_population_growth_inv_1 }
@@ -296,7 +350,10 @@ religious_1 = {
 	}
 	global_citizen_happyness_inv = {#glass
 		modifier = { global_citizen_happyness = happiness_small_svalue }
-		requires_or = { technology_cost_inv_3 }
+		requires_or = { technology_cost_inv_3 } 
+		potential = {
+			is_age = { age >= 2 }
+		}
 	}
 	global_population_growth_inv_3 = {#obsterics
 		modifier = { global_population_growth = 0.02 }
@@ -1398,6 +1455,9 @@ religious_1 = {
 			happiness_for_same_culture_modifier = 0.05 
 			max_research_efficiency = 0.25
 		}
+		potential = {
+			is_age = { age >= 3 }
+		}
         requires = { religious_wisdom_inv_2 }
         allow = {
 			OR = {
@@ -1428,6 +1488,9 @@ religious_1 = {
 					}
 				}
 			}
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
     }
     #######INVICTUS

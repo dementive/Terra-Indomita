@@ -116,6 +116,7 @@
 				invention = decimal_command_inv
 				invention = greek_unit_inv
 			}
+			is_age = { age >= 2 }
 		}
 		allow = {
 			nor = {
@@ -142,6 +143,7 @@
 				invention = decimal_command_inv
 				invention = greek_unit_inv
 			}
+			is_age = { age >= 2 }
 		}
 		allow = {
 			tag = ROM
@@ -164,6 +166,7 @@
 				invention = discipline_inv_2
 				invention = greek_unit_inv
 			}
+			is_age = { age >= 2 }
 		}
 		requires = { cohort_reinforcement_speed_inv }
 		allow = {
@@ -199,6 +202,7 @@
 				invention = decimal_command_inv
 				invention = discipline_inv_2
 			}
+			is_age = { age >= 2 }
 		}
 		allow = {
 			country_culture_group = hellenic
@@ -279,6 +283,7 @@
 				invention = khatru_inv
 				invention = martial_unit_inv_2
 			}
+			is_age = { age >= 3 }
 		}
 		allow = {
 			tag = ROM
@@ -335,6 +340,7 @@
 				invention = discipline_inv_5
 				invention = martial_unit_inv_2
 			}
+			is_age = { age >= 3 }
 		}
 		allow = {
 			nor = {
@@ -360,11 +366,17 @@
 			land_morale_recovery = 0.02
 			land_morale_modifier = 0.02
 		}
+		potential = {
+			is_age = { age >= 3 }
+		}
 		requires_or = { discipline_inv_5 martial_unit_inv_2 }
 	}
 	land_morale_recovery_inv_1 = { #oath of brotherhood
 		modifier = { 
 			land_morale_recovery = 0.03
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		on_activate = {
 			if = {
@@ -381,6 +393,9 @@
 		modifier = { 
 			army_maintenance_cost = -0.05
 			loyalty_gain_chance = -0.05
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
 		requires = { global_cohort_recruit_speed_inv }
 		on_activate = {
@@ -421,6 +436,9 @@
 			spearmen_discipline = 0.03
 			axemen_discipline = 0.03
 			pikemen_discipline = 0.03
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
 		on_activate = {
 			custom_tooltip = "create_high_martial_rising_star"
@@ -479,12 +497,18 @@
 	}
 	global_supply_limit_modifier_inv_4 = { #delayed baggage train
 		modifier = { global_supply_limit_modifier = 0.05 }
-		requires = { global_supply_limit_modifier_inv_3 }
+		requires = { global_supply_limit_modifier_inv_3 } 
+		potential = {
+			is_age = { age >= 3 }
+		}
 	}
 	army_maintenance_cost_inv_1 = { #pay masters
 		modifier = { 
 			army_maintenance_cost = -0.05
 			loyalty_gain_chance_modifier = -0.05 
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
 		requires = { global_supply_limit_modifier_inv_4 }
 	}
@@ -492,12 +516,18 @@
 		modifier = { 
 			global_supply_limit_modifier = 0.1 
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { army_maintenance_cost_inv_1 }
 	}
 	land_unit_attrition_inv = { #army surgeons "War is the only proper school for surgeons"
 		modifier = { 
 			land_unit_attrition = -0.1
 			global_supply_limit_modifier = 0.15
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		on_activate = {
 			random_character = {
@@ -520,6 +550,9 @@
 				}
 				add_finesse = 3
 			}
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		requires = { land_unit_attrition_inv }
 	}
@@ -579,6 +612,9 @@
 			army_movement_speed = 0.05 
 			
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		on_activate = {
 			custom_tooltip = "enables_forced_march"
 		}
@@ -589,11 +625,17 @@
 		modifier = { 
 			retreat_delay = -2
 		}
+		potential = {
+			is_age = { age >= 3 }
+		}
 		requires = { army_movement_speed_inv }
 	}
 	hostile_attrition_inv = { #pScorched Earthm
 		modifier = { 
 			hostile_attrition = 1
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		requires = { army_movement_speed_inv }
 	}
@@ -898,6 +940,9 @@ military_inventions = {
 				invention = chinese_steel_inv 
 			}
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		on_activate = {
 			random_owned_province = {
 				limit = {
@@ -916,6 +961,9 @@ military_inventions = {
 		modifier = { 
 			global_tribesmen_output = 0.01
 			global_population_growth = 0.01
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
 		requires = { bloomeries_inv }
 		allow = {
@@ -971,6 +1019,9 @@ military_inventions = {
 			heavy_infantry_offensive = 0.05
 			axemen_offensive = 0.05
 			spearmen_offensive = 0.05
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
 		requires = { bloomeries_inv }
 		allow = {
@@ -1038,6 +1089,9 @@ military_inventions = {
 			heavy_infantry_offensive = 0.05
 			military_tech_investment = 0.05
 		}
+		potential = {
+			is_age = { age >= 2}
+		}
 		allow = {
 			NOr = { 
 				invention = gallic_noric_steel_inv 
@@ -1086,7 +1140,9 @@ military_inventions = {
 		modifier = {
 			global_goods_from_slaves = -1
 		}
-		
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { bloomeries_inv }
 		allow = {
 			OR = {
@@ -3797,6 +3853,9 @@ military_inventions = {
 			global_defensive = 0.1
 			build_time = -0.05 
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		keystone = yes
 		allow = {
 			OR = {
@@ -4162,6 +4221,9 @@ naval_tree = {
 		modifier = { 
 			global_ship_recruit_speed = 0.2
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		keystone = yes
 		requires_or = { naval_rostra_inv_3 }
 		potential = {
@@ -4202,20 +4264,29 @@ naval_tree = {
 	katapharct_inv = {#armoured decks
 		modifier = { tetrere_defensive = 0.05
 					 hexere_defensive = 0.05 }
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { pirate_spawn_chance_inv_1 }
 	}
 	naval_tactic_inv_3 = {#diekplous tactic
 		modifier = { naval_damage_done = 0.05 }
-		requires = { katapharct_inv }
+		requires = { katapharct_inv } 
 	}
 	counterbalanced_oars_inv = { #counterbalnce orasrs
 		modifier = { naval_morale_recovery = 0.05 }
-		requires = { naval_rostra_inv_1 }
+		requires = { naval_rostra_inv_1 } 
+		potential = {
+			is_age = { age >= 2 }
+		}
 	}
 	grappling_hooks_inv = {#grapplinghooks
 		modifier = {
 			naval_damage_done = 0.03
 			ship_capture_chance = 0.01
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
 		requires = { counterbalanced_oars_inv } 
 	}
@@ -4224,16 +4295,25 @@ naval_tree = {
 			tetrere_offensive = 0.05 
 			hexere_offensive = 0.05
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { katapharct_inv }
 	}
 	double_bow_and_stern_inv_1 = {
 		modifier = { tetrere_defensive = 0.05 
 					 hexere_defensive = 0.05 }
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { naval_weapon_platform_inv_2 }
 	}
 	naval_morale_recovery_inv_5 = { #bow ornatmention
 		modifier = { naval_morale_recovery = 0.02 }
-		requires = { double_bow_and_stern_inv_1 }
+		requires = { double_bow_and_stern_inv_1 } 
+		potential = {
+			is_age = { age >= 2 }
+		}
 	}
 	naval_weapon_platform_inv_3 = { #catapult deck
 		modifier = { 
@@ -4247,6 +4327,9 @@ naval_tree = {
 		modifier = {
 			naval_morale_modifier = 0.05
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
 		requires = { pirate_spawn_chance_inv_1 }
 	}	
 	trireme_discipline_inv_1 = { #professional sailors
@@ -4254,6 +4337,9 @@ naval_tree = {
 			naval_damage_taken = -0.05
 			global_ship_start_experience = 10
 			max_mercenary_stacks = 1
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
 		requires = { ship_command_inv_1 }
 		keystone = yes
@@ -4275,7 +4361,10 @@ naval_tree = {
 	}
 	navy_maintenance_cost_inv_1 = {#priactes amnesty
 		modifier = { navy_maintenance_cost = -0.05 }
-		requires = { blockade_efficiency_inv }
+		requires = { blockade_efficiency_inv } 
+		potential = {
+			is_age = { age >= 2 }
+		}
 		on_activate = {
 			if = {
 				limit = {
@@ -4301,16 +4390,25 @@ naval_tree = {
 	}
 	naval_morale_recovery_inv_3 = { #fleet hierachy
 		modifier = { naval_morale_recovery = 0.02 }
-		requires = { ship_command_inv_1 }
+		requires = { ship_command_inv_1 } 
+		potential = {
+			is_age = { age >= 2 }
+		}
 	}
 	naval_morale_recovery_inv_1 = { #marine auxilia
 		modifier = { naval_morale_recovery = 0.02 }
-		requires = { naval_morale_recovery_inv_3 }
+		requires = { naval_morale_recovery_inv_3 } 
+		potential = {
+			is_age = { age >= 3 }
+		}
 	}
 	naval_unit_attrition_inv = {#ship surgeons
 		modifier = { 
 			naval_unit_attrition = -0.1 
 			navy_maintenance_cost = -0.1
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 		keystone = yes
 		requires = { naval_morale_recovery_inv_1 }
@@ -4321,6 +4419,9 @@ naval_tree = {
 			navy_movement_speed = 0.05
 			naval_range = 0.05
 
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
 	}
 	#########

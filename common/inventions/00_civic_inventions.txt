@@ -45,6 +45,9 @@
 		modifier = {
     		global_capital_trade_routes = 0.5
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires = { state_trade_inv_1 }
     }
     commerce_inv_3 = { #Lighthouses
@@ -59,6 +62,9 @@
 			global_import_commerce_modifier = 0.1
 			navy_movement_speed = 0.1
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires = { state_trade_inv_2 }
     }
     capital_trade_inv_3 = { #Trade Ports
@@ -495,6 +501,9 @@
 			}
 		}
 		potential = {
+			is_age = { age >= 2 }
+		}
+		potential = {
 			nor = {
 				country_culture_group = latin
 				invention = build_time_inv
@@ -521,6 +530,9 @@
 			nor = {
 				invention = civic_construction_inv_4
 			}
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
 		allow = {
 			OR = {
@@ -557,6 +569,9 @@
 				}
 			}
 		}
+		potential = {
+			is_age = { age >= 2 }
+		}
     }
     italic_insulae_inv = {
         modifier = { global_population_capacity_modifier = 0.01 }
@@ -572,6 +587,9 @@
 					}
 				}
 			}
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
     }
     #mesopotamian
@@ -762,6 +780,9 @@
     	potential = {
     		civic_tech >= 8
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	on_activate = {
 			custom_tooltip = allow_nobles_education
 		}
@@ -807,6 +828,9 @@
     	potential = {
     		civic_tech >= 25
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
     	requires = { civic_education_inv_2 }
     }
     global_tribesmen_output_inv_3 = { #land tithe
@@ -833,6 +857,9 @@
                 create_state_pop = freemen
             }
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires = { global_tribesmen_output_inv_3 }
     }
     tax_farming_inv = {
@@ -843,6 +870,9 @@
     	on_activate = {
 			custom_tooltip = taxation_law_unlock
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires = { oratory_tech_investment_inv_1 }
     }
     land_surveyor_inv = { #land surveyors
@@ -851,12 +881,16 @@
 			global_tax_modifier = 0.025
 			monthly_wage_modifier = 0.01
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires = { oratory_tech_investment_inv_1 }
     }
     monthly_wage_inv = { #expanded fianncial remit
     	modifier = {
     		monthly_wage_modifier = -0.05
     	}
+
     	requires = { global_tax_modifier_inv_1 }
     }
     ruler_popularity_gain_inv_5 = { #constitution
@@ -876,6 +910,10 @@
 				country_culture_group = latin
 			}
     	}
+    	potential = {
+			is_age = { age >= 2 }
+			not = {invention = enact_law_cost_modifier_inv}
+		}
     }
     ##italic special
     enact_law_cost_modifier_inv = { #Ius Honoriuam
@@ -886,6 +924,9 @@
     	potential = {
     		not = {invention = civic_amend_inv}
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	allow = {
     		NOT = {
     			invention = civic_amend_inv
@@ -912,6 +953,9 @@
     			invention = office_inv
     		}
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	allow = {
     		not = {
     			invention = office_inv
@@ -934,7 +978,9 @@
 			loyalty_gain_chance_modifier = -0.025
             civil_war_threshold = 0.05
     	}
-    	
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires_or = { civic_amend_inv enact_law_cost_modifier_inv}
     }
     office_inv = { #HIERARCHY OF OFFICE
@@ -960,6 +1006,9 @@
     	modifier = {
     		monthly_governor_wage = -0.05
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires_or = { office_inv cursus_honorum_inv }
     }
      #latin
@@ -974,6 +1023,9 @@
     			invention = civic_gov_inv_1
     		}
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
     	allow = {
     		NOr = { 
     			invention = civic_gov_inv_2 
@@ -1013,6 +1065,9 @@
     			invention = monthly_governor_inv
     		} 
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
     }
     civic_gov_inv_2 = { #Friends in high places
     	modifier = {
@@ -1028,6 +1083,9 @@
     			invention = monthly_governor_inv
     		} 
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
     	allow = { 
     		nOR = {
 				country_culture_group = latin
@@ -1058,7 +1116,9 @@
     	potential = {
     		not = {invention = civic_roads_inv}
     	}
-
+		potential = {
+			is_age = { age >= 2 }
+		}
     	on_activate = { custom_tooltip = "enables_sewers_building_tt" }
     	requires = {land_surveyor_inv }
     }
@@ -1066,6 +1126,9 @@
         modifier = { 
         	build_expensive_roads_cost_modifier = -0.2  
 			ruler_popularity_gain = 0.02 
+		}
+		potential = {
+			is_age = { age >= 2 }
 		}
         on_activate = { custom_tooltip = "enables_sewers_building_tt" }
         requires = { land_surveyor_inv } 
@@ -1090,6 +1153,9 @@
     	modifier = {
     		global_settlement_building_slot = 1
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
     	allow = { NOT = { invention = global_building_slot_inv } }
         potential = { NOT = { invention = global_building_slot_inv } }
     	requires_or = { ruler_popularity_gain_inv_4 civic_roads_inv}
@@ -1102,6 +1168,9 @@
 			global_pop_promotion_speed_modifier = 0.15
 			build_cost = -0.05 
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
         potential = { NOT = { invention = global_settlement_building_slot_inv } }
         allow = { NOT = { invention = global_settlement_building_slot_inv } }
     	requires_or = { ruler_popularity_gain_inv_4 civic_roads_inv}
@@ -1110,18 +1179,27 @@
     	modifier = {
     		global_freemen_output = 0.03
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
     	requires_or = { ruler_popularity_gain_inv_4 civic_roads_inv}
     }
     global_citizen_output_inv_3 = { #waste disposal infrastructure
     	modifier = {
     		global_citizen_output = 0.03
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
     	requires_or = { ruler_popularity_gain_inv_4 civic_roads_inv}
     }
     global_citizen_output_inv_4 = { #clean water
     	modifier = {
     		global_citizen_output = 0.03
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
     	requires = { global_citizen_output_inv_3}
     }
     greek_fire_hose_inv = {
@@ -1139,6 +1217,9 @@
 				}
 			}
 		}
+		potential = {
+			is_age = { age >= 3 }
+		}
     }
     greek_pyoulkos_inv = {
     	modifier = { global_population_growth = 0.01 }
@@ -1155,6 +1236,9 @@
 				}
 			}
 		}
+		potential = {
+			is_age = { age >= 3 }
+		}
     }
     greek_clock_mechanics_inv = {
         modifier = { country_civilization_value = 5 }
@@ -1170,6 +1254,9 @@
 					}
 				}
 			}
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
     }
     
@@ -1386,6 +1473,9 @@
     	modifier = {
     		global_freemen_output = 0.03
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires = { global_freemen_output_inv_1 }
     }
     global_citizen_output_inv_5 = {#servile bondage
@@ -1401,6 +1491,9 @@
     		global_pop_promotion_speed_modifier = 0.2
     		global_pop_assimilation_speed_modifier = 0.03
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires = { global_citizen_output_inv_5 }
     }
     happiness_for_wrong_culture_modifier_inv_3 = {#petition of minorities
@@ -1409,6 +1502,9 @@
     		price_found_city_cost_modifier = -0.25
     		global_monthly_state_loyalty = 0.02
     	}
+    	potential = {
+			is_age = { age >= 2 }
+		}
     	requires = { global_freemen_output_inv_2 }
     }
 
@@ -1430,6 +1526,9 @@
 			nOR = {
 				country_culture_group = latin
 			}
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
     	requires = { happiness_for_wrong_culture_modifier_inv_3 }
     }
@@ -1453,6 +1552,9 @@
 				}
 			}
 		}
+		potential = {
+			is_age = { age >= 3 }
+		}
     }
     move_pop_cost_modifier_inv = {#coloniae
     	modifier = {
@@ -1471,6 +1573,9 @@
 			}
 			#custom_tooltip = "allow_colony_tt"
 		}
+		potential = {
+			is_age = { age >= 3 }
+		}
     	requires = { civic_foreign_inv_1 }
     }
     assimilate_pop_cost_modifier_inv_1 = {#cultural primacy in administration
@@ -1485,6 +1590,9 @@
 			current_ruler = {
 				add_finesse = 2
 			}
+		}
+		potential = {
+			is_age = { age >= 3 }
 		}
     	requires = { happiness_for_wrong_culture_modifier_inv_2 move_pop_cost_modifier_inv }
     }
@@ -1505,6 +1613,9 @@
 				create_pop = citizen
 			}
     	}
+    	potential = {
+			is_age = { age >= 3 }
+		}
     	requires = { happiness_for_wrong_culture_modifier_inv_2  }
     }
 
