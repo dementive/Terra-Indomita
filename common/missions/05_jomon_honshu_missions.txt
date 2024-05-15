@@ -138,7 +138,9 @@
             capital_scope = {
                 has_building = population_building
             }
-            has_country_modifier = hold_games_modifier
+			current_ruler = {
+				has_character_modifier = hold_games_modifier
+			}
         }
         on_completion = {
             trigger_event = me_honshu.5
@@ -272,14 +274,17 @@
     }
     jomon_honshu_missions_task_10 = { # The Price of Rice
         icon = "task_economical"
+        highlight = {
+            scope:province = {
+                trade_goods = rice
+            }
+        }
         requires = { jomon_honshu_missions_task_5 }
         allow = {
-            calc_true_if = {
-                amount >= 7
-                any_owned_province = {
-                    has_building = basic_settlement_infratructure_building
-                    trade_goods = rice
-                }
+            any_owned_province = {
+                count = 5
+                has_building = basic_settlement_infratructure_building
+                trade_goods = rice
             }
             custom_tooltip = yayoification_level_tt
         }

@@ -46,7 +46,7 @@
     		global_capital_trade_routes = 0.5
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     	requires = { state_trade_inv_1 }
     }
@@ -63,7 +63,7 @@
 			navy_movement_speed = 0.1
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     	requires = { state_trade_inv_2 }
     }
@@ -501,9 +501,7 @@
 			}
 		}
 		potential = {
-			is_age = { age >= 2 }
-		}
-		potential = {
+			age_is = { num = 2 }
 			nor = {
 				country_culture_group = latin
 				invention = build_time_inv
@@ -530,9 +528,7 @@
 			nor = {
 				invention = civic_construction_inv_4
 			}
-		}
-		potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
 		allow = {
 			OR = {
@@ -570,7 +566,7 @@
 			}
 		}
 		potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     }
     italic_insulae_inv = {
@@ -589,7 +585,7 @@
 			}
 		}
 		potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     }
     #mesopotamian
@@ -779,10 +775,8 @@
     	}
     	potential = {
     		civic_tech >= 8
+			age_is = { num = 2 }
     	}
-    	potential = {
-			is_age = { age >= 2 }
-		}
     	on_activate = {
 			custom_tooltip = allow_nobles_education
 		}
@@ -827,10 +821,8 @@
     	}
     	potential = {
     		civic_tech >= 25
+			age_is = { num = 3 }
     	}
-    	potential = {
-			is_age = { age >= 3 }
-		}
     	requires = { civic_education_inv_2 }
     }
     global_tribesmen_output_inv_3 = { #land tithe
@@ -858,7 +850,7 @@
             }
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     	requires = { global_tribesmen_output_inv_3 }
     }
@@ -866,12 +858,12 @@
     	modifier = {
     		global_tax_modifier = 0.025
     	}
-    	not = {is_east_asian_culture_group_trigger = yes}
     	on_activate = {
 			custom_tooltip = taxation_law_unlock
     	}
     	potential = {
-			is_age = { age >= 2 }
+    		not = { is_east_asian_culture_group_trigger = yes }
+			age_is = { num = 2 }
 		}
     	requires = { oratory_tech_investment_inv_1 }
     }
@@ -882,7 +874,7 @@
 			monthly_wage_modifier = 0.01
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     	requires = { oratory_tech_investment_inv_1 }
     }
@@ -911,7 +903,7 @@
 			}
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 			not = {invention = enact_law_cost_modifier_inv}
 		}
     }
@@ -923,10 +915,8 @@
     	requires = { ruler_popularity_gain_inv_5 } 
     	potential = {
     		not = {invention = civic_amend_inv}
+			age_is = { num = 2 }
     	}
-    	potential = {
-			is_age = { age >= 2 }
-		}
     	allow = {
     		NOT = {
     			invention = civic_amend_inv
@@ -952,10 +942,8 @@
     		not = {
     			invention = office_inv
     		}
+			age_is = { num = 2 }
     	}
-    	potential = {
-			is_age = { age >= 2 }
-		}
     	allow = {
     		not = {
     			invention = office_inv
@@ -979,7 +967,7 @@
             civil_war_threshold = 0.05
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     	requires_or = { civic_amend_inv enact_law_cost_modifier_inv}
     }
@@ -1007,7 +995,7 @@
     		monthly_governor_wage = -0.05
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     	requires_or = { office_inv cursus_honorum_inv }
     }
@@ -1018,16 +1006,14 @@
     	}
     	requires = { monthly_governor_wage_inv }
     	potential = {
-    		NOr = { 
+    		NOR = { 
     			invention = civic_gov_inv_2 
     			invention = civic_gov_inv_1
     		}
+			age_is = { num = 3 }
     	}
-    	potential = {
-			is_age = { age >= 3 }
-		}
     	allow = {
-    		NOr = { 
+    		NOR = { 
     			invention = civic_gov_inv_2 
     			invention = civic_gov_inv_1
     		}
@@ -1051,10 +1037,11 @@
     	#only characters with base level 8 finesse and 50 statesmenship can be governors
     	requires = { monthly_governor_wage_inv }
     	potential = { 
-    		NOr = { 
+    		NOR = { 
     			invention = civic_gov_inv_2 
     			invention = monthly_governor_inv
     		} 
+			age_is = { num = 3 }
     	}
     	allow = { 
     		nOR = {
@@ -1065,9 +1052,6 @@
     			invention = monthly_governor_inv
     		} 
     	}
-    	potential = {
-			is_age = { age >= 3 }
-		}
     }
     civic_gov_inv_2 = { #Friends in high places
     	modifier = {
@@ -1078,19 +1062,17 @@
     	#Eventully - Only friends of ruler and/or major families can be governors
     	requires = { monthly_governor_wage_inv }
     	potential = { 
-    		NOr = { 
+    		NOR = { 
     			invention = civic_gov_inv_1
     			invention = monthly_governor_inv
     		} 
+			age_is = { num = 3 }
     	}
-    	potential = {
-			is_age = { age >= 3 }
-		}
     	allow = { 
-    		nOR = {
+    		NOR = {
 				country_culture_group = latin
 			}
-    		NOr = { 
+    		NOR = { 
     			invention = civic_gov_inv_1
     			invention = monthly_governor_inv
     		}
@@ -1115,10 +1097,8 @@
     	}
     	potential = {
     		not = {invention = civic_roads_inv}
+			age_is = { num = 2 }
     	}
-		potential = {
-			is_age = { age >= 2 }
-		}
     	on_activate = { custom_tooltip = "enables_sewers_building_tt" }
     	requires = {land_surveyor_inv }
     }
@@ -1127,12 +1107,10 @@
         	build_expensive_roads_cost_modifier = -0.2  
 			ruler_popularity_gain = 0.02 
 		}
-		potential = {
-			is_age = { age >= 2 }
-		}
         on_activate = { custom_tooltip = "enables_sewers_building_tt" }
         requires = { land_surveyor_inv } 
         potential = {
+			age_is = { num = 2 }
     		not = {invention = ruler_popularity_gain_inv_4}
     	}
         allow = {
@@ -1153,11 +1131,11 @@
     	modifier = {
     		global_settlement_building_slot = 1
     	}
-    	potential = {
-			is_age = { age >= 3 }
-		}
     	allow = { NOT = { invention = global_building_slot_inv } }
-        potential = { NOT = { invention = global_building_slot_inv } }
+        potential = {
+        	NOT = { invention = global_building_slot_inv }
+        	age_is = { num = 3 }
+        }
     	requires_or = { ruler_popularity_gain_inv_4 civic_roads_inv}
     }
     global_building_slot_inv = { #urban planning
@@ -1168,10 +1146,10 @@
 			global_pop_promotion_speed_modifier = 0.15
 			build_cost = -0.05 
     	}
-    	potential = {
-			is_age = { age >= 3 }
-		}
-        potential = { NOT = { invention = global_settlement_building_slot_inv } }
+        potential = {
+			age_is = { num = 3 }
+        	NOT = { invention = global_settlement_building_slot_inv }
+        }
         allow = { NOT = { invention = global_settlement_building_slot_inv } }
     	requires_or = { ruler_popularity_gain_inv_4 civic_roads_inv}
     }
@@ -1180,7 +1158,7 @@
     		global_freemen_output = 0.03
     	}
     	potential = {
-			is_age = { age >= 3 }
+			age_is = { num = 3 }
 		}
     	requires_or = { ruler_popularity_gain_inv_4 civic_roads_inv}
     }
@@ -1189,7 +1167,7 @@
     		global_citizen_output = 0.03
     	}
     	potential = {
-			is_age = { age >= 3 }
+			age_is = { num = 3 }
 		}
     	requires_or = { ruler_popularity_gain_inv_4 civic_roads_inv}
     }
@@ -1198,7 +1176,7 @@
     		global_citizen_output = 0.03
     	}
     	potential = {
-			is_age = { age >= 3 }
+			age_is = { num = 3 }
 		}
     	requires = { global_citizen_output_inv_3}
     }
@@ -1218,7 +1196,7 @@
 			}
 		}
 		potential = {
-			is_age = { age >= 3 }
+			age_is = { num = 3 }
 		}
     }
     greek_pyoulkos_inv = {
@@ -1237,7 +1215,7 @@
 			}
 		}
 		potential = {
-			is_age = { age >= 3 }
+			age_is = { num = 3 }
 		}
     }
     greek_clock_mechanics_inv = {
@@ -1256,7 +1234,7 @@
 			}
 		}
 		potential = {
-			is_age = { age >= 3 }
+			age_is = { num = 3 }
 		}
     }
     
@@ -1474,7 +1452,7 @@
     		global_freemen_output = 0.03
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     	requires = { global_freemen_output_inv_1 }
     }
@@ -1492,7 +1470,7 @@
     		global_pop_assimilation_speed_modifier = 0.03
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     	requires = { global_citizen_output_inv_5 }
     }
@@ -1503,7 +1481,7 @@
     		global_monthly_state_loyalty = 0.02
     	}
     	potential = {
-			is_age = { age >= 2 }
+			age_is = { num = 2 }
 		}
     	requires = { global_freemen_output_inv_2 }
     }
@@ -1520,15 +1498,13 @@
     	}
     	potential = {
         	not = { invention = happiness_for_wrong_culture_modifier_inv_1 }
+			age_is = { num = 3 }
 		}
         allow = {
         	not = { invention = happiness_for_wrong_culture_modifier_inv_1 }
 			nOR = {
 				country_culture_group = latin
 			}
-		}
-		potential = {
-			is_age = { age >= 3 }
 		}
     	requires = { happiness_for_wrong_culture_modifier_inv_3 }
     }
@@ -1538,6 +1514,7 @@
         requires =  {happiness_for_wrong_culture_modifier_inv_3 } 
         potential = {
         	not = { invention = civic_foreign_inv_1 }
+			age_is = { num = 3 }
 		}
         allow = {
         	not = { invention = civic_foreign_inv_1 }
@@ -1551,9 +1528,6 @@
 					}
 				}
 			}
-		}
-		potential = {
-			is_age = { age >= 3 }
 		}
     }
     move_pop_cost_modifier_inv = {#coloniae
@@ -1574,7 +1548,7 @@
 			#custom_tooltip = "allow_colony_tt"
 		}
 		potential = {
-			is_age = { age >= 3 }
+			age_is = { num = 3 }
 		}
     	requires = { civic_foreign_inv_1 }
     }
@@ -1592,7 +1566,7 @@
 			}
 		}
 		potential = {
-			is_age = { age >= 3 }
+			age_is = { num = 3 }
 		}
     	requires = { happiness_for_wrong_culture_modifier_inv_2 move_pop_cost_modifier_inv }
     }
@@ -1614,7 +1588,7 @@
 			}
     	}
     	potential = {
-			is_age = { age >= 3 }
+			age_is = { num = 3 }
 		}
     	requires = { happiness_for_wrong_culture_modifier_inv_2  }
     }
