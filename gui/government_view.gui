@@ -118,9 +118,10 @@ base_window = {
 		vbox = {
 			layoutpolicy_vertical = expanding
 			layoutpolicy_horizontal = expanding
-			ignoreinvisible = yes
+			
 			
 			vbox = {
+				margin = { 14 0 }
 				name = "Offices tab"
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
@@ -128,15 +129,20 @@ base_window = {
 				scrollarea = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = expanding
-					scrollbarpolicy_horizontal = always_off
-					
+					scrollbarpolicy_horizontal = as_needed
+
 					scrollbar_vertical = {
 						using = VerticalScrollBar
 					}
-					
+					scrollbar_horizontal = {
+									using = HorizontalScrollBar
+									blockoverride "speed" {
+										wheelstep = 100
+									}
+								}
 					scrollwidget = {
 						dynamicgridbox = {
-							parentanchor = hcenter
+							parentanchor = hleft
 							ignoreinvisible = yes
 							datamodel = "[GovernmentView.GetOfficeHolders]"
 							datamodel_wrap = 4
