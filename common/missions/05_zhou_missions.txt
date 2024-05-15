@@ -139,13 +139,17 @@
 					is_friend = c:HAN.current_ruler
 				}
 			}
-			any_character = {
-				is_female = yes
-				is_married = no
-				age >= 16
-				age <= 35
-				has_trait = zhou_bloodline
+			custom_tooltip = {
+				text = zhou_missions_task_3_woman
+				any_character = {
+					is_female = yes
+					is_married = no
+					age >= 16
+					age <= 35
+					has_trait = zhou_bloodline
+				}
 			}
+			
 		}
 
 		on_start = {
@@ -239,17 +243,23 @@
 			political_influence >= 100
 			treasury >= 250
 			war = no
-			any_character = {
-				is_female = no
-				has_trait = zhou_bloodline
-				age >= 16
-				is_ruler = no
-				is_primary_heir = no
+			custom_tooltip = {
+				text = zhou_missions_task_5_man
+				any_character = {
+					is_female = no
+					has_trait = zhou_bloodline
+					age >= 16
+					is_ruler = no
+					is_primary_heir = no
+				}
 			}
 			trigger_if = {
                 limit = {
                     c:WEI = {
 						has_land = yes
+					}
+					current_ruler = {
+						num_of_friends >= 1
 					}
                 }
 				custom_tooltip = {
@@ -280,6 +290,12 @@
 							}
 						}
 					}
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = zhou_employer_is_target_employer_tt
+					always = no
 				}
 			}
 		}
@@ -336,13 +352,16 @@
 			treasury >= 500
 			military_experience >= 20
 			war = no
-			any_character = {
-				is_female = no
-				martial >= 10
-				has_trait = zhou_bloodline
-				age >= 16
-				is_ruler = no
-				is_primary_heir = no
+			custom_tooltip = {
+				text = zhou_missions_task_6_man
+				any_character = {
+					is_female = no
+					martial >= 10
+					has_trait = zhou_bloodline
+					age >= 16
+					is_ruler = no
+					is_primary_heir = no
+				}
 			}
 			trigger_if = {
                 limit = {
