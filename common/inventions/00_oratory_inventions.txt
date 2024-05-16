@@ -19,12 +19,19 @@
 				is_antagonist = yes
 			}
 		}
+		potential = {
+    		oratory_tech >= 2
+    		religious_tech >= 2
+    	}
 	}
 	tribute_income_modifier_inv_1 = { #tributrey adminsitarion
 		modifier = { 
 			tribute_income_modifier = 0.15
 			subject_opinions = 15   
 			enable_intervene = yes
+		}
+		potential = {
+			oratory_tech >= 4
 		}		
 		requires = { agressive_expansion_impact_inv_5 }
 		on_activate = {
@@ -44,6 +51,9 @@
 			diplomatic_reputation = 3
 			subject_opinions = 5
 		}
+		potential = {
+			oratory_tech >= 6
+		}
 		keystone = yes
 		requires_or = { tribute_income_modifier_inv_1  }
 		on_activate = {
@@ -53,7 +63,9 @@
 	}
 	war_score_cost_inv_1 = { #reason for war
 		modifier = { war_score_cost = -0.05 }
-		
+		potential = {
+			oratory_tech >= 6
+		}
 		requires = { tribute_income_modifier_inv_1 }
 		on_activate = {
 			if = {
@@ -76,7 +88,7 @@
 			subject_loyalty = 50
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 10
 		}
 		allow = {
 			is_ai = no
@@ -89,7 +101,7 @@
 			max_mercenary_stacks = 1
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 10
 		}
 		keystone = yes
 		requires = {  tribute_income_modifier_inv_2 }
@@ -115,7 +127,8 @@
 			}
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 10
+			military_tech >= 10
 		}
 		ai_will_do = {
 			modifier = {
@@ -131,14 +144,16 @@
 			global_manpower_modifier = -0.2
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 10
 		}
 		keystone = yes
 		requires = { agressive_expansion_impact_inv_4 }
 	}
 	assemble_raiding_inv = {
 		allow = { is_tribal = yes }
-		
+		potential = {
+			oratory_tech >= 10
+		}
 		requires = { mercenary_maintenance_cost_inv }
 		modifier = { price_assemble_raiding_party_button_cost_modifier = -0.2 }
 	}
@@ -151,12 +166,18 @@
 				is_antagonist = yes
 			}
 		}
+		potential = {
+			oratory_tech >= 4
+		}
 	}
 	hold_triumph_cost_modifier_inv = { #triumphal coins
 		modifier = { hold_triumph_cost_modifier = -0.2  }		
 		requires = { agressive_expansion_impact_inv_1 }
 		on_activate = {
 			add_manpower = 10
+		}
+		potential = {
+			oratory_tech >= 6
 		}
 		ai_will_do = {
 			modifier = {
@@ -169,6 +190,9 @@
 		modifier = { 
 			agressive_expansion_impact = -0.1
 			diplomatic_relations = 1
+		}
+		potential = {
+			oratory_tech >= 6
 		}
 		keystone = yes
 		requires_or = { agressive_expansion_monthly_decay_inv_1 hold_triumph_cost_modifier_inv }
@@ -188,7 +212,7 @@
 			improve_relation_impact = 0.2
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 10
 		}
 		on_activate = {
 			add_1_free_province_investments = yes
@@ -203,7 +227,11 @@
 	}
 	book_binding_invention = { 		
 		requires = { subject_loyalty_inv }
-		modifier = { max_research_efficiency = 0.25 }
+		modifier = { max_research_efficiency = 0.25 } 
+		potential = {
+			oratory_tech >= 10
+			civic_tech >= 10
+		}
 	}
 	global_unrest_inv_4 = { #exported drama
 		modifier = { 
@@ -211,13 +239,16 @@
 			monthly_corruption = -0.03
 			ruler_popularity_gain = 0.1
 		}
+		potential = {
+			oratory_tech >= 12
+		}
 		keystone = yes
 		requires = { book_binding_invention }
 	}
 	relation_inv_3 = {#permanent mabassoards
 		modifier = { improve_relation_impact = 0.20 }
 		potential = {
-			age_is = { num = 3 }
+			oratory_tech >= 14
 		}
 		requires = { subject_loyalty_inv }
 	}
@@ -228,7 +259,7 @@
 			monthly_tyranny = -0.02
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 14
 		}
 		keystone = yes
 		requires = { relation_inv_3 }
@@ -243,17 +274,22 @@
 		modifier = { agressive_expansion_monthly_change = -0.02 }
 		requires = { relation_inv_3 } 
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
+			civic_tech >= 15
 		}
 	}
 	agressive_expansion_monthly_decay_inv_4 = { #oaths of fealty
 		modifier = { agressive_expansion_monthly_change = -0.02 }
-		
+		potential = {
+			oratory_tech >= 15
+		}
 		requires = { agressive_expansion_monthly_decay_inv_2 }
 	}
 	monthly_general_loyalty_inv = { #grand triumph
 		modifier = { general_loyalty = 5 }
-		
+		potential = {
+			oratory_tech >= 15
+		}
 		requires = { agressive_expansion_monthly_decay_inv_2 }
 		on_activate = {
 			custom_tooltip = "commands_gain_oratory_invention"
@@ -276,6 +312,9 @@
 			diplomatic_relations = 1
 			tribute_income_modifier = 0.1
 		}
+		potential = {
+			oratory_tech >= 15
+		}
 		keystone = yes
 		requires = { monthly_general_loyalty_inv agressive_expansion_monthly_decay_inv_4 }
 	}
@@ -287,7 +326,7 @@
 
 		keystone = yes
 		potential = {
-			age_is = { num = 3 }
+			oratory_tech >= 20
 		}
 		requires = { war_score_cost_inv_3 subject_opinions_inv_3 }
 	}
@@ -370,12 +409,17 @@ oratory_2 = {
 
 	ruler_popularity_gain_inv_1 = { #due process
 		modifier = { ruler_popularity_gain = 0.02 }
-		requires = { diplomatic_reputation_inv_1 }
+		requires = { diplomatic_reputation_inv_1 } 
+		potential = {
+			oratory_tech >= 2
+		}
 	}
 
 	change_governor_policy_inv = { #centrale comites
 		modifier = { change_governor_policy_cost_modifier = -0.2  }
-		
+		potential = {
+			oratory_tech >= 2
+		}
 		requires_or = { monthly_character_loyalty_inv_1 diplomatic_reputation_inv_1 }
 		ai_will_do = {
 			modifier = {
@@ -386,7 +430,9 @@ oratory_2 = {
 
 	tyranny_inv_1 = { # official orators
 		modifier = { monthly_tyranny = -0.01 }
-		
+		potential = {
+			oratory_tech >= 2
+		}
 		requires_or = { monthly_character_loyalty_inv_1 diplomatic_reputation_inv_1 }
 	}
 	court_procedures_inv = {
@@ -394,10 +440,13 @@ oratory_2 = {
     		monarchy_new_ruler_cost_modifier = -0.3
     		monthly_corruption = -0.01
 		}
+		potential = {
+			oratory_tech >= 6
+		}
         allow = {
         	is_monarchy = yes
         }
-        requires = { tyranny_inv_1 } 
+        requires = { ruler_popularity_gain_inv_1 } 
     }
 	gw_effect_fantastic_ruler_inv = { 
 		on_activate = { custom_tooltip = "allow_gw_effect_fantastic_ruler" }
@@ -736,7 +785,10 @@ oratory_2 = {
 
 	global_unrest_inv_5 = { #assemblies
 		modifier = { happiness_for_same_culture_modifier = 0.02 }
-		requires = { change_governor_policy_inv }
+		requires = { change_governor_policy_inv } 
+		potential = {
+			oratory_tech >= 6
+		}
 	}	
 
 	smear_character_cost_modifier_inv = { #town crires
@@ -750,6 +802,9 @@ oratory_2 = {
 				name = trial_better_variable
 			}
 		}
+		potential = {
+			oratory_tech >= 4
+		}
 		keystone = yes
 		requires = { tyranny_inv_1 }
 	}	
@@ -759,7 +814,9 @@ oratory_2 = {
 			always = no # modifier now redundant
 			is_republic = yes
 		}
-		
+		potential = {
+			oratory_tech >= 3
+		}
 		requires = { change_governor_policy_inv }
 		modifier = { endorse_party_cost_modifier = -0.2 }
 	}
@@ -767,39 +824,51 @@ oratory_2 = {
 	# Level 3
 	diplomatic_relations_inv = { #Foreign Network
 		modifier = { diplomatic_relations = 1   }
-		
+		potential = {
+			oratory_tech >= 10
+		}
 		requires = { global_unrest_inv_5 }
 	}
 
 	diplomatic_reputation_inv_2 = { #Open Negotiations
 		modifier = { diplomatic_reputation = 1   }
-		
+		potential = {
+			oratory_tech >= 10
+		}
 		requires_or = { global_unrest_inv_5 smear_character_cost_modifier_inv }
 	}
 
 	diplo_range_inv_1 = { #Coding
 		modifier = { diplomatic_range_modifier = 0.15 }
-		
+		potential = {
+			oratory_tech >= 10
+		}
 		requires = { smear_character_cost_modifier_inv }
 	}
 
 	# Level 4
 	control_range_modifier_inv = { #Extended Diplomacy"
 		modifier = { control_range_modifier = 0.05  }
-		
+		potential = {
+			oratory_tech >= 10
+		}
 		requires = { diplomatic_relations_inv }
 	}
 
 	diplo_range_inv_2 = { #Steganography
 		modifier = { diplomatic_range_modifier = 0.05 }
-		
+		potential = {
+			oratory_tech >= 10
+		}
 		requires = { diplomatic_reputation_inv_2 }
 	}
 
 	# Level 5
 	inspire_disloyalty_cost_modifier_inv = { #Espionage
 		modifier = { inspire_disloyalty_cost_modifier = -0.25   }
-		
+		potential = {
+			oratory_tech >= 12
+		}
 		requires_or = { assassinate_attempt_cost_modifier_inv control_range_modifier_inv }
 		on_activate = { custom_tooltip = "allows_espionage_character_interaction" }
 	}
@@ -809,6 +878,9 @@ oratory_2 = {
 			monthly_tyranny = -0.02
 			control_range_modifier = 0.15
 			diplomatic_range_modifier = 0.15
+		}
+		potential = {
+			oratory_tech >= 12
 		}
 		keystone = yes
 		requires_or = { control_range_modifier_inv diplo_range_inv_2 }
@@ -822,13 +894,17 @@ oratory_2 = {
 
 	tyranny_inv_3 = { #Acclamation
 		modifier = { monthly_tyranny = -0.01 }
-		
+		potential = {
+			oratory_tech >= 12
+		}
 		requires =  { diplo_range_inv_2 }
 	}
 
 	diplomatic_relations_inv_2 = { #Foreign Networ
 		modifier = { diplomatic_relations = 1 }
-		
+		potential = {
+			oratory_tech >= 10
+		}
 		requires = { diplo_range_inv_1 }
 		on_activate = {
 			
@@ -839,7 +915,7 @@ oratory_2 = {
 	diplo_range_inv_3 = {# Shift Cipher
 		modifier = { diplomatic_range_modifier = 0.15 }
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 12
 		}
 		requires = { inspire_disloyalty_cost_modifier_inv }
 	}
@@ -847,7 +923,7 @@ oratory_2 = {
 	diplomatic_reputation_inv_3 = { #diplomatic ummunity
 		modifier = { diplomatic_reputation = 1   }
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		requires = { inspire_disloyalty_cost_modifier_inv }
 	}	
@@ -861,7 +937,7 @@ oratory_2 = {
 			custom_tooltip = "corruption_sanctions_improved"
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		keystone = yes
 		requires_or = { diplo_range_inv_3 diplomatic_reputation_inv_3 }
@@ -872,7 +948,7 @@ oratory_2 = {
 			monthly_corruption = -0.01
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		requires_or = { diplomatic_reputation_inv_3 tyranny_inv_2 }
 	}
@@ -880,7 +956,7 @@ oratory_2 = {
 		modifier = { monthly_corruption = -0.01  }
 		requires = { monthly_character_loyalty_inv_3 } 
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 	}
 	monthly_character_loyalty_inv_2 = {#approved famikia
@@ -890,7 +966,7 @@ oratory_2 = {
 		
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		keystone = yes
 		requires_or = { tyranny_inv_3 tyranny_inv_2 }
@@ -918,7 +994,7 @@ oratory_2 = {
 			loyalty_gain_chance_modifier = -0.05
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		keystone = yes
 		requires = { bribe_character_cost_modifier_inv monthly_character_loyalty_inv_3 }
@@ -944,7 +1020,7 @@ oratory_2 = {
 	tyranny_inv_4 = {
 		modifier = { monthly_tyranny = -0.01 }
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		requires = { monthly_character_loyalty_inv_2  }
 	}	
@@ -953,7 +1029,7 @@ oratory_2 = {
 	oaths_of_allegiance_inv = {
 		allow = { is_monarchy = yes }
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		requires = { monthly_character_loyalty_inv_2 }
 		modifier = { price_oaths_of_allegiance_button_cost_modifier = -0.2 }
@@ -969,7 +1045,7 @@ oratory_2 = {
 			}
 		}
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		requires = { tyranny_inv_4 }
 	}
@@ -979,7 +1055,7 @@ oratory_2 = {
 		allow = { rank >= regional_power }
 		requires = { monthly_character_loyalty_inv_5 }
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		modifier = { research_points_modifier = 0.1 }
 		on_activate = {
@@ -992,7 +1068,7 @@ oratory_2 = {
 	tyranny_inv_5 = {
 		modifier = { monthly_tyranny = -0.01 }
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		requires_or = { monthly_character_loyalty_inv_5 diplomatic_reputation_inv_4 }
 	}
@@ -1000,7 +1076,7 @@ oratory_2 = {
 	diplomatic_reputation_inv_5 = {
 		modifier = { diplomatic_reputation = 1   }
 		potential = {
-			age_is = { num = 2 }
+			oratory_tech >= 15
 		}
 		requires = { diplomatic_reputation_inv_4 }
 		
@@ -1010,7 +1086,7 @@ oratory_2 = {
 	scientific_patronage_2_inv = {
 		allow = { rank >= major_power }
 		potential = {
-			age_is = { num = 3 }
+			oratory_tech >= 15
 		}
 		requires = { scientific_patronage_inv }
 		modifier = { research_points_modifier = 0.1 }
@@ -1023,7 +1099,7 @@ oratory_2 = {
 			monthly_political_influence_modifier = 0.25
 		}
 		potential = {
-			age_is = { num = 3 }
+			oratory_tech >= 20
 		}
 		keystone = yes
 		requires = { tyranny_inv_5 }
@@ -1046,7 +1122,7 @@ oratory_2 = {
 			}
 		}
 		potential = {
-			age_is = { num = 3 }
+			oratory_tech >= 20
 		}
 	}
 	#############
