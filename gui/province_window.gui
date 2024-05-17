@@ -2839,15 +2839,22 @@ window = {
 						margin_widget = {
 							layoutpolicy_vertical = expanding
 							layoutpolicy_horizontal = expanding
-							margin = { 6 6 }
+							margin = { 6 0 }
 							margin_bottom = 0
 
 							scrollarea = {
-								size = { 100% 100% }
-								scrollbarpolicy_horizontal = always_off
+								size = { 100% 97% }
+								scrollbarpolicy_horizontal = as_needed
 
 								scrollbar_vertical = {
 									using = VerticalScrollBar
+								}
+
+								scrollbar_horizontal = {
+									using = HorizontalScrollBar
+									blockoverride "speed" {
+										wheelstep = 100
+									}
 								}
 
 								scrollwidget = {

@@ -1,53 +1,38 @@
 ﻿martial_1 = {
 	technology = military_tech
-	color = hsv { 0 0.8 0.5 }
-
-#### MILITARY CULTURE TREE ####
+	color = hsv { 0 0.8 0.5 } 
 
 	# Level 0
-	
-	military_tech_investment_inv_1 = { 
+	military_tech_investment_inv_1 = { #military artisans
 		modifier = { price_state_investment_military_cost_modifier = -0.1 }
 		on_activate = {
 			add_1_free_province_investments = yes
 		}
 	}
-
 	# Level 1
-	global_start_experience_inv_1 = { 
-		modifier = { global_start_experience = 5 }
-		requires = { military_tech_investment_inv_1 }
-		ai_will_do = {
-			modifier = {
-				add = 150
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank > regional_power
-				}
-			}
-		}
-	}
-
-	sacred_band_inv = { 
+	global_start_experience_inv_3 = { #recruitment standards
 		modifier = { 
-			land_morale_recovery = 0.025
-			plains_combat_bonus = 0.05
+			global_start_experience = 2.5 
+			experience_decay = -0.0005
+			global_manpower_modifier = -0.05
 		}
-		allow = {
-			primary_culture = carthaginian
+		potential = {
+			military_tech >= 2
 		}
-		requires = { global_start_experience_inv_1 }
-	}
-
-	global_start_experience_inv_2 = { 
-		modifier = { global_start_experience = 2.5 }
 		requires = { military_tech_investment_inv_1 }
+	}
+	heavy_infantry_discipline_inv = { #military punshiment
+		icon_override = war
+		modifier = { 
+			heavy_infantry_discipline = 0.025
+			spearmen_discipline = 0.025
+			pikemen_discipline = 0.025
+			axemen_discipline = 0.025
+		}
+		potential = {
+			military_tech >= 4
+		}
+		requires = { global_start_experience_inv_3 }
 		ai_will_do = {
 			modifier = {
 				add = 25
@@ -58,170 +43,62 @@
 			}
 		}
 	}
-
-	global_supply_limit_modifier_inv_3 = { 
-		modifier = { global_supply_limit_modifier = 0.1 }
+	land_morale_recovery_inv_5 = { #seveere strictures
+		modifier = { 
+			land_morale_recovery = 0.02
+			discipline = 0.01
+		}
+		potential = {
+			military_tech >= 6
+		}
+		requires = { heavy_infantry_discipline_inv }
+	}
+	global_start_experience_inv_2 = { #BASIC training
+		modifier = {
+			global_start_experience = 2.5 
+		}
+		potential = {
+			military_tech >= 2
+		}
 		requires = { military_tech_investment_inv_1 }
 	}
-
-	# Level 2
-	heavy_infantry_discipline_inv = {
-		modifier = { heavy_infantry_discipline = 0.05 }
-		requires = { global_start_experience_inv_3 }
-	}
-
-	global_start_experience_inv_3 = { 
-		modifier = { global_start_experience = 2.5 }
-		requires = { global_start_experience_inv_1 }
+	experience_decay_inv_1 = { #active drill
+		modifier = {
+			discipline= 0.03
+		}
+		potential = {
+			military_tech >= 2
+		}
 		ai_will_do = {
 			modifier = {
-				add = 150
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank > regional_power
-				}
+				add = 25
 			}
-		}
-	}
-
-	#New for Invictus
-	centralised_production_inv = {
-		modifier = { global_tax_modifier = 0.01 }
-		requires = { global_start_experience_inv_3 }
-		on_activate = { custom_tooltip = "enables_foundry_building_tt" }
-		ai_will_do = {
 			modifier = {
-				add = 150
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank > regional_power
-				}
+				add = 25
+				is_antagonist = yes
 			}
-		}
-		keystone = yes
-	}
-
-	experience_decay_inv_1 = { 
-		modifier = { 
-			discipline = 0.05
 		}
 		requires = { global_start_experience_inv_2 }
-		ai_will_do = {
-			modifier = {
-				add = 25
-			}
-			modifier = {
-				add = 25
-				is_antagonist = yes
-			}
+	}
+	cohort_reinforcement_speed_inv = { #enahnced training grounds
+		modifier = {
+			cohort_reinforcement_speed = 0.05
 		}
-	}
-
-	fort_maintenance_cost_inv = {
-		modifier = { fort_maintenance_cost = -0.1 }
-		requires = { global_supply_limit_modifier_inv_2 }
-	}
-
-	global_supply_limit_modifier_inv_1 = { 
-		modifier = { global_supply_limit_modifier = 0.1 }
-		requires = { general_loyalty_inv }
-	}
-
-	general_loyalty_inv = {
-		modifier = { general_loyalty = 5 }
-		requires = { global_supply_limit_modifier_inv_3 }
-	}
-
-	global_supply_limit_modifier_inv_2 = { 
-		modifier = { global_supply_limit_modifier = 0.05 }
-		requires = { global_supply_limit_modifier_inv_3 }
-	}
-
-	#New Invictus invention
-	backgammon_inv = {
-    	modifier = { 
-    		discipline = 0.025
-    		global_start_experience = 2.5
-    	}
-        
-        requires = { global_start_experience_inv_1 }
-        allow = {
-			OR = {
-				country_culture_group = east_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_east_levantine_culture
-					has_variable = mesopotamian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_mesopotamian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-
-	#Level 3
-	discipline_inv_4 = { 
-		requires = { discipline_inv_3 }
-		modifier = { 
-			discipline = 0.05
-			loyalty_gain_chance_modifier = -0.05
+		potential = {
+			military_tech >= 4
 		}
-		on_activate = {
-			custom_tooltip = "exp_from_sieging_legions"
-		}
-		keystone = yes
-	}
-
-	army_maintenance_cost_inv_2 = { 
-		modifier = { army_maintenance_cost = -0.05  }
-		requires = { global_cohort_recruit_speed_inv }
-		ai_will_do = {
-			modifier = {
-				add = 25
-			}
-			modifier = {
-				add = 25
-				is_antagonist = yes
-			}
-		}
-	}
-
-
-	cohort_reinforcement_speed_inv = {
 		requires = { experience_decay_inv_1 }
-		modifier = { cohort_reinforcement_speed = 0.05 }
-		ai_will_do = {
-			modifier = {
-				add = 25
-			}
-			modifier = {
-				add = 25
-				is_antagonist = yes
-			}
-		}
 	}
-
-	global_cohort_recruit_speed_inv = { 
-		modifier = { 
-			discipline = 0.05 
+	global_cohort_recruit_speed_inv = { #professional training
+		modifier = {
+			discipline = 0.05
 			experience_decay = -0.005
 		}
-		keystone = yes
+		potential = {
+			military_tech >= 4
+		}
 		requires = { experience_decay_inv_1 }
+		keystone = yes
 		on_activate = {
 			if = {
 				limit = {
@@ -229,24 +106,20 @@
 				}
 				custom_tooltip = "allow_capital_legion_law"
 			}
-			if = {
-				limit = {
-					is_ai = yes
-					is_republic = yes
-				}
-				pay_price = enact_law
-				if = {
-					limit = { tag = ROM }
-					change_law = punic_reforms
-				}
-				else_if = {
-					limit = { tag = CAR }
-					change_law = republic_military_recruitment_car_2
-				}
-				else = {
-					change_law = republican_recruitment_2
-				}
-			}
+			#if = {
+			#	limit = {
+			#		is_ai = yes
+			#		is_republic = yes
+			#	}
+			#	pay_price = enact_law
+			#	if = {
+			#		limit = { tag = ROM }
+			#		change_law = punic_reforms
+			#	}
+			#	else = {
+			#		change_law = republican_recruitment_2
+			#	}
+			#}
 		}
 		ai_will_do = {
 			modifier = {
@@ -254,246 +127,135 @@
 			}
 		}
 	}
-	
-	gw_effect_martial_education_inv = {
-		on_activate = { custom_tooltip = "allow_gw_effect_martial_education" }
-		requires = { global_cohort_recruit_speed_inv }
-		allow = { has_dlc = "Heirs of Alexander" }
-		icon_override = gw_icon
-	}
-
-	sibyna_inv = {
-		modifier = { spearmen_offensive = 0.1 }
-		requires = { gw_effect_martial_education_inv }
+	martial_unit_inv = { #unit cohesion
+		modifier = {
+			discipline = 0.025
+		}
+		potential = {
+			nor = {
+				invention = discipline_inv_2
+				invention = decimal_command_inv
+				invention = greek_unit_inv
+			}
+			military_tech >= 6
+		}
 		allow = {
-			OR = {
-				country_culture_group = illyrian_group
-				custom_tooltip = {
-					text = integrated_any_haemic_culture
-					has_variable = haemic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:illyrian_group
-						}
-					}
-				}
+			nor = {
+				tag = ROM
+				country_culture_group = hellenic
+				country_culture_group = persia
+			}
+			nor = {
+				invention = discipline_inv_2
+				invention = decimal_command_inv
+				invention = greek_unit_inv
 			}
 		}
-	}
-
-	corinth_helmet_inv = {
-		modifier = { 
-			spearmen_defensive = 0.05
-			spearmen_morale = 0.05 
-		}
-		requires = { gw_effect_martial_education_inv }
-		allow = {
-			primary_culture = achaean
-		}
-	}
-
-	rhomphaia_inv = {
-		modifier = { spearmen_offensive = 0.1 }
-		requires = { gw_effect_martial_education_inv }
-		allow = {
-			primary_culture = triballoi
-		}
-	}
-	
-	discipline_inv_2 = { 
-		modifier = { discipline = 0.025 }
 		requires = { cohort_reinforcement_speed_inv }
 	}
-
-	army_movement_speed_inv = { 
-		modifier = { 
-			army_movement_speed = 0.05 
-			
-		}
-		on_activate = {
-			custom_tooltip = "enables_forced_march"
-		}
-		keystone = yes
-		requires_or = { military_tech_investment_inv_2 global_supply_limit_modifier_inv_4 }
-	}
-
-	military_tech_investment_inv_2 = { 
-		modifier = { army_movement_speed = 0.05 }
-		requires = { global_supply_limit_modifier_inv_1 }
-	}
-
-	global_supply_limit_modifier_inv_4 = { 
-		requires = { fort_maintenance_cost_inv }
-		modifier = { global_supply_limit_modifier = 0.05 }
-	}
-
-	#New Invictus invention
-	
-	#New for Invictus
-	slavemaster_inv = {
-		modifier = { 
-			global_tax_modifier = 0.05
-			global_slaves_output = 0.05
-			global_slaves_happyness = -0.1 
-		}
-		requires = { centralised_production_inv }
-	}
-
-	cured_ham_inv = {
-		modifier = { 
-			supply_train_cost = -0.1
-			global_supply_limit_modifier = 0.05
-		}
-		
-		requires = { global_supply_limit_modifier_inv_2 }
-		allow = {
-			OR = {
-				country_culture_group = celt_iberia
-				country_culture_group = iberia
-				custom_tooltip = {
-					text = integrated_any_iberian_culture
-					has_variable = iberian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:celt_iberia
-							this.culture.culture_group = culture_group:iberia
-						}
-					}
-				}
-			}
-		}
-	}	
-
-	#New Invictus invention
-	draco_inv = {
-		modifier = { character_loyalty = 3 }
-		requires = { heavy_infantry_discipline_inv }
-		allow = {
-			country_culture_group = dacia_group
-			custom_tooltip = {
-				text = integrated_any_haemic_culture
-				has_variable = haemic_science
-				any_country_culture = {
-					is_integrated = yes
-					OR = {
-						this.culture.culture_group = culture_group:dacia_group
-					}
-				}
-			}
-		}
-	}
-
-
-	# Level 4
-	discipline_inv_3 = { 
-		modifier = { 
-			land_morale_recovery = 0.04
-		}
-		requires = { global_start_experience_inv_4 }
-	}
-
-	global_start_experience_inv_4 = { 
-		requires = { army_maintenance_cost_inv_2 }
-		modifier = { 
-			global_start_experience = 5
-			heavy_infantry_discipline = 0.05
-		}
-		on_activate = {
-			custom_tooltip = "create_high_martial_rising_star"
-			hidden_effect = {
-				create_character = {
-					add_martial = 8
-					add_trait = conqueror
-				}
-			}
-		}
-		keystone = yes
-		ai_will_do = {
-			modifier = {
-				add = 25
-			}
-			modifier = {
-				add = 25
-				is_antagonist = yes
-			}
-		}
-	}	
-
-
-	global_start_experience_inv_5 = { 
-		requires = { discipline_inv_2 }
-		modifier = { global_start_experience = 2.5 }
-	}
-
-	italic_lituus_inv = {
-		modifier = { discipline = 0.025 }
-		requires = { global_start_experience_inv_5 }
-		allow = {
-			primary_culture = etruscan
-		}
-
-	}
-
-	club_inv = { 
-		requires = { global_start_experience_inv_5 }
-		modifier = { light_infantry_defensive = 0.05 }
-		allow = {
-			country_culture_group = dacia_group
-			custom_tooltip = {
-				text = integrated_any_haemic_culture
-				has_variable = haemic_science
-				any_country_culture = {
-					is_integrated = yes
-					OR = {
-						this.culture.culture_group = culture_group:dacia_group
-					}
-				}
-			}
-		}
-	}
-
-	akinakes_inv = { 
-		requires = { global_start_experience_inv_5 }
-		modifier = { 
-			light_infantry_defensive = 0.05
-			light_infantry_offensive = 0.05
-		}
-		allow = {
-			OR = {
-				country_culture_group = scythia
-				country_culture_group = sarmatian_group
-				country_culture_group = saka_g
-				primary_culture = median
-			}
-		}
-	}
-
-	pelte_shield_inv = { 
-		requires = { global_start_experience_inv_5 }
-		modifier = { 
+	discipline_inv_2 = { #manipular legion
+		modifier = {
+			discipline = 0.025
 			heavy_infantry_defensive = 0.05
 		}
+		potential = {
+			nor = {
+				invention = martial_unit_inv
+				invention = decimal_command_inv
+				invention = greek_unit_inv
+			}
+			military_tech >= 6
+		}
 		allow = {
-			country_culture_group = thrace_group
-			custom_tooltip = {
-				text = integrated_any_haemic_culture
-				has_variable = haemic_science
-				any_country_culture = {
-					is_integrated = yes
-					OR = {
-						this.culture.culture_group = culture_group:thrace_group
+			tag = ROM
+			nor = {
+				invention = martial_unit_inv
+				invention = decimal_command_inv
+				invention = greek_unit_inv
+			}
+		}
+		requires = { cohort_reinforcement_speed_inv }
+	}
+	decimal_command_inv = { #persian maniples
+		modifier = { 
+			discipline = 0.02 
+			general_loyalty = 1
+		}
+		potential = {
+			nor = {
+				invention = martial_unit_inv
+				invention = discipline_inv_2
+				invention = greek_unit_inv
+			}
+			military_tech >= 6
+		}
+		requires = { cohort_reinforcement_speed_inv }
+		allow = {
+			nor = {
+				invention = martial_unit_inv
+				invention = discipline_inv_2
+				invention = greek_unit_inv
+			}
+			OR = {
+				country_culture_group = persia
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_persian_culture
+					has_variable = persian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_persian_culture_group_trigger = yes
 					}
 				}
 			}
-		}
+		} 
 	}
-
-	discipline_inv_5 = { 
-		requires = { global_start_experience_inv_5 experience_decay_inv_2 }
-		modifier = { 
-			discipline = 0.05 
+	greek_unit_inv = { #supporting auxillaries
+		modifier = {
+			discipline = 0.02 
+			light_infantry_defensive = 0.05
+			spearmen_defensive = 0.05
+			pikemen_defensive = 0.05
+		}
+		potential = {
+			nor = {
+				invention = martial_unit_inv
+				invention = decimal_command_inv
+				invention = discipline_inv_2
+			}
+			military_tech >= 6
+		}
+		allow = {
+			country_culture_group = hellenic
+			nor = {
+				invention = martial_unit_inv
+				invention = decimal_command_inv
+				invention = discipline_inv_2
+			}
+		}
+		requires = { cohort_reinforcement_speed_inv }
+	}
+	martial_unit_inv_2 = { #standardized units
+		modifier = {
+			discipline = 0.05
+			army_weight_modifier = -0.05
+		}
+		potential = {
+			nor = {
+				invention = khatru_inv
+				invention = discipline_inv_5
+			}
+			military_tech >= 10
+		}
+		allow = {
+			nor = {
+				invention = khatru_inv
+				invention = discipline_inv_5
+			}
+			nor = {
+				tag = ROM
+				country_culture_group = persia
+			}
 		}
 		on_activate = {
 			custom_tooltip = "allow_all_legion_law"
@@ -517,9 +279,62 @@
 					}
 					change_law = marian_reforms
 				}
-				else_if = {
-					limit = { tag = CAR }
-					change_law = republic_military_recruitment_car_4
+				else = {
+					change_law = republican_recruitment_4
+				}
+			}
+		}
+		keystone = yes
+		ai_will_do = {
+			modifier = {
+				add = 100
+				is_tribal = no
+			}
+		}
+		requires = { discipline_inv_3 }
+		requires_or = { greek_unit_inv martial_unit_inv }
+	}
+	discipline_inv_5 = { #cohort
+		modifier = {
+			discipline = 0.05
+			army_weight_modifier = -0.05
+			supply_train_cost = -0.1
+		}
+		potential = {
+			nor = {
+				invention = khatru_inv
+				invention = martial_unit_inv_2
+			}
+			military_tech >= 10
+		}
+		allow = {
+			tag = ROM
+			nor = {
+				invention = khatru_inv
+				invention = martial_unit_inv_2
+			}
+		}
+		on_activate = {
+			custom_tooltip = "allow_all_legion_law"
+			if = {
+				limit = {
+					is_ai = yes
+					is_monarchy = yes
+				}
+				pay_price = enact_law
+				change_law = standing_army_law
+			}
+			else_if = {
+				limit = {
+					is_ai = yes
+					is_republic = yes
+				}
+				pay_price = enact_law
+				if = {
+					limit = {
+						tag = ROM
+					}
+					change_law = marian_reforms
 				}
 				else = {
 					change_law = republican_recruitment_4
@@ -533,153 +348,132 @@
 				is_tribal = no
 			}
 		}
-	}	
-
-
-	hostile_attrition_inv = { 
-		modifier = { hostile_attrition = 1  }
-		requires = { retreat_delay_inv }
+		requires = { discipline_inv_2 discipline_inv_3 }
 	}
-
-	tribulus_inv = { 
-		modifier = { hostile_attrition = 0.5  }
-		requires = { hostile_attrition_inv }
-		allow = {
-			OR = {
-				primary_culture = roman
-				primary_culture = macedonian
+	khatru_inv = {
+		modifier = {
+			discipline = 0.05
+			army_weight_modifier = -0.05
+			army_maintenance_cost = -0.02 		
+		}
+		requires = { decimal_command_inv discipline_inv_3 } 
+		potential = {
+			nor = {
+				invention = discipline_inv_5
+				invention = martial_unit_inv_2
 			}
+			military_tech >= 10
 		}
-	}
-
-
-	global_supply_limit_modifier_inv_5 = { 
-		requires = { army_movement_speed_inv }
-		modifier = { global_supply_limit_modifier = 0.1 }
-	}
-
-
-	army_maintenance_cost_inv_1 = { 
-		modifier = { army_maintenance_cost = -0.05  }
-		requires = { global_supply_limit_modifier_inv_4 }
-	}
-
-	#New Invictus invention
-	iberian_cavalry_inv = {
-		modifier = { 
-			heavy_cavalry_offensive = 0.1 
-			heavy_cavalry_defensive = 0.1 
-		}
-		
-		requires = { cured_ham_inv }
 		allow = {
+			nor = {
+				invention = discipline_inv_5
+				invention = martial_unit_inv_2
+			}
 			OR = {
-				country_culture_group = celt_iberia
-				country_culture_group = iberia
+				country_culture_group = persia
 				custom_tooltip = {
-					text = integrated_any_iberian_culture
-					has_variable = iberian_science
+					#Need a new text
+					text = integrated_any_persian_culture
+					has_variable = persian_science
 					any_country_culture = {
 						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:celt_iberia
-							this.culture.culture_group = culture_group:iberia
+						is_persian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+	}
+	land_morale_recovery_inv_3 = { #regimental standard
+		modifier = { 
+			land_morale_recovery = 0.02
+			land_morale_modifier = 0.02
+		}
+		potential = {
+			military_tech >= 15
+			religious_tech >= 15
+		}
+		requires_or = { discipline_inv_5 martial_unit_inv_2 }
+	}
+	land_morale_recovery_inv_1 = { #oath of brotherhood
+		modifier = { 
+			land_morale_recovery = 0.03
+		}
+		potential = {
+			military_tech >= 15
+			religious_tech >= 15
+		}
+		on_activate = {
+			if = {
+				limit = {
+					has_dlc = "Heirs of Alexander"
+				}
+				custom_tooltip = "allow_gw_effect_strong_generals"
+				custom_tooltip = "allow_gw_effect_strong_admirals"
+			}
+		}
+		requires = { land_morale_recovery_inv_3 }
+	}
+	army_maintenance_cost_inv_2 = { #retirment opportunities
+		modifier = { 
+			army_maintenance_cost = -0.05
+			loyalty_gain_chance = -0.05
+		}
+		potential = {
+			military_tech >= 8
+		}
+		requires = { global_cohort_recruit_speed_inv }
+		on_activate = {
+			if = {
+				limit = {
+					is_tribal = no
+				}
+				custom_tooltip = "allow_soldier_land_grants_law"
+			}
+			hidden_effect = {
+				random_owned_province = {
+					weight = {
+						modifier = {
+							factor = 100
+							any_neighbor_province = {
+								exists = owner
+								NOT = {
+									owner = prev.owner
+								}
+							}
 						}
 					}
+					create_state_pop = freemen
 				}
 			}
 		}
 		ai_will_do = {
 			modifier = {
-				add = 150
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-				}
+				factor = 100
 			}
 		}
 	}
-
-	#New Invictus invention
-	falconry_inv = {
-		modifier = { army_maintenance_cost = -0.025 }
-		requires = { heavy_infantry_discipline_inv }
-		allow = {
-			country_culture_group = thrace_group
-			custom_tooltip = {
-				text = integrated_any_haemic_culture
-				has_variable = haemic_science
-				any_country_culture = {
-					is_integrated = yes
-					OR = {
-						this.culture.culture_group = culture_group:thrace_group
-					}
+	discipline_inv_3 = { #veteran enticements
+		requires = { army_maintenance_cost_inv_2 }
+		modifier = { 
+			global_start_experience = 3
+			heavy_infantry_discipline = 0.03
+			spearmen_discipline = 0.03
+			axemen_discipline = 0.03
+			pikemen_discipline = 0.03
+		}
+		potential = {
+			military_tech >= 8
+		}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = conqueror
 				}
 			}
 		}
-	}
-
-	illyrian_helmet_inv = {
-		modifier = { spearmen_defensive = 0.10 }
-		requires = { heavy_infantry_discipline_inv }
-		allow = {
-			OR = {
-				country_culture_group = illyrian_group
-				custom_tooltip = {
-					text = integrated_any_haemic_culture
-					has_variable = haemic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:illyrian_group
-						}
-					}
-				}
-			}
-		}
-	}
-
-	#New Invictus invention
-	bitless_bridle_inv = { 
-        modifier = { 
-			light_cavalry_defensive = 0.05
-			heavy_cavalry_defensive = 0.05
-			light_cavalry_offensive = 0.05
-			heavy_cavalry_offensive = 0.05
-			horse_skirmishers_offensive = 0.05
-			horse_skirmishers_offensive = 0.05
-		}
-        
-        requires_or = { global_supply_limit_modifier_inv_4 }
-        allow = {
-			OR = {
-				country_culture_group = numidian
-				country_culture_group = fezzani
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_numidian_culture
-					has_variable = numidian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:numidian
-							this.culture.culture_group = culture_group:fezzani
-						}
-					}
-				}
-			}
-		} 
-    }
-
-	# Level 5
-	experience_decay_inv_2 = { 
-		requires = { global_start_experience_inv_4 }
-		modifier = { experience_decay = -0.005 }
+		keystone = yes
 		ai_will_do = {
 			modifier = {
 				add = 25
@@ -690,18 +484,92 @@
 			}
 		}
 	}
-
-	retreat_delay_inv = {
-		requires = { army_movement_speed_inv }
-		modifier = { retreat_delay = -2 }
-	}
-
-	land_unit_attrition_inv = { 
-		requires_or = { global_supply_limit_modifier_inv_5 army_maintenance_cost_inv_1 }
-		keystone = yes
+	discipline_inv_4 = { #promotion through valor
+		requires = { discipline_inv_3 }
 		modifier = { 
-			land_unit_attrition = -0.1   
+			discipline = 0.05
+			loyalty_gain_chance_modifier = -0.05
+		}
+	}
+	experience_decay_inv_2 = { #veteran reassignment
+		requires = { discipline_inv_3 }
+		modifier = { 
+			experience_decay = -0.005
+			land_morale_recovery = 0.04
+		}
+		potential = {
+			military_tech >= 12
+		}
+	}
+	global_manpower_modifier_inv_5 = { #service for life
+		requires = { experience_decay_inv_2 }
+		modifier = { 
+			global_manpower_modifier = 0.025
+		}
+		potential = {
+			military_tech >= 15
+			religious_tech >= 15
+		}
+	}
+	land_morale_recovery_inv_4 = { #military decoration
+		requires = { discipline_inv_4 }
+		modifier = { 
+			land_morale_recovery = 0.02
+			loyalty_gain_chance_modifier = -0.01
+		}
+		potential = {
+			military_tech >= 15
+			religious_tech >= 15
+		}
+	}
+	global_supply_limit_modifier_inv_2 = { #fighting season
+		modifier = { global_supply_limit_modifier = 0.05 }
+		requires = { military_tech_investment_inv_1 } 
+		potential = {
+			military_tech >= 1
+		}
+	}
+	global_supply_limit_modifier_inv_3 = { # logositic division
+		modifier = { global_supply_limit_modifier = 0.1 }
+		requires = { global_supply_limit_modifier_inv_2 } 
+		potential = {
+			military_tech >= 2
+		}
+	}
+	global_supply_limit_modifier_inv_4 = { #delayed baggage train
+		modifier = { global_supply_limit_modifier = 0.05 }
+		requires = { global_supply_limit_modifier_inv_3 } 
+		potential = {
+			military_tech >= 4
+		}
+	}
+	army_maintenance_cost_inv_1 = { #pay masters
+		modifier = { 
+			army_maintenance_cost = -0.05
+			loyalty_gain_chance_modifier = -0.05 
+		}
+		potential = {
+			military_tech >= 6
+		}
+		requires = { global_supply_limit_modifier_inv_4 }
+	}
+	global_supply_limit_modifier_inv_5 = { #central reserves
+		modifier = { 
+			global_supply_limit_modifier = 0.1 
+		}
+		potential = {
+			military_tech >= 10
+		}
+		requires = { army_maintenance_cost_inv_1 }
+	}
+	land_unit_attrition_inv = { #army surgeons "War is the only proper school for surgeons"
+		modifier = { 
+			land_unit_attrition = -0.1
 			global_supply_limit_modifier = 0.15
+		}
+		potential = {
+			military_tech >= 10
+			civic_tech >= 10
 		}
 		on_activate = {
 			random_character = {
@@ -711,9 +579,233 @@
 				add_finesse = 3
 			}
 		}
+		requires = { army_maintenance_cost_inv_1 }
 	}
-
-	#New Invictus invention
+	global_manpower_modifier_inv_3 = { #medical auxilia "War is the only proper school for surgeons"
+		modifier = { 
+			manpower_recovery_speed = 0.03
+		}
+		on_activate = {
+			random_character = {
+				limit = {
+					has_doctor_office_trigger = yes
+				}
+				add_finesse = 3
+			}
+		}
+		potential = {
+			military_tech >= 10
+			civic_tech >= 10
+		}
+		requires = { land_unit_attrition_inv }
+	}
+	general_loyalty_inv = { #military sponsers
+		modifier = { 
+			general_loyalty = 5
+		}
+		requires = { global_supply_limit_modifier_inv_2 } 
+		potential = {
+			military_tech >= 4
+		}
+	}
+	martial_aux_inv = { #auxillaries
+		modifier = { 
+			global_supply_limit_modifier = 0.05
+			light_infantry_discipline = 0.05
+		}
+		potential = {
+			military_tech >= 4
+		}
+		allow = {
+			not = {
+				primary_culture = roman
+			}
+		}
+		requires = { general_loyalty_inv }
+	}
+	global_supply_limit_modifier_inv_1 = { #supernumeraraii
+		modifier = { 
+			global_supply_limit_modifier = 0.05
+			subject_pays_feudatory_cost_modifier = 0.1
+			light_infantry_discipline = 0.05
+		}
+		potential = {
+			military_tech >= 2
+		}
+		allow = {
+			primary_culture = roman
+		}
+		requires = { general_loyalty_inv }
+	}
+	global_manpower_modifier_inv_1 = { #auxillary recruitment
+		modifier = { 
+			global_manpower_modifier = 0.05
+			levy_size_multiplier = 0.02
+			max_mercenary_stacks = 1
+		}
+		potential = {
+			military_tech >= 2
+		}
+		allow = {
+			not = {
+				primary_culture = roman
+			}
+		}
+		requires = { global_supply_limit_modifier_inv_2 }
+	}
+	military_tech_investment_inv_2 = { #prefectus fabrum
+		modifier = { 
+			army_movement_speed = 0.05
+		}
+		allow = {
+			primary_culture = roman
+		}
+		requires = { global_supply_limit_modifier_inv_1 }
+	}
+	army_movement_speed_inv = { #quick march
+		modifier = { 
+			army_movement_speed = 0.05 
+			
+		}
+		potential = {
+			military_tech >= 8
+		}
+		on_activate = {
+			custom_tooltip = "enables_forced_march"
+		}
+		keystone = yes
+		requires_or = { global_supply_limit_modifier_inv_1 martial_aux_inv global_supply_limit_modifier_inv_4 }
+	}
+	retreat_delay_inv = { #tacitcal wothdraw
+		modifier = { 
+			retreat_delay = -2
+		}
+		potential = {
+			military_tech >= 10
+		}
+		requires = { army_movement_speed_inv }
+	}
+	hostile_attrition_inv = { #pScorched Earthm
+		modifier = { 
+			hostile_attrition = 1
+		}
+		potential = {
+			military_tech >= 10
+		}
+		requires = { army_movement_speed_inv }
+	}
+	###
+	#BArbarian
+	####
+	gallic_timbered_roads_inv = {
+		modifier = { army_maintenance_cost = -0.1
+					 army_movement_speed = 0.1 }
+		requires = { global_supply_limit_modifier_inv_3 }
+		allow = {
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
+				}
+			}
+		}
+	}
+	dhanurveda_inv = { #vedic trestise on archery and military sciences
+		modifier = { 
+			archers_offensive = 0.05
+			chariots_offensive = 0.05
+			warelephant_offensive = 0.05
+			discipline = 0.02
+			global_start_experience = 2
+		}
+		keystone = yes
+		requires = { heavy_infantry_discipline_inv }
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+	}
+	######
+	#INVICTUS
+	####
+	backgammon_inv = {
+		modifier = { 
+			discipline = 0.025
+			global_start_experience = 2.5
+		}
+		
+		requires = { military_tech_investment_inv_1 }
+		allow = {
+			OR = {
+				country_culture_group = east_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_east_levantine_culture
+					has_variable = mesopotamian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_mesopotamian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+	}
+	draco_inv = {
+		modifier = { character_loyalty = 3 }
+		requires = { heavy_infantry_discipline_inv }
+		allow = {
+			country_culture_group = dacia_group
+			custom_tooltip = {
+				text = integrated_any_haemic_culture
+				has_variable = haemic_science
+				any_country_culture = {
+					is_integrated = yes
+					OR = {
+						this.culture.culture_group = culture_group:dacia_group
+					}
+				}
+			}
+		}
+	}
 	werewolves_inv = {
 		modifier = { 
 			discipline = 0.025
@@ -734,19 +826,17 @@
 			}
 		}
 	}
-
-	#New Invictus invention
-    postal_service_inv = {
-    	modifier = {
-    		horse_skirmishers_movement_speed = 0.1
-    		light_cavalry_movement_speed = 0.1
-    		heavy_cavalry_movement_speed = 0.1
-    		camels_movement_speed = 0.1
-    		horse_archers_movement_speed = 0.1
-    	}
-        
-        requires = { global_start_experience_inv_5 }
-        allow = {
+	postal_service_inv = {
+		modifier = {
+			horse_skirmishers_movement_speed = 0.1
+			light_cavalry_movement_speed = 0.1
+			heavy_cavalry_movement_speed = 0.1
+			camels_movement_speed = 0.1
+			horse_archers_movement_speed = 0.1
+		}
+		
+		requires = { global_start_experience_inv_3 }
+		allow = {
 			OR = {
 				country_culture_group = persia
 				custom_tooltip = {
@@ -760,310 +850,3156 @@
 				}
 			}
 		} 
-    }
-
-    #New Invictus invention
-    decimal_command_inv = {
-    	modifier = { discipline = 0.025 }
-        
-        requires = { postal_service_inv }
-        allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-
-    #New Invictus invention
-    khatru_inv = {
-    	modifier = {
-			 army_maintenance_cost = -0.025   		
-			 global_tax_modifier = 0.025
-    	}
-        
-        requires = { decimal_command_inv }
-        allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
+	}
+	
+	
 }
-
-#### MILITARY INVENTIONS TREE ####
+####MAKE CUSTOM TOOLTIP FOR MUTUALLY EXCLUSIVE INVENTIONS
+######MAKE SIEGE ENGINES MUTUALLY EXLCUSIVE IN CONTEXT THAT YOU CHOSE ONE OR OTHER IN GORUPS 3 TIERED : LADDERS AND RMAS, SOCRPIO BALLISTAE, SIEGE TOWERS /SIEGE ENGINES
 military_inventions = {
 	technology = military_tech
 	color = hsv { 0 0.6 0.9 }
-	# Level 0
-	buy_military_tradition_inv = { 
-		modifier = { army_weight_modifier = -0.1  }
-		ai_will_do = {
-			modifier = {
-				add = 150
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank >= regional_power
-				}
+	metallurgy_inv = { 
+		modifier = {
+			global_commerce_modifier = 0.02
+			global_tax_modifier = 0.02
+		}
+		potential = {
+			military_tech >= 1
+		}
+	}
+	bloomeries_inv = { 
+		modifier = {
+			global_slaves_output = 0.1
+		}
+		requires = {metallurgy_inv}
+		on_activate = { custom_tooltip = "enables_foundry_building_tt" }
+	}
+	heavy_infantry_cost_inv = { #blacksmith
+		modifier = { 
+			heavy_infantry_cost = -0.1
+			spearmen_cost = -0.1
+			pikemen_cost = -0.1
+			axemen_cost = -0.1
+		}
+		keystone = yes
+		potential = {
+			military_tech >= 2
+		}
+		requires = { bloomeries_inv }	
+	}
+	helmet_inv = { #stylized helmets
+		modifier = {
+			discipline = 0.02
+		}
+		requires = { metallurgy_inv } 
+		allow = {
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+
+			}
+		}
+		potential = {
+			NOr = { 
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+
 			}
 		}
 	}
-
-	# Level 1
-	discipline_inv_1 = { 
-		modifier = { discipline = 0.025 }
-		requires = { buy_military_tradition_inv }
-		ai_will_do = {
-			modifier = {
-				add = 150
-				OR = {
-					is_antagonist = yes
-					tag = SEL
-					tag = TRE
-					tag = EGY
-					tag = MAC
-					tag = EPI
-					tag = ALX
-					rank >= regional_power
+	saddle_inv = {#saddle
+		modifier = {
+			heavy_cavalry_discipline = 0.05
+		}
+		allow = {
+			nor = {
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+				invention = gallic_four_horned_saddle_inv
+			}
+		}
+		potential = {
+			nor = {
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+				invention = gallic_four_horned_saddle_inv
+			}
+		}
+		requires_or = { 
+			helmet_inv  greek_helmet_inv_1
+			greek_helmet_inv_2
+			greek_helmet_inv_3
+			greek_helmet_inv_4
+			latin_helmet_inv_1
+			gallic_montefortino_helmet_inv
+			indian_helmet_inv_1
+			chinese_helmet_inv_1
+			chinese_helmet_inv_2
+			illyrian_helmet_inv 
+		}
+	}
+	#############################################
+	######CULTURAL METALWORKING SHENANIGANS######
+	#############################################
+	############
+	###Metals
+	#########
+	gallic_noric_steel_inv = {
+		modifier = { 
+			light_infantry_offensive = 0.05
+			heavy_infantry_offensive = 0.05
+			spearmen_offensive = 0.05
+			axemen_offensive = 0.05
+		}
+		requires = { bloomeries_inv }
+		allow = {
+			NOr = { 
+				invention = indian_crucible_steel_inv 
+				invention = chinese_steel_inv 
+			}
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
 				}
 			}
 		}
-	}
-
-	global_defensive_inv_1 = {
-		modifier = { global_defensive = 0.05 }
-		requires = { buy_military_tradition_inv }
-	}
-
-	siege_engineers_inv_1 = { 
-		modifier = { siege_engineers = 1  }
-		requires = { buy_military_tradition_inv }
+		potential = { 
+			NOr = { 
+				invention = gallic_noric_steel_inv 
+				invention = indian_crucible_steel_inv 
+				invention = chinese_steel_inv 
+			}
+			military_tech >= 4
+		}
 		on_activate = {
-			custom_tooltip = "allow_gw_effect_siege_doctrine"
+			random_owned_province = {
+				limit = {
+					trade_goods = iron
+					has_city_status = yes
+				}
+				alternative_limit = {
+					trade_goods = iron
+					has_city_status = no
+				}
+				set_trade_goods = wootz_steel
+			}
 		}
 	}
-
-	
-	crossbow_inv = {
-		modifier = { archers_offensive = 0.15 }
-		requires = { siege_engineers_inv_1 }
+	indian_wootz_steel_inv = {
+		modifier = { 
+			global_tribesmen_output = 0.01
+			global_population_growth = 0.01
+		}
+		potential = {
+			military_tech >= 4
+		}
+		requires = { bloomeries_inv }
 		allow = {
 			OR = {
-				primary_culture = tocharian
-				primary_culture = yuezhi
-				primary_culture = sakan
-				primary_culture = wusun
-			}
-		}
-	}
-
-	battering_ram_inv = { 
-		modifier = { assault_ability = 0.1 }
-		requires = { siege_engineers_inv_1 }
-		allow = {
-			primary_culture = carthaginian
-		}
-	}
-
-	# Level 2
-	heavy_cavalry_discipline_inv = {
-		modifier = { heavy_cavalry_discipline = 0.05 }
-		requires = { discipline_inv_1 }
-	}
-
-	chalcidian_helmet_inv = {
-		modifier = { spearmen_defensive = 0.05 }
-		requires = { discipline_inv_1 }
-		allow = {
-			primary_culture = boeotian
-		}
-	}
-
-	phrygian_helmet_inv = {
-		modifier = { light_infantry_defensive = 0.05 }
-		requires = { discipline_inv_1 }
-		allow = {
-			primary_culture = phrygian
-		}
-	}
-
-	scythian_helmet_inv = {
-		modifier = { 
-			heavy_cavalry_defensive = 0.05
-			light_cavalry_defensive = 0.05
-			horse_skirmishers_defensive = 0.05
-			horse_archers_defensive = 0.05
-		}
-		allow = {
-			primary_culture = scythian
-		}
-		requires = { heavy_cavalry_discipline_inv }
-	}
-
-	global_defensive_inv_2 = { 
-		modifier = { global_defensive = 0.05 }
-		requires = { global_defensive_inv_1 }
-		on_activate = {
-			if = {
-				limit = {
-					has_dlc = "Heirs of Alexander"
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
 				}
-				custom_tooltip = "allow_gw_effect_defense_doctrine"
 			}
 		}
-	}	
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					trade_goods = iron
+					has_city_status = yes
+				}
+				alternative_limit = {
+					trade_goods = iron
+					has_city_status = no
+				}
+				set_trade_goods = wootz_steel
+			}
+		}
+	}
+	indian_crucible_steel_inv = {
+		modifier = { 
+			light_infantry_offensive = 0.05
+			heavy_infantry_offensive = 0.05
+			axemen_offensive = 0.05
+			spearmen_offensive = 0.05
+		}
+		requires = { bloomeries_inv }
+		allow = {
+			NOr = { 
+				invention = gallic_noric_steel_inv
+				invention = chinese_steel_inv 
+			}
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			military_tech >= 4
+			NOr = { 
+				invention = gallic_noric_steel_inv 
+				invention = indian_crucible_steel_inv 
+				invention = chinese_steel_inv 
+			}
+		}
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					trade_goods = iron
+					has_city_status = yes
+				}
+				alternative_limit = {
+					trade_goods = iron
+					has_city_status = no
+				}
+				set_trade_goods = wootz_steel
+			}
+		}
+	}
+	chinese_steel_inv = { #chinese Steel
+		modifier = {
+			pikemen_offensive = 0.05
+			chariots_offensive = 0.05
+			heavy_infantry_offensive = 0.05
+			military_tech_investment = 0.05
+		}
+		allow = {
+			NOr = { 
+				invention = gallic_noric_steel_inv 
+				invention = indian_crucible_steel_inv 
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			military_tech >= 4
+			NOr = { 
+				invention = gallic_noric_steel_inv 
+				invention = indian_crucible_steel_inv 
+				invention = chinese_steel_inv 
+			}
+		}
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					trade_goods = iron
+					has_city_status = yes
+				}
+				alternative_limit = {
+					trade_goods = iron
+					has_city_status = no
+				}
+				set_trade_goods = wootz_steel
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	royal_iron_monopoly_inv = { 
+		modifier = {
+			global_goods_from_slaves = -1
+		}
+		potential = {
+			military_tech >= 4
+		}
+		requires = { bloomeries_inv }
+		allow = {
+			OR = {
+				country_culture_group = meroitic_group
+				country_culture_group = aksumite_group
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_nubian_culture
+					OR = {
+					has_variable = nubian_science
+					has_variable = new_egyptian_dynasty
+					}
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
+					}
+				}
+			}
+		} 
+	}
+	#######
+	#Helmets
+	#######
+	greek_helmet_inv_1 = { #korinthian / chalcidian
+		modifier = {
+			spearmen_discipline = 0.03
+			spearmen_morale = 0.03
+			discipline = 0.01
+		}
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
 
-	global_defensive_inv_4 = { 
-		requires_or = { global_defensive_inv_1 siege_engineers_inv_1 }
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = dacia_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+
+			}
+		}
+		requires = { metallurgy_inv }
+	}
+	greek_helmet_inv_2 = { #attic
+		modifier = {
+			heavy_infantry_discipline = 0.03
+			spearmen_discipline = 0.03
+			discipline = 0.01
+		}
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = anatolian
+				country_culture_group = latin
+				country_culture_group = east_levantine
+				country_culture_group = west_levantine
+				country_culture_group = proto_european
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:anatolian
+							this.culture.culture_group = culture_group:latin
+						}
+					}
+				}
+			}
+			
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
+		}
+		requires = { metallurgy_inv }
+	}
+	greek_helmet_inv_3 = { #phrygian
+		modifier = {
+			pikemen_morale = 0.03
+			pikemen_discipline = 0.03
+			discipline = 0.01
+		}
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = anatolian
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:anatolian
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+
+			}
+		}
+		requires = { metallurgy_inv }
+	}
+	greek_helmet_inv_4 = { #boetian
+		modifier = {
+			heavy_cavalry_discipline = 0.03
+			heavy_cavalry_morale = 0.03
+			discipline = 0.01
+		}
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = anatolian
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:anatolian
+							this.culture.culture_group = culture_group:latin
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+		}
+		requires = { metallurgy_inv }
+	}
+	latin_helmet_inv_1 = { #gaela
+		modifier = {
+			heavy_infantry_discipline = 0.05
+			discipline = 0.02
+		}
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:latin
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+		}
+		requires = { metallurgy_inv }
+	}
+	gallic_montefortino_helmet_inv = {
+		modifier = { light_infantry_discipline = 0.05 
+					 heavy_infantry_discipline = 0.05
+					 discipline = 0.01 }
+		requires = { metallurgy_inv }
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+		}
+	}
+	indian_helmet_inv_1 = { #śirāstrāṇa 
+		modifier = { 
+			axemen_discipline = 0.03
+			discipline = 0.01
+		}
+		requires = { metallurgy_inv } 
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+		}
+	}
+	chinese_helmet_inv_1 = { #warring states helmet
+		modifier = {
+			pikemen_discipline = 0.03
+			archers_discipline = 0.03
+			discipline = 0.01
+		}
+		requires = { metallurgy_inv }
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_2
+				invention = illyrian_helmet_inv
+			}
+		}
+	}
+	chinese_helmet_inv_2 = { #lamellar helmet
+		modifier = {
+			pikemen_discipline = 0.03
+			heavy_infantry_discipline = 0.03
+			discipline = 0.01
+		}
+		requires = { metallurgy_inv }
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = illyrian_helmet_inv
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = illyrian_helmet_inv
+			}
+		}
+	}
+	illyrian_helmet_inv = {
+		modifier = { spearmen_morale = 0.03
+			discipline = 0.01 }
+		requires = { metallurgy_inv }
+		allow = {
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
+			OR = {
+				country_culture_group = illyrian_group
+				custom_tooltip = {
+					text = integrated_any_haemic_culture
+					has_variable = haemic_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:illyrian_group
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = helmet_inv
+				invention = greek_helmet_inv_1
+				invention = greek_helmet_inv_2
+				invention = greek_helmet_inv_3
+				invention = greek_helmet_inv_4
+				invention = latin_helmet_inv_1
+				invention = gallic_montefortino_helmet_inv
+				invention = indian_helmet_inv_1
+				invention = chinese_helmet_inv_1
+				invention = chinese_helmet_inv_2
+			}
+		}
+	}			
+	#######
+	#Armour
+	#######
+	greek_armour_inv_1 = { #phalanx Cuirass
+		modifier = {
+			spearmen_defensive = 0.03
+			pikemen_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = dacia_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	greek_armour_inv_2 = { #Linothorax 
+		modifier = {
+			spearmen_defensive = 0.03
+			heavy_infantry_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = dacia_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	latin_armour_inv_1 = { #Lorica hamata
+		modifier = {
+			light_infantry_defensive = 0.03
+			heavy_infantry_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:latin
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	latin_armour_inv_2 = { #Lorica segmentata 
+		modifier = {
+			heavy_infantry_defensive = 0.05
+		}
+		allow = {
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:latin
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	chinese_armour_inv_1 = { #lamellar armour
+		modifier = {
+			archers_defensive = 0.03
+			pikemen_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	chinese_armour_inv_2 = { #qin armour
+		modifier = {
+			pikemen_defensive = 0.05
+		}
+		allow = {
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+		}		requires = {heavy_infantry_cost_inv}
+	}
+	indian_armour_inv_1 = { #Lohajālika armour
+		modifier = {
+			axemen_defensive = 0.03
+			heavy_infantry_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_2
+				invention = gallic_chainmail_inv
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	indian_armour_inv_2 = { #Kavacha armour
+		modifier = {
+			axemen_defensive = 0.05
+		}
+		allow = {
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = gallic_chainmail_inv
+			}
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = gallic_chainmail_inv
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	gallic_chainmail_inv = {
+		modifier = { 
+			light_infantry_defensive = 0.05 
+			heavy_infantry_defensive = 0.05
+			axemen_defensive = 0.05
+			spearmen_defensive = 0.05
+		}
+		requires = { heavy_infantry_cost_inv }
+		allow = {
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+			}
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_armour_inv_1
+				invention = greek_armour_inv_2
+				invention = latin_armour_inv_1
+				invention = latin_armour_inv_2
+				invention = chinese_armour_inv_1
+				invention = chinese_armour_inv_2
+				invention = indian_armour_inv_1
+				invention = indian_armour_inv_2
+			}
+		}
+	}
+	########
+	##Saddles
+	#######
+	gallic_four_horned_saddle_inv = {
+		modifier = { light_cavalry_offensive = 0.05 
+					 heavy_cavalry_offensive = 0.05 
+					 horse_skirmishers_offensive = 0.05}
+		requires_or = { 
+			helmet_inv  greek_helmet_inv_1
+			greek_helmet_inv_2
+			greek_helmet_inv_3
+			greek_helmet_inv_4
+			latin_helmet_inv_1
+			gallic_montefortino_helmet_inv
+			indian_helmet_inv_1
+			chinese_helmet_inv_1
+			chinese_helmet_inv_2
+			illyrian_helmet_inv 
+		}
+		allow = {
+			nor = {
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+				invention = saddle_inv
+			}
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+				invention = saddle_inv
+			}
+		}
+	}
+	scythian_saddle_inv = {
+		modifier = { light_cavalry_discipline = 0.05 
+					 heavy_cavalry_discipline = 0.05 
+					 horse_archers_discipline = 0.1}
+		requires_or = { 
+			helmet_inv  greek_helmet_inv_1
+			greek_helmet_inv_2
+			greek_helmet_inv_3
+			greek_helmet_inv_4
+			latin_helmet_inv_1
+			gallic_montefortino_helmet_inv
+			indian_helmet_inv_1
+			chinese_helmet_inv_1
+			chinese_helmet_inv_2
+			illyrian_helmet_inv 
+		}
+		allow = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+				invention = saddle_inv
+			}
+			OR = {
+				country_culture_group = caucasian
+				country_culture_group = scythia
+				country_culture_group = saka_g
+				custom_tooltip = {
+					text = integrated_any_scythian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:caucasian
+							this.culture.culture_group = culture_group:scythia
+							this.culture.culture_group = culture_group:saka_g
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = bitless_bridle_inv
+				invention = saddle_inv
+			}
+		}
+	}
+	indian_toe_stirrup_inv = {
+		modifier = { light_cavalry_discipline = 0.05
+					 camels_discipline = 0.05
+					 heavy_cavalry_discipline = 0.05
+					 horse_archers_discipline = 0.05 }
+		requires_or = { 
+			helmet_inv  greek_helmet_inv_1
+			greek_helmet_inv_2
+			greek_helmet_inv_3
+			greek_helmet_inv_4
+			latin_helmet_inv_1
+			gallic_montefortino_helmet_inv
+			indian_helmet_inv_1
+			chinese_helmet_inv_1
+			chinese_helmet_inv_2
+			illyrian_helmet_inv 
+		}
+		allow = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = scythian_saddle_inv
+				invention = bitless_bridle_inv
+				invention = saddle_inv
+			}
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = scythian_saddle_inv
+				invention = bitless_bridle_inv
+				invention = saddle_inv
+			}
+		}
+	}
+	bitless_bridle_inv = { 
+		modifier = { 
+			light_cavalry_defensive = 0.05
+			heavy_cavalry_defensive = 0.05
+			light_cavalry_offensive = 0.05
+			heavy_cavalry_offensive = 0.05
+			horse_skirmishers_offensive = 0.05
+			horse_skirmishers_defensive = 0.05
+		}
+		
+		requires_or = { 
+			helmet_inv  greek_helmet_inv_1
+			greek_helmet_inv_2
+			greek_helmet_inv_3
+			greek_helmet_inv_4
+			latin_helmet_inv_1
+			gallic_montefortino_helmet_inv
+			indian_helmet_inv_1
+			chinese_helmet_inv_1
+			chinese_helmet_inv_2
+			illyrian_helmet_inv 
+		}
+		allow = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = saddle_inv
+			}
+			OR = {
+				country_culture_group = numidian
+				country_culture_group = fezzani
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_numidian_culture
+					has_variable = numidian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:numidian
+							this.culture.culture_group = culture_group:fezzani
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = gallic_four_horned_saddle_inv
+				invention = scythian_saddle_inv
+				invention = indian_toe_stirrup_inv
+				invention = saddle_inv
+			}
+		} 
+	}
+	spur_inv = {
+		modifier = { 
+			light_cavalry_discipline = 0.05 
+			heavy_cavalry_discipline = 0.05 
+			horse_skirmishers_discipline = 0.05
+			horse_archers_discipline = 0.05
+			camels_discipline = 0.05
+		}
+		allow = {
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				country_culture_group = hellenic
+				tag = ROM
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
+				}
+			}
+		}
+		requires_or = { saddle_inv gallic_four_horned_saddle_inv scythian_saddle_inv indian_toe_stirrup_inv bitless_bridle_inv }
+	}
+	#######
+	#shield
+	#######
+	greek_shield_inv_1 = { #hoplon/aspis
+		modifier = {
+			spearmen_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = dacia_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	greek_shield_inv_2 = { #telamon
+		modifier = {
+			pikemen_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	greek_shield_inv_3 = { #thueros
+		modifier = {
+			heavy_infantry_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = dacia_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	greek_shield_inv_4 = { #pelte shield
+		modifier = {
+			light_infantry_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	italic_pilum_scutum_inv = {
+		modifier = { 
+			heavy_infantry_defensive = 0.03
+			spearmen_defensive = 0.03
+			light_infantry_defensive = 0.03 
+		}
+		requires = { heavy_infantry_cost_inv }
+		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = chinese_shield_inv_1
+				invention = chinese_shield_inv_2
+			}
+		}
+	}
+	italic_lituus_inv = { # Brass trumpets
+		modifier = { discipline = 0.025 }
+		requires = { italic_pilum_scutum_inv }
+		allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+	}
+	iberian_shield_inv1 = { #caetra
+		modifier = {
+			light_infantry_discipline = 0.03
+		}
+		requires = {heavy_infantry_cost_inv}
+		allow = {
+			OR = {
+				country_culture_group = celt_iberia
+				country_culture_group = iberia
+				custom_tooltip = {
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
+					}
+				}
+			}
+		}
+		potential = {}
+	}
+	chinese_shield_inv_1 = { #dao shield
+		modifier = {
+			heavy_infantry_defensive = 0.03
+			pikemen_defensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_2
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_2
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	chinese_shield_inv_2 = { #hook shield
+		modifier = {
+			heavy_infantry_defensive = 0.03
+			heavy_infantry_offensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = greek_shield_inv_1
+				invention = greek_shield_inv_2
+				invention = greek_shield_inv_3
+				invention = greek_shield_inv_4
+				invention = italic_pilum_scutum_inv
+				invention = chinese_shield_inv_1
+			}
+		}
+		requires = {heavy_infantry_cost_inv}
+	}
+	########
+	#Weapons
+	########
+	######CHINESE 5 wepaosn of the han
+	crossbow_inv = { #hook shield
+		modifier = {
+			archers_offensive = 0.1 
+		}
+		allow = {
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	jian_inv = { 
+		modifier = {
+			heavy_infantry_offensive = 0.03
+		}
+		requires = { chinese_steel_inv }
+		allow = {
+			nor = {
+				invention = xiphos_inv
+				invention = gladius_inv
+				invention = spatha_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = falcata_inv
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = xiphos_inv
+				invention = gladius_inv
+				invention = spatha_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = falcata_inv
+			}
+		}
+	}
+	pi_inv = { 
+		modifier = {
+			spearmen_offensive = 0.03
+		}
+		requires = { chinese_steel_inv }
+		allow = {
+			nor = {
+				invention = ji_inv
+				invention = sarissa_inv
+				invention = dory_inv
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = ji_inv
+				invention = sarissa_inv
+				invention = dory_inv
+			}
+		}
+	}
+	ji_inv = { #halberd
+		modifier = {
+			pikemen_offensive = 0.03
+			chariots_offensive = 0.03
+		}
+		requires = { chinese_steel_inv }
+		allow = {
+			nor = {
+				invention = pi_inv
+				invention = sarissa_inv
+				invention = dory_inv
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = pi_inv
+				invention = sarissa_inv
+			}
+		}
+	}
+	dao_inv = { #dao sword
+		modifier = {
+			heavy_cavalry_offensive = 0.03
+		}
+		requires = { chinese_steel_inv }
+		allow = {
+			nor = {
+				invention = xiphos_inv
+				invention = gladius_inv
+				invention = spatha_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = jian_inv
+				invention = falcata_inv
+			}
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = xiphos_inv
+				invention = gladius_inv
+				invention = spatha_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = jian_inv
+				invention = falcata_inv
+			}
+		}
+	}
+	#GREEK
+	sarissa_inv = { #sar=ssa
+		modifier = {
+			pikemen_offensive = 0.05
+		}
+		allow = {
+			nor = {
+				invention = ji_inv
+				invention = pi_inv
+				invention = dory_inv
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = illyrian_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = ji_inv
+				invention = pi_inv
+				invention = dory_inv
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	dory_inv = { #doru
+		modifier = {
+			spearmen_offensive = 0.03
+			spearmen_morale = 0.02
+		}
+		allow = {
+			nor = {
+				invention = ji_inv
+				invention = pi_inv
+				invention = sarissa_inv
+			}
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = illyrian_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = ji_inv
+				invention = pi_inv
+				invention = sarissa_inv
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	xyston_inv = {
+		modifier = {
+			heavy_cavalry_offensive = 0.05
+		}
+		allow = {
+			nor = {
+				invention = tomora_inv
+			}
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = tomora_inv
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	xiphos_inv = {
+		modifier = {
+			heavy_infantry_offensive = 0.03
+			spearmen_defensive = 0.03
+		}
+		allow = {
+			nor = {
+				invention = jian_inv
+				invention = gladius_inv
+				invention = spatha_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = falcata_inv
+			}
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = jian_inv
+				invention = gladius_inv
+				invention = spatha_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = falcata_inv
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	#ROMAN/Iberian/celtic
+	gladius_inv = {
+		modifier = { 
+			heavy_infantry_offensive = 0.03
+			light_infantry_offensive = 0.03}
+		requires = { bloomeries_inv }
+		allow = {
+			nor = {
+				invention = jian_inv
+				invention = xiphos_inv
+				invention = spatha_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = falcata_inv
+			}
+			OR = {
+				country_culture_group = celt_iberia
+				country_culture_group = iberia
+				tag = ROM
+				custom_tooltip = {
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = xiphos_inv
+				invention = jian_inv
+				invention = spatha_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = falcata_inv
+			}
+		}
+	}
+	spatha_inv = {
+		modifier = { 
+			heavy_infantry_offensive = 0.03
+			heavy_cavalry_offensive = 0.03
+		}
+		requires = { bloomeries_inv }
+		allow = {
+			nor = {
+				invention = xiphos_inv
+				invention = jian_inv
+				invention = gladius_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = falcata_inv
+			}
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = celt_iberia
+				tag = ROM
+				custom_tooltip = {
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = xiphos_inv
+				invention = jian_inv
+				invention = gladius_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = falcata_inv
+			}
+		}
+	}
+	pilum_inv = {
+		modifier = { 
+			heavy_infantry_offensive = 0.03
+			spearmen_offensive = 0.03
+		}
+		requires_or = { bloomeries_inv }
+		allow = {
+			NOr = { 
+				invention = verutum_inv
+				invention = soliferrum_inv
+				invention = chakram_inv
+				invention = sibyna_inv
+			}
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = verutum_inv
+				invention = soliferrum_inv
+				invention = chakram_inv
+				invention = sibyna_inv
+			}
+		}
+	}
+	verutum_inv = {
+		modifier = { 
+			light_infantry_offensive = 0.05
+		}
+		requires_or = { bloomeries_inv }
+		allow = {
+			NOr = { 
+				invention = pilum_inv
+				invention = soliferrum_inv
+				invention = chakram_inv
+				invention = sibyna_inv
+			}
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+		potential = { 
+			NOr = { 
+				invention = pilum_inv
+				invention = soliferrum_inv
+				invention = chakram_inv
+				invention = sibyna_inv
+			}
+		}
+	}
+	pugio_inv = {
+		modifier = { 
+			heavy_infantry_offensive = 0.03
+			light_infantry_offensive = 0.03
+		}
+		requires = { bloomeries_inv }
+		allow = {
+			OR = {
+				tag = ROM
+			}
+		}
+	}
+	falcata_inv = {# the falcata  
+		modifier = { 
+			heavy_infantry_offensive = 0.03
+			spearmen_defensive = 0.03
+		}
+		requires = { bloomeries_inv }
+		allow = {
+			nor = {
+				invention = xiphos_inv
+				invention = jian_inv
+				invention = gladius_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = spatha_inv
+			}
+			OR = {
+				country_culture_group = celt_iberia
+				country_culture_group = iberia
+				tag = CAR
+				custom_tooltip = {
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = xiphos_inv
+				invention = jian_inv
+				invention = gladius_inv
+				
+				invention = khanda_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = spatha_inv
+			}
+		}
+	}
+	soliferrum_inv = {# meaning onlyiron  full iro nspear used fro throowinga  
+		modifier = { 
+			light_infantry_offensive = 0.1
+		}
+		requires = { bloomeries_inv }
+		allow = {
+			NOr = { 
+				invention = pilum_inv
+				invention = verutum_inv
+				invention = chakram_inv
+				invention = sibyna_inv
+			}
+			OR = {
+				country_culture_group = celt_iberia
+				country_culture_group = iberia
+				custom_tooltip = {
+					text = integrated_any_iberian_culture
+					has_variable = iberian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:celt_iberia
+							this.culture.culture_group = culture_group:iberia
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			NOr = { 
+				invention = pilum_inv
+				invention = verutum_inv
+				invention = chakram_inv
+				invention = sibyna_inv
+			}
+		}
+	}
+	#indian
+	tomora_inv = {
+		modifier = { warelephant_offensive = 0.03 }
+		allow = {
+			nor = {
+				invention = tomora_inv
+			}
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = tomora_inv
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	howdah_inv = { #howdah
+		modifier = { warelephant_defensive = 0.05 }
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	urumi_inv = { # urumi whip sword
+		modifier = { axemen_offensive = 0.05 }
+		requires = {bloomeries_inv}
+		allow = {
+			nor = {
+				invention = illyrian_axe_inv
+			}
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = illyrian_axe_inv
+			}
+		}
+	}
+	chakram_inv = {
+		modifier = { light_infantry_offensive = 0.03 }
+		requires = {bloomeries_inv}
+		allow = {
+			NOr = { 
+				invention = pilum_inv
+				invention = verutum_inv
+				invention = soliferrum_inv
+				invention = sibyna_inv
+			}
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			NOr = { 
+				invention = pilum_inv
+				invention = verutum_inv
+				invention = soliferrum_inv
+				invention = sibyna_inv
+			}
+		}
+	}
+	khanda_inv = {
+		modifier = { heavy_infantry_offensive = 0.05 }
+		requires = {bloomeries_inv}
+		allow = {
+			nor = {
+				invention = xiphos_inv
+				invention = jian_inv
+				invention = gladius_inv
+				invention = falcata_inv
+				
+				invention = sica_inv
+				invention = dao_inv
+				invention = spatha_inv
+			}
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = xiphos_inv
+				invention = jian_inv
+				invention = gladius_inv
+				invention = falcata_inv
+				invention = sica_inv
+				invention = dao_inv
+				invention = spatha_inv
+			}
+		}
+	}
+	composite_bow_inv = {
+		modifier = { 
+			archers_offensive = 0.05 
+			horse_archers_offensive = 0.1
+		}
+		requires = {bloomeries_inv}
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				country_culture_group = caucasian
+				country_culture_group = scythia
+				country_culture_group = saka_g
+				country_culture_group = persia
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_persian_culture
+					has_variable = persian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_persian_culture_group_trigger = yes
+					}
+				}
+				primary_culture = cretan
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+	}
+	###illyira
+	illyrian_axe_inv = { #axe
+		modifier = {
+			axemen_offensive = 0.05
+		}
+		allow = {
+			nor = {
+				invention = urumi_inv
+			}
+			OR = {
+				country_culture_group = dacia_group
+				country_culture_group = illyrian_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:illyrian_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = urumi_inv
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	sibyna_inv = { #javelin
+		modifier = {
+			light_infantry_offensive = 0.03
+		}
+		allow = {
+			NOr = { 
+				invention = pilum_inv
+				invention = verutum_inv
+				invention = soliferrum_inv
+				invention = chakram_inv
+			}
+			OR = {
+				country_culture_group = dacia_group
+				country_culture_group = illyrian_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:illyrian_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			NOr = { 
+				invention = pilum_inv
+				invention = verutum_inv
+				invention = soliferrum_inv
+				invention = chakram_inv
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	sica_inv = { #sword
+		modifier = {
+			heavy_infantry_offensive = 0.03
+		}
+		allow = {
+			nor = {
+				invention = xiphos_inv
+				invention = jian_inv
+				invention = gladius_inv
+				invention = falcata_inv
+				invention = khanda_inv
+				invention = dao_inv
+				invention = spatha_inv
+			}
+			OR = {
+				country_culture_group = dacia_group
+				country_culture_group = illyrian_group
+				country_culture_group = thrace_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:dacia_group
+							this.culture.culture_group = culture_group:illyrian_group
+							this.culture.culture_group = culture_group:thrace_group
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = xiphos_inv
+				invention = jian_inv
+				invention = gladius_inv
+				invention = falcata_inv
+				invention = khanda_inv
+				invention = dao_inv
+				invention = spatha_inv
+			}
+		}
+		requires = {bloomeries_inv}
+	}
+	##########################
+	##FORTIFICATIONS AND SIEGE
+	##########################
+	buy_military_tradition_inv = { #material scince
+		modifier = { army_weight_modifier = -0.1 }
+	}
+	base_defensive_inv = {
+		modifier = { global_defensive = 0.1 }
+		keystone = yes
+		requires = { buy_military_tradition_inv }
+		on_activate = {
+			custom_tooltip = "enables_rampart_building_tt"
+		}
+		potential = {
+			military_tech >= 2
+		}
+	}
+	fort_maintenance_cost_inv = { #standardized provisioning
+		modifier = { 
+			fort_maintenance_cost = -0.1
+			global_defensive = 0.05 
+		}
+		potential = {
+			military_tech >= 2
+		}
+		requires = { base_defensive_inv }
+	}
+	global_defensive_inv_3 = { #fortified camps
+		modifier = { 
+			global_defensive = 0.05 
+		}
+		requires = { fort_maintenance_cost_inv } 
+		potential = {
+			military_tech >= 4
+		}
+	}
+	global_defensive_inv_4 = { #entrenchment
 		modifier = { 
 			global_defensive = 0.1 
 			garrison_size = 0.1
 			garrison_growth = 0.1
 		}
-		keystone = yes
+		potential = {
+			military_tech >= 4
+		}
+		requires = { base_defensive_inv siege_engineers_inv_1 }
 	}
-
-	assault_ability_inv = { 
+	siege_speed_inv_4 = { #contravelion
+		modifier = {
+			siege_ability = 0.05
+		}
+		potential = {
+			military_tech >= 8
+		}
+		requires = {global_defensive_inv_3 siege_speed_inv_3}
+	}
+	siege_engineers_inv_1 = { #sapping
+		modifier = { siege_engineers = 1 }
+		on_activate = {
+			custom_tooltip = "allow_gw_effect_siege_doctrine"
+		}
+		requires = { buy_military_tradition_inv }
+	}
+	assault_ability_inv = { #siege ladders
 		modifier = { assault_ability = 0.05 }
+		on_activate = {
+			custom_tooltip = "allow_gw_effect_siege_doctrine"
+		}
+		potential = {
+			military_tech >= 2
+		}
 		requires = { siege_engineers_inv_1 }
 	}
-
-	# Level 3
-	siege_engineers_inv_3 = { 
-		modifier = { siege_ability = 0.025  }
+	siege_speed_inv_3 = { #investment
+		modifier = { siege_ability = 0.025 }
+		requires = { global_defensive_inv_4 } 
+		potential = {
+			military_tech >= 4
+		}
+	}
+	siege_engine_inv_1 = { #siege engines
+		modifier = { 
+			siege_ability = 0.04
+			assault_ability = 0.02
+		}
+		potential = {
+			military_tech >= 4
+		}
 		requires = { assault_ability_inv }
-	}	
-
-	#Changed for Invictus
-	heavy_infantry_cost_inv = {
-		modifier = {
-			heavy_infantry_cost = -0.1
-			pikemen_cost = -0.1
-		}
-		requires = { heavy_cavalry_discipline_inv }
 	}
-
-	
-    italic_pilum_scutum_inv = {
+	siege_speed_inv_2 = { #siege towers
 		modifier = { 
-			heavy_infantry_offensive = 0.05
-            light_infantry_offensive = 0.05 
+			siege_ability = 0.02
+			assault_ability = 0.04
 		}
-		requires = { heavy_infantry_cost_inv }
-		allow = {
-			country_culture_group = latin
+		potential = {
+			military_tech >= 4
 		}
-    }
-
-	global_defensive_inv_3 = { 
-		modifier = { global_defensive = 0.05 }
-		keystone = yes
-		requires = { global_defensive_inv_2 }
-		on_activate = {
-			custom_tooltip = "enables_rampart_building_tt"
-		}
-	}	
-
-	siege_speed_inv_3 = { 
-		modifier = { siege_ability = 0.025 }
-		requires = { global_defensive_inv_4 }
-	}
-
-	syrian_elephants_inv = {
-		modifier = { 
-			warelephant_discipline = 0.05
-			warelephant_offensive = 0.05
-		}
-		requires = { global_defensive_inv_4 }
-		allow = {
-			OR = {
-				primary_culture = aramaic
-				primary_culture = assyrian
-				primary_culture = babylonian
-				primary_culture = elamite
-				primary_culture = uxian
-				primary_culture = pasargadi
-				primary_culture = utian
-				primary_culture = gedrosian
-			}
-		}
-	}
-
-	siege_speed_inv_2 = { 
-		modifier = { siege_ability = 0.025 }
 		requires = { assault_ability_inv }
-	}		
-
-
-	#New Invictus invention
-	kikkuli_inv = {
-    	modifier = { 
-    		heavy_cavalry_morale = 0.05
-    		light_cavalry_morale = 0.05
-    		horse_skirmishers_morale = 0.05
-    		horse_archers_morale = 0.05
-    	}
-        
-        requires = { heavy_cavalry_discipline_inv }
-        allow = {
-			OR = {
-				country_culture_group = anatolian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_anatolian_culture
-					has_variable = anatolian_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:anatolian
-					}
-				}
-			}
-		} 
-    }
-
-
-	# Level 4
-	siege_speed_inv_4 = { 
-		modifier = { siege_ability = 0.025 }
-		requires = { global_defensive_inv_3 }
-		requires_or = { heavy_infantry_cost_inv siege_speed_inv_3 }
 	}
-
-	siege_engineers_inv_5 = { 
-		requires = { siege_engineers_inv_3 }
-		requires_or = { siege_speed_inv_2 siege_speed_inv_3 }
+	siege_engineers_inv_5 = { #siege ramp
 		modifier = { 
-			engineer_cohort_cost = -0.1  
+			engineer_cohort_cost = -0.1
 			siege_ability = 0.05
 			land_unit_attrition = -0.05
 		}
 		keystone = yes
-	}	
-
-	#New Invictus invention
+		requires = { siege_engine_inv_1 }
+		requires_or = { siege_speed_inv_2 siege_speed_inv_3 }
+	}
+	siege_engine_inv_2 = { #siege catapulsts
+		modifier = { 
+			siege_ability = 0.05
+			land_unit_attrition = -0.05
+			engineer_cohort_cost = -0.1
+		}
+		potential = {
+			military_tech >= 6
+		}
+		requires = { siege_engineers_inv_5 }
+	}
+	siege_speed_inv_1 = { #extra ordinance
+		modifier = { 
+			engineer_cohort_maintenance_cost = -0.1
+		}
+		requires = { siege_engine_inv_2 } 
+		potential = {
+			military_tech >= 8
+		}
+	}
+	#######
+	##Culutural 
+	#########
+	#Fortifications
+	gallic_oppidum_inv = {
+		modifier = { 
+			global_defensive = 0.1 
+			fort_limit = 1
+			commerce_value = 0.01 
+		}
+		requires = { global_defensive_inv_3 }
+		allow = {
+			OR = {
+				country_culture_group = gallic
+				country_culture_group = celto_pannonian_group
+				country_culture_group = belgae_group
+				custom_tooltip = {
+					text = integrated_any_celtic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:gallic
+							this.culture.culture_group = culture_group:celto_pannonian_group
+							this.culture.culture_group = culture_group:belgae_group
+						}
+					}
+				}
+			}
+		}
+	}
+	global_defensive_inv_1 = { #pentapostos
+		modifier = { global_defensive = 0.05 }
+		requires = { base_defensive_inv } 
+		allow = {
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+						}
+					}
+				}
+			}
+		}
+	}
+	global_defensive_inv_5 = { #polypastion
+		requires = { siege_speed_inv_4 global_defensive_inv_1}
+		modifier = { 
+			global_defensive = 0.1
+			build_time = -0.05 
+		}
+		potential = {
+			military_tech >= 4
+		}
+		keystone = yes
+		allow = {
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+						}
+					}
+				}
+			}
+		}
+	}
+	arthashastra_inv = { #militaRY TREATSIE ON FORTIFICAITONS
+		modifier = { 
+			global_defensive = 0.05
+			siege_ability = 0.05
+			assault_ability = 0.03 
+		}
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					text = integrated_any_indian_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							is_culture = kannadan
+							is_culture = tamil
+							is_culture = telugu
+							is_culture = kalingan
+							is_culture = kamarupi
+							is_culture = bangli
+							is_culture = atavi
+							is_culture = magadhi
+							is_culture = himalayan
+							is_culture = vidharban
+							is_culture = saurashtran
+							is_culture = lankan
+							is_culture = maharashtran
+							is_culture = gandhari
+							is_culture = shauraseni
+							is_culture = avanti
+							is_culture = sindhi
+							is_culture = dardic
+						}
+					}
+				}
+			}
+		}
+	}
 	castella_inv = { 
 		modifier = { 
 			global_defensive = 0.05 
@@ -1089,120 +4025,156 @@ military_inventions = {
 			}
 		}
 	}
-
-	#New Invictus invention
-    bloomeries_inv = { 
-        modifier = {
-        	slaves_move_cost_modifier = -0.15
-        	global_tax_modifier = 0.05
-        }
-        
-        requires = { heavy_infantry_cost_inv }
-        allow = {
-			OR = {
-				country_culture_group = meroitic_group
-				country_culture_group = aksumite_group
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_nubian_culture
-					OR = {
-					has_variable = nubian_science
-					has_variable = new_egyptian_dynasty
-					}
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:meroitic_group
-							this.culture.culture_group = culture_group:aksumite_group
-						}
-					}
-				}
-			}
-		} 
-    }
-
-
-	# Level 5
-	siege_speed_inv_5 = { 
-		requires = { siege_engineers_inv_5 }
-		modifier = { siege_ability = 0.025 }
-	}
-
-	global_defensive_inv_5 = { 
+	castellieri_inv = { #casteliar 
+		modifier = { 
+			global_defensive = 0.05 
+		}
 		requires = { siege_speed_inv_4 }
-		modifier = { 
-			global_defensive = 0.20 
-		}
-		keystone = yes
-	}
-
-	siege_engineers_inv_4 = { 
-		modifier = { siege_engineers = 1  }
-		requires = { siege_engineers_inv_5 }
-	}
-
-
-	#New Invictus invention
-    royal_iron_monopoly_inv = { 
-        modifier = {
-        	global_goods_from_slaves = -1
-        }
-        
-        requires = { bloomeries_inv }
-        allow = {
-			OR = {
-				country_culture_group = meroitic_group
-				country_culture_group = aksumite_group
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_nubian_culture
-					OR = {
-					has_variable = nubian_science
-					has_variable = new_egyptian_dynasty
-					}
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:meroitic_group
-							this.culture.culture_group = culture_group:aksumite_group
-						}
-					}
-				}
-			}
-		} 
-    }
-
-	# Level 6
-	siege_speed_inv_1 = { 
-		modifier = { engineer_cohort_maintenance_cost = -0.1 }
-		requires = { siege_engineers_inv_4 }
-	}
-
-	# Level 7
-	siege_engineers_inv_6 = { 
-		requires = {   global_defensive_inv_5 }
-		requires_or = { siege_speed_inv_1 siege_speed_inv_5  }
-		modifier = { 
-			siege_engineers = 1
-			engineer_cohort_cost = -0.1
-			army_movement_speed = -0.05
-		}
-		keystone = yes
-	}
-
-	helepolis_inv = { 
-		modifier = { siege_engineers = 1  }
-		requires = { siege_engineers_inv_6 }
 		allow = {
 			OR = {
-				tag = PRY
-				tag = ALX
-				has_variable = me_ant_start_flag
+				country_culture_group = illyrian_group
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:illyrian_group
+						}
+					}
+				}
+			}
+		}
+	}
+	##siege engines
+	siege_engineers_inv_3 = { #scorpio #latin
+		modifier = { 
+			siege_ability = 0.02
+			heavy_infantry_offensive = 0.02 	
+		 }
+		requires = { siege_engine_inv_1 } 
+		allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = siege_engineers_inv_6
+				invention = siege_engine_inv_3
+				invention = siege_speed_inv_5
+			}
+		}
+	}
+	siege_speed_inv_5 = { #ballistae
+		requires = { siege_engine_inv_1 }
+		modifier = { 
+			siege_ability = 0.02
+			discipline = 0.02
+		}
+		allow = {
+			OR = {
+				country_culture_group = latin
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:hellenic
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = siege_engineers_inv_6
+				invention = siege_engine_inv_3
+				invention = siege_engineers_inv_3
+			}
+		}
+	}
+	siege_engine_inv_3 = { #onager
+		modifier = { 
+			siege_ability = 0.02
+			assault_ability = 0.02	
+		 }
+		requires = { siege_engine_inv_1 } 
+		allow = {
+			OR = {
+				country_culture_group = latin
+				custom_tooltip = {
+					text = integrated_any_latin_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:latin
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = siege_engineers_inv_6
+				invention = siege_speed_inv_5
+				invention = siege_engineers_inv_3
+			}
+		}
+	}
+	siege_engineers_inv_6 = { #mangonel
+		modifier = { 
+			siege_ability = 0.04	
+		 }
+		requires = { siege_engine_inv_2 } 
+		allow = {
+			OR = {
+				country_culture_group = chinese
+				country_culture_group = yue
+				country_culture_group = yi
+				custom_tooltip = {
+					text = integrated_any_chinese_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:chinese
+							this.culture.culture_group = culture_group:yue
+							this.culture.culture_group = culture_group:yi
+						}
+					}
+				}
+			}
+		}
+		potential = {
+			nor = {
+				invention = siege_engine_inv_3
+				invention = siege_speed_inv_5
+				invention = siege_engineers_inv_3
+			}
+		}
+	}
+	helepolis_inv = { 
+		modifier = { siege_engineers = 1 }
+		requires = { siege_speed_inv_2 }
+		allow = {
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:hellenic
+						}
+					}
+				}
 			}
 		}
 		keystone = yes
 	}
-
 	boetia_flamethrower_inv = { 
 		requires = { siege_speed_inv_3 }
 		modifier = { 
@@ -1218,271 +4190,32 @@ military_inventions = {
 			}
 		}
 	}
-
-	#### Gallic Specific Invention Tree ####
-    ## Gallic Specific - Level 0
-    #Vanilla invention modified for Invictus
-    gallic_oppidum_inv = {
-    	modifier = { 
-			global_defensive  = 0.1 
-    		fort_limit = 1
-    		commerce_value = 0.01
-		}
-        requires = { global_defensive_inv_3 }
+	###############
+	##INVICTUS
+	##############
+	falconry_inv = {
+		modifier = { army_maintenance_cost = -0.025 }
+		requires = { buy_military_tradition_inv }
 		allow = {
-			OR = {
-				country_culture_group = gallic
-				country_culture_group = celto_pannonian_group
-				country_culture_group = belgae_group
-				custom_tooltip = {
-					text = integrated_any_celtic_culture
-					has_variable = celtic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:gallic
-							this.culture.culture_group = culture_group:celto_pannonian_group
-							this.culture.culture_group = culture_group:belgae_group
-						}
+			country_culture_group = thrace_group
+			custom_tooltip = {
+				text = integrated_any_haemic_culture
+				has_variable = haemic_science
+				any_country_culture = {
+					is_integrated = yes
+					OR = {
+						this.culture.culture_group = culture_group:thrace_group
 					}
 				}
 			}
 		}
-    }
-
-    ## Gallic Specific - Level 1
-    #Vanilla invention modified for Invictus
-    gallic_noric_steel_inv = {
-    	modifier = { light_infantry_offensive = 0.05
-    				 heavy_infantry_offensive = 0.05 
-    				 axemen_offensive = 0.05 }
-        requires = { gallic_oppidum_inv }
-        allow = {
-			OR = {
-				country_culture_group = gallic
-				country_culture_group = celto_pannonian_group
-				country_culture_group = belgae_group
-				custom_tooltip = {
-					text = integrated_any_celtic_culture
-					has_variable = celtic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:gallic
-							this.culture.culture_group = culture_group:celto_pannonian_group
-							this.culture.culture_group = culture_group:belgae_group
-						}
-					}
-				}
-			}
-		}
-    }
-
-    gallic_celtic_calendar_inv = {
-    #Vanilla invention modified for Invictus
-    	modifier = { global_tribesmen_output = 0.1 }
-        requires = { gallic_oppidum_inv }
-        allow = {
-			OR = {
-				country_culture_group = gallic
-				country_culture_group = celto_pannonian_group
-				country_culture_group = belgae_group
-				custom_tooltip = {
-					text = integrated_any_celtic_culture
-					has_variable = celtic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:gallic
-							this.culture.culture_group = culture_group:celto_pannonian_group
-							this.culture.culture_group = culture_group:belgae_group
-						}
-					}
-				}
-			}
-		}
-    }
-
-    ## Gallic Specific - Level 2
-    #Vanilla invention modified for Invictus
-    gallic_celtic_plough_inv = {
-    	modifier = { global_tribesmen_output = 0.1 
-    				 global_population_growth = 0.01 }
-        requires = { gallic_noric_steel_inv }
-        allow = {
-			OR = {
-				country_culture_group = gallic
-				country_culture_group = celto_pannonian_group
-				country_culture_group = belgae_group
-				custom_tooltip = {
-					text = integrated_any_celtic_culture
-					has_variable = celtic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:gallic
-							this.culture.culture_group = culture_group:celto_pannonian_group
-							this.culture.culture_group = culture_group:belgae_group
-						}
-					}
-				}
-			}
-		}
-    }
-
-    #Vanilla invention modified for Invictus
-    gallic_chainmail_inv = {
-    	modifier = { 
-    		light_infantry_defensive  = 0.05
-    		axemen_defensive  = 0.05
-			heavy_infantry_defensive = 0.05
-    		heavy_cavalry_defensive = 0.05
-		}
-    	requires = { gallic_noric_steel_inv }
-        allow = {
-			OR = {
-				country_culture_group = gallic
-				country_culture_group = celto_pannonian_group
-				country_culture_group = belgae_group
-				custom_tooltip = {
-					text = integrated_any_celtic_culture
-					has_variable = celtic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:gallic
-							this.culture.culture_group = culture_group:celto_pannonian_group
-							this.culture.culture_group = culture_group:belgae_group
-						}
-					}
-				}
-			}
-		}
-    } 
-
-    #Vanilla invention modified for Invictus
-    gallic_four_horned_saddle_inv = {
-    	modifier = { light_cavalry_offensive = 0.1 
-    				 heavy_cavalry_offensive = 0.1 
-    				 horse_archers_offensive = 0.1}
-        requires = { gallic_celtic_calendar_inv }
-		allow = {
-			OR = {
-				country_culture_group = gallic
-				country_culture_group = celto_pannonian_group
-				country_culture_group = belgae_group
-				custom_tooltip = {
-					text = integrated_any_celtic_culture
-					has_variable = celtic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:gallic
-							this.culture.culture_group = culture_group:celto_pannonian_group
-							this.culture.culture_group = culture_group:belgae_group
-						}
-					}
-				}
-			}
-		}
-    }
-
-    ## Gallic Specific - Level 3
-    #Vanilla invention modified for Invictus
-    gallic_montefortino_helmet_inv = {
-    	modifier = { light_infantry_discipline = 0.1 
-    				 heavy_infantry_discipline = 0.1
-    				 axemen_discipline = 0.1 }
-        requires = { gallic_celtic_plough_inv gallic_chainmail_inv }
-        allow = {
-			OR = {
-				country_culture_group = gallic
-				country_culture_group = celto_pannonian_group
-				country_culture_group = belgae_group
-				custom_tooltip = {
-					text = integrated_any_celtic_culture
-					has_variable = celtic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:gallic
-							this.culture.culture_group = culture_group:celto_pannonian_group
-							this.culture.culture_group = culture_group:belgae_group
-						}
-					}
-				}
-			}
-		}
-    }
-
-    #Vanilla invention modified for Invictus
-    gallic_trimarcisia_inv = {
-    	modifier = { light_cavalry_morale = 0.1 
-    				 heavy_cavalry_morale = 0.1 
-    				 horse_archers_morale = 0.1 }
-        requires = { gallic_four_horned_saddle_inv }
-		allow = {
-			OR = {
-				country_culture_group = gallic
-				country_culture_group = celto_pannonian_group
-				country_culture_group = belgae_group
-				custom_tooltip = {
-					text = integrated_any_celtic_culture
-					has_variable = celtic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:gallic
-							this.culture.culture_group = culture_group:celto_pannonian_group
-							this.culture.culture_group = culture_group:belgae_group
-						}
-					}
-				}
-			}
-		}
-    }
-
-    ## Gallic Specific - Level 4
-    #Vanilla invention modified for Invictus
-    gallic_timbered_roads_inv = {
-    	modifier = { army_maintenance_cost = -0.1
-    				 army_movement_speed = 0.1 }
-        requires = { gallic_montefortino_helmet_inv gallic_trimarcisia_inv }
-        allow = {
-			OR = {
-				country_culture_group = gallic
-				country_culture_group = celto_pannonian_group
-				country_culture_group = belgae_group
-				custom_tooltip = {
-					text = integrated_any_celtic_culture
-					has_variable = celtic_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:gallic
-							this.culture.culture_group = culture_group:celto_pannonian_group
-							this.culture.culture_group = culture_group:belgae_group
-						}
-					}
-				}
-			}
-		}
-    }	
+	}
 }
-
-#### MILITARY NAVAL TREE ###
 naval_tree = {
 	technology = military_tech
 	color = hsv { 0 0.6 0.7 }
-	# Level 0
-	pirate_spawn_chance_inv_1 = { 
+	pirate_spawn_chance_inv_1 = { #astral Navigation
 		modifier = { naval_range = 0.05 }
-		ai_will_do = {
-			modifier = {
-				factor = 0
-				num_of_ports > 10
-			}
-		}
 		on_activate = {
 			random_owned_province = {
 				limit = {
@@ -1499,578 +4232,102 @@ naval_tree = {
 		}
 	}
 
-	# Level 1
-	liburnian_invention_2 = {
+	reinforced_planks_inv = { #diere
+		modifier = { naval_damage_taken  = -0.05 }
+		requires = { pirate_spawn_chance_inv_1 } 
+		allow = {
+			nor = {
+				invention = sewn_planks_inv
+				invention = cedar_planks_inv
+			}
+		}
+	}  
+	liburnian_invention_2 = { #diere
 		modifier = { liburnian_morale = 0.05 }
 		requires = { pirate_spawn_chance_inv_1 }
 	}
-
-	lembus_inv = {
-		modifier = { 
-			global_goods_from_slaves = -1
-		}
-		requires = { liburnian_invention_2 }
-		allow = {
-			primary_culture = liburnian_culture
-		}
-	}
-
-	galaia_inv = {
-		modifier = { 
-			enslavement_efficiency = 0.05
-		}
-		requires = { lembus_inv }
-	}
-
-	katapharct_inv = {
-		modifier = { tetrere_defensive = 0.05
-					 hexere_defensive = 0.05 }
-		requires = { pirate_spawn_chance_inv_1 }
-	}	
-
-	# Country Specific, Level 1
-	archimedes_principle = {
-		requires = { pirate_spawn_chance_inv_1 }
-		allow = {
-			OR = {
-				primary_culture = syracusan 
-				primary_culture = siculian
-				tag = SIC
-			}
-		}
-		modifier = { global_ship_start_experience = 10 }
-	}
-
-	archimedes_steam_cannon_inv = {
-		requires = { archimedes_death_ray_inv }
-		modifier = { 
-			global_defensive = 0.05
-			garrison_size = 0.1
-		}
-		allow = {
-			OR = {
-				primary_culture = syracusan 
-				primary_culture = siculian
-				tag = SIC
-			}
-		}
-	}
-
-	archimedes_death_ray_inv = {
-		requires = { archimedes_principle }
-		modifier = { 
-			global_defensive = 0.05 
-			fort_maintenance_cost = 0.05
-		}
-		allow = {
-			OR = {
-				primary_culture = syracusan 
-				primary_culture = siculian
-				tag = SIC
-			}
-		}
-		on_activate = {
-			custom_tooltip = "archimedes_death_ray_effect"
-		}
-	}
-
-	#New Invictus invention
-    sewn_planks_inv = { 
-        modifier = { 
-        	naval_range = 0.25
-        }
-        
-        requires = { pirate_spawn_chance_inv_1 }
-        allow = {
-			OR = {
-				country_culture_group = aryan
-				country_culture_group = pracyan
-				country_culture_group = indian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_indian_culture
-					has_variable = indian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:aryan
-							this.culture.culture_group = culture_group:pracyan
-							this.culture.culture_group = culture_group:indian
-						}
-					}
-				}
-				country_culture_group = south_levantine
-				country_culture_group = south_arabian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_arabian_culture
-					has_variable = arabian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:south_arabian
-						}
-					}
-				}
-				country_culture_group = meroitic_group
-				country_culture_group = aksumite_group
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_nubian_culture
-					OR = {
-					has_variable = new_egyptian_dynasty
-					has_variable = nubian_science
-					}
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:meroitic_group
-							this.culture.culture_group = culture_group:aksumite_group
-						}
-					}	
-				}
-				tag = TYO
-				tag = TLM
-			}
-		} 
-    }
-
-    #New Invictus invention
-    cotton_trade_inv = { 
-        modifier = { 
-        	global_commerce_modifier = 0.2
-        }
-        
-        requires = { pirate_spawn_chance_inv_1 }
-        allow = { tag = TYO } 
-    }
-
-	# Level 2
-	naval_tactic_inv_1 = { 
+	naval_tactic_inv_1 = { #defensive tactic/ kyklos 
 		modifier = {
 			naval_damage_taken = -0.05
 		}
 		requires = { liburnian_invention_2 }
 	}
-
-	naval_weapon_platform_inv_2 = {
-		modifier = { tetrere_offensive = 0.05 }
-		requires = { katapharct_inv }
+	naval_weapon_platform_inv_1 = {#oxybels
+		modifier = { trireme_offensive = 0.05 }
+		requires = { naval_rostra_inv_2 }		
 	}
-
-	navy_maintenance_cost_inv_1 = {
-		modifier = { navy_maintenance_cost = -0.05  }
-		requires = { katapharct_inv }
-		on_activate = {
-			if = {
-				limit = {
-					any_owned_province = { is_port = yes }
-				}
-				random_owned_province = {
-					limit = {
-						is_port = yes
-					}
-					owner = {
-						create_unit = {
-							navy = yes
-							location = prev.prev
-							add_subunit = liburnian
-							add_subunit = liburnian
-							add_subunit = liburnian
-							add_subunit = liburnian
-						}
-					}
-				}
-			}
-		}
-	}
-
-	#New Invictus invention
-    monsoon_navigation_inv = { 
-        modifier = { 
-        	diplomatic_range_modifier = 1.5
-        	control_range_modifier = 0.33
-        }
-        
-        requires = { sewn_planks_inv }
-        allow = {
-			OR = {
-				country_culture_group = aryan
-				country_culture_group = pracyan
-				country_culture_group = indian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_indian_culture
-					has_variable = indian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:aryan
-							this.culture.culture_group = culture_group:pracyan
-							this.culture.culture_group = culture_group:indian
-						}
-					}
-				}
-				country_culture_group = south_levantine
-				country_culture_group = south_arabian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_arabian_culture
-					has_variable = arabian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:south_arabian
-						}
-					}
-				}
-				country_culture_group = meroitic_group
-				country_culture_group = aksumite_group
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_nubian_culture
-					OR = {
-					has_variable = new_egyptian_dynasty
-					has_variable = nubian_science
-					}
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:meroitic_group
-							this.culture.culture_group = culture_group:aksumite_group
-						}
-					}	
-				}
-				tag = TYO
-				tag = TLM
-			}
-		} 
-    }
-
-    #New Invictus invention
-    beden_inv = { 
-        modifier = { 
-        	naval_morale_recovery = 0.1
-        }
-        
-        requires = { sewn_planks_inv }
-        allow = {
-			OR = {
-				country_culture_group = meroitic_group
-				country_culture_group = aksumite_group
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_nubian_culture
-					OR = {
-					has_variable = new_egyptian_dynasty
-					has_variable = nubian_science
-					}
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:meroitic_group
-							this.culture.culture_group = culture_group:aksumite_group
-						}
-					}	
-				}
-			}
-		} 
-    }
-
-        #New Invictus invention
-    dhow_inv = { 
-        modifier = { 
-        	global_ship_start_experience = 5
-        	global_ship_recruit_speed = 0.15
-        }
-        
-        requires = { sewn_planks_inv }
-        allow = {
-			OR = {
-				country_culture_group = south_levantine
-				country_culture_group = south_arabian
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_arabian_culture
-					has_variable = arabian_science
-					any_country_culture = {
-						is_integrated = yes
-						OR = {
-							this.culture.culture_group = culture_group:south_levantine
-							this.culture.culture_group = culture_group:south_arabian
-						}
-					}
-				}
-			}
-		} 
-    }
-
-	# Level 3
-		liburnian_invention_1 = {
+	liburnian_invention_1 = { #scourting parties
 		modifier = { liburnian_offensive = 0.05}
 		requires = { naval_tactic_inv_1 }
 	}
-
-	naval_rostra_inv_1 = {
+	trireme_discipline_inv_3 = { #squadrons
+		modifier = { trireme_discipline = 0.1 }
+		requires = { liburnian_invention_1 } 
+		potential = {
+			military_tech >= 2
+		}
+	}
+	siege_engineers_inv_2 = { #naval supply lines
+		modifier = { siege_engineers = 1 }
+		requires = { trireme_discipline_inv_3 } 
+		potential = {
+			military_tech >= 4
+		}
+	}
+	naval_rostra_inv_1 = { #wooden rostra
 		modifier = { liburnian_discipline = 0.05
 					 trireme_discipline = 0.05 }
-		requires = { liburnian_invention_2 }		
+		requires_or = { cedar_planks_inv sewn_planks_inv reinforced_planks_inv}		
+		potential = {
+			military_tech >= 2
+		}
 	}	
-
-	trireme_discipline_inv_2 = { 
-		modifier = { tetrere_discipline = 0.05 }
-		requires = { navy_maintenance_cost_inv_1 }
-	}	
-
-	# Level 4
-	pirate_spawn_chance_inv_2 = { 
-		requires_or = { liburnian_invention_1 naval_rostra_inv_1 }
-		modifier = { naval_range = 0.05  }
+	trireme_discipline_inv_5 = { #Harpax
+		requires = { naval_rostra_inv_2 }
+		modifier = { 
+			naval_damage_done = 0.05 
+			ship_capture_chance = 0.01}
+		allow = {
+			tag = ROM
+		}
 	}
-
-	trireme_discipline_inv_4 = { 
-		requires_or = { naval_rostra_inv_1 naval_weapon_platform_inv_2}
+	trireme_discipline_inv_4 = { #reinforced rostra
+		requires = { naval_rostra_inv_1 naval_weapon_platform_inv_2}
 		modifier = { 
 			hexere_discipline = 0.05 		 
 			tetrere_discipline = 0.05 
 			naval_range = 0.1
 			naval_damage_taken = -0.05
 		}
+		potential = {
+			military_tech >= 4
+		}
 		keystone = yes
 	}
-
-	naval_tactic_inv_3 = {
-		modifier = { naval_damage_done = 0.05 }
-		requires = { naval_weapon_platform_inv_2 }
+	naval_rostra_inv_2 = {#rostra casting
+		modifier = { naval_morale_modifier = 0.1 }
+		requires = { trireme_discipline_inv_4 }	
+		potential = {
+			military_tech >= 6
+		}	
 	}
-
-	trireme_discipline_inv_1 = { 
-		modifier = {
+	naval_rostra_inv_3 = {#advanced rostra desing
+		modifier = { 
 			naval_damage_taken = -0.05
-			global_ship_start_experience = 10
-			max_mercenary_stacks = 1
-		}
-		requires = { trireme_discipline_inv_2 }
-		keystone = yes
-		on_activate = {
-			if = {
-				limit = { is_monarchy = yes }
-				custom_tooltip = allows_maritime_laws
-			}
-		}
-		ai_will_do = {
-			modifier = {
-				factor = 100
-			}
-		}
-	}			
-
-	# Level 5
-	trireme_discipline_inv_3 = { 
-		modifier = { trireme_discipline = 0.1 }
-		requires = { pirate_spawn_chance_inv_2 }
-	}
-
-	naval_weapon_platform_inv_1 = {
-		modifier = { trireme_offensive = 0.05 }
-		requires = { pirate_spawn_chance_inv_2 }		
-	}	
-
-	naval_weapon_platform_inv_3 = {
-		modifier = { 
-			octere_offensive = 0.25 
-			octere_defensive = -0.1
-		}
-		keystone = yes
-		requires = { naval_tactic_inv_3 trireme_discipline_inv_1 }	
-			
-	}
-
-	sambuca_siege_inv = {
-		modifier = { 
-			mega_galley_discipline = 0.05
-		}
-		allow = {
-			OR = {
-				tag = TAR
-				tag = ITA
-				AND = {
-					tag = MGG
-					primary_culture = italiotian
-				}			}
-		}
-		on_activate = {
-			custom_tooltip = "allow_improved_naval_siege"
-			set_variable = improved_naval_siege
-		}
-		requires_or = { naval_weapon_platform_inv_3 }
-	}
-
-	double_bow_and_stern_inv_1 = {
-		modifier = { tetrere_defensive = 0.05 
-					 hexere_defensive = 0.05 }
-		requires = { trireme_discipline_inv_1 }
-	}	
-
-	#New Invictus invention
-	serial_production_inv = {
-		modifier = { global_ship_recruit_speed = 0.2  }
-		requires = { naval_tactic_inv_3 }
-		 allow = {
-			OR = {
-				country_culture_group = west_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_punic_culture
-					has_variable = punic_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:west_levantine
-					}
-				}
-			}
-		}
-	}
-
-	#New Invictus invention
-    imperial_navy_inv = {
-    	modifier = {
-    		navy_maintenance_cost = -0.05
-    		diplomatic_range_modifier = 0.75
-    		naval_range = 0.3
-    	}
-        
-        requires = { trireme_discipline_inv_1 }
-        allow = {
-			OR = {
-				country_culture_group = persia
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_persian_culture
-					has_variable = persian_science
-					any_country_culture = {
-						is_integrated = yes
-						is_persian_culture_group_trigger = yes
-					}
-				}
-			}
-		} 
-    }
-
-	# Level 6
-	navy_movement_speed_inv = { 
-		requires_or = { trireme_discipline_inv_3 naval_weapon_platform_inv_1 }
-		modifier = { liburnian_discipline = 0.1 }
-	}
-
-	naval_rostra_inv_2 = {
-		modifier = { naval_morale_modifier = 0.05 }
-		requires = { trireme_discipline_inv_4 }		
-	}	
-
-	blockade_efficiency_inv = {
-		requires = { double_bow_and_stern_inv_1 }
-		modifier = { blockade_efficiency = 0.2 }
-	}	
-
-	#New Invictus invention
-	cedar_planks_inv = {
-		modifier = { global_ship_start_experience = 5
-					 naval_damage_taken = -0.05 }
-		requires = { serial_production_inv }
-		 allow = {
-			OR = {
-				country_culture_group = west_levantine
-				custom_tooltip = {
-					#Need a new text
-					text = integrated_any_punic_culture
-					has_variable = punic_science
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:west_levantine
-					}
-				}
-			}
-		}
-	}
-
-	# Level 7
-	naval_tactic_inv_2 = {
-		modifier = { 
-			liburnian_offensive = 0.05 
-		}
-		requires = { navy_movement_speed_inv }
-	}
-	
-	siege_engineers_inv_2 = { 
-		modifier = { siege_engineers = 1  }
-		requires = { navy_movement_speed_inv }
-	}
-
-	trireme_discipline_inv_5 = { 
-		requires = { naval_rostra_inv_2 }
-		modifier = { naval_damage_done = 0.05 }
-	}		
-
-	counterbalanced_oars_inv = {
-		modifier = { naval_morale_recovery = 0.05 }
-		requires = { blockade_efficiency_inv }
-	}
-
-	navy_maintenance_cost_inv_2 = { 
-		requires = { blockade_efficiency_inv }
-		modifier = { naval_damage_taken = -0.05  }
-	}		
-
-	# Level 7 Country Specific
-	
-	corvus_invention = {
-		requires = { trireme_discipline_inv_5 } 
-		allow = {
-			trigger_if = {
-				limit = { tag = ROM }
-				tag = ROM
-			}
-			trigger_if = {
-				limit = { tag = CAR }
-				tag = CAR
-				has_completed_mission_task = carthaginian_rome_expansion_mission_task_3
-			}
-		}
-		modifier = { ship_capture_chance = 0.05 }
-	}	
-
-	# Level 8
-	naval_rostra_inv_3 = {
-		modifier = { 
-			naval_morale_modifier = 0.1 
 			naval_damage_done = 0.05
 			trireme_offensive = 0.05
 		}
 		keystone = yes
-		requires = { trireme_discipline_inv_5 }
-		requires_or = { naval_tactic_inv_2 siege_engineers_inv_2 }		
+		requires = { naval_rostra_inv_2 }	
 	}
-
-	naval_unit_attrition_inv = {
+	global_ship_recruit_speed_inv = { #patterned construction
 		modifier = { 
-			naval_unit_attrition = -0.1 
-			navy_maintenance_cost = -0.1
+			global_ship_recruit_speed = 0.2
 		}
 		keystone = yes
-		requires_or = { counterbalanced_oars_inv navy_maintenance_cost_inv_2 }
-	}	
-
-	# Level 9	
-	global_ship_recruit_speed_inv = { 
-		modifier = { 
-			global_ship_recruit_speed = 0.25 
-		}
-		keystone = yes
-		requires_or = { naval_rostra_inv_3 naval_unit_attrition_inv }
+		requires_or = { naval_rostra_inv_3 }
 		potential = {
+			military_tech >= 8
 			num_of_ports >= 1
 		}
 		on_activate = {
@@ -2095,23 +4352,575 @@ naval_tree = {
 			}
 		}
 	}
-
-	# Level 10
-	double_bow_and_stern_inv_2 = {
+	double_bow_and_stern_inv_2 = {#doble stern
 		modifier = { octere_defensive = 0.05 
 					 mega_galley_defensive = 0.05 }
 		requires = { global_ship_recruit_speed_inv }					 
 	}
-
-	mega_catamaran_inv = {
-		modifier = { blockade_efficiency = 0.1 }
-		requires = { global_ship_recruit_speed_inv }				
-	}	
-
-	# Level 11
-	naval_rostra_inv_4 = {
+	naval_rostra_inv_4 = {#heavy rostra
 		modifier = { octere_discipline = 0.05
 					 mega_galley_discipline = 0.05 }
-		requires = { double_bow_and_stern_inv_2 mega_catamaran_inv }		
+		requires = { double_bow_and_stern_inv_2 }		
+		potential = {
+			military_tech >= 10
+		}
+	}
+	katapharct_inv = {#armoured decks
+		modifier = { tetrere_defensive = 0.05
+					 hexere_defensive = 0.05 }
+		potential = {
+			military_tech >= 2
+		}
+		requires = { pirate_spawn_chance_inv_1 }
+	}
+	naval_tactic_inv_3 = {#diekplous tactic
+		modifier = { naval_damage_done = 0.05 }
+		requires = { katapharct_inv } 
+	}
+	counterbalanced_oars_inv = { #counterbalnce orasrs
+		modifier = { naval_morale_recovery = 0.05 }
+		requires = { naval_rostra_inv_1 } 
+		potential = {
+			military_tech >= 4
+		}
+	}
+	grappling_hooks_inv = {#grapplinghooks
+		modifier = {
+			naval_damage_done = 0.03
+			ship_capture_chance = 0.01
+		}
+		potential = {
+			military_tech >= 10
+		}
+		requires = { counterbalanced_oars_inv } 
+	}
+	naval_weapon_platform_inv_2 = { #catapult platform
+		modifier = {
+			tetrere_offensive = 0.05 
+			hexere_offensive = 0.05
+		}
+		potential = {
+			military_tech >= 2
+		}
+		requires = { katapharct_inv }
+	}
+	double_bow_and_stern_inv_1 = {
+		modifier = { tetrere_defensive = 0.05 
+					 hexere_defensive = 0.05 }
+		potential = {
+			military_tech >= 4
+		}
+		requires = { naval_weapon_platform_inv_2 }
+	}
+	naval_morale_recovery_inv_5 = { #bow ornatmention
+		modifier = { naval_morale_recovery = 0.02 }
+		requires = { double_bow_and_stern_inv_1 } 
+		potential = {
+			military_tech >= 8
+			religious_tech >= 8
+		}
+	}
+	naval_weapon_platform_inv_3 = { #catapult deck
+		modifier = { 
+			octere_offensive = 0.15 
+			octere_defensive = -0.1
+		}
+		potential = {
+			military_tech >= 8
+		}
+		keystone = yes
+		requires = { double_bow_and_stern_inv_1 }		
+	}
+	ship_command_inv_1 = {#ship captians
+		modifier = {
+			naval_morale_modifier = 0.05
+		}
+		potential = {
+			military_tech >= 2
+		}
+		requires = { pirate_spawn_chance_inv_1 }
+	}	
+	trireme_discipline_inv_1 = { #professional sailors
+		modifier = {
+			naval_damage_taken = -0.05
+			global_ship_start_experience = 10
+			max_mercenary_stacks = 1
+		}
+		potential = {
+			military_tech >= 2
+		}
+		requires = { ship_command_inv_1 }
+		keystone = yes
+		on_activate = {
+			if = {
+				limit = { is_monarchy = yes }
+				custom_tooltip = allows_maritime_laws
+			}
+		}
+		ai_will_do = {
+			modifier = {
+				factor = 100
+			}
+		}
+	}
+	blockade_efficiency_inv = {#experienced sea fares
+		requires = { trireme_discipline_inv_1 }
+		modifier = { blockade_efficiency = 0.2 } 
+		potential = {
+			military_tech >= 4
+		}
+	}
+	navy_maintenance_cost_inv_1 = {#priactes amnesty
+		modifier = { navy_maintenance_cost = -0.05 }
+		requires = { blockade_efficiency_inv } 
+		potential = {
+			military_tech >= 8
+		}
+		on_activate = {
+			if = {
+				limit = {
+					any_owned_province = { is_port = yes }
+				}
+				random_owned_province = {
+					limit = {
+						is_port = yes
+					}
+					owner = {
+						create_unit = {
+							navy = yes
+							location = prev.prev
+							add_subunit = liburnian
+							add_subunit = liburnian
+							add_subunit = liburnian
+							add_subunit = liburnian
+						}
+					}
+				}
+			}
+		}
+	}
+	naval_morale_recovery_inv_3 = { #fleet hierachy
+		modifier = { naval_morale_recovery = 0.02 }
+		requires = { ship_command_inv_1 } 
+		potential = {
+			military_tech >= 8
+		}
+	}
+	naval_morale_recovery_inv_1 = { #marine auxilia
+		modifier = { naval_morale_recovery = 0.02 }
+		requires = { naval_morale_recovery_inv_3 } 
+		potential = {
+			military_tech >= 4
+		}
+	}
+	naval_unit_attrition_inv = {#ship surgeons
+		modifier = { 
+			naval_unit_attrition = -0.1 
+			navy_maintenance_cost = -0.1
+		}
+		potential = {
+			military_tech >= 10
+			civic_tech >= 10
+		}
+		keystone = yes
+		requires = { naval_morale_recovery_inv_1 }
+	}
+	navy_movement_speed_inv = { #lateen sails
+		requires = { double_bow_and_stern_inv_2 naval_weapon_platform_inv_3 siege_engineers_inv_2}
+		modifier = { 
+			navy_movement_speed = 0.05
+			naval_range = 0.05
+
+		}
+		potential = {
+			military_tech >= 20
+		}
+	}
+	#########
+	###specific
+	#########
+	corvus_invention = {#corvus
+		requires = { grappling_hooks_inv } 
+		allow = {
+			trigger_if = {
+				limit = { NOT = { tag = CAR } }
+				tag = ROM
+			}
+			trigger_if = {
+				limit = { tag = CAR }
+				tag = CAR
+				has_completed_mission_task = carthaginian_rome_expansion_mission_task_3
+			}
+		}
+		modifier = { ship_capture_chance = 0.01 }
+	}
+	navy_maintenance_cost_inv_2 = {#hoensta mistia
+		requires = { trireme_discipline_inv_1 } 
+		allow = {
+			tag = ROM
+		}
+		modifier = { navy_maintenance_cost = -0.05 }
+	}
+	archimedes_principle = {
+		requires = { pirate_spawn_chance_inv_1 }
+		allow = { 
+			tag = SYR
+		}
+		modifier = { global_ship_start_experience = 10 }
+	}
+	archimedes_claw_inv = {
+		requires = { archimedes_principle }
+		allow = { 
+			or = {
+				tag = SYR
+				has_variable = archimedes_notebook
+			} #SYR
+		}
+		modifier = { global_defensive = 0.05 }
+	}
+	archimedes_ray_inv = {
+		requires = { archimedes_principle }
+		allow = { 
+			or = {
+				tag = SYR
+				has_variable = archimedes_notebook
+			} #SYR
+		}
+		modifier = { global_defensive = 0.1 }
+	}
+	architonnerre_inv = {
+		requires = { archimedes_principle }
+		allow = { 
+			or = {
+				tag = SYR
+				has_variable = archimedes_notebook
+			} #SYR
+		}
+		modifier = { trireme_offensive = 0.05 }
+	}
+	cedar_planks_inv = {
+		modifier = { global_ship_start_experience = 5
+					 naval_damage_taken = -0.05 }
+		requires = { serial_production_inv }
+		 allow = {
+		 	nor = {
+				invention = sewn_planks_inv
+				invention = reinforced_planks_inv
+			}
+			OR = {
+				country_culture_group = west_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_punic_culture
+					has_variable = punic_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:west_levantine
+					}
+				}
+			}
+		}
+	}
+	sewn_planks_inv = { 
+		modifier = { 
+			naval_range = 0.25
+		}
+		
+		requires = { pirate_spawn_chance_inv_1 }
+		allow = {
+			nor = {
+				invention = cedar_planks_inv
+				invention = reinforced_planks_inv
+			}
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_indian_culture
+					has_variable = indian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:aryan
+							this.culture.culture_group = culture_group:pracyan
+							this.culture.culture_group = culture_group:indian
+						}
+					}
+				}
+				country_culture_group = south_levantine
+				country_culture_group = south_arabian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_arabian_culture
+					has_variable = arabian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:south_levantine
+							this.culture.culture_group = culture_group:south_arabian
+						}
+					}
+				}
+				country_culture_group = meroitic_group
+				country_culture_group = aksumite_group
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_nubian_culture
+					OR = {
+					has_variable = new_egyptian_dynasty
+					has_variable = nubian_science
+					}
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
+					}	
+				}
+				tag = TYO
+				tag = TLM
+			}
+		} 
+	}	
+	monsoon_navigation_inv = { 
+		modifier = { 
+			diplomatic_range_modifier = 1.5
+			control_range_modifier = 0.33
+		}
+		
+		requires = { sewn_planks_inv }
+		allow = {
+			OR = {
+				country_culture_group = aryan
+				country_culture_group = pracyan
+				country_culture_group = indian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_indian_culture
+					has_variable = indian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:aryan
+							this.culture.culture_group = culture_group:pracyan
+							this.culture.culture_group = culture_group:indian
+						}
+					}
+				}
+				country_culture_group = south_levantine
+				country_culture_group = south_arabian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_arabian_culture
+					has_variable = arabian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:south_levantine
+							this.culture.culture_group = culture_group:south_arabian
+						}
+					}
+				}
+				country_culture_group = meroitic_group
+				country_culture_group = aksumite_group
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_nubian_culture
+					OR = {
+					has_variable = new_egyptian_dynasty
+					has_variable = nubian_science
+					}
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
+					}	
+				}
+				tag = TYO
+				tag = TLM
+			}
+		} 
+	}
+	beden_inv = { 
+		modifier = {
+			naval_morale_recovery = 0.1
+		}
+		
+		requires = { sewn_planks_inv }
+		allow = {
+			OR = {
+				country_culture_group = meroitic_group
+				country_culture_group = aksumite_group
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_nubian_culture
+					OR = {
+					has_variable = new_egyptian_dynasty
+					has_variable = nubian_science
+					}
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:meroitic_group
+							this.culture.culture_group = culture_group:aksumite_group
+						}
+					}	
+				}
+			}
+		} 
+	}
+	dhow_inv = { 
+		modifier = { 
+			global_ship_start_experience = 5
+			global_ship_recruit_speed = 0.15
+		}
+		
+		requires = { sewn_planks_inv }
+		allow = {
+			OR = {
+				country_culture_group = south_levantine
+				country_culture_group = south_arabian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_arabian_culture
+					has_variable = arabian_science
+					any_country_culture = {
+						is_integrated = yes
+						OR = {
+							this.culture.culture_group = culture_group:south_levantine
+							this.culture.culture_group = culture_group:south_arabian
+						}
+					}
+				}
+			}
+		} 
+	}
+	greek_cartography_inv = {
+		modifier = { 
+			diplomatic_range_modifier = 0.05
+			global_commerce_modifier = 0.05
+			army_movement_speed = 0.05 
+		}
+		requires = { pirate_spawn_chance_inv_1 }
+		allow = {
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:hellenic
+					}
+				}
+			}
+		}
+	}
+	greek_advanced_astronomy_inv_1 = { # Astrolabe
+		modifier = { 
+			global_commerce_modifier = 0.05
+			naval_range = 0.05
+		}
+		requires = { greek_cartography_inv }
+		allow = {
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:hellenic
+					}
+				}
+			}
+		}
+	}
+	greek_advanced_astronomy_inv_2 = { # Antikythera and Differential Gears
+		modifier = { 
+			diplomatic_range_modifier = 0.02 
+			naval_morale_modifier = 0.05
+		}
+		requires = { greek_advanced_astronomy_inv_1 }
+		allow = {
+			OR = {
+				country_culture_group = hellenic
+				custom_tooltip = {
+					text = integrated_any_hellenic_culture
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:hellenic
+					}
+				}
+			}
+		}
+	}
+	##########
+	#InVICTUS
+	########
+	serial_production_inv = {
+		modifier = { global_ship_recruit_speed = 0.2 }
+		requires = { naval_tactic_inv_3 }
+		 allow = {
+			OR = {
+				country_culture_group = west_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_punic_culture
+					has_variable = punic_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:west_levantine
+					}
+				}
+			}
+		}
+	}
+	imperial_navy_inv = {
+		modifier = {
+			navy_maintenance_cost = -0.05
+			diplomatic_range_modifier = 0.75
+			naval_range = 0.3
+		}
+		
+		requires = { trireme_discipline_inv_1 }
+		allow = {
+			OR = {
+				country_culture_group = persia
+				is_diadochi_trigger = yes
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_persian_culture
+					has_variable = persian_science
+					any_country_culture = {
+						is_integrated = yes
+						is_persian_culture_group_trigger = yes
+					}
+				}
+			}
+		} 
+	}
+	periplus_inv = {
+		modifier = { naval_range = 0.1 
+					 diplomatic_range_modifier = 0.1 }
+		requires = { serial_production_inv }
+		 allow = {
+			OR = {
+				country_culture_group = hellenic
+				country_culture_group = west_levantine
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_punic_culture
+					has_variable = punic_science
+					any_country_culture = {
+						is_integrated = yes
+						this.culture.culture_group = culture_group:west_levantine
+					}
+				}
+			}
+		}
 	}
 }
