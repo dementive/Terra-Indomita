@@ -1461,6 +1461,24 @@ religious_1 = {
 			}
 		}
 	}
+	hittite_case_law_inv = {
+    	modifier = { global_monthly_civilization = 0.02 }
+        
+        requires = { subterranean_dwellings_inv }
+        allow = {
+			OR = {
+				country_culture_group = anatolian
+				custom_tooltip = {
+					#Need a new text
+					text = integrated_any_anatolian_culture
+					has_variable = anatolian_science
+					any_integrated_culture = {
+						this.culture.culture_group = culture_group:anatolian
+					}
+				}
+			}
+		} 
+    }
     temple_estates_inv = {
     	modifier = {
     		global_pop_conversion_speed_modifier = 0.1
