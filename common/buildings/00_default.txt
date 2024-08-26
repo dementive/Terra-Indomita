@@ -6,6 +6,7 @@ fortress_building = { #ALL #1
 	local_manpower_modifier = -0.05
 	local_country_civilization_value = 2
 	local_unrest = -2
+	supply_limit = 5
 	cost = 150
 	time = 500
 
@@ -19,6 +20,7 @@ town_watch_building = { # VIGILES
 	local_tax_modifier = -0.03
 	local_manpower_modifier = -0.05
 	local_defensive = 0.15
+	supply_limit = 10
 	max_amount = 1
 	cost = 175
 	time = 300
@@ -714,7 +716,8 @@ foundry_building = { #Foundry
 military_building = { #Conscription Camp
 	local_manpower_modifier = 0.075
 	local_country_civilization_value = 2
-	local_freemen_desired_pop_ratio = 0.05
+	local_freemen_desired_pop_ratio = 0.03
+	supply_limit = 5
 	max_amount = 5
 	cost = 80
 	time = 180
@@ -1847,7 +1850,7 @@ shrine_building = { #9
 		}
 	}
 }
-##specific
+	##specific
 oracle_building = { #Greek
 	local_happiness_for_same_religion_modifier = 0.1
 	local_pop_conversion_speed_modifier = 0.2
@@ -1950,7 +1953,7 @@ stupa_building = { #Buddhist
 		}
 	}
 }
-####
+	####
 temple_building = {
 	local_pop_conversion_speed = 1
 	local_happiness_for_same_religion_modifier = 0.05
@@ -2041,7 +2044,7 @@ temple_building = {
 		}
 	}
 }
-##religious Specific##
+	##religious Specific##
 church_building = {
 	local_pop_conversion_speed = 1
 	local_happiness_for_same_religion_modifier = 0.05
@@ -2061,7 +2064,7 @@ church_building = {
 				is_tribal = no
 				religion = christianity
 			}
-			num_of_temple_building > 0
+			num_of_church_building > 0
 		}
 	}
 	allow = {
@@ -2132,7 +2135,7 @@ church_building = {
 		}
 	}
 }
-######################
+	######################
 great_temple_building = {
 	local_happiness_for_same_religion_modifier = 0.2
 	local_pop_conversion_speed = 1
@@ -2195,7 +2198,7 @@ great_temple_building = {
 		}
 	}
 }
-##religious specific###
+	##religious specific###
 parthenon_building = {
 	local_happiness_for_same_religion_modifier = 0.2
 	local_pop_conversion_speed = 1
@@ -2430,10 +2433,10 @@ pagoda_building = {
 		}
 	}
 }
-##hindu - local_citizen_output?
-###chinese - local_population_growth
-###punic - local_monthly_civilization
-###arabian cube>
+	##hindu - local_citizen_output?
+	###chinese - local_population_growth
+	###punic - local_monthly_civilization
+	###arabian cube>
 ######################
 # 10 Administration 10
 
@@ -2677,10 +2680,11 @@ royal_palace_building = { #Royal Palace
 ##
 local_forum_building = { #Provincial Legation
 	local_migration_attraction = 0.5
-	local_pop_assimilation_speed_modifier = 0.1
+	local_pop_assimilation_speed_modifier = 0.05
 	city_monthly_state_loyalty = 0.05
 	local_population_capacity_modifier = 0.2
 	local_tribesmen_desired_pop_ratio = -0.2
+
 
 	max_amount = 1
 	potential = {
@@ -2898,7 +2902,7 @@ sacred_building = { #Sanctuary
 		}
 	}
 }
-#christian 
+	#christian 
 christian_relic_building = { #Sanctuary
 	local_citizen_desired_pop_ratio = 0.05
 	local_nobles_desired_pop_ratio = 0.01
@@ -3013,7 +3017,7 @@ monastery_building = { #Sanctuary
 		}
 	}
 }
-#buddhist/taoist
+	#buddhist/taoist
 stupa_settlement_building = { #
 	local_citizen_desired_pop_ratio = 0.05
 	local_nobles_desired_pop_ratio = 0.01
@@ -3194,6 +3198,7 @@ barracks_building = {
 	local_freemen_happyness = happiness_large_svalue
 	local_unrest = -5
 	local_manpower_modifier = 0.25
+	supply_limit = 10
 	local_country_civilization_value = 5
 	local_migration_speed_modifier = -0.2
 
@@ -3291,11 +3296,10 @@ crafts_workshop_building = {
 	}
 }
 trade_post_building = {
-	local_base_trade_routes_modifier = 0.33
+	local_base_trade_routes_modifier = 0.2
 	movement_cost = -0.1
 	local_country_civilization_value = 3
-	local_migration_speed_modifier = 0.1
-	local_commerce_value_modifier = 0.1
+	local_commerce_value_modifier = 0.05
 	max_amount = 1
 	cost = 150
 	time = 180
@@ -3338,6 +3342,7 @@ basic_settlement_infratructure_building = { #Farming Settlement
 	local_goods_from_slaves = -3
 	local_country_civilization_value = 4
 	local_migration_speed_modifier = -0.25
+	base_resources = 0.5
 	max_amount = 1
 	potential = {
 		has_city_status = no
@@ -3384,7 +3389,7 @@ basic_settlement_infratructure_building = { #Farming Settlement
 	}
 }
 breeding_building = { #horse_breeder
-	local_monthly_food_modifier = -1
+	local_monthly_food_modifier = -0.5
 	local_population_capacity_modifier = -0.2
 	local_country_civilization_value = 2
 	local_migration_speed_modifier = -0.3
@@ -3434,7 +3439,8 @@ breeding_building = { #horse_breeder
 fishing_building = {
 	local_monthly_food_modifier = 0.5
 	local_freemen_desired_pop_ratio = 0.2
-	local_goods_from_slaves = -7
+	local_goods_from_slaves = 5
+	base_resources = 1
 	local_country_civilization_value = 5
 	local_population_growth = -0.02
 	max_amount = 1
@@ -3479,6 +3485,8 @@ free_farm_building = { #Farming Settlement
 	local_country_civilization_value = 5
 	local_migration_speed_modifier = -0.25
 	local_population_growth = 0.05
+	local_goods_from_slaves = 10
+	base_resources = 0.5
 	max_amount = 1
 	potential = {
 		has_city_status = no
@@ -3518,11 +3526,12 @@ free_farm_building = { #Farming Settlement
 }
 latifundia_building = { #Slave Estate
 	local_slaves_output = 0.3
-	local_goods_from_slaves = -4
+	local_goods_from_slaves = -5
 	local_country_civilization_value = 5
-	local_slaves_desired_pop_ratio = 0.35
-	local_nobles_desired_pop_ratio = 0.1
+	local_slaves_desired_pop_ratio = 0.5
+	local_nobles_desired_pop_ratio = 0.05
 	local_nobles_happyness = 0.5
+	local_freemen_desired_pop_ratio = -1
 	max_amount = 1
 	potential = {
 		has_city_status = no
@@ -3588,6 +3597,7 @@ villa_building = {
 			OR = {
 			 	trade_goods = wine
 			 	trade_goods = olive
+			 	trade_goods = honey
 			 		}
 	}
 
@@ -3707,7 +3717,7 @@ slave_mine_building = {
 	}
 }
 lumber_building = {
-	local_goods_from_slaves = -7
+	base_resources = 1
 	local_slaves_desired_pop_ratio = 0.1
 
     cost = 90

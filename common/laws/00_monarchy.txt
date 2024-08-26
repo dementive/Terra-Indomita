@@ -353,7 +353,7 @@ governor_laws_monarchy = {
 	heritage_tax_exemption = { #benign neglect
 		modifier = {
 			global_tax_modifier = -0.1
-			monthly_local_governor_wage = -0.05
+			governor_loyalty = 5
 			global_monthly_state_loyalty = 0.02
 		}
 		allow = {
@@ -411,7 +411,8 @@ trade_laws_mon = {
 	}
 	trade_law_2_mon = { #subsidized shipments 
 		modifier = {
-			price_state_investment_oratory_cost_modifier = -0.1
+			price_state_investment_oratory_cost_modifier = -0.25
+			liburnian_cost = -0.1
 		}
 		allow = {
 			num_of_ports >= 1
@@ -1300,6 +1301,10 @@ slave_laws = {
 	slave_law_1 = { #pow's
 		modifier = {
 			enslavement_efficiency = 0.05
+			global_slaves_desired_pop_ratio = 0.05
+		}
+		allow = {
+			rank =< regional_power
 		}
 	}
 	slave_law_2 = {#slave economy
@@ -1313,7 +1318,7 @@ slave_laws = {
 	}
 	slave_law_3 = {#slave rights
 		modifier = {
-			global_slaves_happyness = 0.06
+			global_slaves_happyness = 0.08
 			global_slaves_output = -0.3
 			global_slaves_desired_pop_ratio = 0.1
 		}
@@ -1329,6 +1334,7 @@ slave_laws = {
 			global_pop_promotion_speed_modifier = 0.2
 			global_slaves_happyness = 0.06
 			global_slaves_output = -0.3
+			global_slaves_desired_pop_ratio = 0.05
 		}
 		allow = {
 			or = {
@@ -1341,6 +1347,8 @@ slave_laws = {
 		modifier = {
 			global_slaves_desired_pop_ratio = -0.1
 			global_pop_promotion_speed_modifier = 0.2
+			global_slaves_output = -0.3
+			global_slaves_happyness = 0.08
 		}
 		allow = {
 			or = {

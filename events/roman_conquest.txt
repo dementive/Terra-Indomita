@@ -1,0 +1,2762 @@
+﻿namespace = roman_conquest
+
+roman_conquest.1 = {
+	type = province_event
+	title = "roman_conquest.1.t"
+	desc = "roman_conquest.1.desc"
+	picture = romans_marching
+
+	left_portrait = owner.current_ruler
+	
+	goto_location = root
+
+	trigger = {
+		owner = {
+			tag = ROM
+			primary_culture = roman
+		}
+		total_population > 20
+		NOT = { dominant_province_culture = roman }
+		OR = {
+			province_dominant_culture_group = latin
+			province_dominant_culture_group = hellenic
+		}
+		owner = { NOT = { has_variable = roman_conquest_1_cooldown } }
+	}
+
+	immediate = {
+		owner = {
+			set_variable = {
+				name = roman_conquest_1_cooldown
+				days = 365
+			}
+		}
+	}
+
+	option = {
+		name = "roman_conquest.1.a"
+		owner = {
+			add_tyranny = tyranny_small
+		}
+		custom_tooltip = "roman_conquest.1.tt"
+		add_province_modifier = {
+			name = province_improvement_roman_conquest_loyalty
+			duration = 3650
+		}
+		hidden_effect = {
+			ordered_pops_in_province = {
+				limit = {
+					OR = {
+						pop_culture_group = latin
+						pop_culture_group = hellenic
+					}
+					NOR = { 
+						pop_culture = roman 
+						pop_type = slaves
+					}
+				}
+				order_by = pop_hapiness
+				max = {
+					value = total_population
+					divide = 5
+				}
+				set_pop_culture = roman
+			}
+		}
+	}
+
+	option = {
+		name = "roman_conquest.1.b"
+		custom_tooltip = "no_effect_tooltip"
+	}
+}
+
+roman_conquest.2 = {							# 1 - End Etruscans
+    type = country_event
+    title = roman_conquest.2.t
+    desc = {
+		desc = roman_conquest.2.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+	fire_only_once = yes
+	
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+		if = {
+			limit = {
+				any_subject = {
+					OR = {
+						tag = ETR
+						primary_culture = etruscan
+						this.capital_scope = {
+							OR = {
+								is_in_area = north_etruria_area
+								is_in_area = south_etruria_area
+							}
+						}
+					}
+				}
+			}
+			every_subject = {
+				limit = {
+					OR = {
+						tag = ETR
+						primary_culture = etruscan
+						this.capital_scope = {
+							OR = {
+								is_in_area = north_etruria_area
+								is_in_area = south_etruria_area
+							}
+						}
+					}
+				}
+				add_opinion = { target = c:ROM modifier = rm_new_conquest_subject_opmod }
+			}
+		}
+    }
+
+    option = {							# Volci Colonia 
+        name = roman_conquest.2.a
+		trigger = {
+			owns = 22
+		}
+		p:22 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+    option = {      					# Clusium Colonia
+        name = roman_conquest.2.b
+		trigger = {
+			owns = 116
+		}
+		p:116 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      					# Vetulonia Colonia
+        name = roman_conquest.2.c
+		trigger = {
+			owns = 114
+		}
+		p:114 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      					# Populonia Colonia
+        name = roman_conquest.2.d
+		trigger = {
+			owns = 126
+		}
+		p:126 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      					
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 22 }
+				NOT = { owns = 116 }
+				NOT = { owns = 114 }
+				NOT = { owns = 126 }
+			}
+		}
+    }
+}
+
+roman_conquest.3 = {							# 1 - Unseat Umbrians
+    type = country_event
+    title = roman_conquest.3.t
+    desc = {
+		desc = roman_conquest.3.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+    }
+
+    option = {      
+        name = roman_conquest.3.a
+		trigger = {
+			owns = 123
+		}
+		p:123 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+    option = {      
+        name = roman_conquest.3.b
+		trigger = {
+			owns = 103
+		}
+		p:103 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.3.c
+		trigger = {
+			owns = 111
+		}
+		p:111 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.3.d
+		trigger = {
+			owns = 109
+		}
+		p:109 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      					
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 123 }
+				NOT = { owns = 103 }
+				NOT = { owns = 111 }
+				NOT = { owns = 109 }
+			}
+		}
+    }
+}
+
+roman_conquest.4 = {							# 1 - Subdue Samnites
+    type = country_event
+    title = roman_conquest.4.t
+    desc = {
+		desc = roman_conquest.4.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+	
+    }
+
+    option = {      
+        name = roman_conquest.4.a
+		trigger = {
+			owns = 32
+		}
+		p:32 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+    option = {      
+        name = roman_conquest.4.b
+		trigger = {
+			owns = 1718
+		}
+		p:1718 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.4.c
+		trigger = {
+			owns = 10
+		}
+		p:10 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.4.d
+		trigger = {
+			owns = 41
+		}
+		p:41 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 32 }
+				NOT = { owns = 1718 }
+				NOT = { owns = 10 }
+				NOT = { owns = 41 }
+			}
+		}
+    }
+}
+
+roman_conquest.5 = {							# 1 - Annex Apulians
+    type = country_event
+    title = roman_conquest.5.t
+    desc = {
+		desc = roman_conquest.5.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+	
+    }
+
+    option = {      
+        name = roman_conquest.5.a
+		trigger = {
+			owns = 64
+		}
+		p:64 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+    option = {      
+        name = roman_conquest.5.b
+		trigger = {
+			owns = 65
+		}
+		p:65 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.5.c
+		trigger = {
+			owns = 56
+		}
+		p:56 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.5.d
+		trigger = {
+			owns = 57
+		}
+		p:57 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 64 }
+				NOT = { owns = 67 }
+				NOT = { owns = 56 }
+				NOT = { owns = 57 }
+			}
+		}
+    }
+}
+
+roman_conquest.6 = {							# 1 - Lash Lucanians
+    type = country_event
+    title = roman_conquest.6.t
+    desc = {
+		desc = roman_conquest.6.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+		
+    }
+
+    option = {      
+        name = roman_conquest.6.a
+		trigger = {
+			owns = 54
+		}
+		p:54 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+    option = {      
+        name = roman_conquest.6.b
+		trigger = {
+			owns = 12
+		}
+		p:12 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.6.c
+		trigger = {
+			owns = 46
+		}
+		p:46 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.6.d
+		trigger = {
+			owns = 53
+		}
+		p:53 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 54 }
+				NOT = { owns = 12 }
+				NOT = { owns = 46 }
+				NOT = { owns = 53 }
+			}
+		}
+    }
+}
+
+roman_conquest.7 = {							# 1 - Galvanize Gauls
+    type = country_event
+    title = roman_conquest.7.t
+   desc = {
+		desc = roman_conquest.7.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+		if = {
+			limit = {
+				any_owned_province = {
+					is_in_area = ariminum_area
+					province_dominant_culture_group = gallic
+				}
+			}
+			if = {
+				limit = {
+					any_neighbour_country = {
+						has_land = yes
+						country_culture_group = gallic
+					}
+				}
+				ordered_neighbour_country = {
+					limit = {
+						has_land = yes
+						country_culture_group = gallic
+						NOT = { primary_culture = hebrew }
+					}
+					order_by = country_population
+					save_scope_as = rm_gallic_exodus_country
+				}
+			}
+			else_if = {
+				limit = {
+					any_country = {
+						has_land = yes
+						country_culture_group = gallic
+						in_diplomatic_range = c:ROM
+					}
+				}
+				random_country = {
+					limit = {
+						has_land = yes
+						country_culture_group = gallic
+						in_diplomatic_range = c:ROM
+					}
+					weight = {
+						modifier = {
+							factor = 100
+							primary_culture = lepontic
+						}
+					}
+					save_scope_as = rm_gallic_exodus_country
+				}
+			}
+			else = {
+				random_country = {
+					limit = {
+						has_land = yes
+						in_diplomatic_range = c:ROM
+					}
+					save_scope_as = rm_gallic_exodus_country
+				}
+			}
+		}
+		rm_gallic_exodus_effect = yes
+    }
+
+    option = {      
+        name = roman_conquest.7.a
+		trigger = {
+			owns = 121
+		}
+		p:121 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+    option = {      
+        name = roman_conquest.7.b
+		trigger = {
+			owns = 133
+		}
+		p:133 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.7.c
+		trigger = {
+			owns = 142
+		}
+		p:142 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 121 }
+				NOT = { owns = 133 }
+				NOT = { owns = 142 }
+			}
+		}
+    }
+}
+
+roman_conquest.8 = {							# 1 - Beat Bruttians
+    type = country_event
+    title = roman_conquest.8.t
+    desc = {
+		desc = roman_conquest.8.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+	
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+		
+    }
+
+    option = {      
+        name = roman_conquest.8.a
+		trigger = {
+			owns = 52
+		}
+		p:52 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+    option = {      
+        name = roman_conquest.8.b
+		trigger = {
+			owns = 78
+		}
+		p:78 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.8.c
+		trigger = {
+			owns = 75
+		}
+		p:75 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.8.d
+		trigger = {
+			owns = 72
+		}
+		p:72 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.8.e
+		trigger = {
+			owns = 79
+			OR = {
+				NOT = { owns = 52 }
+				NOT = { owns = 78 }
+				NOT = { owns = 75 }
+				NOT = { owns = 72 }
+			}
+		}
+		p:79 = {
+			roman_mission_colonia_effect = yes
+		}
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 52 }
+				NOT = { owns = 78 }
+				NOT = { owns = 75 }
+				NOT = { owns = 72 }
+			}
+		}
+    }
+}
+
+roman_conquest.9 = {							# 2 - Conquer Corsica
+    type = country_event
+    title = roman_conquest.9.t
+    desc = {
+		desc = roman_conquest.9.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+	fire_only_once = yes
+
+	goto_location = p:3515
+
+    trigger = {
+		has_land = yes
+    }
+
+    option = {      
+        name = roman_conquest.9.a
+		trigger = { owns = 3515 }
+		p:3515 = { roman_mission_colonia_effect = yes }
+	}
+	
+	option = {      
+        name = roman_conquest.9.b
+		trigger = { owns = 3511 }
+		p:3511 = { roman_mission_colonia_effect = yes }
+	}
+	
+	option = {      
+        name = roman_conquest.9.c
+		trigger = { owns = 3516 }
+		p:3516 = { roman_mission_colonia_effect = yes }
+	}
+	
+	option = {      
+        name = roman_conquest.9.d
+		trigger = { owns = 3508 }
+		p:3508 = { roman_mission_colonia_effect = yes }
+	}
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = {	owns = 3515 }
+				NOT = {	owns = 3511 } 
+				NOT = {	owns = 3516 }
+				NOT = {	owns = 3508 }
+			}
+		}
+    }
+}
+
+roman_conquest.10 = {							# 2 - Subdue Sardinia
+    type = country_event
+    title = roman_conquest.10.t
+    desc = {
+		desc = roman_conquest.10.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+	fire_only_once = yes
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.10.a
+		trigger = { owns = 3481 }
+		p:3481 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.10.b
+		trigger = { owns = 3504 }
+		p:3504 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {     
+        name = roman_conquest.10.c
+		trigger = { owns = 3484 }
+		p:3484 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.10.d
+		trigger = { owns = 3494 }
+		p:3494 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 3481 }
+				NOT = { owns = 3504 }
+				NOT = { owns = 3484 }
+				NOT = { owns = 3494 }
+			}
+		}
+    }
+	
+	after = {
+		root = {
+			set_variable = {
+				name = rm_2_exodus_2
+			}
+			trigger_event = {
+				id = me_roman_2_provincia.19
+				days = { 15 30 }
+			}
+		}
+	}
+}
+
+roman_conquest.11 = {							# 2 - Sicilian Foothold
+    type = country_event
+    title = roman_conquest.11.t
+    desc = {
+		desc = roman_conquest.11.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+	fire_only_once = yes
+
+	goto_location = p:80
+	
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+		if = {
+			limit = {
+				any_owned_province = { is_in_area = east_sicily_area }
+			}
+			random_owned_province = {
+				limit = { is_in_area = east_sicily_area }
+				this.state = {
+					add_state_modifier = {
+						name = new_roman_conquest_smod
+						duration = 1825 # 5 years
+					}
+				}
+			}
+		}
+    }
+
+    option = {      
+        name = roman_conquest.11.a
+		trigger = { owns = 80 }
+		p:80 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.11.b
+		trigger = { owns = 82 }
+		p:82 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.11.c
+		trigger = { owns = 100 }
+		p:100 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.not_interfere
+    }
+}
+
+roman_conquest.12 = {							# 2 - City of Tyrants
+    type = country_event
+    title = roman_conquest.12.t
+    desc = {
+		desc = roman_conquest.12.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = great_city
+	
+	fire_only_once = yes
+
+	goto_location = p:84
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+    	change_law = naval_law_2_rom
+		if = {
+			limit = {
+				any_owned_province = { is_in_area = syracuse_area }
+			}
+			random_owned_province = {
+				limit = { is_in_area = syracuse_area }
+				this.state = {
+					add_state_modifier = {
+						name = new_roman_conquest_smod
+						duration = 1825 # 5 years
+					}
+				}
+			}
+		}
+    }
+
+    option = {      
+        name = roman_conquest.12.a
+		trigger = { owns = 84 }
+		p:84 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.12.b
+		trigger = { owns = 86 }
+		p:86 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.12.c
+		trigger = { owns = 83 }
+		p:83 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.12.d
+		trigger = { owns = 88 }
+		p:88 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = { 
+				NOT = { owns = 84 }
+				NOT = { owns = 86 }
+				NOT = { owns = 83 }
+				NOT = { owns = 88 }
+			}
+		}
+    }
+}
+
+roman_conquest.13 = {							# 2 - End Punic Influence
+    type = country_event
+    title = roman_conquest.13.t
+    desc = {
+		desc = roman_conquest.13.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+	
+	fire_only_once = yes
+
+	goto_location = p:94
+
+    trigger = {
+		has_land = yes
+    }
+
+    option = {      
+        name = roman_conquest.13.a
+		trigger = { owns = 94 }
+		p:94 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.13.b
+		trigger = { owns = 96 }
+		p:96 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.13.c
+		trigger = { owns = 91 }
+		p:91 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.13.d
+		trigger = { owns = 7842 }
+		p:7842 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = { 
+				NOT = { owns = 94 }
+				NOT = { owns = 96 }
+				NOT = { owns = 91 }
+				NOT = { owns = 7842 }
+			}
+		}
+    }
+	
+	after = {
+		set_variable = {
+			name = rm_2_exodus_1
+		}
+		root = {
+			trigger_event = {
+				id = me_roman_2_provincia.19
+				days = { 15 30 }
+			}
+		}
+	}
+}
+
+roman_conquest.14 = {							# 2 - Bread Basket
+    type = country_event
+    title = roman_conquest.14.t
+	desc = roman_conquest.14.desc
+    picture = farming
+	
+	goto_location = p:84
+	
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+
+    }
+
+    option = {      
+        name = roman_conquest.14.a
+		p:84.governorship = {
+			every_governorship_state = {
+				limit = {
+					any_state_province = {
+						OR = {
+							is_in_area = syracuse_area
+							is_in_area = east_sicily_area
+							is_in_area = west_sicily_area
+						}
+					}
+				}
+				custom = roman_conquest.14.modtt
+				add_state_modifier = {
+					name = rm_2_bread_basket_smod
+					duration = 5475 # 15 years
+				}
+			}
+		}
+    }
+}
+
+roman_conquest.15 = {							# 3 - Into the Padus Valley
+    type = country_event
+    title = roman_conquest.15.t
+    desc = {
+		desc = roman_conquest.15.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+
+    }
+
+    option = {      
+        name = roman_conquest.15.a
+		trigger = {
+			owns = 146
+		}
+		p:146 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.15.b
+		trigger = {
+			owns = 144
+		}
+		p:144 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.15.c
+		trigger = {
+			owns = 152
+		}
+		p:152 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.15.d
+		trigger = {
+			owns = 3575
+		}
+		p:3575 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 149 }
+				NOT = { owns = 144 }
+				NOT = { owns = 152 }
+				NOT = { owns = 3575 }
+			}
+		}
+    }
+}
+
+roman_conquest.16 = {							# 3 - Northern Latins
+    type = country_event
+    title = roman_conquest.16.t
+    desc = {
+		desc = roman_conquest.16.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    option = {      
+        name = roman_conquest.16.a
+		trigger = {
+			owns = 3549
+		}
+		p:3549 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.16.b
+		trigger = {
+			owns = 136
+		}
+		p:136 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.16.c
+		trigger = {
+			owns = 141
+		}
+		p:141 = { roman_mission_colonia_effect = yes }
+    }
+	option = {      
+        name = roman_conquest.16.d
+		trigger = {
+			owns = 3546
+		}
+		p:3546 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 3549 }
+				NOT = { owns = 136 }
+				NOT = { owns = 141 }
+				NOT = { owns = 3546 }
+			}
+		}
+	}
+}
+
+roman_conquest.17 = {                           # 3 - Gallia Cispadana
+    type = country_event
+    title = roman_conquest.17.t
+    desc = roman_conquest.17.desc
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+    
+    fire_only_once = yes
+
+    trigger = { has_land = yes }
+
+    immediate = {
+		if = {
+			limit = {
+				any_owned_province = {
+					OR = {
+						is_in_area = pisae_area 
+						is_in_area = liguria_area
+						is_in_area = aemilla_area
+						province_id = 3554
+						province_id = 3574
+						province_id = 3548
+						province_id = 3564
+						province_id = 3559
+						province_id = 3558
+						province_id = 3555
+					}
+					num_of_fortress_building > 0 
+				}
+			}
+			custom_tooltip = roman_conquest.17.modtt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = pisae_area 
+							is_in_area = liguria_area
+							is_in_area = aemilla_area
+							province_id = 3554
+							province_id = 3574
+							province_id = 3548
+							province_id = 3564
+							province_id = 3559
+							province_id = 3558
+							province_id = 3555
+						}
+						num_of_fortress_building > 0 
+					}
+					add_province_modifier = {
+						name = rm_3_fortified_pmod
+						duration = 18250 # 50 years
+					}
+				}
+			}
+		}
+    }
+
+    option = {      
+        name = roman_conquest.17.a
+		trigger = {
+			owns = 146
+			p:146 = { rm_3_fort_trigger = yes }
+		}
+		p:146 = {
+			rm_fortify_effect = yes
+		}
+	}
+	
+	option = {      
+        name = roman_conquest.17.b
+		trigger = { 
+			owns = 3574
+			p:3574 = { rm_3_fort_trigger = yes }
+		}
+		p:3574 = {
+			rm_fortify_effect = yes
+		}
+	}
+	
+	option = {      
+        name = roman_conquest.17.c
+		trigger = { 
+			owns = 3557
+			p:3557 = { rm_3_fort_trigger = yes }
+		}
+		p:3557 = {
+			rm_fortify_effect = yes
+		}
+	}
+	
+	option = {      
+        name = roman_conquest.17.d
+		trigger = { 
+			owns = 152
+			p:152 = { rm_3_fort_trigger = yes }
+		}
+		p:152 = {
+			rm_fortify_effect = yes
+		}
+	}
+}
+		
+roman_conquest.18 = {                           # 3 - Insubria
+	type = country_event
+	title = roman_conquest.18.t
+    desc = {
+		desc = roman_conquest.18.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    option = {      
+        name = roman_conquest.18.a
+		trigger = { owns = 3571 }
+		p:3571 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.18.b
+		trigger = { owns = 3562 }
+		p:3562 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.18.c
+		trigger = { owns = 3566 }
+		p:3566 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.18.d
+		trigger = { owns = 3572 }
+		p:3572 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 3571 }
+				NOT = { owns = 3562 }
+				NOT = { owns = 3566 }
+				NOT = { owns = 3572 }
+			}
+		}
+    }
+}
+
+roman_conquest.19 = {							# 3 - Veneto
+    type = country_event
+	title = roman_conquest.19.t
+    desc = {
+		desc = roman_conquest.19.desc
+		desc = roman_conquest.colonia_desc
+	}
+	picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+
+    trigger = {
+		has_land = yes
+    }
+
+    immediate = {
+		p:3598.governorship = {
+			every_governorship_state = {
+				limit = {
+					any_state_province = {
+						is_in_area = venetia_area
+					}
+				}
+				add_state_modifier = {
+					name = new_roman_conquest_smod
+					duration = 1825 # 5 years
+				}
+			}
+		}
+    }
+
+    option = {      
+        name = roman_conquest.19.a
+		trigger = {
+			owns = 3598
+		}
+		p:3598 = { roman_mission_colonia_effect = yes }
+    }
+
+	option = {      
+        name = roman_conquest.19.b
+		trigger = {
+			owns = 3606
+		}
+		p:3606 = { roman_mission_colonia_effect = yes }
+    }
+
+	option = {      
+        name = roman_conquest.19.c
+		trigger = {
+			owns = 3605
+		}
+		p:3605 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.19.d
+		trigger = {
+			owns = 3601
+		}
+		p:3601 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 3598 }
+				NOT = { owns = 3606 }
+				NOT = { owns = 3605 }
+				NOT = { owns = 3602 }
+			}
+		}
+    }
+}
+
+roman_conquest.20 = {							# 3 - Transpadana
+    type = country_event
+	title = roman_conquest.20.t
+    desc = roman_conquest.20.desc
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+
+    trigger = { has_land = yes }
+
+    option = {								# Production
+        name = roman_conquest.20.a 
+		if = {
+			limit = {
+				any_owned_province = {
+					is_in_region = cisalpine_gaul_region
+					NOT = { is_in_area = pisae_area }
+				}
+			}
+			custom_tooltip = roman_conquest.20.modtt
+			random_country_state = {
+				limit = {
+					any_state_province = {
+						is_in_region = cisalpine_gaul_region
+						NOT = { is_in_area = pisae_area }
+					}
+				}
+				show_as_tooltip = {
+					add_state_modifier = {
+						name = rm_2_provincia_production_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_in_region = cisalpine_gaul_region
+				}
+				governorship = {
+					every_governorship_state = {
+						limit = { 
+							NOT = { 
+								any_state_province = { is_in_area = pisae_area }
+							}
+						}
+						add_state_modifier = {
+							name = rm_2_provincia_production_smod
+							duration = 7300 # 20 years
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {								# Integrate
+        name = roman_conquest.20.b 
+		if = {
+			limit = {
+				any_owned_province = {
+					is_in_region = cisalpine_gaul_region
+					NOT = { is_in_area = pisae_area }
+				}
+			}
+			custom_tooltip = roman_conquest.20.modtt
+			random_country_state = {
+				limit = {
+					any_state_province = {
+						is_in_region = cisalpine_gaul_region
+						NOT = { is_in_area = pisae_area }
+					}
+				}
+				show_as_tooltip = {
+					add_state_modifier = {
+						name = rm_2_provincia_integrate_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_in_region = cisalpine_gaul_region
+				}
+				governorship = {
+					every_governorship_state = {
+						limit = { 
+							NOT = { 
+								any_state_province = { is_in_area = pisae_area }
+							}
+						}
+						add_state_modifier = {
+							name = rm_2_provincia_integrate_smod
+							duration = 7300 # 20 years
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+roman_conquest.21 = {							# 4 - Carthago Delenda Est
+    type = country_event
+	title = roman_conquest.21.t
+    desc = roman_conquest.21.desc
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+
+    trigger = { has_land = yes }
+
+    option = {
+		name = roman_conquest.21.a
+        trigger = {
+			owns = 3256
+			p:3256 = {
+				NOR = { 
+					has_province_modifier = province_diminishment_super_looted
+					has_province_modifier = rm_4_salted_pmod
+				}
+			}
+		}
+		p:3256 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {
+		name = roman_conquest.21.b
+        trigger = { owns = 3257 }
+		p:3257 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {
+		name = roman_conquest.21.c
+        trigger = { owns = 3255 }
+		p:3255 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {
+		name = roman_conquest.21.d
+        trigger = { owns = 3252 }
+		p:3252 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NAND = {
+					owns = 3256
+					p:3256 = {
+						NOR = { 
+							has_province_modifier = province_diminishment_super_looted
+							has_province_modifier = rm_4_salted_pmod
+						}
+					}
+				}
+				NOT = { owns = 3257 }
+				NOT = { owns = 3255 }
+				NOT = { owns = 3252 }
+			}
+		}
+	}
+	
+	after = {
+		trigger_event = {
+			id = me_roman_4_punic_rivals.18
+			days = 5
+		}
+	}
+}
+
+roman_conquest.22 = {							# 4 - Hispanian Dominance
+    type = country_event
+	title = roman_conquest.22.t
+    desc = roman_conquest.22.desc
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	right_portrait = c:CAR.current_ruler
+	
+	fire_only_once = yes
+
+    trigger = { has_land = yes }
+	
+    option = {								
+        name = roman_conquest.22.a
+		if = {
+			limit = {
+				any_country = {
+					capital_scope = {
+						OR = {
+							is_in_region = tarraconensis_region
+							is_in_region = baetica_region
+							is_in_region = lusitania_region
+							is_in_region = contestania_region
+							is_in_region = gallaecia_region
+						}
+					}
+					OR = {
+						country_culture_group = proto_european
+						country_culture_group = celt_iberia
+						country_culture_group = iberia
+					}
+					any_owned_province = {
+						any_neighbor_province = {
+							owned_or_subject_owned = c:ROM
+						}
+					}
+					NOR = { 
+						this = c:ROM
+						is_subject_of = c:ROM
+						war_with = c:ROM
+					}
+				}
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						capital_scope = {
+							OR = {
+								is_in_region = tarraconensis_region
+								is_in_region = baetica_region
+								is_in_region = lusitania_region
+								is_in_region = contestania_region
+								is_in_region = gallaecia_region
+							}
+						}
+						OR = {
+							country_culture_group = proto_european
+							country_culture_group = celt_iberia
+							country_culture_group = iberia
+						}
+						any_owned_province = {
+							any_neighbor_province = {
+								owned_or_subject_owned = c:ROM
+							}
+						}
+						NOR = { 
+							this = c:ROM
+							is_subject_of = c:ROM
+							war_with = c:ROM
+						}
+					}
+					add_opinion = { target = c:ROM modifier = rm_4_hispanian_dominance_friend_opmod }
+				}
+			}
+			custom_tooltip = roman_conquest.22.at
+		}
+	}
+	
+	option = {								
+        name = roman_conquest.22.b
+		trigger = {
+			any_province = {
+				OR = {
+					is_in_region = tarraconensis_region
+					is_in_region = baetica_region
+					is_in_region = lusitania_region
+					is_in_region = contestania_region
+					is_in_region = gallaecia_region
+				}
+				NOT = {
+					owned_or_subject_owned = c:ROM
+				}
+				any_neighbor_province = {
+					owned_or_subject_owned = c:ROM
+				}
+			}
+		}
+		hidden_effect = {
+			region:tarraconensis_region = { roman_conquest_22_claim_effect = yes }
+			region:baetica_region = { roman_conquest_22_claim_effect = yes }
+			region:lusitania_region = { roman_conquest_22_claim_effect = yes }
+			region:contestania_region = { roman_conquest_22_claim_effect = yes }
+			region:gallaecia_region = { roman_conquest_22_claim_effect = yes }
+		}
+		custom_tooltip = roman_conquest.22.bt
+	}
+}
+
+roman_conquest.23 = {							# 4 - Weaken Carthage
+    type = country_event
+	title = roman_conquest.23.t
+    desc = roman_conquest.23.desc
+    picture = great_city
+    
+    left_portrait = current_ruler
+	right_portrait = c:CAR.current_ruler
+	
+	fire_only_once = yes
+
+    trigger = { has_land = yes }
+
+	immediate = {
+		
+	}
+
+    option = {								
+        name = roman_conquest.23.a 
+    }
+}
+
+roman_conquest.25 = {							# 5 - Carthaginian Littoral
+    type = country_event
+	title = roman_conquest.25.t
+    desc = {
+		desc = roman_conquest.25.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1036
+	
+    trigger = { has_land = yes }
+
+	option = {      
+        name = roman_conquest.25.a
+		trigger = { owns = 1036 }
+		p:1036 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.25.b
+		trigger = { owns = 1031 }
+		p:1031 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.25.c
+		trigger = { owns = 1278 }
+		p:1278 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.25.d
+		trigger = { owns = 1032 }
+		p:1032 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 1036 }
+				NOT = { owns = 1031 }
+				NOT = { owns = 1278 }
+				NOT = { owns = 1032 }
+			}
+		}
+    }
+}
+
+roman_conquest.26 = {							# 5 - Massalian Littoral
+    type = country_event
+	title = roman_conquest.26.t
+    desc = {
+		desc = roman_conquest.26.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1000
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.26.a
+		trigger = { owns = 1000 }
+		p:1000 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.26.b
+		trigger = { owns = 1006 }
+		p:1009 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.26.c
+		trigger = { owns = 1012 }
+		p:1012 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.26.d
+		trigger = { owns = 1029 }
+		p:1029 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 1000 }
+				NOT = { owns = 1006 }
+				NOT = { owns = 1012 }
+				NOT = { owns = 1029 }
+			}
+		}
+	}
+}
+
+roman_conquest.27 = {							# 5 - Pillars of Hercules Hispania
+    type = country_event
+	title = roman_conquest.27.t
+    desc = {
+		desc = roman_conquest.27.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1344
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.27.a
+		trigger = { owns = 1344 }
+		p:1344 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.27.b
+		trigger = { owns = 1348 }
+		p:1348 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.27.c
+		trigger = { owns = 1362 }
+		p:1362 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.27.d
+		trigger = { owns = 1352 }
+		p:1352 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 1344 }
+				NOT = { owns = 1348 }
+				NOT = { owns = 1362 }
+				NOT = { owns = 1352 }
+			}
+		}
+	}
+}
+
+roman_conquest.28 = {							# 5 - Subdue North
+    type = country_event
+	title = roman_conquest.28.t
+    desc = {
+		desc = roman_conquest.28.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1013
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.28.a
+		trigger = { owns = 1013 }
+		p:1013 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.28.b
+		trigger = { owns = 1014 }
+		p:1014 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.28.c
+		trigger = { owns = 1010 }
+		p:1010 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.28.d
+		trigger = { owns = 1018 }
+		p:1018 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 1013 }
+				NOT = { owns = 1014 }
+				NOT = { owns = 1010 }
+				NOT = { owns = 1018 }
+			}
+		}
+	}
+}
+
+roman_conquest.29 = {							# 5 - Into Iberia
+    type = country_event
+	title = roman_conquest.29.t
+    desc = {
+		desc = roman_conquest.29.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+
+	goto_location = p:1024
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.29.a
+		trigger = { owns = 1024 }
+		p:1024 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.29.b
+		trigger = { owns = 1028 }
+		p:1028 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.29.c
+		trigger = { owns = 1026 }
+		p:1026 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.29.d
+		trigger = { owns = 1439 }
+		p:1439 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 1024 }
+				NOT = { owns = 1028 }
+				NOT = { owns = 1026 }
+				NOT = { owns = 1439 }
+			}
+		}
+	}
+}
+
+roman_conquest.30 = {							# 5 - Secure South Coast
+    type = country_event
+	title = roman_conquest.30.t
+    desc = {
+		desc = roman_conquest.30.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1341
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.30.a
+		trigger = { owns = 1341 }
+		p:1341 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.30.b
+		trigger = { owns = 1356 }
+		p:1356 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.30.c
+		trigger = { owns = 1334 }
+		p:1334 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.30.d
+		trigger = { owns = 1324 }
+		p:1324 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 1341 }
+				NOT = { owns = 1356 }
+				NOT = { owns = 1334 }
+				NOT = { owns = 1324 }
+			}
+		}
+    }
+}
+
+roman_conquest.31 = {							# 5 - West Coast
+    type = country_event
+	title = roman_conquest.31.t
+    desc = {
+		desc = roman_conquest.31.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1319
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.31.a
+		trigger = { owns = 1319 }
+		p:1319 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.31.b
+		trigger = { owns = 1051 }
+		p:1051 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.31.c
+		trigger = { owns = 1050 }
+		p:1050 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.31.d
+		trigger = { owns = 1310 }
+		p:1310 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 1319 }
+				NOT = { owns = 1051 }
+				NOT = { owns = 1050 }
+				NOT = { owns = 1310 }
+			}
+		}
+    }
+}
+
+roman_conquest.32 = {							# 5 - Cantabria
+    type = country_event
+	title = roman_conquest.32.t
+    desc = {
+		desc = roman_conquest.32.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1107
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.32.a
+		trigger = { owns = 1107 }
+		p:1107 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.32.b
+		trigger = { owns = 1044 }
+		p:1044 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.32.c
+		trigger = { owns = 1047 }
+		p:1047 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.32.d
+		trigger = { owns = 1017 }
+		p:1017 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 1107 }
+				NOT = { owns = 1044 }
+				NOT = { owns = 1047 }
+				NOT = { owns = 1017 }
+			}
+		}
+    }
+}
+
+roman_conquest.33 = {							# 5 - Celt Strongholds
+    type = country_event
+	title = roman_conquest.33.t
+    desc = {
+		desc = roman_conquest.33.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1042
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.33.a
+		trigger = { owns = 1042 }
+		p:1042 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.33.b
+		trigger = { owns = 1021 }
+		p:1021 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.33.c
+		trigger = { owns = 1046 }
+		p:1046 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.33.d
+		trigger = { owns = 1019 }
+		p:1019 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 1042 }
+				NOT = { owns = 1021 }
+				NOT = { owns = 1046 }
+				NOT = { owns = 1019 }
+			}
+		}
+	}
+}
+
+roman_conquest.34 = {							# 5 - Pillars of Hercules Mauretania
+    type = country_event
+	title = roman_conquest.34.t
+    desc = {
+		desc = roman_conquest.34.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+
+	goto_location = p:3061
+
+	trigger = { has_land = yes }
+	
+	option = {      
+        name = roman_conquest.34.a
+		trigger = { owns = 3061 }
+		p:3061 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.34.b
+		trigger = { owns = 3062 }
+		p:3062 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.34.c
+		trigger = { owns = 3064 }
+		p:3064 = { roman_mission_colonia_effect = yes }
+    }
+
+    option = {      
+        name = roman_conquest.34.d
+		trigger = { owns = 3070 }
+		p:3070 = { roman_mission_colonia_effect = yes }
+	}
+
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 3061 }
+				NOT = { owns = 3062 }
+				NOT = { owns = 3064 }
+				NOT = { owns = 3070 }
+			}
+		}
+    }
+}
+
+roman_conquest.70 = {							# 7 - Secure Alpes
+    type = country_event
+	title = roman_conquest.70.t
+    desc = {
+		desc = roman_conquest.70.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1042
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.70.a
+		trigger = { owns = 3531 }
+		p:3531 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.70.b
+		trigger = { owns = 3610 }
+		p:3610 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.70.c
+		trigger = { owns = 3613 }
+		p:3613 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.70.d
+		trigger = { owns = 3616 }
+		p:3616 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 3531 }
+				NOT = { owns = 3610 }
+				NOT = { owns = 3613 }
+				NOT = { owns = 3616 }
+			}
+		}
+	}
+}
+
+roman_conquest.71 = {							# 7 - Secure Provincia
+    type = country_event
+	title = roman_conquest.71.t
+    desc = {
+		desc = roman_conquest.71.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:2325
+
+    trigger = { has_land = yes }
+
+    option = {
+        name = roman_conquest.71.a
+		trigger = { owns = 2325 }
+		p:2325 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.71.b
+		trigger = { owns = 2319 }
+		p:2319 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.71.c
+		trigger = { owns = 2256 }
+		p:2256 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.71.d
+		trigger = { owns = 2313 }
+		p:2313 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 2325 }
+				NOT = { owns = 2319 }
+				NOT = { owns = 2256 }
+				NOT = { owns = 2313 }
+			}
+		}
+	}
+}
+
+roman_conquest.72 = {							# 7 - Secure West
+    type = country_event
+	title = roman_conquest.72.t
+    desc = {
+		desc = roman_conquest.72.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:2236
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.72.a
+		trigger = { owns = 2236 }
+		p:2236 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.72.b
+		trigger = { owns = 2270 }
+		p:2270 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.72.c
+		trigger = { owns = 2265 }
+		p:2265 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.72.d
+		trigger = { owns = 2262 }
+		p:2262 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 2236 }
+				NOT = { owns = 2270 }
+				NOT = { owns = 2265 }
+				NOT = { owns = 2262 }
+			}
+		}
+	}
+}
+
+roman_conquest.73 = {							# 7 - Secure East
+    type = country_event
+	title = roman_conquest.73.t
+    desc = {
+		desc = roman_conquest.73.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:2301
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.73.a
+		trigger = { owns = 2301 }
+		p:2301 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.73.b
+		trigger = { owns = 2308 }
+		p:2308 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.73.c
+		trigger = { owns = 2355 }
+		p:2355 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.73.d
+		trigger = { owns = 3625 }
+		p:3625 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 2301 }
+				NOT = { owns = 2308 }
+				NOT = { owns = 2355 }
+				NOT = { owns = 3625 }
+			}
+		}
+	}
+}
+
+roman_conquest.74 = {							# 7 - Secure Central
+    type = country_event
+	title = roman_conquest.74.t
+    desc = {
+		desc = roman_conquest.74.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:2283
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.74.a
+		trigger = { owns = 2283 }
+		p:2283 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.74.b
+		trigger = { owns = 2230 }
+		p:2230 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.74.c
+		trigger = { owns = 2284 }
+		p:2284 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.74.d
+		trigger = { owns = 2282 }
+		p:2282 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 2283 }
+				NOT = { owns = 2230 }
+				NOT = { owns = 2284 }
+				NOT = { owns = 2282 }
+			}
+		}
+	}
+}
+
+roman_conquest.75 = {							# 7 - Secure Rhine
+    type = country_event
+	title = roman_conquest.75.t
+    desc = {
+		desc = roman_conquest.75.desc
+		desc = roman_conquest.colonia_desc
+	}
+    picture = romans_marching
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+	
+	goto_location = p:1042
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.75.a 
+		trigger = { owns = 3701 }
+		p:3701 = { roman_mission_colonia_effect = yes }
+    }
+	
+    option = {      
+        name = roman_conquest.75.b
+		trigger = { owns = 3720 }
+		p:3720 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.75.c
+		trigger = { owns = 3714 }
+		p:3714 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.75.d
+		trigger = { owns = 3021 }
+		p:3021 = { roman_mission_colonia_effect = yes }
+    }
+	
+	option = {      
+        name = roman_conquest.not_interfere
+		trigger = {
+			OR = {
+				NOT = { owns = 3701 }
+				NOT = { owns = 3720 }
+				NOT = { owns = 3714 }
+				NOT = { owns = 3021 }
+			}
+		}
+	}
+}
+
+roman_conquest.76 = {							# 7 - Established
+    type = country_event
+	title = roman_conquest.76.t
+    desc = roman_conquest.76.desc
+    picture = celtic_village
+    
+    left_portrait = current_ruler
+	
+	fire_only_once = yes
+
+    trigger = { has_land = yes }
+
+    option = {      
+        name = roman_conquest.76.b
+		if = {
+			limit = {
+				any_owned_province = {
+					OR = {
+						is_in_region = transalpine_gaul_region
+						is_in_region = aquitaine_region
+						is_in_region = central_gaul_region
+						is_in_region = armorica_region
+						is_in_region = belgica_region
+					}
+				}
+			}
+			custom_tooltip = roman_conquest.76.modtt
+			show_as_tooltip = {
+				random_country_state = {
+					limit = {
+						any_state_province = {
+							OR = {
+								is_in_region = transalpine_gaul_region
+								is_in_region = aquitaine_region
+								is_in_region = central_gaul_region
+								is_in_region = armorica_region
+								is_in_region = belgica_region	
+							}
+						}
+					}
+					add_state_modifier = {
+						name = rm_integration_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			region:transalpine_gaul_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { owner = root }
+					}
+					add_state_modifier = {
+						name = rm_integration_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+			region:aquitaine_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { owner = root }
+					}
+					add_state_modifier = {
+						name = rm_integration_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+			region:central_gaul_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { owner = root }
+					}
+					add_state_modifier = {
+						name = rm_integration_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+			region:armorica_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { 
+							owner = root 
+							NOT = { is_in_area = balearides_area }
+						}
+					}
+					add_state_modifier = {
+						name = rm_integration_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+			region:belgica_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { owner = root }
+					}
+					add_state_modifier = {
+						name = rm_integration_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+		}
+    }
+	
+    option = {      
+        name = roman_conquest.76.a
+		if = {
+			limit = {
+				any_owned_province = {
+					OR = {
+						is_in_region = transalpine_gaul_region
+						is_in_region = aquitaine_region
+						is_in_region = central_gaul_region
+						is_in_region = armorica_region
+						is_in_region = belgica_region
+					}
+				}
+			}
+			custom_tooltip = roman_conquest.76.modtt
+			show_as_tooltip = {
+				random_country_state = {
+					limit = {
+						any_state_province = {
+							OR = {
+								is_in_region = transalpine_gaul_region
+								is_in_region = aquitaine_region
+								is_in_region = central_gaul_region
+								is_in_region = armorica_region
+								is_in_region = belgica_region	
+							}
+						}
+					}
+					add_state_modifier = {
+						name = rm_production_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			region:transalpine_gaul_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { owner = root }
+					}
+					add_state_modifier = {
+						name = rm_production_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+			region:aquitaine_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { owner = root }
+					}
+					add_state_modifier = {
+						name = rm_production_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+			region:central_gaul_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { owner = root }
+					}
+					add_state_modifier = {
+						name = rm_production_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+			region:armorica_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { 
+							owner = root 
+							NOT = { is_in_area = balearides_area }
+						}
+					}
+					add_state_modifier = {
+						name = rm_production_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+			region:belgica_region = {
+				every_region_state = {
+					limit = {
+						any_state_province = { owner = root }
+					}
+					add_state_modifier = {
+						name = rm_production_smod
+						duration = 7300 # 20 years
+					}
+				}
+			}
+		}
+    }
+}
