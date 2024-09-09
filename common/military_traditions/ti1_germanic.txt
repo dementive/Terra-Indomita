@@ -1,0 +1,291 @@
+germanic_philosophy = { #Germanic Path
+	color = hsv { 0.99 0.64 0.7 }
+	image = celtic_germanic_path_1
+	
+	allow = {
+		trigger_if = {
+			limit = { country_culture_group = germanic }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = germanic
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = baltic
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = baltic
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = finnic_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = finnic_group
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = germanic_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_germanic
+		}
+	}
+
+	germanic_path_14 = { #the hundreds
+		icon = celtic_britannic_path_4
+		modifier = {
+			experience_decay = -0.005
+			levy_size_multiplier = 0.025
+			enslavement_efficiency = 0.05
+		}
+		allow = {
+			and = {
+				or = {
+					is_tribal = yes
+				}
+				nor = {
+					has_variable = clan_tradition
+				}
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = clan_tradition
+				duration = -1
+			}
+		}
+		requires = {}
+	}
+	
+	germanic_sea_path_8 = { ###
+		enable_tactic = hit_and_run_tactics
+		modifier = { 
+			marsh_combat_bonus = 0.1
+			hostile_attrition = 1
+		}
+		icon = celtic_britannic_path_7
+		requires = { germanic_path_14 }
+
+	}
+	germanic_path_7 = { ###forest of germania
+		modifier = { 
+			archers_offensive = 0.05
+			land_morale_modifier = 0.05
+			forest_combat_bonus = 0.15
+         
+		} 
+		icon = persian_bactrian_path_7
+		requires = {germanic_path_14  }
+
+	}
+	germanic_path_6 = { ###alpine herders
+		modifier = { 
+			land_unit_attrition = -0.05
+			mountain_combat_bonus = 0.05
+			heavy_cavalry_movement_speed = 0.05
+		} 
+		icon = celtic_germanic_path_7
+		requires = {germanic_sea_path_8 germanic_path_7}
+
+	}
+	germanic_sea_path_10 = { ### triabl feud
+		modifier = {
+			levy_size_multiplier = 0.025
+			war_exhaustion = -0.04
+			
+		}
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					has_city_status = no
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+		icon = celtic_gallic_path_2
+		requires = {germanic_path_7}
+
+	}
+	germanic_sea_path_12 = { ###roaming war bands
+		modifier = {
+			global_manpower_modifier = 0.05
+			axemen_offensive = 0.05
+
+		} 
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+			
+		icon = greek_antigonid_path_7
+		requires = {germanic_sea_path_8}
+
+	}
+	germanic_sea_path_9 = { ###
+		modifier = {
+			light_infantry_offensive = 0.05
+			archers_discipline  0.05
+			manpower_recovery_speed = 0.05
+
+		}
+		icon = celtic_britannic_path_4
+		requires = {germanic_sea_path_12 }
+
+	}
+	germanic_path_5 = { ###
+		modifier = { 
+			start_migration_cost_modifier = -0.25
+			global_population_growth = 0.02
+			global_tribesmen_output = 0.06
+			axemen_defensive = 0.05
+		} 
+		icon = celtic_gallic_path_5
+		requires = {germanic_sea_path_9}
+
+	}
+	germanic_mercenaries = { ###mercs
+		modifier = {
+			global_start_experience = 5
+			axemen_discipline = 0.10
+		} 
+		icon = celtic_gallic_path_1
+		enable_tactic = greek_phalanx
+		enable_tactic = triplex_acies
+		on_activate = {
+			add_innovation = 2
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = tactician
+				}
+			}
+		}
+		icon = latin_tribal_path_7
+		requires = {germanic_sea_path_10}
+	}
+	germanic_path_10 = { ###fots
+		modifier = { 
+			global_defensive = 0.15
+			fort_limit = 1
+		} 
+		on_activate = {
+			add_3_free_province_investments = yes
+		}
+		icon = celtic_gallic_path_7
+		requires = {germanic_sea_path_10  germanic_sea_path_12}
+	}
+	
+
+
+	celtic_germanic_path_5 = { #shield wall
+		modifier = { 
+			axemen_defensive = 0.1
+			light_infantry_defensive = 0.1
+		}
+		#enable_tactic = shield_wall
+		icon = celtic_germanic_path_5
+		requires = {}
+	}
+	germanic_path_1 = { ###archers
+		modifier = { 
+			archers_offensive = 0.1
+		} 
+		icon = greek_antigonid_path_6
+        requires = {celtic_germanic_path_5}
+
+	}
+	germanic_sea_path_7 = { #WEDGE
+		modifier = {
+			discipline = 0.03
+			light_infantry_offensive = 0.1
+			land_morale_modifier = 0.05
+		}
+		icon = celtic_germanic_path_1
+		requires = {germanic_path_1}
+	}
+	germanic_path_13 = { ###forest scourts
+		modifier = { 
+			army_movement_speed = 0.05
+			light_cavalry_morale = 0.05
+		} 
+		icon = mauryan_mauryas_path_end_bonus
+		requires = {celtic_germanic_path_5}
+
+	}
+	germanic_sea_path_11 = {  #shock cavalry
+		modifier = {
+			heavy_cavalry_offensive = 0.2
+		}
+		enable_tactic = cavalry_skirmish
+		icon = celtic_britannic_path_end_bonus
+		requires = {germanic_path_13}
+	}
+
+	germanic_sea_path_2 = { ###raids
+		modifier = {
+			trireme_offensive = 0.15
+			liburnian_offensive = 0.15
+			trireme_movement_speed = 0.1
+			liburnian_movement_speed = 0.1
+		
+        }
+		icon = default_test
+		requires = {celtic_germanic_path_5}
+		enable_ability = naval_raiding
+	}
+	germanic_sea_path_4 = { ###germanic  explorers
+		modifier = {
+			trireme_discipline = 0.1
+			trireme_offensive = 0.1
+			naval_range = 0.50
+
+		} 
+		icon = north_african_naval_path_4
+		requires = {germanic_sea_path_2}
+
+	}
+	germanic_sea_path_13 = { ###
+		modifier = {
+			light_cavalry_morale = 0.15
+
+		} 
+		icon = latin_support_path_7
+		requires = {germanic_sea_path_11}
+
+	}
+	celtic_gallic_path_6 = { ###Celtic 6B
+		modifier = { 
+			spearmen_offensive = 0.1
+		}
+		icon = celtic_gallic_path_6
+		requires = {germanic_sea_path_7}
+	}
+	germanic_path_8 = { ###
+		modifier = { 
+			archers_morale = 0.1
+			archers_mountain_combat_bonus = 0.15
+			archers_hills_combat_bonus = 0.05
+		} 
+		icon = mauryan_mauryas_path_5
+		requires = {germanic_sea_path_7}
+	}
+}

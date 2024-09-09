@@ -1,0 +1,509 @@
+﻿# Generic Effects
+
+approval_with_custom_tooltip_effect = {
+	if = {
+		limit = {
+			is_republic = yes
+			has_party_type = $PARTY$
+		}
+		custom_tooltip = $CUSTOM_TOOLTIP$
+		add_party_approval = {
+			party_type = $PARTY$
+			value = $VALUE$
+		}
+	}
+}
+
+approval_with_custom_tooltip_party_effect = {
+	if = {
+		limit = {
+			is_republic = yes
+			exists = $PARTY$
+		}
+		custom_tooltip = $CUSTOM_TOOLTIP$
+		add_party_approval = {
+			party = $PARTY$
+			value = $VALUE$
+		}
+	}
+}
+
+approval_effect = {
+	if = {
+		limit = {
+			is_republic = yes
+			has_party_type = $PARTY$
+		}
+		add_party_approval = {
+			party_type = $PARTY$
+			value = $VALUE$
+		}
+	}
+}
+
+oligarchic_approval_effect = {
+	if = {
+		limit = {
+			is_republic = yes
+		}
+		if = {
+			limit = {
+				has_party_type = optimates_party
+			}
+			add_party_approval = {
+				party_type = optimates_party
+				value = $VALUE$
+			}
+		}
+		else_if = { # If you add new parties, add them as an else_if before this one
+			limit = {
+				has_party_type = oligarchic_party
+			}
+			add_party_approval = {
+				party_type = oligarchic_party
+				value = $VALUE$
+			}
+		}
+	}
+}
+
+democratic_approval_effect = {
+	if = {
+		limit = {
+			is_republic = yes
+		}
+		if = {
+			limit = {
+				has_party_type = populares_party
+			}
+			add_party_approval = {
+				party_type = populares_party
+				value = $VALUE$
+			}
+		}
+		else_if = { # If you add new parties, add them as an else_if before this one
+			limit = {
+				has_party_type = democratic_party
+			}
+			add_party_approval = {
+				party_type = democratic_party
+				value = $VALUE$
+			}
+		}
+	}
+}
+
+traditionalist_approval_effect = {
+	if = {
+		limit = {
+			is_republic = yes
+		}
+		if = {
+			limit = {
+				has_party_type = boni_party
+			}
+			add_party_approval = {
+				party_type = boni_party
+				value = $VALUE$
+			}
+		}
+		else_if = { # If you add new parties, add them as an else_if before this one
+			limit = {
+				has_party_type = traditionalist_party
+			}
+			add_party_approval = {
+				party_type = traditionalist_party
+				value = $VALUE$
+			}
+		}
+	}
+}
+
+# Diplomatic Action Specific Effects
+optimates_specific_approval_effect = {
+	if = {
+		limit = {
+			is_republic = yes
+			has_party_type = optimates_party
+		}
+		add_party_approval = {
+			party_type = optimates_party
+			value = $VALUE$
+		}
+	}
+}
+
+populares_specific_approval_effect = {
+	if = {
+		limit = {
+			is_republic = yes
+			has_party_type = populares_party
+		}
+		add_party_approval = {
+			party_type = populares_party
+			value = $VALUE$
+		}
+	}
+}
+
+boni_specific_approval_effect = {
+	if = {
+		limit = {
+			is_republic = yes
+			has_party_type = boni_party
+		}
+		add_party_approval = {
+			party_type = boni_party
+			value = $VALUE$
+		}
+	}
+}
+
+# Ambition effects for kids growing up
+oligarchic_growing_up_ambition_effect = {
+	if = {
+		limit = {
+			employer = {
+				has_party_type = optimates_party
+			}
+		}
+		add_party_conviction = {
+			party_type = optimates_party
+			value = 5
+		}
+	}
+	else_if = { # If you add new parties, add them as an else_if before this one
+		limit = {
+			employer = {
+				has_party_type = oligarchic_party
+			}
+		}
+		add_party_conviction = {
+			party_type = oligarchic_party
+			value = 5
+		}
+	}
+}
+
+democratic_growing_up_ambition_effect = {
+	if = {
+		limit = {
+			employer = {
+				has_party_type = populares_party
+			}
+		}
+		add_party_conviction = {
+			party_type = populares_party
+			value = 5
+		}
+	}
+	else_if = { # If you add new parties, add them as an else_if before this one
+		limit = {
+			employer = {
+				has_party_type = democratic_party
+			}
+		}
+		add_party_conviction = {
+			party_type = democratic_party
+			value = 5
+		}
+	}
+}
+
+traditionalist_growing_up_ambition_effect = {
+	if = {
+		limit = {
+			employer = {
+				has_party_type = boni_party
+			}
+		}
+		add_party_conviction = {
+			party_type = boni_party
+			value = 5
+		}
+	}
+	else_if = { # If you add new parties, add them as an else_if before this one
+		limit = {
+			employer = {
+				has_party_type = traditionalist_party
+			}
+		}
+		add_party_conviction = {
+			party_type = traditionalist_party
+			value = 5
+		}
+	}
+}
+
+# Conviction for different parties for characters
+character_oligarchic_party_conviction_effect = {
+	if = {
+		limit = {
+			employer = {
+				is_republic = yes
+			}
+		}
+		if = {
+			limit = {
+				employer = { has_party_type = optimates_party }
+			}
+			add_party_conviction = {
+				party_type = optimates_party
+				value = $VALUE$
+			}
+		}
+		else_if = { # If you add new parties, add them as an else_if before this one
+			limit = {
+				employer = { has_party_type = oligarchic_party }
+			}
+			add_party_conviction = {
+				party_type = oligarchic_party
+				value = $VALUE$
+			}
+		}
+	}
+}
+
+character_democratic_party_conviction_effect = {
+	if = {
+		limit = {
+			employer = {
+				is_republic = yes
+			}
+		}
+		if = {
+			limit = {
+				employer = { has_party_type = populares_party }
+			}
+			add_party_conviction = {
+				party_type = populares_party
+				value = $VALUE$
+			}
+		}
+		else_if = { # If you add new parties, add them as an else_if before this one
+			limit = {
+				employer = { has_party_type = democratic_party }
+			}
+			add_party_conviction = {
+				party_type = democratic_party
+				value = $VALUE$
+			}
+		}
+	}
+}
+
+character_traditionalist_party_conviction_effect = {
+	if = {
+		limit = {
+			employer = {
+				is_republic = yes
+			}
+		}
+		if = {
+			limit = {
+				employer = { has_party_type = boni_party }
+			}
+			add_party_conviction = {
+				party_type = boni_party
+				value = $VALUE$
+			}
+		}
+		else_if = { # If you add new parties, add them as an else_if before this one
+			limit = {
+				employer = { has_party_type = traditionalist_party }
+			}
+			add_party_conviction = {
+				party_type = traditionalist_party
+				value = $VALUE$
+			}
+		}
+	}
+}
+
+# Internal Republic event effects
+oligarchic_leader_effect = {
+	if = {
+		limit = {
+			rome_republic_trigger = yes
+		}
+		party:optimates_party.party_leader = {
+			save_scope_as = oligarchic_leader
+		}
+	}
+	else = {
+		party:oligarchic_party.party_leader = {
+			save_scope_as = oligarchic_leader
+		}
+	}
+}
+
+democratic_leader_effect = {
+	if = {
+		limit = {
+			rome_republic_trigger = yes
+		}
+		party:populares_party.party_leader = {
+			save_scope_as = democratic_leader
+		}
+	}
+	else = {
+		party:democratic_party.party_leader = {
+			save_scope_as = democratic_leader
+		}
+	}
+}
+
+traditionalist_leader_effect = {
+	if = {
+		limit = {
+			rome_republic_trigger = yes
+		}
+		party:boni_party.party_leader = {
+			save_scope_as = traditionalist_leader
+		}
+	}
+	else = {
+		party:traditionalist_party.party_leader = {
+			save_scope_as = traditionalist_leader
+		}
+	}
+}
+
+populares_law_cooldown_effect = {
+	if = {
+		limit = {
+			var:sen_obj_cha_law_target_populares > 0
+			var:sen_obj_cha_law_target_populares < 5
+		}
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 1
+		}
+	}
+	else_if = {
+		limit = {
+			var:sen_obj_cha_law_target_populares > 4
+			var:sen_obj_cha_law_target_populares < 9
+		}
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 2
+		}
+	}
+	else_if = {
+		limit = {
+			var:sen_obj_cha_law_target_populares > 8
+			var:sen_obj_cha_law_target_populares < 13
+		}
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 3
+		}
+	}
+	else_if = {
+		limit = {
+			var:sen_obj_cha_law_target_populares > 12
+			var:sen_obj_cha_law_target_populares < 17
+		}
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 4
+		}
+	}
+	else_if = {
+		limit = {
+			var:sen_obj_cha_law_target_populares > 16
+			var:sen_obj_cha_law_target_populares < 21
+		}
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 5
+		}
+	}
+	else_if = {
+		limit = {
+			var:sen_obj_cha_law_target_populares > 20
+			var:sen_obj_cha_law_target_populares < 25
+		}
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 6
+		}
+	}
+	else_if = {
+		limit = {
+			var:sen_obj_cha_law_target_populares > 24
+			var:sen_obj_cha_law_target_populares < 29
+		}
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 7
+		}
+	}
+	else_if = {
+		limit = { var:sen_obj_cha_law_target_populares > 28 }
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 8
+		}
+	}
+}
+
+boni_law_cooldown_effect = {
+	if = {
+		limit = { var:sen_obj_cha_law_target_boni <= 2 }
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 1
+		}
+	}
+	else_if = {
+		limit = { var:sen_obj_cha_law_target_boni = 3 }
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 2
+		}
+	}
+	else_if = {
+		limit = { var:sen_obj_cha_law_target_boni = 4 }
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 3
+		}
+	}
+	else_if = {
+		limit = { var:sen_obj_cha_law_target_boni = 5 }
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 4
+		}
+	}
+	else_if = {
+		limit = { var:sen_obj_cha_law_target_boni = 6 }
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 5
+		}
+	}
+	else_if = {
+		limit = { var:sen_obj_cha_law_target_boni = 7 }
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 6
+		}
+	}
+	else_if = {
+		limit = { var:sen_obj_cha_law_target_boni = 8 }
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 7
+		}
+	}
+	else_if = {
+		limit = { var:sen_obj_cha_law_target_boni = 9 }
+		change_variable = {
+			name = party_law_change_cooldown
+			add = 8
+		}
+	}
+}

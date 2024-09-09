@@ -1,0 +1,481 @@
+latin_philosophy_2 = { 
+	color = hsv { 0 0.88 0.5 }
+	image = latin_tribal_path_4
+	
+
+	allow = {
+		trigger_if = {
+			limit = { 
+				and ={
+					country_culture_group = latin 
+					not = {
+						primary_culture = roman
+					}
+				}
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = latin
+		}
+		trigger_else_if = {
+			limit = { primary_culture = lepontic }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			primary_culture = lepontic
+		}
+		trigger_else_if = {
+			limit = { primary_culture = messapian }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			primary_culture = messapian
+		}
+		trigger_else_if = {
+			limit = { tag = SNI }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = SNI
+		}
+		trigger_else_if = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = etruscan_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_etruscan
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = italic_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_latin
+		}
+	}
+	etruscan_path_1 = { #greekwarfare
+		modifier = { spearmen_offensive = 0.1
+		spearmen_defensive = 0.1 }
+		enable_tactic = greek_phalanx
+		on_activate = {
+			add_innovation = 1
+			set_variable = unlocked_phalanx
+			add_country_modifier = {
+				name = greek_terrain_phalanx
+				duration = -1
+			}
+		}
+		allow = {
+			or = {
+				country_culture_group = latin
+				has_variable = etruscan_influence
+			}
+			
+			nor = {
+				has_variable = unlocked_phalanx
+			}
+		}
+
+		requires = {  }
+		icon = greek_philosophy_start_bonus
+	}
+
+
+	latin_tribal_path_1 = { # artisianal bronzework
+		modifier = { 
+			light_infantry_defensive = 0.10
+			global_commerce_modifier = 0.05
+		}
+		on_activate = {
+			add_innovation = 3
+		}
+		requires = { etruscan_path_1 }
+		icon = latin_tribal_path_1
+	}
+	etruscan_path_4 = { ###League fortifications
+		modifier = { 
+			fort_limit = 1
+			global_defensive = 0.1
+		}
+		allow = {
+			primary_culture = etruscan
+		}
+		on_activate = {
+			capital_scope = {
+				add_building_level = fortress_ramparts_building
+			}
+			random_owned_province = {
+				limit = {
+					is_state_capital = yes
+					is_capital = no
+				}
+				add_building_level = fortress_building
+			}
+		}
+		
+		requires = { latin_tribal_path_1 }
+		icon = latin_philosophy_start_bonus
+	}
+	etruscan_path_7 = { #specialist infantt
+		modifier = {
+			spearmen_defensive = 0.05
+			archers_discipline = 0.05
+			heavy_infantry_discipline = 0.05
+		} 
+		requires = { etruscan_path_4 } 
+		icon = greek_antigonid_path_6
+	}
+	etruscan_path_2 = { #etruscan_cavalry
+		modifier = { 
+			light_cavalry_defensive = 0.1
+			heavy_cavalry_defensive = 0.1
+		}
+		
+		requires = { etruscan_path_7 }
+		icon = latin_support_path_7
+		
+		on_activate = {
+			
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = conqueror
+				}
+			}
+		}
+	}
+	
+	latin_tribal_path_5 = { ##aulos
+		modifier = { 
+			discipline = 0.05
+		}
+		
+		requires = {  etruscan_path_1 }
+		icon = latin_tribal_path_5
+	}
+	etruscan_path_6 = { #circus
+		modifier = { 
+			happiness_for_same_culture_modifier = 0.05
+			chariots_discipline = 0.05
+			hold_triumph_cost_modifier = -0.2
+		}
+		allow = {
+			or = {
+				primary_culture = etruscan
+				has_variable = etruscan_influence
+			}
+
+		}
+		requires = {  latin_tribal_path_5 }
+		icon = celtic_britannic_path_5
+	}
+	latin_tribal_path_3 = { ###Pietas
+		modifier = { 
+			omen_power = 0.15
+		}
+		requires = { etruscan_path_6 }
+		icon = latin_tribal_path_3
+		on_activate = {
+			random_character = {
+				limit = {
+					has_high_priest_office_trigger = yes
+				}
+				alternative_limit = {
+					is_ruler = yes
+				}
+				add_zeal = 3
+			}
+		}
+	}
+	etruscan_path_8 = { #etruscan boar
+		modifier = {
+			spearmen_discipline = 0.05
+			
+		} 
+		requires = { latin_tribal_path_3 } 
+		icon = greek_antigonid_path_6
+	}
+	
+
+	
+
+	etruscan_naval_path_1 = { #italian merchants
+		modifier = { 
+			global_export_commerce_modifier = 0.05
+			liburnian_discipline = 0.05
+		}
+		icon = levantine_philosophy_start_bonus
+		requires = {etruscan_path_1}
+		on_activate = {
+			ordered_owned_province = {	#Upgrades a port, or creates one
+				limit = {
+					owner = { num_of_ports < 1 }
+					is_coastal = yes
+					NOT = { has_building = port_building }
+					can_build_building = port_building
+				}
+				alternative_limit = {
+					is_coastal = yes
+					has_building = port_building
+					can_build_building = port_building
+				}
+				alternative_limit = {
+					is_coastal = yes
+					can_build_building = port_building
+				}
+				order_by = total_population
+				add_building_level = port_building
+			}
+		}
+	}
+	etruscan_naval_path_2 = { ###Latin 1B
+		modifier = { 
+			navy_maintenance_cost = -0.10
+			naval_damage_taken = -0.1
+		}
+		allow = {
+			or = {
+				primary_culture = etruscan
+			}
+		}
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = trireme
+						add_subunit = trireme
+						add_subunit = trireme
+						add_subunit = trireme
+						add_subunit = tetrere
+						add_subunit = hexere
+					}
+				}
+			}
+		}
+		
+		requires = { etruscan_naval_path_1 }
+		icon = latin_tribal_path_6
+	}
+
+	etruscan_naval_path_3 = { ###Latin 2B
+		modifier = { 
+			naval_damage_taken = -0.1
+		}
+		
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				add_building_level = port_building
+				add_building_level = port_building
+				add_building_level = port_building
+			}
+		}
+		
+		requires = { etruscan_naval_path_2 }
+		icon = latin_support_path_1
+	}
+	etruscan_naval_path_4 = { ###Latin 1B
+		modifier = { 
+			octere_discipline = 0.05
+			ocean_combat_bonus = 0.05
+		}
+		allow_unit_type = octere
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = octere
+						add_subunit = octere
+						add_subunit = octere
+					}
+				}
+			}
+		}
+		
+		requires = { etruscan_naval_path_3 }
+		icon = latin_tribal_path_6
+	}
+
+
+
+
+	latin_clan_path_1 = {#Latin clan
+		modifier = {
+			levy_size_multiplier = 0.025
+			character_loyalty = 3
+			chariots_discipline = 0.1
+		}
+		allow = {
+			and = {
+				or = {
+					is_tribal = yes
+					tag = SAM
+					tag = UMB
+					tag = PIE
+					primary_culture = lepontic
+					primary_culture = messapian
+				}
+				nor = {
+					has_variable = clan_tradition
+				}
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = clan_tradition
+				duration = -1
+			}
+		}
+		icon = latin_tribal_path_end_bonus
+		requires = {  }
+	}
+	latin_clan_path_2 = { #Anti-Roman Coalition
+		modifier = {
+			hostile_attrition = 1
+		}
+		enable_tactic = hit_and_run_tactics
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+		requires = { latin_clan_path_1 }
+		icon = latin_support_path_6
+	}
+	latin_clan_path_3 = { #culture of resistance
+		modifier = {
+			land_morale_modifier = 0.05
+			war_exhaustion = -0.04
+			levy_size_multiplier = 0.025
+		}
+		icon = north_african_tribal_path_6
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = conqueror
+				}
+			}
+		}
+		requires = {latin_clan_path_2}
+	}
+	latin_ambush = {
+		modifier = {
+			heavy_infantry_discipline = 0.05
+		}
+		on_activate = {
+			set_variable = {
+				name = roman_influence
+				duration = -1
+			}
+			add_innovation = 2
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+		requires = { latin_clan_path_5 }
+		icon = latin_tribal_path_end_bonus
+	}
+	latin_tribal_path_4 = { ###Latin 4B
+		modifier = { 
+			enslavement_efficiency = 0.1
+			global_slaves_output = output_large_svalue
+		}
+		
+		requires = { latin_tribal_path_end_bonus }
+		icon = latin_tribal_path_4
+	}
+	latin_tribal_path_end_bonus = { ###Latin 6AA
+		modifier = { 
+			hills_combat_bonus = 0.15
+		}
+		
+		requires = { latin_clan_path_1 }
+		icon = latin_tribal_path_end_bonus
+	}
+
+	latin_brennus = { ###celtic 3BB
+		modifier = { 
+			forest_combat_bonus = 0.1
+			chariots_offensive = 0.05
+			heavy_infantry_defensive = 0.05
+		}
+		requires = { latin_tribal_path_4 }
+		icon = latin_roman_path_7
+	}
+
+	latin_clan_path_4 = { ##hillmen and shepherds
+		modifier = { 
+			army_movement_speed = 0.05
+			experience_decay = -0.01
+			land_unit_attrition = -0.05
+		}
+		
+		requires = { latin_clan_path_2 latin_tribal_path_end_bonus }
+		icon = celtic_gallic_path_5
+	}
+	latin_clan_path_5 = { ###League fortifications
+		modifier = { 
+			fort_limit = 1
+			global_defensive = 0.1
+		}
+		
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					or = {
+						has_city_status = yes
+						is_capital = yes
+					}
+				}
+				add_building_level = fortress_building
+			}
+		}
+		requires = { latin_clan_path_3 latin_tribal_path_4}
+		icon = latin_philosophy_start_bonus
+	}
+	latin_clan_path_6 = { ##samnites
+		modifier = { 
+			heavy_infantry_offensive = 0.05
+			spearmen_offensive = 0.05
+			chariots_discipline = 0.1
+		}
+		icon = latin_roman_path_1
+		requires = {latin_clan_path_3}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+	}
+}

@@ -859,20 +859,20 @@
 military_inventions = {
 	technology = military_tech
 	color = hsv { 0 0.6 0.9 }
-	metallurgy_inv = { 
-		modifier = {
-			global_commerce_modifier = 0.02
-			global_tax_modifier = 0.02
-		}
-		potential = {
-			military_tech >= 1
-		}
-	}
+	#metallurgy_invention = { 
+	#	modifier = {
+	#		global_commerce_modifier = 0.02
+	#		global_tax_modifier = 0.02
+	#	}
+	#	potential = {
+	#		military_tech >= 1
+	#	}
+	#}
 	bloomeries_inv = { 
 		modifier = {
 			global_slaves_output = 0.1
 		}
-		requires = {metallurgy_inv}
+		requires = {buy_military_tradition_inv}
 		on_activate = { custom_tooltip = "enables_foundry_building_tt" }
 	}
 	heavy_infantry_cost_inv = { #blacksmith
@@ -892,7 +892,7 @@ military_inventions = {
 		modifier = {
 			discipline = 0.02
 		}
-		requires = { metallurgy_inv } 
+		requires = { buy_military_tradition_inv } 
 		allow = {
 			NOr = { 
 				invention = greek_helmet_inv_1
@@ -1276,7 +1276,7 @@ military_inventions = {
 
 			}
 		}
-		requires = { metallurgy_inv }
+		requires = { buy_military_tradition_inv }
 	}
 	greek_helmet_inv_2 = { #attic
 		modifier = {
@@ -1331,7 +1331,7 @@ military_inventions = {
 				invention = chinese_helmet_inv_2
 			}
 		}
-		requires = { metallurgy_inv }
+		requires = { buy_military_tradition_inv }
 	}
 	greek_helmet_inv_3 = { #phrygian
 		modifier = {
@@ -1382,7 +1382,7 @@ military_inventions = {
 
 			}
 		}
-		requires = { metallurgy_inv }
+		requires = { buy_military_tradition_inv }
 	}
 	greek_helmet_inv_4 = { #boetian
 		modifier = {
@@ -1434,7 +1434,7 @@ military_inventions = {
 				invention = illyrian_helmet_inv
 			}
 		}
-		requires = { metallurgy_inv }
+		requires = { buy_military_tradition_inv }
 	}
 	latin_helmet_inv_1 = { #gaela
 		modifier = {
@@ -1481,13 +1481,13 @@ military_inventions = {
 				invention = illyrian_helmet_inv
 			}
 		}
-		requires = { metallurgy_inv }
+		requires = { buy_military_tradition_inv }
 	}
 	gallic_montefortino_helmet_inv = {
 		modifier = { light_infantry_discipline = 0.05 
 					 heavy_infantry_discipline = 0.05
 					 discipline = 0.01 }
-		requires = { metallurgy_inv }
+		requires = { buy_military_tradition_inv }
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -1538,7 +1538,7 @@ military_inventions = {
 			axemen_discipline = 0.03
 			discipline = 0.01
 		}
-		requires = { metallurgy_inv } 
+		requires = { buy_military_tradition_inv } 
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -1590,7 +1590,7 @@ military_inventions = {
 			archers_discipline = 0.03
 			discipline = 0.01
 		}
-		requires = { metallurgy_inv }
+		requires = { buy_military_tradition_inv }
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -1642,7 +1642,7 @@ military_inventions = {
 			heavy_infantry_discipline = 0.03
 			discipline = 0.01
 		}
-		requires = { metallurgy_inv }
+		requires = { buy_military_tradition_inv }
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -1691,7 +1691,7 @@ military_inventions = {
 	illyrian_helmet_inv = {
 		modifier = { spearmen_morale = 0.03
 			discipline = 0.01 }
-		requires = { metallurgy_inv }
+		requires = { buy_military_tradition_inv }
 		allow = {
 			NOr = { 
 				invention = helmet_inv
@@ -3190,39 +3190,6 @@ military_inventions = {
 			}
 		}
 	}
-	pilum_inv = {
-		modifier = { 
-			heavy_infantry_offensive = 0.03
-			spearmen_offensive = 0.03
-		}
-		requires_or = { bloomeries_inv }
-		allow = {
-			NOr = { 
-				invention = verutum_inv
-				invention = soliferrum_inv
-				invention = chakram_inv
-				invention = sibyna_inv
-			}
-			OR = {
-				country_culture_group = latin
-				custom_tooltip = {
-					text = integrated_any_latin_culture
-					any_country_culture = {
-						is_integrated = yes
-						this.culture.culture_group = culture_group:latin
-					}
-				}
-			}
-		}
-		potential = { 
-			NOr = { 
-				invention = verutum_inv
-				invention = soliferrum_inv
-				invention = chakram_inv
-				invention = sibyna_inv
-			}
-		}
-	}
 	verutum_inv = {
 		modifier = { 
 			light_infantry_offensive = 0.05
@@ -3252,18 +3219,6 @@ military_inventions = {
 				invention = soliferrum_inv
 				invention = chakram_inv
 				invention = sibyna_inv
-			}
-		}
-	}
-	pugio_inv = {
-		modifier = { 
-			heavy_infantry_offensive = 0.03
-			light_infantry_offensive = 0.03
-		}
-		requires = { bloomeries_inv }
-		allow = {
-			OR = {
-				tag = ROM
 			}
 		}
 	}

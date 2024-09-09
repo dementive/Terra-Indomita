@@ -1,0 +1,3533 @@
+﻿### Optimates Party ###
+senate_objective_declare_war_optimates = {
+	potential = {
+		is_party_type = optimates_party
+		party_country = {
+			NOT = { has_variable = optimates_agenda_cooldown }
+			OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+			senate_craves_war_trigger = yes #evaluates if it is reasonable to demand war
+			any_neighbour_country = {
+				is_subject = no
+				NOR = {
+					alliance_with = root.party_country
+					war_with = root.party_country
+				}
+				rank >= rank_one_below_svalue
+				rank <= rank_one_above_svalue
+				trigger_if = {
+					limit = { root.party_country.rank > 1 }
+					rank > 1
+				}
+				NOT = {
+					root.party_country = { has_truce_with = PREV }
+				}
+			}
+		}
+	}
+
+	chance = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			party_country = {
+				is_ai = yes
+			}
+		}
+		modifier = {
+			factor = 3
+			party_country = {
+				any_neighbour_country = {
+					is_subject = no
+					OR = {
+						tag = ETR
+						tag = SAM
+					}
+					NOR = {
+						alliance_with = root.party_country
+						war_with = root.party_country
+					}
+					rank >= rank_one_below_svalue
+					rank <= rank_one_above_svalue
+					trigger_if = {
+						limit = { root.party_country.rank > 1 }
+						rank > 1
+					}
+					NOT = {
+						root.party_country = { has_truce_with = PREV }
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			party_country = {
+				any_neighbour_country = {
+					NOR = { 
+						alliance_with = root.party_country
+						war_with = root.party_country
+					}
+					rank >= rank_one_below_svalue
+					rank <= rank_one_above_svalue
+					opinion = { target = root.party_country value <= 0 }
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			party_country = {
+				any_neighbour_country = {
+					OR = {
+						is_republic = yes
+						is_tribal = yes
+					}
+				}
+			}
+		}
+	}
+
+	monthly_on_action = senate_objective_roman_1_pulse
+
+	on_start = {
+		save_scope_as = sen_obj_dec_war_party
+		party_country = {
+			random_neighbour_country = {
+				limit = {
+					is_subject = no
+					NOR = {
+						alliance_with = root.party_country
+						war_with = root.party_country
+					}
+					rank >= rank_one_below_svalue
+					rank <= rank_one_above_svalue
+					trigger_if = {
+						limit = { root.party_country.rank > 1 }
+						rank > 1
+					}
+					NOT = {
+						root.party_country = { has_truce_with = PREV }
+					}
+				}
+				weight = {
+					modifier = {
+						factor = 5
+						opinion = { target = root.party_country value <= 0 }
+					}
+					modifier = {
+						factor = 4
+						OR = {
+							is_republic = yes
+							is_tribal = yes
+						}
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							tag = SAM
+							tag = ETR
+						}
+					}
+					modifier = {
+						factor = 0.1
+						opinion = { target = root.party_country value >= 50 }
+					}
+				}
+				save_scope_as = sen_obj_dec_war_target
+			}
+		}
+	}
+
+	finished_when = {
+		agenda_force_block_trigger = yes
+		hidden:party_country = {
+			war_with = scope:sen_obj_dec_war_target
+		}
+	}
+
+	on_finish = {
+		senate_objective_complete_effect = yes
+	}
+
+	abort_when = {
+		OR = {
+			party_country = { has_variable = optimates_agenda_cooldown }
+			NOT = { exists = scope:sen_obj_dec_war_party }
+			NOT = { exists = scope:sen_obj_dec_war_target }
+			scope:sen_obj_dec_war_target = {
+				OR = {
+					has_land = no 
+					NOT = { 
+						any_owned_province = {
+							any_neighbor_province = { owner = scope:sen_obj_dec_war_party.party_country }
+						}
+					}
+				}
+			}
+			party_country = { alliance_with = scope:sen_obj_dec_war_target }
+			party_country = { has_truce_with = scope:sen_obj_dec_war_target }
+			trigger_if = {
+				limit = { party_country.rank > 1 }
+				scope:sen_obj_dec_war_target.rank = 1
+			}
+		}
+	}
+
+	on_abort = {
+
+	}
+}
+
+senate_objective_grant_holdings_optimates = {
+    potential = {
+    	is_party_type = optimates_party
+    	party_country = {
+    		NOT = { has_variable = optimates_agenda_cooldown }
+    		OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+    		possible_holdings > 5
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    	modifier = {
+			factor = 2
+			party_country = { possible_holdings > 15 }
+		}
+		modifier = {
+			factor = 2
+			party_country = { possible_holdings > 30 }
+		}
+    }
+
+    monthly_on_action = senate_objective_roman_2_pulse
+
+    on_start = {
+    	save_scope_as = sen_obj_gra_hol_party
+    	party_country = {
+			set_variable = {
+				name = senate_objective_grant_holding_count_optimates
+				value = 0
+			}
+		}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+    		custom_tooltip = {
+    			text = senate_objective_grant_holdings_optimates_finished_tt
+				has_variable = senate_objective_grant_holding_count_optimates
+				var:senate_objective_grant_holding_count_optimates >= senate_objective_grant_holding_optimates_svalue
+			}
+		}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+		party_country = { remove_variable = senate_objective_grant_holding_count_optimates }
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = optimates_agenda_cooldown }
+			NOT = { exists = scope:sen_obj_gra_hol_party }
+			party_country = { possible_holdings < 1 }
+		}
+    }
+
+    on_abort = {
+    	party_country = { remove_variable = senate_objective_grant_holding_count_optimates }
+    }
+}
+
+senate_objective_change_law_optimates = {
+    potential = {
+    	is_party_type = optimates_party
+    	party_country = {
+    		NOT = { has_variable = optimates_agenda_cooldown }
+    		OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+    		OR = {
+    			NAND = {
+    				has_law = testamentum_militis
+    				trigger_if = {
+    					limit = { has_variable = party_law_change_cooldown }
+    					var:party_law_change_cooldown = 1 # recruitment
+    				}
+    			} # Military Reforms
+    			NAND = {
+    				has_law = senatus_consultum_ultimum
+    				trigger_if = {
+    					limit = { has_variable = party_law_change_cooldown }
+    					var:party_law_change_cooldown = 2 # election
+    				}
+    			} # Election Reforms 
+    			NAND = {
+    				has_law = lex_calpurnia
+    				trigger_if = {
+    					limit = { has_variable = party_law_change_cooldown }
+    					var:party_law_change_cooldown = 3 # corruption
+    				}
+    			} # Assembly Endorsement
+    			AND = {
+    				NAND = {
+    					has_law = lex_caecilia
+	    				trigger_if = {
+	    					limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 4 # mediterranean
+	    				}
+	    			} # Maritime Laws
+    				num_of_ports >= 1
+    			}
+    			AND = {
+    				NAND = {
+    					has_law = lex_domitia_de_sacerdotiis
+	    				trigger_if = {
+	    					limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 5 # religious
+	    				}
+	    			} # Religious Laws
+    				civic_tech >= 3
+    			}
+    			AND = {
+    				NAND = {
+    					has_law = lex_papia
+	    				trigger_if = {
+	    					limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 6 # integration
+	    				}
+	    			} # Integration Laws
+    				civic_tech >= 6
+    			}
+    			AND = {
+    				NAND = {
+    					has_law = lex_aelia_sentia
+	    				trigger_if = {
+	    					limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 7 # citizenship
+	    				}
+	    			} # Citizenship Laws
+    				civic_tech >= 9
+    			}
+    			AND = {
+    				NAND = {
+    					has_law = cassian_reform
+	    				trigger_if = {
+	    					limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 8 # land
+	    				}
+	    			} # Land Reforms
+    				civic_tech >= 12
+    			}
+    		}
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    }
+
+    monthly_on_action = senate_objective_roman_3_pulse
+
+    on_start = {
+    	save_scope_as = sen_obj_cha_law_optimates
+    	party_country = {
+    		hidden_effect = {
+    			random_list = {
+					2 = {
+						trigger = {
+							NAND = {
+								has_law = testamentum_militis
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 1
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_optimates
+							value = 1
+						}
+					}
+					2 = {
+						trigger = {
+							NAND = { 
+								has_law = senatus_consultum_ultimum
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 2
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_optimates
+							value = 2
+						}
+					}
+					2 = {
+						trigger = {
+							NAND = {
+								has_law = lex_calpurnia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 3
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_optimates
+							value = 3
+						}
+					}
+					2 = {
+						trigger = {
+							num_of_ports >= 1
+							NAND = { 
+								has_law = lex_caecilia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 4 # mediterranean
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_optimates
+							value = 4
+						}
+					}
+    				2 = {
+						trigger = {
+							civic_tech >= 3
+							NAND = { 
+								has_law = lex_domitia_de_sacerdotiis
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 5
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_optimates
+							value = 5
+						}
+					}
+					2 = {
+						trigger = {
+							civic_tech >= 6
+							NAND = { 
+								has_law = lex_papia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 6
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_optimates
+							value = 6
+						}
+					}
+					2 = {
+						trigger = {
+							civic_tech >= 9
+							NAND = { 
+								has_law = lex_aelia_sentia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 7
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_optimates
+							value = 7
+						}
+					}
+					2 = {
+						trigger = {
+							civic_tech >= 12
+							NAND = { 
+								has_law = cassian_reform
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 8
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_optimates
+							value = 8
+						}
+					}
+    			}
+    		}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+    		has_variable = sen_obj_cha_law_target_optimates
+			trigger_if = {
+				limit = { has_variable = sen_obj_cha_law_target_optimates }
+				trigger_if = {
+					limit = {
+						var:sen_obj_cha_law_target_optimates = 1
+					}
+					has_law = testamentum_militis
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_optimates = 2
+					}
+					has_law = senatus_consultum_ultimum
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_optimates = 3
+					}
+					has_law = lex_calpurnia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_optimates = 4
+					}
+					has_law = lex_gabinia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_optimates = 5
+					}
+					has_law = lex_domitia_de_sacerdotiis
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_optimates = 6
+					}
+					has_law = lex_papia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_optimates = 7
+					}
+					has_law = lex_aelia_sentia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_optimates = 8
+					}
+					has_law = cassian_reform
+				}
+			}
+			custom_tooltip = {
+				text = law_change_category_tt
+				trigger_if = {
+					limit = { has_variable = party_law_change_cooldown }
+					has_variable = sen_obj_cha_law_target_optimates
+					NOT = { var:party_law_change_cooldown = var:sen_obj_cha_law_target_optimates }
+				}
+			}
+		}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+    	party_country = {
+	    	set_variable = {
+	            name = party_law_change_cooldown
+	            days = 7300 # 20 years
+	            value = var:sen_obj_cha_law_target_optimates
+	        }
+			remove_variable = sen_obj_cha_law_target_optimates
+		}
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = optimates_agenda_cooldown }
+    		NOT = { 
+				party_country = { has_variable = sen_obj_cha_law_target_optimates }
+			}
+    		NOT = { exists = scope:sen_obj_cha_law_optimates }
+			trigger_if = {
+				limit = {
+					party_country = {
+						has_variable = party_law_change_cooldown
+						has_variable = sen_obj_cha_law_target_optimates
+					}
+				}
+				party_country = { var:party_law_change_cooldown = var:sen_obj_cha_law_target_optimates }
+			}
+    	}
+    }
+
+    on_abort = {
+    	party_country = {
+			if = {
+				limit = {
+					has_variable = sen_obj_cha_law_target_optimates
+					has_variable = party_law_change_cooldown
+				}
+				if = {
+					limit = { var:party_law_change_cooldown = var:sen_obj_cha_law_target_optimates }
+					add_party_approval = {
+						party_type = oligarchic_party
+						value = -5
+					}
+				}
+			}
+			remove_variable = sen_obj_cha_law_target_optimates
+		}
+    }
+}
+
+senate_objective_revoke_office_optimates = {
+    potential = {
+    	current_date > 450.10.10
+    	is_party_type = optimates_party
+    	party_country = {
+    		NOT = { has_variable = optimates_agenda_cooldown }
+	    	any_character = {
+	    		OR = {
+	    			is_general = yes
+	    			is_governor = yes
+	    		}
+	    		is_ruler = no
+	    		is_co_ruler = no
+	    		prisoner = no
+	    		employer = root.party_country
+	    		NOT = { party = root }
+	    	}
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    }
+
+    monthly_on_action = senate_objective_roman_14_pulse
+
+    on_start = {
+    	save_scope_as = senate_objective_revoke_office_party
+    	party_country = {
+    		random_character = {
+    			limit = {
+    				OR = {
+    					is_general = yes
+    					is_governor = yes
+    				}
+    				is_ruler = no
+	    			is_co_ruler = no
+	    			prisoner = no
+	    			employer = root.party_country
+    				NOT = { party = root }
+    			}
+    			weight = {
+    				modifier = {
+    					factor = {
+    						value = this.corruption
+    						multiply = 0.1
+    					}
+    					corruption >= 10
+    				}
+    			}
+    			save_scope_as = revoke_character_optimates
+    			random_list = {
+    				10 = {
+    					trigger = {
+    						is_general = yes
+    						is_governor = no
+    					}
+    					root.party_country = {
+    						set_variable = {
+    							name = senate_objective_revoke_office_optimates_type
+    							value = 1
+    						}
+    					}
+    				}
+    				10 = {
+    					trigger = {
+    						is_governor = yes
+    					}
+    					root.party_country = {
+    						set_variable = {
+    							name = senate_objective_revoke_office_optimates_type
+    							value = 2
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+    		trigger_if = {
+    			limit = {
+    				has_variable = senate_objective_revoke_office_optimates_type
+    			}
+    			trigger_if = {
+    				limit = {
+    					var:senate_objective_revoke_office_optimates_type = 1
+    				}
+    				hidden:scope:revoke_character_optimates = {
+    					custom_tooltip = {
+    						text = revoke_generalship
+    						is_general = no
+    					}
+    				}
+    			}
+    			trigger_else_if = {
+    				limit = {
+    					var:senate_objective_revoke_office_optimates_type = 2
+    				}
+    				hidden:scope:revoke_character_optimates = {
+    					custom_tooltip = {
+    						text = revoke_governorship
+    						is_governor = no
+    					}
+    				}
+    			}
+    		}
+    		trigger_else = {
+    			always = no
+    		}
+    	}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+		party_country = { remove_variable = senate_objective_revoke_office_optimates_type }
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = optimates_agenda_cooldown }
+    		NOT = { exists = scope:senate_objective_revoke_office_party }
+    		NOT = { exists = scope:revoke_character_optimates }
+    		scope:revoke_character_optimates = {
+    			OR = {
+    				is_alive = no
+    				prisoner = yes
+    				NOT = { employer = ROOT.party_country }
+    				party_type = optimates_party
+    			}
+    		}
+    	}
+    }
+
+    on_abort = {
+    	party_country = { remove_variable = senate_objective_revoke_office_optimates_type }
+    }
+}
+
+senate_objective_appoint_member_optimates = {
+	potential = {
+		is_party_type = optimates_party
+		party_country = {
+			any_character = {
+				party = root
+				is_ruler = no
+				is_co_ruler = no
+				prisoner = no
+				is_adult = yes
+				employer = root.party_country
+				trigger_if = {
+					limit = {
+						employer = { gender_equality = no }
+					}
+					is_female = no
+				}
+				trigger_if = {
+					limit = { has_any_office = yes }
+					has_tech_office = yes
+				}
+				NOR = {
+					is_general = yes
+					is_admiral = yes
+					is_governor = yes
+					has_character_modifier = foreign_citizen
+				}
+			}
+			NOT = { has_variable = optimates_agenda_cooldown }
+		}
+	}
+
+	chance = {
+		factor = 3
+		modifier = {
+			factor = 3
+			party_country = {
+				any_governorships = {
+					count = all
+					any_governorship_state = {
+						has_governor = yes
+						NOT = { governor.character_party = root }
+					}
+					NOT = {
+						any_governorship_state = {
+							any_state_province = { this = root.party_country.capital_scope }
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			party_country = {
+				any_character = {
+					count = all
+					has_any_office = yes
+					has_tech_office = no
+					NOT = { character_party = root }
+				}
+			}
+		}
+	}
+
+	monthly_on_action = senate_objective_roman_15_pulse
+
+	on_start = {
+		save_scope_as = senate_objective_roman_appoint_office_optimates
+		party_country = {
+			random_character = {
+				limit = {
+					party = root
+					is_ruler = no
+					is_co_ruler = no
+					prisoner = no
+					is_adult = yes
+					employer = root.party_country
+					trigger_if = {
+						limit = {
+							employer = { gender_equality = no }
+						}
+						is_female = no
+					}
+					trigger_if = {
+						limit = { has_any_office = yes }
+						has_tech_office = yes
+					}
+					NOR = {
+						is_general = yes
+						is_admiral = yes
+						is_governor = yes
+						has_character_modifier = foreign_citizen
+					}
+				}
+				save_scope_as = appointment_target
+			}
+		}
+	}
+
+	finished_when = {
+		agenda_force_block_trigger = yes
+		hidden:scope:appointment_target = {
+			custom_tooltip = {
+				text = senate_objective_appoint_member_generic_tt
+				OR = {
+					is_governor = yes
+					AND = {
+						has_any_office = yes
+						has_tech_office = no
+					}
+				}
+			}
+		}
+	}
+
+	on_finish = {
+		senate_objective_complete_effect = yes
+	}
+
+	abort_when = {
+		OR = {
+			party_country = { has_variable = optimates_agenda_cooldown }
+			NOT = { exists = scope:senate_objective_roman_appoint_office_optimates }
+			NOT = { exists = scope:appointment_target }
+			scope:appointment_target = {
+				OR = {
+					is_alive = no
+					NOT = { employer = root.party_country }
+					is_ruler = yes
+					is_co_ruler = yes
+					prisoner = yes
+					NOT = { party = root }
+				}
+			}
+		}	
+	}
+}
+
+senate_objective_reduce_citizenship_optimates = {
+    potential = {
+    	is_party_type = optimates_party
+    	party_country = {
+    		NOT = { has_variable = optimates_agenda_cooldown }
+    		any_country_culture = {
+    			is_integrated = yes
+    			NOT = { this.culture = root.party_country.culture }
+				save_temporary_scope_as = culture_to_integrate
+				OR = {
+					country_culture_pop_count < 80
+					NOT = {
+						root.party_country = {
+							any_owned_province = {
+								dominant_province_culture = scope:culture_to_integrate.culture
+							}
+						}
+					}
+				}
+    		}
+    	}
+    }
+
+    chance = {
+    	factor = 2
+    }
+
+    monthly_on_action = senate_objective_roman_18_pulse
+
+    on_start = {
+    	save_scope_as = reduce_citizenship_party
+    	party_country = {
+	    	random_country_culture = {
+	    		limit = {
+	    			is_integrated = yes
+					NOT = { this.culture = root.party_country.culture }
+					save_temporary_scope_as = culture_to_integrate
+					OR = {
+						country_culture_pop_count < 100
+						NOT = {
+							root.party_country = {
+								any_owned_province = {
+									dominant_province_culture = scope:culture_to_integrate.culture
+								}
+							}
+						}
+					}
+	    		}
+	    		weight = {
+	    			modifier = {
+						factor = 0.2
+						culture.culture_group = root.party_country.culture_group
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count < 10
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count < 25
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count < 50
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count < 75
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count < 85
+					}
+	    		}
+	    		save_scope_as = citizenship_culture_target
+	    	}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	scope:citizenship_culture_target = {
+    		is_integrated = no
+    	}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = optimates_agenda_cooldown }
+    		NOT = { exists = scope:reduce_citizenship_party }
+    		NOT = { exists = scope:citizenship_culture_target }
+    	}
+    }
+
+    on_abort = {
+
+    }
+}
+
+### Populares Party ###
+senate_objective_change_law_populares = {
+    potential = {
+    	is_party_type = populares_party
+    	party_country = {
+    		NOT = { has_variable = populares_agenda_cooldown }
+    		OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    }
+
+    monthly_on_action = senate_objective_roman_4_pulse
+
+    on_start = {
+    	save_scope_as = sen_obj_cha_law_populares
+    	party_country = {
+    		hidden_effect = {
+    			random_list = {
+    				# Military Reforms # 
+					10 = {
+						trigger = {
+							is_ai = no
+							has_law = testamentum_militis
+							NAND = {
+								has_law = lex_porcia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 1 # recruitment
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 2
+						}
+					}
+					1 = {
+						trigger = {
+							is_ai = no
+							OR = {
+								has_law = testamentum_militis
+								has_law = lex_porcia
+							}
+							NAND = {
+								has_law = punic_reforms
+								trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+									var:party_law_change_cooldown = 1 # recruitment
+								}
+							}
+							invention = global_cohort_recruit_speed_inv
+							rank >= regional_power
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 3
+						}
+					}
+					10 = {
+						trigger = {
+							is_ai = no
+							OR = {
+								has_law = testamentum_militis
+								has_law = lex_porcia
+								has_law = punic_reforms
+							}
+							NAND = { 
+								has_law = marian_reforms
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 1 # recruitment
+			    				}
+			    			}
+			    			invention = discipline_inv_5
+							OR = {
+								has_variable = had_military_reforms
+								rank >= great_power
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 4
+						}
+					}
+					# Election Reforms #
+					1 = {
+						trigger = {
+							NAND = {
+								has_law = leges_genuciae
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 2 # election
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 5
+						}
+					}
+					1 = {
+						trigger = {
+							NAND = {
+								has_law = senatus_consultum_ultimum
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 2 # election
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 6
+						}
+					}
+					10 = {
+						trigger = {
+							NAND = { 
+								has_law = lex_antonia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 2 # election
+			    				}
+							}
+							NOT = {
+								current_ruler = { party_type = populares_party }
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 7
+						}
+					}
+					1 = {
+						trigger = {
+							NAND = {
+								has_law = princeps_civitatis
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 2 # election
+			    				}
+							}
+							current_ruler = { party_type = populares_party }
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 8
+						}
+					}
+					# Assembly Endorsement #
+					10 = {
+						trigger = {
+							NAND = { 
+								has_law = lex_acilia_repetundarum
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 3 # assembly
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 9
+						}
+					}
+					1 = {
+						trigger = {
+							NAND = {
+								has_law = lex_cassia_de_senatu
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 3 # assembly
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 10
+						}
+					}
+					1 = {
+						trigger = {
+							NAND = {
+								has_law = no_laws_on_corruption
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 3 # assembly
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 11
+						}
+					}
+					1 = {
+						trigger = {
+							NAND = { 
+								has_law = lex_calpurnia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 3 # assembly
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 12
+						}
+					}
+					# Maritime Laws #
+					1 = {
+						trigger = {
+							NAND = { 
+								has_law = lex_terentia_cassia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 4 # mediterranean
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 13
+						}
+					}
+					1 = {
+						trigger = {
+							num_of_ports >= 1
+							NAND = {
+								has_law = lex_gabinia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 4 # mediterranean
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 14
+						}
+					}
+					1 = {
+						trigger = {
+							num_of_ports >= 1
+							NAND = {
+								has_law = lex_claudia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 4 # mediterranean
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 16
+						}
+					}
+					# Religious Laws #
+    				1 = {
+						trigger = {
+							NAND = {
+								has_law = grant_religious_freedoms
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 5 # religious
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 17
+						}
+					}
+					10 = {
+						trigger = {
+							civic_tech >= 3
+							NAND = {
+								has_law = lex_ogulnia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 5 # religious
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 18
+						}
+					}
+					10 = {
+						trigger = {
+							civic_tech >= 3
+							NAND = {
+								has_law = lex_aelia_et_fufia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 5 # religious
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 19
+						}
+					}
+					1 = {
+						trigger = {
+							civic_tech >= 3
+							NAND = {
+								has_law = lex_domitia_de_sacerdotiis
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 5 # religious
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 20
+						}
+					}
+					# Integration Laws #
+					10 = {
+						trigger = {
+							NAND = {
+								has_law = lex_canuleia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 6 # integration
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 21
+						}
+					}
+					1 = {
+						trigger = {
+							civic_tech >= 6
+							NAND = {
+								has_law = lex_papia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 6 # integration
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 22
+						}
+					}
+					10 = {
+						trigger = {
+							civic_tech >= 6
+							NAND = {
+								has_law = lex_licinia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 6 # integration
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 23
+						}
+					}
+					10 = {
+						trigger = {
+							civic_tech >= 6
+							NAND = {
+								has_law = lex_hortensia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 6 # integration
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 24
+						}
+					}
+					# Citizenship Laws #
+					1 = {
+						trigger = {
+							NAND = {
+								has_law = lex_aternia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 7 # citizenship
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 25
+						}
+					}
+					10 = {
+						trigger = {
+							civic_tech >= 9
+							NAND = {
+								has_law = lex_fufia_caninia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 7 # citizenship
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 26
+						}
+					}
+					1 = {
+						trigger = {
+							civic_tech >= 9
+							NAND = {
+								has_law = lex_plautia_papiria
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 7 # citizenship
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 27
+						}
+					}
+					10 = {
+						trigger = {
+							civic_tech >= 9
+							NAND = {
+								has_law = lex_aelia_sentia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 7 # citizenship
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 28
+						}
+					}
+					# Land Reforms #
+					1 = {
+						trigger = {
+							NAND = {
+								has_law = cassian_reform
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 8 # land
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 29
+						}
+					}
+					10 = {
+						trigger = {
+							civic_tech >= 12
+							NAND = {
+								has_law = lex_servilia_glaucia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 8 # land
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 30
+						}
+					}
+					10 = {
+						trigger = {
+							civic_tech >= 12
+							NAND = {
+								has_law = lex_sempronia_agraria
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 8 # land
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 31
+						}
+					}
+					10 = {
+						trigger = {
+							civic_tech >= 12
+							NAND = {
+								has_law = gracchus_reforms
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 8 # land
+			    				}
+							}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_populares
+							value = 32
+						}
+					}
+    			}
+    		}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+			has_variable = sen_obj_cha_law_target_populares
+			# Military Reforms #
+			trigger_if = {
+				limit = { has_variable = sen_obj_cha_law_target_populares }
+				trigger_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 1
+					}
+					has_law = testamentum_militis
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 2
+					}
+					has_law = lex_porcia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 3
+					}
+					has_law = punic_reforms
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 4
+					}
+					has_law = marian_reforms
+				}
+				# Election Reforms #
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 5
+					}
+					has_law = leges_genuciae
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 6
+					}
+					has_law = senatus_consultum_ultimum
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 7	
+					}
+					has_law = lex_antonia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 8
+					}
+					has_law = princeps_civitatis
+				}
+				# Assembly Endorsement #
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 9
+					}
+					has_law = lex_acilia_repetundarum
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 10
+					}
+					has_law = lex_cassia_de_senatu
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 11
+					}
+					has_law = no_laws_on_corruption
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 12
+					}
+					has_law = lex_calpurnia
+				}
+				# Maritime Laws #
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 13
+					}
+					has_law = lex_terentia_cassia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 14
+					}
+					has_law = lex_gabinia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 15
+					}
+					has_law = lex_caecilia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 16
+					}
+					has_law = lex_claudia
+				}
+				# Religious Laws #
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 17
+					}
+					has_law = grant_religious_freedoms
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 18
+					}
+					has_law = lex_ogulnia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 19
+					}
+					has_law = lex_aelia_et_fufia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 20
+					}
+					has_law = lex_domitia_de_sacerdotiis
+				}
+				# Integration Laws #
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 21
+					}
+					has_law = lex_canuleia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 22
+					}
+					has_law = lex_papia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 23
+					}
+					has_law = lex_licinia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 24
+					}
+					has_law = lex_hortensia
+				}
+				# Citizenship Laws #
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 25
+					}
+					has_law = lex_aelia_sentia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 26
+					}
+					has_law = lex_fufia_caninia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 27
+					}
+					has_law = lex_plautia_papiria
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 28
+					}
+					has_law = lex_aelia_sentia
+				}
+				# Land Reforms #
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 29
+					}
+					has_law = cassian_reform
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 30
+					}
+					has_law = lex_servilia_glaucia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 31
+					}
+					has_law = lex_sempronia_agraria
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_populares = 32
+					}
+					has_law = gracchus_reforms
+				}
+			}
+			custom_tooltip = {
+				text = law_change_category_tt
+				trigger_if = {
+					limit = { has_variable = party_law_change_cooldown }
+					has_variable = sen_obj_cha_law_target_populares
+					NOT = { var:party_law_change_cooldown = var:sen_obj_cha_law_target_populares }
+				}
+			}
+		}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+    	party_country = { 
+			set_variable = {
+			    name = party_law_change_cooldown
+			    days = 7300 # 20 years
+			    value = 0
+			}
+	    	populares_law_cooldown_effect = yes
+			remove_variable = sen_obj_cha_law_target_populares
+		}
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = populares_agenda_cooldown }
+    		NOT = { 
+				party_country = { has_variable = sen_obj_cha_law_target_populares }
+			}
+    		NOT = { exists = scope:sen_obj_cha_law_populares }
+			trigger_if = {
+				limit = {
+					party_country = {
+						has_variable = party_law_change_cooldown
+						has_variable = sen_obj_cha_law_target_populares
+					}
+				}
+				party_country = { var:party_law_change_cooldown = var:sen_obj_cha_law_target_populares }
+			}
+    	}
+    }
+
+    on_abort = {
+    	party_country = {
+			if = {
+				limit = {
+					has_variable = sen_obj_cha_law_target_populares
+					has_variable = party_law_change_cooldown
+				}
+				if = {
+					limit = { var:party_law_change_cooldown = var:sen_obj_cha_law_target_populares }
+					add_party_approval = {
+						party_type = oligarchic_party
+						value = -5
+					}
+				}
+			}
+			remove_variable = sen_obj_cha_law_target_populares
+		}
+    }
+}
+
+senate_objective_revoke_holdings_populares = {
+	potential = {
+		is_party_type = populares_party
+		party_country = {
+			NOT = { has_variable = populares_agenda_cooldown }
+			OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+			any_family = {
+				head_of_family = {
+					num_holdings_owned >= 5
+				}
+			}
+		}
+	}
+
+	chance = {
+		factor = 3
+		modifier = {
+			factor = 2
+			party_country = {
+				any_family = {
+					head_of_family = {
+						num_holdings_owned >= 10
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			party_country = {
+				any_family = {
+					head_of_family = {
+						num_holdings_owned >= 20
+					}
+				}
+			}
+		}
+	}
+
+	monthly_on_action = senate_objective_roman_5_pulse
+
+	on_start = {
+		save_scope_as = sen_obj_rev_hol_party
+		party_country = {
+			set_variable = {
+				name = senate_objective_revoke_holding_count_optimates
+				value = 0
+			}
+		}
+	}
+
+	finished_when = {
+		agenda_force_block_trigger = yes
+		hidden:party_country = {
+			custom_tooltip = {
+				text = senate_objective_revoke_holdings_populares_finished_tt
+				has_variable = senate_objective_revoke_holding_count_optimates
+				var:senate_objective_revoke_holding_count_optimates >= senate_objective_revoke_holding_optimates_svalue
+			}
+		}
+	}
+
+	on_finish = { #Party scope
+		senate_objective_complete_effect = yes
+		party_country = { remove_variable = senate_objective_revoke_holding_count_optimates }
+	}
+
+	abort_when = {
+		OR = {
+			party_country = { has_variable = populares_agenda_cooldown }
+			NOT = { exists = scope:sen_obj_rev_hol_party }
+			party_country = {
+				any_family = {
+					count = all
+					head_of_family = {
+						num_holdings_owned < 1
+					}
+				}
+			}
+		}
+	}
+
+	on_abort = {
+		party_country = { remove_variable = senate_objective_revoke_holding_count_optimates }
+	}
+}
+
+senate_objective_grant_holdings_populares = { # Cut this for now, as you cannot give holdings to minor characters, will keep the Script in-case we change the design at some point
+    potential = {
+    	always = no
+    	is_party_type = populares_party
+		always = no
+    	party_country = {
+    		NOT = { has_variable = populares_agenda_cooldown }
+    		OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+    		possible_holdings > 5
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    	modifier = {
+			factor = 2
+			party_country = { possible_holdings > 15 }
+		}
+		modifier = {
+			factor = 2
+			party_country = { possible_holdings > 30 }
+		}
+    }
+
+    monthly_on_action = senate_objective_roman_6_pulse
+
+    on_start = {
+    	save_scope_as = sen_obj_gra_hol_party
+    	party_country = {
+			set_variable = {
+				name = senate_objective_grant_holding_count_populares
+				value = 0
+			}
+		}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+    		custom_tooltip = {
+    			text = senate_objective_grant_holdings_populares_finished_tt
+				has_variable = senate_objective_grant_holding_count_populares
+				var:senate_objective_grant_holding_count_populares >= senate_objective_grant_holding_populares_svalue
+			}
+		}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+		party_country = { remove_variable = senate_objective_grant_holding_count_populares }
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = populares_agenda_cooldown }
+			NOT = { exists = scope:sen_obj_gra_hol_party }
+			party_country = { possible_holdings < 1 }
+		}
+    }
+
+    on_abort = {
+    	party_country = { remove_variable = senate_objective_grant_holding_count_populares }
+    }
+}
+
+senate_objective_imprison_head_populares = {
+	potential = {
+		is_party_type = populares_party
+		current_date > 450.10.10
+		party_country = {
+			NOT = { has_variable = populares_agenda_cooldown }
+			OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+			any_family = {
+				head_of_family = {
+					prisoner = no
+					NOT = { party = root }
+					OR = {
+						corruption >= 5
+						has_trait = corrupt
+						has_trait = crafty
+					}
+				}
+			}
+		}
+	}
+
+	chance = {
+		factor = 3
+	}
+
+	monthly_on_action = senate_objective_roman_7_pulse
+
+	on_start = {
+		save_scope_as = senate_objective_imprison_head_party
+		party_country = {
+			random_family = {
+				limit = {
+					head_of_family = {
+						prisoner = no
+						NOT = { party = root }
+						OR = {
+							corruption >= 5
+							has_trait = corrupt
+							has_trait = crafty
+						}
+					}
+				}
+				weight = {
+					modifier = {
+						factor = 10
+						head_of_family = {
+							corruption >= 10
+						}
+					}
+					modifier = {
+						factor = 20
+						head_of_family = {
+							corruption >= 20
+						}
+					}
+				}
+				head_of_family = {
+					save_scope_as = senate_objective_prisoner_character
+				}
+			}
+		}
+	}
+
+	finished_when = {
+		agenda_force_block_trigger = yes
+		hidden:scope:senate_objective_prisoner_character = {
+			prisoner = yes
+		}
+	}
+
+	on_finish = { #Party scope
+		senate_objective_complete_effect = yes
+	}
+
+	abort_when = {
+		OR = {
+			party_country = { has_variable = populares_agenda_cooldown }
+			NOT = { exists = scope:senate_objective_imprison_head_party }
+			scope:senate_objective_prisoner_character = {
+				OR = {
+					NOT = { home_country = root.party_country }
+					is_alive = no
+				}
+			}
+		}	
+	}
+
+	on_abort = {}
+}
+
+senate_objective_declare_war_populares = {
+	potential = {
+		is_party_type = populares_party
+		party_country = {
+			NOT = { has_variable = populares_agenda_cooldown }
+			OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+			senate_craves_war_trigger = yes #Evaluates if it is reasonable to demand war
+			any_country = {
+				is_subject = no
+				rank >= rank_one_below_svalue
+				rank <= rank_one_above_svalue
+				trigger_if = {
+					limit = { root.party_country.rank > 1 }
+					rank > 1
+				}
+				NOR = {
+					alliance_with = root.party_country
+					war_with = root.party_country
+				}
+				NOT = { THIS = root.party_country }
+				NOT = {
+					root.party_country = { has_truce_with = PREV }
+				}
+				OR = {
+					any_neighbour_country = {
+						this = root.party_country
+					}
+					AND = {
+						root.party_country = {
+							in_diplomatic_range = PREV
+							any_owned_province = {
+								is_port = yes
+							}
+							num_of_ships > 60 #Overseas wars need boats
+						}
+						any_owned_province = {
+							is_coastal = yes
+						}
+					}
+				}
+			}
+		}
+	}
+
+	chance = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			party_country = {
+				is_ai = yes
+			}
+		}
+	}
+
+	monthly_on_action = senate_objective_roman_8_pulse
+
+	on_start = {
+		save_scope_as = sen_obj_dec_war_party
+		party_country = {
+			random_country = {
+				limit = {
+					is_subject = no
+					rank >= rank_one_below_svalue
+					rank <= rank_one_above_svalue
+					trigger_if = {
+						limit = { root.party_country.rank > 1 }
+						rank > 1
+					}
+					NOR = {
+						alliance_with = root.party_country
+						war_with = root.party_country
+					}
+					NOT = { THIS = root.party_country }
+					NOT = {
+						root.party_country = { has_truce_with = PREV }
+					}
+					OR = {
+						any_neighbour_country = {
+							this = root.party_country
+						}
+						AND = {
+							root.party_country = {
+								in_diplomatic_range = PREV
+								any_owned_province = {
+									is_port = yes
+								}
+							}
+							any_owned_province = {
+								is_coastal = yes
+							}
+						}
+					}
+				}
+				weight = {
+					### Positive ###
+					modifier = { # Same rank or higher
+						factor = 30
+						rank >= root.party_country.rank
+					}
+					modifier = { # A typical rival of Rome, and of equal or higher rank than Rome
+						factor = 30
+						rank >= root.party_country.rank
+						OR = {
+							tag = CAR
+							tag = ETR
+							tag = SYR
+							tag = MAC
+							tag = EPI
+							tag = PRY
+							tag = ARM
+							tag = PON
+							tag = EGY
+							tag = SEL
+							tag = TRE
+						}
+					}
+					modifier = { # A typical rival of Rome based on territory, and of equal or higher rank than Rome
+						factor = 30
+						rank >= root.party_country.rank
+						any_owned_province = {
+							OR = {
+								is_in_region = central_italy_region
+								is_in_region = macedonia_region
+								is_in_region = africa_region
+								is_in_region = greece_region
+								is_in_region = syria_region
+								is_in_region = palestine_region
+								is_in_region = lower_egypt_region
+								is_in_region = bithynia_region
+								is_in_region = magna_graecia_region
+								is_in_region = cisalpine_gaul_region
+							}
+						}
+					}
+					modifier = { # Is a monarchy, and a neighboring tribal nation
+						factor = 25
+						OR = {
+							is_monarchy = yes
+							AND = {
+								is_tribal = yes
+								any_neighbour_country = {
+									this = root.party_country
+								}
+							}
+						}
+					}
+					modifier = { # Has any cities
+						factor = 20
+						any_owned_province = {
+							has_city_status = yes
+						}
+					}
+					modifier = { # Is disliked by Rome
+						factor = 10
+						root.party_country = {
+							opinion = {
+								target = PREV
+								value < 25
+							}
+						}
+					}
+					modifier = { # Has a holy site of a deity of another religion than Rome's
+						factor = 10
+						any_owned_holy_site = {
+							count >= 1
+							exists = province_deity
+							NOT = { province_deity.religion = root.party_country.religion }
+						}
+					}
+					modifier = { # A country over a certain pop size
+						factor = 10
+						country_population > 250
+					}
+
+					### Negative Modifiers ###
+					modifier = { # Less than 20 territories
+						factor = 0.2
+						num_of_cities < 20
+					}
+					modifier = { # Less than 10 territories
+						factor = 0.2
+						num_of_cities < 10
+					}
+					modifier = { # Less than 5 territories
+						factor = 0.2
+						num_of_cities < 5
+					}
+				}
+				save_scope_as = sen_obj_dec_war_target
+			}
+		}
+	}
+
+	finished_when = {
+		agenda_force_block_trigger = yes
+		hidden:party_country = {
+			war_with = scope:sen_obj_dec_war_target
+		}
+	}
+
+	on_finish = {
+		senate_objective_complete_effect = yes
+	}
+
+	abort_when = {
+		OR = {
+			party_country = { has_variable = populares_agenda_cooldown }
+			NOT = { exists = scope:sen_obj_dec_war_party }
+			NOT = { exists = scope:sen_obj_dec_war_target }
+			scope:sen_obj_dec_war_target = {
+				has_land = no 
+			}
+			NOT = { party_country = { in_diplomatic_range = scope:sen_obj_dec_war_target } }
+			party_country = { alliance_with = scope:sen_obj_dec_war_target }
+			party_country = { has_truce_with = scope:sen_obj_dec_war_target }
+			trigger_if = {
+				limit = { party_country.rank > 1 }
+				scope:sen_obj_dec_war_target.rank = 1
+			}
+		}
+	}
+
+	on_abort = {
+
+	}
+}
+
+senate_objective_revoke_office_populares = {
+    potential = {
+    	is_party_type = populares_party
+    	current_date > 450.10.10
+    	party_country = {
+    		NOT = { has_variable = populares_agenda_cooldown }
+	    	any_character = {
+	    		OR = {
+	    			is_general = yes
+	    			is_governor = yes
+	    		}
+	    		is_ruler = no
+	    		is_co_ruler = no
+	    		employer = root.party_country
+	    		NOT = { party = root }
+	    	}
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    }
+
+    monthly_on_action = senate_objective_roman_16_pulse
+
+    on_start = {
+    	save_scope_as = senate_objective_revoke_office_party
+    	party_country = {
+    		random_character = {
+    			limit = {
+    				OR = {
+    					is_general = yes
+    					is_governor = yes
+    				}
+    				is_ruler = no
+	    			is_co_ruler = no
+	    			employer = root.party_country
+    				NOT = { party = root }
+    			}
+    			weight = {
+    				modifier = {
+    					factor = {
+    						value = this.corruption
+    						multiply = 0.5
+    					}
+    					corruption >= 10
+    				}
+    			}
+    			save_scope_as = revoke_character_populares
+    			random_list = {
+    				10 = {
+    					trigger = {
+    						is_general = yes
+    						is_governor = no
+    					}
+    					root.party_country = {
+    						set_variable = {
+    							name = senate_objective_revoke_office_populares_type
+    							value = 1
+    						}
+    					}
+    				}
+    				10 = {
+    					trigger = {
+    						is_governor = yes
+    					}
+    					root.party_country = {
+    						set_variable = {
+    							name = senate_objective_revoke_office_populares_type
+    							value = 2
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+    		trigger_if = {
+    			limit = {
+    				has_variable = senate_objective_revoke_office_populares_type
+    			}
+    			trigger_if = {
+    				limit = {
+    					var:senate_objective_revoke_office_populares_type = 1
+    				}
+    				hidden:scope:revoke_character_populares = {
+    					custom_tooltip = {
+    						text = revoke_generalship
+    						is_general = no
+    					}
+    				}
+    			}
+    			trigger_else_if = {
+    				limit = {
+    					var:senate_objective_revoke_office_populares_type = 2
+    				}
+    				hidden:scope:revoke_character_populares = {
+    					custom_tooltip = {
+    						text = revoke_governorship
+    						is_governor = no
+    					}
+    				}
+    			}
+    		}
+    		trigger_else = {
+    			always = no
+    		}
+    	}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+		party_country = { remove_variable = senate_objective_revoke_office_populares_type }
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = populares_agenda_cooldown }
+    		NOT = { exists = scope:senate_objective_revoke_office_party }
+    		NOT = { exists = scope:revoke_character_populares }
+    		scope:revoke_character_populares = {
+    			OR = {
+    				is_alive = no
+    				prisoner = yes
+    				NOT = { employer = ROOT.party_country }
+    				party_type = populares_party
+    			}
+    		}
+    	}
+    }
+
+    on_abort = {
+    	party_country = { remove_variable = senate_objective_revoke_office_populares_type }
+    }
+}
+
+senate_objective_appoint_member_populares = {
+	potential = {
+		is_party_type = populares_party
+		current_date > 450.10.10
+		party_country = {
+			any_character = {
+				party = root
+				employer = root.party_country
+				is_ruler = no
+				is_co_ruler = no
+				prisoner = no
+				is_adult = yes
+				trigger_if = {
+					limit = {
+						employer = { gender_equality = no }
+					}
+					is_female = no
+				}
+				trigger_if = {
+					limit = { has_any_office = yes }
+					has_tech_office = yes
+				}
+				NOR = {
+					is_general = yes
+					is_admiral = yes
+					is_governor = yes
+					has_character_modifier = foreign_citizen
+				}
+			}
+			NOT = { has_variable = populares_agenda_cooldown }
+		}
+	}
+
+	chance = {
+		factor = 3
+		modifier = {
+			factor = 3
+			party_country = {
+				any_governorships = {
+					count = all
+					any_governorship_state = {
+						has_governor = yes
+						NOT = { governor.character_party = root }
+					}
+					NOT = {
+						any_governorship_state = {
+							any_state_province = { this = root.party_country.capital_scope }
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			party_country = {
+				any_character = {
+					count = all
+					has_any_office = yes
+					has_tech_office = no
+					NOT = { character_party = root }
+				}
+			}
+		}
+	}
+
+	monthly_on_action = senate_objective_roman_17_pulse
+
+	on_start = {
+		save_scope_as = senate_objective_roman_appoint_office_populares
+		party_country = {
+			random_character = {
+				limit = {
+					party = root
+					employer = root.party_country
+					is_ruler = no
+					is_co_ruler = no
+					prisoner = no
+					is_adult = yes
+					trigger_if = {
+						limit = {
+							employer = { gender_equality = no }
+						}
+						is_female = no
+					}
+					trigger_if = {
+						limit = { has_any_office = yes }
+						has_tech_office = yes
+					}
+					NOR = {
+						is_general = yes
+						is_admiral = yes
+						is_governor = yes
+						has_character_modifier = foreign_citizen
+					}
+				}
+				save_scope_as = appointment_target
+			}
+		}
+	}
+
+	finished_when = {
+		agenda_force_block_trigger = yes
+		hidden:scope:appointment_target = {
+			custom_tooltip = {
+				text = senate_objective_appoint_member_generic_tt
+				OR = {
+					is_governor = yes
+					AND = {
+						has_any_office = yes
+						has_tech_office = no
+					}
+				}
+			}
+		}
+	}
+
+	on_finish = {
+		senate_objective_complete_effect = yes
+	}
+	
+	abort_when = {
+		OR = {
+			party_country = { has_variable = populares_agenda_cooldown }
+			NOT = { exists = scope:senate_objective_roman_appoint_office_populares }
+			NOT = { exists = scope:appointment_target }
+			scope:appointment_target = {
+				OR = {
+					is_alive = no
+					NOT = { employer = root.party_country }
+					is_ruler = yes
+					is_co_ruler = yes
+					prisoner = yes
+					NOT = { party = root }
+				}
+			}
+		}	
+	}
+}
+
+### Boni Party ###
+senate_objective_build_buildings_boni = {
+    potential = {
+    	is_party_type = boni_party
+    	party_country = {
+    		NOT = { has_variable = boni_agenda_cooldown }
+    		OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+    		any_owned_province = {
+    			has_city_status = yes
+    			free_building_slots >= 3
+    		}
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    	modifier = {
+    		factor = 2
+    		party_country.capital_scope = {
+    			has_city_status = yes
+    			free_building_slots >= 3
+    		}
+    	}
+    }
+
+    monthly_on_action = senate_objective_roman_9_pulse
+
+    on_start = {
+    	save_scope_as = senate_objective_build_buildings_party
+    	party_country = {
+    		random_owned_province = {
+    			limit = {
+    				has_city_status = yes
+    				free_building_slots >= 3
+    			}
+    			weight = {
+	    			modifier = {
+	    				factor = 10
+	    				is_capital = yes
+	    			}
+	    			modifier = {
+	    				factor = 5
+	    				is_state_capital = yes
+	    				is_capital = no
+	    			}
+    			}
+    			save_scope_as = senate_objective_build_buildings_target
+    		}
+    		set_variable = {
+    			name = senate_objective_build_buildings_number
+    			value = scope:senate_objective_build_buildings_target.num_of_used_building_slots
+    		}
+    		set_variable = {
+    			name = senate_objective_build_buildings_target_province
+    			value = scope:senate_objective_build_buildings_target
+    		}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+    		custom_tooltip = {
+    			text = senate_objective_build_buildings_boni_finished_tt
+    			senate_objective_build_buildings_current_svalue >= senate_objective_build_buildings_boni_svalue
+    		}
+    	}
+    	hidden:scope:senate_objective_build_buildings_target = {
+            trigger_if = {
+                limit = {
+                    has_construction = yes
+                }
+                custom_tooltip = {
+                    text = ongoing_construction_trigger_tt
+                    has_construction = no
+                }
+            }
+        }
+    }
+
+    on_finish = {
+		senate_objective_complete_effect = yes
+		party_country = { remove_variable = senate_objective_build_buildings_number }
+	}
+
+	abort_when = {
+		OR = {
+			party_country = { has_variable = boni_agenda_cooldown }
+			NOT = { exists = scope:senate_objective_build_buildings_party }
+			scope:senate_objective_build_buildings_target = {
+				OR = {
+					has_city_status = no
+					NOT = { owner = root.party_country }
+				}
+			}
+		}
+	}
+
+    on_abort = {
+    	party_country = { remove_variable = senate_objective_build_buildings_number }
+    }
+}
+
+senate_objective_state_investment_boni = {
+    potential = {
+    	is_party_type = boni_party
+    	party_country = {
+    		NOT = { has_variable = boni_agenda_cooldown }
+    		OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+    		any_owned_province = {
+    			OR = {
+    				state = {
+    					NAND = { 
+    						has_state_modifier = state_improvement_military
+    						has_state_modifier = state_improvement_civic
+    						has_state_modifier = state_improvement_oratory
+    						has_state_modifier = state_improvement_religious
+    					}
+    				}
+    				is_capital = yes
+    			}
+    		}
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    	modifier = {
+    		factor = 3
+    		party_country.capital_scope.state = {
+    			NAND = { 
+					has_state_modifier = state_improvement_military
+					has_state_modifier = state_improvement_civic
+					has_state_modifier = state_improvement_oratory
+					has_state_modifier = state_improvement_religious
+				}
+    		}
+    	}
+    }
+
+    monthly_on_action = senate_objective_roman_10_pulse
+
+    on_start = {
+    	save_scope_as = senate_object_state_investment_party
+    	party_country = {
+	    	random_owned_province = {
+	    		limit = {
+	    			OR = {
+		    			state = {
+	    					NAND = { 
+	    						has_state_modifier = state_improvement_military
+	    						has_state_modifier = state_improvement_civic
+	    						has_state_modifier = state_improvement_oratory
+	    						has_state_modifier = state_improvement_religious
+	    					}
+		    			}
+		    			is_capital = yes
+		    		}
+	    		}
+	    		weight = {
+	    			modifier = {
+	    				factor = 5
+	    				is_capital = yes
+	    			}
+	    			modifier = {
+	    				factor = 10
+	    				is_capital = yes
+	    				state = {
+	    					NAND = { 
+	    						has_state_modifier = state_improvement_military
+	    						has_state_modifier = state_improvement_civic
+	    						has_state_modifier = state_improvement_oratory
+	    						has_state_modifier = state_improvement_religious
+	    					}
+	    				}
+	    			}
+	    			modifier = {
+	    				factor = 10
+	    				state = {
+	    					any_state_province = {
+	    						exists = holding_owner
+	    						holding_owner = { party = root }
+	    					}
+	    				}
+	    			}
+	    		}
+	    		save_scope_as = senate_objective_state_investment_target
+	    	}
+	    	random_list = {
+	    		2 = {
+	    			trigger = {
+	    				scope:senate_objective_state_investment_target.state = {
+	    					NOT = { has_state_modifier = state_improvement_military }
+	    				}
+	    			}
+	    			set_variable = {
+	    				name = senate_objective_state_investment_type
+	    				value = 1
+	    			}
+	    		}
+	    		2 = {
+	    			trigger = {
+	    				scope:senate_objective_state_investment_target.state = {
+	    					NOT = { has_state_modifier = state_improvement_civic }
+	    				}
+	    			}
+	    			set_variable = {
+	    				name = senate_objective_state_investment_type
+	    				value = 2
+	    			}
+	    		}
+	    		2 = {
+	    			trigger = {
+	    				scope:senate_objective_state_investment_target.state = {
+	    					NOT = { has_state_modifier = state_improvement_oratory }
+	    				}
+	    			}
+	    			set_variable = {
+	    				name = senate_objective_state_investment_type
+	    				value = 3
+	    			}
+	    		}
+	    		2 = {
+	    			trigger = {
+	    				scope:senate_objective_state_investment_target.state = {
+	    					NOT = { has_state_modifier = state_improvement_religious }
+	    				}
+	    			}
+	    			set_variable = {
+	    				name = senate_objective_state_investment_type
+	    				value = 4
+	    			}
+	    		}
+	    		2 = {
+	    			trigger = {
+	    				scope:senate_objective_state_investment_target.state = {
+	    					AND = { 
+	    						has_state_modifier = state_improvement_military
+	    						has_state_modifier = state_improvement_civic
+	    						has_state_modifier = state_improvement_oratory
+	    						has_state_modifier = state_improvement_religious
+	    					}
+	    				}
+	    			}
+    				set_variable = {
+    					name = sen_obj_inv_gen_type
+    					value = {
+    						integer_range = {
+    							min = 1
+    							max = 4
+    						}
+    					}
+    				}
+	    		}
+	    	}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+	    	trigger_if = {
+	    		limit = {
+	    			has_variable = senate_objective_state_investment_type
+	    			var:senate_objective_state_investment_type = 1
+	    		}
+	    		hidden:scope:senate_objective_state_investment_target.state = {
+	    			has_state_modifier = state_improvement_military
+	    		}
+	    	}
+	    	trigger_else_if = {
+	    		limit = {
+	    			has_variable = senate_objective_state_investment_type
+	    			var:senate_objective_state_investment_type = 2
+	    		}
+	    		hidden:scope:senate_objective_state_investment_target.state = {
+	    			has_state_modifier = state_improvement_civic
+	    		}
+	    	}
+	    	trigger_else_if = {
+	    		limit = {
+	    			has_variable = senate_objective_state_investment_type
+	    			var:senate_objective_state_investment_type = 3
+	    		}
+	    		hidden:scope:senate_objective_state_investment_target.state = {
+	    			has_state_modifier = state_improvement_oratory
+	    		}
+	    	}
+	    	trigger_else_if = {
+	    		limit = {
+	    			has_variable = senate_objective_state_investment_type
+	    			var:senate_objective_state_investment_type = 4
+	    		}
+	    		hidden:scope:senate_objective_state_investment_target.state = {
+	    			has_state_modifier = state_improvement_religious
+	    		}
+	    	}
+	    	trigger_else = {
+	    		always = no
+	    	}
+    	}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+    	party_country = { remove_variable = senate_objective_state_investment_type }
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = boni_agenda_cooldown }
+    		NOT = { exists = scope:senate_object_state_investment_party }
+    		NOT = { 
+    			party_country = { has_variable = senate_objective_state_investment_type }
+    		}
+    		NOT = { exists = scope:senate_objective_state_investment_target }
+    		scope:senate_objective_state_investment_target.state = {
+    			NOT = {
+    				any_state_province = { owner = root.party_country }
+    			}
+    		}
+    	}
+    }
+
+    on_abort = {
+    	party_country = { remove_variable = senate_objective_state_investment_type }
+    }
+}
+
+senate_objective_stability_boni = {
+    potential = {
+    	is_party_type = boni_party
+    	party_country = {
+    		NOT = { has_variable = boni_agenda_cooldown }
+    		OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+    		stability <= 55
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    	modifier = {
+			factor = 2
+			party_country = { stability < 40 }
+		}
+		modifier = {
+			factor = 2
+			party_country = { stability < 20 } 
+		}
+    }
+
+    monthly_on_action = senate_objective_roman_11_pulse
+
+    on_start = {
+    	save_scope_as = senate_objective_increase_stability_boni_party
+    	party_country = {
+	    	set_variable = {
+	    		name = senate_objective_increase_stability_number
+	    		value = stability
+	    	}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+    		stability >= senate_objective_increase_stability_boni_svalue
+    	}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+		party_country = { remove_variable = senate_objective_build_buildings_number }
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = boni_agenda_cooldown }
+    		NOT = { exists = scope:senate_objective_increase_stability_boni_party }
+    	}
+    }
+
+    on_abort = {
+    	party_country = { remove_variable = senate_objective_build_buildings_number }
+    }
+}
+
+senate_objective_reduce_tyranny_boni = {
+    potential = {
+    	is_party_type = boni_party
+    	party_country = {
+    		NOT = { has_variable = boni_agenda_cooldown }
+    		OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+    		tyranny >= 10
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    	modifier = {
+			factor = 2
+			party_country = { tyranny > 20 }
+		}
+		modifier = {
+			factor = 2
+			party_country = { tyranny > 30 } 
+		}
+		modifier = {
+			factor = 2
+			party_country = { tyranny > 40 } 
+		}
+    }
+
+    monthly_on_action = senate_objective_roman_12_pulse
+
+    on_start = {
+    	save_scope_as = senate_objective_reduce_tyranny_party
+    	party_country = {
+    		set_variable = {
+    			name = senate_objective_reduce_tyranny_number
+    			value = root.party_country.tyranny
+    		}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	party_country = {
+    		tyranny <= senate_objective_reduce_tyranny_boni_svalue
+    	}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+    	party_country = { remove_variable = senate_objective_reduce_tyranny_number }
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = boni_agenda_cooldown }
+    		NOT = { exists = scope:senate_objective_reduce_tyranny_party }
+    	}
+    }
+
+    on_abort = {
+    	party_country = { remove_variable = senate_objective_reduce_tyranny_number }
+    }
+}
+
+senate_objective_change_law_boni = {
+    potential = {
+    	is_party_type = boni_party
+    	party_country = {
+    		NOT = { has_variable = boni_agenda_cooldown }
+    		OR = {
+				tag = ROM
+				primary_culture = roman
+			}
+    		OR = {
+    			AND = {
+	    			NOR = { # Military Reforms
+	    				has_law = lex_porcia 
+	    				has_law = punic_reforms
+	    			}
+	    			trigger_if = {
+    					limit = { has_variable = party_law_change_cooldown }
+	    				NOT = { var:party_law_change_cooldown = 1 }
+	    			}
+	    		}
+    			NAND = { 
+					has_law = leges_genuciae
+    				trigger_if = {
+    					limit = { has_variable = party_law_change_cooldown }
+    					var:party_law_change_cooldown = 2
+    				}
+    			} # Election Reforms 
+    			NAND = {
+    				has_law = no_laws_on_corruption
+    				trigger_if = {
+    					limit = { has_variable = party_law_change_cooldown }
+    					var:party_law_change_cooldown = 3
+    				}
+    			} # Assembly Endorsement
+    			AND = {
+    				NAND = {
+    					has_law = lex_claudia
+	    				trigger_if = {
+    						limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 4
+	    				}
+	    			} # Maritime Laws
+    				num_of_ports >= 1
+    			}
+    			AND = {
+    				NAND = {
+    					has_law = lex_ogulnia
+	    				trigger_if = {
+    						limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 5
+	    				}
+	    			} # Religious Laws
+    				civic_tech >= 3
+    			}
+    			AND = {
+    				NAND = {
+    					has_law = lex_hortensia
+	    				trigger_if = {
+    						limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 6
+	    				}
+	    			} # Integration Laws
+    				civic_tech >= 6
+    			}
+    			AND = {
+    				NAND = {
+    					has_law = lex_fufia_caninia
+	    				trigger_if = {
+    						limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 7
+	    				}
+	    			} # Citizenship Laws
+    				civic_tech >= 9
+    			}
+    			AND = {
+    				NAND = {
+    					has_law = lex_servilia_glaucia
+	    				trigger_if = {
+    						limit = { has_variable = party_law_change_cooldown }
+	    					var:party_law_change_cooldown = 8
+	    				}
+	    			} # Land Reforms
+    				civic_tech >= 12
+    			}
+    		}
+    	}
+    }
+
+    chance = {
+    	factor = 3
+    }
+
+    monthly_on_action = senate_objective_roman_13_pulse
+
+    on_start = {
+    	save_scope_as = sen_obj_cha_law_boni
+    	party_country = {
+    		hidden_effect = {
+    			random_list = {
+    				# Military Reforms
+					2 = {
+						trigger = {
+							NAND = {
+								has_law = lex_porcia 
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 1
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_boni
+							value = 1
+						}
+					}
+					2 = {
+						trigger = {
+							NAND = {
+								has_law = punic_reforms 
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 1
+			    				}
+			    			}
+			    			invention = global_cohort_recruit_speed_inv
+							rank >= regional_power
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_boni
+							value = 2
+						}
+					}
+					# Election Reforms
+					2 = {
+						trigger = {
+							NAND = {
+								has_law = leges_genuciae
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 2
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_boni
+							value = 3
+						}
+					}
+					# Assembly Endorsements
+					2 = {
+						trigger = {
+							NAND = {
+								has_law = no_laws_on_corruption
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 3
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_boni
+							value = 4
+						}
+					}
+					# Maritime Laws
+					2 = {
+						trigger = {
+							num_of_ports >= 1
+							NAND = {
+								has_law = lex_claudia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 4
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_boni
+							value = 5
+						}
+					}
+					# Religious Laws
+    				2 = {
+						trigger = {
+							civic_tech >= 3
+							NAND = {
+								has_law = lex_ogulnia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 5
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_boni
+							value = 6
+						}
+					}
+					# Integration Laws
+					2 = {
+						trigger = {
+							civic_tech >= 6
+							NAND = {
+								has_law = lex_hortensia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 6
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_boni
+							value = 7
+						}
+					}
+					# Citizenship Laws
+					2 = {
+						trigger = {
+							civic_tech >= 9
+							NAND = {
+								has_law = lex_fufia_caninia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 7
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_boni
+							value = 8
+						}
+					}
+					# Land Reforms
+					2 = {
+						trigger = {
+							civic_tech >= 12
+							NAND = {
+								has_law = lex_servilia_glaucia
+			    				trigger_if = {
+			    					limit = { has_variable = party_law_change_cooldown }
+			    					var:party_law_change_cooldown = 8
+			    				}
+			    			}
+						}
+						set_variable = {
+							name = sen_obj_cha_law_target_boni
+							value = 9
+						}
+					}
+    			}
+    		}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	hidden:party_country = {
+    		has_variable = sen_obj_cha_law_target_boni
+			trigger_if = {
+				limit = { has_variable = sen_obj_cha_law_target_boni }
+				trigger_if = {
+					limit = {
+						var:sen_obj_cha_law_target_boni = 1
+					}
+					has_law = lex_porcia
+				}
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_boni = 2
+					}
+					has_law = punic_reforms
+				}
+				# Election Reforms
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_boni = 3
+					}
+					has_law = leges_genuciae
+				}
+				# Assembly Endorsements
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_boni = 4
+					}
+					has_law = no_laws_on_corruption
+				}
+				# Maritime laws
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_boni = 5
+					}
+					has_law = lex_claudia
+				}
+				# Religious Laws
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_boni = 6
+					}
+					has_law = lex_ogulnia
+				}
+				# Integration Laws
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_boni = 7
+					}
+					has_law = lex_hortensia
+				}
+				# Citizenship Laws
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_boni = 8
+					}
+					has_law = lex_fufia_caninia
+				}
+				# Land Reforms
+				trigger_else_if = {
+					limit = {
+						var:sen_obj_cha_law_target_boni = 9
+					}
+					has_law = lex_servilia_glaucia
+				}
+			}
+			custom_tooltip = {
+				text = law_change_category_tt
+				trigger_if = {
+					limit = { has_variable = party_law_change_cooldown }
+					has_variable = sen_obj_cha_law_target_boni
+					NOR = {
+						AND = {
+							var:party_law_change_cooldown = 1
+							var:sen_obj_cha_law_target_boni <= 2
+						}
+						AND = {
+							var:party_law_change_cooldown = 2
+							var:sen_obj_cha_law_target_boni = 3
+						}
+						AND = {
+							var:party_law_change_cooldown = 3
+							var:sen_obj_cha_law_target_boni = 4
+						}
+						AND = {
+							var:party_law_change_cooldown = 4
+							var:sen_obj_cha_law_target_boni = 5
+						}
+						AND = {
+							var:party_law_change_cooldown = 5
+							var:sen_obj_cha_law_target_boni = 6
+						}
+						AND = {
+							var:party_law_change_cooldown = 6
+							var:sen_obj_cha_law_target_boni = 7
+						}
+						AND = {
+							var:party_law_change_cooldown = 7
+							var:sen_obj_cha_law_target_boni = 8
+						}
+						AND = {
+							var:party_law_change_cooldown = 8
+							var:sen_obj_cha_law_target_boni = 9
+						}
+					}
+	    		}
+	    	}
+		}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+    	party_country = { 
+	    	set_variable = {
+	            name = party_law_change_cooldown
+	            days = 7300 # 20 years
+	            value = 0
+	        }
+	        boni_law_cooldown_effect = yes
+			remove_variable = sen_obj_cha_law_target_boni
+		}
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = boni_agenda_cooldown }
+    		NOT = { 
+				party_country = { has_variable = sen_obj_cha_law_target_boni }
+			}
+    		NOT = { exists = scope:sen_obj_cha_law_boni }
+			trigger_if = {
+				limit = {
+					party_country = {
+						has_variable = party_law_change_cooldown
+						has_variable = sen_obj_cha_law_target_boni
+					}
+				}
+				party_country = { var:party_law_change_cooldown = var:sen_obj_cha_law_target_boni }
+			}
+    	}
+    }
+
+    on_abort = {
+    	party_country = {
+			if = {
+				limit = {
+					has_variable = sen_obj_cha_law_target_boni
+					has_variable = party_law_change_cooldown
+				}
+				if = {
+					limit = { var:party_law_change_cooldown = var:sen_obj_cha_law_target_boni }
+					add_party_approval = {
+						party_type = oligarchic_party
+						value = -5
+					}
+				}
+			}
+			remove_variable = sen_obj_cha_law_target_boni
+		}
+    }
+}
+
+senate_objective_increase_citizenship_boni = {
+    potential = {
+    	is_party_type = boni_party
+    	party_country = {
+    		NOT = { has_variable = boni_agenda_cooldown }
+    		any_country_culture = {
+    			is_integrated = no
+    			NOT = { this.culture = root.party_country.culture }
+				save_temporary_scope_as = culture_to_integrate
+				country_culture_pop_count > 80
+				root.party_country = {
+					any_owned_province = {
+						dominant_province_culture = scope:culture_to_integrate.culture
+					}
+				}
+    		}
+    	}
+    }
+
+	chance = {
+		factor = 2
+		modifier = {
+			factor = 2
+			party_country = {
+				any_country_culture = {
+					is_integrated = no
+					culture.culture_group = PREV.culture_group
+					NOT = { this.culture = root.party_country.culture }
+					country_culture_pop_count > 100
+					save_temporary_scope_as = culture_to_integrate
+					root.party_country = {
+						any_owned_province = {
+							dominant_province_culture = scope:culture_to_integrate.culture
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			party_country = {
+				any_country_culture = {
+					is_integrated = no
+					country_culture_pop_count > 300
+					NOT = { this.culture = root.party_country.culture }
+					save_temporary_scope_as = culture_to_integrate
+					root.party_country = {
+						any_owned_province = {
+							dominant_province_culture = scope:culture_to_integrate.culture
+						}
+					}
+				}
+			}
+		}
+	}
+
+    monthly_on_action = senate_objective_roman_19_pulse
+
+    on_start = {
+    	save_scope_as = increase_citizenship_party
+    	party_country = {
+    		random_country_culture = {
+    			limit = {
+    				is_integrated = no
+    				NOT = { this.culture = root.party_country.culture }
+					country_culture_pop_count > 80
+					save_temporary_scope_as = culture_to_integrate
+					root.party_country = {
+						any_owned_province = {
+							dominant_province_culture = scope:culture_to_integrate.culture
+						}
+					}
+    			}
+    			weight = {
+	    			modifier = {
+						factor = 3
+						culture.culture_group = root.party_country.culture_group
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count > 150
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count > 200
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count > 250
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count > 400
+					}
+					modifier = {
+						factor = 4
+						country_culture_pop_count > 800
+					}
+				}
+    			save_scope_as = citizenship_culture_target
+    		}
+    	}
+    }
+
+    finished_when = {
+    	agenda_force_block_trigger = yes
+    	scope:citizenship_culture_target = {
+    		is_integrated = yes
+    	}
+    }
+
+    on_finish = {
+    	senate_objective_complete_effect = yes
+    }
+
+    abort_when = {
+    	OR = {
+    		party_country = { has_variable = boni_agenda_cooldown }
+    		NOT = { exists = scope:increase_citizenship_party }
+    		NOT = { exists = scope:citizenship_culture_target }
+    	}
+    }
+
+    on_abort = {
+
+    }
+}

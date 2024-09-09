@@ -1,0 +1,407 @@
+﻿steppe_philosophy_2 = { #Bactrian Path
+	color = hsv { 0.99 0.64 0.7 }
+	image = persian_bactrian_path_1
+	
+	allow = {
+		trigger_if = {
+			limit = {
+				country_culture_group = bactrian
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = bactrian
+		}
+		trigger_else_if = {
+			limit = {
+				OR = {
+					has_variable = was_bactria
+					tag = BAC
+				}
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = BAC
+		}
+		trigger_else_if = {
+			limit = {
+				tag = ARS
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = ARS
+		}
+		trigger_else_if = {
+			limit = {
+				tag = PAR
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = PAR
+		}
+		trigger_else_if = {
+			limit = {
+				tag = TAY
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = TAY
+		}
+		#trigger_else_if = {
+		#	limit = {
+		#		heritage = spartocid_heritage
+		#	}
+		#	custom_tooltip = {
+		#		text = "began_with_tradition_group"
+		#	}
+		#	heritage = spartocid_heritage
+		#}
+		#trigger_else_if = {
+		#	limit = {
+		#		heritage = bosporan_heritage
+		#	}
+		#	custom_tooltip = {
+		#		text = "began_with_tradition_group"
+		#	}
+		#	heritage = bosporan_heritage
+		#}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = bactrian_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_bactrian
+		}
+	}
+
+	persian_bactrian_path_2 = { #Greco-bactria
+		modifier = {
+			build_cost = -0.05
+			global_monthly_civilization = 0.02
+			research_points_modifier = 0.05
+		}
+		icon = persian_bactrian_path_2
+		requires = {}
+		
+		on_activate = {
+			add_innovation = 3
+		}
+	}
+	persian_bactrian_path_4 = { #klurechoi
+		modifier = {
+			global_pop_assimilation_speed_modifier = 0.05
+		}
+		icon = persian_bactrian_path_4
+		requires = {persian_bactrian_path_2}
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 2
+				create_2_freemen_effect = yes
+			}
+		}
+	}
+	bactria_alexander = { #Legaacy if alexander
+		modifier = { price_found_city_cost_modifier = -0.1 }
+		enable_ability = military_colonies 
+		allow = {
+			nor = {
+				has_variable = alexander_legacy
+			}
+		}
+		icon = persian_bactrian_path_4
+		requires = {persian_bactrian_path_2}
+		on_activate = {
+			set_variable= {
+				name = alexander_legacy
+				duration = -1
+			}
+			ordered_owned_province = {
+				limit = {
+					NOT = { dominant_province_culture_group = root.culture_group }
+					any_neighbor_province = {
+						count > 1
+						NOT = { dominant_province_culture_group = root.culture_group }
+					}
+					state = {
+						NOT = {
+							any_state_province = {
+								is_capital = yes
+							}
+						}
+					}
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				add_province_modifier = {
+					name = "local_colonia"
+					duration = -1
+				}
+				custom_tooltip = military_colonia_here_tt
+				trigger_event = { id = cultural_integration.11 }
+			}
+		}
+	}
+	bactrian_path_14 = { ###
+		modifier = { 
+			forum_building_cost = -0.1
+			discipline = 0.05
+			global_manpower_modifier = 0.05 
+		} 
+		icon = levantine_egyptian_path_4
+		requires = { bactria_alexander }
+	}
+	bactria_dis = { ###dissilussioned masses
+		modifier = {
+			mercenary_land_maintenance_cost = -0.1
+			recruit_mercenary_cost_modifier = -0.1
+		}
+		allow = {
+			nor = {
+				has_variable = disillusioned
+			}
+		}
+		icon = persian_bactrian_path_end_bonus
+		requires = {persian_bactrian_path_4 }
+		on_activate = {
+			set_variable = {
+				name = disillusioned
+				duration = -1
+			}
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 4
+				create_2_freemen_effect = yes
+			}
+		}
+	}
+	greco_bactria_syncretism = {#syncretism
+		modifier = {
+			happiness_for_same_culture_modifier = 0.04
+			happiness_for_wrong_culture_group_modifier = 0.06
+		}
+		icon = persian_bactrian_path_2
+		requires = {persian_bactrian_path_4 bactria_alexander}
+	}
+	indo_greek_path_1 = { ###into india
+		modifier = {
+			levy_size_multiplier = 0.03
+			movement_cost = -0.05
+			army_maintenance_cost = -0.05
+		}
+		#on_activate = {
+		#	change_law = legion
+		#}
+		icon = persian_achaemenid_path_7
+		requires = { greco_bactria_syncretism}
+	}
+	indo_greek_path_2 = { #grecobuddhist syncretism
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+		on_activate = {
+			set_country_religion = buddhism
+
+		}
+		icon = persian_achaemenid_path_7
+		requires = {indo_greek_path_1}
+	}
+
+
+
+
+
+
+
+
+	
+
+
+
+	persian_bactrian_path_7 = { #bactria heartland
+		modifier = {
+			plains_combat_bonus = 0.15
+			
+
+		}
+		on_activate = {
+			add_4_free_province_investments = yes
+		}
+		icon = persian_bactrian_path_7
+		requires = {}
+	}
+	bactrian_path_15 = { ###silk road
+		modifier = { 
+			global_commerce_modifier = 0.1
+			global_monthly_food_modifier = 0.05
+			global_capital_trade_routes = 1
+			global_state_trade_routes = 0.15
+		} 
+		icon = north_african_army_path_4
+		requires = { persian_bactrian_path_7 }
+	}
+	bactrian_path_10 = { ##mountain rangers
+		modifier = { 
+			mountain_combat_bonus = 0.05
+			hills_combat_bonus = 0.05
+			land_unit_attrition = -0.15
+		} 
+		icon = persian_achaemenid_path_2
+		requires = { persian_bactrian_path_7 }
+	}
+	bactrian_path_13 = { ##sogdian rock
+		modifier = { 
+			global_defensive = 0.15
+			fort_limit = 1
+			global_food_capacity = 200
+		}
+		on_activate = {
+			add_3_free_province_investments = yes
+		}
+		icon = north_african_naval_path_6
+		requires = { bactrian_path_10 }
+	}
+	bactrian_path_9 = { ###
+		modifier = { 
+			global_supply_limit_modifier = 0.15
+			hostile_attrition = 1
+			light_infantry_defensive = 0.1
+		} 
+		icon = persian_scythian_path_6
+		requires = { bactrian_path_13 }
+	}
+	persian_bactrian_path_1 = { ##bactrian horsemen
+		modifier = { 
+			heavy_cavalry_discipline = 0.1
+			horse_archers_offensive = 0.1
+		}
+		icon = persian_bactrian_path_1
+		requires = { persian_bactrian_path_7 }
+	}
+	bactria_cataphract = { ##bactrian horsemen
+		modifier = { 
+			heavy_cavalry_offensive = 0.15
+			heavy_cavalry_defensive = 0.2
+		}
+		allow = {
+			nor = {
+				has_variable = cataphract
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = cataphract
+				duration = -1
+			}
+			ordered_owned_province = {
+				limit = {
+					dominant_province_culture_group = root.culture_group
+				}
+				alternative_limit = {
+					always = yes
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 2
+				create_2_nobles_effect = yes
+			}	
+		}
+		icon = greek_seleucid_path_5
+		requires = { persian_bactrian_path_1 }
+	}
+	bactrian_path_2 = { ###archery
+		modifier = {
+			archers_cost = -0.2
+			archers_discipline = 0.1
+		} 
+		icon = mauryan_mauryas_path_5
+		requires = {persian_bactrian_path_1 }
+	}
+	bactrian_path_6 = { ###poinson arrows
+		modifier = { 
+			archers_offensive = 0.1
+			horse_archers_offensive = 0.15
+		} 
+		icon = persian_achaemenid_path_7
+		requires = { bactrian_path_2 }
+	}
+	bactrian_path_4 = { ###camel breeding
+		modifier = { 
+			camels_defensive = 0.1
+			camels_morale = 0.1
+			camels_mountain_combat_bonus = 0.1
+		} 
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					NOT = { trade_goods = camel }
+					is_capital = no
+					has_non_food_trade_good_trigger = yes
+				}
+				order_by = total_population
+				set_trade_goods = camel
+			}
+		}
+		icon = north_african_tribal_path_end_bonus
+		requires = { persian_bactrian_path_1 }
+	}
+	bactrian_path_7 = { ###tomaris
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+		modifier = { 
+			horse_archers_defensive = 0.15
+			horse_archers_discipline = 0.1
+		} 
+		icon = persian_scythian_path_3
+		requires = { bactrian_path_4 }
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################################3
+
+
+	
+
+	
+
+	
+}

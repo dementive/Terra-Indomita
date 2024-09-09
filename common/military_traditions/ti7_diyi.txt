@@ -1,0 +1,343 @@
+chinese_philosophy_2 = { 
+	color = hsv { 0 0.88 0.5 }
+	image = chinese_tribal_path_4
+	
+	allow = {
+		trigger_if = {
+			limit = {
+				country_culture_group = di
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = di
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = hu
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = hu
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = uralic_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = uralic_group
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = nivkh_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = nivkh_group
+		}
+
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = eastern_steppe_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_eastern_steppe
+		}
+	}
+	ti_rong_di_path_2 = { #merciless riders
+		icon = tocharian_city_state_conscription
+		requires = {  }
+		modifier = {
+			heavy_cavalry_discipline = 0.05
+			light_cavalry_movement_speed = 0.1
+		}
+		allow = {
+			and = {
+				or= {
+					country_culture_group = di
+					country_culture_group = hu
+					country_culture_group = uralic_group
+					country_culture_group = nivkh_group
+				}
+				nor = {
+					has_variable = scythian_path
+				}
+			}
+		}
+		on_activate = {
+			set_variable  = {
+				name = scythian_path
+				duration = -1
+			}
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+	}
+	ti_rong_di_path_3 = { #mounted archeres
+		icon = chinese_tribal_path_4
+		requires = { ti_rong_di_path_2 }
+		modifier = {
+			horse_archers_movement_speed = 0.1
+			horse_archers_cost = -0.1
+		}
+		enable_tactic = cavalry_skirmish
+	}
+	ea_tribal_path_riding_and_shooting = { ###騎射爲本
+		modifier = { 
+			horse_archers_offensive = 0.05
+			horse_archers_discipline = 0.05
+			horse_archers_morale = 0.05
+		}
+		
+		icon = chinese_tribal_path_4
+		requires = { ti_rong_di_path_3}
+	}
+	ti_rong_di_path_15 = {#riders of death
+		icon = chinese_path_iron_use
+		allow = {
+			country_culture_group = di
+		}
+		requires = { ea_tribal_path_riding_and_shooting }
+		modifier = {
+			light_cavalry_offensive = 0.05
+			horse_archers_offensive = 0.05
+			light_cavalry_movement_speed = 0.05
+		}
+	}
+	ti_rong_di_path_4 = { #heaavy horses
+		icon = chinese_path_temporary_response
+		requires = { ti_rong_di_path_2 }
+		allow = {
+			nor = {
+				has_variable = cataphract
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = cataphract
+				duration = -1
+			}
+			ordered_owned_province = {
+				limit = {
+					dominant_province_culture_group = root.culture_group
+				}
+				alternative_limit = {
+					always = yes
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 3
+				create_2_nobles_effect = yes
+			}	
+		}
+		modifier = {
+			heavy_cavalry_defensive = 0.1
+			heavy_cavalry_offensive = 0.1
+			heavy_cavalry_maintenance_cost = 0.1
+		}
+	}
+	ti_rong_di_path_8 = {
+		icon = ea_tribal_path_let_others_work_for_us
+		requires = { ti_rong_di_path_4 }
+		modifier = {
+			land_morale_recovery = 0.025
+			war_exhaustion = -0.04
+			heavy_cavalry_defensive = 0.05
+		}
+	}
+	ea_tribal_path_vast_territories = { ###廣袤領土
+		modifier = {
+			army_maintenance_cost = -0.1
+			army_weight_modifier = -0.1
+			cohort_reinforcement_speed = 0.05
+		}
+		icon = ea_tribal_path_avoid_the_shortcomings
+		requires = { ti_rong_di_path_8 }
+	}
+	steppe_raiders_path_2a = {#steppe
+		modifier = {
+			steppes_combat_bonus = 0.15
+			plains_combat_bonus = 0.1
+			heavy_cavalry_morale = 0.05
+			}
+		icon = steppe_raiders_path_2a
+		requires = {ti_rong_di_path_2}
+	}
+	ea_tribal_path_avoid_the_shortcomings = { ###揚長避短
+		modifier = { 
+			light_cavalry_discipline = 0.1
+			light_cavalry_discipline = 0.1
+		}
+		enable_tactic = hit_and_run_tactics
+		icon = persian_scythian_path_3
+		requires = {steppe_raiders_path_2a}
+	}
+	ea_tribal_path_foot_archer_training = { ###步弓訓練
+		modifier = { 
+			archers_discipline = 0.05
+			archers_offensive = 0.05
+			archers_morale = 0.05
+		}
+		
+		icon = ea_tribal_path_foot_archer_training
+		requires = { ea_tribal_path_avoid_the_shortcomings }
+	}
+	ea_tribal_path_let_others_work_for_us = { ###爲我所用
+		modifier = {
+			mercenary_land_maintenance_cost = -0.2
+			recruit_mercenary_cost_modifier = -0.1
+		}
+		
+		icon = ea_tribal_path_let_others_work_for_us
+		requires = { ea_tribal_path_vast_territories }
+	}
+	ea_tribal_path_warriors_creed = { ###戰士信條
+		modifier = { 
+			global_start_experience = 10
+			character_loyalty = 3
+			levy_size_multiplier = 0.025
+		}
+		allow = {
+			and = {
+				or = {
+					is_tribal = yes
+					country_culture_group = di
+					country_culture_group = hu
+					country_culture_group = uralic_group
+					country_culture_group = nivkh_group
+				}
+				nor = {
+					has_variable = clan_tradition
+				}
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = clan_tradition
+				duration = -1
+			}
+		}
+		icon = ea_tribal_path_warriors_creed
+		requires = {   }
+	}
+	ea_tribal_path_pleasant_location = { ###世外桃源
+		modifier = { 
+			plains_combat_bonus = 0.15
+			axemen_discipline = 0.05
+			light_infantry_discipline = 0.05
+		}
+		
+		icon = ea_tribal_path_pleasant_location
+		requires = { ea_tribal_path_warriors_creed }
+	}
+	ea_tribal_path_attacking_the_city = { ###攻城略地
+		modifier = { 
+			siege_ability = 0.1
+			assault_ability = 0.05
+			fort_limit = 1
+		}
+		
+		icon = ea_tribal_path_attacking_the_city
+		requires = { ea_tribal_path_pleasant_location }
+	}
+	ea_tribal_path_looting_in_all_directions = { ###劫掠四方
+		modifier = { 
+			enslavement_efficiency = 0.1
+			light_infantry_offensive = 0.05
+			axemen_offensive = 0.075
+		}
+		icon = ea_tribal_path_looting_in_all_directions
+		requires = {ea_tribal_path_attacking_the_city }
+	}
+	ti_rong_di_path_1 = {
+		icon = persian_bactrian_path_7
+		enable_tactic = hit_and_run_tactics
+		modifier = { 
+			hills_combat_bonus = 0.1
+			hostile_attrition = 1
+		}
+		requires = {ea_tribal_path_warriors_creed}
+	}
+	ea_tribal_path_all_hands_on_deck = { ###全民皆兵
+		modifier = {
+			levy_size_multiplier = 0.025
+			global_manpower_modifier = 0.05
+		}
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+		icon = ea_tribal_path_all_hands_on_deck
+		requires = { ti_rong_di_path_1 }
+	}
+	ea_tribal_path_geographical_advantages = { ###因糧於敵
+		modifier = { 
+			land_unit_attrition = -0.15
+			supply_train_cost = -0.15
+			steppes_combat_bonus = 0.05
+			plains_combat_bonus = 0.05
+		}
+		icon = ea_tribal_path_geographical_advantages
+		requires = { ea_tribal_path_pleasant_location ti_rong_di_path_1 }
+	}
+	ti_rong_di_path_13 = {
+		icon = persian_scythian_path_3
+		requires = { ea_tribal_path_all_hands_on_deck }
+		modifier = {
+			land_morale_modifier = 0.05
+			manpower_recovery_speed = 0.025
+			light_infantry_defensive = 0.05
+		}
+	}
+	
+	
+	ti_rong_di_path_9 = {
+		icon = ea_tribal_path_pleasant_location
+		requires = { ea_tribal_path_all_hands_on_deck ea_tribal_path_attacking_the_city }
+		modifier = {
+			heavy_cavalry_movement_speed = 0.1
+			experience_decay = -0.005
+			farmland_combat_bonus = 0.05
+		}
+		on_activate = {
+			add_innovation = 2
+		}
+	}
+	ea_tribal_path_civilization = { ###文明經驗
+		modifier = {
+			country_civilization_value = 5
+		}
+		
+		icon = ea_tribal_path_civilization
+		requires = { ti_rong_di_path_9   }
+		on_activate = {
+			add_innovation = 1
+			set_variable = chinese_influence
+		}
+	}
+	
+	
+}

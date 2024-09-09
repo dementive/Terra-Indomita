@@ -1,0 +1,274 @@
+steppe_philosophy = { #Scythian Path
+	color = hsv { 0.99 0.64 0.7 }
+	image = persian_scythian_path_2
+	
+	allow = {
+		trigger_if = {
+			limit = { 
+				country_culture_group = saka_g 
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = saka_g
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = bactrian
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = bactrian
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = sarmatian_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = sarmatian_group
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = uralic_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = uralic_group
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = scythia
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = scythia
+		}
+		trigger_else_if = {
+			limit = {
+				tag = PAR
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = PAR
+		}
+		trigger_else_if = {
+			limit = {
+				heritage = spartocid_heritage
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			heritage = spartocid_heritage
+		}
+		trigger_else_if = {
+			limit = {
+				heritage = bosporan_heritage
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			heritage = bosporan_heritage
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = steppe_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_steppe
+		}
+	}
+	bactrian_path_5 = { ###funerary
+		modifier = { 
+			manpower_recovery_speed = 0.05
+			global_freemen_output = 0.05
+			archers_offensive = 0.05
+		} 
+		icon = persian_achaemenid_path_4
+		requires = {  }
+	}
+	scythian_path_7 = { ###
+		modifier = { 
+			steppes_combat_bonus = 0.1
+			plains_combat_bonus = 0.1
+		} 
+		enable_tactic = hit_and_run_tactics
+		icon = persian_philosophy_start_bonus
+		requires = { bactrian_path_5 }
+	}
+	scythian_path_2 = { ###
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+		modifier = { 
+			enslavement_efficiency = 0.05
+			archers_offensive = 0.05
+		} 
+		icon = mauryan_mauryas_path_1
+		requires = {scythian_path_7 }
+	}
+	scythian_path_14 = { ###women
+		modifier = { 
+			levy_size_multiplier = 0.025
+			global_freemen_output = 0.05
+			light_infantry_defensive = 0.05
+		} 
+		icon = persian_achaemenid_path_end_bonus
+		requires = { scythian_path_2 }
+	}
+	bactrian_path_3 = { ###
+		modifier = { 
+			land_morale_modifier = 0.05
+			light_infantry_discipline = 0.05
+			archers_discipline = 0..05
+		} 
+		icon = persian_achaemenid_path_1
+		requires = {bactrian_path_5 }
+	}
+	scythian_path_4 = { ##siege
+		modifier = { 
+			siege_ability = 0.1
+			assault_ability = 0.05
+		} 
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+		icon = latin_support_path_3
+		requires = { bactrian_path_3 }
+	}
+	scythian_path_13 = { ###royal kurgens
+		allow = {
+			nor = {
+				has_variable = cataphract
+			}
+		}
+		on_activate = {
+			add_innovation = 2
+		}
+		modifier = { 
+			global_start_experience = 10
+			global_nobles_output = 0.06 
+		} 
+		icon = greek_seleucid_path_5
+		requires = { scythian_path_4 }
+	}
+	scythian_path_6 = { ###
+		modifier = { 
+			land_unit_attrition = -0.1
+			army_weight_modifier = -0.1
+			experience_decay = -0.005
+		} 
+		icon = levantine_arabian_path_7
+		requires = { scythian_path_7 bactrian_path_3 }
+
+	}
+	bactrian_path_11 = { ###ssagaris
+		modifier = { 
+			army_maintenance_cost = -0.1
+			axemen_discipline = 0.05
+			light_infantry_offensive= 0.05
+		} 
+		icon = persian_scythian_path_7
+		requires = { scythian_path_2 scythian_path_4 }
+	}
+	scythian_path_5 = { ###
+
+		modifier = { 
+			horse_archers_morale = 0.05
+			axemen_defensive = 0.05
+		} 
+		icon = persian_scythian_path_1
+		requires = { bactrian_path_11 }
+
+	}
+
+
+
+
+	#	scythian_path_10 = { #barbed arrowheads
+	#		modifier = { 
+	#			horse_archers_discipline = 0.1
+	#			horse_archers_morale = 0.1
+	#		} 
+	#		enable_tactic = hit_and_run_tactics
+	#		icon = persian_scythian_path_3
+	#		requires = {  }
+	#	}
+	#
+	#	scythian_path_11 = { ###quiver
+	#		modifier = { 
+	#			horse_archers_offensive = 0.15
+	#			horse_archers_mountain_combat_bonus = 0.1
+	#		} 
+	#		icon = greek_antigonid_path_7
+	#		requires = {  }
+	#	}
+	#	
+	#	
+	#	
+	#	persian_scythian_path_7 = { ###Persia 2AA
+	#		modifier = { 
+	#			light_infantry_offensive = 0.1
+	#		}
+	#		icon = persian_scythian_path_7
+	#		requires = {}
+	#	}
+	#	
+	#	scythian_path_5 = { ###
+	#		enable_tactic = cavalry_skirmish
+	#		modifier = { 
+	#			horse_archers_morale = 0.1
+	#		} 
+	#		icon = persian_scythian_path_1
+	#		requires = {  }
+	#
+	#	}
+	#	
+	#	
+	#	scythian_path_9 = { ###sacled armour
+	#		modifier = { 
+	#			heavy_cavalry_defensive = 0.1
+	#		} 
+	#		icon = persian_scythian_path_5
+	#		requires = {  }
+	#	}
+	#
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		#######################
+	
+		
+	
+	
+
+	
+
+	
+}

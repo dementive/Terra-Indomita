@@ -1,0 +1,312 @@
+celtic_philosophy = { 
+	color = hsv { 1.0 1 0.5 }
+	image = celtic_britannic_path_7
+	
+	allow = {
+		trigger_if = {
+			limit = { country_culture_group = gallic }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = gallic
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = belgae_group }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = belgae_group
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = celt_iberia }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = celt_iberia
+		}
+		trigger_else_if = {
+			limit = { primary_culture = venetic }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			primary_culture = venetic
+		}
+		trigger_else_if = {
+			limit = { primary_culture = ligurian }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			primary_culture = ligurian
+		}
+		trigger_else_if = {
+			limit = { 
+				tag = MAS
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = MAS
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = celtic_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_celtic
+		}
+	}
+	celtic_germanic_path_6 = { #clan
+		modifier = { 
+			levy_size_multiplier = 0.03
+			global_manpower_modifier = 0.05
+			character_loyalty = 3
+		}
+		allow = {
+			and = {
+				or = {
+					is_tribal = yes
+					country_culture_group = gallic
+					country_culture_group = belgae_group
+					primary_culture = venetic
+					primary_culture = ligurian
+					tag = MAS
+				}
+				nor = {
+					has_variable = clan_tradition
+				}
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = clan_tradition
+				duration = -1
+			}
+		}
+		icon = celtic_germanic_path_6
+		requires = {}
+	}
+	celtic_germanic_path_3 = { ###Celtic 4A
+		enable_tactic = hit_and_run_tactics
+		modifier = { 
+			forest_combat_bonus = 0.15
+			archers_offensive = 0.05
+		}
+		icon = celtic_germanic_path_3
+		requires = { celtic_germanic_path_6}
+	}
+	celtic_gallic_path_3 = { ###Celtic 4B
+		modifier = { 
+			plains_combat_bonus = 0.1
+			farmland_combat_bonus = 0.1
+			enslavement_efficiency = 0.05
+		}
+		icon = celtic_gallic_path_3
+		requires = {celtic_germanic_path_6  }
+	}
+	celtic_germanic_path_end_bonus = { ###Celtic 2BB
+		modifier = { 
+			land_unit_attrition = -0.1
+			spearmen_discipline = 0.1
+		}
+		icon = celtic_germanic_path_end_bonus
+		requires = { celtic_germanic_path_3 celtic_gallic_path_3 }
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = tactician
+				}
+			}
+		}
+	}
+	celtic_britannic_path_7 = { #taKE UP RMS
+		modifier = { 
+			levy_size_multiplier = 0.03
+			spearmen_offensive = 0.05
+		}
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+		icon = celtic_gallic_path_1
+		requires = {celtic_germanic_path_3}
+	}
+	celtic_britannic_path_2 = { ###Celtic 3BA
+		modifier = { 
+			light_infantry_discipline = 0.05
+			global_cohort_start_experience = 5
+			war_exhaustion = -0.02
+		}
+		icon = celtic_britannic_path_2
+		requires = {celtic_gallic_path_3}
+	}
+	celtic_mercenaries = {
+		modifier = {
+			experience_decay = -0.005
+			heavy_infantry_discipline = 0.05
+		}
+		enable_tactic = greek_phalanx
+		enable_tactic = triplex_acies
+		on_activate = {
+			add_innovation = 2
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = tactician
+				}
+			}
+		}
+		icon = latin_tribal_path_7
+		requires = {celtic_britannic_path_2}
+	}
+	gallic_path_6 = { #druidic ferver
+		modifier = {
+			light_infantry_offensive = 0.05
+			axemen_offensive = 0.05
+			omen_power = 0.1
+		}
+		icon = latin_tribal_path_3
+		on_activate = {
+			random_character = {
+				limit = {
+					has_high_priest_office_trigger = yes
+				}
+				alternative_limit = {
+					is_ruler = yes
+				}
+				add_zeal = 3
+			}
+		}
+		requires = { celtic_britannic_path_7 }
+	}
+	celtic_latin_enable = { ###celtic 3BB
+		modifier = { 
+			spearmen_defensive = 0.05
+			hills_combat_bonus = 0.05
+			chariots_discipline = 0.1
+		}
+		requires = { celtic_hill_fort }
+		icon = latin_roman_path_7
+	}
+	
+	celtic_hill_fort = { ###hill fort
+		modifier = { 
+			fort_limit = 1
+			global_defensive = 0.1
+		}
+		
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					or = {
+						has_city_status = yes
+						is_capital = yes
+					}
+				}
+				add_building_level = fortress_building
+				add_3_free_province_investments = yes
+			}
+		}
+		requires = {celtic_britannic_path_7 celtic_britannic_path_2  }
+		icon = latin_philosophy_start_bonus
+	}
+
+
+
+
+
+
+
+
+
+
+	celtic_gallic_path_end_bonus = { ###carynx
+		modifier = { 
+			manpower_recovery_speed = 0.05
+		}
+		
+		icon = celtic_gallic_path_end_bonus
+		requires = {  }
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					has_city_status = no
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 2
+				create_2_freemen_effect = yes
+			}
+		}		
+	}
+	gallic_path_1 = { #noricum steel
+		modifier = {
+			heavy_infantry_offensive = 0.05
+			heavy_infantry_cost = -0.05
+		}
+		on_activate = {
+			unlock_invention = gallic_noric_steel_inv
+			add_innovation = 2
+		}
+		requires = {celtic_gallic_path_end_bonus} 
+		icon = celtic_gallic_path_2
+	}
+	gallic_path_2 = { #chainmail
+		modifier = {
+			heavy_infantry_discipline = 0.05
+			spearmen_discipline = 0.05
+		}
+		on_activate = {
+			unlock_invention = gallic_chainmail_inv
+		}
+		icon = latin_roman_path_5
+		requires = { gallic_path_1}
+	}
+	gallic_path_3 = { #thureous shield
+		modifier = {
+			heavy_infantry_defensive = 0.05
+		}
+		icon = greek_seleucid_path_6
+		requires = { gallic_path_2}
+	}
+	gallic_path_4 = {#celtic longsword
+		modifier = {
+			heavy_cavalry_cost = -0.1
+			heavy_cavalry_offensive = 0.05
+		}
+		icon = celtic_britannic_path_2
+		on_activate = {
+			unlock_invention = spatha_inv
+		}
+		requires = { gallic_path_1}
+	}
+	celtic_gallic_path_7 = { #scale the walls
+		modifier = { 
+			siege_ability = 0.1
+		}
+		icon = celtic_gallic_path_7
+		requires = { celtic_gallic_path_end_bonus}
+	}
+	gallic_path_5 = { #veneti sails
+		modifier = {
+			naval_damage_taken = -0.2
+			liburnian_offensive = 0.2
+		}
+		requires = { celtic_gallic_path_7} 
+		icon = north_african_naval_path_1
+	}
+}

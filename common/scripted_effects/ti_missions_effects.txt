@@ -50,3 +50,48 @@
 		}
 	}
 }
+freemen_tradition_effect = {
+	ordered_owned_province = {
+		limit = {
+			dominant_province_culture_group = root.culture_group
+		}
+		order_by = {
+			value = 0
+			add = population_cap
+			subtract = total_population
+		}
+		max = 3
+		check_range_bounds = no
+		create_stat = yes
+	}
+}
+create_martial_star = {
+	custom_tooltip = "create_high_martial_rising_star"
+	hidden_effect = {
+		create_character = {
+			add_martial = 8
+			add_trait = steadfast
+		}
+	}
+}
+cataphract_tradition_effect = {
+	set_variable = {
+		name = cataphract
+		duration = -1
+	}
+	ordered_owned_province = {
+		limit = {
+			dominant_province_culture_group = root.culture_group
+		}
+		alternative_limit = {
+			always = yes
+		}
+		order_by = {
+			value = 0
+			add = population_cap
+			subtract = total_population
+		}
+		max = 3
+		create_2_nobles_effect = yes
+	}
+}	

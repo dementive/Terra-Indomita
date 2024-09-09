@@ -1,0 +1,460 @@
+﻿afro_arabian_philosophy = { #Nubian Path
+	color = hsv { 0.99 0.64 0.7 }
+	image = persian_achaemenid_path_6
+	
+	allow = {
+		trigger_if = {
+			limit = {
+				country_culture_group = meroitic_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = meroitic_group
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = aksumite_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = aksumite_group
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = nilotic_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = nilotic_group
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = nubian_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_nubian
+		}
+	}
+	nubian_path_10 = { ###every man
+		allow = {
+			and = {
+				or = {
+					is_tribal = yes
+					country_culture_group = meroitic_group
+					country_culture_group = aksumite_group
+					country_culture_group = nilotic_group
+				}
+				nor = {
+					has_variable = clan_tradition
+				}
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = clan_tradition
+				duration = -1
+			}
+			ordered_owned_province = {
+				limit = {
+					has_city_status = yes
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 3
+				check_range_bounds = no
+				create_2_freemen_effect = yes
+			}
+		}	
+		modifier = { 
+			levy_size_multiplier = 0.025
+			land_morale_modifier = 0.05
+		} 
+		icon = levantine_egyptian_path_end_bonus
+		requires = {   }
+
+	}
+	aksum_path_4 = { #pack animals
+		modifier = {
+			global_tax_modifier = 0.05
+			supply_train_cost = -0.1
+			land_unit_attrition = -0.1
+		}
+		icon = celtic_gallic_path_5
+		requires = {aksum_path_5 nubian_path_3}
+	}
+	aksum_path_5 = {#lower cataracts
+		modifier = {
+			desert_combat_bonus = 0.1
+			plains_combat_bonus = 0.1		
+		}
+		enable_tactic = hit_and_run_tactics
+		requires = {nubian_path_10}
+	}
+	nubian_path_1 = { ###ta seti
+		modifier = { 
+			archers_maintenance_cost = -0.1
+			global_manpower_modifier = 0.05
+		} 
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					has_city_status = yes
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 3
+				check_range_bounds = no
+				create_2_freemen_effect = yes
+			}
+		}
+		allow = {
+			or = {
+				country_culture_group = meroitic_group
+				country_culture_group = nilotic_group
+			}
+		}
+		icon = greek_antigonid_path_6
+		requires = { aksum_path_5}
+	}
+	nubian_path_12 = { ###stadning ground
+		modifier = { 
+			archers_defensive = 0.05
+			archers_morale = 0.05
+			archers_discipline = 0.05
+		} 
+		icon = north_african_army_path_end_bonus
+		requires = { nubian_path_1 }
+	}
+	nubian_path_3 = { ###nubian cav
+		modifier = { 
+			light_cavalry_offensive = 0.05
+			horse_skirmishers_offensive = 0.05
+		} 
+		enable_tactic = cavalry_skirmish
+		icon = north_african_tribal_path_1
+		requires = { nubian_path_10 }
+	}
+	nubian_path_6 = { ###
+		
+		modifier = { 
+			horse_archers_offensive = 0.05
+			archers_offensive = 0.05
+		} 
+		on_activate = {
+			add_innovation = 1
+		}
+		icon = levantine_arabian_path_end_bonus
+		requires = { nubian_path_3 }
+
+	}
+	nubian_path_4 = { ###
+		modifier = { 
+			warelephant_morale = 0.05
+			warelephant_defensive = 0.05
+			warelephant_cost = -0.1
+			
+		} 
+		icon = north_african_army_path_5
+		requires = { nubian_path_6  }
+	}
+	nubian_path_7 = { ###
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_charsacter = {
+					add_martial = 8
+					add_trait = confident
+				}
+			}
+		}
+		allow = {
+			and = {
+				or = {
+					country_culture_group = aksumite_group
+					country_culture_group = nilotic_group
+				}
+			}
+		}
+		modifier = { 
+			warelephant_offensive = 0.05
+			warelephant_discipline = 0.05 
+		} 
+
+		icon = mauryan_mauryas_path_4
+		requires = { nubian_path_4 }
+	}
+	nubian_path_end = {# legacy of Aspelta
+		modifier = { 
+			fortress_building_cost = -0.1
+			fort_limit = 1
+		} 
+		on_activate = {
+			add_3_free_province_investments = yes
+		}
+		requires = {nubian_path_1 nubian_path_6}
+	}
+
+
+
+
+	nubian_path_5 = { ###filling the horizions
+		modifier = { 
+			price_found_city_cost_modifier = -0.1
+			build_cost = -0.025
+		}
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					has_city_status = yes
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 3
+				check_range_bounds = no
+				create_2_freemen_effect = yes
+			}
+		}
+		icon = levantine_egyptian_path_4
+		requires = {  }
+
+	}
+	nubian_path_egyptian = { #egyptian influence
+		modifier = {
+			build_cost = -0.025
+		}
+		on_activate = {
+			add_2_free_province_investments = yes
+			add_innovation = 2
+		}
+		requires = {nubian_path_2}
+	}
+	nubian_path_egyptian_2 = { #kemetic pantheon
+		modifier = {
+			build_cost = -0.025
+		}
+		on_activate = {
+			set_country_religion = egyptian_pantheon
+		}
+		icon = levantine_egyptian_path_3
+		requires = {nubian_path_egyptian}
+	}
+	nubian_path_egyptian_3 = { #kemetic pantheon
+		modifier = {
+			monthly_legitimacy = 0.03
+			ruler_popularity_gain = 0.03
+			diplomatic_reputation = 1
+		}
+		requires = {nubian_path_egyptian_2}
+	}
+
+	aksum_path_1 = { #metallurgy
+		on_activate = {
+			add_innovation = 2
+		}
+		modifier = {
+			global_tax_modifier = 0.05
+			spearmen_discipline = 0.05 
+		}
+		icon = latin_tribal_path_1
+		requires = {nubian_path_5}
+	}
+	nubian_path_9 = { ###
+		modifier = { 
+			heavy_infantry_offensive = 0.05
+			global_manpower_modifier = 0.05
+		} 
+		icon = levantine_greco_path_1
+		requires = { aksum_path_1 }
+
+	}
+	aksum_path_2 = { #iron spears
+		modifier = {
+			spearmen_offensive = 0.05
+			spearmen_morale = 0.05
+			
+		}
+		icon = north_african_tribal_path_6
+		requires = {aksum_path_1}
+	}
+	aksum_path_3 = { #aksumite empire
+		on_activate = {
+			add_innovation = 2
+			add_2_free_province_investments = yes
+		}
+		allow = {
+			rank >= 4
+			country_culture_group = aksumite_group
+		}
+		modifier = {
+			global_monthly_civilization = 0.02
+			
+		}
+		icon = persian_bactrian_path_2
+		requires = {aksum_path_2}
+	}
+	
+	aksum_path_jewish_1 = { #jewish diaspora
+		modifier = {
+			research_points_modifier = 0.05
+			
+		}
+		icon = levantine_arabian_path_6
+		requires = {aksum_path_3}
+		on_activate = {
+			add_innovation = 2
+			ordered_owned_province = {
+				limit = {
+					has_city_status = yes
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 3
+				check_range_bounds = no
+				create_2_freemen_effect = yes
+				set_pop_culture = hebrew
+				set_pop_religion = judaism
+
+			}
+		}
+
+	}
+	aksum_path_jewish_2 = { #embrqaace judaism
+		modifier = {
+			happiness_for_same_religion_modifier = 0.03
+			global_pop_conversion_speed_modifier =  0.05
+			global_monthly_civilization = 0.02
+			
+		}
+		requires = {nubian_start}
+		on_activate = {
+			set_country_religion = judaism
+			current_ruler = {
+				if = {
+					limit = {
+						NOT = { has_religion = judaism }
+					}
+					set_character_religion = judaism
+				}
+			}
+			hidden_effect = {
+				every_character = {
+					limit = { NOT = { has_same_religion_as = employer.current_ruler } }
+					add_loyalty = national_conversion_l
+				}
+				current_ruler.family = {
+					every_family_member = {
+						limit = {
+							employer = ROOT
+							loyalty >= 60
+							NOT = { has_religion = judaism}
+						}
+						set_character_religion = judaism
+					}
+				}
+			}
+			ordered_character = {
+				limit = {
+					loyalty >= 60
+					NOT = { has_religion = judaism }
+					is_ruler = no
+					from_ruler_family = no
+				}
+				max = 6
+				order_by = prominence
+				check_range_bounds = no
+				set_character_religion = judaism
+			}
+		}
+		icon = levantine_arabian_path_6
+		requires = {aksum_path_jewish_1}
+	}
+	nubian_path_2 = { ###
+		modifier = { 
+			archers_offensive = 0.05
+			archers_discipline = 0.05
+		} 
+		icon = mauryan_mauryas_path_5
+		requires = { nubian_path_5}
+
+	}
+
+	nubian_path_8 = { ###
+		modifier = { 
+			tetrere_offensive = 0.1
+			tetrere_defensive = 0.1
+			coastal_terrain_combat_bonus = 0.1
+		} 
+		icon = levantine_egyptian_path_5
+		requires = { nubian_path_9 }
+
+	}
+
+	
+
+	nubian_path_11 = { ###
+		modifier = { 
+			navy_maintenance_cost = -0.1
+			global_ship_recruit_speed = 0.2
+			naval_range = 0.15
+		} 
+		icon = north_african_naval_path_7
+		requires = { nubian_path_8 }
+
+	}
+	nubian_path_13 = { ###
+		allow_unit_type = octere
+		modifier = { 
+			naval_damage_taken = -0.1
+		}
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = octere
+						add_subunit = octere
+					}
+				}
+			}
+		}
+		icon = persian_achaemenid_path_3
+		requires = { nubian_path_11 }
+
+	}
+
+	nubian_path_14 = { ###kush bow
+		modifier = { 
+			archers_offensive = 0.05
+			manpower_recovery_speed = 0.05
+		} 
+		allow = {
+			and = {
+				or = {
+					country_culture_group = meroitic_group
+					country_culture_group = nilotic_group
+				}
+			}
+		}
+		icon = persian_achaemenid_path_6
+		requires = { nubian_path_12 }
+	}
+}

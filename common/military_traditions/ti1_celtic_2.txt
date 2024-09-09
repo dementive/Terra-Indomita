@@ -1,0 +1,291 @@
+celtic_philosophy_2 = { 
+	color = hsv { 1.0 1 0.5 }
+	image = celtic_philosophy_start_bonus
+	
+	allow = {
+		
+		trigger_if = {
+			limit = { country_culture_group = belgae_group }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = belgae_group
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = britannic }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = britannic
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = britannic_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_britannic
+		}
+	}		
+
+	celtic_germanic_path_4 = { ###Celtic 1A
+		modifier = { 
+			enslavement_efficiency = 0.05
+			global_slaves_output = output_large_svalue
+			global_start_experience = 5
+		}
+		allow = {
+			and = {
+				or = {
+					is_tribal = yes
+					country_culture_group = britannic
+				}
+				nor = {
+					has_variable = clan_tradition
+				}
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = clan_tradition
+				duration = -1
+			}
+		}
+
+		icon = celtic_germanic_path_4
+		requires = {}
+	}
+	
+	celtic_north_african_enable = { ##souther pastures
+		modifier = { 
+			light_cavalry_offensive = 0.05
+			axemen_offensive = 0.1
+			plains_combat_bonus = 0.15
+		}
+		icon = north_african_tribal_path_3
+		requires = { celtic_germanic_path_4 }
+	}
+	briton_ambush = { #ambush
+		enable_tactic = hit_and_run_tactics
+		modifier = { 
+			forest_combat_bonus = 0.1
+			archers_offensive = 0.05
+		}
+		icon = celtic_britannic_path_7
+		requires = { celtic_germanic_path_4 }
+	}
+
+	celtic_gallic_path_2 = { ###Celtic 2AB
+		modifier = { 
+			levy_size_multiplier = 0.025
+			experience_decay = -0.05
+		}
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					has_city_status = no
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_tribesmen_effect = yes
+			}
+		}
+		icon = celtic_gallic_path_2
+		requires = { briton_ambush }
+	}
+	celtic_germanic_path_2 = { ###Celtic 3B
+		modifier = { 
+			archers_discipline = 0.05
+			character_loyalty = 3
+			light_infantry_defensive = 0.05
+		}
+		icon = celtic_germanic_path_2
+		requires = { celtic_gallic_path_2 }
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+	}
+
+	celtic_britannic_path_3 = { ###Celtic 3AA
+		modifier = { 
+			land_unit_attrition = -0.1
+			marsh_combat_bonus = 0.05
+			light_infantry_discipline = 0.05
+
+		}
+		icon = celtic_britannic_path_3
+		requires = { celtic_north_african_enable briton_ambush }
+		
+	}
+	celtic_britannic_path_6 = { #selective breeding
+		modifier = { 
+			global_freemen_output = 0.05
+			chariots_morale = 0.05
+		}
+		icon = celtic_britannic_path_6
+		requires = { celtic_britannic_path_end_bonus } 
+		on_activate = {
+			add_innovation = 2
+			ordered_owned_province = {
+				limit = {
+					NOT = { trade_goods = iron }
+					NOT = { trade_goods = horses }
+					NOT = { trade_goods = steppe_horses }
+					is_capital = no
+					has_non_food_trade_good_trigger = yes
+				}
+				order_by = total_population
+				set_trade_goods = horses
+			}
+		}
+	}
+	celtic_britannic_path_end_bonus = { ###trained cavalry
+		modifier = { 
+			light_cavalry_defensive = 0.1 
+			land_morale_modifier = 0.025
+		}
+
+		icon = celtic_britannic_path_end_bonus
+		requires = { celtic_north_african_enable }
+	}
+	
+
+	celtic_britannic_path_4 = { ###Celtic 3AB
+		modifier = { 
+			global_cohort_start_experience = 5
+			experience_decay = -0.005
+		}
+		icon = celtic_britannic_path_4
+		requires = { celtic_gallic_path_end_bonus celtic_britannic_path_1 }
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = disciplined
+				}
+			}
+		}
+	}
+
+	celtic_gallic_path_4 = { ###Celtic 4A
+		modifier = {
+			fort_limit = 1
+			fort_maintenance_cost = -0.15
+		}
+		icon = celtic_gallic_path_4
+		requires = { celtic_gallic_path_2 celtic_britannic_path_end_bonus }
+		on_activate = {
+			add_3_free_province_investments = yes
+		}
+	}
+
+	
+
+	celtic_philosophy_start_bonus = {
+		modifier = { 
+			chariots_defensive = 0.2
+		}
+		icon = celtic_philosophy_start_bonus
+		requires = {  }
+	}
+
+	celtic_britannic_path_1 = { ###Celtic 2BA
+		modifier = { 
+			chariots_offensive = 0.2
+		}
+		icon = celtic_britannic_path_1
+		requires = { celtic_britannic_path_5 }
+	}
+
+	celtic_britannic_path_5 = { ###Celtic 2BB
+		modifier = { 
+			chariots_discipline = 0.1
+		}
+		icon = celtic_britannic_path_5
+		requires = { celtic_philosophy_start_bonus }
+	}
+	briton_naval_path_1 = { #in defense of out isle
+		modifier = {
+			liburnian_cost = -0.2
+			liburnian_offensive = 0.2
+		}
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				add_building_level = port_building
+				add_building_level = port_building
+			}
+		}
+		requires = { celtic_philosophy_start_bonus } 
+		icon = latin_tribal_path_6
+	}
+	briton_naval_path_2 = { #rough channel
+		requires = { briton_naval_path_1 } 
+		icon = north_african_naval_path_3
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = liburnian
+						add_subunit = trireme
+						add_subunit = trireme
+					}
+				}
+			}
+		}
+		modifier = {
+			naval_damage_taken = -0.05
+			naval_unit_attrition = -0.1
+
+		}
+	}
+	briton_archery = {
+		modifier = {
+			archers_offensive = 0.2
+			archers_discipline = 0.1
+			archers_cost = -0.1
+		}
+		icon = greek_antigonid_path_6
+		requires = { celtic_britannic_path_1 briton_naval_path_2 }
+	}	
+	
+
+	
+
+	
+
+	
+
+	celtic_gallic_path_5 = { ###Celtic 5B
+		modifier = {
+			happiness_for_wrong_culture_modifier = wrong_culture_large
+			chariots_movement_speed = 0.1
+		}
+		icon = celtic_gallic_path_5
+		requires = { celtic_germanic_path_2 }
+		on_activate = {
+			add_centralization = -25
+		}
+	}
+}

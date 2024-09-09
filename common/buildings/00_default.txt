@@ -155,12 +155,7 @@ port_building = {
 			has_city_status = no
 			add = -3
 		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_commerce_building_sv
-			}
-		}
+		
 	}
 }
 military_harbor_building = { #Military Harbor [UNIQUE]
@@ -777,6 +772,18 @@ forum_building = { #Forum [UNIQUE]
 
 	potential = {
 		has_city_status = yes
+		or = {
+			owner = {
+				is_tribal = no
+			}
+			num_of_forum_building > 0
+		}
+	}
+	allow = {
+		has_city_status = yes
+		owner = {
+				is_tribal = no
+			}
 	}
 
 	modification_display = {
@@ -1282,6 +1289,19 @@ commerce_building = { #Commercial District
 
 	potential = {
 		has_city_status = yes
+		or = {
+			owner = {
+				is_tribal = no
+			}
+			num_of_commerce_building > 0
+		}
+	}
+	allow = {
+		has_city_status = yes
+		owner = {
+			is_tribal = no
+		}
+
 	}
 
 	modification_display = {
@@ -1468,6 +1488,20 @@ library_building = { #Library
 
 	potential = {
 		has_city_status = yes
+		or = {
+			owner = {
+				is_tribal = no
+			}
+			num_of_library_building > 0
+		}
+	}
+	allow = {
+		has_city_status = yes
+		owner = {
+			is_tribal = no
+		}
+
+		
 	}
 
 	modification_display = {
@@ -1520,6 +1554,20 @@ academy_building = { #Academy
 
 	potential = {
 		has_city_status = yes
+		or = {
+			owner = {
+				is_tribal = no
+			}
+			num_of_academy_building > 0
+		}
+	}
+	allow = {
+		has_city_status = yes
+		owner = {
+			is_tribal = no
+		}
+
+		
 	}
 
 	modification_display = {
@@ -1668,12 +1716,20 @@ theathre_building = { #Theater
 	time = 360
 
 	max_amount = 1
-
 	potential = {
 		has_city_status = yes
+		or = {
+			owner = {
+				is_tribal = no
+			}
+			num_of_town_watch_building > 0
+		}
 	}
-
 	allow = {
+		has_city_status = yes
+		owner = {
+				is_tribal = no
+			}
 		AND = {
 			exists = owner
 			owner = {

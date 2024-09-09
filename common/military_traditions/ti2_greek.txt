@@ -1,0 +1,631 @@
+greek_philosophy = { 
+	color = hsv { 0.6 0.8 0.5 }
+	image = greek_philosophy_start_bonus
+	
+	allow = {
+		trigger_if = {
+			limit = { country_culture_group = hellenic }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = hellenic
+		}
+		trigger_else_if = {
+			limit = { primary_culture = etruscan }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			primary_culture = etruscan
+		}
+		trigger_else_if = {
+			limit = {
+				has_variable = unlock_greek_poleis_var
+			}
+			custom_tooltip = {
+				text = "unlocked_via_mission_tree_tt"
+				has_variable = unlock_greek_poleis_var
+			}
+		}
+		trigger_else_if = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = diadochi_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_diadochi
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = greek_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_greek
+		}
+	}
+	
+	greek_start = { #center of culture
+		modifier = { 
+			research_points_modifier = 0.05
+			happiness_for_same_culture_modifier = 0.02
+		}
+		on_activate = {
+			add_innovation = 3
+		}
+		
+		requires = {  }
+		icon = greek_philosophy_start_bonus
+	}
+
+	greek_philosophy_start_bonus = {#phlanxax
+		modifier = { 
+			spearmen_offensive = 0.1 
+			spearmen_defensive = 0.05 
+		}
+		enable_tactic = greek_phalanx
+		requires = { greek_start }
+		icon = greek_philosophy_start_bonus 
+		on_activate = {
+			add_innovation = 1
+			set_variable = unlocked_phalanx
+			add_country_modifier = {
+				name = greek_terrain_phalanx
+				duration = -1
+			}
+		}
+		allow = {
+			not = {
+				has_variable = unlocked_phalanx
+			}
+		}
+	}
+	greek_seleucid_path_6 = {#thrueos
+		modifier = { 
+			light_infantry_morale = 0.05
+			heavy_infantry_morale = 0.05
+		}
+		requires = { greek_philosophy_start_bonus }
+		icon = greek_seleucid_path_6
+	}
+	greek_antigonid_path_6 = { #specialist infantt
+		modifier = {
+			spearmen_defensive = 0.05
+			archers_discipline = 0.05
+			heavy_infantry_discipline = 0.05
+		} 
+		requires = { greek_philosophy_start_bonus } 
+		icon = greek_antigonid_path_6
+	}
+	greek_antigonid_path_5 = { #peltast
+		modifier = { 
+			light_infantry_discipline = 0.05
+			light_infantry_offensive = 0.05
+		}
+		requires = { greek_antigonid_path_6 }
+		icon = greek_antigonid_path_5
+	}
+	greek_seleucid_path_7 = {#hipparchos
+		modifier = { 
+			heavy_cavalry_defensive = 0.05
+			light_cavalry_defensive = 0.05
+			horse_skirmishers_defensive = 0.05
+		}
+		requires = { greek_seleucid_path_6 }
+		icon = greek_seleucid_path_7
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = confident
+				}
+			}
+		}
+	}
+	greek_states_path_2 = { #tarentine advane
+		modifier = { 
+			light_cavalry_offensive = 0.1
+			horse_skirmishers_offensive = 0.1
+		}
+		allow = {
+			primary_culture = italiotian
+		}
+		requires = { greek_seleucid_path_7 }
+		icon = greek_states_path_2
+	}
+	greek_seleucid_path_4 = { #thesaaly cav
+		modifier = { 
+			light_cavalry_cost = -0.1
+			horse_skirmishers_cost = -0.1
+		}
+		allow = {
+			or = {
+				primary_culture = thessalian
+				owns_or_subject_owns = 389
+				owns_or_subject_owns = 404
+				owns_or_subject_owns = 395
+				owns_or_subject_owns = 394
+				owns_or_subject_owns = 398
+				owns_or_subject_owns = 420
+				owns_or_subject_owns = 392
+				owns_or_subject_owns = 390
+				owns_or_subject_owns = 391
+			}
+		}
+		enable_tactic = cavalry_skirmish
+		requires = { greek_seleucid_path_7 }
+		icon = greek_seleucid_path_4
+	}
+	greek_naval_heritage = {  
+		modifier = { 
+			ocean_combat_bonus = 0.1
+			coastal_terrain_combat_bonus = 0.1
+		}
+		requires = { greek_start }
+		icon = north_african_naval_path_4
+		on_activate = {
+			if = {
+				limit = {
+					any_owned_province = { num_of_port_building > 0  }
+				}
+				random_owned_province = {
+					limit = {
+						num_of_port_building > 0 
+					}
+					owner = {
+						create_unit = {
+							navy = yes
+							location = prev.prev
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+						}
+					}
+				}
+			}
+			else = {
+				ordered_owned_province = {
+					limit = {
+						is_coastal = yes
+						can_build_building = port_building
+					}
+					add_building_level = port_building
+				}
+				random_owned_province = {
+					limit = {
+						num_of_port_building > 0 
+					}
+					owner = {
+						create_unit = {
+							navy = yes
+							location = prev.prev
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+							add_subunit = trireme
+						}
+					}
+				}
+			}
+		}
+	}
+	greek_antigonid_path_4 = { #victord spoils
+		modifier = { 
+			enslavement_efficiency = 0.1
+		}
+		enable_ability = naval_raiding
+		requires = { greek_antigonid_path_2 }
+		icon = greek_antigonid_path_4
+	}
+	greek_antigonid_path_2 = { #proiud sipwrights
+		requires = { greek_naval_heritage }
+		icon = greek_antigonid_path_2
+		modifier = {
+			ship_cost = -0.15
+		}
+		on_activate = {
+			ordered_owned_province = {	#Upgrades a port, or creates one
+				limit = {
+					is_coastal = yes
+					has_building = port_building
+					can_build_building = port_building
+				}
+				alternative_limit = {
+					is_coastal = yes
+					can_build_building = port_building
+				}
+				order_by = total_population
+				add_building_level = port_building
+				add_building_level = port_building
+			}
+		}
+	}
+	greek_levantine_enable = {#legacy of salamis
+		modifier = {
+			ocean_combat_bonus = 0.1
+		}
+		allow_unit_type = octere
+		requires = { greek_antigonid_path_4 }
+		icon = levantine_philosophy_start_bonus
+	}
+
+	greek_antigonid_path_1 = { #great campaign
+		modifier = { 
+			global_cohort_start_experience = 5
+			experience_decay = -0.005
+			recruit_mercenary_cost_modifier = -0.15
+		}
+		allow = {
+			or = {
+				has_variable = diadochi_enable
+				heritage = antigonid_heritage
+				heritage = ptolemys_heritage
+				heritage = cassanders_heritage
+				heritage = seleucus_heritage
+				heritage = thrace_heritage
+			}
+		}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+			ordered_owned_province = {
+				limit = {
+					province_dominant_culture_group = hellenic
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 4
+				check_range_bounds = no
+				create_2_freemen_effect = yes
+			}
+		}
+		requires = { }
+		icon = greek_antigonid_path_1
+	}
+	greek_antigonid_path_2_octere = { #forgerd for war
+		modifier = { 
+		}
+		allow_unit_type = octere
+		requires = { greek_antigonid_path_1 }
+		icon = greek_antigonid_path_2
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = octere
+						add_subunit = octere
+					}
+				}
+			}
+		}
+	}
+	greek_states_path_5 = { #mines bigger than yors
+		modifier = { 
+		}
+		allow_unit_type = mega_galley
+		requires = { greek_antigonid_path_2_octere }
+		icon = greek_states_path_5
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = mega_galley
+					}
+				}
+			}
+		}
+	}
+	greek_states_path_end_bonus = { #silver shields
+		modifier = { 
+			heavy_infantry_offensive = 0.1
+			pikemen_offensive = 0.1
+		}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+		requires = { greek_antigonid_path_1 } 
+		icon = greek_states_path_end_bonus 
+	}
+	greek_states_path_4 = { #legacy of alexander
+		modifier = {
+			price_found_city_cost_modifier = -0.1 
+		}
+		enable_ability = military_colonies
+		requires = { greek_states_path_end_bonus }
+		icon = greek_states_path_4
+		allow = {
+			nor = {
+				has_variable = alexander_legacy
+			}
+		}
+		on_activate = {
+			set_variable= {
+				name = alexander_legacy
+				duration = -1
+			}
+			ordered_owned_province = {
+				limit = {
+					NOT = { province_dominant_culture_group = hellenic }
+					any_neighbor_province = {
+						count > 1
+						NOT = { province_dominant_culture_group = hellenic }
+					}
+					state = {
+						NOT = {
+							any_state_province = {
+								is_capital = yes
+							}
+						}
+					}
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				add_province_modifier = {
+					name = "local_colonia"
+					duration = -1
+				}
+				custom_tooltip = military_colonia_here_tt
+				trigger_event = { id = cultural_integration.11 }
+			}
+		}
+	}
+	greek_persian_enable = { #gaugelmella
+		modifier = {
+			plains_combat_bonus = 0.1
+			heavy_cavalry_offensive = 0.05
+			pikemen_morale = 0.05
+		}
+		requires = { greek_states_path_4 }
+		icon = persian_philosophy_start_bonus
+	}
+	greek_states_path_1 = {#alexandrain warfare
+		modifier = { 
+			pikemen_discipline = 0.05
+			heavy_cavalry_discipline = 0.05
+			siege_ability = 0.1
+			heavy_cavalry_morale = 0.05
+		}
+		on_activate = {
+			add_innovation = 3
+		}
+		requires = { greek_antigonid_path_1 } 
+		icon = greek_states_path_1 
+	}
+	greek_antigonid_path_end_bonus = { #cominine amrs
+		modifier = { 
+			pikemen_defensive = 0.05
+			light_infantry_defensive = 0.05
+			heavy_infantry_defensive = 0.05
+		}
+		requires = { greek_states_path_1 }
+		icon = greek_antigonid_path_end_bonus
+	}
+	greek_auxiliaries = {#Greek auxiliaries
+		modifier = {
+			archers_offensive = 0.1
+			horse_skirmishers_discipline = 0.1
+		}
+		enable_tactic = cavalry_skirmish
+		icon = greek_antigonid_path_3
+		requires = {greek_antigonid_path_end_bonus}
+	}
+	greek_seleucid_path_5 = { #cataprhacts
+		modifier = {
+			heavy_cavalry_defensive = 0.1
+			heavy_cavalry_offensive = 0.1
+			heavy_cavalry_maintenance_cost = 0.1
+		}
+		allow = {
+			nor = {
+				has_variable = cataphract
+			}
+		}
+		requires = { greek_persian_enable }
+		icon = greek_seleucid_path_5
+		on_activate = {
+			set_variable = {
+				name = cataphract
+				duration = -1
+			}
+			ordered_owned_province = {
+				limit = {
+					dominant_province_culture_group = root.culture_group
+				}
+				alternative_limit = {
+					always = yes
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 2
+				create_2_nobles_effect = yes
+			}	
+		}
+	}
+	levantine_greco_path_end_bonus = { #learning from the best
+		modifier = {
+			pikemen_offensive = -0.2
+			heavy_infantry_discipline = 0.1
+		}
+		enable_tactic triplex_acies
+		icon = levantine_greco_path_end_bonus
+		requires = {greek_seleucid_path_5 greek_seleucid_path_end_bonus}
+		on_activate = {
+			set_variable = roman_influence
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					culture = roman
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+	}
+	greek_seleucid_path_end_bonus = { #deep coffers
+		modifier = { 
+			mercenary_land_maintenance_cost = -0.1
+			heavy_cavalry_maintenance_cost = -0.1
+		}
+		requires = { greek_auxiliaries }
+		icon = greek_seleucid_path_end_bonus
+	}
+
+
+
+#########################################################
+
+
+
+
+
+#greek_seleucid_path_2 = {
+#	modifier = { 
+#		recruit_mercenary_cost_modifier = -0.15
+#		land_morale_modifier = 0.05
+#	}
+#	potential = {}
+#	icon = greek_seleucid_path_2
+#	
+#}
+#
+#
+#
+#
+#
+#
+#
+#
+#greek_seleucid_path_6 = {
+#	modifier = { 
+#		light_infantry_morale = 0.1
+#		spearmen_morale = 0.1
+#	}
+#	requires = { greek_philosophy_start_bonus }
+#	icon = greek_seleucid_path_6
+#}
+#
+#greek_antigonid_path_4 = {
+#	modifier = { 
+#		enslavement_efficiency = 0.1
+#	}
+#	enable_ability = naval_raiding
+#	requires = { greek_antigonid_path_2 }
+#	icon = greek_antigonid_path_4
+#}
+#
+#greek_antigonid_path_2 = {
+#	requires = { greek_naval_heritage }
+#	icon = greek_antigonid_path_2
+#	modifier = {
+#		ship_cost = -0.15
+#	}
+#	on_activate = {
+#		ordered_owned_province = {	#Upgrades a port, or creates one
+#			limit = {
+#				is_coastal = yes
+#				has_building = port_building
+#				can_build_building = port_building
+#			}
+#			alternative_limit = {
+#				is_coastal = yes
+#				can_build_building = port_building
+#			}
+#			order_by = total_population
+#			add_building_level = port_building
+#			add_building_level = port_building
+#		}
+#	}
+#}
+#
+#greek_states_path_6 = {
+#	modifier = { 
+#		global_defensive = 0.15
+#		fort_limit = 1
+#	}
+#	requires = { greek_seleucid_path_2 }
+#	icon = greek_states_path_6
+#	on_activate = {
+#		capital_scope = {
+#			add_building_level = fortress_building
+#		}
+#	}
+#}
+#
+#greek_states_path_7 = {
+#	modifier = { 
+#		heavy_infantry_maintenance_cost = -0.1
+#		heavy_infantry_discipline = 0.1
+#		pikemen_maintenance_cost = -0.1
+#		pikemen_discipline = 0.1
+#	}
+#	requires = { greek_seleucid_path_6 }
+#	icon = greek_states_path_7
+#	on_activate = {
+#		custom_tooltip = "create_high_martial_rising_star"
+#		hidden_effect = {
+#			create_character = {
+#				add_martial = 8
+#				add_trait = steadfast
+#			}
+#		}
+#	}
+#}
+#
+#greek_antigonid_path_6 = {
+#	modifier = {
+#		spearmen_defensive = 0.1
+#		spearmen_cost = -0.05
+#	} 
+#	requires = { greek_philosophy_start_bonus } 
+#	icon = greek_antigonid_path_6
+#}
+#
+#greek_antigonid_path_7 = {
+#	modifier = {
+#		hills_combat_bonus = 0.15
+#		mountain_combat_bonus = 0.05
+#	}
+#	requires = { greek_states_path_7 }
+#	icon = greek_antigonid_path_7
+#}
+#
+	
+	
+}

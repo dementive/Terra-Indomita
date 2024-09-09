@@ -1,0 +1,482 @@
+﻿levantine_philosophy = { 
+	color = hsv { 0.99 0.6 0.5 }
+	image = levantine_arabian_path_6
+	
+
+	allow = {
+		trigger_if = {
+			limit = {
+				AND = {
+					country_culture_group = west_levantine
+					NOT = {
+						primary_culture = carthaginian
+					}
+				}			
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = west_levantine
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = north_african }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = north_african
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = east_levantine }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = east_levantine
+		}
+		trigger_else_if = {
+			limit = { heritage = ptolemys_heritage }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			heritage = ptolemys_heritage
+		}
+		trigger_else_if = {
+			limit = { tag = PRY }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			 tag = PRY
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = levantine_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_levantine
+		}
+	}			
+	levantine_arabian_path_6 = { ###legacyof the uilders
+		modifier = { 
+			global_building_slot = 1
+			enact_holy_site_cost_modifier = -0.15
+		}
+		on_activate = {
+			add_4_free_province_investments = yes
+		}
+		icon = levantine_arabian_path_6
+		requires = { }
+	}
+	levantine_greco_path_1 = { #surfeit of war
+		modifier = {
+			heavy_infantry_cost = -0.15
+		}
+		allow = {
+			nor = {
+				has_variable = disillusioned
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = disillusioned
+				duration = -1
+			}
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 2
+				create_2_freemen_effect = yes
+			}
+		}
+		icon = levantine_greco_path_1
+		requires = {levantine_arabian_path_6}
+	}
+	levantine_egyptian_path_7 = { ###cradle of civ 1BB
+		modifier = { 
+			global_manpower_modifier = 0.1
+			country_civilization_value = 5
+		}
+		icon = levantine_egyptian_path_7
+		requires = { levantine_arabian_path_6 }
+		on_activate = {
+			add_innovation = 4
+		}
+	}
+	levantine_egyptian_path_4 = { ###Levantine 4B
+		modifier = { price_found_city_cost_modifier = -0.1 }
+		allow  = {
+			country_culture_group = west_levantine
+		}
+		enable_ability = military_colonies
+		icon = levantine_egyptian_path_4
+		requires = {levantine_egyptian_path_7}
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					NOT = { dominant_province_culture_group = root.culture_group }
+					any_neighbor_province = {
+						count > 1
+						NOT = { dominant_province_culture_group = root.culture_group }
+					}
+					state = {
+						NOT = {
+							any_state_province = {
+								is_capital = yes
+							}
+						}
+					}
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				add_province_modifier = {
+					name = "local_colonia"
+					duration = -1
+				}
+				custom_tooltip = military_colonia_here_tt
+				trigger_event = { id = cultural_integration.11 }
+			}
+		}
+	}
+	levantine_egyptian_path_3 = { ###Levantine 5B
+		modifier = { 
+			global_defensive = 0.15
+			fort_limit = 1
+			build_cost = -0.05
+		}
+		allow  = {
+			or = {
+				country_culture_group = north_african
+				owns_or_subject_owns = 536
+			}
+		}
+		icon = levantine_egyptian_path_3
+		requires = {levantine_egyptian_path_7}
+		on_activate = {
+			ordered_owned_province = {	#Upgrades a port, or creates one
+				limit = {
+					can_build_building = fortress_building
+				}
+				order_by = total_population
+				add_building_level = fortress_building
+			}
+		}
+	}
+	levantine_greco_path_3 = { ###machimoi epilektoi 3BB
+		modifier = {
+			heavy_infantry_offensive = 0.1
+		}
+		icon = levantine_greco_path_3
+		requires = {levantine_egyptian_path_3}
+		
+	}
+
+	levantine_egyptian_path_end_bonus = { ###Lrank uoonrnak 4BA
+		modifier = {
+			light_infantry_offensive = 0.15
+			axemen_offensive = 0.15
+		}
+		icon = levantine_egyptian_path_end_bonus
+		requires = {levantine_greco_path_3}
+	}
+	levantine_arabian_path_1 = { ###deseert sandsA
+		modifier = { 
+			hostile_attrition = 1
+			desert_combat_bonus = 0.1
+		}
+		icon = levantine_arabian_path_1
+		requires = {levantine_arabian_path_6}
+	}
+	levantine_arabian_path_7 = { ###Loasis trade
+		modifier = { 
+			light_cavalry_cost = -0.15
+			camels_cost = -0.15
+			heavy_cavalry_cost = -0.15
+		}
+		icon = levantine_arabian_path_7
+		requires = { levantine_arabian_path_1 }
+	}
+	levantine_arabian_path_end_bonus = { ###Ltrained camelry
+		modifier = { 
+			camels_discipline = 0.1
+		}
+		icon = levantine_arabian_path_end_bonus
+		requires = {levantine_arabian_path_1}
+	}
+
+	levantine_arabian_path_4 = { ##ships of the desert
+		modifier = { 
+			desert_combat_bonus = 0.1
+		}
+		icon = levantine_arabian_path_4
+		requires = {levantine_arabian_path_end_bonus}
+	}
+
+	levantine_philosophy_start_bonus = { ##pathfinders
+		modifier = { camels_morale = 0.1 }
+		icon = levantine_arabian_path_2
+		requires = { levantine_arabian_path_end_bonus }
+	}
+	levantine_egyptian_path_6 = { ###Levathick hideAA
+		modifier = { 
+			camels_defensive = 0.15
+		}
+		icon = levantine_egyptian_path_6
+		requires = { levantine_philosophy_start_bonus }
+	}
+
+	levantine_arabian_path_3 = { ###beasts of burden
+		modifier = { 
+			camels_offensive = 0.15
+		}
+		icon = levantine_arabian_path_3
+		requires = { levantine_philosophy_start_bonus }
+	}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+	levantine_arabian_path_2 = { #merchant coast
+		modifier = { 
+			ship_cost = -0.15
+			global_state_trade_routes = 0.15
+		}
+		icon = levantine_philosophy_start_bonus
+		requires = {}
+		on_activate = {
+			ordered_owned_province = {	#Upgrades a port, or creates one
+				limit = {
+					owner = { num_of_ports < 1 }
+					is_coastal = yes
+					NOT = { has_building = port_building }
+					can_build_building = port_building
+				}
+				alternative_limit = {
+					is_coastal = yes
+					has_building = port_building
+					can_build_building = port_building
+				}
+				alternative_limit = {
+					is_coastal = yes
+					can_build_building = port_building
+				}
+				order_by = total_population
+				add_building_level = port_building
+				add_building_level = port_building
+			}
+		}
+	}
+	greek_seleucid_path_3 = { #phoenicansailors
+		modifier = { 
+			naval_damage_done = 0.05
+			global_ship_recruit_speed = 0.15 
+		}
+		allow = {
+			or = {
+				country_culture_group = west_levantine
+				owns_or_subject_owns = 743
+				owns_or_subject_owns = 779
+				owns_or_subject_owns = 747
+				owns_or_subject_owns = 786
+				owns_or_subject_owns = 789
+
+			}
+		}
+		requires = { levantine_arabian_path_2 }
+		icon = greek_seleucid_path_3
+	}
+	levantine_greek_enable = { ###legacy of tyre
+		icon = greek_antigonid_path_2
+		modifier = {
+			coastal_terrain_combat_bonus = 0.1
+			global_defensive = 0.15
+			fort_limit = 1
+		}
+		allow = {
+			or = {
+				country_culture_group = west_levantine
+				owns_or_subject_owns = 743
+			}
+		}
+		requires = { greek_seleucid_path_3  }
+	}
+
+	levantine_arabian_path_5 = { ##sturddesign
+		modifier = { 
+			naval_damage_taken = -0.1
+		}
+		allow_unit_type = octere
+		icon = levantine_arabian_path_5
+		requires = {levantine_arabian_path_2}
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = octere
+						add_subunit = octere
+					}
+				}
+			}
+		}
+	}
+
+	levantine_greco_path_6 = { ###ramming speed
+		modifier = { 
+			naval_damage_done = 0.15
+		}
+		icon = levantine_greco_path_6
+		requires = {levantine_arabian_path_5 }
+	}
+
+	levantine_egyptian_path_2 = { #arms race
+		modifier = { 
+			ocean_combat_bonus = 0.05
+			global_ship_recruit_speed = 0.15
+		}
+		allow_unit_type = mega_galley
+		icon = levantine_egyptian_path_2
+		requires = {levantine_greco_path_6}
+		on_activate = {
+			random_owned_province = {
+				limit = {
+					num_of_port_building > 0 
+				}
+				owner = {
+					create_unit = {
+						navy = yes
+						location = prev.prev
+						add_subunit = mega_galley
+					}
+				}
+			}
+		}
+	}
+
+	levantine_egyptian_path_5 = { ###bloodof egpyt
+		modifier = { 
+			octere_cost = -0.15
+			mega_galley_cost = -0.15
+			coastal_terrain_combat_bonus = 0.1
+			riverine_terrain_combat_bonus = 0.1
+		}
+		allow = {
+			tag = EGY
+			country_culture_group = north_african
+		}
+		icon = levantine_egyptian_path_5
+		requires = {levantine_egyptian_path_2}
+	}
+
+	levantine_greco_path_4 = { ###Levantine 1B
+		modifier = { discipline = 0.02 }
+		enable_tactic = greek_phalanx
+		icon = levantine_greco_path_4
+		requires = {}
+	}
+	levantine_egyptian_path_1 = { ###Levantine 2BA
+		modifier = {
+			light_infantry_discipline = 0.1
+		}
+		icon = levantine_egyptian_path_1
+		requires = {levantine_greco_path_4 }
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+	}
+
+	
+
+	levantine_greco_path_2 = { ###Levantine 3BA
+		modifier = {
+			light_infantry_morale = 0.075
+			axemen_morale = 0.075
+		}
+		icon = levantine_greco_path_2
+		requires = {levantine_egyptian_path_1}
+	}
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#####################################
+	
+
+#	levantine_north_africa_enable = { ###Levantine #3AA
+#		modifier = { plains_combat_bonus = 0.1 }
+#		icon = north_african_tribal_path_3
+#		requires = {levantine_arabian_path_4}
+#	}
+#
+#	
+#	
+#
+#	
+#
+#	
+#
+#	levantine_greco_path_5 = { ###Levantine 2BA
+#		modifier = { 
+#			mercenary_land_maintenance_cost = -0.1
+#		}
+#		icon = levantine_greco_path_5
+#		requires = {levantine_arabian_path_1}
+#	}
+#
+#	levantine_greco_path_7 = { ###Levantine 2BB
+#		modifier = { 
+#			governor_loyalty = 5
+#		}
+#		icon = levantine_greco_path_7
+#		requires = {levantine_egyptian_path_7}
+#	}
+#
+#	
+#
+#	
+#
+#	
+	
+}

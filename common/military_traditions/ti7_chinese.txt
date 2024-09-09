@@ -1,0 +1,608 @@
+chinese_philosophy = { 
+	color = hsv { 0 0.88 0.5 }
+	image = chinese_huaxia_path_1
+	
+	allow = {
+		trigger_if = {
+			limit = { country_culture_group = chinese }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = chinese
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = yi }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = yi
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = yue
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = yue
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = miao
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = miao
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = tai
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = tai
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = rong_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = rong_group
+		}
+		trigger_else_if = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = yue_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_yue
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = chinese_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_chinese
+		}
+	}
+	chinese_path_start = { #center of culture 
+		modifier = { 
+			research_points_modifier = 0.05
+			country_civilization_value = 5
+		}
+		allow = {
+			or = {
+				country_culture_group = chinese
+				has_variable = chinese_influence
+			}
+		}
+		on_activate = {
+			add_innovation = 3
+		}
+		icon = chinese_path_iron_use
+		requires = {}
+	}
+	chinese_path_iron_use = { ###鐵器使用
+		modifier = { 
+			global_tax_modifier = 0.02
+			global_freemen_output = 0.05
+		}
+		on_activate = {
+			unlock_invention = chinese_steel_inv
+		}
+		icon = chinese_path_iron_use
+		requires = {chinese_path_start}
+	}
+	chinese_path_crossbow = {
+		modifier = {
+			archers_discipline = 0.05
+			archers_offensive = 0.1
+		}
+		requires = {chinese_path_iron_use}
+		on_activate = {
+			unlock_invention = crossbow_inv
+		} 
+	}
+	chinese_path_weapons = {
+		modifier = {
+			discipline = 0.05
+			chariots_offensive = 0.05
+		}
+		on_activate = {
+			add_innovation = 1
+		}
+		requires = {chinese_path_crossbow}
+	}
+	chinese_path_divisions = {
+		modifier = {
+			army_maintenance_cost = -0.1
+			army_weight_modifier = -0.1
+
+		}
+		enable_tactic = phalanx
+		enable_tactic = triplex_acies
+		requires = {chinese_path_weapons}
+	}
+	chinese_path_way_of_command = { ###用兵之道
+		modifier = {
+			hostile_attrition = 0.5
+			chariots_defensive = 0.05
+			chariots_discipline = 0.05
+		}
+		enable_tactic = hit_and_run_tactics
+		icon = chinese_path_way_of_command
+		requires = { chinese_path_iron_use  }
+	}
+	chinese_path_take_the_supplies_from_the_enemy = { ###因糧於敵
+		modifier = { 
+			land_unit_attrition = -0.15
+			supply_train_cost = -0.15
+		}
+		icon = chinese_path_take_the_supplies_from_the_enemy
+		requires = { chinese_path_good_use_of_terrain  }
+	}
+	chinese_path_training_priority = { ###教誡爲先
+		modifier = { 
+			experience_decay = -0.005
+			global_cohort_start_experience = 10
+			discipline = 0.05
+		}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 10
+					add_trait = conqueror
+				}
+			}
+		}
+		icon = chinese_path_training_priority
+		requires = { chinese_path_way_of_command }
+	}
+	chinese_path_good_use_of_terrain = { ###善用地形
+		modifier = { 
+			hills_combat_bonus = 0.1
+			mountain_combat_bonus = 0.05
+			plains_combat_bonus = 0.05
+		}
+		icon = chinese_path_good_use_of_terrain
+		requires = {  chinese_path_training_priority}
+	}
+	chinese_path_good_management = { ###人口增长
+		modifier = { 
+			global_manpower_modifier = 0.05
+			global_population_growth = 0.01 
+		}
+		icon = chinese_path_good_management
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 6
+				create_2_freemen_effect = yes
+			}
+		}
+		requires = { chinese_path_start}
+	}
+	chinese_path_building_the_wall = { ###築城技術
+		modifier = { 
+			fort_limit = 1
+			fort_maintenance_cost = -0.1
+		}
+		on_activate = {
+			capital_scope = {
+				add_building_level = fortress_building
+			}
+		}
+		icon = chinese_path_building_the_wall
+		requires = { chinese_path_good_management}
+	}
+	chinese_path_junxian_system = { ###郡縣制度
+		modifier = { 
+			levy_size_multiplier = 0.025
+			light_infantry_morale = 0.05
+		}
+		on_activate = {
+			add_2_free_province_investments = yes
+		}
+		icon = chinese_path_junxian_system
+		requires = { chinese_path_building_the_wall }
+	}
+	chinese_path_temporary_response = { ###臨機應變
+		modifier = { 
+			manpower_recovery_speed = 0.05
+			land_morale_modifier = 0.05
+		}
+		on_activate = {
+			add_innovation = 2
+		}
+		icon = chinese_path_temporary_response
+		requires = { chinese_path_junxian_system  }
+	}
+	chinese_path_yizhan_system = { ###驛站系統
+		modifier = {
+			engineer_cohort_maintenance_cost = -0.2
+			build_roads_cost_modifier = -0.5
+			engineer_cohort_cost = -0.4
+		}
+		icon = chinese_path_yizhan_system
+		requires = { chinese_path_building_the_wall }
+	}
+	chinese_path_recruiting_talented_people = { ###簡募良材
+		modifier = { 
+			light_infantry_maintenance_cost = -0.1
+			pikemen_maintenance_cost = -0.1
+		}
+		icon = chinese_path_recruiting_talented_people
+		requires = { chinese_path_yizhan_system }
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 10
+					add_trait = conqueror
+				}
+			}
+		}
+	}
+	chinese_path_retreat_to_advance = { ###以退爲進
+		modifier = { 
+			pikemen_defensive = 0.1
+			light_infantry_defensive = 0.1
+			axemen_defensive = 0.1
+		}
+		icon = chinese_path_retreat_to_advance
+		requires = { chinese_path_fleet }
+	}
+	yue_one_with_the_water = { ###鐵器使用
+		modifier = { 
+			naval_morale_modifier = 0.05
+			naval_damage_taken = -0.1
+		}
+		icon = yue_one_with_the_water
+		requires = {chinese_path_good_management}
+	}
+	yue_rivermen_mil_trad = { ###教誡爲先
+		modifier = { 
+			liburnian_morale = 0.05
+			navy_maintenance_cost = -0.1
+		}
+		icon = yue_rivermen_mil_trad
+		requires = { yue_one_with_the_water }
+	}
+	yue_coastal_warfare_mil_trad = { ###善用地形
+		modifier = { 
+			liburnian_discipline = 0.05
+			blockade_efficiency = 0.025
+		}
+		icon = yue_coastal_warfare_mil_trad
+		requires = { yue_rivermen_mil_trad }
+	}
+	chinese_path_follow_the_example_of_yi = { ###效法狄夷
+		modifier = { 
+			light_infantry_defensive = 0.1
+		}
+		icon = chinese_tribal_path_4
+		requires = { chinese_path_recruiting_talented_people }
+		on_activate = {
+			set_variable = eastern_steppe_influence
+			set_variable = yue_influence
+		}
+	}
+
+
+
+
+
+
+
+     #####################
+
+	
+	yue_the_hundred_yue_mil_trad = { ###簡募良材
+		modifier = { 
+			global_manpower_modifier = 0.05
+		}
+		icon = yue_the_hundred_yue_mil_trad
+		requires = {  }
+		allow = {
+			and = {
+				or = {
+					is_tribal = yes
+					country_culture_group = yi
+					country_culture_group = yue
+					country_culture_group = miao
+					country_culture_group = tai
+					has_variable = yue_influence
+				}
+				nor = {
+					has_variable = clan_tradition
+				}
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = clan_tradition
+				duration = -1
+			}
+			add_innovation = 2
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+	}
+	chinese_path_favorable_geographical_conditions = { ###地利人和
+		modifier = { 
+			
+			plains_combat_bonus = 0.05
+			farmland_combat_bonus = 0.05
+		}
+		
+		icon = chinese_path_favorable_geographical_conditions
+		requires = { yue_the_hundred_yue_mil_trad }
+	}
+	yue_martial_valor_mil_trad = { ###郡縣制度
+		modifier = { 
+			levy_size_multiplier = 0.025
+			discipline = 0.05
+		}
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+		icon = yue_martial_valor_mil_trad
+		requires = { chinese_path_favorable_geographical_conditions }
+	}
+	chinese_path_worship = { ###郡縣制度
+		modifier = { 
+			omen_power = 0.1
+			light_infantry_offensive = 0.05
+		}
+		on_activate = {
+			random_character = {
+				limit = {
+					has_high_priest_office_trigger = yes
+				}
+				alternative_limit = {
+					is_ruler = yes
+				}
+				add_zeal = 3
+			}
+		}
+		icon = yue_legendary_swords_mil_trad
+		requires = { yue_martial_valor_mil_trad }
+	}
+	yue_jungle_fever_mil_trad = { ###驛站系統
+		modifier = {
+			jungle_combat_bonus = 0.1
+			archers_offensive = 0.05
+		}
+		enable_tactic = hit_and_run_tactics
+		icon = yue_jungle_fever_mil_trad
+		requires = { yue_the_hundred_yue_mil_trad }
+	}
+	yue_wild_warriors_mil_trad = { ###效法西戎
+		modifier = { 
+			levy_size_multiplier = 0.025
+			land_morale_modifier = 0.05
+		}
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+		icon = yue_wild_warriors_mil_trad
+		requires = { yue_jungle_fever_mil_trad }
+	}
+	yue_tropical_heat_mil_trad = { ###築城技術
+		modifier = { 
+			hostile_attrition = 1
+			army_weight_modifier = -0.1
+			global_defensive = 0.1
+		}
+		on_activate = {
+			capital_scope = {
+				add_building_level = fortress_building
+			}
+		}
+		icon = yue_tropical_heat_mil_trad
+		requires = {chinese_path_favorable_geographical_conditions yue_jungle_fever_mil_trad}
+	}
+	
+	yue_elephants_of_the_orient_mil_trad = { ###臨機應變
+		modifier = { 
+			warelephant_discipline = 0.05
+			warelephant_morale = 0.05
+		}
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					NOT = { trade_goods = iron }
+					NOT = { trade_goods = horses }
+					NOT = { trade_goods = elephants }
+					is_capital = no
+					has_non_food_trade_good_trigger = yes
+					terrain = jungle
+				}
+				order_by = total_population
+				set_trade_goods = elephants
+			}
+		}
+		icon = yue_elephants_of_the_orient_mil_trad
+		requires = { yue_wild_warriors_mil_trad }
+	}
+	yue_huaxia_ways_mil_trad = { ###效法狄夷
+		modifier = { 
+			country_civilization_value = 3
+		}
+		on_activate = {
+			add_2_free_province_investments = yes
+			set_variable = chinese_influence
+		}
+		icon = yue_huaxia_ways_mil_trad
+		requires = { yue_martial_valor_mil_trad yue_wild_warriors_mil_trad }
+	}
+	ti_rong_di_path_10 = {
+		allow = {
+			country_culture_group = rong
+		}
+		icon = chinese_huaxia_path_1
+		requires = { chinese_path_worship  }
+		modifier = {
+			levy_size_multiplier = 0.025
+			global_manpower_modifier = 0.05
+		}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = conqueror
+				}
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#	yue_legendary_swords_mil_trad = { ###因糧於敵
+#		modifier = { 
+#			heavy_infantry_morale = 0.05
+#			pikemen_morale = 0.05
+#		}
+#		icon = yue_legendary_swords_mil_trad
+#		requires = {}
+#	}
+#	yue_bronze_barbarians_mil_trad = { ###用兵之道
+#		modifier = {
+#			global_export_commerce_modifier = 0.05
+#		}
+#		icon = yue_bronze_barbarians_mil_trad
+#		requires = { yue_legendary_swords_mil_trad }
+#	}
+#	
+#	
+#	yue_royal_armies_mil_trad = { ###人口增长
+#		modifier = { 
+#			discipline = 0.025
+#			global_population_growth = 0.01 
+#		}
+#		icon = yue_royal_armies_mil_trad
+#		allow = {
+#			# Have legions
+#		}
+#		on_activate = {
+#			ordered_owned_province = {
+#				order_by = {
+#					value = 0
+#					add = population_cap
+#					subtract = total_population
+#				}
+#				check_range_bounds = no
+#				max = 6
+#				create_2_freemen_effect = yes
+#			}
+#			# Give the legion a distinction?
+#		}
+#		requires = { yue_huaxia_ways_mil_trad }
+#	}
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+#	chinese_path_follow_the_example_of_yi = { ###效法狄夷
+#		modifier = { 
+#			light_infantry_defensive = 0.1
+#		}
+#		icon = chinese_tribal_path_4
+#		requires = {  }
+#		on_activate = {
+#			set_variable = eastern_steppe_influence
+#		}
+#	}
+#	chinese_path_follow_the_example_of_rong = { ###效法西戎
+#		modifier = { 
+#			light_cavalry_maintenance_cost = -0.05
+#		}
+#		icon = persian_bactrian_path_6
+#		requires = {  }
+#
+#		on_activate = {
+#			custom_tooltip = "gain_access_to_sea_stuff_tooltip_why_is_this_localization_key_so_long_oh_no_it_just_keeps_going_ahhhhhhhh"
+#			set_variable = south_east_asian_influence
+#		}
+#	}
+#	
+
+	
+	
+	
+#	
+
+}

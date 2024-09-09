@@ -1,0 +1,296 @@
+﻿latin_philosophy = { 
+	color = hsv { 0 0.88 0.5 }
+	image = latin_roman_path_1
+	
+
+	allow = {
+		trigger_if = {
+			limit = { primary_culture = roman }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			primary_culture = roman
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = roman_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_roman
+		}
+	}
+
+	
+	
+	
+	latin_roman_path_2 = { ##riplexAcies
+		modifier = { 
+			discipline = 0.05 
+			hills_combat_bonus = 0.1
+
+		}
+		enable_tactic = triplex_acies
+		
+		requires = {  }
+		icon = latin_roman_path_2
+		on_activate = {
+			add_innovation = 1
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+	}
+
+	latin_roman_path_1 = { ###Principes and triarii
+		modifier = { 
+			heavy_infantry_offensive = 0.1
+			spearmen_offensive = 0.2
+		}
+		allow = {
+			primary_culture = roman
+		}
+		icon = latin_roman_path_1
+		requires = {latin_roman_path_2}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
+	}
+	#latin_roman_path_3 = { ###Latin 2A
+	#	modifier = { 
+	#		spearmen_discipline = 0.1
+	#	}
+	#	requires = {  latin_roman_path_1 }
+	#	icon = latin_roman_path_3
+	#}
+	latin_roman_path_6 = { #Velites and hastati
+		modifier = { 
+			light_infantry_offensive = 0.1
+			heavy_infantry_defensive = 0.05
+		}
+		allow = {
+			primary_culture = roman
+		}
+		requires = { latin_roman_path_2 }
+		icon = latin_roman_path_6
+	}
+	latin_support_path_6 = { ###pilum andscutum
+		modifier = { 
+			heavy_infantry_defensive = 0.05
+			heavy_infantry_offensive = 0.05
+		}
+		on_activate = {
+			unlock_invention = italic_pilum_scutum_inv
+		}
+		requires = { latin_roman_path_1 }
+		icon = latin_support_path_6
+	}
+
+	
+
+	latin_roman_path_7 = { #honor of service
+		modifier = { 
+			levy_size_multiplier = 0.025
+			heavy_infantry_morale = 0.1
+		}
+		requires = { latin_tribal_path_2 latin_support_path_6 }
+		icon = latin_roman_path_7
+		
+	}
+	
+	latin_philosophy_start_bonus = { ###Servian walls
+		modifier = { 
+			fort_limit = 1
+			global_defensive = 0.1
+		}
+		allow = {
+			primary_culture = roman
+		}
+		on_activate = {
+			capital_scope = {
+				add_building_level = fortress_ramparts_building
+			}
+		}
+		
+		requires = {  }
+		icon = latin_philosophy_start_bonus
+	}
+
+	#latin_greek_enable = { ### field of mars
+	#	modifier = {
+	#		plains_combat_bonus = 0.1
+	#	}
+	#	requires = { latin_roman_path_1 #latin_support_path_3 }
+	#	icon = greek_philosophy_start_bonus	
+	#}
+
+	latin_support_path_5 = { ###Latin 4AC
+		modifier = {
+			cohort_cost = -0.1
+			supply_train_cost = -0.15
+			engineer_cohort_cost = -0.15
+		}
+		requires = { latin_roman_path_4 }
+		icon = latin_support_path_5
+		on_activate = {
+			add_4_free_province_investments = yes
+		}
+	}
+
+	latin_roman_path_5 = { ###LLegionary cohort
+		modifier = { 
+			heavy_infantry_discipline = 0.05
+			army_maintenance_cost = -0.05
+			army_movement_speed = 0.05
+		}
+		requires = { latin_support_path_5 }
+		icon = latin_roman_path_5
+	}
+
+	latin_tribal_path_7 = { ###Latin 5AB
+		modifier = { 
+			manpower_recovery_speed = 0.05
+		}
+		allow = {
+			primary_culture = roman
+		}
+		requires = { latin_roman_path_7 latin_roman_path_5} 
+		icon = latin_tribal_path_7
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = conqueror
+				}
+			}
+		}
+	}
+
+	#latin_support_path_3 = { ###Latin 1B
+	#	modifier = { 
+	#		siege_ability = 0.1
+	#	}
+	#	requires = {}
+	#	icon = latin_support_path_3
+	#}
+
+	latin_support_path_2 = { ###Fabri
+		modifier = { 
+			siege_engineers = 1
+			siege_ability = 0.1
+		}
+		requires = { latin_roman_path_2 }
+		icon = latin_support_path_2
+		
+		on_activate = {
+			add_innovation = 3
+		}
+	}
+
+	latin_roman_path_4 = { ###roads
+		modifier = {
+			army_movement_speed = 0.1
+		}
+		enable_ability = road_building
+		requires = { latin_support_path_2 }
+		icon = latin_roman_path_4
+		on_activate = {
+			add_innovation = 3
+		}
+	}
+	latin_support_path_4 = { ##castra
+		modifier = {
+			fort_maintenance_cost = -0.15
+		}
+		enable_ability = border_forts
+		
+		requires = { latin_support_path_7 }
+		icon = latin_support_path_4
+	}
+	latin_roman_path_end_bonus = { ###Latin 4B
+		modifier = { 
+			land_morale_modifier = 0.05
+			heavy_infantry_discipline = 0.05
+		}
+		allow = {
+			primary_culture = roman
+		}
+		requires = { latin_roman_path_5 }
+		icon = latin_roman_path_end_bonus
+	}
+	latin_tribal_path_6 = { ###Latin 1B
+		modifier = { 
+			navy_maintenance_cost = -0.10
+		}
+		
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					is_coastal = yes
+					can_build_building = port_building
+				}
+				add_building_level = port_building
+			}
+		}
+		
+		requires = { latin_support_path_4 }
+		icon = latin_tribal_path_6
+	}
+	latin_tribal_path_2 = { ###equestians
+		modifier = { 
+			light_cavalry_offensive = 0.1
+			global_citizen_output = 0.03
+		}
+		
+		icon = latin_tribal_path_2
+		requires = { latin_roman_path_6 }
+	}
+	
+	latin_support_path_7 = { ##foederati
+		modifier = { 
+			light_cavalry_defensive = 0.1
+			heavy_cavalry_defensive = 0.1
+		}
+		
+		requires = { latin_philosophy_start_bonus }
+		icon = latin_support_path_7
+		
+		on_activate = {
+			every_subject = {
+				add_opinion = {
+					target = ROOT
+					modifier = opinion_appreciate_protection
+				}
+			}
+		}
+	}
+	latin_support_path_end_bonus = { ###LRome ascentndt6AB
+		modifier = { 
+			general_loyalty = 5
+		}
+		
+		on_activate = {
+			add_innovation = 3
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = conqueror
+				}
+			}
+		}
+		
+		requires = {  latin_tribal_path_7 latin_tribal_path_6 latin_roman_path_end_bonus}
+		icon = latin_support_path_end_bonus
+	}
+}

@@ -1,4 +1,4 @@
-﻿anabasis = {
+anabasis = {
 
 	duration = 0
 	enable = yes
@@ -15,38 +15,15 @@
 		}
 	}
 	
-	allow = {
-		has_commander = yes
-		commander = {
-			OR = {
-				is_ruler = yes
-				is_primary_heir = yes
-			}
-		}
-		hidden:unit_owner = { can_pay_price = price_anabasis }
-		is_army = yes
-		in_combat = no
-		is_moving = no
-		in_siege = no
-		is_exiled = no
-		unit_location = {
-			has_owner = yes
-			owner = root.unit_owner
-			NOT = {
-				this = root.unit_owner.capital_scope
-			}
-		}
-		exists = unit_location.state
-		custom_tooltip = {
-			text = "already_visited_recently"
-			NOT = {
-				unit_location.state = { has_state_modifier = seleucus_big_day_out }
-			}
-		}
-		unit_location = {
-			is_state_capital = yes
-		}
-	}
+	allow = { has_commander = yes commander = { OR = { is_ruler = yes
+	is_primary_heir = yes } } hidden:unit_owner = { can_pay_price =
+	price_anabasis } is_army = yes in_combat = no is_moving = no in_siege
+	= no is_exiled = no unit_location = { has_owner = yes owner =
+	root.unit_owner NOT = { this = root.unit_owner.capital_scope } }
+	exists = unit_location.state custom_tooltip = { text
+	= "already_visited_recently" NOT = { unit_location.state =
+	{ has_state_modifier = seleucus_big_day_out } } }	nb unit_location =
+	{ is_state_capital = yes } }
 	
 	
 	start_effect = {

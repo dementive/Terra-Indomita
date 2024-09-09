@@ -1,0 +1,544 @@
+persian_philosophy = { 
+	color = hsv { 0.99 0.64 0.7 }
+	image = persian_achaemenid_path_2
+	#imerial diaspora invention -vnobles retained persian heritage s city founder -0.1
+	allow = {
+		trigger_if = {
+			limit = { country_culture_group = persia }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = persia
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = east_levantine
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = east_levantine
+		}
+		trigger_else_if = {
+			limit = {
+				tag = ARS
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = ARS
+		}
+		trigger_else_if = {
+			limit = {
+				tag = SEL
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = SEL
+		}
+		trigger_else_if = {
+			custom_tooltip = {
+				text = "unlocked_via_mission_tree_tt"
+				has_variable = persian_cap_persia_mil_trads_var
+			}
+			limit = {
+				has_variable = persian_cap_persia_mil_trads_var
+			}
+		}
+		trigger_else_if = {
+			limit = {
+				tag = PAR
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = PAR
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = saka_g }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = saka_g
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = bactrian
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = bactrian
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = sarmatian_group
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = sarmatian_group
+		}
+		trigger_else_if = {
+			limit = {
+				country_culture_group = scythia
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = scythia
+		}
+		trigger_else_if = {
+			limit = {
+				OR = {
+					has_variable = was_bactria
+					tag = BAC
+				}
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = BAC
+		}
+		trigger_else_if = {
+			limit = {
+				tag = TAY
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = TAY
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = iranian_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_iran
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = persian_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_persian
+		}
+	}
+	persian_achaemenid_path_5 = { ###achaemenid legacy 4BB
+		modifier = {
+			land_morale_modifier = 0.05
+			build_roads_cost_modifier = -0.5
+			ruler_popularity_gain = 0.05
+		}
+		allow = {
+			or = {
+				has_variable = persian_influence
+				country_culture_group = persia
+				country_culture_group = east_levantine
+				tag = SEL
+			}
+		}
+		icon = persian_achaemenid_path_5
+		requires = {}
+		on_activate = {
+			change_law = administration_law_3_mon
+			current_ruler = {
+				add_popularity = 25
+				add_charisma = 2
+			}
+		}
+	}
+	persian_achaemenid_path_1 = { ##cyrsy
+		modifier = {
+			global_manpower_modifier = 0.1
+			monthly_legitimacy = 0.01
+		}
+		icon = persian_achaemenid_path_1
+		requires = {persian_achaemenid_path_5}
+		on_activate = {
+			add_legitimacy = 25
+			current_ruler = {
+				add_charisma = 2
+			}
+		}
+	}
+	persia_alexander = { #Legaacy if alexander
+		modifier = { price_found_city_cost_modifier = -0.1 }
+		enable_ability = military_colonies 
+		icon = persian_bactrian_path_4
+		requires = {persian_achaemenid_path_1} 
+		allow = {
+			nor = {
+				has_variable = alexander_legacy
+			}
+		}
+		on_activate = {
+			set_variable= {
+				name = alexander_legacy
+				duration = -1
+			}
+			ordered_owned_province = {
+				limit = {
+					NOT = { dominant_province_culture_group = root.culture_group }
+					any_neighbor_province = {
+						count > 1
+						NOT = { dominant_province_culture_group = root.culture_group }
+					}
+					state = {
+						NOT = {
+							any_state_province = {
+								is_capital = yes
+							}
+						}
+					}
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				add_province_modifier = {
+					name = "local_colonia"
+					duration = -1
+				}
+				custom_tooltip = military_colonia_here_tt
+				trigger_event = { id = cultural_integration.11 }
+			}
+		}
+	}
+	persian_achaemenid_path_3 = { ###naval reform
+		modifier = {
+			naval_damage_taken = -0.1
+		}
+		allow_unit_type = octere
+		icon = persian_achaemenid_path_3
+		requires = {persian_achaemenid_path_1}
+	}
+	persian_levantine_enable = { ##imperial fleey
+		icon = levantine_arabian_path_5
+		modifier = { ocean_combat_bonus = 0.1 }
+		requires = { persian_achaemenid_path_3 }
+	}
+	persian_achaemenid_path_2 = { ###immortals
+		modifier = {
+			heavy_infantry_defensive = 0.1
+			spearmen_discipline = 0.1
+		}
+		icon = persian_achaemenid_path_2
+		requires = {persian_achaemenid_path_5}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = confident
+				}
+			}
+		}
+	}
+	persian_achaemenid_path_6 = { ##to blot out the sun
+		modifier = {
+			archers_offensive = 0.15	
+			horse_archers_defensive = 0.1
+		}
+		icon = persian_achaemenid_path_6
+		requires = { persian_achaemenid_path_2 }
+	}
+	persian_achaemenid_path_7 = { #kardakes
+		modifier = {
+			heavy_infantry_cost = -0.15
+		}
+		icon = persian_achaemenid_path_7
+		requires = {persian_achaemenid_path_6 }
+	}
+	persian_achaemenid_path_4 = { ##reactive recruitment
+		modifier = { 
+			levy_size_multiplier = 0.025
+			global_manpower_modifier = 0.05
+			 }
+		icon = persian_achaemenid_path_4
+		requires = {persian_achaemenid_path_5}
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = conqueror
+				}
+			}
+		}
+	}
+	persian_bactrian_path_end_bonus = { ###Persia 3B
+		modifier = {
+			mercenary_land_maintenance_cost = -0.1
+		}
+		
+		icon = persian_bactrian_path_end_bonus
+		requires = {persian_achaemenid_path_3 } 
+		allow = {
+			nor = {
+				has_variable = disillusioned
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = disillusioned
+				duration = -1
+			}
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 6
+				create_2_freemen_effect = yes
+			}
+		}
+	}
+	persian_achaemenid_path_end_bonus = { ###massed assault
+		modifier = {
+			siege_ability = 0.1
+		}
+		icon = persian_achaemenid_path_end_bonus
+		requires = {persian_achaemenid_path_4}
+	}
+	persian_bactrian_path_5 = { ###titans of battle
+		modifier = { 
+			warelephant_defensive = 0.1
+		}
+		icon = persian_bactrian_path_5
+		requires = {persian_achaemenid_path_end_bonus}
+	}
+
+	persian_scythian_path_end_bonus = { ##Born to ride
+		modifier = {
+			light_cavalry_morale = 0.05
+			light_cavalry_movement_speed = 0.1
+		}
+		
+		icon = persian_scythian_path_end_bonus
+		requires = {} 
+		allow = {
+			and = {
+				or = {
+					has_variable = iranian_influence
+					tag = PAR
+					country_culture_group = saka_g
+					country_culture_group = sarmatian_group
+					country_culture_group = bactrian
+					country_culture_group = scythia
+				}
+				nor = {
+					has_variable = scythian_path
+				}
+			}
+		}
+		on_activate = {
+			set_variable  = {
+				name = scythian_path
+				duration = -1
+			}
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+	}
+	persian_bactrian_path_6 = { ###hippotoxotai
+		modifier = {
+			horse_archers_defensive = 0.1
+			horse_archers_movement_speed = 0.1
+			horse_archers_morale = 0.05
+		}
+		enable_tactic = cavalry_skirmish
+		icon = persian_bactrian_path_6
+		requires = {persian_scythian_path_end_bonus}
+	}
+	persian_scythian_path_1 = { ##parthian shot
+		modifier = {
+			horse_archers_offensive = 0.05
+			horse_archers_defensive = 0.05
+			horse_archers_discipline = 0.05
+		}
+		allow = {
+			or = {
+				tag = PAR
+				country_culture_group = saka_g
+				country_culture_group = sarmatian_group
+				country_culture_group = bactrian
+				country_culture_group = scythia
+				primary_culture = parthian
+			}
+		}
+		enable_tactic = cavalry_skirmish
+		icon = persian_scythian_path_1
+		requires = {persian_bactrian_path_6}
+	}
+	persian_scythian_path_5 = { #Cataphracts
+		modifier = {
+			heavy_cavalry_defensive = 0.15
+			heavy_cavalry_offensive = 0.1
+			heavy_infantry_cost = 0.1
+		}
+		
+		icon = persian_scythian_path_5
+		requires = { persian_scythian_path_end_bonus } 
+		allow = {
+			nor = {
+				has_variable = cataphract
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = cataphract
+				duration = -1
+			}
+			ordered_owned_province = {
+				limit = {
+					dominant_province_culture_group = root.culture_group
+				}
+				alternative_limit = {
+					always = yes
+				}
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 3
+				create_2_nobles_effect = yes
+			}	
+		}
+	}
+	persian_scythian_path_2 = { ##nimaidc lifestyle
+		modifier = {
+			cohort_reinforcement_speed = 0.05
+			army_maintenance_cost = -0.05
+			mountain_combat_bonus = 0.05
+		}
+		allow = {
+			or = {
+				tag = PAR
+				country_culture_group = saka_g
+				country_culture_group = sarmatian_group
+				country_culture_group = bactrian
+				country_culture_group = scythia
+				primary_culture = parthian
+			}
+		}
+		icon = persian_scythian_path_2
+		requires = { persian_scythian_path_5}
+	}
+	scythian_path_8 = { #horse kneeling
+		modifier = { 
+			horse_archers_cost = -0.1
+			light_cavalry_cost = -0.05
+			heavy_cavalry_cost = -0.05
+		} 
+		icon = persian_bactrian_path_end_bonus
+		requires = { persian_scythian_path_2   }
+	}
+	persian_scythian_path_6 = { #steppe mastery
+		modifier = {
+			army_weight_modifier = -0.20
+			plains_combat_bonus = 0.1
+		}
+		icon = persian_scythian_path_6
+		requires = {persian_scythian_path_end_bonus}
+	}
+	persian_scythian_path_3 = { ###hit and run
+		modifier = {
+			light_cavalry_discipline = 0.05
+			heavy_cavalry_discipline = 0.05
+		}
+		enable_tactic = hit_and_run_tactics
+		icon = persian_scythian_path_3
+		requires = {persian_scythian_path_6}
+	}
+	scythian_path_3 = { ###steppe lancer
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = conqueror
+				}
+			}
+		}
+		modifier = { 
+			light_cavalry_offensive = 0.05
+			light_cavalry_defensive = 0.05
+		} 
+		icon = north_african_tribal_path_3
+		requires = { persian_scythian_path_3 }
+	}
+	persian_path_arsaces = { ###legacy of arsavces
+		modifier = {
+			war_exhaustion = -0.02
+			land_morale_recovery = 0.025
+			monthly_legitimacy = 0.03
+		}
+		on_activate = {
+			persian_unlock_effect = yes			
+		}
+		icon = persian_scythian_path_3
+		requires = {persian_scythian_path_1}
+	}
+}
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##################################################################################
+
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#	
+#
+	
+

@@ -361,4 +361,73 @@
 			}
 		}
 	}
+
+
+
+
+
+	#TI
+
+
+	latin_rights = {
+		potential = {
+			NOT = { primary_culture = scope:target_culture.culture }
+			primary_culture = roman
+			scope:target_culture = {
+				NOT = { has_pop_type_right = citizen }
+				NOT = { has_pop_type_right = nobles }
+			}
+		}
+		allow = {
+			scope:target_culture = {
+				NOT = { has_country_culture_modifier = latin_rights_granted }
+			}
+			NOT = { has_country_modifier = latin_rights_extended }
+		}
+		effect = {
+			add_stability = -10
+			culture_state_loyalty_effect = yes
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = "latin_rights_granted"
+					duration = -1
+				}
+			}
+			ordered_owned_province = {
+				limit = { dominant_province_culture = scope:target_culture.culture }
+				max = 1
+				order_by = total_population
+				state = {
+					add_state_modifier = {
+						name = "latin_rights_assimilation"
+						duration = 3000
+					}
+				}
+			}
+			add_country_modifier = {
+				name = "latin_rights_extended"
+				duration = 1095
+			}
+			approval_effect = {
+				PARTY = optimates_party
+				VALUE = party_disapproval_medium_svalue
+			}
+			approval_effect = {
+				PARTY = populares_party
+				VALUE = party_approval_medium_svalue
+			}
+			approval_effect = {
+				PARTY = democratic_party
+				VALUE = party_approval_medium_svalue
+			}
+			approval_effect = {
+				PARTY = traditionalist_party
+				VALUE = party_disapproval_medium_svalue
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
 }

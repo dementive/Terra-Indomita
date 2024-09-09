@@ -1,0 +1,447 @@
+﻿iberian_philosophy = { 
+	color = hsv { 0.36 0.76 0.99 }
+	image = north_african_naval_path_2
+	
+	allow = {
+		trigger_if = {
+			limit = { country_culture_group = celt_iberia }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = celt_iberia
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = iberia }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = iberia
+		}
+		trigger_else_if = {
+			limit = { country_culture_group = proto_european }
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			country_culture_group = proto_european
+		}
+		trigger_else_if = {
+			limit = { 
+				tag = EPO
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = EPO
+		}
+		trigger_else_if = {
+			limit = { 
+				tag = HMK
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = HMK
+		}
+		trigger_else_if = {
+			limit = {
+				tag = GAD
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			tag = GAD
+		}
+		trigger_else_if = {
+			limit = {
+				has_variable = gm_4_greek_country_flag
+			}
+			custom_tooltip = {
+				text = "began_with_tradition_group"
+			}
+			has_variable = gm_4_greek_country_flag
+		}
+		trigger_else = {
+			custom_tooltip = {
+				text = "tradition_unlock_requirement_cultural_decision"
+				has_variable = iberian_influence
+			}
+			custom_tooltip = tradition_unlock_requirement_iberian
+		}		
+	}
+	iberian_right_2_path_1 = { ###Iberian 4B Iberian Pyrite Belt
+		modifier = { 
+			global_goods_from_slaves = -1
+		}
+		on_activate = {
+			ordered_owned_province = {
+				limit = { has_minable_trade_good_trigger = yes }
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				max = 2
+				check_range_bounds = no
+				create_3_slaves_effect = yes
+			}
+		}
+		icon = greek_antigonid_path_7
+		requires = {  }
+	}
+	iberian_left_2_path_1 = { ###Iberian 2C Fine Metalworks
+		modifier = {
+			heavy_infantry_cost = -0.1
+			light_infantry_cost = -0.1
+			global_freemen_output = 0.05
+		}
+		icon = latin_tribal_path_1
+		requires = { iberian_right_2_path_1 }
+	}
+	iberian_central_path_2A = { ###Iberian 2BA Light Armours
+		modifier = { 
+			light_infantry_movement_speed = 0.1
+			slingers_movement_speed = 0.1
+		}
+		icon = latin_roman_path_1
+		requires = { iberian_left_2_path_1 }
+	}
+	iberian_central_path_4 = { ###Iberian 4B Talaiotic Slingers
+		modifier = { 
+			slingers_morale = 0.05
+			slingers_offensive = 0.1
+		}
+		icon = celtic_germanic_path_7
+		requires = {iberian_central_path_2A}
+	}
+	iberian_left_path_1 = { ###Iberian 1A Phalaricae
+		modifier = { 
+			assault_ability = 0.05
+			light_infantry_offensive = 0.05
+		}
+		icon = celtic_gallic_path_1
+		requires = { iberian_left_2_path_1 }
+	}
+	iberian_right_path_1 = { ###Iberian 1C Machaera Hispaniensis
+		modifier = { 
+			heavy_infantry_offensive = 0.05
+		}
+		on_activate = {
+			add_innovation = 1
+		}
+		icon = celtic_britannic_path_2
+		requires = { iberian_left_path_1 }
+	}
+	iberian_left_2_path_2 = { ###Iberian 3C Importing Knowledge
+		modifier = { 
+			global_capital_trade_routes = 1
+		}
+		icon = levantine_philosophy_start_bonus
+		requires = { iberian_left_2_path_1 iberian_central_2_path_3 }
+		on_activate = {
+			add_innovation = 3
+		}
+	}
+	iberian_central_2_path_3 = { ###Iberian 4C Coastal Ports
+		modifier = { 
+			ship_cost = -0.15
+		}
+		icon = north_african_naval_path_7
+		requires = { iberian_right_2_path_1 }
+		on_activate = {
+			ordered_owned_province = { #If you have none we make a new one, if you do have one we try to upgrade that.
+				limit = {
+					owner = { num_of_ports < 1 }
+					is_coastal = yes
+					NOT = { has_building = port_building }
+					can_build_building = port_building
+				}
+				alternative_limit = {
+					is_coastal = yes
+					has_building = port_building
+					can_build_building = port_building
+				}
+				alternative_limit = {
+					is_coastal = yes
+					can_build_building = port_building
+				}
+				add_building_level = port_building
+			}
+		}
+	}
+	
+	iberian_central_2_path_2 = { ###Iberian 5A Levantine Constructions
+		modifier = { 
+			build_cost = -0.05
+			price_found_city_cost_modifier = -0.05
+		}
+		icon = north_african_naval_path_6
+		requires = { iberian_left_2_path_2 }
+		on_activate = {
+			capital_scope = {
+				add_building_level = fortress_building
+			}
+		}
+	}
+
+	iberian_north_african_enable = { ###Iberian 5B Quick Mendings
+		modifier = { 
+			naval_damage_taken = -0.05
+		}
+		requires = { iberian_left_2_path_2 }
+		icon = north_african_naval_path_1
+	}
+	celt_iberian_path_d_2 = { ###Celt-Iberian 4B Tin Commerce routes
+		modifier = { 
+			global_commerce_modifier = 0.05
+			slave_mine_building_cost = -0.3
+		}
+		on_activate = {
+			add_2_free_province_investments = yes
+		}
+		icon = celtic_gallic_path_5
+		requires = { iberian_central_2_path_3  }
+	}
+	celt_iberian_path_b_3 = { ###Celt-Iberian 2C Devotio
+		modifier = {
+			general_loyalty = 5
+		}
+		icon = celtic_gallic_path_6
+		requires = { celt_iberian_path_d_2 }
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = disciplined
+				}
+			}
+		}
+	}
+
+	celt_iberian_path_c_3B = { ###Celt-Iberian 3CB Noble Riders
+		modifier = { 
+			heavy_cavalry_cost = -0.1
+			light_cavalry_morale = 0.1
+		}
+		allow = {
+			and = {
+				nor = {
+					has_variable = scythian_path
+				}
+				or = {
+					is_tribal = yes
+					country_culture_group = iberia
+					country_culture_group = celt_iberia
+					country_culture_group = proto_european
+				}
+			}
+			
+		}
+		on_activate = {
+			set_variable  = {
+				name = scythian_path
+				duration = -1
+			}
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+		icon = celtic_britannic_path_end_bonus
+		requires = { iberian_right_2_path_1 }
+	}
+	iberian_central_path_1 = { ###Iberian 1B Rich Farms
+		modifier = { 
+			global_supply_limit_modifier = 0.1
+			global_migration_speed_modifier = 0.1
+			farmland_combat_bonus = 0.1
+		}
+		icon = celtic_germanic_path_2
+		requires = { celt_iberian_path_c_3B}
+	}
+	celt_iberian_path_b_2 = { ###Celt-Iberian 2B Concursare
+		enable_tactic = hit_and_run_tactics
+		modifier = {
+			light_cavalry_offensive = 0.1
+			light_cavalry_defensive = 0.05
+		}
+		icon = celtic_germanic_path_1
+		requires = { iberian_central_path_1 }
+	}
+	celt_iberian_path_c_3A = { ###Celt-Iberian 3CA Cantabrian Circle
+		modifier = { 
+			horse_skirmishers_offensive = 0.1
+			horse_skirmishers_defensive = 0.1
+		}
+		enable_tactic = cavalry_skirmish
+		icon = latin_support_path_7
+		requires = { celt_iberian_path_c_3B }
+	}
+	celt_iberian_path_d_1 = { ###Celt-Iberian 4A Just the best Horses
+		modifier = {
+			horse_skirmishers_morale = 0.05
+			horse_skirmishers_discipline = 0.1
+		}
+		icon = persian_scythian_path_end_bonus
+		requires = { celt_iberian_path_c_3A }
+		on_activate = {
+			ordered_owned_province = {
+				limit = {
+					NOT = { trade_goods = iron }
+					NOT = { trade_goods = horses }
+					NOT = { trade_goods = steppe_horses }
+					is_capital = no
+					has_non_food_trade_good_trigger = yes
+				}
+				order_by = total_population
+				set_trade_goods = horses
+			}
+		}
+	}
+	iberian_central_2_path_1 = { ###Iberian 4A All Gods Are Welcome
+		modifier = { 
+			character_loyalty = 3
+			manpower_recovery_speed = 0.05
+		}
+		allow = {
+			and = {
+				or = {
+					is_tribal = yes
+					country_culture_group = celt_iberia
+					country_culture_group = iberia
+					country_culture_group = proto_european
+				}
+				nor = {
+					has_variable = clan_tradition
+				}
+			}
+		}
+		on_activate = {
+			set_variable = {
+				name = clan_tradition
+				duration = -1
+			}
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = tactician
+				}
+			}
+		}
+		icon = celtic_britannic_path_4
+		requires = { }
+	}
+	celt_iberian_path_8 = { ###Celt-Iberian Forest
+		modifier = {
+			hostile_attrition = 1
+			forest_combat_bonus = 0.1
+		}
+		enable_tactic = hit_and_run_tactics
+		icon = celtic_germanic_path_3
+		requires = { iberian_central_2_path_1 }
+	}
+	celt_iberian_path_e_1 = { ###Celt-Iberian 3C Raids on Neighbours
+		modifier = { 
+			global_start_experience = 10
+			experience_decay = -0.005
+			levy_size_multiplier = 0.025
+		}
+		on_activate = {
+			ordered_owned_province = {
+				order_by = {
+					value = 0
+					add = population_cap
+					subtract = total_population
+				}
+				check_range_bounds = no
+				max = 3
+				create_2_freemen_effect = yes
+			}
+		}
+		icon = celtic_gallic_path_2
+		requires = { celt_iberian_path_8 }
+	}
+	celt_iberian_path_c_4 = { ###Celt-Iberian 3D Human sacrifices
+		modifier = {
+			omen_power = 0.10
+			light_infantry_discipline = 0.05
+			global_tribesmen_happyness = 0.08
+		}
+		icon = latin_tribal_path_3
+		requires = { celt_iberian_path_e_1 }
+	}
+
+	celt_iberian_path_c_3 = { ###cosntatnt battle
+		modifier = { 
+			enslavement_efficiency = 0.1
+			global_slaves_output = 0.06
+			land_unit_attrition = -0.1
+		}
+		enable_ability = naval_raiding
+		icon = latin_tribal_path_4
+		requires = { celt_iberian_path_8 celt_iberian_path_a_1 }
+	}
+	celt_iberian_path_a_1 = { ###Celt-Iberian 1A The Plateau
+		modifier = { 
+			hills_combat_bonus = 0.10
+			plains_combat_bonus = 0.10
+			light_infantry_defensive = 0.05
+		}
+		icon = persian_bactrian_path_7
+		requires = { iberian_central_2_path_1 }
+	}
+	iberian_central_path_2B = { ###Iberian 2BB Confederations
+		modifier = { 
+			diplomatic_relations = 1
+			global_manpower_modifier = 0.1
+		}
+		icon = celtic_gallic_path_4
+		requires = { celt_iberian_path_a_1 }
+	}
+	iberian_central_path_3 = { ###Iberian 3B Iberian Mercenaries
+		modifier = { 
+			heavy_infantry_discipline = 0.05
+		}
+		icon = north_african_naval_path_2
+		requires = { iberian_central_path_2B  }
+		on_activate = {
+			add_innovation = 2
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = tactician
+				}
+			}
+		}
+	}
+	celt_iberian_path_e_2 = { ###Celt-Iberian 5B Numantine Defense
+		modifier = {
+			global_defensive  = 0.15
+			fort_limit = 1
+		}
+		on_activate = {
+			add_3_free_province_investments = yes
+		}
+		icon = celtic_gallic_path_7
+		requires = { celt_iberian_path_e_1 iberian_central_path_2B }
+	}
+
+
+	celt_iberian_path_b_1 = { ###Celt-Iberian 2A Barritus
+		modifier = {
+			land_morale_modifier = 0.05
+			heavy_infantry_defensive = 0.05
+			heavy_infantry_movement_speed = 0.05
+		}
+		icon = north_african_tribal_path_6
+		requires = { celt_iberian_path_e_2 }
+	}
+}
