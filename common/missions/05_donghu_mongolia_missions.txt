@@ -1,0 +1,558 @@
+﻿donghu_mongol_missions = {
+	icon = cde_scythian_mounted_archers
+	header = mission_image_scythian
+
+    repeatable = no
+
+    chance = {
+        factor = 5
+    }
+
+    potential = {
+        NOT = { has_variable = donghu_abort_mission }
+        is_subject = no
+        has_civil_war = no
+		is_tribal = yes
+		country_culture_group = hu
+    }
+
+    abort = {
+        ai_mission_back_out_trigger = yes
+    }
+
+    on_start = {
+        start_mission_ai_effect = yes
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = donghu_abort_mission
+            days = 7300
+        }
+    }
+
+    on_completion = {
+        complete_mission_effect = yes
+    }
+
+    donghu_mongol_missions_task_1 = { #Prepare The Storm
+        icon = "task_political"
+
+		highlight = {
+			scope:province = {
+				owner = root
+				OR = {
+					trade_goods = horses
+					trade_goods = steppe_horses
+				}
+			}
+		}
+
+        allow = {
+			custom_tooltip = {
+				text = donghu_mongol_missions_task_1_req
+				any_owned_province = {
+					count >= 2
+					OR = {
+						trade_goods = horses
+						trade_goods = steppe_horses
+					}
+					has_building = tribal_pastures_building
+				}
+			}
+		}
+        on_completion = {
+            trigger_event = me_donghu.1
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = "mongol_storm_mod"
+					duration = 7300
+				}
+            }
+			custom_tooltip = donghu_mongol_missions_task_1_claims_tt
+			hidden_effect = {
+				area:liaoxi_area = { mission_area_claim_effect = yes }
+				area:liaoyang_area = { mission_area_claim_effect = yes }
+				area:liaodong_area = { mission_area_claim_effect = yes }
+				area:lelang_area = { mission_area_claim_effect = yes }
+				area:youbeiping_area = { mission_area_claim_effect = yes }
+				area:yuyang_area = { mission_area_claim_effect = yes }
+				area:zhuo_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_2 = { #One True Khan
+        icon = "task_political"
+
+        allow = {
+			num_of_cities >= 20
+			current_ruler = {
+                custom_tooltip = {
+                    text = does_not_have_loyalty_and_respect_tt
+                    has_variable = loyalty_and_respect_var
+                }
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.2
+            show_as_tooltip = {
+				current_ruler = {
+					add_popularity = 20
+					add_focus_perk = {
+						text = "add_1_char_perk"
+						amount = 1
+					}
+				}
+            }
+			custom_tooltip = donghu_mongol_missions_task_2_claims_tt
+			hidden_effect = {
+				area:wuhuan_area = { mission_area_claim_effect = yes }
+				area:raole_area = { mission_area_claim_effect = yes }
+				area:modong_area = { mission_area_claim_effect = yes }
+				area:daxinabeishan_area = { mission_area_claim_effect = yes }
+				area:gonglu_area = { mission_area_claim_effect = yes }
+				area:transbaikal_area = { mission_area_claim_effect = yes }
+				area:terigun_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_3 = { #Conquest Of The Sushen
+		requires = { donghu_mongol_missions_task_8  }
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = huifa_area
+					is_in_area = sushen_area
+				}
+			}
+        }
+
+        allow = {
+			owns_area = huifa_area
+			owns_area = sushen_area
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.3
+            show_as_tooltip = {
+				add_2_free_province_investments = yes
+            }
+        }
+    }
+
+    donghu_mongol_missions_task_4 = { #Siege Ji
+		requires = { donghu_mongol_missions_task_1 donghu_mongol_missions_task_2 }
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = yuyang_area
+					is_in_area = youbeiping_area
+					province_id = 8742
+				}
+			}
+        }
+
+        allow = {
+			owns_area = yuyang_area
+			owns_area = youbeiping_area
+			owns = 8742
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.4
+            custom_tooltip = donghu_mongol_missions_task_4_claims_tt
+			hidden_effect = {
+				area:handan_area = { mission_area_claim_effect = yes }
+				area:bohai_area = { mission_area_claim_effect = yes }
+				area:hejian_area = { mission_area_claim_effect = yes }
+				area:qinghe_area = { mission_area_claim_effect = yes }
+				area:hengshan_area = { mission_area_claim_effect = yes }
+				area:julu_area = { mission_area_claim_effect = yes }
+				area:zhongshan_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_5 = { #Unification Of The Hu
+		requires = { donghu_mongol_missions_task_2 }
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					province_id = 9527
+					province_id = 8766
+					province_id = 9533
+					province_id = 9556
+					province_id = 9519
+					province_id = 9483
+				}
+			}
+        }
+
+        allow = {
+			owns = 9527
+			owns = 9533
+			owns = 9519
+			owns = 8766
+			OR = {
+				owns = 9556
+				owns = 9483
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.5
+			show_as_tooltip = {
+				add_centralization = 20
+			}
+            custom_tooltip = donghu_mongol_missions_task_5_claims_tt
+			hidden_effect = {
+				area:transbaikal_area = { mission_area_claim_effect = yes }
+				area:guyan_area = { mission_area_claim_effect = yes }
+				area:khuvsgul_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_6 = { #Purchase Bronze Gui Tureen
+		requires = { donghu_mongol_missions_task_2 }
+        icon = "task_political"
+
+        allow = {
+			treasury >= 100
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.6
+            show_as_tooltip = {
+				add_treasury = -100
+				create_country_treasure = {
+					key = "donghu_bronze_gui_tureen"
+					icon = "treasure_chest"
+					modifier = {
+						local_monthly_food_modifier = 0.2
+						local_tribesmen_output = 0.18
+						local_freemen_output = 0.06
+					}
+				}
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_7 = { #Teachings Of Confucius
+		requires = { donghu_mongol_missions_task_4 }
+        icon = "task_political"
+
+        allow = {
+			
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.7
+            show_as_tooltip = {
+
+            }
+        }
+    }
+
+    donghu_mongol_missions_task_8 = { #Joseon Ender
+		requires = { donghu_mongol_missions_task_1 }
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = liaoyang_area
+					is_in_area = liaodong_area
+					province_id = 8801
+					owned_or_subject_owned = c:JSN
+				}
+			}
+        }
+
+        allow = {
+			owns_area = liaoyang_area
+			owns_area = liaodong_area
+			owns = 8801
+			c:JSN = {
+				has_land = no
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.8
+            custom_tooltip = donghu_mongol_missions_task_8_claims_tt
+			hidden_effect = {
+				area:huifa_area = { mission_area_claim_effect = yes }
+				area:sushen_area = { mission_area_claim_effect = yes }
+				area:ussuri_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_9 = { #Opening The Dragon's Gate
+		requires = { donghu_mongol_missions_task_4 }
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = bohai_area
+					is_in_area = hejian_area
+					is_in_area = qinghe_area
+				}
+			}
+        }
+
+        allow = {
+			owns_area = bohai_area
+			owns_area = hejian_area
+			owns_area = qinghe_area
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.9
+            custom_tooltip = donghu_mongol_missions_task_9_claims_tt
+			hidden_effect = {
+				area:pingyuan_area = { mission_area_claim_effect = yes }
+				area:dong_area = { mission_area_claim_effect = yes }
+				area:jinan_area = { mission_area_claim_effect = yes }
+				area:qiansheng_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_10 = { #Crush The Zhao
+		requires = { donghu_mongol_missions_task_4 }
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = hengshan_area
+					is_in_area = julu_area
+					is_in_area = zhongshan_area
+					province_id = 8681
+				}
+			}
+        }
+
+        allow = {
+			owns_area = hengshan_area
+			owns_area = julu_area
+			owns_area = zhongshan_area
+			owns = 8681
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.10
+            show_as_tooltip = {
+				add_military_experience = 10
+            }
+            custom_tooltip = donghu_mongol_missions_task_10_claims_tt
+			hidden_effect = {
+				area:wei_area = { mission_area_claim_effect = yes }
+				area:henei_area = { mission_area_claim_effect = yes }
+				area:henan_area = { mission_area_claim_effect = yes }
+				area:daliang_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_11 = { #Exploit The Silk Road
+		requires = { donghu_mongol_missions_task_5 }
+        icon = "task_political"
+
+        allow = {
+			
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.11
+            show_as_tooltip = {
+				add_treasury = 500
+            }
+        }
+    }
+
+    donghu_mongol_missions_task_12 = { #People Of The Xiongnu
+		requires = { donghu_mongol_missions_task_5 }
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = transbaikal_area
+					is_in_area = guyan_area
+					is_in_area = khuvsgul_area
+				}
+			}
+        }
+
+        allow = {
+			owns_area = transbaikal_area
+			owns_area = guyan_area
+			owns_area = khuvsgul_area
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.12
+            custom_tooltip = donghu_mongol_missions_task_12_claims_tt
+			hidden_effect = {
+				area:fuyangju_area = { mission_area_claim_effect = yes }
+				area:zhangye_area = { mission_area_claim_effect = yes }
+				area:dunhuang_area = { mission_area_claim_effect = yes }
+				area:jiuquan_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_13 = { #Eternal Harmony
+		requires = { donghu_mongol_missions_task_7 }
+        icon = "task_political"
+
+        allow = {
+			
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.13
+            show_as_tooltip = {
+
+            }
+        }
+    }
+
+    donghu_mongol_missions_task_14 = { #Atop The Dragon Throne
+		requires = { donghu_mongol_missions_task_12 donghu_mongol_missions_task_9 donghu_mongol_missions_task_10 }
+        icon = "task_political"
+		final = yes
+
+        highlight = {
+			scope:province = {
+				OR = {
+					province_id = 8379
+					province_id = 8380
+					province_id = 8381
+				}
+			}
+        }
+
+        allow = {
+			owns = 8379
+			owns = 8380
+			owns = 8381
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.14
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = donghu_dragon_throne
+					duration = -1
+				}
+				add_political_influence = 100
+            }
+        }
+    }
+
+    donghu_mongol_missions_task_15 = { #March Into Central Asia
+		requires = { donghu_mongol_missions_task_12 }
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = fuyangju_area
+					is_in_area = zhangye_area
+					is_in_area = dunhuang_area
+					is_in_area = jiuquan_area
+				}
+			}
+        }
+
+        allow = {
+			owns_area = fuyangju_area
+			owns_area = zhangye_area
+			owns_area = dunhuang_area
+			owns_area = jiuquan_area
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.15
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = "donghu_central_asia"
+					duration = 10950
+				}
+            }
+			custom_tooltip = donghu_mongol_missions_task_15_claims_tt
+			hidden_effect = {
+				region:xiyu_region = {
+					every_region_province = {
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    donghu_mongol_missions_task_16 = { #Scythian Influences
+		requires = { donghu_mongol_missions_task_12 }
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = scytho_siberian_region
+					is_in_area = central_asian_steppes_region
+					is_in_area = sakia_region
+				}
+			}
+        }
+
+        allow = {
+			
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.16
+            show_as_tooltip = {
+				add_innovation = 3
+				add_country_modifier = {
+					name = "donghu_scythian_influence"
+					duration = -1
+				}
+            }
+        }
+    }
+
+    donghu_mongol_missions_task_17 = { #Heirs Of The Yellow Emperor
+		requires = { donghu_mongol_missions_task_7 }
+        icon = "task_political"
+
+		potential = {
+			tag = DGH
+		}
+
+        allow = {
+			stability >= 40
+		}
+
+        on_completion = {
+            trigger_event = me_donghu.17
+            show_as_tooltip = {
+				add_deity_to_pantheon = deity_huangdi
+            }
+        }
+    }
+}
