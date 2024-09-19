@@ -1,0 +1,362 @@
+﻿
+startup_variables_unique_mechanics_effect = {
+	if = {
+		limit = {
+			tag = ATH
+			has_dlc = "Magna Graecia"
+		}
+		set_variable = {
+			name = ath_unique_mech
+		}
+	}
+	if = {
+		limit = {
+			tag = SPA
+			has_dlc = "Magna Graecia"
+		}
+		set_variable = {
+			name = spa_unique_mech
+		}	
+	}
+	if = {
+		limit = {
+			tag = SYR
+			has_dlc = "Magna Graecia"
+		}
+		set_variable = {
+			name = syr_unique_mech	
+		}
+	}
+	if = {
+		limit = {
+			tag = EPI
+			has_dlc = "Epirus Flavor Pack"
+		}
+		set_variable = {
+			name = epi_unique_mech
+		}
+	}
+	if = {
+		limit = {
+			tag = SEL
+			has_dlc = "Heirs of Alexander"
+		}
+		set_variable = {
+			name = sel_unique_mech
+		}
+	}
+}
+
+startup_variables_unique_deities_effect = {
+	if = {
+		limit = {
+			tag = LOC
+		}
+		set_variable = {
+			name = loc_unique_deity
+		}
+	}
+	if = {
+		limit = {
+			tag = BOE
+		}
+		set_variable = {
+			name = boe_unique_deity
+		}
+	}
+	if = {
+		limit = {
+			tag = CAR
+		}
+		set_variable = {
+			name = car_unique_deity
+		}
+	}
+	if = {
+		limit = {
+			tag = NMI
+		}
+		set_variable = {
+			name = nmi_unique_deity
+		}
+	}
+	if = {
+		limit = {
+			tag = AED
+		}
+		set_variable = {
+			name = aed_unique_deity
+		}
+	}
+}
+
+startup_variables_achievement_effect = {
+	if = {
+		limit = {
+			tag = SPA
+		}
+		set_variable = sparta_achievement_check
+	}
+	if = {
+		limit = {
+			tag = ATH
+		}
+		set_variable = athens_achievement_check
+	}
+	if = {
+		limit = {
+			tag = SYR
+		}
+		set_variable = syracuse_achievement_check
+	}
+	if = {
+		limit = {
+			tag = MAS
+		}
+		set_variable = massalia_achievement_check
+	}
+	if = {
+		limit = {
+			tag = ROM
+		}
+		set_variable = roman_achievement_check
+	}
+	if = {
+		limit = {
+			tag = CAR
+		}
+		set_variable = carthage_achievement_check
+	}
+	if = {
+		limit = {
+			tag = MAC
+		}
+		set_variable = macedon_achievement_check
+	}
+	if = {
+		limit = {
+			tag = EPI
+		}
+		set_variable = epirus_achievement_check
+	}
+	if = {
+		limit = {
+			tag = PRY
+		}
+		set_variable = phrygia_achievement_check
+	}
+	if = {
+		limit = {
+			tag = EGY
+		}
+		set_variable = egypt_achievement_check
+	}
+	if = {
+		limit = {
+			tag = SEL
+		}
+		set_variable = seleukid_achievement_check
+	}
+	if = {
+		limit = {
+			tag = BAC
+		}
+		set_variable = bactria_achievement_check
+	}
+	if = {
+		limit = {
+			tag = TRE
+		}
+		set_variable = thrace_achievement_check
+	}
+	if = {
+		limit = {
+			tag = MRY
+		}
+		set_variable = maurya_achievement_check
+	}
+	if = {
+		limit = {
+			tag = MGL
+		}
+		set_variable = megalopolos_achievement_check
+	}
+	if = {
+		limit = {
+			tag = BOI
+		}
+		set_variable = boi_achievement_check
+	}
+	if = {
+		limit = {
+			tag = MYL
+		}
+		set_variable = mosylon_achievement_check
+	}
+	if = {
+		limit = {
+			tag = HCP
+		}
+		set_variable = heraclea_pontica_achievement_check
+	}
+}
+
+startup_cultural_decisions_effect = {
+	if = {
+		limit = {
+			OR = {
+				tag = EGY
+				tag = PRY
+			}
+		}
+		random_country_culture = {
+			limit = { is_culture = phoenician }
+			add_country_culture_modifier = {
+				name = "right_to_enter_contracts" 
+				duration = -1
+			}
+			add_country_culture_modifier = {
+				name = "inheritance_right" 
+				duration = -1
+			}
+		}
+	}
+	if = {
+		limit = {
+			tag = CAR
+		}
+		random_country_culture = {
+			limit = { is_culture = massylian }
+			add_country_culture_modifier = {
+				name = "right_of_marriage" 
+				duration = -1
+			}
+		}
+	}
+	if = {
+		limit = {
+			tag = ROM
+		}
+		
+		#Latin Rights
+		random_country_culture = {
+			limit = { is_culture = samnite }
+			add_country_culture_modifier = {
+				name = "latin_citizenship" 
+				duration = -1
+			}
+
+		}
+		random_country_culture = {
+			limit = { is_culture = etruscan }
+			add_country_culture_modifier = {
+				name = "latin_citizenship" 
+				duration = -1
+			}
+		}
+	}
+	if = {
+		limit = {
+			tag = PRY
+		}
+		random_country_culture = {
+			limit = { is_culture = phrygian }
+			
+			add_country_culture_modifier = {
+				name = "inheritance_right" 
+				duration = -1
+			}
+			add_country_culture_modifier = {
+				name = "right_of_marriage" 
+				duration = -1
+			}
+		}
+		random_country_culture = {
+			limit = { is_culture = carian }
+			
+			add_country_culture_modifier = {
+				name = "right_of_marriage" 
+				duration = -1
+			}
+		}
+		random_country_culture = {
+			limit = { is_culture = euboean }
+			
+			add_country_culture_modifier = {
+				name = "right_of_marriage" 
+				duration = -1
+			}
+			add_country_culture_modifier = {
+				name = "inheritance_right" 
+				duration = -1
+			}
+		}
+		random_country_culture = {
+			limit = { is_culture = ionian }
+			
+			add_country_culture_modifier = {
+				name = "officer_right" 
+				duration = -1
+			}
+			add_country_culture_modifier = {
+				name = "right_of_marriage" 
+				duration = -1
+			}
+		}
+	}
+	if = {
+		limit = {
+			tag = EGY
+		}
+		random_country_culture = {
+			limit = { is_culture = upper_egyptian }
+			
+			add_country_culture_modifier = {
+				name = "inheritance_right" 
+				duration = -1
+			}
+		}
+		random_country_culture = {
+			limit = { is_culture = middle_egyptian }
+			
+			add_country_culture_modifier = {
+				name = "inheritance_right" 
+				duration = -1
+			}
+			add_country_culture_modifier = {
+				name = "right_of_marriage" 
+				duration = -1
+			}
+		}
+	}
+	if = {
+		limit = {
+			tag = SEL
+		}
+		random_country_culture = {
+			limit = { is_culture = median }
+			
+			add_country_culture_modifier = {
+				name = "inheritance_right" 
+				duration = -1
+			}
+		}
+	}
+	if = {
+		limit = {
+			tag = BAC
+		}
+		random_country_culture = {
+			limit = { is_culture = sogdian }
+			
+			add_country_culture_modifier = {
+				name = "inheritance_right" 
+				duration = -1
+			}
+			add_country_culture_modifier = {
+				name = "right_of_marriage" 
+				duration = -1
+			}
+		}
+	}
+}

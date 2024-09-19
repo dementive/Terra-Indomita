@@ -7,17 +7,19 @@ shock_action = {
 
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
 
-	envelopment = 0.20
-	padma_vyuha = 0.20
-	bottleneck = -0.1
-	greek_phalanx = -0.1
+	
+	skirmishing = 0.20
+	padma_vyuha = 0.1
+	bottleneck = -0.2
+	greek_phalanx = -0.2
+	square = -0.1
 	
 	casualties = 0.1
 
 	effective_composition = {
 		archers = 0
 		camels = 0
-		chariots = 0
+		chariots = 0.5
 		heavy_cavalry = 1.0
 		heavy_infantry = 1.0
 		horse_archers = 0
@@ -25,6 +27,10 @@ shock_action = {
 		light_infantry = 0.75
 		warelephant = 2.0
 		spearmen = 0.25
+		axemen = 1.0
+		slingers = 0
+		pikemen = 0.33
+		horse_skirmishers = 0
 	}
 }
 
@@ -32,12 +38,13 @@ envelopment = {
 	enable = yes
 
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
-
-	deception = 0.20
+	strength_damage_done = 0.1
+	bottleneck = 0.1
 	greek_phalanx = 0.20
-	shock_action = -0.1
-	padma_vyuha = -0.1
-	
+	shock_action = -0.2
+	padma_vyuha = -0.2
+	shield_wall = 0.2
+
 	effective_composition = {
 		archers = 0
 		camels = 1.0
@@ -49,25 +56,32 @@ envelopment = {
 		light_infantry = 1.0
 		warelephant = 0
 		spearmen = 0
+		axemen = 1.0
+		slingers = 0
+		pikemen = 0.0
+		horse_skirmishers = 1.0
 	}
 }
 
 skirmishing = {
 	enable = yes
 
+	combat_width = -5
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
 	
-	bottleneck = 0.20
-	cavalry_skirmish = 0.20
-	deception = -0.1
+	bottleneck = 0.1
+	cavalry_skirmish = -0.1
+	greek_phalanx = 0.1
 	triplex_acies = -0.1
+	hit_and_run_tactics = -0.1
+	shield_wall = 0.1
 		
-	casualties = -0.25
+	casualties = -0.5
 
 	effective_composition = {
 		archers = 1
-		camels = 0
-		chariots = 0
+		camels = 0.5
+		chariots = 0.5
 		heavy_cavalry = 0
 		heavy_infantry = 0
 		horse_archers = 0.25
@@ -75,6 +89,10 @@ skirmishing = {
 		light_infantry = 1.0
 		warelephant = 0
 		spearmen = 0
+		axemen = 0.5
+		slingers = 1
+		pikemen = 0.0
+		horse_skirmishers = 1.0
 	}
 }
 
@@ -83,10 +101,11 @@ deception = {
 
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
 
-	skirmishing = 0.2
+	shock_action = 0.2
 	triplex_acies = 0.2
-	envelopment = -0.1
-	hit_and_run_tactics = -0.1
+	envelopment = 0.1
+	cavalry_skirmish = -0.1
+	chinese_tactic = -0.1
 
 	effective_composition = {
 		archers = 1.0
@@ -95,10 +114,14 @@ deception = {
 		heavy_cavalry = 0
 		heavy_infantry = 0
 		horse_archers = 1.5
-		light_cavalry = 1.5
-		light_infantry = 0
+		light_cavalry = 1.0
+		light_infantry = 0.5
 		warelephant = 0
 		spearmen = 0
+		axemen = 0.5
+		slingers = 0
+		pikemen = 0.0
+		horse_skirmishers = 0.5
 	}
 }
 
@@ -106,7 +129,7 @@ bottleneck = {
 	enable = yes
 
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
-
+	morale_damage_done = 0.1
 	shock_action = 0.2
 	hit_and_run_tactics = 0.2
 	skirmishing = -0.1
@@ -141,16 +164,20 @@ greek_phalanx = { #Good vs Shock - Bad vs Envelopment
 	casualties = -0.1
 
 	effective_composition = { #
-		archers = 0
-		camels = 0
+		archers = 0.33
+		camels = 0.25
 		chariots = 0
-		heavy_cavalry = 0.15
-		heavy_infantry = 1.0
-		horse_archers = 0
-		light_cavalry = 0.75
+		heavy_cavalry = 0.5
+		heavy_infantry = 0.25
+		horse_archers = 0.25
+		light_cavalry = 0.25
 		light_infantry = 0.5
 		warelephant = 1.0
 		spearmen = 1.0
+		axemen = 0
+		slingers = 0
+		pikemen = 1.25
+		horse_skirmishers = 0.33
 	}
 }
 
@@ -159,9 +186,11 @@ triplex_acies = { #Good vs Envelopment - Bad vs Skirmishing
 	enable = no
 
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
-
-	skirmishing = 0.25
-	greek_phalanx = 0.25
+	morale_damage_done = 0.1
+	strength_damage_taken = -0.1
+	shock_action = 0.1
+	envelopment = 0.2
+	greek_phalanx = 0.2
 	deception = -0.1
 	hit_and_run_tactics = -0.1
 	
@@ -175,7 +204,12 @@ triplex_acies = { #Good vs Envelopment - Bad vs Skirmishing
 		light_cavalry = 0.6
 		light_infantry = 1
 		warelephant = 0
-		spearmen = 0.8
+		spearmen = 1
+		axemen = 0
+		slingers = 0.25
+		pikemen = 0
+		horse_skirmishers = 0.5
+		engineer_cohort = 1
 	}
 }
 
@@ -185,24 +219,28 @@ cavalry_skirmish = {
 
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
 
-	bottleneck = 0.25
-	padma_vyuha = 0.25
-	skirmishing = -0.1
-	greek_phalanx = -0.1
+	shock_action = -0.1
+	envelopment = 0.1
+	bottleneck = -0.1
+	padma_vyuha = 0.2
 	
 	casualties = -0.1
 
 	effective_composition = {
 		archers = 0
-		camels = 0.5
+		camels = 1
 		chariots = 0.0
-		heavy_cavalry = 0.5
+		heavy_cavalry = 1
 		heavy_infantry = 0
 		horse_archers = 1.5
-		light_cavalry = 1.5
+		light_cavalry = 1
 		light_infantry = 0
 		warelephant = 0
 		spearmen = 0
+		axemen = 0
+		slingers = 0
+		pikemen = 0
+		horse_skirmishers = 1
 	}
 }
 
@@ -212,10 +250,9 @@ padma_vyuha = {
 
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
 
-	envelopment = 0.25
-	hit_and_run_tactics = 0.25
-	shock_action = -0.1
-	cavalry_skirmish = -0.1
+	deception = 0.1
+	hit_and_run_tactics = 0.2
+	bottleneck = -0.1
 	
 	casualties = -0.1
 
@@ -226,10 +263,14 @@ padma_vyuha = {
 		heavy_cavalry = 0
 		heavy_infantry = 0.75
 		horse_archers = 0
-		light_cavalry = 0.25
+		light_cavalry = 0.3
 		light_infantry = 0
 		warelephant = 1.0
 		spearmen = 0.75
+		axemen = 0.75
+		slingers = 0
+		pikemen = 0
+		horse_skirmishers = 0
 	}
 }
 
@@ -240,10 +281,11 @@ hit_and_run_tactics = {
 
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
 
-	deception = 0.25
-	triplex_acies = 0.25
-	bottleneck = -0.1
-	padma_vyuha = -0.1
+	triplex_acies = 0.2
+	shock_action = -0.1
+	bottleneck = 0.2
+	shock_action = -0.1
+	chinese_tactic = -0.1
 	
 	casualties = -0.1
 
@@ -255,8 +297,100 @@ hit_and_run_tactics = {
 		heavy_infantry = 0
 		horse_archers = 0.5
 		light_cavalry = 1.0
+		light_infantry = 1
+		warelephant = 0
+		spearmen = 0.5
+		axemen = 0.5
+		slingers = 0.5
+		pikemen = 0
+		horse_skirmishers = 1
+	}
+}
+shield_wall = {
+
+	enable = no
+
+	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
+	shock_action = 0.2
+	cavalry_skirmish = 0.1
+	greek_phalanx = -0.1
+	square = -0.1
+	
+	casualties = -0.1
+
+	effective_composition = {
+		archers = 0
+		camels = 0.0
+		chariots = 0
+		heavy_cavalry = 0
+		heavy_infantry = 1
+		horse_archers = 0
+		light_cavalry = 1.0
+		light_infantry = 0.5
+		warelephant = 0
+		spearmen = 1
+		axemen = 1
+		slingers = 0
+		pikemen = 0
+		horse_skirmishers = 0
+	}
+}
+square = {
+
+	enable = no
+
+	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
+	bottleneck = 0.1
+	cavalry_skirmish = 0.1
+	padma_vyuha = -0.1
+	envelopment = 0.1
+	
+	casualties = -0.1
+
+	effective_composition = {
+		archers = 0
+		camels = 0.0
+		chariots = 0
+		heavy_cavalry = 0
+		heavy_infantry = 1
+		horse_archers = 0
+		light_cavalry = 1.0
+		light_infantry = 0.5
+		warelephant = 0
+		spearmen = 1
+		axemen = 1
+		slingers = 0
+		pikemen = 1
+		horse_skirmishers = 0
+	}
+}
+chinese_tactic = {
+
+	enable = no
+
+	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
+	shock_action = 0.1
+	cavalry_skirmish = -0.1
+	greek_phalanx = -0.1
+	square = 0.1
+	deception = 0.1
+	
+	casualties = -0.1
+
+	effective_composition = {
+		archers = 1
+		camels = 0.0
+		chariots = 1
+		heavy_cavalry = 0.3
+		heavy_infantry = 0.8
+		horse_archers = 0.25
+		light_cavalry = 0.5
 		light_infantry = 0.5
 		warelephant = 0
 		spearmen = 0.5
+		axemen = 0
+		slingers = 0
+		pikemen = 1
+		horse_skirmishers = 0
 	}
 }

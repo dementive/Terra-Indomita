@@ -1,0 +1,594 @@
+﻿culture_decisions = {
+	#ROMAN LAWS
+	#grain laws
+	lex_sempronia_frumentaria_decision = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				not = {
+					has_country_culture_modifier = lex_sempronia_frumentaria
+				}
+			}
+			not = {
+				has_country_modifier = grain_shipments
+			}
+		}
+		effect = {
+			add_stability = -10
+			add_political_influence = -25
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = lex_sempronia_frumentaria
+					duration = -1
+				}
+			}
+			add_country_modifier = {
+				name = grain_shipments
+				duration = -1
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = grain_rights_extended
+					duration = 1800
+				}
+				add_province_modifier = {
+					name = capital_grain_shipments
+					duration = -1
+				}
+			}
+		}
+	}
+	lex_terentia_cassia_decision = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+			has_country_modifier = grain_shipments
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = lex_sempronia_frumentaria
+			}
+			has_country_modifier = grain_shipments
+		}
+		effect = {
+			add_stability = -12
+			add_political_influence = -25
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = lex_terentia_cassia
+					duration = -1
+				}
+				remove_country_culture_modifier = {name = lex_sempronia_frumentaria}
+			}
+			remove_country_modifier = { name = grain_shipments }
+			add_country_modifier = {
+				name = subsidized_grain
+				duration = -1
+			}
+			capital_scope = {
+				remove_province_modifier = {
+					name = capital_grain_shipments
+				}
+				add_province_modifier = {
+					name = grain_rights_extended
+					duration = 1800
+				}
+				add_province_modifier = {
+					name = capital_subsidized_grain
+					duration = -1
+				}
+			}
+		}
+	}
+	lex_clodia_decision = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+			has_country_modifier = subsidized_grain
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = lex_terentia_cassia
+			}
+			has_country_modifier = subsidized_grain 
+		}
+		effect = {
+			add_stability = -15
+			add_political_influence = -25
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = lex_clodia
+					duration = -1
+				}
+				remove_country_culture_modifier = {name = lex_terentia_cassia}
+			}
+			add_country_modifier = {
+				name = grain_dole
+				duration = -1
+			}
+			remove_country_modifier = {
+				name = subsidized_grain
+				duration = -1
+			}
+			capital_scope = {
+				remove_province_modifier = {
+					name = capital_subsidized_grain
+				}
+				add_province_modifier = {
+					name = grain_rights_extended
+					duration = 1800
+				}
+				add_province_modifier = {
+					name = capital_grain_dole
+					duration = -1
+				}
+			}
+		}
+	}
+	revoke_lex_sempronia_frumentaria_decision = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+			has_country_modifier = grain_shipments
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = lex_sempronia_frumentaria
+			}
+			has_country_modifier = grain_shipments
+			capital_scope = {
+				not = {
+					has_province_modifier = grain_rights_extended
+				}
+			}
+		}
+		effect = {
+			add_stability = -10
+			add_political_influence = -25
+			scope:target_culture = {
+				remove_country_culture_modifier = {
+					name = lex_sempronia_frumentaria
+				}
+			}
+			remove_country_modifier = {
+				name = grain_shipments
+				duration = -1
+			}
+			capital_scope = {
+				remove_province_modifier = {
+					name = capital_grain_shipments
+				}
+				add_province_modifier = {
+					name = capital_grain_shipments_revoked
+					duration = 1000
+				}
+			}
+		}
+	}
+	revoke_lex_terentia_cassia_decision = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+			has_country_modifier = subsidized_grain
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				or = {
+					has_country_modifier = lex_terentia_cassia
+				}
+			}
+			or = {
+				has_country_modifier = subsidized_grain
+			}
+		}
+		effect = {
+			add_stability = -12
+			add_political_influence = -25
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = lex_sempronia_frumentaria
+					duration = -1
+				}
+				add_country_modifier = {
+					name = grain_rights_revoked
+					duration = 1800
+				}
+				remove_country_culture_modifier = {name = lex_terentia_cassia}
+			}
+			remove_country_modifier = { name = subsidized_grain }
+			add_country_modifier = {
+				name = grain_shipments
+				duration = -1
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = capital_grain_shipments
+					duration = -1
+				}
+				add_province_modifier = {
+					name = capital_grain_revoked
+					duration = 1800
+				}
+				remove_province_modifier = {
+					name = capital_subsidized_grain
+				}
+			}
+		}
+	}
+	revoke_lex_clodia_decision = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+			has_country_modifier = grain_dole
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = lex_clodia
+			}
+			has_country_modifier = grain_dole 
+		}
+		effect = {
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = lex_terentia_cassia
+					duration = -1
+				}
+				remove_country_culture_modifier = {name = lex_clodia}
+			}
+			remove_country_modifier = {
+				name = grain_dole
+			}
+			add_country_modifier = {
+				name = subsidized_grain
+				duration = -1
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = capital_subsidized_grain
+				}
+				add_province_modifier = {
+					name = grain_rights_revoked
+					duration = 1800
+				}
+				remove_province_modifier = {
+					name = capital_grain_dole
+				}
+			}
+		}
+	}
+	reform_grain_dole = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+			has_country_modifier = grain_dole
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = lex_clodia
+			}
+			has_country_modifier = grain_dole
+		}
+		effect = {
+			add_stability = -5
+			add_political_influence = -20
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = cura_annonae
+					duration = -1
+				}
+				remove_country_culture_modifier = {
+					name = lex_clodia
+				}
+			}
+			add_country_modifier = {
+				name = grain_dole_reform
+				duration = -1
+			}
+			remove_country_modifier = {
+				name = grain_dole
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = grain_rights_revoked
+					duration = 360
+				}
+				add_province_modifier = {
+					name = capital_grain_dole_reform
+					duration = -1
+				}
+				remove_province_modifier = {
+					name = capital_grain_dole
+					duration = -1
+				}
+			}
+		}
+	}
+	halve_grain_dole = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+			has_country_modifier = grain_dole_reform
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = cura_annonae
+			}
+			has_country_modifier = grain_dole_reform
+		}
+		effect = {
+			add_stability = -10
+			add_political_influence = -25
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = annonae_militaris
+					duration = -1
+				}
+				add_province_modifier = {
+					name = grain_rights_revoked
+					duration = 360
+				}
+			}
+			add_country_modifier = {
+				name = grain_dole_halved
+				duration = -1
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = capital_grain_dole_halved
+					duration = -1
+				}
+				remove_province_modifier = {
+					name = capital_grain_dole_reform
+				}
+			}
+		}
+	}
+	revoke_grain_dole = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = cura_annonae
+			}
+			not = {
+				has_country_modifier = grain_dole_halved
+			}
+		}
+		effect = {
+			add_stability = -10
+			add_political_influence = -25
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = 
+					duration = -1
+				}
+			}
+			add_country_modifier = {
+				name = 
+				duration = 
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = grain_rights_revoked
+					duration = 1800
+				}
+				remove_province_modifier = {
+					name = capital_grain_dole_reform
+				}
+			}
+		}
+	}
+	#CITIZENSHIP
+	lex_papia_decision = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				not = {
+					has_country_culture_modifier = lex_papia
+				}
+			}
+			not = {
+				has_country_modifier = challenged_citizenship
+			}
+		}
+		effect = {
+			add_stability = -10
+			add_political_influence = -25
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = lex_papia
+					duration = -1
+				}
+			}
+			add_country_modifier = {
+				name = challenged_citizenship
+				duration = -1
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = challenged_citizenship_outrage
+					duration = 1800
+				}
+				add_province_modifier = {
+					name = capital_challenged_citizenship
+					duration = -1
+				}
+			}
+		}
+	}
+	revoke_lex_papia_decision = {
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = lex_papia
+			}
+			has_country_modifier = challenged_citizenship
+		}
+		effect = {
+			add_political_influence = -25
+			scope:target_culture = {
+				remove_country_culture_modifier = {
+					name = lex_papia
+					duration = -1
+				}
+			}
+			remove_country_modifier = {
+				name = challenged_citizenship
+				duration = -1
+			}
+			capital_scope = {
+				remove_province_modifier = {
+					name = challenged_citizenship_outrage
+					duration = 1800
+				}
+				remove_province_modifier = {
+					name = capital_challenged_citizenship
+					duration = -1
+				}
+			}
+		}
+	}
+	lex_canuleia_decision  = {#lex canukeia
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				not = {
+					has_country_culture_modifier = lex_canuleia
+				}
+			}
+			not = {
+				has_country_modifier = freemen_rights
+			}
+		}
+		effect = {
+			add_stability = 5
+			add_political_influence = -25
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = lex_canuleia
+					duration = -1
+				}
+			}
+		}
+	}
+	revoke_lex_canuleia_decision  = {#lex canukeia
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = lex_canuleia
+			}
+			has_country_modifier = challenged_citizenship
+		}
+		effect = {
+			add_stability = -10
+			add_political_influence = -25
+			scope:target_culture = {
+				remove_country_culture_modifier = {
+					name = lex_canuleia
+					duration = -1
+				}
+				add_country_culture_modifier = {
+					name = freemen_rights_reduced
+					duration = 1000
+				}
+			}
+		}
+	}
+	lex_hortensia_decision  = {#lex canukeia
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				not = {has_country_culture_modifier = lex_hortensia}
+			}
+		}
+		effect = {
+			add_stability = -12
+			add_political_influence = -30
+			scope:target_culture = {
+				add_country_culture_modifier = {
+					name = lex_hortensia
+					duration = -1
+				}
+			}
+		}
+	}
+	revoke_lex_hortensia_decision  = {#lex canukeia
+		potential = {
+			primary_culture = scope:target_culture.culture
+			primary_culture = roman
+		}
+		allow = {
+			stability > 10
+			political_influence > 25
+			scope:target_culture = {
+				has_country_culture_modifier = lex_hortensia
+			}
+		}
+		effect = {
+			add_stability = -12
+			add_political_influence = -40
+			scope:target_culture = {
+				remove_country_culture_modifier = {
+					name = lex_canuleia
+					duration = -1
+				}
+				add_country_culture_modifier = {
+					name = freemen_rights_reduced
+					duration = -1
+				}
+			}
+		}
+	}
+
+
+
+
+}
