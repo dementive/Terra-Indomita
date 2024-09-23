@@ -11,24 +11,27 @@
 	is_road_building = yes #blocks disband/reorganization and makes AI try to move armies acccordingly
 
 	soundeffect = "event:/SFX/UI/Unit/sfx_ui_unit_build_road"
-	
-	hidden = {
-		has_legion_trigger = no
-	}
 
 	allow = {
 		unit_owner = { 
-			has_military_bonus = latin_roman_path_4
+			or = {
+				civic_tech > 4
+				has_military_bonus = latin_roman_path_4
+			}
 		}
 		trigger_if = {
 			limit = { has_reduced_roadbuilding_cost = yes }
 			hidden:unit_owner = { can_pay_price = build_roads_engineers }
 		}
-		trigger_else = {
+		trigger_else_if = {
+			unit_owner = has_military_bonus = latin_roman_path_4
 			hidden:unit_owner = { can_pay_price = build_roads }
 		}
+		trigger_else = {
+			hidden:unit_owner = { can_pay_price = build_expensive_roads }
+		}
 		is_army = yes
-		unit_size >= 5
+		unit_size >= 8
 		in_combat = no
 		is_moving = no
 		is_exiled = no
@@ -63,6 +66,8 @@
 	}
 	modifier = {
 		movement_speed_if_no_road = -0.7
+		army_maintenance_cost = 1
+		land_morale_modifier = -0.25
 	}
 	
 	
@@ -78,8 +83,16 @@
 			}
 			custom_tooltip = BUILD_ROADS_ENGINEERS_TT
 		}
-		else = {
+		else_if = {
+			limit = {
+				unit_owner = {
+					has_military_bonus = latin_roman_path_4
+				}
+			}
 			custom_tooltip = BUILD_ROADS_TT
+		}
+		else = {
+			custom_tooltip = BUILD_ROADS_EXPENSIVE_TT
 		}
 	}
 	

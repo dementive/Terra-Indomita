@@ -1,0 +1,110 @@
+﻿public_works = {
+
+	duration = 0
+	enable = no
+	toggle = no
+	army_only = yes
+	
+	map = yes
+	soundeffect ="event:/SFX/Animations/Units/Generic/sfx_anim_unit_build_colony"
+	hidden = {
+		unit_owner = { 
+			is_tribal = yes
+		}
+	}
+
+	allow = {
+		unit_owner = { 
+			or = {
+				invention = ruler_popularity_gain_inv_4
+				invention = civic_roads_inv
+			}
+		}
+		any_sub_unit = {
+			sub_unit_type = engineer_cohort
+		}
+		has_commander = yes
+		is_army = yes
+		in_combat = no
+		is_moving = no
+		in_siege = no
+		is_exiled = no
+		unit_size >= 5
+		custom_tooltip = {
+			text = "num_of_loyal_cohorts_tooltip"
+			num_of_non_loyal_cohorts_svalue >= 1
+		}
+		hidden:unit_owner = { can_pay_price = create_military_colony }
+		hidden:unit_location = {
+			has_owner = yes
+			not = {
+				has_province_modifier = {
+					name = "Recent Public Works Project"
+				}
+			}
+			state_loyalty >= 33
+			owner = root.unit_owner 
+		}
+		trigger_if = {
+			limit = {
+				exists = commander
+			}
+			commander = {
+				loyalty > 33
+			}
+		}
+	}
+	
+	
+	start_effect = {
+		unit_owner = {  
+			pay_price = create_military_colony 
+			add_gold = -20
+		}
+		if = {
+			limit = {
+				exists = commander
+			}
+			random_sub_unit = {
+				limit = {
+					has_personal_loyalty = no
+				}
+				if = {
+					limit = {
+						root = {
+							unit_owner = {
+								is_republic = yes
+							}
+						}
+					}
+					set_personal_loyalty = root.commander
+				}
+				else_if = {
+					limit = {
+						root = {
+							commander = {
+								is_ruler = no
+							}
+						} 
+					}
+					set_personal_loyalty = root.commander
+				}
+				else = {
+					root = {
+						unit_owner = {
+							add_tyranny = 1
+						}
+					}
+				}
+			}
+		}
+		unit_location = {
+			add_building_level = aqueduct_building
+			add_province_modifier = {
+				name = "Recent Public Works Project"
+				duration = 1800
+			}
+		}
+		
+	}	
+}
