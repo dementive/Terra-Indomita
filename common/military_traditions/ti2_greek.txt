@@ -19,11 +19,11 @@
 		}
 		trigger_else_if = {
 			limit = {
-				has_variable = unlock_greek_poleis_var
+				has_variable = diadochi_enable
 			}
 			custom_tooltip = {
 				text = "unlocked_via_mission_tree_tt"
-				has_variable = unlock_greek_poleis_var
+				has_variable = diadochi_enable
 			}
 		}
 		trigger_else = {
@@ -212,6 +212,12 @@
 	greek_antigonid_path_4 = { #victord spoils
 		modifier = { 
 			enslavement_efficiency = 0.1
+		}
+		on_activate = {
+			set_variable = {
+				name = unlocked_slave_raiding
+				duration = -1
+			}
 		}
 		enable_ability = naval_raiding
 		requires = { greek_antigonid_path_2 }
