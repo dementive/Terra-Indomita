@@ -13,8 +13,9 @@ shock_action = {
 	bottleneck = -0.2
 	greek_phalanx = -0.2
 	square = -0.1
-	
+	strength_damage_taken = 0.1
 	casualties = 0.1
+	attacker = 1
 
 	effective_composition = {
 		archers = 0
@@ -38,12 +39,17 @@ envelopment = {
 	enable = yes
 
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
+
 	strength_damage_done = 0.1
+
 	bottleneck = 0.1
 	greek_phalanx = 0.20
 	shock_action = -0.2
 	padma_vyuha = -0.2
 	shield_wall = 0.2
+	
+	defender = 2
+	attacker = 1
 
 	effective_composition = {
 		archers = 0
@@ -77,7 +83,9 @@ skirmishing = {
 	shield_wall = 0.1
 		
 	casualties = -0.5
-
+	defender = 2
+	attacker = 2
+	morale_damage_done = 0.5
 	effective_composition = {
 		archers = 1
 		camels = 0.5
@@ -106,7 +114,8 @@ deception = {
 	envelopment = 0.1
 	cavalry_skirmish = -0.1
 	chinese_tactic = -0.1
-
+	defender = 2
+	attacker = -1
 	effective_composition = {
 		archers = 1.0
 		camels = 1.0
@@ -134,7 +143,8 @@ bottleneck = {
 	hit_and_run_tactics = 0.2
 	skirmishing = -0.1
 	cavalry_skirmish = -0.1
-
+	defender = 2
+	strength_damage_taken = -0.1
 	effective_composition = {
 		archers = 1
 		camels = 0
@@ -160,9 +170,14 @@ greek_phalanx = { #Good vs Shock - Bad vs Envelopment
 	cavalry_skirmish = 0.25
 	envelopment = -0.1
 	triplex_acies = -0.1
-	
-	casualties = -0.1
+	spearmen_mountain_combat_bonus = -0.5
+	spearmen_hills_combat_bonus = -0.33
+	spearmen_dry_hills_combat_bonus = -0.33
 
+	strength_damage_done = 0.1
+	strength_damage_taken = -0.1
+	defender = 2
+	attacker = 1
 	effective_composition = { #
 		archers = 0.33
 		camels = 0.25
@@ -188,6 +203,7 @@ triplex_acies = { #Good vs Envelopment - Bad vs Skirmishing
 	sound = "event:/SFX/UI/Unit/sfx_ui_unit_tactic_set_offensive"
 	morale_damage_done = 0.1
 	strength_damage_taken = -0.1
+	attacker = 2
 	shock_action = 0.1
 	envelopment = 0.2
 	greek_phalanx = 0.2
@@ -253,7 +269,10 @@ padma_vyuha = {
 	deception = 0.1
 	hit_and_run_tactics = 0.2
 	bottleneck = -0.1
-	
+
+	defender = 1
+
+	morale_damage_done = 0.2
 	casualties = -0.1
 
 	effective_composition = {
@@ -346,6 +365,7 @@ square_tactic = {
 	envelopment = 0.1
 	
 	casualties = -0.1
+	strength_damage_taken = -0.1
 
 	effective_composition = {
 		archers = 0

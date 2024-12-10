@@ -409,6 +409,7 @@ unrest = {
 	local_migration_attraction = -1
 	local_migration_speed_modifier = 0.025 # Holy shit had to lower this by x10
 	local_pop_assimilation_speed_modifier = -0.03  ### new modifier ###
+	#min_autonomy = 10
 }
 
 no_unrest = {
@@ -539,7 +540,8 @@ unemployed_adult_male = {
 
 # scaled by loyalty while in office..  / loyalty is 0-100
 office_loyalty = {
-	monthly_political_influence = 0.0025
+	monthly_political_influence = 0.0015
+	#changed from 25 since new offices
 }
 
 # multiplied by percentage of holdings held in country.
@@ -723,7 +725,7 @@ base_values = {
 	naval_morale_recovery = 0.2		#20% morale recovery.
 	monthly_tyranny = -0.02
 	agressive_expansion_monthly_decay = 0.002
-	#manpower_recovery_speed = 0.25
+	manpower_recovery_speed = 0.05
 	country_civilization_value = 10
 	loyalty_to_overlord = 10
 	next_ruler_legitimacy = 60
@@ -736,8 +738,6 @@ base_values = {
 	
 	civil_war_threshold = 0.25
 	
-	liburnian_riverine_terrain_combat_bonus = 0.25
-	trireme_riverine_terrain_combat_bonus = 0.25
 	
 	ship_capture_chance = 0.05
 	
@@ -747,6 +747,222 @@ base_values = {
 	fabricate_claim_speed = 4
 
 	global_settlement_building_slot = 1
+
+	#mountain
+
+	archers_mountain_combat_bonus = 0
+	light_infantry_mountain_combat_bonus = -0.25
+	heavy_infantry_mountain_combat_bonus = -0.25
+	heavy_cavalry_mountain_combat_bonus = -0.40
+	warelephant_mountain_combat_bonus = 0
+	horse_archers_mountain_combat_bonus = -0.30
+	camels_mountain_combat_bonus = -0.2
+	light_cavalry_mountain_combat_bonus = -0.3 
+	spearmen_mountain_combat_bonus = -0.25
+	slingers_mountain_combat_bonus = -0.2
+	axemen_mountain_combat_bonus = -0.1
+	pikemen_mountain_combat_bonus = -0.3
+	horse_skirmishers_mountain_combat_bonus = -0.3
+	chariots_mountain_combat_bonus = -0.8
+	#oasis = 0
+
+	#desert hills
+	light_infantry_desert_hills_combat_bonus = -0.1
+	heavy_infantry_desert_hills_combat_bonus = -0.4
+	heavy_cavalry_desert_hills_combat_bonus = -0.4
+	warelephant_desert_hills_combat_bonus = -0.3
+	horse_archers_desert_hills_combat_bonus = -0.3
+	archers_desert_hills_combat_bonus = -0.3
+	camels_desert_hills_combat_bonus = 0.2
+	light_cavalry_desert_hills_combat_bonus = -0.2
+	spearmen_desert_hills_combat_bonus = -0.4
+	slingers_desert_hills_combat_bonus = -0.4
+	axemen_desert_hills_combat_bonus = 0
+	pikemen_desert_hills_combat_bonus = -0.4
+	horse_skirmishers_desert_hills_combat_bonus = -0.2
+	chariots_desert_hills_combat_bonus = -0.2
+	
+	#flood plain = 0 
+
+	light_infantry_steppes_combat_bonus = 0
+	heavy_infantry_steppes_combat_bonus = -0.1
+	heavy_cavalry_steppes_combat_bonus = 0.1
+	warelephant_steppes_combat_bonus = 0
+	horse_archers_steppes_combat_bonus = 0.1
+	archers_steppes_combat_bonus = 0
+	camels_steppes_combat_bonus = 0.10
+	light_cavalry_steppes_combat_bonus = 0 
+	spearmen_steppes_combat_bonus = -0.1
+	slingers_steppes_combat_bonus = 0
+	axemen_steppes_combat_bonus = 0
+	pikemen_steppes_combat_bonus = -0.1
+	horse_skirmishers_steppes_combat_bonus = 0.1
+	chariots_steppes_combat_bonus = 0
+
+	light_infantry_dry_plains_combat_bonus = 0
+	heavy_infantry_dry_plains_combat_bonus = 0
+	heavy_cavalry_dry_plains_combat_bonus = 0.1
+	warelephant_dry_plains_combat_bonus = 0.1
+	horse_archers_dry_plains_combat_bonus = 0.1
+	archers_dry_plains_combat_bonus = 0
+	camels_dry_plains_combat_bonus = 0
+	light_cavalry_dry_plains_combat_bonus = 0.1
+	spearmen_dry_plains_combat_bonus = 0
+	slingers_dry_plains_combat_bonus = 0
+	axemen_dry_plains_combat_bonus = 0
+	pikemen_dry_plains_combat_bonus = 0
+	horse_skirmishers_dry_plains_combat_bonus = 0 
+	chariots_dry_plains_combat_bonus = 0.2
+	light_infantry_plains_combat_bonus = 0
+	heavy_infantry_plains_combat_bonus = 0
+	heavy_cavalry_plains_combat_bonus = 0.1
+	warelephant_plains_combat_bonus = 0.1
+	horse_archers_plains_combat_bonus = 0.1
+	archers_plains_combat_bonus = 0
+	camels_plains_combat_bonus = 0
+	light_cavalry_plains_combat_bonus = 0.1
+	spearmen_plains_combat_bonus = 0
+	slingers_plains_combat_bonus = 0
+	axemen_plains_combat_bonus = 0
+	pikemen_plains_combat_bonus = 0
+	horse_skirmishers_plains_combat_bonus = 0 
+	chariots_plains_combat_bonus = 0.2
+
+	light_infantry_dry_hills_combat_bonus = 0
+	heavy_infantry_dry_hills_combat_bonus = 0
+	heavy_cavalry_dry_hills_combat_bonus = -0.1
+	warelephant_dry_hills_combat_bonus = -0.1
+	horse_archers_dry_hills_combat_bonus = -0.1
+	archers_dry_hills_combat_bonus = 0
+	camels_dry_hills_combat_bonus = 0
+	light_cavalry_dry_hills_combat_bonus = 0.1
+	spearmen_dry_hills_combat_bonus = 0
+	slingers_dry_hills_combat_bonus = 0
+	axemen_dry_hills_combat_bonus = 0
+	pikemen_dry_hills_combat_bonus = 0
+	horse_skirmishers_dry_hills_combat_bonus = 0 
+	chariots_dry_hills_combat_bonus = 0.1
+
+	light_infantry_hills_combat_bonus = 0
+	heavy_infantry_hills_combat_bonus = 0
+	heavy_cavalry_hills_combat_bonus = -0.1
+	warelephant_hills_combat_bonus = -0.1
+	horse_archers_hills_combat_bonus = -0.1
+	archers_hills_combat_bonus = 0
+	camels_hills_combat_bonus = 0
+	light_cavalry_hills_combat_bonus = 0.1
+	spearmen_hills_combat_bonus = 0
+	slingers_hills_combat_bonus = 0
+	axemen_hills_combat_bonus = 0
+	pikemen_hills_combat_bonus = 0
+	horse_skirmishers_hills_combat_bonus = 0 
+	chariots_hills_combat_bonus = 0.1
+
+	light_infantry_forest_combat_bonus = -0.1
+	heavy_infantry_forest_combat_bonus = -0.1
+	heavy_cavalry_forest_combat_bonus = -0.2
+	warelephant_forest_combat_bonus = -0.2
+	horse_archers_forest_combat_bonus = -0.1
+	archers_forest_combat_bonus = 0.1
+	camels_forest_combat_bonus = -0.1
+	light_cavalry_forest_combat_bonus = -0.1
+	spearmen_forest_combat_bonus = -0.1
+	slingers_forest_combat_bonus = -0.2
+	axemen_forest_combat_bonus = 0.1
+	pikemen_forest_combat_bonus = -0.1
+	horse_skirmishers_forest_combat_bonus = -0.1
+	chariots_forest_combat_bonus = 0.1
+
+
+	light_infantry_taiga_combat_bonus = -0.2
+	heavy_infantry_taiga_combat_bonus = -0.2
+	heavy_cavalry_taiga_combat_bonus = -0.3
+	warelephant_taiga_combat_bonus = -0.5
+	horse_archers_taiga_combat_bonus = -0.3
+	archers_taiga_combat_bonus = 0
+	camels_taiga_combat_bonus = -0.2
+	light_cavalry_taiga_combat_bonus = -0.3
+	spearmen_taiga_combat_bonus = -0.2
+	slingers_taiga_combat_bonus = -0.3
+	axemen_taiga_combat_bonus = -0.1
+	pikemen_taiga_combat_bonus = -0.2
+	horse_skirmishers_taiga_combat_bonus = -0.2
+	chariots_taiga_combat_bonus = -0.3
+
+
+	light_infantry_marsh_combat_bonus = -0.2
+	heavy_infantry_marsh_combat_bonus = -0.3
+	heavy_cavalry_marsh_combat_bonus = -0.5
+	warelephant_marsh_combat_bonus = -0.2
+	horse_archers_marsh_combat_bonus = -0.4
+	archers_marsh_combat_bonus = -0.3
+	camels_marsh_combat_bonus = -0.4
+	light_cavalry_marsh_combat_bonus = -0.3
+	spearmen_marsh_combat_bonus = -0.3
+	slingers_marsh_combat_bonus = -0.4
+	axemen_marsh_combat_bonus = -0.2
+	pikemen_marsh_combat_bonus = -0.4
+	horse_skirmishers_marsh_combat_bonus = -0.4
+	chariots_marsh_combat_bonus = -0.8
+	light_infantry_jungle_combat_bonus = -0.1
+	heavy_infantry_jungle_combat_bonus = -0.2
+	heavy_cavalry_jungle_combat_bonus = -0.5
+	warelephant_jungle_combat_bonus = 0.1
+	horse_archers_jungle_combat_bonus = -0.4
+	archers_jungle_combat_bonus = 0.1
+	camels_jungle_combat_bonus = -0.4
+	light_cavalry_jungle_combat_bonus = -0.2
+	spearmen_jungle_combat_bonus = -0.1
+	slingers_jungle_combat_bonus = -0.4
+	axemen_jungle_combat_bonus = 0
+	pikemen_jungle_combat_bonus = -0.3
+	horse_skirmishers_jungle_combat_bonus = -0.4
+	chariots_jungle_combat_bonus = 0
+	light_infantry_farmland_combat_bonus = 0
+	heavy_infantry_farmland_combat_bonus = 0
+	heavy_cavalry_farmland_combat_bonus = 0.1
+	warelephant_farmland_combat_bonus = 0.1
+	horse_archers_farmland_combat_bonus = 0
+	archers_farmland_combat_bonus = 0
+	camels_farmland_combat_bonus = 0
+	light_cavalry_farmland_combat_bonus = 0.1
+	spearmen_farmland_combat_bonus = 0
+	slingers_farmland_combat_bonus = 0
+	axemen_farmland_combat_bonus = 0
+	pikemen_farmland_combat_bonus = 0
+	horse_skirmishers_farmland_combat_bonus = 0
+	chariots_farmland_combat_bonus = 0
+	
+	tetrere_true_ocean_terrain_combat_bonus = -0.4
+	trireme_true_ocean_terrain_combat_bonus = -0.5
+	mega_galley_true_ocean_terrain_combat_bonus = 0 
+	octere_true_ocean_terrain_combat_bonus = -0.4
+	liburnian_true_ocean_terrain_combat_bonus = -0.75
+	hexere_true_ocean_terrain_combat_bonus = -0.4
+	tetrere_true_ocean_coastal_terrain_combat_bonus = -0.3
+	trireme_true_ocean_coastal_terrain_combat_bonus = -0.2
+	mega_galley_true_ocean_coastal_terrain_combat_bonus = -0.4
+	octere_true_ocean_coastal_terrain_combat_bonus = -0.4
+	liburnian_true_ocean_coastal_terrain_combat_bonus = 0.1
+	hexere_true_ocean_coastal_terrain_combat_bonus = -0.3
+	tetrere_ocean_combat_bonus = 0.1
+	trireme_ocean_combat_bonus = 0
+	mega_galley_ocean_combat_bonus = 0.2
+	octere_ocean_combat_bonus = 0.1
+	liburnian_ocean_combat_bonus = -0.1
+	hexere_ocean_combat_bonus = 0.1
+	tetrere_coastal_terrain_combat_bonus = -0.1
+	trireme_coastal_terrain_combat_bonus = 0.2
+	mega_galley_coastal_terrain_combat_bonus = -0.4 
+	octere_coastal_terrain_combat_bonus = -0.3
+	liburnian_coastal_terrain_combat_bonus = 0.3
+	hexere_coastal_terrain_combat_bonus = -0.3
+	tetrere_riverine_terrain_combat_bonus = -0.1
+	trireme_riverine_terrain_combat_bonus = 0.25
+	mega_galley_riverine_terrain_combat_bonus = -0.5 
+	octere_riverine_terrain_combat_bonus = -0.3
+	liburnian_riverine_terrain_combat_bonus = 0.3
+	hexere_riverine_terrain_combat_bonus = -0.3
 	
 }
 
@@ -1107,16 +1323,23 @@ nation_rank_5 = {
 
 is_tribe = {
 	max_loyalty = 75
-	enslavement_efficiency = 0.025
-	change_governor_policy_cost_modifier = 0.1
+	enslavement_efficiency = 0.05
+	change_governor_policy_cost_modifier = 1
 	army_maintenance_cost = 0.5
 	global_tribesmen_desired_pop_ratio = 0.1
-	global_nobles_desired_pop_ratio = -0.07
+	global_nobles_desired_pop_ratio = -0.05
 	research_points_modifier = -0.5
 	price_found_city_cost_modifier = 0.25
 	price_revoke_city_status_cost_modifier = -0.5
     price_revoke_metropolis_status_cost_modifier = -0.5
 	global_population_capacity_modifier = -0.1 
+	levy_size_multiplier = 0.1
+	global_manpower_modifier = 0.1   
+	manpower_recovery_speed = 0.2
+	land_morale_recovery = 0.05
+	land_morale = 0.1
+	global_defensive = -0.5
+	siege_engineers = -1
 
 }
 
@@ -1134,6 +1357,7 @@ is_republic = {
 }
 
 negative_centralization = {
+
 	global_tribesmen_output = -0.25
 	levy_size_multiplier = -0.15
 	land_morale_modifier = -0.25
@@ -1144,6 +1368,7 @@ positive_centralization = {
 	global_pop_promotion_speed = 2.5
 	country_civilization_value = 10
 	research_points_modifier = 0.5
+
 }
 
 tutorial_boost = {
