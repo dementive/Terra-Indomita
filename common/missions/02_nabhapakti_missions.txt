@@ -741,8 +741,18 @@
         requires = { nabhapakti_missions_task_19 }
         bypass = { NOT = { exists = c:MRY } }
         allow = {
-            hidden:c:MRY.current_ruler = {
-                is_friend = root.current_ruler
+            trigger_if = {
+                limit = {
+                    c:MRY = {
+                        has_land = yes
+                    }
+                }
+                hidden:c:MRY.current_ruler = {
+                    is_friend = root.current_ruler
+                }
+            }
+            trigger_else = {
+                political_influence >= 50
             }
         }
         highlight = {
@@ -887,9 +897,6 @@
     nabhapakti_missions_task_24 = { # Buddha for the Greeks
         icon = "task_heracles"
         potential = {
-            c:GED = {
-                is_subject_of = c:MRY
-            }
             c:ARS = {
                 is_subject_of = c:MRY
             }
@@ -897,10 +904,7 @@
         requires = { nabhapakti_missions_task_16 }
         highlight = {
             scope:province = {
-                OR = {
-                    owner = c:ARS
-                    owner = c:GED
-                }
+                owner = c:ARS
             }
         }
         allow = {

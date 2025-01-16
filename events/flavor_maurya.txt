@@ -97,11 +97,9 @@ flavor_maurya.1 = {		#Chandragupta kills himself and Bindusara becomes ruler
 
     option = {    #May he rest in peace.  
         name = flavor_maurya_1.a
-        show_as_tooltip = {
-            char:22 = {
-                death = {
-                    death_reason = death_ritual_sallekhana
-                }
+        char:22 = {
+            death = {
+                death_reason = death_ritual_sallekhana
             }
         }
         if = {
@@ -1344,7 +1342,13 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
     picture = interesting_histories_india_city
     fire_only_once = yes
     goto_location = scope:indo_greek_revolt_five_scope.capital_scope
-
+    left_portrait = current_ruler
+    left_portrait = scope:indo_greek_revolt_four_scope.current_ruler
+    left_portrait = scope:indo_greek_revolt_five_scope.current_ruler
+    right_portrait = scope:indo_greek_revolt_three_scope.current_ruler
+    right_portrait = scope:indo_greek_revolt_one_scope.current_ruler
+    right_portrait = scope:indo_greek_revolt_two_scope.current_ruler
+    
     immediate = {
     	hidden_effect = {
             if = {
@@ -1675,16 +1679,16 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                     set_owned_by = scope:indo_greek_revolt_five_scope
                 }
             }
-            if = {
-                limit = {
-                    c:GED = {
-                        has_land = yes
-                        is_subject_of = ROOT
-                    }
-                }
-                release_subject = c:GED
+            #if = {
+            #    limit = {
+            #        c:GED = {
+            #            has_land = yes
+            #            is_subject_of = ROOT
+            #        }
+            #    }
+            #    release_subject = c:GED
                 set_variable = gedrosia_released_var    #Gedrosia will not join the war
-            }
+            #}
             scope:indo_greek_revolt_one_scope = {
                 add_country_modifier = {
                     name = indo_greek_modifier
@@ -2403,10 +2407,10 @@ flavor_maurya.12 = {    #Indo-Greek Coalition
                 limit = {
                     has_variable = gedrosia_released_var
                 }
-                add_truce = {
-                target = c:GED
-                duration = 3650
-                }
+                #add_truce = {
+                #    target = c:GED
+                #    duration = 3650
+                #}
             }
         ai_chance = {
             factor = 10

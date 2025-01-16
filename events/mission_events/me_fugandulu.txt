@@ -70,13 +70,13 @@ me_fugandulu.4 = {
         custom_tooltip = me_fugandulu_4_tooltip
         show_as_tooltip = {
             add_political_influence = -30
-            area:halin_area = {
+            area:shan_area = {
+				add_provincial_claim_effect = yes
+            }
+            area:pubu_area = {
 				add_provincial_claim_effect = yes
             }
             area:arakan_area = {
-				add_provincial_claim_effect = yes
-            }
-            area:shenli_area = {
 				add_provincial_claim_effect = yes
             }
         }
@@ -222,9 +222,6 @@ me_fugandulu.10 = {
         name = "me_fugandulu_10.a"
         custom_tooltip = me_fugandulu_10_tooltip
         show_as_tooltip = {
-            area:pubu_area = {
-				add_provincial_claim_effect = yes
-            }
             area:kamarupa_area = {
 				add_provincial_claim_effect = yes
             }
@@ -256,8 +253,8 @@ me_fugandulu.11 = {
             add_1_free_province_investments = yes
             add_innovation = 2
             add_centralization = 5
-            p:9783 = { add_road_towards = p:9788 }
-            p:9788 = { add_road_towards = p:9789 }
+            p:8769 = { add_road_towards = p:8770 }
+            p:8770 = { add_road_towards = p:8771 }
             random_owned_province = {
 				limit = {
 					num_of_port_building >= 1 
@@ -355,15 +352,15 @@ me_fugandulu.14 = {
             }
             create_unit = {
                 navy = no
-                name = "War Elephants of Woe"
-                location = root.capital_scope
+                name = WAR_ELEPHANTS_OF_WOE
+                location = prev.capital_scope
                 hidden_effect = {
-                add_subunit = warelephant
-                add_subunit = warelephant
-                add_subunit = warelephant
-                add_subunit = warelephant
-                add_food = 100
-                add_morale = 2
+                    add_subunit = warelephant
+                    add_subunit = warelephant
+                    add_subunit = warelephant
+                    add_subunit = warelephant
+                    add_food = 100
+                    add_morale = 2
                 }
             }
             add_country_modifier = {
@@ -383,22 +380,30 @@ me_fugandulu.15 = {
     left_portrait = current_ruler
 
     option = {
+        custom_tooltip = me_fugandulu_15_tooltip
         add_political_influence = -25
         current_ruler = {
             force_add_trait = benefactor
+            add_popularity = -10
         }
         name = "me_fugandulu_15.a"
-        custom_tooltip = me_fugandulu_15_tooltip
-
+        random_country_culture = {
+            limit = {
+                is_culture = pyu
+                NOT = {
+                    has_pop_type_right = citizen
+                }
+            }
+            set_country_culture_right = citizen
+        }
     }
     option = {
         custom_tooltip = me_fugandulu_15_tooltip
         highlight = yes
         add_political_influence = -25
-        custom_tooltip = me_fugandulu_15_slave_tt
         random_country_culture = {
             limit = {
-                is_culture = pubu
+                is_culture = pyu
                 NOT = {
                     has_pop_type_right = slaves
                 }
@@ -418,9 +423,9 @@ me_fugandulu.15 = {
     option = {
         name = "me_fugandulu_15.c"
         custom_tooltip = me_fugandulu_15_tooltip
-        add_political_influence = -10
+        add_political_influence = -25
         current_ruler = {
-            add_popularity = -10
+            add_popularity = -5
         }
         add_manpower = 3
         add_military_experience = 20
@@ -506,7 +511,7 @@ me_fugandulu.17 = {
 					local_pop_assimilation_speed_modifier = 0.05
 				}
 			}
-            p:9405 = {
+            p:8813 = {
                 add_permanent_province_modifier = {
                     name = mon_jade_mines_modifier_fugandulu
                     duration = -1
@@ -648,7 +653,7 @@ me_fugandulu.19 = {
                 name = fugandulu_nat_temple_mod
                 duration = -1
             }
-            p:9789 = {
+            p:8771 = {
                 set_province_deity = deity:omen_kingdom_nat
             }
         }

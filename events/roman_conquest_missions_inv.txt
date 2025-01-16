@@ -168,12 +168,15 @@ me_roman_missions_inv.6 = {							# Debate begin
     type = country_event
     title = me_roman_missions_inv.6.t
 	desc = me_roman_missions_inv.6.desc
-    picture = celtic_village
+    picture = senate_debate
     
     left_portrait = current_ruler
 	
 	option = {
 		name = me_roman_missions_inv.6.a
+		trigger = {
+			is_republic = yes
+		}
 		trigger_event = { 
 			id = me_roman_missions_inv.7 
 			days = 180
@@ -184,11 +187,17 @@ me_roman_missions_inv.6 = {							# Debate begin
 		}
 	}
 	option = {
-		name = me_roman_missions_inv.1.b
+		name = me_roman_missions_inv.6.b
+		trigger = {
+			is_republic = yes
+		}
 		random_list = {
 				50 = {
+					show_as_tooltip = {
+						change_law = lex_claudia
+					}
 					trigger_event = { 
-						id = me_roman_missions_inv.8 
+						id = me_roman_missions_inv.7 
 						days = 180
 					}
 				}
@@ -204,13 +213,22 @@ me_roman_missions_inv.6 = {							# Debate begin
 			factor = 0
 		}
 	}
+	
+	option = {
+		name = me_roman_missions_inv.6.c
+		trigger = {
+			is_monarchy = yes
+		}
+		add_political_influence = -50
+		change_law = antipiracy_edict
+	}
 }
 
 me_roman_missions_inv.7 = {							# Anti Pirate Stance
     type = country_event
     title = me_roman_missions_inv.7.t
 	desc = me_roman_missions_inv.7.desc
-    picture = celtic_village
+    picture = senator_conversing
     
     left_portrait = current_ruler
 	
@@ -239,7 +257,7 @@ me_roman_missions_inv.8 = {							# Mild Stance to Pirates
 	
 	option = {
 		name = me_roman_missions_inv.8.a
-
+		custom_tooltip = "no_effect_tooltip"
 	}
 
 }
@@ -307,7 +325,17 @@ me_roman_missions_inv.9 = {							# Great Illyrian War - Preparation
 					change_country_flag = ILLYRIA_FLAG
 					save_scope_as = illyrian_revolt_scope
 					change_country_tag = ILL
-					set_primary_culture = deraemestian
+					if = {
+						limit = {
+							NOT = {
+								primary_culture = deraemestian
+							}
+						}
+						set_primary_culture_cleanup_effect = {
+							NEW_PRIMARY_CULTURE = deraemestian
+							MAKE_OLD_CULTURE_INTEGRATED = yes
+						}
+					}
 					set_country_religion = roman_pantheon
 					change_government = tribal_kingdom
 					add_treasury = 500
@@ -446,25 +474,25 @@ me_roman_missions_inv.10 = {							# Great Illyrian War - Begins
 					limit = {
 						any_pops_in_province = { pop_type = slaves }
 					}
-					slaves_happiness <= 0.60
+					slaves_happiness <= 0.30
 				}
 				trigger_if = {
 					limit = {
 						any_pops_in_province = { pop_type = tribesmen }
 					}
-					tribesmen_happiness <= 0.60
+					tribesmen_happiness <= 0.30
 				}
 				trigger_if = {
 					limit = {
 						any_pops_in_province = { pop_type = freemen }
 					}
-					freemen_happiness <= 0.60
+					freemen_happiness <= 0.40
 				}
 				trigger_if = {
 					limit = {
 						any_pops_in_province = { pop_type = citizen }
 					}
-					citizen_happiness <= 0.60
+					citizen_happiness <= 0.50
 				}
 			}
 			order_by = total_population
@@ -489,7 +517,17 @@ me_roman_missions_inv.10 = {							# Great Illyrian War - Begins
 					change_country_flag = ILLYRIA_FLAG
 					save_scope_as = illyrian_revolt_scope
 					change_country_tag = ILL
-					set_primary_culture = deraemestian
+					if = {
+						limit = {
+							NOT = {
+								primary_culture = deraemestian
+							}
+						}
+						set_primary_culture_cleanup_effect = {
+							NEW_PRIMARY_CULTURE = deraemestian
+							MAKE_OLD_CULTURE_INTEGRATED = yes
+						}
+					}
 					set_country_religion = roman_pantheon
 					change_government = tribal_kingdom
 					add_treasury = 500
@@ -535,43 +573,29 @@ me_roman_missions_inv.10 = {							# Great Illyrian War - Begins
 				c:ROM = {
 					every_owned_province = {
 						limit = {
-							OR = {
-								is_in_region = illyria_region
-								is_in_area = savia_occidentalis_area
-								is_in_area = pannonia_secunda_area
-							}
+							is_in_region = illyria_region
 						}
 						set_conquered_by = scope:illyrian_revolt_scope
 					}
 				}
 				every_owned_province = {
 					limit = {
-						OR = {
-							is_in_region = illyria_region
-							is_in_area = savia_occidentalis_area
-							is_in_area = pannonia_secunda_area
-						}
+						is_in_region = illyria_region
 					}
 					add_claim = c:ROM
 				}
 			}
 			c:ROM = {
-				
 				random_owned_province = {
 					limit = {
-						OR = {
-							is_in_region = illyria_region
-							is_in_area = savia_occidentalis_area
-							is_in_area = pannonia_secunda_area
-						}
+						is_in_region = illyria_region
 					}
 					save_scope_as = roman_illyria_unruly_wargoal_scope
 				}
 			}
 			scope:illyrian_revolt_scope = {
 				declare_war_with_wargoal = {
-					war_goal = conquer_wargoal
-					province = scope:roman_illyria_unruly_wargoal_scope
+					war_goal = imperial_conquest_wargoal
 					target = c:ROM
 				}
 			}
@@ -589,12 +613,12 @@ me_roman_missions_inv.11 = {							# Illyrian Triumph
     type = country_event
     title = me_roman_missions_inv.11.t
 	desc = me_roman_missions_inv.11.desc
-    picture = celtic_village
+    picture = Event_roman_triumph
     
     left_portrait = current_ruler
 	
 	option = {
-		name = me_roman_missions_inv.10.a
+		name = me_roman_missions_inv.11.a
 		if = {
 			limit = {
 				current_ruler = { is_minor_character = no }
@@ -665,7 +689,5 @@ me_roman_missions_inv.14 = {							# Illyrian No
 	
 	option = {
 		name = me_roman_missions_inv.14.a
-		#no_effect = yes
 	}
-	
 }
