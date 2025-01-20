@@ -171,5 +171,38 @@
 		}
 	}
 
+	citizenship_through_service_decision = {
+		potential = {
+			NOT = { primary_culture = scope:target_culture.culture }
+			scope:target_culture = {
+				NOT = { has_pop_type_right = citizen }
+				NOT = { has_pop_type_right = nobles }
+			}
+		}
+		allow = {
+			NOT = {
+				has_country_modifier = citizenship_through_service
+			}
+			stability > 10
+			military_experience >= 50
+		}
+		effect = {
+			add_political_influence = -20
+			add_stability = -20
+			add_military_experience = -50
+			add_country_modifier = {
+					name = "citizenship_through_service_country_modifier"
+					duration = -1
+			}
+			scope:every_country_culture = {
+				add_country_culture_modifier = {
+					name = "citizenship_through_service_culture_modifier"
+					duration = -1
+				}
+			}
+		}
+	}
 
+
+	
 }
