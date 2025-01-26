@@ -196,7 +196,13 @@ me_donghu.13 = {
 
     option = {
         name = "me_donghu_13.a"
-		
+		add_country_modifier = {
+			name = "donghu_confucius_mod"
+			duration = -1
+		}
+    }
+	option = {
+        name = "me_donghu_13.b"
     }
 }
 
@@ -215,6 +221,12 @@ me_donghu.14 = {
 			duration = -1
 		}
 		add_political_influence = 100
+		if = {
+			limit = {
+				is_tribal = yes
+			}
+			change_government = despotic_monarchy
+		}
     }
 }
 
@@ -263,6 +275,11 @@ me_donghu.17 = {
 
     option = {
         name = "me_donghu_17.a"
-		add_deity_to_pantheon = deity_huangdi
+		custom_tooltip = huangdi_deity_switcheroo_tt
+		hidden_effect = {
+			add_deity_to_pantheon = {
+				deity = deity:omen_huangdi
+			}
+		}
     }
 }
