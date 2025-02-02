@@ -200,6 +200,53 @@ me_donghu.13 = {
 			name = "donghu_confucius_mod"
 			duration = -1
 		}
+		change_religion_effect = {
+			RELIGION = confucian
+		}
+		hidden_effect = {
+			every_character = {
+				limit = {
+					OR = {
+						from_ruler_family = yes
+						is_minor_character = no
+					}
+				}
+				set_religion = confucian
+			}
+			capital_scope = {
+				every_pops_in_province = {
+					limit = {
+						OR = {
+							pop_type = citizen
+							pop_type = nobles
+							pop_type = freemen
+							pop_type = tribesmen
+						}
+					}
+					set_pop_religion = confucian
+				}
+			}
+			ordered_owned_province = {
+				order_by = total_population
+				max = 25
+				check_range_bounds = no
+				ordered_pops_in_province = {
+					order_by = pop_hapiness
+					limit = {
+						OR = {
+							pop_type = citizen
+							pop_type = nobles
+							pop_type = freemen
+							pop_type = tribesmen
+						}
+						pop_culture = root.culture
+					}
+					set_pop_religion = confucian
+					max = 20
+					check_range_bounds = no
+				}
+			}
+		}
     }
 	option = {
         name = "me_donghu_13.b"
