@@ -1,0 +1,795 @@
+﻿loulan_missions = {
+    header = "mission_image_china"
+    icon = "egypt_3"
+
+    repeatable = no
+
+    chance = {
+        factor = 50
+    }
+
+    potential = {
+        NOT = { has_variable = loulan_mission_cd }
+        is_subject = no
+        has_civil_war = no
+		tag = LOL
+    }
+
+    abort = {
+        ai_mission_back_out_trigger = yes
+    }
+
+    on_start = {
+        start_mission_ai_effect = yes
+		trigger_event = me_louland.99
+    }
+
+    on_abort = {
+        custom_tooltip = general_mission_cooldown_tt
+        set_variable = {
+            name = loulan_mission_cd
+            days = 7300
+        }
+    }
+
+    on_completion = {
+        complete_mission_effect = yes
+    }
+
+    loulan_missions_task_1 = { #Befriend Southern Tribes
+        icon = "task_political"
+
+        allow = {
+			custom_tooltip = {
+				text = loulan_missions_task_1_loulan_culture
+				any_allied_country = {
+					count >= 2
+					primary_culture = loulan
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_louland.1
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = loulan_friends_mod
+					duration = 10950
+				}
+            }
+        }
+    }
+
+    loulan_missions_task_2 = { #The Last Bastion
+        icon = "task_political"
+
+        highlight = {
+			scope:province = {
+				province_id = 8226
+			}
+        }
+
+        allow = {
+			p:8226 = {
+				fort_level >= 2
+			}
+			hidden:p:8226.state = {
+				state_improvement_military_trigger = yes 
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_louland.2
+            show_as_tooltip = {
+				p:8226 = {
+					add_permanent_province_modifier = {
+						name = "last_bastion_mod"
+					}
+				}
+            }
+        }
+    }
+
+    loulan_missions_task_3 = { #Appease Swanco Priests
+        icon = "task_political"
+
+        allow = {
+			has_country_modifier = stability_investment
+			custom_tooltip = {
+				text = office_high_priest_monarchy_loyalty_90
+				any_character = {
+					has_office = office_high_priest_monarchy
+					loyalty >= 90
+				}
+			}
+			custom_tooltip = {
+				text = office_master_of_ceremonies_loyalty_90
+				any_character = {
+					has_office = office_master_of_ceremonies
+					loyalty >= 90
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_louland.3
+            show_as_tooltip = {
+				add_political_influence = 40
+				add_stability = 5
+            }
+        }
+    }
+
+    loulan_missions_task_4 = { #Loulan Federation
+        icon = "task_political"
+		requires = { loulan_missions_task_1 }
+
+        allow = {
+			trigger_if = {
+				limit = {
+					c:JJE = {
+						has_land = yes
+						is_ai = yes
+					}
+				}
+				OR = {
+					hidden:c:JJE = {
+						is_subject_of = root
+					}
+					alliance_with = c:JJE
+				}
+			}
+			trigger_if = {
+				limit = {
+					c:QIM = {
+						has_land = yes
+						is_ai = yes
+					}
+				}
+				OR = {
+					hidden:c:QIM = {
+						is_subject_of = root
+					}
+					alliance_with = c:QIM
+				}
+			}
+			trigger_if = {
+				limit = {
+					c:XIW = {
+						has_land = yes
+						is_ai = yes
+					}
+				}
+				OR = {
+					hidden:c:XIW = {
+						is_subject_of = root
+					}
+					alliance_with = c:XIW
+				}
+			}
+			trigger_if = {
+				limit = {
+					c:MIR = {
+						has_land = yes
+						is_ai = yes
+					}
+				}
+				OR = {
+					hidden:c:MIR = {
+						is_subject_of = root
+					}
+					alliance_with = c:MIR
+				}
+			}
+			trigger_if = {
+				limit = {
+					c:CRK = {
+						has_land = yes
+						is_ai = yes
+					}
+				}
+				OR = {
+					hidden:c:CRK = {
+						is_subject_of = root
+					}
+					alliance_with = c:CRK
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_louland.4
+            show_as_tooltip = {
+				if = {
+					limit = {
+						c:JJE = {
+							has_land = yes
+							is_ai = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = JJE
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:QIM = {
+							has_land = yes
+							is_ai = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = QIM
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:XIW = {
+							has_land = yes
+							is_ai = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = XIW
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:MIR = {
+							has_land = yes
+							is_ai = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = MIR
+							type = feudatory
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:CRK = {
+							has_land = yes
+							is_ai = yes
+						}
+					}
+					root = {
+						make_subject = {
+							target = CRK
+							type = feudatory
+						}
+					}
+				}	
+            }
+			custom_tooltip = loulan_missions_task_4_claims_tt
+			hidden_effect = {
+				area:tarim_area = { mission_area_claim_effect = yes }
+				area:south_tarim_area = { mission_area_claim_effect = yes }
+				area:north_tarim_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    loulan_missions_task_5 = { #Appease The Northern Tribes
+        icon = "task_political"
+		requires = { loulan_missions_task_2 }
+		
+		bypass = {
+			c:XNU = {
+				has_land = no
+			}
+			c:YEZ = {
+				has_land = no
+			}
+		}
+
+        allow = {
+			trigger_if = {
+				limit = {
+					c:XNU = {
+						has_land = yes
+					}
+				}
+				c:XNU = {
+					opinion = {
+						target = root
+						value >= 25
+					}
+				}
+			}
+			trigger_if = {
+				limit = {
+					c:YEZ = {
+						has_land = yes
+					}
+				}
+				c:YEZ = {
+					opinion = {
+						target = root
+						value >= 25
+					}
+				}
+			}
+			treasury >= 100
+		}
+
+        on_completion = {
+            trigger_event = me_louland.5
+            show_as_tooltip = {
+				add_treasury = -100
+				if = {
+					limit = {
+						c:YEZ = {
+							has_land = yes
+						}
+					}
+					c:YEZ = {
+						add_truce = {
+							target = root
+							duration = 5475
+						}
+					}
+				}
+				if = {
+					limit = {
+						c:XNU = {
+							has_land = yes
+						}
+					}
+					c:XNU = {
+						add_truce = {
+							target = root
+							duration = 5475
+						}
+					}
+				}
+            }
+        }
+    }
+
+    loulan_missions_task_6 = { #Honor The Mummies
+        icon = "task_political"
+		requires = { loulan_missions_task_2 loulan_missions_task_3 }
+		duration = 30
+
+        allow = {
+			owns = 8226
+			hidden:p:8226 = {
+				province_has_special_pop = {
+					text = "prov_has_1_priest_tt"
+					type = priest
+					count = 1
+				}
+			}
+			treasury >= 100
+		}
+
+		on_start = {
+			add_treasury = -100
+		}
+
+        on_completion = {
+            trigger_event = me_louland.6
+            show_as_tooltip = {
+				add_country_modifier = {
+					name = loulan_mummies_mod
+					duration = -1
+				}
+            }
+        }
+    }
+
+    loulan_missions_task_7 = { #Round Up The Western Basin
+        icon = "task_political"
+		requires = { loulan_missions_task_4 }
+
+        allow = {
+			owns_or_subject_owns_area = tarim_area
+			owns_or_subject_owns_area = south_tarim_area
+		}
+
+        on_completion = {
+            trigger_event = me_louland.7
+			show_as_tooltip = {
+				area:ferghana_area = { mission_area_claim_effect = yes }
+				area:pamir_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    loulan_missions_task_8 = { #Secure The Northern Basin
+        icon = "task_political"
+		requires = { loulan_missions_task_4 }
+
+        allow = {
+			owns_or_subject_owns_area = north_tarim_area
+		}
+
+        on_completion = {
+            trigger_event = me_louland.8
+			custom_tooltip = loulan_missions_task_8_claims_tt
+			hidden_effect = {
+				area:barkol_area = { mission_area_claim_effect = yes }
+				area:gobi_altai_area = { mission_area_claim_effect = yes }
+				area:xihai_area = { mission_area_claim_effect = yes }
+				area:guyan_area = { mission_area_claim_effect = yes }
+				c:YEZ = {
+					every_owned_province = {
+						limit = {
+							is_in_region = mobei_region
+						}
+						add_claim = root
+					}
+				}
+				c:XNU = {
+					every_owned_province = {
+						limit = {
+							is_in_region = mobei_region
+						}
+						add_claim = root
+					}
+				}
+			}
+        }
+    }
+
+    loulan_missions_task_9 = { #The City Of Peace
+        icon = "task_political"
+		requires = { loulan_missions_task_4 loulan_missions_task_6 }
+
+        highlight = {
+			scope:province = {
+				province_id = 8226
+			}
+        }
+
+        allow = {
+			owns = 8226
+			p:8226 = {
+				free_building_slots <= 2
+				total_population >= 40
+                civilization_value >= 60				
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_louland.9
+            show_as_tooltip = {
+				p:8226 = {
+					add_permanent_province_modifier = {
+						name = loulan_city_peace
+					}
+				}
+            }
+        }
+    }
+
+    loulan_missions_task_10 = { #Shake Off The Yuezhi
+        icon = "task_political"
+		requires = { loulan_missions_task_8 }
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = barkol_area
+					is_in_area = gobi_altai_area
+				}
+			}
+        }
+
+        allow = {
+			owns_or_subject_owns_area = barkol_area
+			owns_or_subject_owns_area = gobi_altai_area
+		}
+
+        on_completion = {
+            trigger_event = me_louland.10
+            show_as_tooltip = {
+				#add_military_experience = 10
+            }
+        }
+    }
+
+    loulan_missions_task_11 = { #Unification Of The Tarim Basin
+        icon = "task_political"
+		requires = { loulan_missions_task_7 loulan_missions_task_8 }
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = yanqi_area
+					is_in_area = south_tarim_area
+					is_in_area = tarim_area
+					is_in_area = north_tarim_area
+				}
+			}
+        }
+
+        allow = {
+			owns_or_subject_owns_area = yanqi_area
+			owns_or_subject_owns_area = south_tarim_area
+			owns_or_subject_owns_area = tarim_area
+			owns_or_subject_owns_area = north_tarim_area
+		}
+
+        on_completion = {
+            trigger_event = me_louland.11
+            show_as_tooltip = {
+
+            }
+        }
+    }
+
+    loulan_missions_task_12 = { #Cull The Xiongnu Threat
+        icon = "task_political"
+		requires = { loulan_missions_task_8 }
+
+        highlight = {
+			scope:province = {
+				OR = {
+					province_id = 10529
+					owned_or_subject_owned = c:XNU
+				}
+			}
+        }
+
+        allow = {
+			owns_or_subject_owns = 10529 #guyan_area
+			trigger_if = {
+				limit = {
+					c:XNU = {
+						has_land = yes
+					}
+				}
+				OR = {
+					c:XNU = {
+						has_land = no
+					}
+					any_subject = {
+						tag = XNU
+					}
+				}
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_louland.12
+            show_as_tooltip = {
+
+            }
+        }
+    }
+
+    loulan_missions_task_13 = { #Along The Silk Road
+        icon = "task_political"
+		requires = { loulan_missions_task_4 }
+
+        highlight = {
+			scope:province = {
+				province_id = 8226
+			}
+        }
+
+        allow = {
+			p:8226 = {
+				has_building = emporium_building
+				num_goods_produced >= 3
+			}
+			p:8226.state = {
+				incoming_trade_routes >= 5
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_louland.13
+            show_as_tooltip = {
+				add_1_free_province_investments = yes
+				add_country_modifier = {
+					name = loulan_silk_mod
+					duration = 10950
+				}
+            }
+        }
+    }
+
+    loulan_missions_task_14 = { #Envoys To The East
+        icon = "task_political"
+		requires = { loulan_missions_task_1 loulan_missions_task_2 }
+		duration = 120
+		
+		bypass ={
+			OR = {
+				c:QIN = {
+					has_land = no
+				}
+				num_of_provinces >= 100
+			}
+		}
+
+        allow = {
+			treasury >= 100
+			#c:QIN
+		}
+
+        on_completion = {
+            trigger_event = me_louland.14
+            show_as_tooltip = {
+
+            }
+			custom_tooltip = loulan_missions_task_14_claims_tt
+			hidden_effect = {
+				area:dunhuang_area = { mission_area_claim_effect = yes }
+				area:jiuquan_area = { mission_area_claim_effect = yes }
+				area:zhangye_area = { mission_area_claim_effect = yes }
+			}
+        }
+    }
+
+    loulan_missions_task_15 = { #Irrigate The Desert
+        icon = "task_political"
+		requires = { loulan_missions_task_9 }
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = yanqi_area
+					is_in_area = south_tarim_area
+					is_in_area = tarim_area
+					is_in_area = north_tarim_area
+				}
+				terrain = desert
+				NOT = { province_id = 5669 }
+				NOT = { province_id = 5665 }
+			}
+        }
+
+        allow = {
+			any_owned_province = {
+				count >= 5
+				OR = {
+					is_in_area = yanqi_area
+					is_in_area = south_tarim_area
+					is_in_area = tarim_area
+					is_in_area = north_tarim_area
+				}
+				terrain = desert
+				has_building = aqueduct_building
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_louland.15
+			custom_tooltip = every_tarim_province_tt
+            show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = yanqi_area
+							is_in_area = south_tarim_area
+							is_in_area = tarim_area
+							is_in_area = north_tarim_area
+						}
+					}
+					add_permanent_province_modifier = {
+						name = "loulan_irrigation"
+					}
+				}
+            }
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							is_in_area = yanqi_area
+							is_in_area = south_tarim_area
+							is_in_area = tarim_area
+							is_in_area = north_tarim_area
+						}
+					}
+					add_permanent_province_modifier = {
+						name = "loulan_irrigation"
+					}
+				}
+			}
+        }
+    }
+
+    loulan_missions_task_16 = { #Winged Murals
+        icon = "task_political"
+		requires = { loulan_missions_task_9 loulan_missions_task_13 }
+		duration = 90
+
+        allow = {
+			owns = 8226
+			OR = {
+				owns = 6704
+				AND = {
+					alliance_with = TAY
+					treasury >= 250
+				}
+				
+			}
+		}
+
+		on_start = {
+			add_treasury = -250
+		}
+
+        on_completion = {
+            trigger_event = me_louland.16
+            show_as_tooltip = {
+				p:8226 = {
+					add_permanent_province_modifier = {
+						name = "winged_loulan_mod"
+					}
+				}
+            }
+        }
+    }
+
+    loulan_missions_task_17 = { #Loulan's Legacy
+        icon = "task_political"
+		requires = { loulan_missions_task_10 loulan_missions_task_11 loulan_missions_task_16 }
+		final = yes
+
+        allow = {
+			
+		}
+
+        on_completion = {
+            trigger_event = me_louland.17
+            show_as_tooltip = {
+
+            }
+        }
+    }
+
+	loulan_missions_task_18 = { #Secure The Liang Corridor
+        icon = "task_political"
+		requires = { loulan_missions_task_14 }
+
+        highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = dunhuang_area
+					is_in_area = jiuquan_area
+					is_in_area = zhangye_area
+				}
+			}
+        }
+
+        allow = {
+			owns_area = dunhuang_area
+			owns_area = jiuquan_area
+			owns_area = zhangye_area
+			any_owned_province = {
+				fort_level >= 1
+				is_in_area = zhangye_area
+			}
+		}
+
+        on_completion = {
+            trigger_event = me_louland.18
+            show_as_tooltip = {
+				random_owned_province = {
+					limit = {
+						fort_level >= 1
+						is_in_area = zhangye_area
+					}
+					add_permanent_province_modifier = {
+						name = secured_liang_mod
+					}
+				}
+            }
+        }
+    }
+}
