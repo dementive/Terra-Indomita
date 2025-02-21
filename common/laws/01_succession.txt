@@ -1,0 +1,208 @@
+﻿republic_election_reforms = { # Electoral Reforms
+	potential = {
+		is_republic = yes 
+		NOR = {
+			tag = ROM
+			tag = CAR
+		}
+	}
+	republican_election_1 = {
+		modifier = {
+			stability_cost_modifier = -0.05
+		}
+	}
+	republican_election_2 = {
+		modifier = {
+			election_term_duration = 5
+		}
+	}
+	republican_election_3 = {
+		allow = {
+			NOT = {
+				hidden:current_ruler = {
+					party_type = oligarchic_party
+				}
+			}
+		}
+		modifier = {
+			election_term_duration = -3
+		}
+	}
+	republican_election_4 = {
+		allow = {
+			hidden:current_ruler = {
+				party_type = oligarchic_party
+			}
+		}
+		modifier = {
+			election_term_duration = 45
+		}
+	}
+}
+republic_election_car_reforms = { # Punic Electoral Reforms
+	potential = {
+		is_republic = yes
+		tag = CAR
+	}
+	republican_election_car_1 = {
+		modifier = {
+			stability_cost_modifier = -0.05
+		}
+	}
+	republican_election_car_2 = {
+		modifier = {
+			election_term_duration = 5
+		}
+	}
+	republican_election_car_3 = {
+		allow = {
+			NOT = {
+				hidden:current_ruler = {
+					party_type = oligarchic_party
+				}
+			}
+		}
+		modifier = {
+			election_term_duration = -3
+		}
+	}
+	republican_election_car_4 = {
+		allow = {
+			hidden:current_ruler = {
+				party_type = oligarchic_party
+			}
+		}
+		modifier = {
+			election_term_duration = 45
+		}
+	}
+}
+republic_election_reforms_rom = { # Electoral Reforms
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	leges_genuciae = {
+		modifier = {
+			stability_cost_modifier = -0.05
+		}
+	}
+	senatus_consultum_ultimum = {
+		modifier = {
+			election_term_duration = 5
+		}
+	}
+	lex_antonia = {
+		allow = {
+			NOT = {
+				hidden:current_ruler = {
+					party_type = populares_party
+				}
+			}
+		}
+		modifier = {
+			election_term_duration = -3
+		}
+	}
+	princeps_civitatis = {
+		allow = {
+			hidden:current_ruler = {
+				party_type = populares_party
+			}
+		}
+		modifier = {
+			election_term_duration = 45
+		}
+	}
+}
+succession_law = {
+	potential = {
+		is_monarchy = yes
+	}
+	
+	agnatic_succession_law = {
+		allow = {
+		}
+		succession = agnatic
+	}
+	
+	cognatic_succession_law = {
+		allow = {
+		}
+		succession = cognatic
+	}
+	
+	agnatic_seniority_succession_law = {
+		allow = {
+		}
+		succession = agnatic_seniority
+	}
+	
+	elective_succession_law = {
+		allow = {
+		}
+		succession = elective_monarchy
+	}
+	
+	egyption_succession_law = {
+		allow = {
+			has_primary_heir = yes
+			OR = {
+				current_ruler = {
+					is_female = no
+					country = {
+						any_character = {
+							from_ruler_family = yes
+							is_female = yes
+						}
+					}
+				}
+				current_ruler = {
+					is_female = yes
+					country = {
+						any_character = {
+							from_ruler_family = yes
+							is_female = no
+						}
+					}
+				}
+			}
+		}
+		succession = old_egyptian_succession
+	}
+}
+tribal_autonomy_laws = {
+	potential = {
+		is_tribal = yes
+	}
+	clan_cohesion = { #default
+
+	}
+	local_hierarchs = {
+		allow = {
+			centralization <= -10
+		}
+		modifier = {
+			monthly_centralization = -0.05
+			stability_monthly_change = 0.15
+			tribe_new_ruler_cost_modifier = 0.1
+		}
+	}
+	follow_the_strong_law = {
+		modifier = {
+			character_loyalty = 10
+			monthly_tyranny = 0.05
+		}
+		#succesion = kratistoi
+	}
+	absolute_authority = {
+		allow = {
+			centralization >= 10
+		}
+		modifier = {
+			ruler_popularity_gain = 0.15
+			monthly_centralization = 0.1
+			tribe_new_ruler_cost_modifier = -0.33
+		}
+	}
+}

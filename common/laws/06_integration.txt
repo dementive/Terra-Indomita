@@ -1,0 +1,301 @@
+﻿republic_integration_laws = { 
+	potential = {
+		or = {
+			is_republic = yes
+		}
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	republican_integration_1 = { #war council/rite of conqyest
+		modifier = {
+			agressive_expansion_impact = -0.05
+			tribute_income_modifier = 0.05
+		}
+		allow  = {
+			rank <= regional_power
+		}
+	}
+	
+	republican_integration_2 = { #ad hoc  integration
+		allow  = {
+			civic_tech >= 4
+		}
+		modifier = {
+			agressive_expansion_monthly_decay = 0.02
+			diplomatic_relations = 1
+			integrate_speed = 0.1
+		}
+		allow  = {
+			rank = regional_power
+		}
+	}
+	republican_integration_3 = { #rights for foeginers
+		allow  = {
+			rank >= regional_power
+			civic_tech >= 6
+			or = {
+				invention = civic_foreign_2b
+				invention = happiness_for_wrong_culture_modifier_inv_2
+			}
+		}
+		modifier = {
+			happiness_for_wrong_culture_group_modifier = 0.03
+			agressive_expansion_monthly_decay = 0.01
+		}
+	}
+	republican_integration_4 = { #stable integration
+		allow  = {
+			civic_tech >= 12
+		}
+		modifier = {
+			agressive_expansion_monthly_change = -0.02
+			global_pop_assimilation_speed_modifier = 0.05
+		}
+	}
+	republican_integration_5 = { #bureaucratic integration
+		allow = {
+			civic_tech >= 15
+		}
+		modifier = {
+			agressive_expansion_monthly_change = -0.03
+			global_monthly_state_loyalty = 0.02
+		}
+	}
+}
+republic_integration_car_laws = { # Carthage Integration Laws
+	potential = {
+		is_republic = yes
+		tag = CAR
+	}
+	republican_integration_car_1 = { #trade outpost
+		modifier = {
+			subject_opinions = 10
+			subject_pays_tributary_cost_modifier = 0.1
+			diplomatic_relations = 1
+		}
+		allow  = {
+			rank <= regional_power
+		}
+	}
+	
+	republican_integration_car_2 = { #ad hoc  integration
+		allow  = {
+			civic_tech >= 4
+			rank = regional_power
+		}
+		modifier = {
+			global_tribesmen_happyness = 0.06
+			subject_pays_tributary_cost_modifier = 0.1
+		}
+	}
+	republican_integration_car_3 = { #Carthaginian Hegeony
+		allow  = {
+			num_of_cities < 15
+		}
+		modifier = {
+			global_monthly_state_loyalty = -0.9
+			diplomatic_relations = 5
+			diplomatic_reputation = 2
+			subject_pays_tributary_cost_modifier = 0.1
+			subject_loyalty = 15
+		}
+	}
+	republican_integration_car_4 = { #Barcid
+		allow  = {
+			civic_tech >= 12
+			military_tech > 10
+			current_ruler = {
+				martial > 9
+			}
+		}
+		modifier = {
+			agressive_expansion_monthly_change = -0.025
+			integrate_speed = 0.2
+			global_pop_assimilation_speed_modifier = 0.05
+		}
+	}
+	republican_integration_car_5 = { #Carthaginian Empire
+		allow = {
+			civic_tech >= 15
+			num_of_cities >= 500
+		}
+		modifier = {
+			global_monthly_civilization = 0.02
+			global_monthly_state_loyalty = 0.033
+			global_unrest = -2
+			monthly_wage_modifier = 0.2
+		}
+	}
+}
+republic_integration_laws_rom = { # Integration Laws
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	integration_law_1_rom = { #Rerum Repetito
+		modifier = {
+			agressive_expansion_impact = -0.05
+			global_pop_assimilation_speed_modifier = 0.03
+		}
+		allow  = {
+			rank <= regional_power
+		}
+	}
+	subject_law_1_rom = { #rights of socii
+		modifier = {
+			subject_pays_feudatory_cost_modifier = 0.1
+			happiness_for_wrong_culture_modifier = 0.05
+			subject_loyalty = 15
+		}
+		allow  = {
+			rank = regional_power
+		}
+	}
+	integration_law_3_rom = {#peregrini
+		allow  = {
+			civic_tech >= 10
+			rank >= major_power
+		}
+		modifier = {
+			happiness_for_wrong_culture_group_modifier = 0.03
+			agressive_expansion_monthly_decay = 0.02
+			global_freemen_output = 0.02
+		}
+		
+	}
+	integration_law_4_rom = {#lex provincia
+		allow  = {
+			civic_tech >= 14
+			rank >= major_power
+		}
+		#inlocks most governor abilities?
+		modifier = {
+			integrate_speed = 0.2
+			global_pop_assimilation_speed_modifier = 0.05
+		}
+	}
+	integration_law_5_rom = { #Agusutan reform
+		allow  = {
+			civic_tech >= 18
+			rank >= major_power
+		}
+		modifier = {
+			global_monthly_state_loyalty = 0.02
+			agressive_expansion_monthly_change = -0.03
+		}
+	}
+}
+monarchy_subject_laws = { 
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	humility_status_law = { 
+		allow = {
+			rank <= local_power
+		}
+		modifier = {
+			global_freemen_happyness = happiness_large_svalue
+			agressive_expansion_impact = -0.05
+		}
+		on_enact = {
+			custom_tooltip = can_nominate_heir_at_high_legitimacy
+		}
+	}
+	autonomous_satrapies = 
+		modifier = {
+			subject_pays_tributary_cost_modifier = 0.1
+			diplomatic_relations = 2
+			subject_loyalty = 15
+			integrate_speed = -0.3
+		}
+		allow = {
+			rank >= local_power
+			rank < major_power
+			not = {
+				has_law = centralized_bureaucracy
+				has_law = public_notaries_law
+				has_law = vast_bureaucracy
+			}
+		}
+	}
+	foreign_law_for_minorities = { #rights for foeginers
+		allow  = {
+			rank >= regional_power
+			civic_tech >= 6
+			or = {
+				invention = happiness_for_wrong_culture_modifier_inv_2
+			}
+		}
+		modifier = {
+			happiness_for_wrong_culture_group_modifier = 0.05
+			agressive_expansion_monthly_decay = 0.025
+		}
+	}
+	king_of_kings = {
+		
+		allow = {
+			rank = major_power 
+		}
+		modifier = {
+			integrate_speed = 0.3
+			diplomatic_relations = 2
+			agressive_expansion_monthly_change = -0.02
+			global_pop_assimilation_speed_modifier = 0.05
+		}
+	}
+	imperial_ambition = { #bureaucratic integration
+		allow = {
+			civic_tech >= 15
+			rank = great_power
+			has_law = royal_bureaucracy
+		}
+		modifier = {
+			stability_monthly_change = 0.03
+			global_monthly_state_loyalty = 0.02
+
+		}
+	}
+}
+tribal_foreign_policy_laws = {
+	potential = {
+		is_tribal = yes
+	}
+	
+	tribal_identity_law = {
+		modifier = {
+			war_score_cost = 2
+			improve_relation_cost_modifier = -0.5
+		}
+	}
+	
+	hearthlaw = {
+		modifier = {
+			diplomatic_relations = 1
+			stability_monthly_change = 0.15
+		}
+	}
+	
+	tribal_sumptuary_law = {
+		allow = {
+
+		}
+		modifier = {
+			discipline = 0.03
+			diplomatic_reputation = 1
+		}
+	}
+	declaration_of_hegemony_law = {
+		allow = {
+			#invention = 
+		}
+		modifier = {
+			war_no_cb_cost_modifier = -2
+			land_morale_modifier = 0.05
+			global_pop_assimilation_speed_modifier = 0.2
+		}
+	}
+}

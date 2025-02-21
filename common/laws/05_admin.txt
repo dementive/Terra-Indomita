@@ -1,0 +1,249 @@
+﻿administration_laws_rep = {
+	potential = {
+		is_republic = yes
+		not = {tag = ROM}
+	}
+
+	administration_law_1_rep = { #Consular imperium
+		modifier = {
+			governor_loyalty  = -20
+			global_tax_modifier = -0.1
+			global_monthly_state_loyalty = -0.05
+		}
+		allow = {
+			rank <= local_power
+		}
+	}
+	administration_law_2_rep = { #praetors
+		modifier = {
+			monthly_corruption = 0.03
+			global_unrest = -1
+			global_monthly_state_loyalty = 0.02
+		}
+		allow = {
+			rank >= local_power
+			rank < major_power
+		}
+	}
+	administration_law_3_rep = { #procunlus amd propraters
+		modifier = {
+			monthly_corruption = 0.05
+			global_tax_modifier = 0.05
+			global_monthly_state_loyalty = 0.03
+			governor_loyalty = 5
+		}
+		allow = {
+			rank = major_power 
+		}
+	}
+	administration_law_4_rep = { #lex provincia
+		modifier = {
+			global_monthly_state_loyalty = 0.04
+			monthly_wage_modifier = 0.1
+			monthly_corruption = 0.05
+		}
+		allow = {
+			rank = great_power
+		}
+	}
+	administration_law_5_rep = { #Military oversight
+		modifier = {
+			global_unrest = -5
+			monthly_tyranny = 0.1
+			army_maintenance_cost = 0.2
+			change_governor_policy_cost_modifier = -0.5
+		}
+		allow = {
+			or = {
+				has_law = administration_law_3_rep
+				has_law = administration_law_4_rep
+			}
+		}
+	}
+}
+administration_laws_rom = {
+	potential= {
+		is_republic = yes
+		tag = ROM
+	}
+
+	administration_law_1_rom = { #Consular imperium
+		modifier = {
+			governor_loyalty  = -20
+			global_tax_modifier = -0.1
+			global_monthly_state_loyalty = -0.05
+		}
+		allow = {
+			rank <= local_power
+		}
+	}
+	administration_law_2_rom = { #praetors
+		modifier = {
+			monthly_corruption = 0.03
+			global_unrest = -1
+			global_monthly_state_loyalty = 0.02
+		}
+		allow = {
+			rank >= local_power
+			rank < major_power
+		}
+	}
+	administration_law_3_rom = { #procunlus amd propraters
+		modifier = {
+			monthly_corruption = 0.05
+			global_tax_modifier = 0.05
+			global_monthly_state_loyalty = 0.03
+			governor_loyalty = 5
+		}
+		allow = {
+			rank = major_power 
+		}
+	}
+	administration_law_4_rom = { #lex provincia
+		modifier = {
+			global_monthly_state_loyalty = 0.04
+			monthly_wage_modifier = 0.15
+			governor_loyalty  = 5
+			monthly_corruption = 0.08
+			change_governor_policy_cost_modifier = 1
+		}
+		allow = {
+			rank = great_power
+		}
+	}
+	administration_law_5_rom = { #Military oversight
+		modifier = {
+			army_maintenance_cost = 0.2
+			global_monthly_state_loyalty = 0.04
+			monthly_tyranny = 0.05
+			monthly_corruption = 0.03
+			governor_loyalty = 10
+			change_governor_policy_cost_modifier = -0.5
+		}
+		allow = {
+			or = {
+				has_law = administration_law_3_rom
+				has_law = administration_law_4_rom
+			}
+		}
+	}
+}
+monarchy_contract_law = {
+	potential = {
+		or  = {
+			is_monarchy = yes
+		}
+	}
+	
+	no_contract_law = { #autonomous_satrap
+		modifier = {
+			governor_loyalty  = -20
+			global_freemen_happyness = happiness_large_svalue
+			global_monthly_state_loyalty = -0.5
+		}
+		allow = {
+			rank <= local_power
+		}
+	}
+	trusted_beyond_measure = {
+		allow = {
+			rank >= local_power
+			rank < major_power
+		}
+		modifier = {
+			governor_loyalty = 10
+			change_governor_policy_cost_modifier = 1
+			global_monthly_state_loyalty = -0.05
+		}
+	}
+	centralized_bureaucracy = {
+		allow = {
+			or = {
+				and = {
+					civic_tech >= 8
+					invention = tyranny_inv_2
+				}
+				invention = polycentric_administration_inv
+			}
+			rank >= regional_power 
+		}
+		modifier = {
+			monthly_wage_modifier = 0.1
+			change_governor_policy_cost_modifier = -0.5
+			global_monthly_state_loyalty = 0.04
+		}
+	}
+
+	public_notaries_law = { #public notaries
+		modifier = {
+			global_tax_modifier = 0.05
+			global_monthly_state_loyalty = 0.06
+			governor_loyalty = 5
+			monthly_governor_wage = 0.15
+			monthly_wage_modifier = 0.1
+		}
+		allow = {
+			rank >= major_power 
+			has_law = royal_bureaucracy
+		}
+	}
+	vast_bureaucracy = { 
+		modifier = {
+			global_monthly_state_loyalty = 0.05
+			governor_loyalty = 10
+			character_loyalty = -5
+			global_unrest = -1
+			monthly_governor_wage = 0.05
+			army_maintenance_cost = 0.15
+		}
+		allow = {
+			has_law = royal_bureaucracy
+			rank >= major_power
+		}
+	}
+}
+tribal_centralized_laws = {
+	potential = {
+		is_tribal = yes
+	}
+		
+	tribal_centralized_laws_1 = { 
+		modifier = {
+			global_unrest = 4
+			global_monthly_state_loyalty = -0.33
+			monthly_centralization = -0.05
+		}
+
+	}
+
+	tribal_centralized_laws_2 = {
+		allow = {
+			centralization >= 10
+		}
+		modifier = {
+			global_monthly_state_loyalty = -0.1
+			monthly_centralization = 0.05
+			monthly_corruption = 0.05
+		}
+	}
+	trusted_envoys_law = {
+		allow = {
+			centralization >= 30
+		}
+		modifier = {
+			monthly_centralization = 0.05
+			monthly_political_influence_modifier = 0.1
+		}
+	}
+	tribal_centralized_laws_3 = {
+		allow = {
+			centralization >= 50
+		}
+		modifier = {
+			global_pop_promotion_speed = 2
+			global_unrest = -2
+			monthly_centralization = 0.1
+		}
+	}
+	
+}

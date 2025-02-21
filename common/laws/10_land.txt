@@ -1,0 +1,302 @@
+﻿republican_land_reforms = { # Land Reforms
+	potential = {
+		is_republic = yes
+		NOR = {
+			tag = ROM
+			tag = CAR
+		}
+	}
+	republican_land_reform_1 = { #protect inheritance
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.1
+			global_freemen_happyness = 0.04
+		}
+	}
+	republican_land_reform_2 = {#soldier land grants
+	
+		allow = {
+			or = {
+				invention = army_maintenance_cost_inv_2
+				invention = martial_veterans_1
+			}
+		}
+		modifier = {
+			global_migration_speed = 1.5
+			global_pop_promotion_speed = 6
+		}
+	}
+	republican_land_reform_3 = {#noble slave estates
+	
+		allow = {
+			civic_tech >= 5
+
+		}
+		modifier = {
+			global_nobles_happyness = 0.06
+			global_slaves_desired_pop_ratio = 0.1
+			holding_income_modifier = 0.2
+		}
+	}
+	republican_land_reform_4 = {#extensive land reform -- part of even chain to move around freemen back to the settlements, unable to unlock any other law for a yearand then automatically switches to next law
+		
+		allow = {
+			civic_tech >= 11
+		#	has_variable = land_reform
+		}
+		modifier = {
+			global_migration_speed = 0.2
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_nobles_happyness = -0.08
+		}
+	}
+	republican_land_reform_5 = {
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			#global_proles_city_desired_pop_ratio = -0.1
+			happiness_for_same_culture_modifier = 0.04
+			global_nobles_happyness = -0.04
+		}
+		allow = {
+			civic_tech >= 12
+		#	has_variable = land_reform_finsihed
+		}
+	}
+}
+republican_land_reforms_car = { # Carthage Land Reforms
+	potential = {
+		is_republic = yes
+		tag = CAR
+	}
+	republican_land_reform_car_1 = {
+		modifier = {
+			agressive_expansion_impact = -0.10
+		}
+	}
+	republican_land_reform_car_2 = {
+		allow = {
+			civic_tech >= 12
+		}
+		modifier = {
+			global_migration_speed = 1.5
+			global_pop_promotion_speed = 6
+		}
+	}
+	republican_land_reform_car_3 = {
+		allow = {
+			civic_tech >= 12
+		}
+		modifier = {
+			global_goods_from_slaves = -2
+		}
+	}
+	republican_land_reform_car_4 = {
+		allow = {
+			civic_tech >= 12
+		}
+		modifier = {
+			global_slaves_output = 0.25
+		}
+	}
+	republican_land_reform_car_5 = {
+		allow = {
+			civic_tech >= 12
+		}
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			#global_proles_city_desired_pop_ratio = -0.1
+			happiness_for_same_culture_modifier = 0.04
+			global_nobles_happyness = -0.04
+		}
+	}
+}
+republican_land_reforms_rom = { # Land Reforms
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	cassian_reform = { #cassian_reform
+		modifier = {
+			agressive_expansion_impact = -0.10
+			global_slaves_output = -0.03
+		}
+		allow = {
+			rank < regional_power
+		}
+	}
+	lex_servilia_glaucia = { #lex_servilia_glaucia
+		allow = {
+			or = {
+				invention = army_maintenance_cost_inv_2
+				invention = martial_veterans_1
+			}
+			not = {
+				has_law = land_law_3_rom
+			}
+		}
+		modifier = {
+			global_migration_speed = 1.5
+			global_pop_promotion_speed = 6
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+		}
+	}
+	land_law_3_rom = { #slave_latifundia
+		
+		allow = {
+			invention = global_goods_from_slaves_inv
+			has_law = slave_law_2_rom
+			rank >= regional_power
+		}
+		modifier = {
+			monthly_corruption = 0.05
+			global_nobles_happyness = 0.08
+			global_slaves_desired_pop_ratio = 0.1
+			global_goods_from_slaves = -2
+			global_tax_modifier = 0.2
+		}
+	}
+	lex_sempronia_agraria = {#lex_agraria
+	
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_slaves_desired_pop_ratio = -0.2
+			global_slaves_city_desired_pop_ratio = 0.1
+		}
+
+		allow = {
+			civic_tech >= 11
+		}
+	}
+	gracchus_reforms = { #Gracchus reforms
+		
+		allow = {
+			civic_tech >= 12
+			has_law = lex_sempronia_agraria
+		}
+		#on_enact = {
+		#	add_country_modifier = {
+		#		name = iu_modifier_5
+		#		duration  = 730
+		#	}
+		#}
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.33
+			global_freemen_city_desired_pop_ratio = -0.25
+			global_slaves_desired_pop_ratio = -0.33
+			global_slaves_city_desired_pop_ratio = 0.15
+
+		}
+	}
+}
+monarchy_economic_law = {
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	land_tithe = { #protect inheritance
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.1
+			global_freemen_happyness = 0.04
+			global_freemen_city_desired_pop_ratio = -0.1
+		}
+	}
+
+	local_investment_policy = {#soldier land grants
+		modifier = {
+			army_maintenance_cost = -0.05
+			global_freemen_desired_pop_ratio = 0.15
+			global_freemen_city_desired_pop_ratio = -0.15
+		}
+		allow = {
+			or = {
+				invention = army_maintenance_cost_inv_2
+				invention = martial_veterans_1
+			}
+			civic_tech >= 7
+		}
+	}
+	heritage_tax_exemption = {#noble slave estates
+		modifier = {
+			global_nobles_happyness = 0.06
+			global_slaves_desired_pop_ratio = 0.1
+			holding_income_modifier = 0.2
+		}
+		allow = {civic_tech >= 7}
+	}
+	land_law_4_mon = {#extensive land reform -- part of even chain to move around freemen back to the settlements, unable to unlock any other law for a yearand then automatically switches to next law
+		modifier = {
+			global_migration_speed = 0.2
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_nobles_happyness = -0.08
+		}
+		allow = {
+			has_variable = land_reform
+		}
+		allow = {
+			civic_tech >= 11
+		}
+	}
+	land_law_5_mon = {
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			#global_proles_city_desired_pop_ratio = -0.1
+			happiness_for_same_culture_modifier = 0.04
+			global_nobles_happyness = -0.04
+		}
+		allow = {
+			civic_tech >= 12
+		}
+		allow = {
+			has_variable = land_reform_finsihed
+		}
+	}
+}
+tribal_domestic_laws = {
+	potential = {
+		is_tribal = yes
+	}
+	
+	nomadic_law_tribal = { 
+		modifier = {
+			monthly_centralization = -0.05
+			price_found_city_cost_modifier = 0.5 #50% more expensive to found cities
+		}
+	}
+	tribal_decentralized_laws_2 = {
+		allow = {
+			centralization <= -50
+		}
+		modifier = {
+			global_pop_assimilation_speed_modifier = 0.1
+			monthly_centralization = -0.05
+		}
+	}
+	tribal_writing_law = { #city building intiative
+		allow = {
+			civic_tech = 5
+		}
+		modifier = {
+			research_points_modifier = 0.05
+			global_commerce_modifier = 0.05
+			global_monthly_civilization = 0.02
+		}
+	}
+	oppidi_law_tribal = {
+		allow = {
+			centralization >= 50
+		}
+		modifier = {
+			global_tribesmen_output = output_huge_svalue
+			monthly_centralization = 0.1
+			fortress_building_cost = -0.33
+		}
+	}
+
+}

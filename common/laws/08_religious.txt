@@ -1,0 +1,628 @@
+﻿republican_religious_laws = { # Religious Laws
+	potential = {
+		is_republic = yes
+		NOR = {
+			tag = ROM
+			tag = CAR
+			religion = hindu
+			religion = agama
+			religion = jainism
+			religion = buddhism
+			religion = ajivika
+			religion = charvaka
+			religion = judaism
+		}
+	}
+	
+	republican_religious_1 = {
+		modifier = {
+			happiness_for_same_religion_modifier = 0.04
+			happiness_for_wrong_religion_modifier = 0.02
+		}
+	}
+	
+	republican_religious_2 = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			omen_power = 0.15
+		}
+	}
+	
+	republican_religious_3 = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+	}
+	
+	republican_religious_4 = {
+	
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			stability_cost_modifier = -0.33
+		}
+	}	
+}
+republican_religious_car_laws = { # Carthage Religious Laws
+	potential = {
+		is_republic = yes
+		tag = CAR
+	}
+	republican_religious_car_1 = {
+		modifier = {
+			happiness_for_same_religion_modifier = 0.02
+			happiness_for_wrong_religion_modifier = 0.02
+		}
+	}
+	republican_religious_car_2 = {
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			omen_power = 0.15
+		}
+	}
+	republican_religious_car_3 = {
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+	}
+	republican_religious_car_4 = {
+		allow = {
+			civic_tech >= 3
+		}
+		modifier = {
+			stability_cost_modifier = -0.33
+		}
+	}
+}
+republican_religious_laws_rom = { # Religious Laws
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	
+	grant_religious_freedoms = {
+		modifier = {
+			happiness_for_same_religion_modifier = 0.04
+			happiness_for_wrong_religion_modifier = 0.02
+		}
+	}
+	
+	lex_ogulnia = {
+		
+		allow = {
+			religious_tech >= 3
+		}
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+		on_enact = {
+			random_character = {
+				limit = {
+					is_minor_character = yes
+					zeal >= 8 
+				}
+				#add_trait = priest
+				add_trait = zealous
+				#give_office = minor piresthood
+			}
+		}
+	}
+	
+	lex_aelia_et_fufia = {
+		
+		allow = {
+			civic_tech >= 3
+		}
+		
+		modifier = {
+			omen_power = 0.15
+		}
+	}
+	
+	lex_domitia_de_sacerdotiis = {
+	
+		allow = {
+			civic_tech >= 3
+		}
+	
+		modifier = {
+			stability_cost_modifier = -0.33
+		}
+	}
+}
+monarchy_religious_laws = {
+	potential = {
+		is_monarchy = yes
+		NOR = {
+			religion = hindu
+			religion = agama
+			religion = jainism
+			religion = buddhism
+			religion = ajivika
+			religion = charvaka
+			religion = judaism
+		}
+	}
+	religious_tolerance_monarchy = { #religious toleratoon 
+		
+		allow  = {
+			invention = omen_power_inv_4
+		}
+		modifier = {
+			happiness_for_wrong_religion_modifier = 0.03
+			happiness_for_same_religion_modifier = 0.02
+		}
+	}
+	religious_integration_efforts = { #religious convesrion 
+		
+		allow  = {
+			invention = omen_power_inv_4
+		}
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.2
+		}
+	}
+	monarchy_religious_mandate_military = { #rsgatesponsored religioin
+		modifier = {
+			monthly_legitimacy = 0.05
+			stability_cost_modifier = -0.15
+			
+		}
+		allow = {
+			invention = omen_power_inv_5
+
+		}
+	}
+	elevate_monarch_monarchy = { #ruler cult
+		
+		allow  = {
+			current_ruler = {
+				zeal >= 8
+				popularity >= 95
+			}
+			legitimacy >= 95
+			stability >= 70
+			rank = major_power
+			invention = omen_power_inv_5 
+		}
+		
+		modifier = {
+			integrate_speed = 0.2
+			ruler_popularity_gain = 0.33
+			diplomatic_reputation = 2
+			deify_ruler_cost_modifier = -0.2
+		}
+			
+		on_enact = {
+			custom_tooltip = can_always_nominate_heirs
+		}
+	}
+}
+jewish_monarchy_divinity_statutes = {
+	potential = {
+		religion = judaism
+	}
+	religious_tolerance_monarchy_jud = { #religious toleratoon 
+		
+		allow  = {
+			invention = omen_power_inv_4
+		}
+		modifier = {
+			happiness_for_wrong_religion_modifier = 0.04
+			happiness_for_same_religion_modifier = -0.04
+		}
+	}
+	religious_integration_efforts_jud = { #religious convesrion 
+		
+		allow  = {
+			invention = omen_power_inv_4
+		}
+		modifier = {
+			global_pop_conversion_speed_modifier = 0.4
+		}
+	}
+	monarchy_religious_mandate_military_jud = { #rsgatesponsored religioin
+		modifier = {
+			monthly_legitimacy = 0.05
+			stability_cost_modifier = -0.2
+			omen_power = 0.1
+		}
+		allow = {
+			invention = omen_power_inv_5
+
+		}
+	}
+	elevate_prophet_monarch_monarchy = { #ruler cult
+		
+		allow  = {
+			current_ruler = {
+				zeal >= 8
+				popularity >= 95
+			}
+			legitimacy >= 95
+			stability >= 70
+			rank = major_power
+			invention = omen_power_inv_5 
+		}
+		
+		modifier = {
+			integrate_speed = 0.2
+			ruler_popularity_gain = 0.33
+			diplomatic_reputation = 2
+			deify_ruler_cost_modifier = -0.2
+		}
+			
+		on_enact = {
+			custom_tooltip = can_always_nominate_heirs
+		}
+	}
+}
+hindu_caste_law = { # Indian Caste laws
+	potential = {
+		is_tribal = no
+		OR = {
+			religion = hindu
+			religion = agama
+
+		}
+	} 
+	default_hindu_caste_law = {
+		modifier = {
+			global_pop_promotion_speed_modifier = -0.25
+			global_nobles_happyness = 0.05
+			global_freemen_happyness = -0.1
+			global_slaves_happyness = -0.1
+		}
+	}
+	hindu_kshatriya_rights_law = { #Grant Rights to the Kshatriya 
+	
+		allow = {
+			religious_tech >= 2
+			custom_tooltip = {
+				text = "dharana_tooltip"
+				has_variable = mastered_dharana
+			}
+		}
+		modifier = {
+			global_pop_promotion_speed_modifier = 0.1
+			global_citizen_happyness = 0.05
+			global_freemen_happyness = 0.05
+			global_slaves_happyness = -0.1
+		}
+		ai_will_do = 100
+	}
+	hindu_vaishya_law = { #Grant Rights to the Vaishya
+	
+		allow = {
+			religious_tech >= 3
+			custom_tooltip = {
+				text = "dhyana_tooltip"
+				has_variable = mastered_dhyana
+			}
+		}
+		modifier = {
+			global_pop_promotion_speed_modifier = 0.3
+			global_nobles_happyness = -0.05
+			global_freemen_happyness = 0.05
+			global_slaves_happyness = 0.05
+		}
+
+	}
+	hindu_shudra_law = { #Grant Rights to the Shudra
+		
+		allow = {
+			religious_tech >= 5
+			custom_tooltip = {
+				text = "samadhi_tooltip"
+				has_variable = mastered_samadhi
+			}
+		}
+		modifier = {
+			global_pop_promotion_speed_modifier = 0.5
+			global_nobles_happyness = -0.1
+			global_citizen_happyness = -0.05
+			global_slaves_happyness = 0.1
+		}
+	}
+}
+jainist_caste_law = { # Jainist Caste Law
+	potential = {
+		religion = jainism
+		is_tribal = no
+	}
+	default_jainist_caste_law = { #Default Protect Kshatriya
+		modifier = {
+			global_pop_promotion_speed_modifier = -0.25
+			global_nobles_happyness = 0.05
+			global_freemen_happyness = -0.1
+			global_slaves_happyness = -0.1
+		}
+	}
+	jainist_social_harmony_law = { #Vaishya Privileges
+		allow = {
+			religious_tech >= 2
+			custom_tooltip = {
+				text = "dharana_tooltip"
+				has_variable = mastered_dharana
+			}
+		}
+		ai_will_do = 100
+		modifier = {
+			global_citizen_happyness = 0.05
+			global_freemen_happyness = 0.05
+			global_slaves_happyness = -0.1
+			research_points_modifier = 0.025
+		}
+	}
+	jainist_emancipation_law = { #Intermarriage and Interdining
+		allow = {
+			religious_tech >= 3
+			custom_tooltip = {
+				text = "dhyana_tooltip"
+				has_variable = mastered_dhyana
+			}
+		}
+		modifier = {
+			global_nobles_happyness = -0.05
+			global_freemen_happyness = 0.05
+			global_slaves_happyness = 0.05
+			global_tax_modifier = 0.05 
+		}
+	}
+	jainist_brahmin_rights_law = { #Restore Brahmin Privileges - Vedic Sacrifice
+	
+		allow = {
+			religious_tech >= 5
+			custom_tooltip = {
+				text = "samadhi_tooltip"
+				has_variable = mastered_samadhi
+			}
+		}
+		modifier = {
+			global_nobles_happyness = -0.1
+			global_citizen_happyness = -0.05
+			global_slaves_happyness = 0.1
+			global_commerce_modifier = 0.025
+		}
+	}
+}
+buddhist_caste_law = { # Buddhist Caste
+	potential = {
+		religion = buddhism
+		is_tribal = no
+	}
+	default_buddhist_caste_law = { # Uphold Kshatriya Privileges
+		modifier = {
+			happiness_for_same_religion_modifier = 0.04
+			happiness_for_wrong_religion_modifier = 0.04
+			global_pop_promotion_speed_modifier = 0.2
+			global_pop_demotion_speed_modifier = 0.2
+		}
+	}
+	buddhist_basic_rights_law = { #Support Vaishya
+	
+		allow = {
+			religious_tech >= 2
+			custom_tooltip = {
+				text = "dharana_tooltip"
+				has_variable = mastered_dharana
+			}
+		}
+		modifier = {
+			global_freemen_desired_pop_ratio = -2
+			global_slaves_desired_pop_ratio = -2
+			global_tribesmen_desired_pop_ratio = 2
+			global_citizen_desired_pop_ratio = -2
+			global_nobles_desired_pop_ratio = -2
+		}
+	}
+	buddhist_social_progress_law = { #Support Shudra
+	
+		allow = {
+			religious_tech >= 3
+			custom_tooltip = {
+				text = "dhyana_tooltip"
+				has_variable = mastered_dhyana
+			}
+		}
+		modifier = {
+			global_freemen_desired_pop_ratio = 2
+			global_slaves_desired_pop_ratio = -2
+			global_tribesmen_desired_pop_ratio = -2
+			global_citizen_desired_pop_ratio = -2
+			global_nobles_desired_pop_ratio = -2
+		}
+	}
+	buddhist_emancipation_law = { #Support Lower Castes
+		
+		allow = {
+			religious_tech >= 5
+			custom_tooltip = {
+				text = "samadhi_tooltip"
+				has_variable = mastered_samadhi
+			}
+		}
+		modifier = {
+			global_freemen_desired_pop_ratio = -2
+			global_slaves_desired_pop_ratio = -2
+			global_tribesmen_desired_pop_ratio = -2
+			global_citizen_desired_pop_ratio = 2
+			global_nobles_desired_pop_ratio = -2
+		}
+	}
+}
+ajivika_caste_law = { # Ajivika Caste Law
+	potential = {
+		religion = ajivika
+		is_tribal = no
+	}
+	default_ajivika_caste_law = { #Default Protect Kshatriya
+		modifier = {
+			global_pop_promotion_speed_modifier = -0.25
+			global_nobles_happyness = 0.05
+			global_freemen_happyness = -0.1
+			global_slaves_happyness = -0.1
+		}
+	}
+	ajivika_social_harmony_law = { #Vaishya Privileges
+	
+		allow = {
+			religious_tech >= 2
+			custom_tooltip = {
+				text = "dharana_tooltip"
+				has_variable = mastered_dharana
+			}
+		}
+		modifier = {
+			global_citizen_happyness = 0.05
+			global_freemen_happyness = 0.05
+			global_slaves_happyness = -0.1
+			research_points_modifier = 0.025
+		}
+	}
+	ajivika_emancipation_law = { #Intermarriage and Interdining
+		
+		allow = {
+			religious_tech >= 3
+			custom_tooltip = {
+				text = "dhyana_tooltip"
+				has_variable = mastered_dhyana
+			}
+		}
+		modifier = {
+			global_nobles_happyness = -0.05
+			global_freemen_happyness = 0.05
+			global_slaves_happyness = 0.05
+			global_tax_modifier = 0.05 
+		}
+	}
+	ajivika_brahmin_rights_law = { #Restore Brahmin Privileges - Vedic Sacrifice
+	
+		allow = {
+			religious_tech >= 5
+			custom_tooltip = {
+				text = "samadhi_tooltip"
+				has_variable = mastered_samadhi
+			}
+		}
+		modifier = {
+			global_nobles_happyness = -0.1
+			global_citizen_happyness = -0.05
+			global_slaves_happyness = 0.1
+			global_commerce_modifier = 0.025
+		}
+	}
+}
+charvaka_caste_law = { # Ajivika Caste Law
+	potential = {
+		religion = charvaka
+		is_tribal = no
+	}
+	default_charvaka_caste_law = { #Default Protect Kshatriya
+		modifier = {
+			global_pop_promotion_speed_modifier = -0.25
+			global_nobles_happyness = 0.05
+			global_freemen_happyness = -0.1
+			global_slaves_happyness = -0.1
+		}
+	}
+	charvaka_social_harmony_law = { #Vaishya Privileges
+	
+		allow = {
+			religious_tech >= 2
+			custom_tooltip = {
+				text = "dharana_tooltip"
+				has_variable = mastered_dharana
+			}
+		}
+		modifier = {
+			global_citizen_happyness = 0.05
+			global_freemen_happyness = 0.05
+			global_slaves_happyness = -0.1
+			research_points_modifier = 0.025
+		}
+	}
+	charvaka_emancipation_law = { #Intermarriage and Interdining
+		
+		allow = {
+			religious_tech >= 3
+			custom_tooltip = {
+				text = "dhyana_tooltip"
+				has_variable = mastered_dhyana
+			}
+		}
+		modifier = {
+			global_nobles_happyness = -0.05
+			global_freemen_happyness = 0.05
+			global_slaves_happyness = 0.05
+			global_tax_modifier = 0.05 
+		}
+	}
+	charvaka_brahmin_rights_law = { #Restore Brahmin Privileges - Vedic Sacrifice
+	
+		allow = {
+			religious_tech >= 5
+			custom_tooltip = {
+				text = "samadhi_tooltip"
+				has_variable = mastered_samadhi
+			}
+		}
+		modifier = {
+			global_nobles_happyness = -0.1
+			global_citizen_happyness = -0.05
+			global_slaves_happyness = 0.1
+			global_commerce_modifier = 0.025
+		}
+	}
+}
+tribal_religious_law = {
+	potential = {
+		is_tribal = yes
+	}
+
+	tribal_religious_freedom_law = {
+		modifier = {
+			global_tribesmen_happyness = happiness_small_svalue
+			happiness_for_wrong_religion_modifier = 0.03
+		}
+	}
+	
+	syncretization_law_tribal = {
+		modifier = {
+			monthly_centralization = -0.05
+			global_population_happiness = 0.04
+		}
+	}
+	
+	adopt_human_sacrifice_law_tribal = { 
+		modifier = {
+			omen_power = 0.1
+			monthly_centralization = -0.1
+		}
+		on_enact = {
+			custom_tooltip = adopt_human_sacrifice_tt
+		}
+	}
+
+	hybrid_gods_law = {
+		modifier = {
+			global_pop_conversion_speed = 0.1
+			monthly_centralization = 0.05
+			global_nobles_desired_pop_ratio = 0.05
+		}
+	}
+	
+}

@@ -46,7 +46,7 @@ NCountry = {
 	STARTING_POLITICAL_INFLUENCE = 100
 	
 	MAXIMUM_MILITARY_EXPERIENCE = 200
-	STARTING_MILITARY_EXPERIENCE = 0
+	STARTING_MILITARY_EXPERIENCE = 80
 
 	MINIMUM_GOLD = -99999
 	MAXIMUM_GOLD = 99999
@@ -221,8 +221,21 @@ NCombat = {
 	NAVAL_EXPERIENCE_DAMAGE_REDUCTION = 0.3
 	LAND_EXPERIENCE_DAMAGE_REDUCTION = 0.3
 
+	MINIMUM_LOSS_RATIO_THRESHOLD_FOR_BATTLE_RESULT = 0.1 	# The battle result is only stored if this value is surpassed. The value it is compared against is the loss ratio of both sides add together, which is then multiplied by 4
+
+	BATTLE_COMMANDER_ESCAPE_CAPTURE = 10 					# A random number gets rolled, 0 up to this. If the rolled number is less than the commander`s Charisma AND there was no overrun, the commander escapes capture pre-emptively
+	BATTLE_COMMANDER_CAPTURE_MARTIAL_CHECK = 100 			# A random number gets rolled, 0 up to this. If the rolled number is less than the commander`s Martial divided by 2, the commander gets captured. This check is not done if the unit was overrun
+
+	BATTLE_MIN_CASUALTIES_IMPACT = 0.1 						# Casulaties impact is calculated between tactics. This is always a minimum impact. Do not set to zero
+	BATTLE_NO_POPULARITY_LOSS_IF_RATIO_AS_ATTACKER = 2.0 	# If the enemy side has this many more units there is no popularity loss, as the attacker. Do not set to zero
+	BATTLE_NO_POPULARITY_LOSS_IF_RATIO_AS_DEFENDER = 2.0 	# If the enemy side has this many more units there is no popularity loss, as the defender. Do not set to zero
+
 	BATTLE_RESULT_SCALE = 3
 	BATTLE_RESULT_CAP = 20.0
+	
+	END_OF_COMBAT_STRENGTH_RATIO_MODIFIER = 1.25 # This boosts the ratio between loser and winner strength 
+	END_OF_COMBAT_MORALE_BOOST_MAX = 0.75 # The above ratio is then multiplied by the max morale of the unit, and capped by this number. The winning unit then has their morale boosted to that resulting value, given this ceiliog cap
+
 	
 
 	LAND_STRENGTH_DAMAGE_MODIFIER = 0.2
@@ -296,7 +309,11 @@ NCombat = {
 	TACTICS_DEFAULT_EFFECTIVENESS = 0.5			# If subunit not defined this is the effectiveness constribution it will get
 	TACTICS_START_EFFECTIVENESS = 0.2			# The base line effectiveness the algorithm starts calculating with
 	TACTICS_EFFECTIVENESS_MIN_CAP = 0.0			# Will cap to this in the end of calculation
-	TACTICS_EFFECTIVENESS_MAX_CAP = 1.0			
+	TACTICS_EFFECTIVENESS_MAX_CAP = 1.0		
+	OVERRUN_FACTOR_FOR_INITIAL_CHECK = 10		# The divider for calculating if the combat resulted in an overrun or not. Only used once at combat start	
+	OVERRUN_RETREAT_AVAILABLE = 10				# The divider for calculating if the combat resulted in an overrun or not
+	OVERRUN_RETREAT_UNAVAILABLE = 2				# Similar as above, but used in the case where an enemy unit already lost within 'DAYS_PER_PHASE' days
+	
 }
 
 NHorde = {
@@ -566,12 +583,12 @@ NCharacter = {
 	ADDITIONAL_CHILDREN_FOR_HEIR = 1
 	
 	# FMO - changed from 4 to 3 because less characters = better performance
-	IDEAL_CHILD_PER_FAMILY = 3
+	IDEAL_CHILD_PER_FAMILY = 4
 	
 	# If court isze is bigger than threshold, reduce the number of children per couple by the define below
 	# FMO - changed from 120 to 110 because less characters = better performance
 	COURT_SIZE_CHILD_PENALTY_THRESHOLD = 110
-	SUBTRACTION_CHILDREN_COURT_SIZE_PENALTY = 1
+	SUBTRACTION_CHILDREN_COURT_SIZE_PENALTY = 2
 
 	# Make sure we always have a base minimum of characters for each gender. Only creates new characters however if the number of children is below the threshold
 	MIN_ADULT_CHARACTERS_PER_GENDER = 10
@@ -618,10 +635,37 @@ NCharacter = {
 	CULTURE_HAPPINESS_LOWER_THRESHOLD = 0.3 #Lower threshold for culture happiness. If Culture happiness < CULTURE_HAPPINESS_LOWER_THRESHOLD - CULTURE_HAPPINESS_THRESHOLD , character loyalty will be negatively affected
 	CULTURE_HAPPINESS_FACTOR = 3 #Scale culture happiness to loyalty after exceeding threshold
 	CULTURE_HAPPINESS_LOYALTY_MAX = 12 #Max/min values that culture happiness can have on loyalty
+
+	CIV_WAR_LEADER_SAME_CULTURE = 1 #If a disloyal character has the same culture as the origin country, add this score
+	CIV_WAR_LEADER_PROMINENCE_DIVIDER = 10 #If a disloyal character has any prominence, divide it by this number and add it to the score
+	CIV_WAR_LEADER_GOVERNOR_JOB = 10 #If a disloyal character is a governor, add this to the score
+	CIV_WAR_LEADER_GENERAL_UNITS_MULT = 1 #Note that civ war leaders also take into account the units they are commanding, so disloyal generals are very likely to become the war leader. NumUnits * this number = impact on score
+		
+	#The following numbers are to calculate a loyalty score (all characters start with their current loyalty)
+	#If the loyalty score is above BONUS_LOYALITY_CIVIL_WAR_CUTOFF, BONUS_LOYALITY_CIVIL_WAR_ADD gets added to the loyalty score
+	#Then a random number between 0 and 100 gets picked, if that number is larger than the loyalty score, the character + it's family (spouse and all children that are not adults) will be a dissenter and join the rebelion
+	#Note that characters that are a governor or a general/admiral that are disloyal will always join
+	CIV_WAR_LOYALTY_FRIEND_TO_REBEL = -50	
+	CIV_WAR_LOYALTY_RIVAL_TO_REBEL = 25
+	
+	CIV_WAR_LOYALTY_SAME_FAMILY_AS_REBEL_BUT_NOT_HEIR = -30
+	CIV_WAR_LOYALTY_SAME_FAMILY_AS_RULER_BUT_NOT_HEIR = 10
+	
+	CIV_WAR_LOYALTY_RIVAL_TO_RULER = -35
+	CIV_WAR_LOYALTY_FRIEND_TO_RULER = 25
+	
+	CIV_WAR_LOYALTY_REBEL_NOT_HEIR_RIVAL_TO_HEIR = -25 #If the rebel leader is not the heir, these numbers get applied
+	CIV_WAR_LOYALTY_REBEL_NOT_HEIR_FRIEND_TO_HEIR = 25 #If the rebel leader is not the heir, these numbers get applied
+	
+		
+	TOO_DISLOYAL_THRESHOLD = 33
+	BONUS_LOYALITY_CIVIL_WAR_CUTOFF = 50 #Characters with loyality above this value will receive additional 'bonus' loyality. Recommend to keep between 40 & 90
+	BONUS_LOYALITY_CIVIL_WAR_ADD = 30 #The bonus loyality added. This is mainly used to defeat the disloyality check. Can be used to balance civil war sizes. Recommend to keep between 0 & 50
+
 }
 
 NFamily = {
-	EXPECTED_JOB_PERCENTAGE = 0.7 #(TOTAL_JOBS / NUM_FAMILIES) * EXPECTED_JOBS_PERCENTAGE
+	EXPECTED_JOB_PERCENTAGE = 0.5 #(TOTAL_JOBS / NUM_FAMILIES) * EXPECTED_JOBS_PERCENTAGE
 	GRATEFUL_JOB_PERCENTAGE = 2 #current jobs > (expected jobs * GRATEFUL_JOBS_PERCENTAGE)
 
 	MIN_SIZE = 4; #below this size the family will look desperately into adopting minor characters
@@ -701,8 +745,8 @@ NProvince = {
 	
 	#State
 	DEFAULT_FOOD_CAPACITY = 0
-	STARVATION_IMMINENT_WARNING = 100
-	DISLOYAL_STATE_WARN_MONTHS = 3
+	STARVATION_IMMINENT_WARNING = 90
+	DISLOYAL_STATE_WARN_MONTHS = 34
 	TOO_DISLOYAL_THRESHOLD = 33
 	REVOLT_LOYALTY_THRESHOLD = 0
 
@@ -944,7 +988,7 @@ NAI = {
 	WAR_QUICK_FACTOR = 120 #To be extra confusing, here is another factor for the (not quite) same thing.
 	WAR_DECISIVE_FACTOR = 12 #Extra extra confusing (but a decisive war is not as good as a quick war, but this could be erroneous ;-)).
 	WAR_ACCESSIBLE_FACTOR = 30 #Scaled weight to declare war on accessible countries.
-	WAR_BORDERGORE_FACTOR = 0.35 #The higher this value is the more AI prioritizes targets based on how less likely conquering their provinces is to cause bordergore and snakes. Not really a factor in the multiplicative sense.
+	WAR_BORDERGORE_FACTOR = 0.7 #The higher this value is the more AI prioritizes targets based on how less likely conquering their provinces is to cause bordergore and snakes. Not really a factor in the multiplicative sense.
 	WAR_CASUS_BELLI_FACTOR = 4 #Scaled weight for having temporary CB.
 	WAR_CLAIM_FACTOR = 6 #Scaled weight for having permanent CB/claim.
 	WAR_OPPORTUNISM_FACTOR = 0.3 #Separate code path for reactive war declarations.

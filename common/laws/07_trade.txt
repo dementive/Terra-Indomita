@@ -1,0 +1,126 @@
+﻿monarchy_citizen_law = {
+	potential = {
+		is_tribal = no
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	trade_law_1_rep = { #import dutues
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+	}
+	trade_law_2_rep = { #subsidized shipments 
+		modifier = {
+			price_state_investment_oratory_cost_modifier = -0.1
+			global_commerce_modifier = 0.05
+		}
+		allow = {
+			num_of_ports >= 1
+		}
+	}
+	trade_law_3_rep = { #merchant rights
+		modifier = {
+			global_import_commerce_modifier = -0.2
+			global_citizen_output = 0.04
+		}
+	}
+	trade_law_4_rep = {#remove tariffs
+		modifier = {
+			global_citizen_happyness = 0.1
+			global_import_commerce_modifier = -2
+		}
+	}
+}
+trade_laws_rom = {
+	potential = {
+			tag = ROM
+	}
+	trade_law_1_rom = { #import dutues Portorttia
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+	}
+	trade_law_2_rom = { #AMphroa
+		modifier = {
+			price_state_investment_oratory_cost_modifier = -0.1
+		}
+		allow = {
+			num_of_ports >= 1
+		}
+	}
+	lex_claudia = { #lex claudia
+		modifier = {
+			monthly_corruption = -0.03
+			global_citizen_output = 0.08
+		}
+	}
+	lex_caecilia = {#Lex Cecilia devecitigalib
+		modifier = {
+			global_citizen_happyness = 0.08
+			local_base_trade_routes_modifier = 0.1
+			global_import_commerce_modifier = -1.1
+		}
+	}
+}
+trade_laws_car = {
+	potential = {
+			tag = CAR
+	}
+	trade_law_1_car = { #import dutues Portorttia
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+	}
+	trade_law_2_car = { #strategic monopolies
+		modifier = {
+			global_commerce_modifier = 0.05
+		}
+		allow = {
+			num_of_ports >= 1
+		}
+	}
+	trade_law_3_car = { #encourgae mechants
+		modifier = {
+			global_citizen_output = 0.06
+			global_citizen_happyness = 0.06
+		}
+	}
+	trade_law_4_car = {#merchant senators
+		modifier = {
+			global_nobles_city_desired_pop_ratio = 0.05
+			global_capital_trade_routes = 1
+		}
+	}
+}
+tribal_currency_laws = {
+	potential = {
+		is_tribal = yes
+	}
+	
+	no_exchange_laws = { 
+		global_commerce_modifier = -0.2
+	}
+	
+	barter_economy_law = {
+		modifier = {
+			monthly_centralization = 0.05
+		}
+	}
+	
+	foreign_exchange_law = {
+		modifier = {
+			global_monthly_civilization = 0.03
+			monthly_centralization = 0.05
+		}
+	}
+
+	coin_minting_law = {
+		modifier = {
+			global_commerce_modifier = 0.2
+			ruler_popularity_gain = 0.05
+			monthly_centralization = 0.1
+		}
+	}
+}

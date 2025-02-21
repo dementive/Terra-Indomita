@@ -1,0 +1,162 @@
+﻿slave_laws_rom = {
+	potential = {
+		tag = ROM
+	}
+	slave_law_1_rom = { #pow's
+		modifier = {
+			enslavement_efficiency = 0.075
+			slaves_move_cost_modifier = -0.25
+			global_slaves_desired_pop_ratio = 0.05
+		}
+	}
+	slave_law_2_rom = {#slave economy
+		modifier = {
+			global_slaves_output = 0.06
+			global_slaves_desired_pop_ratio = 0.15
+			latifundia_building_cost = -0.1
+		}
+	}
+	slave_law_3_rom = {#slave rights
+		modifier = {
+			global_slaves_happyness = 0.06
+			global_slaves_output = -0.2
+			global_slaves_desired_pop_ratio = 0.1
+		}
+		allow = {
+			nor = {
+				has_law = land_law_3_rom
+			}
+			OR = {
+				invention = global_slaves_output_inv_2
+			}
+		}
+	}
+	lex_fufia_caninia = { #limited manumission Lex Fufia Caninia
+		modifier = {
+			global_pop_promotion_speed_modifier = 0.1
+			global_slaves_happyness = 0.04
+			global_slaves_desired_pop_ratio = 0.05
+		}
+		allow = {
+			or = {
+				invention = freemen_promotion_cost_modifier_inv
+			}
+		}
+	}
+	lex_aelia_sentia = {#encourage manumission
+		modifier = {
+			global_slaves_desired_pop_ratio = -0.05
+			global_pop_promotion_speed_modifier = 0.2
+			global_slaves_happyness = 0.06
+		}
+		allow = {
+			or = {
+				invention = freemen_promotion_cost_modifier_inv
+			}
+		}
+	}
+}
+slave_laws = {
+	potential = {
+		is_tribal = no
+		nor = {
+			religion = buddhism
+			tag = ROM
+		}
+	}
+	slave_law_1 = { #pow's
+		modifier = {
+			enslavement_efficiency = 0.05
+			global_slaves_desired_pop_ratio = 0.05
+		}
+		allow = {
+			rank <= local_power
+		}
+	}
+	slave_law_2 = {#slave economy
+		modifier = {
+			global_slaves_output = 0.04
+			global_slaves_desired_pop_ratio = 0.15
+		}
+		allow = {
+			rank >= regional_power
+		}
+	}
+	slave_law_3 = {#slave rights
+		modifier = {
+			global_slaves_happyness = 0.08
+			global_slaves_output = -0.3
+			global_slaves_desired_pop_ratio = 0.1
+		}
+		allow = {
+			OR = {
+				invention = global_slaves_output_inv_2
+			}
+		}
+	}
+	slave_law_4 = { #limited manumission
+		modifier = {
+			global_pop_promotion_speed_modifier = 0.2
+			global_slaves_happyness = 0.06
+			global_slaves_output = -0.3
+			global_slaves_desired_pop_ratio = 0.05
+		}
+		allow = {
+			or = {
+				invention = freemen_promotion_cost_modifier_inv
+			}
+		}
+	}
+	slave_law_5 = {#encourage manumission
+		modifier = {
+			global_slaves_desired_pop_ratio = -0.1
+			global_pop_promotion_speed_modifier = 0.2
+			global_slaves_output = -0.3
+			global_slaves_happyness = 0.08
+		}
+		allow = {
+			or = {
+				invention = freemen_promotion_cost_modifier_inv
+			}
+		}
+	}
+}
+tribal_decentralized_laws = {
+	potential = {
+		is_tribal = yes
+		nor = {
+			religion = buddhism
+			tag = ROM
+		}
+	}
+	tribal_decentralized_laws_3 = {
+		modifier = {
+			enslavement_efficiency = 0.05
+			global_slaves_happyness = -0.08
+		}
+	}
+	tribal_decentralized_laws_1 = { # 
+		allow = {
+		}
+		modifier = {
+			global_slaves_desired_pop_ratio = -1
+			monthly_centralization = -0.05
+		}
+	}
+	encourage_debt_slavery = { # 
+		allow = {
+		}
+		modifier = {
+			global_slaves_desired_pop_ratio = 0.1
+		}
+	}
+	super_centralized_law_two = { # 
+		allow = {
+			civic_tech > 8
+		}
+		modifier = {
+			global_slaves_happyness = 0.03
+			global_slaves_output = output_huge_svalue
+		}
+	}
+}

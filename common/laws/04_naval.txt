@@ -1,0 +1,454 @@
+﻿republican_mediterranean_laws = {
+	potential = {
+		is_republic = yes
+		NOR = {
+			tag = ROM
+			tag = CAR
+		}
+	}
+	
+	republican_mediterranean_1 = { #citizen navy
+		modifier = {
+			liburnian_cost = -0.05
+			trireme_discipline = 0.05
+			global_ship_start_experience = 10
+		}
+	}
+	republican_mediterranean_2 = {#shipbuilding initiative
+		modifier = {
+			ship_cost = -0.05
+			global_ship_recruit_speed = 0.2
+		}
+	}
+	republican_mediterranean_3 = {#shrewd business tactics
+		allow  = {
+			num_of_ports >= 1
+			or = {
+				invention = trireme_discipline_inv_1
+			}
+		}
+		on_enact = {
+			remove_variable = root_out_pirates
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			global_export_commerce_modifier = -0.1
+			global_import_commerce_modifier = 0.2
+			diplomatic_reputation = -1
+			mercenary_naval_maintenance_cost = -0.1
+		}
+	}
+	republican_mediterranean_4 = { #anti priary
+		allow = {
+			num_of_ports >= 1
+			invention = trireme_discipline_inv_1
+		}
+		on_enact = {
+			custom_tooltip = enables_root_out_pirates_tt
+			set_variable = {
+				name = root_out_pirates
+				days = -1
+			}
+		}
+		modifier = {
+			anti_piracy_cb = yes
+			global_citizen_happyness = 0.04
+			naval_morale = 0.1
+		}
+	}
+	republican_mediterranean_5 = { #thalassacracy
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			navy_maintenance_cost = -0.15
+			octere_discipline = 0.025
+			trireme_offensive = 0.1
+		}
+	}
+}
+republican_mediterranean_laws_rom = {
+	potential = {
+		is_republic = yes
+		tag = ROM
+	}
+	
+	naval_law_1_rom = { #land over sea
+		modifier = {
+			ship_cost = 0.05
+			naval_damage_taken = 0.05 
+		}
+	}
+	naval_law_2_rom = {#punic reforms
+		modifier = {
+			trireme_cost = -0.1
+			tetrere_cost = -0.1
+			global_ship_recruit_speed = 0.2
+		}
+		on_enact = {
+			unlock_invention = corvus_invention
+			#custom_tooltip = punic_reform_corvus
+			random_owned_province = {
+				limit = {
+					num_of_port_building >= 3
+					free_building_slots >=2
+				}
+				alternative_limit = {
+					num_of_port_building = 2
+					free_building_slots >=2
+				}
+				alternative_limit = {
+					num_of_port_building = 1
+					free_building_slots >=2
+				}
+				add_building_level = port_building
+				add_building_level = port_building
+			}
+		}
+	}
+	naval_law_3_rom = { #socci navales
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			global_import_commerce_modifier = 0.2
+		}
+		on_enact = {
+			remove_variable = root_out_pirates
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	lex_gabinia = { #lex_gabinia
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			anti_piracy_cb = yes
+			global_citizen_happyness = 0.04
+		}
+		on_enact = {
+			custom_tooltip = enables_root_out_pirates_tt
+			set_variable = {
+				name = root_out_pirates
+				days = -1
+			}
+		}
+	}
+	naval_law_5_rom = {#mare nostrum
+		allow  = {
+			num_of_ports >= 1
+			rank >= great_power
+		}
+		modifier = {
+			navy_maintenance_cost = -0.1 
+		}
+	}
+}
+republican_mediterranean_car_laws = {
+	potential = {
+		tag = CAR
+	}
+	
+	republican_mediterranean_car_1 = {
+		modifier = {
+			manpower_recovery_speed = 0.05
+			global_import_commerce_modifier = -0.1
+			global_citizen_happyness = 0.04
+		}
+	}
+	
+	republican_mediterranean_car_2 = { #Trade before wAr
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			global_commerce_modifier = 0.25
+			naval_damage_done = -0.1
+			naval_morale_modifier = -0.1
+			ship_cost = 0.1
+		}
+	}
+	republican_mediterranean_car_3 = { #shrewd trade tactics
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			price_state_investment_oratory_cost_modifier = -0.1
+			global_commerce_modifier = 0.2
+		}
+		on_enact = {
+			remove_variable = root_out_pirates
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+	republican_mediterranean_car_4 = { #anti priary
+		allow = {
+			num_of_ports >= 1
+			invention = trireme_discipline_inv_1
+		}
+		on_enact = {
+			custom_tooltip = enables_root_out_pirates_tt
+			set_variable = {
+				name = root_out_pirates
+				days = -1
+			}
+		}
+		modifier = {
+			anti_piracy_cb = yes
+			global_citizen_happyness = 0.06
+			global_nobles_happyness = 0.02
+			naval_morale = 0.1
+		}
+	}
+	republican_mediterranean_car_5 = { #Naval Supremacy
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			navy_maintenance_cost = -0.1
+			naval_morale_modifier = 0.05
+			ship_cost = -0.1 
+		}
+
+	}
+}
+monarchy_maritime_laws = {
+	potential = {
+		is_monarchy = yes
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	slave_oarsmen = { #slave oarsmen
+		modifier = {
+			trireme_offensive = 0.05
+		}
+	}
+	paid_crews_law = {#shipbuilding initiative
+		modifier = {
+			ship_cost = -0.05
+			global_ship_recruit_speed = 0.2
+		}
+	}
+	free_ports_monarchy_law = {#shrewd business tactics
+		allow  = {
+			num_of_ports >= 1
+			or = {
+				invention = trireme_discipline_inv_1
+			}
+		}
+		on_enact = {
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			global_export_commerce_modifier = -0.1
+			global_import_commerce_modifier = 0.2
+			diplomatic_reputation = -1
+			mercenary_naval_maintenance_cost = -0.1
+		}
+	}
+	
+	antipiracy_edict = { #anti priary
+		allow = {
+			num_of_ports >= 1
+			invention = trireme_discipline_inv_1
+		}
+		on_enact = {
+			custom_tooltip = enables_root_out_pirates_tt
+		}
+		modifier = {
+			anti_piracy_cb = yes
+			global_citizen_happyness = 0.04
+			naval_morale = 0.1
+		}
+	}
+	naval_law_5_mon = {#royal fleet
+		modifier = {
+			octere_cost = -0.05
+			mega_galley_cost = -0.05
+			navy_maintenance_cost = -0.1
+		}
+		allow = {
+			rank >= great_power
+			military_tech >= 14
+		}
+	}
+}
+tribal_military_law = {
+	potential = {
+		is_tribal = yes
+	}
+	tribal_naval_law_1 = {
+	}
+	tribal_naval_law_2 = {#shrewd business tactics
+		allow  = {
+			num_of_ports >= 1
+		}
+		on_enact = {
+			remove_variable = root_out_pirates
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			global_commerce_modifier = 0.2
+			monthly_centralization = 0.05
+			global_ship_start_experience = 10
+		}
+	}
+	tribal_naval_law_3 = { #anti priary
+		allow = {
+			num_of_ports >= 1
+			invention = trireme_discipline_inv_1
+		}
+		on_enact = {
+			custom_tooltip = enables_root_out_pirates_tt
+			set_variable = {
+				name = root_out_pirates
+				days = -1
+			}
+		}
+		modifier = {
+			anti_piracy_cb = yes
+			naval_morale = 0.1
+			monthly_centralization = 0.05
+		}
+	}
+	tribal_naval_law_4 =  #be the pirates
+		modifier = {
+			navy_maintenance_cost = -0.2
+			monthly_centralization = -0.1
+		}
+		allow = {
+			num_of_ports >= 1
+			invention = trireme_discipline_inv_2
+		}
+		on_enact = {
+			custom_tooltip = unlocked_slave_raiding_tt
+			set_variable = {
+				name = unlocked_slave_raiding
+				days = -1
+			}
+		}
+	}
+}
