@@ -236,9 +236,6 @@ monarchy_economic_law = {
 			global_nobles_happyness = -0.08
 		}
 		allow = {
-			has_variable = land_reform
-		}
-		allow = {
 			civic_tech >= 11
 		}
 	}
@@ -253,8 +250,62 @@ monarchy_economic_law = {
 		allow = {
 			civic_tech >= 12
 		}
+	}
+}
+chinese_land_refoms = {
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	zhou_system = { #aristocraic dominacne
+		modifier = {
+			global_nobles_happyness = 0.06
+			global_slaves_desired_pop_ratio = 0.1
+			holding_income_modifier = 0.2
+		}
+	}
+
+	qin_system = {#centrlaized legalist land policiies
+		modifier = {
+			army_maintenance_cost = -0.05
+			global_freemen_desired_pop_ratio = 0.15
+			global_freemen_city_desired_pop_ratio = -0.15
+		}
 		allow = {
-			has_variable = land_reform_finsihed
+			civic_tech >= 7
+		}
+	}
+	han_system = {#well field system
+		modifier = {
+			global_nobles_happyness = 0.02
+			global_slaves_desired_pop_ratio = 0.05
+			global_freemen_desired_pop_ratio = 0.1
+			global_freemen_city_desired_pop_ratio = -0.1
+		}
+		allow = {civic_tech >= 7}
+	}
+	land_reform = {#extensive land reform -- part of even chain to move around freemen back to the settlements, unable to unlock any other law for a yearand then automatically switches to next law
+		modifier = {
+			global_migration_speed = 0.2
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_nobles_happyness = -0.08
+		}
+		allow = {
+			civic_tech >= 11
+		}
+	}
+	true_equal_field_system = {
+		modifier = {
+			global_freemen_desired_pop_ratio = 0.33
+			global_freemen_city_desired_pop_ratio = -0.2
+			#global_proles_city_desired_pop_ratio = -0.1
+			happiness_for_same_culture_modifier = 0.04
+			global_nobles_happyness = -0.04
+		}
+		allow = {
+			civic_tech >= 12
 		}
 	}
 }

@@ -260,6 +260,62 @@ monarchy_subject_laws = {
 		}
 	}
 }
+chinese_subject_laws = { 
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+	chinese_warlord_integration = { 
+		allow = {
+			rank <= local_power
+		}
+		modifier = {
+			global_freemen_happyness = happiness_large_svalue
+			agressive_expansion_impact = -0.05
+		}
+		on_enact = {
+			custom_tooltip = can_nominate_heir_at_high_legitimacy
+		}
+	}
+	qin_ambitions = {
+		modifier = {
+			agressive_expansion_impact = -0.1
+			agressive_expansion_monthly_change = -0.033
+		}
+		allow = {
+			rank >= regional_power
+			not = {
+				rank >= great_power
+			}
+		}
+	}
+	school_of_diplomacy = { #rights for foeginers
+		allow  = {
+			rank >= regional_power
+			not = = {
+				has_law = subject_mandate_of_heaven
+				has_law = mandate_lost
+			}
+		}
+		modifier = {
+			diplomatic_relations = 2
+			diplomatic_reputation = 2
+			global_population_happiness = 0.02
+		}
+	}
+	subject_mandate_of_heaven = { #bureaucratic integration
+		allow = {
+			rank = great_power
+		}
+		modifier = {
+			stability_monthly_change = 0.02
+			monthly_legitimacy = 0.02
+			subject_loyalty = 15
+			subject_pays_tributary_cost_modifier = 0.1
+		}
+	}
+}
 tribal_foreign_policy_laws = {
 	potential = {
 		is_tribal = yes

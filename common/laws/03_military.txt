@@ -289,6 +289,67 @@ monarchy_military_reforms = {
 		}
 	}
 }
+chinese_military_reforms = {
+	potential = {
+		is_monarchy = yes
+		nor = {
+			tag = ROM
+		}
+	}
+
+	
+	corvee_recruitment = { #Noble Retinues - Macedon
+		modifier = {
+			levy_size_multiplier = 0.05
+			global_freemen_output = 0.03
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	
+	conscription_chinese_law = {	#Military Service - Sparta
+		modifier = {
+			levy_size_multiplier = 0.1
+			global_population_happiness = -0.06
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	
+	border_garrison_chinese_law = { #Royal Guard - Diadochi
+		allow = {
+			rank >= regional_power
+		}
+		modifier = {
+			global_defensive = 0.05
+			levy_size_multiplier = 0.05
+		}
+		on_enact = {
+			custom_tooltip = legions_in_capital_region
+			set_legion_recruitment = capital
+		}
+	}
+	
+	standing_army_chinese_law = { #Roman Empire
+		allow = {
+			or = {invention = martial_unit_inv_2
+				invention = discipline_inv_5}
+			rank >= major_power
+		}
+		modifier = {
+			army_maintenance_cost = -0.1
+			pikemen_cost = -0.1
+		}
+		on_enact = {
+			custom_tooltip = legions_in_any_region
+			set_legion_recruitment = enabled
+		}
+	}
+}
 tribal_super_decentralized_laws = {
 	potential = {
 		is_tribal = yes

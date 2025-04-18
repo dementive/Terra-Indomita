@@ -10,6 +10,7 @@ fortress_building = { #ALL #1
 	cost = 150
 	time = 500
 
+
 	modification_display = {
 		0 = fort_level
 		1 = local_unrest
@@ -59,12 +60,15 @@ town_watch_building = { # VIGILES
 	}
 }
 fortress_ramparts_building = {#19
+	fort_level = 1
 	local_combat_width_modifier = -10
 	local_defensive = 0.33
 	local_hostile_attrition = 1
 	local_population_capacity_modifier = -0.03
 	local_tax_modifier = -0.05
 	local_manpower_modifier = -0.05
+	local_fort_limit = 1
+	garrison_growth = 0.1
 
 	cost = 250
 	time = 720
@@ -113,12 +117,12 @@ fortress_ramparts_building = {#19
 # 2 Naval 2
 
 port_building = {
-	local_base_trade_routes = 0.25
-	local_ship_recruit_speed = 0.15
+	local_base_trade_routes = 0.05
+	local_ship_recruit_speed = 0.05
 	local_migration_speed = 0.1
 	local_migration_attraction = 0.1
-	local_country_civilization_value = 3
-	local_population_capacity = 1
+	local_country_civilization_value = 2
+	local_population_capacity = 2
 	local_tax_modifier = -0.02
 
 	allow = {
@@ -166,11 +170,11 @@ port_building = {
 	}
 }
 military_harbor_building = { #Military Harbor [UNIQUE]
-	local_ship_recruit_speed = 0.2
+	local_ship_recruit_speed = 0.25
 	local_ship_start_experience = 20
 	local_country_civilization_value = 5
 	local_tax_modifier = -0.03
-	local_freemen_output = -0.03
+	local_freemen_output = -0.08 #has to work on the dock
 
 
 	cost = 200
@@ -222,9 +226,9 @@ military_harbor_building = { #Military Harbor [UNIQUE]
 }
 harbour_building = {#20
 	local_migration_attraction = 0.3
-	local_base_trade_routes = 0.5
+	local_base_trade_routes = 1
 	local_country_civilization_value = 5
-	local_commerce_value_modifier = 0.15
+	local_commerce_value_modifier = 0.2
 	local_tax_modifier = -0.05
 
 	cost = 250
@@ -275,19 +279,25 @@ harbour_building = {#20
 # 3 Population 3
 
 aqueduct_building = { #Aqueduct // Sanitation Works
-	local_population_capacity = 4
+	local_population_capacity = 5
 	local_country_civilization_value = 2
 	local_tax_modifier = -0.02
-	supply_limit = 1
+	supply_limit = 2
 	cost = 120
 	time = 365
-	max_amount = 8
+	max_amount = 10
 
 	potential = {
 	}
 
 	allow = {
-		civilization_value  >= 22
+		or = {
+			and = {
+				civilization_value  >= 22
+				num_of_aqueduct_building < 5
+			}
+			invention = ruler_popularity_gain_inv_4
+		}
 		#num_of_well_building = 0
 	}
 
@@ -333,14 +343,14 @@ aqueduct_building = { #Aqueduct // Sanitation Works
 	}
 }
 sewers_building = { #12 Sewers
-	local_population_capacity_modifier = 0.12
+	local_population_capacity_modifier = 0.11
 	local_country_civilization_value = 4
 	local_population_growth = 0.05
 	local_output_modifier = 0.02
 	local_tax_modifier = -0.04
 	cost = 175
 	time = 300
-	max_amount = 3
+	max_amount = 5
 	potential = {
 		has_city_status = yes
 		or = {
@@ -385,9 +395,9 @@ sewers_building = { #12 Sewers
 }
 baths_building = { #21Baths
 	local_country_civilization_value = 6
-	local_population_growth = 0.1
-	local_population_happiness = 0.12
-	local_tax_modifier = -0.05
+	local_population_growth = 0.2
+	local_population_happiness = 0.1
+	local_tax_modifier = -0.1
 	cost = 250
 	time = 300
 	max_amount = 1
@@ -427,16 +437,14 @@ baths_building = { #21Baths
 		}
 	}
 }
-
-# 4 slaves 4
-
 population_building = { #Granary
 	local_food_capacity = 300
 	local_country_civilization_value = 2
 	local_manpower_modifier = 0.02
 	supply_limit_modifier = 0.1
 	local_tax_modifier = -0.01
-	max_amount = 3
+	local_population_capacity = 1
+	max_amount = 5
 	cost = 100
 	time = 180
 
@@ -468,7 +476,7 @@ population_building = { #Granary
 	}
 }
 workshop_building = { #Production District
-	local_goods_from_slaves = -1
+	local_goods_from_slaves = -2
 	local_slaves_output = 0.06
 	local_migration_attraction = 0.5
 	local_country_civilization_value = 3
@@ -585,10 +593,10 @@ foundry_building = { #Foundry
 # 5 Freemen 5
 
 military_building = { #Conscription Camp
-	local_manpower_modifier = 0.075
+	local_manpower_modifier = 0.05
 	local_country_civilization_value = 2
 	local_freemen_desired_pop_ratio = 0.03
-	supply_limit = 5
+	supply_limit = 2
 	max_amount = 5
 	cost = 80
 	time = 180
@@ -596,17 +604,12 @@ military_building = { #Conscription Camp
 	potential = {
 		has_city_status = yes
 		or = {
-			owner = {
-				is_tribal = no
-			}
 			num_of_military_building > 0
 		}
 	}
 	allow = {
 		has_city_status = yes
-		owner = {
-			is_tribal = no
-		}
+		civilization_value >= 20
 	}
 
 	modification_display = {
@@ -641,7 +644,7 @@ forum_building = { #Forum [UNIQUE]
 	local_country_civilization_value = 3
 	city_monthly_state_loyalty = 0.05
 	
-	max_amount = 1
+	max_amount = 3
 	
 	cost = 160
 	time = 180
@@ -732,7 +735,7 @@ armoury_building = {#2
 	local_output_modifier = 0.05
 	local_tax_modifier = 0.05
 	local_goods_from_slaves = -1
-
+	local_country_civilization_value = 4
 	cost = 300
 	time = 180
 
@@ -838,7 +841,7 @@ stables_building = {
 }
 artisan_building = {
 	local_base_trade_routes_modifier = 0.1
-	local_country_civilization_value = 5
+	local_country_civilization_value = 4
 	local_freemen_happyness = 0.05
 	local_freemen_output = 0.05
 	
@@ -919,7 +922,7 @@ artisan_building = {
 jeweler_building = {
 	local_tax_modifier = 0.1
 	local_nobles_happyness = 0.04
-	local_country_civilization_value = 5
+	local_country_civilization_value = 8
 	local_freemen_output = 0.08
 
 	#MUST PASS LAW TO CREATE MINITNG FACILITIES OUTSIDE OF CAPITAL, THEN STATE CAPITAL, 
@@ -989,9 +992,9 @@ jeweler_building = {
 }
 spice_building = {
 	local_commerce_value_modifier = 0.1
-	local_country_civilization_value = 8
+	local_country_civilization_value = 4
 	local_output_modifier = 0.03
-	local_citizen_happyness = 0.08
+	local_citizen_happyness = 0.06
 	cost = 250
 	time = 180
 
@@ -1057,7 +1060,7 @@ spice_building = {
 	}
 }
 tavern_building = { #Tavern
-	local_population_growth = 0.05
+	local_population_growth = 0.06
 	local_freemen_happyness = 0.06
 	local_slaves_happyness = 0.06
 	local_country_civilization_value = 3
@@ -1152,7 +1155,7 @@ tavern_building = { #Tavern
 # 6 Citizens 6
 
 commerce_building = { #Commercial District
-	local_base_trade_routes_modifier = 0.075
+	local_base_trade_routes_modifier = 0.05
 	local_base_trade_routes = 0.2
 	local_pop_assimilation_speed_modifier = 0.025
 	local_country_civilization_value = 3
@@ -1164,17 +1167,12 @@ commerce_building = { #Commercial District
 	potential = {
 		has_city_status = yes
 		or = {
-			owner = {
-				is_tribal = no
-			}
 			num_of_commerce_building > 0
 		}
 	}
 	allow = {
 		has_city_status = yes
-		owner = {
-			is_tribal = no
-		}
+		civilization_value >= 20
 
 	}
 
@@ -1214,10 +1212,9 @@ commerce_building = { #Commercial District
 }
 gardens_building = { ##gardens
 	local_citizen_happyness = 0.08
-	local_citizen_desired_pop_ratio = 0.05
+	local_citizen_output = 0.06
 	local_country_civilization_value = 4
-	local_tax_modifier = -0.02
-	max_amount = 1
+	max_amount = 3
 	cost = 175
 	time = 180
 
@@ -1264,8 +1261,8 @@ fountains_building = { ##gardens
 	local_citizen_happyness = 0.1
 	local_citizen_desired_pop_ratio = 0.1
 	local_country_civilization_value = 4
-	max_amount = 1
-	cost = 175
+	max_amount = 3
+	cost = 200
 	time = 180
 
 	potential = {
@@ -1283,6 +1280,7 @@ fountains_building = { ##gardens
 	}
 	allow = {
 		has_city_status = yes
+		civilization_value >= 40
 		owner = {
 				is_tribal = no
 			}
@@ -1309,9 +1307,9 @@ fountains_building = { ##gardens
 }
 emporium_building = {#24
 	local_base_trade_routes = 1
-	local_country_civilization_value = 5
+	local_country_civilization_value = 10
 	local_commerce_value_modifier = 0.1
-	local_citizen_desired_pop_ratio = 0.05
+	local_citizen_output = 0.1
 
 
 	cost = 250
@@ -1351,13 +1349,10 @@ emporium_building = {#24
 		}
 	}
 }
-
-# 7 Nobles 7
-
 library_building = { #Library
 	local_research_points_modifier = 0.05
 	local_pop_conversion_speed_modifier = 0.025
-	local_country_civilization_value = 2
+	local_country_civilization_value = 3
 	max_amount = 5
 	cost = 100
 	time = 180
@@ -1365,19 +1360,12 @@ library_building = { #Library
 	potential = {
 		has_city_status = yes
 		or = {
-			owner = {
-				is_tribal = no
-			}
 			num_of_library_building > 0
 		}
 	}
 	allow = {
-		has_city_status = yes
-		owner = {
-			is_tribal = no
-		}
-
-		
+		has_city_status = yes	
+		civilization_value >= 20	
 	}
 
 	modification_display = {
@@ -1419,14 +1407,14 @@ library_building = { #Library
 academy_building = { #Academy
 	local_research_points_modifier = 0.1
 	local_nobles_output = 0.05
-	local_pop_promotion_speed = 0.5
+	local_pop_promotion_speed = 0.1
 	local_monthly_civilization = 0.01
-	local_country_civilization_value = 3
+	local_country_civilization_value = 4
 
 	cost = 160
 	time = 180
 
-	max_amount = 1
+	max_amount = 3
 
 	potential = {
 		has_city_status = yes
@@ -1477,11 +1465,10 @@ academy_building = { #Academy
 	}
 }
 scriptorium_building = { 
-	local_nobles_happyness = 0.06
-	local_nobles_desired_pop_ratio = 0.05
+	local_nobles_desired_pop_ratio = 0.1
 	local_research_points_modifier = 0.2
-	local_country_civilization_value = 8
-	local_tax_modifier = -0.05
+	local_country_civilization_value = 10
+
 	max_amount = 1
 
 	cost = 300
@@ -1535,9 +1522,9 @@ scriptorium_building = {
 # 8 Happyness 8 
 
 gymnasium_building = { #
-	local_happiness_for_same_culture_modifier = 0.05
+	local_happiness_for_same_culture_modifier = 0.03
 	local_country_civilization_value = 3
-	local_pop_assimilation_speed = 0.2
+	local_pop_assimilation_speed_modifier = 0.05
 
 	cost = 100
 	time = 360
@@ -1580,8 +1567,8 @@ gymnasium_building = { #
 	}
 }
 theathre_building = { #Theater
-	local_pop_assimilation_speed = 0.5
-	local_happiness_for_same_culture_modifier = 0.1
+	local_pop_assimilation_speed = 0.2
+	local_happiness_for_same_culture_modifier = 0.05
 	city_monthly_state_loyalty = 0.03
 	local_country_civilization_value = 5
 
@@ -1592,17 +1579,11 @@ theathre_building = { #Theater
 	potential = {
 		has_city_status = yes
 		or = {
-			owner = {
-				is_tribal = no
-			}
-			num_of_town_watch_building > 0
+			num_of_theathre_building > 0
 		}
 	}
 	allow = {
 		has_city_status = yes
-		owner = {
-				is_tribal = no
-			}
 		AND = {
 			exists = owner
 			owner = {
@@ -1668,7 +1649,7 @@ theathre_building = { #Theater
 circus_building = {
 	local_population_happiness = 0.1
 	local_country_civilization_value = 8
-	local_pop_assimilation_speed = 1
+	local_pop_assimilation_speed = 0.5
 	local_tax_modifier = -0.25
 	local_unrest = -5
 
@@ -1778,7 +1759,7 @@ shrine_building = { #9
 		}
 	}
 }
-	##specific
+##specific
 oracle_building = { #Greek
 	local_happiness_for_same_religion_modifier = 0.1
 	local_pop_conversion_speed_modifier = 0.2
@@ -1881,9 +1862,9 @@ stupa_building = { #Buddhist
 		}
 	}
 }
-	####
+####
 temple_building = {
-	local_pop_conversion_speed = 1
+	local_pop_conversion_speed = 0.5
 	local_happiness_for_same_religion_modifier = 0.05
 	city_monthly_state_loyalty = 0.03
 	local_country_civilization_value = 5
@@ -1898,8 +1879,9 @@ temple_building = {
 		has_city_status = yes
 		or = {
 			owner = {
-				is_tribal = no
-				not = { religion = christianity}
+				nor = { 
+					religion = christianity
+				}
 			}
 			num_of_temple_building > 0
 		}
@@ -1913,9 +1895,6 @@ temple_building = {
 			}
 		}
 		has_city_status = yes
-		owner = {
-				is_tribal = no
-			}
 	}
 
 	modification_display = {
@@ -1972,7 +1951,7 @@ temple_building = {
 		}
 	}
 }
-	##religious Specific##
+##religious Specific##
 church_building = {
 	local_pop_conversion_speed = 1
 	local_happiness_for_same_religion_modifier = 0.05
@@ -2063,7 +2042,7 @@ church_building = {
 		}
 	}
 }
-	######################
+######################
 great_temple_building = {
 	local_happiness_for_same_religion_modifier = 0.2
 	local_pop_conversion_speed = 1
@@ -2125,7 +2104,7 @@ great_temple_building = {
 		}
 	}
 }
-	##religious specific###
+##religious specific###
 parthenon_building = {
 	local_happiness_for_same_religion_modifier = 0.2
 	local_pop_conversion_speed = 1
@@ -2367,10 +2346,10 @@ pagoda_building = {
 # 10 Administration 10
 
 town_hall_building = { #Tax Office
-	local_tax_modifier = 0.15
+	local_tax_modifier = 0.1
 	happiness_for_wrong_culture_group_modifier = -0.02
 	local_country_civilization_value = 2
-	max_amount = 3
+	max_amount = 5
 	cost = 80
 	time = 180
 
@@ -2418,7 +2397,7 @@ court_building = { #Court of Law
 	city_monthly_state_loyalty = 0.03
 	local_country_civilization_value = 3
 	
-	max_amount = 1
+	max_amount = 3
 	
 	cost = 160
 	time = 180
@@ -2462,6 +2441,7 @@ citadel_building = {
 	local_defensive = 0.1
 	local_country_civilization_value = 10
 	local_nobles_desired_pop_ratio = 0.05
+	local_citizen_desired_pop_ratio = 0.1
 
 	cost = 500
 	time = 800
@@ -2492,10 +2472,10 @@ citadel_building = {
 
 senate_building = { #Senate House
 	local_happiness_for_same_culture_modifier = 0.04
-	local_nobles_desired_pop_ratio = 0.03
-	local_citizen_desired_pop_ratio = 0.04
+	local_nobles_desired_pop_ratio = 0.05
+	local_citizen_desired_pop_ratio = 0.1
 	local_pop_promotion_speed_modifier = 0.3
-	local_country_civilization_value = 4
+	local_country_civilization_value = 8
 
 	max_amount = 1
 	cost = 500
@@ -2547,8 +2527,8 @@ senate_building = { #Senate House
 royal_palace_building = { #Royal Palace
 	local_happiness_for_same_culture_modifier = 0.04
 	local_country_civilization_value = 10
-	local_nobles_desired_pop_ratio = 0.05
-	local_citizen_desired_pop_ratio = 0.03
+	local_nobles_desired_pop_ratio = 0.1
+	local_freemen_desired_pop_ratio = 0.05
 	local_tax_modifier = 0.2
 
 	max_amount = 1
@@ -2610,7 +2590,7 @@ royal_palace_building = { #Royal Palace
 local_forum_building = { #Provincial Legation
 	local_migration_attraction = 0.5
 	local_pop_assimilation_speed_modifier = 0.02
-	city_monthly_state_loyalty = 0.015
+	city_monthly_state_loyalty = 0.02
 	local_population_capacity_modifier = 0.2
 	local_tribesmen_desired_pop_ratio = -0.2
 	local_citizen_desired_pop_ratio = 0.02
@@ -2646,8 +2626,8 @@ hill_fort = { #Tribal Settlement
 	local_tax_modifier = -0.5
 	local_tribesmen_desired_pop_ratio = 0.15
 	local_tribesmen_output = 0.2
-	local_citizen_desired_pop_ratio = -0.05
-	local_unrest = 1
+	local_citizen_desired_pop_ratio = -0.1
+	local_unrest = 2
 	max_amount = 1
 	potential = {
 		has_city_status = no
@@ -3708,14 +3688,13 @@ lumber_building = {
 #3Well
 #city specific
 elders_building = { #3 Nobles and citizens
-	local_happiness_for_same_culture_modifier = 0.1
-	local_nobles_desired_pop_ratio = 0.1
-	local_citizen_desired_pop_ratio = 0.1
+	local_nobles_desired_pop_ratio = 0.05
+	local_citizen_desired_pop_ratio = 0.05
 	local_country_civilization_value = 5
 	local_monthly_civilization = 0.02
 	cost = 100
 	time = 150
-	max_amount = 1
+	max_amount = 3
 	potential = {
 		has_city_status = yes
 		or = {
@@ -3742,9 +3721,9 @@ commune_building = { #4 freemen and citizens
 	local_country_civilization_value = 5
 	local_freemen_desired_pop_ratio = 0.1
 	local_citizen_desired_pop_ratio = 0.05
-	local_happiness_for_same_culture_modifier = 0.1
+	local_monthly_state_loyalty = 0.05
 	local_tax_modifier = 0.05
-	max_amount = 1
+	max_amount = 3
 	potential = {
 		has_city_status = yes
 		or = {
@@ -3770,14 +3749,14 @@ commune_building = { #4 freemen and citizens
 	time = 100
 }
 warrior_building = { #Sparring grounds 7 military
-	local_manpower_modifier = 0.2
-	local_tribesmen_desired_pop_ratio = 0.10
+	local_manpower_modifier = 0.1
+	local_tribesmen_desired_pop_ratio = 0.1
 	local_defensive = 0.1
 
 	cost = 80
 	time = 360
 
-	max_amount = 1
+	max_amount = 3
 
 	potential = {
 		has_city_status = yes
@@ -3800,15 +3779,15 @@ warrior_building = { #Sparring grounds 7 military
 	}
 }
 tribal_tax_building = { #12
-	local_tax_modifier = 0.15
+	local_tax_modifier = 0.1
 	local_pop_promotion_speed_modifier = 0.3
 	local_pop_demotion_speed_modifier = 0.3
-	local_pop_assimilation_speed_modifier = 1
-	local_country_civilization_value = 3
+	local_pop_assimilation_speed_modifier = 0.2
+	local_country_civilization_value = 5
 	cost = 90
 	time = 100
 
-	max_amount = 1
+	max_amount = 3
 
 	potential = {
 		has_city_status = yes
@@ -3834,10 +3813,10 @@ tribal_tax_building = { #12
 tribal_trade_building = {#Bartering house 9
 	local_base_trade_routes_modifier = 0.1
 	local_country_civilization_value = 3
-	local_commerce_value_modifier = 0.1
+	local_commerce_value_modifier = 0.05
 	cost = 80
 	time = 100
-	max_amount = 1
+	max_amount = 3
 	potential = {
 		has_city_status = yes
 		or = {
@@ -3871,14 +3850,14 @@ tribal_trade_building = {#Bartering house 9
 	}
 }
 tribal_foundry_building = {
-	local_goods_from_slaves = -7
+	local_goods_from_slaves = -3
 	local_country_civilization_value = 5
-	local_output_modifier = 0.05
+	local_output_modifier = 0.03
 	local_country_civilization_value = 4
 	cost = 200
 	time = 360
 
-	max_amount = 1
+	max_amount = 3
 
 	potential = {
 		has_city_status = yes
@@ -3922,11 +3901,11 @@ tribal_foundry_building = {
 	}
 }
 ####non specific
-tribal_building = { #6 tribesmen
-	local_tribesmen_happyness = 0.08
-	local_tribesmen_output = 0.2
-	local_population_capacity_modifier = 0.1
-	local_tribesmen_desired_pop_ratio = 0.20
+tribal_court_building = { #6 tribesmen
+	country_civilization_value = 4
+	local_population_happiness = 0.04
+	local_unrest = -2
+	
 	cost = 80
 	time = 100
 	max_amount = 1
@@ -3977,12 +3956,11 @@ storehouse_building = { #10storehouse
 	}
 }
 tribal_sacred_building = { #5 religion #shrine
-	local_happiness_for_same_religion_modifier = 0.1
+	local_happiness_for_same_religion_modifier = 0.05
 	local_country_civilization_value = 4
-	local_pop_assimilation_speed = 0.5
-	local_pop_conversion_speed = 1
+	local_pop_assimilation_speed = 0.2
+	local_pop_conversion_speed = 0.5
 	local_nobles_desired_pop_ratio = 0.05
-	local_population_capacity_modifier = -0.2
 	max_amount = 1
 	cost = 80
 	time = 100
@@ -4001,6 +3979,29 @@ tribal_sacred_building = { #5 religion #shrine
 	}
 }
 #special settlements
+tribal_building = { #6 tribesmen
+	local_tribesmen_happyness = 0.08
+	local_tribesmen_output = 0.2
+	local_population_capacity_modifier = 0.1
+	local_tribesmen_desired_pop_ratio = 0.20
+	cost = 80
+	time = 100
+	max_amount = 1
+	potential = {
+		has_city_status = no
+		or = {
+			owner = {
+				is_tribal = yes
+			}
+			num_of_tribal_building > 0
+		}
+	}
+	allow = {
+		owner = {
+				is_tribal = yes
+			}
+	}
+}
 tribal_mine_building = {
 	local_goods_from_slaves = -5
 	local_slaves_happyness = -0.05
@@ -4098,7 +4099,7 @@ tribal_farm_building = { #tribal Farm
 	local_freemen_desired_pop_ratio = 0.1
 	local_population_capacity_modifier = 0.25
 	local_population_growth = 0.075
-	local_country_civilization_value = 2
+	local_country_civilization_value = 10
 	local_migration_speed_modifier = -0.3
 	cost = 80
 	time = 200
@@ -4139,10 +4140,11 @@ tribal_farm_building = { #tribal Farm
 }
 tribal_pastures_building = { #pasturesFarming Settlement
 	local_tribesmen_desired_pop_ratio = 0.15
-	local_population_capacity_modifier = -0.075
+	local_population_capacity_modifier = -0.1
 	local_population_growth = 0.05
 	local_manpower_modifier = 0.1
 	local_monthly_food_modifier = 0.1
+	base_resources = 1
 	cost = 80
 	time = 360
 	
@@ -4167,6 +4169,8 @@ tribal_pastures_building = { #pasturesFarming Settlement
 			trade_goods = steppe_horses
 			trade_goods = cattle
 			trade_goods = camel
+			trade_goods = horses
+			trade_goods = elephants
 		}
 	}
 	chance = {

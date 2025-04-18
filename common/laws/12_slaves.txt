@@ -121,6 +121,59 @@ slave_laws = {
 		}
 	}
 }
+chinese_slave_laws = {
+	potential = {
+		is_tribal = no
+		nor = {
+			religion = buddhism
+			tag = ROM
+		}
+	}
+	zhou_slave = { #pow's
+		modifier = {
+			enslavement_efficiency = 0.05
+			global_slaves_desired_pop_ratio = 0.05
+		}
+		allow = {
+			rank <= local_power
+		}
+	}
+	qin_slave = {#slave economy
+		modifier = {
+			global_slaves_output = 0.08
+			global_slaves_desired_pop_ratio = 0.15
+			build_cost = -0.25
+			global_slaves_happyness = -0.1
+			global_unrest = 1
+		}
+		allow = {
+			rank >= regional_power
+		}
+	}
+	han_manumission = {#slave rights
+		modifier = {
+			global_slaves_happyness = 0.08
+			global_slaves_output = -0.3
+		}
+		allow = {
+			OR = {
+				invention = global_slaves_output_inv_2
+			}
+		}
+	}
+	mohism_freedom = { #limited manumission
+		modifier = {
+			global_pop_promotion_speed_modifier = 1
+			global_slaves_output = -1
+			global_slaves_desired_pop_ratio = -1
+		}
+		allow = {
+			or = {
+				invention = freemen_promotion_cost_modifier_inv
+			}
+		}
+	}
+}
 tribal_decentralized_laws = {
 	potential = {
 		is_tribal = yes

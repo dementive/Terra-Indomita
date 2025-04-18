@@ -2868,8 +2868,9 @@ dhe_slave_harsh_treatment_law_effect = {
 	if = {
 		limit = {
 			is_republic = yes
-			NOT = {
+			NOR = {
 				tag = ROM
+				tag = CAR
 			}
 		}
 		change_law = republican_citizen_2
@@ -2880,6 +2881,12 @@ dhe_slave_harsh_treatment_law_effect = {
 			tag = ROM
 		}
 		change_law = lex_fufia_caninia
+	}
+	else_if = {
+		limit = {
+			is_republic = yes
+			tag = CAR
+		}
 	}
 }
 

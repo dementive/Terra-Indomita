@@ -1,6 +1,10 @@
 ﻿domestic_laws = {
 	potential = {
 		is_tribal = no
+		nor = {
+			tag = ROM
+		}
+
 	}
 	domestic_law_1 = { #base
 		modifier = {
@@ -89,6 +93,58 @@ domestic_laws_rom = {
 			rank >= major_power
 		}
 
+	}
+}
+chinese_domestic_laws = {
+	potential = {
+		is_tribal = no
+		nor = {
+			tag = ROM
+		}
+
+	}
+	chinese_domestic_base = { #base
+		modifier = {
+
+		}
+	}
+	zhou_blindness = { 
+		modifier = {
+			monthly_corruption = 0.03
+			monthly_political_influence_modifier = 0.05
+		allow = {
+			civic_tech >= 8
+			rank <= regional_power
+		}
+	}
+	han_confucian = { #benign neglect
+		modifier = {
+			monthly_corruption = -0.05
+		}
+		allow = {
+			civic_tech >= 10
+			rank >= major_power
+		}
+	}
+	qin_harsh_punishment = { #corruption crackdown
+		modifier = {
+			monthly_corruption = -0.1
+			global_population_happiness = 0.03
+			monthly_tyranny = 0.1
+			monthly_wage_for_character = 0.1
+		}
+		allow = {
+			civic_tech >= 12
+			rank >= major_power
+		}
+		#on_enact = {
+		#	add_country_modifier = {
+		#		name = iu_modifier_3
+		#		duration = 3650 #10 years
+		#	}
+		#	#governors lose 5 corruption immediately
+		#	#triggers pulse event in which any character having 10 corruption triggers an event to fire 
+		#}
 	}
 }
 tribal_centralization_law = {

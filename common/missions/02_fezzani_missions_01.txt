@@ -360,11 +360,17 @@
         allow = {
             owns = 10047
             hidden:p:10047 = {
-                has_building = slave_mine_building
+                or = {
+                    has_building = slave_mine_building
+                    num_of_tribal_mine_building >0
+                }
             }
             owns = 10038
             hidden:p:10038 = {
-                has_building = slave_mine_building
+                or = {
+                    has_building = slave_mine_building
+                    num_of_tribal_mine_building >0
+                }
             }
         }
 
@@ -535,11 +541,17 @@
         allow = {
             owns = 10031
             hidden:p:10031 = {
-                has_building = slave_mine_building
+                or = {
+                    has_building = slave_mine_building
+                    num_of_tribal_mine_building >0
+                }
             }
             owns = 10018
             hidden:p:10018 = {
-                has_building = slave_mine_building
+                or = {
+                    has_building = slave_mine_building
+                    num_of_tribal_mine_building >0
+                }
             }
         }
 
@@ -748,22 +760,40 @@
         requires = { fezzani_mission_01_task_02 }
         allow = {
             hidden:p:9982 = { # grain
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
             hidden:p:9994 = { # grain
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
             hidden:p:9983 = { # dates
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
             hidden:p:9974 = { # dates
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
             hidden:p:9991 = { # dates
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
             hidden:p:9990 = { # dates
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
         }
 
@@ -873,10 +903,20 @@
             hidden:p:9962 = {
                 has_construction = no
                 has_city_status = yes
-                has_building = forum_building
-                has_building = military_building
-                has_building = commerce_building
-                has_building = population_building
+                or = {
+                    and = {
+                        has_building = forum_building
+                        has_building = military_building
+                        has_building = commerce_building
+                        has_building = population_building
+                    }
+                    and = {
+                        has_building = elders_building
+                        has_building = commune_building
+                        has_building = tribal_tax_building
+                        has_building = tribal_trade_building
+                    }
+                }
             }
         }
 
@@ -1093,9 +1133,17 @@
             hidden:p:9949 = {
                 num_of_used_building_slots >= 7
                 num_of_fortress_building >= 2
-                has_building = forum_building
-                has_building = library_building
-                has_building = population_building
+                or = {
+                    AND = {
+                        has_building = forum_building
+                        has_building = library_building
+                        has_building = population_building
+                    }
+                    AND = {
+                        has_building = commune_building
+                        has_building = tribal_tax_building
+                        has_building = tribal_trade_building
+                    }
             }
         }
 
@@ -1261,7 +1309,10 @@
                 has_building = port_building
             }
             hidden:p:3336 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
             hidden:p:3334 = {
                 has_building = latifundia_building
@@ -1391,8 +1442,10 @@
                             free_building_slots = 0
                         }
                         p:3332 = {
-                            free_building_slots = 0
-                            has_building = basic_settlement_infratructure_building # Farming settlement
+                            or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
                         }
                     }
                     owns = 3330
@@ -1845,10 +1898,16 @@
         allow = {
             owns_area = soda_area
             p:9962 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
             p:9964 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
         }
 
@@ -1926,19 +1985,31 @@
         allow = {
             owns = 9972
             hidden:p:9972 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
             owns = 9982
             hidden:p:9982 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
             owns = 9994
             hidden:p:9994 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
             owns = 9979
             hidden:p:9979 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
         }
 
@@ -2132,10 +2203,16 @@
         requires = { fezzani_mission_01_task_02 }
         allow = {
             hidden:p:9964 = {
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
             hidden:p:9965 = {
-                has_building = slave_mine_building # mine
+                or = {
+                    has_building = slave_mine_building
+                    num_of_tribal_mine_building >0
+                } # mine
             }
          }
 
@@ -2203,19 +2280,31 @@
         allow = {
             owns = 9972
             hidden:p:9972 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
             owns = 9982
             hidden:p:9982 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
             owns = 9994
             hidden:p:9994 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
             owns = 9979
             hidden:p:9979 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
         }
 
@@ -2417,13 +2506,22 @@
         requires = { fezzani_mission_01_task_301 }
         allow = {
             hidden:p:10028 = {
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
             hidden:p:10024 = {
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
             hidden:p:10021 = {
-                has_building = basic_settlement_infratructure_building # Farming settlement
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                } # Farming settlement
             }
         }
 
@@ -2871,10 +2969,16 @@
         allow = {
             owns_area = soda_area
             hidden:p:9962 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
             hidden:p:9964 = {
-                has_building = basic_settlement_infratructure_building
+                or = {
+                    has_building = basic_settlement_infratructure_building
+                    num_of_tribal_farm_building >0
+                }
             }
         }
 

@@ -141,7 +141,7 @@ corruption_laws_rom = { # Assembly Endorsement
 		}
 	}
 	
-	assembly_law_2_rom = { #Lexpand centuriate assmepbly
+	lex_hortensia = { #Lexpand centuriate assmepbly
 		modifier = {
 			monthly_tyranny = -0.02
 			global_freemen_happyness = 0.06
@@ -195,6 +195,7 @@ corruption_laws_rom = { # Assembly Endorsement
 monarchy_legitimacy_laws = { # Royal Council
 	potential = {
 		is_monarchy = yes
+		is_chinese_trigger = no
 	}
 	renowned_lineage = { #renown lineage
 		modifier = {
@@ -236,7 +237,53 @@ monarchy_legitimacy_laws = { # Royal Council
 		modifier = {
 			monthly_legitimacy = 0.05
 			character_loyalty = 2
-			monthly_corruption = -0.05
+		}
+	}
+}
+chinese_legitimacy_laws = { # Royal Council
+	potential = {
+		is_monarchy = yes
+		is_chinese_trigger = yes
+	}
+	chinese_royal_familiy = { #renown lineage
+		modifier = {
+			monthly_legitimacy = 0.02
+			character_loyalty = 3
+			global_freemen_happyness = 0.02
+		}
+	}
+	zhou_royalty = {
+		modifier = {
+			monthly_political_influence = 0.05
+			global_nobles_happyness = 0.04
+			monthly_corruption = 0.05
+		}
+		#on_enact = {
+		#	custom_tooltip = "enables_tribal_assembly_tt"
+		#}
+	}
+	qin_legalism = { #religious assembly
+		modifier = {
+			monthly_legitimacy = 0.033
+			monthly_tyranny = 0.03
+			monthly_corruption = -0.03
+		}
+	}
+	confucian_scholars = { #patronize schoarls
+		allow = {
+			invention = scientific_patronage_inv
+		}
+		modifier = {
+			research_points_modifier = 0.2
+			global_citizen_output = 0.06
+			global_tax_modifier = -0.2
+		}
+	}
+	chinese_bureaucracy = { 
+		modifier = {
+			monthly_legitimacy = 0.05
+			global_pop_promotion_speed_modifier = 0.2
+			monthly_character_experience_decay = -0.1
 		}
 	}
 }

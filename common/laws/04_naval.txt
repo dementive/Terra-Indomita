@@ -372,6 +372,83 @@ monarchy_maritime_laws = {
 		}
 	}
 }
+chinese_maritime_laws = {
+	potential = {
+		is_chinese_culture_group_trigger = yes
+		is_tribal = no
+	}
+	chinese_naval_1 = { #slave oarsmen
+		modifier = {
+			trireme_offensive = 0.05
+			ship_cost = -0.05
+		}
+	}
+	chinese_free_ports_monarchy_law = {#shrewd business tactics
+		allow  = {
+			num_of_ports >= 1
+			or = {
+				invention = trireme_discipline_inv_1
+			}
+		}
+		on_enact = {
+			if = {
+				limit = {
+					any_owned_province = {
+						NOT = { has_province_modifier = pirate_haven_modifier }
+					}
+				}
+				custom_tooltip = pirate_will_be_placed_tt
+				hidden_effect = {
+					random_owned_province = {
+						limit = {
+							is_port = yes
+						}
+						weight = {
+							modifier = {
+								factor = 1000
+								controller = root
+							}
+						}
+						add_permanent_province_modifier = {
+							name = pirate_haven_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			global_export_commerce_modifier = -0.1
+			global_import_commerce_modifier = 0.2
+			diplomatic_reputation = -1
+			mercenary_naval_maintenance_cost = -0.1
+		}
+	}
+	
+	chinese_antipiracy_edict = { #anti priary
+		allow = {
+			num_of_ports >= 1
+			invention = trireme_discipline_inv_1
+		}
+		on_enact = {
+			custom_tooltip = enables_root_out_pirates_tt
+		}
+		modifier = {
+			anti_piracy_cb = yes
+			global_citizen_happyness = 0.04
+			naval_morale = 0.1
+		}
+	}
+	chinese_naval_2 = {#royal fleet
+		modifier = {
+			navy_maintenance_cost = -0.3
+		}
+		allow = {
+			rank >= great_power
+			military_tech >= 14
+		}
+	}
+}
 tribal_military_law = {
 	potential = {
 		is_tribal = yes

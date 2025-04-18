@@ -145,7 +145,10 @@
 		allow = {
 			owns_or_subject_owns = 4294
 			hidden:p:4294 = {
-				has_building = slave_mine_building
+				or = {
+					num_of_slave_mine_building > 0
+					tribal_mine_building > 0
+				}
 				total_population >= 10
 				has_no_ongoing_construction = yes
 			}
@@ -491,7 +494,10 @@
 				text = have_barracks_getia_tt
 				any_owned_province = {
 					count >= 3
-					has_building = barracks_building
+					or = {
+						num_of_barracks_building > 0
+						num_of_tribal_building > 0
+					}
 					has_construction = no
 				}
 			}
@@ -517,7 +523,9 @@
         	p:4282 = {
 				has_city_status = yes
 				num_of_fortress_building >= 1
-				num_of_military_building >= 3 
+				or = {
+					num_of_military_building >= 3 
+				}
 				has_no_ongoing_construction = yes
 			}
         }

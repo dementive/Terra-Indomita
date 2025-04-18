@@ -6,12 +6,12 @@
 			tag = ROM
 		}
 	}
-	trade_law_1_rep = { #import dutues
+	trade_law_1 = { #import dutues
 		modifier = {
 			global_import_commerce_modifier = 0.2
 		}
 	}
-	trade_law_2_rep = { #subsidized shipments 
+	trade_law_2= { #subsidized shipments 
 		modifier = {
 			price_state_investment_oratory_cost_modifier = -0.1
 			global_commerce_modifier = 0.05
@@ -20,13 +20,13 @@
 			num_of_ports >= 1
 		}
 	}
-	trade_law_3_rep = { #merchant rights
+	trade_law_3 = { #merchant rights
 		modifier = {
 			global_import_commerce_modifier = -0.2
 			global_citizen_output = 0.04
 		}
 	}
-	trade_law_4_rep = {#remove tariffs
+	trade_law_4 = {#remove tariffs
 		modifier = {
 			global_citizen_happyness = 0.1
 			global_import_commerce_modifier = -2
@@ -91,6 +91,44 @@ trade_laws_car = {
 		modifier = {
 			global_nobles_city_desired_pop_ratio = 0.05
 			global_capital_trade_routes = 1
+		}
+	}
+}
+chinese_trade_law = {
+	potential = {
+		is_tribal = no
+		nor = {
+			tag = CAR
+			tag = ROM
+		}
+	}
+	chinese_trade_law_1 = { #fuck the merchants
+		modifier = {
+			global_import_commerce_modifier = 1
+			global_export_commerce_modifier = -1
+			global_citizen_happyness = -0.06
+		}
+	}
+	chinese_monopolies = { #state nmoneopoloies
+		modifier = {
+			price_state_investment_oratory_cost_modifier = -0.15
+			foundry_building_cost = -0.05
+		}
+		allow = {
+			num_of_ports >= 1
+		}
+	}
+	trade_law_3 = { #isolationism
+		modifier = {
+			global_import_commerce_modifier = 1
+			global_export_commerce_modifier = -2
+			stability_monthly_change = 0.02
+		}
+	}
+	chinese_tribute = {#remove tariffs
+		modifier = {
+			global_commerce_modifier = -1
+			tribute_income_modifier = 2
 		}
 	}
 }

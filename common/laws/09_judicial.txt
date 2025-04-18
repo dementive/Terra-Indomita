@@ -156,6 +156,59 @@ judicial_laws_mon = {
 		}
 	}
 }
+chinese_judicial_laws = {
+	potential = {
+		or = {
+			is_monarchy = yes
+		}
+	}
+
+	five_punishments_law = {  #Laws were developed by government officials to regulate ancient Chinese society. The laws of the aristocratic societies of early China put substantial emphasis on maintaining distinct ranks and orders amongst the nobles, in addition to controlling the populace. As a result, lǐ (禮), meaning "ritual" or "etiquette," governed the conduct of the nobles, whilst xíng (刑), the rules of punishment, governed the commoners and slaves.
+		modifier = { 
+		}
+	}
+	
+	proto_legalist_law = {  #local_courts
+		modifier = { 
+			global_unrest = -1
+		}
+		allow = {
+			oratory_tech >= 4
+
+		}
+	}
+	qin_legalist_law = {  #*
+		modifier = { 
+			global_unrest = -5
+			monthly_political_influence_modifier = -0.5
+			monthly_tyranny = 0.05
+		}
+		allow = {
+			oratory_tech >= 10
+
+		}
+	}
+	han_judicial_law = {  #right of appeal
+		modifier = { 
+			global_citizen_happyness = 0.04
+			monthly_tyranny = -0.02
+		}
+		allow = {
+			oratory_tech >= 12
+
+		}
+	}
+	chinese_standardized_code = {  #standardized code
+		modifier = { 
+			stability_monthly_change = 0.02
+			happiness_for_same_culture_modifier = 0.02
+		}
+		allow = {
+			oratory_tech >= 16
+
+		}
+	}
+}
 tribal_centralization_law = {
 	potential = {
 		is_tribal = yes

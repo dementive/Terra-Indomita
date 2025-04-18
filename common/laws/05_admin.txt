@@ -202,6 +202,79 @@ monarchy_contract_law = {
 		}
 	}
 }
+chinese_administration = {
+	potential = {
+		or  = {
+			is_monarchy = yes
+		}
+	}
+	
+	chinese_warlord = { #autonomous_satrap
+		modifier = {
+			governor_loyalty  = -20
+			global_freemen_happyness = happiness_large_svalue
+			global_monthly_state_loyalty = -0.5
+		}
+		allow = {
+			rank <= local_power
+		}
+	}
+	zhou_feudalism = {
+		allow = {
+			rank >= local_power
+			rank < major_power
+		}
+		modifier = {
+			governor_loyalty = 10
+			change_governor_policy_cost_modifier = 1
+			global_monthly_state_loyalty = -0.05
+		}
+	}
+	prefecture_county = {
+		allow = {
+			or = {
+				and = {
+					civic_tech >= 8
+					invention = tyranny_inv_2
+				}
+				invention = polycentric_administration_inv
+			}
+			rank >= regional_power 
+		}
+		modifier = {
+			monthly_wage_modifier = 0.1
+			global_unrest = -1
+			global_monthly_state_loyalty = 0.04
+		}
+	}
+
+	minister_lord = { #public notaries
+		modifier = {
+			global_monthly_civilization= 0.02
+			global_monthly_state_loyalty = 0.04
+			governor_loyalty = 5
+			monthly_governor_wage = 0.15
+		}
+		allow = {
+			rank >= major_power 
+			has_law = royal_bureaucracy
+		}
+	}
+	legendary_bureaucracy  = { 
+		modifier = {
+			monthly_corruption = -0.05
+			character_loyalty = 5
+			global_unrest = -1
+			monthly_governor_wage = 0.1
+			monthly_wage_modifier = 0.1
+		}
+		allow = {
+			has_law = royal_bureaucracy
+			rank >= great_power
+			civic_tech > 20
+		}
+	}
+}
 tribal_centralized_laws = {
 	potential = {
 		is_tribal = yes

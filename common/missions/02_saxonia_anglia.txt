@@ -371,14 +371,17 @@
         allow = {
 			owns_area = dumnonia_area
 			area:dumnonia_area = {
-                        any_area_province = {
-                            count = all
-                            filter = {
-                                has_city_status = no
-                                has_minable_trade_good_trigger = yes
-                            }
-							has_building = slave_mine_building 
-                        }
+                 any_area_province = {
+                     count = all
+                     filter = {
+                         has_city_status = no
+                         has_minable_trade_good_trigger = yes
+                     }
+					or ={
+						has_building = slave_mine_building 
+						num_of_tribal_mine_building > 0
+					}
+                }
            }
 		}
 		
@@ -393,7 +396,13 @@
 			area:dumnonia_area = {
 				hidden_effect = {
 					every_area_province = {
-						limit = { has_owner = yes owner = root has_building = slave_mine_building }
+						limit = { 
+							has_owner = yes 
+								owner = root
+									or ={
+						has_building = slave_mine_building 
+						num_of_tribal_mine_building > 0
+					} }
 						add_province_modifier = {
 							name = "thriving_mining_sector"
 							duration = -1
