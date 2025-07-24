@@ -19,8 +19,6 @@ fortress_building = { #ALL #1
 town_watch_building = { # VIGILES
 	local_unrest = -5
 	local_country_civilization_value = 5
-	local_tax_modifier = -0.03
-	local_manpower_modifier = -0.05
 	local_defensive = 0.15
 	supply_limit = 10
 	max_amount = 1
@@ -38,8 +36,10 @@ town_watch_building = { # VIGILES
 	}
 	allow = {
 		has_city_status = yes
+
 		owner = {
 				is_tribal = no
+				has_building = fortress_building
 			}
 		AND = {
 			exists = owner
@@ -65,10 +65,8 @@ fortress_ramparts_building = {#19
 	local_defensive = 0.33
 	local_hostile_attrition = 1
 	local_population_capacity_modifier = -0.03
-	local_tax_modifier = -0.05
 	local_manpower_modifier = -0.05
 	local_fort_limit = 1
-	garrison_growth = 0.1
 
 	cost = 250
 	time = 720
@@ -122,14 +120,13 @@ port_building = {
 	local_migration_speed = 0.1
 	local_migration_attraction = 0.1
 	local_country_civilization_value = 2
-	local_population_capacity = 2
-	local_tax_modifier = -0.02
+	local_population_capacity = 1
 
 	allow = {
 		can_have_port = yes
 	}
 
-	max_amount = 6
+	max_amount = 8
 	
 	cost = 160
 	time = 180
@@ -173,7 +170,6 @@ military_harbor_building = { #Military Harbor [UNIQUE]
 	local_ship_recruit_speed = 0.25
 	local_ship_start_experience = 20
 	local_country_civilization_value = 5
-	local_tax_modifier = -0.03
 	local_freemen_output = -0.08 #has to work on the dock
 
 
@@ -229,7 +225,6 @@ harbour_building = {#20
 	local_base_trade_routes = 1
 	local_country_civilization_value = 5
 	local_commerce_value_modifier = 0.2
-	local_tax_modifier = -0.05
 
 	cost = 250
 	time = 180
@@ -250,6 +245,7 @@ harbour_building = {#20
 				is_tribal = no
 			}
 		num_of_port_building > 2
+		num_of_commerce_building > 2
 		total_population >= 60
 		civilization_value  >= 50
 
@@ -279,7 +275,7 @@ harbour_building = {#20
 # 3 Population 3
 
 aqueduct_building = { #Aqueduct // Sanitation Works
-	local_population_capacity = 5
+	local_population_capacity = 8
 	local_country_civilization_value = 2
 	local_tax_modifier = -0.02
 	supply_limit = 2
@@ -343,11 +339,11 @@ aqueduct_building = { #Aqueduct // Sanitation Works
 	}
 }
 sewers_building = { #12 Sewers
-	local_population_capacity_modifier = 0.11
-	local_country_civilization_value = 4
-	local_population_growth = 0.05
-	local_output_modifier = 0.02
+	local_population_capacity_modifier = 0.12
+	local_country_civilization_value = 3
+	local_population_growth = 0.03
 	local_tax_modifier = -0.04
+
 	cost = 175
 	time = 300
 	max_amount = 5
@@ -394,8 +390,8 @@ sewers_building = { #12 Sewers
 	}
 }
 baths_building = { #21Baths
-	local_country_civilization_value = 6
-	local_population_growth = 0.2
+	local_country_civilization_value = 8
+	local_population_growth = 0.1
 	local_population_happiness = 0.1
 	local_tax_modifier = -0.1
 	cost = 250
@@ -415,6 +411,8 @@ baths_building = { #21Baths
 		owner = {
 			is_tribal = no
 		}
+		num_of_aqueduct_building > 8
+		num_of_sewers_building > 2
 		total_population >= 60
 		civilization_value  >= 50
 
@@ -442,8 +440,8 @@ population_building = { #Granary
 	local_country_civilization_value = 2
 	local_manpower_modifier = 0.02
 	supply_limit_modifier = 0.1
-	local_tax_modifier = -0.01
-	local_population_capacity = 1
+	local_tax_modifier = -0.02
+
 	max_amount = 5
 	cost = 100
 	time = 180
@@ -478,9 +476,8 @@ population_building = { #Granary
 workshop_building = { #Production District
 	local_goods_from_slaves = -2
 	local_slaves_output = 0.06
-	local_migration_attraction = 0.5
 	local_country_civilization_value = 3
-	local_slaves_desired_pop_ratio = 0.05
+	local_slaves_desired_pop_ratio = 0.1
 	
 	cost = 150
 	time = 180
@@ -556,6 +553,7 @@ foundry_building = { #Foundry
 				invention = heavy_infantry_cost_inv
 			}
 		}
+		num_of_workshop_building > 10
 		has_city_status = yes
 		owner = {
 				is_tribal = no
@@ -1159,7 +1157,7 @@ commerce_building = { #Commercial District
 	local_base_trade_routes = 0.2
 	local_pop_assimilation_speed_modifier = 0.025
 	local_country_civilization_value = 3
-	local_citizen_desired_pop_ratio = 0.05
+
 	max_amount = 5
 	cost = 100
 	time = 180
@@ -1220,10 +1218,6 @@ gardens_building = { ##gardens
 
 	potential = {
 		has_city_status = yes
-		nor = {
-			terrain = desert
-			terrain = desert_hills
-		}
 		or = {
 			owner = {
 				is_tribal = no
@@ -1257,59 +1251,11 @@ gardens_building = { ##gardens
 		}
 	}
 }
-fountains_building = { ##gardens
-	local_citizen_happyness = 0.1
-	local_citizen_desired_pop_ratio = 0.1
-	local_country_civilization_value = 4
-	max_amount = 3
-	cost = 200
-	time = 180
-
-	potential = {
-		has_city_status = yes
-		or = {
-			terrain = desert
-			terrain = desert_hills
-		}
-		or = {
-			owner = {
-				is_tribal = no
-			}
-			num_of_fountains_building > 0
-		}
-	}
-	allow = {
-		has_city_status = yes
-		civilization_value >= 40
-		owner = {
-				is_tribal = no
-			}
-
-	}
-
-	modification_display = {
-		0 = local_citizen_happyness
-		1 = local_citizen_desired_pop_ratio
-	}
-
-	chance = {
-		modifier = {
-			add = 25
-			is_capital = yes
-		}
-		modifier = {
-			add = {
-				value = 1
-			  multiply = num_of_citizen
-			}
-		}
-	}
-}
 emporium_building = {#24
 	local_base_trade_routes = 1
 	local_country_civilization_value = 10
 	local_commerce_value_modifier = 0.1
-	local_citizen_output = 0.1
+	local_citizen_desired_pop_ratio = 0.1
 
 
 	cost = 250
@@ -1327,11 +1273,10 @@ emporium_building = {#24
 	}
 	allow = {
 		has_city_status = yes
+		num_of_commerce_building > 4
 		owner = {
 			is_tribal = no
 		}
-
-		
 	}
 
 	modification_display = {
@@ -1350,22 +1295,24 @@ emporium_building = {#24
 	}
 }
 library_building = { #Library
-	local_research_points_modifier = 0.05
+	local_research_points_modifier = 0.03
 	local_pop_conversion_speed_modifier = 0.025
-	local_country_civilization_value = 3
+	local_country_civilization_value = 4
 	max_amount = 5
-	cost = 100
+	cost = 120
 	time = 180
 
 	potential = {
 		has_city_status = yes
 		or = {
+			owner = {
+				is_tribal = no
+			}
 			num_of_library_building > 0
 		}
 	}
 	allow = {
 		has_city_status = yes	
-		civilization_value >= 20	
 	}
 
 	modification_display = {
@@ -1405,14 +1352,13 @@ library_building = { #Library
 	}
 }
 academy_building = { #Academy
-	local_research_points_modifier = 0.1
-	local_nobles_output = 0.05
+	local_research_points_modifier = 0.05
+	local_nobles_output = 0.03
 	local_pop_promotion_speed = 0.1
-	local_monthly_civilization = 0.01
-	local_country_civilization_value = 4
+	local_monthly_civilization = 0.02
 
-	cost = 160
-	time = 180
+	cost = 200
+	time = 360
 
 	max_amount = 3
 
@@ -1465,14 +1411,14 @@ academy_building = { #Academy
 	}
 }
 scriptorium_building = { 
-	local_nobles_desired_pop_ratio = 0.1
-	local_research_points_modifier = 0.2
+	local_nobles_desired_pop_ratio = 0.05
+	local_research_points_modifier = 0.15
 	local_country_civilization_value = 10
 
 	max_amount = 1
 
 	cost = 300
-	time = 300
+	time = 600
 
 	potential = {
 		has_city_status = yes
@@ -1490,6 +1436,7 @@ scriptorium_building = {
 				invention = religious_wisdom_inv_1
 			}
 		}
+		num_of_library_building > 0
 		has_city_status = yes
 		owner = {
 				is_tribal = no
@@ -1524,7 +1471,7 @@ scriptorium_building = {
 gymnasium_building = { #
 	local_happiness_for_same_culture_modifier = 0.03
 	local_country_civilization_value = 3
-	local_pop_assimilation_speed_modifier = 0.05
+	local_pop_assimilation_speed_modifier = 0.03
 
 	cost = 100
 	time = 360
@@ -1567,7 +1514,7 @@ gymnasium_building = { #
 	}
 }
 theathre_building = { #Theater
-	local_pop_assimilation_speed = 0.2
+	local_pop_assimilation_speed_modifier = 0.1
 	local_happiness_for_same_culture_modifier = 0.05
 	city_monthly_state_loyalty = 0.03
 	local_country_civilization_value = 5
@@ -1649,8 +1596,8 @@ theathre_building = { #Theater
 circus_building = {
 	local_population_happiness = 0.1
 	local_country_civilization_value = 8
-	local_pop_assimilation_speed = 0.5
-	local_tax_modifier = -0.25
+	local_pop_assimilation_speed = 0.2
+	local_tax_modifier = -0.2
 	local_unrest = -5
 
 	cost = 300
@@ -1707,8 +1654,8 @@ circus_building = {
 # 9 Religion 9
 
 shrine_building = { #9
-	local_happiness_for_same_religion_modifier = 0.1
-	local_pop_conversion_speed_modifier = 0.2
+	local_happiness_for_same_religion_modifier = 0.05
+	local_pop_conversion_speed_modifier = 0.25
 	local_tax_modifier = -0.25
 	local_country_civilization_value = 5
 
@@ -1722,10 +1669,6 @@ shrine_building = { #9
 		or = {
 			owner = {
 				is_tribal = no
-				nor = {
-					religion = roman_pantheon
-					religion = buddhism
-				}
 			}
 			num_of_shrine_building > 0
 		}
@@ -1759,112 +1702,9 @@ shrine_building = { #9
 		}
 	}
 }
-##specific
-oracle_building = { #Greek
-	local_happiness_for_same_religion_modifier = 0.1
-	local_pop_conversion_speed_modifier = 0.2
-	local_tax_modifier = -0.25
-	local_country_civilization_value = 5
-	local_migration_attraction = 3
-	max_amount = 1
-
-	cost = 150
-	time = 360
-
-	potential = {
-		has_city_status = yes
-		or = {
-			owner = {
-				is_tribal = no
-				religion = roman_pantheon
-			}
-			num_of_oracle_building > 0
-		}
-	}
-	allow = {
-		is_holy_site = yes
-		#is_oracle = yes
-		#make oracle spawn from event as porvince modifier, builds this building? for now basically just a shrine. ancient oracles listed below for fun. Maybe make it a cultural/ religipus specific buioldings.
-		#id = 7 (naples) 1973 (miletos) 
- 		has_city_status = yes
-		owner = {
-				is_tribal = no
-			}
-	}
-	modification_display = {
-		0 = local_happiness_for_same_religion_modifier
-		1 = local_pop_conversion_speed_modifier
-	}
-
-	chance = {
-		modifier = {
-			add = 5
-		}
-		modifier = {
-			add = 10
-			is_capital = yes
-		}
-		modifier = {
-			add = 20
-			has_city_status = yes
-		}
-	}
-}
-stupa_building = { #Buddhist
-	local_population_happiness = 0.05
-	local_pop_conversion_speed_modifier = 0.2
-	local_tax_modifier = -0.25
-	local_country_civilization_value = 5
-
-	max_amount = 1
-
-	cost = 150
-	time = 360
-
-	potential = {
-		has_city_status = yes
-		or = {
-			owner = {
-				is_tribal = no
-				religion = buddhism
-			}
-			num_of_stupa_building > 0
-		}
-	}
-	allow = {
-		is_holy_site = yes
-
-		#is_oracle = yes
-		#make oracle spawn from event as porvince modifier, builds this building? for now basically just a shrine. ancient oracles listed below for fun. Maybe make it a cultural/ religipus specific buioldings.
-		#id = 7 (naples) 1973 (miletos) 
- 		has_city_status = yes
-		owner = {
-				is_tribal = no
-				religion = buddhism
-			}
-	}
-	modification_display = {
-		0 = local_happiness_for_same_religion_modifier
-		1 = local_pop_conversion_speed_modifier
-	}
-
-	chance = {
-		modifier = {
-			add = 5
-		}
-		modifier = {
-			add = 10
-			is_capital = yes
-		}
-		modifier = {
-			add = 20
-			has_city_status = yes
-		}
-	}
-}
 ####
 temple_building = {
-	local_pop_conversion_speed = 0.5
+	local_pop_conversion_speed_modifier = 0.1
 	local_happiness_for_same_religion_modifier = 0.05
 	city_monthly_state_loyalty = 0.03
 	local_country_civilization_value = 5
@@ -1878,11 +1718,6 @@ temple_building = {
 	potential = {
 		has_city_status = yes
 		or = {
-			owner = {
-				nor = { 
-					religion = christianity
-				}
-			}
 			num_of_temple_building > 0
 		}
 	}
@@ -1951,103 +1786,11 @@ temple_building = {
 		}
 	}
 }
-##religious Specific##
-church_building = {
-	local_pop_conversion_speed = 1
-	local_happiness_for_same_religion_modifier = 0.05
-	city_monthly_state_loyalty = 0.03
-	local_country_civilization_value = 5
-	local_tax_modifier = -0.04
-
-	max_amount = 1
-
-	cost = 300
-	time = 360
-
-	potential = {
-		has_city_status = yes
-		or = {
-			owner = {
-				is_tribal = no
-				religion = christianity
-			}
-			num_of_church_building > 0
-		}
-	}
-	allow = {
-		AND = {
-			exists = owner
-			owner = {
-				invention = global_unrest_inv_2
-				religion = christianity
-			}
-		}
-		has_city_status = yes
-		owner = {
-				is_tribal = no
-			}
-	}
-
-	modification_display = {
-		0 = local_happiness_for_same_religion_modifier
-		1 = local_pop_conversion_speed
-	}
-
-	chance = {
-		modifier = {
-			add = 5
-		}
-		modifier = {
-			add = 10
-			NOT = {dominant_province_religion = owner.religion}
-		}
-		modifier = {
-			add = {
-				value = 0.5
-				multiply = num_other_religion
-			}
-		}
-		modifier = {
-			num_of_nobles > 0
-			add = 10
-		}
-		modifier = {
-			num_of_citizen > 0
-			add = 10
-		}
-		modifier = {
-			num_of_freemen > 0
-			add = 10
-		}
-		modifier = {
-			num_of_nobles > 0
-			add = {
-				value = nobles_happiness
-				multiply = -10
-			}
-		}
-		modifier = {
-			num_of_citizen > 0
-			add = {
-				value = citizen_happiness
-				multiply = -10
-			}
-		}
-		modifier = {
-			num_of_freemen > 0
-			add = {
-				value = freemen_happiness
-				multiply = -10
-			}
-		}
-	}
-}
 ######################
 great_temple_building = {
 	local_happiness_for_same_religion_modifier = 0.2
-	local_pop_conversion_speed = 1
+	local_pop_conversion_speed = 0.5
 	local_country_civilization_value = 8
-	local_tax_modifier = -0.08
 	local_nobles_output = 0.05
 
 	max_amount = 1
@@ -2060,12 +1803,6 @@ great_temple_building = {
 		or = {
 			owner = {
 				is_tribal = no
-				nor = {
-					religion = roman_pantheon
-					religion = buddhism
-					religion = christianity
-					religion = judaism
-				}
 			}
 			num_of_great_temple_building > 0
 		}
@@ -2104,244 +1841,6 @@ great_temple_building = {
 		}
 	}
 }
-##religious specific###
-parthenon_building = {
-	local_happiness_for_same_religion_modifier = 0.2
-	local_pop_conversion_speed = 1
-	local_country_civilization_value = 8
-	local_tax_modifier = -0.08
-	local_nobles_output = 0.05
-
-	max_amount = 1
-
-	cost = 500
-	time = 1500
-
-	potential = {
-		has_city_status = yes
-		or = {
-			owner = {
-				is_tribal = no 
-				religion = roman_pantheon
-			}
-			num_of_parthenon_building > 0
-		}
-	}
-	allow = {
-		has_city_status = yes
-		owner = {
-				is_tribal = no
-			}
-		AND = {
-			exists = owner
-			owner = {
-				is_tribal = no 
-				religion = roman_pantheon
-				invention = religious_wisdom_inv_5
-			}
-		}
-		total_population >= 40
-		civilization_value  >= 50
-
-	}
-	modification_display = {
-		0 = local_nobles_output
-		1 = local_pop_conversion_speed
-	}
-
-	chance = {
-		modifier = {
-			add = 5
-		}
-		modifier = {
-			add = 10
-			is_capital = yes
-		}
-		modifier = {
-			add = 20
-			has_city_status = yes
-		}
-	}
-}
-jewish_temple_building = {
-	local_happiness_for_same_religion_modifier = 0.2
-	local_pop_conversion_speed = 1
-	local_country_civilization_value = 8
-	local_tax_modifier = 0.08
-	local_nobles_output = 0.05
-
-	max_amount = 1
-
-	cost = 500
-	time = 1500
-
-	potential = {
-		has_city_status = yes
-		or = {
-			owner = {
-				is_tribal = no 
-				religion = judaism
-			}
-			num_of_jewish_temple_building > 0
-		}
-	}
-	allow = {
-		has_city_status = yes
-		owner = {
-				is_tribal = no
-			}
-		AND = {
-			exists = owner
-			owner = {
-				is_tribal = no 
-				religion = judaism
-				invention = religious_wisdom_inv_5
-			}
-		}
-		total_population >= 40
-		civilization_value  >= 50
-
-	}
-	modification_display = {
-		0 = local_nobles_output
-		1 = local_pop_conversion_speed
-		2 = local_happiness_for_same_religion_modifier
-	}
-
-	chance = {
-		modifier = {
-			add = 5
-		}
-		modifier = {
-			add = 10
-			is_capital = yes
-		}
-		modifier = {
-			add = 20
-			has_city_status = yes
-		}
-	}
-}
-cathedral_building = {
-	local_happiness_for_same_religion_modifier = 0.2
-	local_pop_conversion_speed = 1
-	local_country_civilization_value = 10
-	local_tax_modifier = 0.08
-	local_population_happiness = 0.02
-
-	max_amount = 1
-
-	cost = 500
-	time = 1500
-
-	potential = {
-		has_city_status = yes
-		or = {
-			owner = {
-				is_tribal = no
-				religion = christianity
-			}
-			num_of_cathedral_building > 0
-		}
-	}
-	allow = {
-		has_city_status = yes
-		owner = {
-				is_tribal = no
-			}
-		AND = {
-			exists = owner
-			owner = {
-				invention = religious_wisdom_inv_5
-				religion = christianity
-			}
-		}
-		total_population >= 40
-		civilization_value  >= 50
-
-	}
-	modification_display = {
-		0 = local_nobles_output
-		1 = local_pop_conversion_speed
-		2 = local_happiness_for_same_religion_modifier
-	}
-
-	chance = {
-		modifier = {
-			add = 5
-		}
-		modifier = {
-			add = 10
-			is_capital = yes
-		}
-		modifier = {
-			add = 20
-			has_city_status = yes
-		}
-	}
-}
-pagoda_building = {
-	local_happiness_for_same_religion_modifier = 0.2
-	local_pop_conversion_speed = 1
-	local_country_civilization_value = 8
-	local_tax_modifier = -0.08
-	local_nobles_output = 0.05
-
-	max_amount = 1
-
-	cost = 500
-	time = 1500
-
-	potential = {
-		has_city_status = yes
-		or = {
-			owner = {
-				is_tribal = no
-				religion = buddhism
-			}
-			num_of_pagoda_building > 0
-		}
-	}
-	allow = {
-		has_city_status = yes
-		owner = {
-				is_tribal = no
-				religion = buddhism
-			}
-		AND = {
-			exists = owner
-			owner = {
-				invention = religious_wisdom_inv_5
-			}
-		}
-		total_population >= 40
-		civilization_value  >= 50
-
-	}
-	modification_display = {
-		0 = local_nobles_output
-		1 = local_pop_conversion_speed
-		2 = local_happiness_for_same_religion_modifier
-	}
-
-	chance = {
-		modifier = {
-			add = 5
-		}
-		modifier = {
-			add = 10
-			is_capital = yes
-		}
-		modifier = {
-			add = 20
-			has_city_status = yes
-		}
-	}
-}
-	##hindu - local_citizen_output?
-	###chinese - local_population_growth
-	###punic - local_monthly_civilization
-	###arabian cube>
 ######################
 # 10 Administration 10
 
@@ -2435,9 +1934,7 @@ court_building = { #Court of Law
 	}
 }
 citadel_building = {
-	local_migration_attraction = 0.2
 	local_tax_modifier = 0.1
-	local_pop_assimilation_speed_modifier = 0.05
 	local_defensive = 0.1
 	local_country_civilization_value = 10
 	local_nobles_desired_pop_ratio = 0.05
@@ -2474,7 +1971,6 @@ senate_building = { #Senate House
 	local_happiness_for_same_culture_modifier = 0.04
 	local_nobles_desired_pop_ratio = 0.05
 	local_citizen_desired_pop_ratio = 0.1
-	local_pop_promotion_speed_modifier = 0.3
 	local_country_civilization_value = 8
 
 	max_amount = 1
@@ -2525,7 +2021,6 @@ senate_building = { #Senate House
 	}
 }
 royal_palace_building = { #Royal Palace
-	local_happiness_for_same_culture_modifier = 0.04
 	local_country_civilization_value = 10
 	local_nobles_desired_pop_ratio = 0.1
 	local_freemen_desired_pop_ratio = 0.05
@@ -2622,10 +2117,10 @@ local_forum_building = { #Provincial Legation
 	}
 }
 hill_fort = { #Tribal Settlement
-	local_tribesmen_happyness = 0.1
+	local_tribesmen_happyness = 0.2
 	local_tax_modifier = -0.5
 	local_tribesmen_desired_pop_ratio = 0.15
-	local_tribesmen_output = 0.2
+	local_tribesmen_output = 0.1
 	local_citizen_desired_pop_ratio = -0.1
 	local_unrest = 2
 	max_amount = 1
@@ -2685,8 +2180,8 @@ hill_fort = { #Tribal Settlement
 #religious - 1 for holy site 1 not
 sanctuary_building = { #Sanctuary
 	local_citizen_desired_pop_ratio = 0.05
-	local_nobles_desired_pop_ratio = 0.01
-	local_pop_conversion_speed_modifier = 0.2
+	local_nobles_desired_pop_ratio = 0.05
+	local_pop_conversion_speed_modifier = 0.1
 	local_country_civilization_value = 5
 
 	potential = {
@@ -2695,13 +2190,7 @@ sanctuary_building = { #Sanctuary
 			and = {
 				owner = {
 					is_tribal = no
-					nor = {
-						religion = roman_pantheon
-						religion = christianity
-						religion = buddhism
-					}
 				}
-				is_holy_site = yes
 			}
 			num_of_sanctuary_building > 0
 		}
@@ -2749,358 +2238,7 @@ sanctuary_building = { #Sanctuary
 		}
 	}
 }
-sacred_building = { #Sanctuary
-	local_pop_conversion_speed_modifier = 0.2
-	local_country_civilization_value = 5
 
-	potential = {
-		has_city_status = no
-		or = {
-			and = {
-				owner = {
-					is_tribal = no
-					nor = {
-						religion = christianity
-						religion = buddhism
-					}
-				}
-				is_holy_site = no
-			}
-			num_of_sacred_building > 0
-		}
-	}
-
-	allow = {
-		has_city_status = no
-		is_holy_site = no
-		owner = {
-			is_tribal = no
-			nor = {
-				religion = christianity
-				religion = buddhism
-			}
-		}
-	}
-
-	cost = 200
-	time = 730
-
-	max_amount = 1
-
-	modification_display = {
-		0 = local_base_trade_routes_modifier
-		1 = value_income
-	}
-
-	chance = {
-		modifier = {
-			is_holy_site = yes
-			add = 10
-		}
-		modifier = {
-			add = {
-				value = 5
-				multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_citizen
-			}
-		}
-	}
-}
-	#christian 
-christian_relic_building = { #Sanctuary
-	local_citizen_desired_pop_ratio = 0.05
-	local_nobles_desired_pop_ratio = 0.01
-	local_pop_conversion_speed_modifier = 0.2
-	local_country_civilization_value = 5
-
-	potential = {
-		has_city_status = no
-		or = {
-			and = {
-				owner = {
-					is_tribal = no
-					religion = christianity
-				}
-				is_holy_site = yes
-			}
-			num_of_christian_relic_building > 0
-		}
-	}
-
-	allow = {
-		has_city_status = no
-		is_holy_site = yes
-		owner = {
-			is_tribal = no
-			religion = christianity
-		}
-	}
-
-	cost = 200
-	time = 730
-
-	max_amount = 1
-
-	modification_display = {
-		0 = local_base_trade_routes_modifier
-		1 = value_income
-	}
-
-	chance = {
-		modifier = {
-			is_holy_site = yes
-			add = 10
-		}
-		modifier = {
-			add = {
-				value = 5
-				multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_citizen
-			}
-		}
-	}
-}
-monastery_building = { #Sanctuary
-	local_pop_conversion_speed_modifier = 0.2
-	local_country_civilization_value = 5
-
-	potential = {
-		has_city_status = no
-		or = {
-			and = {
-				owner = {
-					is_tribal = no
-					religion = christianity
-				}
-				is_holy_site = no
-			}
-			num_of_christian_relic_building > 0
-		}
-	}
-
-	allow = {
-		has_city_status = no
-		is_holy_site = no
-		owner = {
-			is_tribal = no
-			religion = christianity
-		}
-	}
-
-	cost = 200
-	time = 730
-
-	max_amount = 1
-
-	modification_display = {
-		0 = local_base_trade_routes_modifier
-		1 = value_income
-	}
-
-	chance = {
-		modifier = {
-			is_holy_site = yes
-			add = 10
-		}
-		modifier = {
-			add = {
-				value = 5
-				multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_citizen
-			}
-		}
-	}
-}
-	#buddhist/taoist
-stupa_settlement_building = { #
-	local_citizen_desired_pop_ratio = 0.05
-	local_nobles_desired_pop_ratio = 0.01
-	local_pop_conversion_speed_modifier = 0.2
-	local_country_civilization_value = 5
-
-	potential = {
-		has_city_status = no
-		or = {
-			and = {
-				owner = {
-					is_tribal = no
-					religion = buddhism
-				}
-				is_holy_site = yes
-			}
-			num_of_sacred_building > 0
-		}
-	}
-
-	allow = {
-		has_city_status = no
-		is_holy_site = yes
-		owner = {
-			is_tribal = no
-			religion = buddhism
-		}
-	}
-
-	cost = 200
-	time = 730
-
-	max_amount = 1
-
-	modification_display = {
-		0 = local_base_trade_routes_modifier
-		1 = value_income
-	}
-
-	chance = {
-		modifier = {
-			is_holy_site = yes
-			add = 10
-		}
-		modifier = {
-			add = {
-				value = 5
-				multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_citizen
-			}
-		}
-	}
-}
-vihara_building = { #monasftery
-	local_pop_conversion_speed_modifier = 0.2
-	local_country_civilization_value = 5
-
-	potential = {
-		has_city_status = no
-		or = {
-			and = {
-				owner = {
-					is_tribal = no
-					religion = buddhism
-				}
-				is_holy_site = no
-			}
-			num_of_sacred_building > 0
-		}
-	}
-
-	allow = {
-		has_city_status = no
-		is_holy_site = no
-		owner = {
-			is_tribal = no
-			religion = buddhism
-		}
-	}
-
-	cost = 200
-	time = 730
-
-	max_amount = 1
-
-	modification_display = {
-		0 = local_base_trade_routes_modifier
-		1 = value_income
-	}
-
-	chance = {
-		modifier = {
-			is_holy_site = yes
-			add = 10
-		}
-		modifier = {
-			add = {
-				value = 5
-				multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_citizen
-			}
-		}
-	}
-}
-#greek
-oracle_settlement_building = { #Sanctuary
-	local_citizen_desired_pop_ratio = 0.05
-	local_nobles_desired_pop_ratio = 0.01
-	local_pop_conversion_speed_modifier = 0.2
-	local_country_civilization_value = 5
-
-	potential = {
-		has_city_status = no
-		or = {
-			and = {
-				owner = {
-					is_tribal = no
-					religion = roman_pantheon
-				}
-				is_holy_site = yes
-			}
-			num_of_sacred_building > 0
-		}
-	}
-
-	allow = {
-		has_city_status = no
-		is_holy_site = yes
-		owner = {
-			is_tribal = no
-			religion = roman_pantheon
-		}
-	}
-
-	cost = 200
-	time = 730
-
-	max_amount = 1
-
-	modification_display = {
-		0 = local_base_trade_routes_modifier
-		1 = value_income
-	}
-
-	chance = {
-		modifier = {
-			is_holy_site = yes
-			add = 10
-		}
-		modifier = {
-			add = {
-				value = 5
-				multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_citizen
-			}
-		}
-	}
-}
-###
 ###########
 barracks_building = {
 	local_freemen_desired_pop_ratio = 0.3
@@ -3170,9 +2308,9 @@ barracks_building = {
 	}
 }
 crafts_workshop_building = {
-	local_citizen_desired_pop_ratio = 0.1
+	local_freemen_desired_pop_ratio = 0.1
 	local_country_civilization_value = 5
-	local_output_modifier = 0.05
+	local_output_modifier = 0.1
 	local_goods_from_slaves = -3
 
 	max_amount = 1
@@ -3475,7 +2613,7 @@ latifundia_building = { #Slave Estate
 }
 villa_building = {
 	local_goods_from_slaves = -5
-	local_nobles_desired_pop_ratio = 0.05
+	local_nobles_desired_pop_ratio = 0.1
 	local_nobles_happyness = 0.1
 	local_country_civilization_value = 8
 	local_research_points_modifier = 0.2
@@ -3687,9 +2825,8 @@ lumber_building = {
 #2 port building for all
 #3Well
 #city specific
-elders_building = { #3 Nobles and citizens
-	local_nobles_desired_pop_ratio = 0.05
-	local_citizen_desired_pop_ratio = 0.05
+elders_building = { 
+	local_nobles_desired_pop_ratio = 0.25
 	local_country_civilization_value = 5
 	local_monthly_civilization = 0.02
 	cost = 100
@@ -3717,10 +2854,8 @@ elders_building = { #3 Nobles and citizens
 	}
 }
 commune_building = { #4 freemen and citizens
-	local_population_capacity = 5
 	local_country_civilization_value = 5
-	local_freemen_desired_pop_ratio = 0.1
-	local_citizen_desired_pop_ratio = 0.05
+	local_freemen_desired_pop_ratio = 0.5
 	local_monthly_state_loyalty = 0.05
 	local_tax_modifier = 0.05
 	max_amount = 3
@@ -3780,8 +2915,6 @@ warrior_building = { #Sparring grounds 7 military
 }
 tribal_tax_building = { #12
 	local_tax_modifier = 0.1
-	local_pop_promotion_speed_modifier = 0.3
-	local_pop_demotion_speed_modifier = 0.3
 	local_pop_assimilation_speed_modifier = 0.2
 	local_country_civilization_value = 5
 	cost = 90
@@ -3983,7 +3116,7 @@ tribal_building = { #6 tribesmen
 	local_tribesmen_happyness = 0.08
 	local_tribesmen_output = 0.2
 	local_population_capacity_modifier = 0.1
-	local_tribesmen_desired_pop_ratio = 0.20
+	local_tribesmen_desired_pop_ratio = 0.3
 	cost = 80
 	time = 100
 	max_amount = 1
@@ -4096,7 +3229,6 @@ tribal_lumber_building = {
 }
 tribal_farm_building = { #tribal Farm
 	local_monthly_food_modifier = 0.4
-	local_freemen_desired_pop_ratio = 0.1
 	local_population_capacity_modifier = 0.25
 	local_population_growth = 0.075
 	local_country_civilization_value = 10
@@ -4230,7 +3362,7 @@ tribal_hunting_building = {#hunting camps
 }
 tribal_breeding_building = { #horse_breeder
 	local_monthly_food_modifier = -0.5
-	local_population_capacity_modifier = -0.1
+	local_population_capacity_modifier = -0.2
 	local_migration_speed_modifier = -0.3
 	base_resources = 1
 
