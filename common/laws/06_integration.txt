@@ -1,8 +1,7 @@
 ﻿republic_integration_laws = { 
 	potential = {
-		or = {
-			is_republic = yes
-		}
+		is_republic = yes
+		is_chinese_culture_group_trigger = no
 		nor = {
 			tag = CAR
 			tag = ROM
@@ -189,9 +188,8 @@ republic_integration_laws_rom = { # Integration Laws
 }
 monarchy_subject_laws = { 
 	potential = {
-		or = {
-			is_monarchy = yes
-		}
+		is_monarchy = yes
+		is_chinese_culture_group_trigger = no
 	}
 	humility_status_law = { 
 		allow = {
@@ -262,9 +260,8 @@ monarchy_subject_laws = {
 }
 chinese_subject_laws = { 
 	potential = {
-		or = {
-			is_monarchy = yes
-		}
+		is_chinese_culture_group_trigger = yes
+		is_tribal = no
 	}
 	chinese_warlord_integration = { 
 		allow = {
@@ -293,9 +290,8 @@ chinese_subject_laws = {
 	school_of_diplomacy = { #rights for foeginers
 		allow  = {
 			rank >= regional_power
-			not = = {
+			not = {
 				has_law = subject_mandate_of_heaven
-				has_law = mandate_lost
 			}
 		}
 		modifier = {

@@ -195,20 +195,19 @@ corruption_laws_rom = { # Assembly Endorsement
 monarchy_legitimacy_laws = { # Royal Council
 	potential = {
 		is_monarchy = yes
-		is_chinese_trigger = no
+		is_chinese_culture_group_trigger = no
 	}
 	renowned_lineage = { #renown lineage
 		modifier = {
-			monthly_legitimacy = 0.02
 			character_loyalty = 3
 			global_nobles_happyness = 0.03
 		}
 	}
 	monarchy_tribal_assembly = {
 		modifier = {
-			monthly_political_influence = 0.05
+			monthly_political_influence = -0.05
 			global_freemen_happyness = 0.04
-			monthly_corruption = -0.05
+			monthly_corruption = 0.02
 		}
 		#on_enact = {
 		#	custom_tooltip = "enables_tribal_assembly_tt"
@@ -216,12 +215,13 @@ monarchy_legitimacy_laws = { # Royal Council
 	}
 	assembly_law_4_mon = { #religious assembly
 		modifier = {
-			monthly_legitimacy = 0.033
-			omen_power = 0.2
+			monthly_legitimacy = 0.03
+			character_loyalty = -5
+			omen_power = 0.1
 		}
-		on_enact = {
-			custom_tooltip = "enables_curiate_assembly_tt"
-		}
+		#on_enact = {
+		#	custom_tooltip = "enables_curiate_assembly_tt"
+		#}
 	}
 	scholarly_pursuits_law = { #patronize schoarls
 		allow = {
@@ -230,26 +230,25 @@ monarchy_legitimacy_laws = { # Royal Council
 		modifier = {
 			research_points_modifier = 0.2
 			global_citizen_happyness = 0.06
-			global_tax_modifier = -0.2
+			global_tax_modifier = -0.1
 		}
 	}
 	royal_bureaucracy = { 
 		modifier = {
 			monthly_legitimacy = 0.05
-			character_loyalty = 2
+			monthly_corruption = 0.03
 		}
 	}
 }
 chinese_legitimacy_laws = { # Royal Council
 	potential = {
-		is_monarchy = yes
-		is_chinese_trigger = yes
+		is_chinese_culture_group_trigger = yes
+		is_tribal = no
 	}
 	chinese_royal_familiy = { #renown lineage
 		modifier = {
 			monthly_legitimacy = 0.02
-			character_loyalty = 3
-			global_freemen_happyness = 0.02
+			character_loyalty = -3
 		}
 	}
 	zhou_royalty = {
@@ -262,11 +261,11 @@ chinese_legitimacy_laws = { # Royal Council
 		#	custom_tooltip = "enables_tribal_assembly_tt"
 		#}
 	}
-	qin_legalism = { #religious assembly
+	qin_legalism = { 
 		modifier = {
 			monthly_legitimacy = 0.033
-			monthly_tyranny = 0.03
-			monthly_corruption = -0.03
+			monthly_tyranny = 0.033
+			monthly_corruption = -0.02
 		}
 	}
 	confucian_scholars = { #patronize schoarls
@@ -275,15 +274,18 @@ chinese_legitimacy_laws = { # Royal Council
 		}
 		modifier = {
 			research_points_modifier = 0.2
-			global_citizen_output = 0.06
-			global_tax_modifier = -0.2
+			global_citizen_output = -0.06
+			global_tax_modifier = -0.1
 		}
 	}
 	chinese_bureaucracy = { 
 		modifier = {
 			monthly_legitimacy = 0.05
-			global_pop_promotion_speed_modifier = 0.2
+			monthly_wage_modifier = 0.1
 			monthly_character_experience_decay = -0.1
+		}
+		allow = {
+			civic_tech > 20
 		}
 	}
 }
