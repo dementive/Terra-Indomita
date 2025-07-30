@@ -31,14 +31,22 @@
 
 	north_african_army_path_end_bonus = { ###hard bargain Aftica 1B
 		modifier = { 
-			mercenary_land_maintenance_cost = -0.1
+			mercenary_land_maintenance_cost = -0.15
 		}
 		icon = north_african_army_path_end_bonus
+		on_activate = {
+			custom_tooltip = "create_high_martial_rising_star"
+			hidden_effect = {
+				create_character = {
+					add_martial = 8
+					add_trait = steadfast
+				}
+			}
+		}
 		requires = {}
 	}
 	north_african_army_path_1 = { ###silled recruiter 2B
 		modifier = { 
-			mercenary_land_maintenance_cost = -0.05
 			recruit_mercenary_cost_modifier = -0.25
 		}
 		icon = north_african_army_path_1
@@ -56,6 +64,7 @@
 	north_african_army_path_7 = { ###devastationg charge
 		modifier = { 
 			warelephant_offensive = 0.1
+			warelephant_defensive = 0.1
 		}
 		icon = north_african_army_path_7
 		requires = { north_african_army_path_5 }
@@ -63,6 +72,7 @@
 	north_african_army_path_5 = { ###North Aftican elephatn 3AA
 		modifier = { 
 			warelephant_maintenance_cost = -0.15
+			warelephant_cost = -0.2
 		}
 		icon = north_african_army_path_5
 		requires = {north_african_army_path_1}
@@ -71,20 +81,11 @@
 		modifier = { 
 			spearmen_offensive = 0.1
 			spearmen_discipline = 0.1
-			heavy_cavalry_defensive = 0.1
+			spearmen_defensive = 0.1
 		}
 		enable_tactic = greek_phalanx
 		icon = north_african_army_path_3
 		requires = { north_african_army_path_end_bonus }
-		on_activate = {
-			custom_tooltip = "create_high_martial_rising_star"
-			hidden_effect = {
-				create_character = {
-					add_martial = 8
-					add_trait = steadfast
-				}
-			}
-		}
 	}
 	punic_path_1 = { #libyo-phoneicsa
 		modifier = { 
@@ -123,6 +124,7 @@
 	north_african_naval_path_2 = { ###North Aftica 2AC
 		modifier = { 
 			heavy_infantry_defensive = 0.1
+			heavy_infantry_offensive = 0.1
 		}
 		on_activate = {
 			ordered_owned_province = {
@@ -177,7 +179,7 @@
 	north_african_latin_enable = { ###North Aftica 2A
 		modifier = {
 			global_freemen_output = 0.05
-			axemen_discipline = 0.05
+			heavy_infantry_discipline = 0.05
 		}
 		icon = latin_tribal_path_end_bonus
 		requires = { north_african_naval_path_1 }	
