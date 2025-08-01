@@ -44,7 +44,7 @@
 			add_innovation = 3
 		}
 		
-		requires = {  }
+		requires = { greek_philosophy_start_bonus }
 		icon = greek_philosophy_start_bonus
 	}
 
@@ -54,7 +54,7 @@
 			spearmen_defensive = 0.05 
 		}
 		enable_tactic = greek_phalanx
-		requires = { greek_start }
+		requires = {  }
 		icon = greek_philosophy_start_bonus 
 		on_activate = {
 			add_innovation = 1
@@ -75,7 +75,7 @@
 			light_infantry_morale = 0.05
 			heavy_infantry_morale = 0.05
 		}
-		requires = { greek_philosophy_start_bonus }
+		requires = { greek_start }
 		icon = greek_seleucid_path_6
 	}
 	greek_antigonid_path_6 = { #specialist infantt
@@ -84,7 +84,7 @@
 			archers_discipline = 0.05
 			heavy_infantry_discipline = 0.05
 		} 
-		requires = { greek_philosophy_start_bonus } 
+		requires = { greek_start } 
 		icon = greek_antigonid_path_6
 	}
 	greek_antigonid_path_5 = { #peltast
@@ -119,7 +119,10 @@
 			horse_skirmishers_offensive = 0.1
 		}
 		allow = {
-			primary_culture = italiotian
+			or = {
+				primary_culture = italiotian
+				owns_or_subject_owns = 56
+			}
 		}
 		requires = { greek_seleucid_path_7 }
 		icon = greek_states_path_2
@@ -255,6 +258,8 @@
 		icon = levantine_philosophy_start_bonus
 	}
 
+
+
 	greek_antigonid_path_1 = { #great campaign
 		modifier = { 
 			global_cohort_start_experience = 5
@@ -262,14 +267,7 @@
 			recruit_mercenary_cost_modifier = -0.15
 		}
 		allow = {
-			or = {
-				has_variable = diadochi_enable
-				heritage = antigonid_heritage
-				heritage = ptolemys_heritage
-				heritage = cassanders_heritage
-				heritage = seleucus_heritage
-				heritage = thrace_heritage
-			}
+			
 		}
 		on_activate = {
 			custom_tooltip = "create_high_martial_rising_star"
@@ -298,6 +296,15 @@
 	}
 	greek_antigonid_path_2_octere = { #forgerd for war
 		modifier = { 
+		}
+		allow = {
+			or = {
+				heritage = antigonid_heritage
+				heritage = ptolemys_heritage
+				heritage = cassanders_heritage
+				heritage = seleucus_heritage
+				heritage = thrace_heritage
+			}
 		}
 		allow_unit_type = octere
 		requires = { greek_antigonid_path_1 }
@@ -343,6 +350,15 @@
 		modifier = { 
 			heavy_infantry_offensive = 0.1
 			pikemen_offensive = 0.1
+		}
+		allow = {
+			or = {
+				heritage = antigonid_heritage
+				heritage = ptolemys_heritage
+				heritage = cassanders_heritage
+				heritage = seleucus_heritage
+				heritage = thrace_heritage
+			}
 		}
 		on_activate = {
 			custom_tooltip = "create_high_martial_rising_star"
@@ -408,6 +424,15 @@
 			heavy_cavalry_offensive = 0.05
 			pikemen_morale = 0.05
 		}
+		allow = {
+			or = {
+				heritage = antigonid_heritage
+				heritage = ptolemys_heritage
+				heritage = cassanders_heritage
+				heritage = seleucus_heritage
+				heritage = thrace_heritage
+			}
+		}
 		requires = { greek_states_path_4 }
 		icon = persian_philosophy_start_bonus
 	}
@@ -437,6 +462,15 @@
 		modifier = {
 			archers_offensive = 0.1
 			horse_skirmishers_discipline = 0.1
+		}
+		allow = {
+			or = {
+				heritage = antigonid_heritage
+				heritage = ptolemys_heritage
+				heritage = cassanders_heritage
+				heritage = seleucus_heritage
+				heritage = thrace_heritage
+			}
 		}
 		enable_tactic = cavalry_skirmish
 		icon = greek_antigonid_path_3
@@ -482,6 +516,9 @@
 			pikemen_offensive = -0.2
 			heavy_infantry_discipline = 0.1
 		}
+		allow = {
+			current_date > 500
+		}
 		enable_tactic triplex_acies
 		icon = levantine_greco_path_end_bonus
 		requires = {greek_seleucid_path_5 greek_seleucid_path_end_bonus}
@@ -514,11 +551,12 @@
 
 
 
-#greek_seleucid_path_2 = {
+#greek_seleucid_path_2 = { #modern warfare
 #	modifier = { 
-#		recruit_mercenary_cost_modifier = -0.15
-#		land_morale_modifier = 0.05
+#		pikemen_offensive = 0.1 
+#		pikemen_discipline = 0.05 
 #	}
+#	requires = {greek_philosophy_start_bonus}
 #	potential = {}
 #	icon = greek_seleucid_path_2
 #	
