@@ -595,15 +595,20 @@
 				owner = c:MSY
 			}
         }
-
+        duration = 365
+        bypass = {
+            OR = {
+                c:MSY = { has_land = no }            }
+        }
         allow = {
-            hidden:c:MSY = {
-                is_subject_of = scope:mission_country
+            or = {
+                hidden:c:MSY = {
+                    is_subject_of = scope:mission_country
+                }
+                NOT = { has_truce_with = c:MSY }
             }
-            NOT = { has_truce_with = c:MSY }
         }
 
-        duration = 365
 
         monthly_on_action = carthaginian_africa_expansion_unruly_subject_pulse
 
@@ -680,11 +685,6 @@
             }
         }
 		
-		bypass = {
-			c:MSY = {
-				has_land = no
-			}
-		}
     }
 
     carthaginian_africa_expansion_massylian_hinterland = { # The Massylian Hinterlands
