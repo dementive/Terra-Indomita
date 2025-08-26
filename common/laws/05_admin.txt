@@ -1,67 +1,5 @@
-﻿administration_laws_rep = {
-	potential = {
-		is_republic = yes
-		not = {
-			tag = ROM}
-	}
-
-	administration_law_1_rep = { #
-		modifier = {
-			governor_loyalty  = -10
-			monthly_governor_wage = -0.2
-			global_monthly_state_loyalty = -0.05
-		}
-		allow = {
-			rank <= local_power
-		}
-	}
-	administration_law_2_rep = { #decentralized burecracy 
-		modifier = {
-			governor_loyalty = 10
-			global_unrest = -1
-			change_governor_policy_cost_modifier = 1
-		}
-		allow = {
-			rank >= local_power
-		}
-	}
-	administration_law_3_rep = { #centralize beurecracy
-		modifier = {
-			monthly_corruption = 0.03
-			global_monthly_state_loyalty = 0.04
-			monthly_wage_modifier = 0.1
-		}
-		allow = { 
-			civic_tech > 4
-		}
-	}
-	administration_law_4_rep = { #public notaries
-		modifier = {
-			global_monthly_state_loyalty = 0.08
-			monthly_governor_wage = 0.1
-			governor_loyalty = 10
-		}
-		allow = {
-			civic_tech > 8
-		}
-	}
-	administration_law_5_rep = { #Military oversight
-		modifier = {
-			global_unrest = -5
-			monthly_tyranny = 0.1
-			army_maintenance_cost = 0.15
-		}
-		allow = {
-			or = {
-				has_law = administration_law_3_rep
-				has_law = administration_law_4_rep
-			}
-		}
-	}
-}
-administration_laws_rom = {
+﻿administration_laws_rom = {
 	potential= {
-		is_republic = yes
 		tag = ROM
 	}
 	administration_law_1_rom = { #Consular imperium
@@ -96,8 +34,8 @@ administration_laws_rom = {
 	}
 	administration_law_4_rom = { #lex provincia
 		modifier = {
-			global_monthly_state_loyalty = 0.08
-			monthly_governor_wage = 0.1
+			global_monthly_state_loyalty = 0.06
+			global_tax_modifier = -0.1
 			governor_loyalty = 10
 		}
 		allow = {
@@ -109,39 +47,37 @@ administration_laws_rom = {
 		modifier = {
 			global_unrest = -5
 			monthly_tyranny = 0.1
-			army_maintenance_cost = 0.15
+			army_maintenance_cost = 0.1
 		}
 		allow = {
 			or = {
 				has_law = administration_law_3_rom
 				has_law = administration_law_4_rom
 			}
+			has_legion_trigger = yes
 		}
 	}
 }
 monarchy_contract_law = {
 	potential = {
-		is_chinese_culture_group_trigger = no
-		is_monarchy = yes
-	}
-	no_contract_law = { #autonomous_satrap
-		modifier = {
-			governor_loyalty  = -10
-			global_freemen_happyness = happiness_large_svalue
-			global_monthly_state_loyalty = -0.05
+		is_chinese_trigger = no
+		is_tribal = no
+		not = {
+			tag = ROM
 		}
-		allow = {
-			rank <= local_power
+	}
+	no_contract_law = { 
+		modifier = {
+			monthly_governor_wage = -0.2
+			global_monthly_state_loyalty = -0.05
+			governor_loyalty = -5
 		}
 	}
 	trusted_beyond_measure = {
-		allow = {
-			rank >= local_power
-		}
 		modifier = {
 			governor_loyalty = 5
 			change_governor_policy_cost_modifier = 1
-			monthly_political_influence_modifier = 0.05
+			
 		}
 	}
 	centralized_bureaucracy = {
@@ -149,16 +85,16 @@ monarchy_contract_law = {
 			civic_tech >= 4
 		}
 		modifier = {
-			monthly_wage_modifier = 0.1
+			change_governor_policy_cost_modifier = -0.5
 			global_monthly_state_loyalty = 0.04
-			monthly_corruption = 0.05
+			global_tax_modifier = -0.1
 		}
 	}
 	public_notaries_law = { #public notaries
 		modifier = {
-			monthly_corruption = -0.03
+			global_tax_modifier = -0.2
 			global_monthly_state_loyalty = 0.08
-			monthly_governor_wage = 0.1
+			governor_loyalty = 10
 		}
 		allow = {
 			civic_tech >= 8
@@ -168,7 +104,7 @@ monarchy_contract_law = {
 		modifier = {
 			monthly_tyranny = 0.1
 			global_unrest = -5
-			army_maintenance_cost = 0.15
+			army_maintenance_cost = 0.1
 		}
 		allow = {
 			or = {
@@ -176,62 +112,58 @@ monarchy_contract_law = {
 				invention = polycentric_administration_inv
 			}
 			civic_tech >= 15
+			has_legion_trigger = yes
 		}
 	}
 }
-chinese_administration = {
+chinese_administration_laws = {
 	potential = {
-		is_chinese_culture_group_trigger = yes
+		is_chinese_trigger = yes
 		is_tribal = no
 	}
 	
-	chinese_warlord = { #autonomous_satrap
+	zhou_feudalism = { 
 		modifier = {
-			governor_loyalty  = -10
-			global_freemen_happyness = happiness_large_svalue
+			governor_loyalty  = -5
 			global_monthly_state_loyalty = -0.05
-		}
-		allow = {
-			rank <= local_power
+			global_nobles_happyness = 0.08
 		}
 	}
-	zhou_feudalism = {
+	county_and_commandery_law = {
+		modifier = {
+			global_nobles_happyness = -0.08
+			global_monthly_state_loyalty = 0.04
+			global_tax_modifier = -0.05
+		}
+	}
+	qin_administration = {
+		allow = {
+			tag = qin
+		}
+		modifier = {
+			monthly_tyranny = 0.025
+			monthly_corruption = -0.05
+			global_unrest = -5
+		}
+	}
+	han_inspectors = { #
 		modifier = {
 			governor_loyalty = 10
-			change_governor_policy_cost_modifier = 1
-			monthly_corruption = 0.03
-		}
-	}
-	prefecture_county = {
-		allow = {
-			rank >= regional_power 
-		}
-		modifier = {
-			monthly_governor_wage = 0.1
-			global_unrest = -1
-			global_monthly_state_loyalty = 0.04
-		}
-	}
-
-	minister_lord = { #
-		modifier = {
-			global_monthly_state_loyalty = 0.06
-			governor_loyalty = 5
-			monthly_wage_modifier = 0.05
+			monthly_corruption = -0.03
+			global_tax_modifier = -0.15
 		}
 		allow = {
-			rank >= major_power 
+			civic_tech >= 10
 		}
 	}
 	legendary_bureaucracy  = { 
 		modifier = {
-			global_monthly_state_loyalty = 0.08
-			global_citizen_output = 0.04
-			monthly_wage_modifier = 0.1
-			global_monthly_civilization = 0.02
+			global_monthly_state_loyalty = 0.1
+			monthly_corruption = -0.05
+			global_tax_modifier = -0.25
 		}
 		allow = {
-			civic_tech > 15
+			civic_tech > 20
 		}
 	}
 }
@@ -243,13 +175,13 @@ tribal_centralized_laws = {
 	tribal_centralized_laws_1 = { 
 		modifier = {
 			global_unrest = 1
-			global_monthly_state_loyalty = -0.1
+			global_monthly_state_loyalty = -0.05
 		}
 	}
 
 	tribal_centralized_laws_2 = {
 		modifier = {
-			global_monthly_state_loyalty = 0.05
+			global_unrest = -2
 			monthly_centralization = -0.05
 			governor_loyalty = -5
 		}
@@ -260,7 +192,7 @@ tribal_centralized_laws = {
 		}
 		modifier = {
 			monthly_centralization = 0.05
-			monthly_political_influence_modifier = -0.1
+			monthly_political_influence_modifier = -0.2
 			global_monthly_state_loyalty = 0.05
 		}
 	}

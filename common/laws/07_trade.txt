@@ -1,4 +1,4 @@
-﻿monarchy_citizen_law = {
+﻿trade_laws = {
 	potential = {
 		is_tribal = no
 		is_chinese_culture_group_trigger = no
@@ -27,11 +27,17 @@
 			global_import_commerce_modifier = -2
 			global_citizen_happyness = 0.08
 		}
+		allow = {
+			invention = capital_trade_inv_3
+		}
 	}
 	trade_law_4 = {#state monopolies
 		modifier = {
 			global_commerce_modifier = 0.1
 			global_state_trade_routes = 0.1
+		}
+		allow = {
+			invention = state_trade_inv_2
 		}
 	}
 }
@@ -104,9 +110,7 @@ chinese_trade_law = {
 	}
 	chinese_trade_law_1 = { #fuck the merchants
 		modifier = {
-			global_import_commerce_modifier = 1
-			global_export_commerce_modifier = -1
-			global_citizen_happyness = -0.06
+			global_commerce_modifier = -0.1
 		}
 	}
 	chinese_monopolies = { #state nmoneopoloies
@@ -121,13 +125,13 @@ chinese_trade_law = {
 	isolationism_law = { #isolationism
 		modifier = {
 			global_commerce_modifier = -0.33
-			stability_monthly_change = 0.033
+			army_maintenance_cost = -0.1
+			build_cost = -0.1
 		}
 	}
-	chinese_tribute = {#r
+	han_merchants = {#r
 		modifier = {
-			global_export_commerce_modifier = -1
-			tribute_income_modifier = 2
+			global_citizen_happyness = 0.04
 		}
 	}
 }

@@ -9,7 +9,7 @@
 	
 	republic_corruption_2 = { #traditional system
 		modifier = {
-			monthly_corruption = -0.05
+			monthly_corruption = -0.05`
 		}
 		#on_enact = {
 		#	custom_tooltip = "enables_tribal_assembly_tt"
@@ -64,7 +64,6 @@
 }
 corruption_car_laws = { # Punic Assembly Endorsement
 	potential = {
-		is_republic = yes
 		tag = CAR
 	}
 	republic_corruption_car_2 = { 
@@ -195,19 +194,18 @@ corruption_laws_rom = { # Assembly Endorsement
 monarchy_legitimacy_laws = { # Royal Council
 	potential = {
 		is_monarchy = yes
-		is_chinese_culture_group_trigger = no
+		is_chinese_trigger = no
 	}
 	renowned_lineage = { #renown lineage
 		modifier = {
 			character_loyalty = 3
-			global_nobles_happyness = 0.03
+			monthly_legitimacy = 0.02
 		}
 	}
-	monarchy_tribal_assembly = {
+	monarchy_tribal_assembly = { #noble advisors
 		modifier = {
-			monthly_political_influence = -0.1
-			global_freemen_happyness = 0.04
-			monthly_legitimacy = 0.03
+			monthly_political_influence = 0.1
+			global_nobles_happyness = 0.06
 		}
 		#on_enact = {
 		#	custom_tooltip = "enables_tribal_assembly_tt"
@@ -215,8 +213,7 @@ monarchy_legitimacy_laws = { # Royal Council
 	}
 	assembly_law_4_mon = { #religious assembly
 		modifier = {
-			monthly_legitimacy = 0.03
-			character_loyalty = -5
+			stability_monthly_change = 0.02
 			omen_power = 0.1
 		}
 		#on_enact = {
@@ -233,10 +230,9 @@ monarchy_legitimacy_laws = { # Royal Council
 			global_tax_modifier = -0.1
 		}
 	}
-	royal_bureaucracy = { 
+	royal_bureaucracy = { #might of majesty
 		modifier = {
-			monthly_legitimacy = 0.05
-			monthly_corruption = 0.03
+			monthly_legitimacy = 0.2
 		}
 		allow = {
 			rank >= major_power
@@ -245,33 +241,24 @@ monarchy_legitimacy_laws = { # Royal Council
 }
 chinese_legitimacy_laws = { # Royal Council
 	potential = {
-		is_chinese_culture_group_trigger = yes
+		is_chinese_trigger = yes
 		is_tribal = no
 	}
-	chinese_royal_familiy = { #renown lineage
+	aristorcracy_law = { #renown lineage
 		modifier = {
-			monthly_legitimacy = 0.02
-			character_loyalty = -3
-		}
-	}
-	zhou_royalty = {
-		modifier = {
-			monthly_political_influence = 0.05
 			global_nobles_happyness = 0.04
+			character_loyalty = -5
 			monthly_corruption = 0.05
 		}
-		#on_enact = {
-		#	custom_tooltip = "enables_tribal_assembly_tt"
-		#}
 	}
-	qin_legalism = { 
+	proto_legalist_law = { 
 		modifier = {
 			monthly_legitimacy = 0.033
 			monthly_tyranny = 0.033
 			monthly_corruption = -0.02
 		}
 	}
-	confucian_scholars = { #patronize schoarls
+	confucian_scholars_law = { #patronize schoarls
 		allow = {
 			invention = scientific_patronage_inv
 		}
@@ -281,15 +268,25 @@ chinese_legitimacy_laws = { # Royal Council
 			global_tax_modifier = -0.1
 		}
 	}
-	chinese_bureaucracy = { 
+	minister_lord_law = { 
 		modifier = {
-			monthly_legitimacy = 0.05
+			monthly_legitimacy = 0.1
+			monthly_corruption = -0.05
 			monthly_wage_modifier = 0.1
-			monthly_character_experience_decay = -0.1
 		}
 		allow = {
-			civic_tech > 20
+			rank = 5
+			has_aggressive_expansion < 20
+			stability > 40
 		}
+	}
+	han_court_law = {
+		modifier= {
+			monthly_legitimacy = 0.1
+			monthly_political_influence_modifier = 0.1
+			monthly_corruption = 0.02
+		}
+		oratory_tech > 15
 	}
 }
 tribal_council_laws = {

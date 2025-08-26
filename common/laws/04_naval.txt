@@ -1,6 +1,6 @@
 ﻿republican_mediterranean_laws = {
 	potential = {
-		is_chinese_culture_group_trigger = no
+		is_chinese_trigger = no
 		is_republic = yes
 		NOR = {
 			tag = ROM
@@ -19,6 +19,7 @@
 		modifier = {
 			ship_cost = -0.05
 			global_ship_recruit_speed = 0.2
+			war_exhaustion = 0.02
 		}
 	}
 	republican_mediterranean_3 = {#shrewd business tactics
@@ -212,10 +213,10 @@ republican_mediterranean_car_laws = {
 			num_of_ports >= 1
 		}
 		modifier = {
-			global_commerce_modifier = 0.25
-			naval_damage_done = -0.1
-			naval_morale_modifier = -0.1
-			ship_cost = 0.1
+			global_commerce_modifier = 0.1
+			naval_damage_done = -0.2
+			naval_morale_modifier = -0.2
+			ship_cost = 0.2
 		}
 	}
 	republican_mediterranean_car_3 = { #shrewd trade tactics
@@ -224,7 +225,7 @@ republican_mediterranean_car_laws = {
 		}
 		modifier = {
 			price_state_investment_oratory_cost_modifier = -0.1
-			global_commerce_modifier = 0.2
+			mercenary_naval_maintenance_cost = -0.2
 		}
 		on_enact = {
 			remove_variable = root_out_pirates
@@ -289,7 +290,7 @@ republican_mediterranean_car_laws = {
 monarchy_maritime_laws = {
 	potential = {
 		is_monarchy = yes
-		is_chinese_culture_group_trigger = no
+		is_chinese_trigger = no
 		nor = {
 			tag = CAR
 			tag = ROM
@@ -302,7 +303,8 @@ monarchy_maritime_laws = {
 	}
 	paid_crews_law = {#shipbuilding initiative
 		modifier = {
-			ship_cost = -0.05
+			ship_cost = -0.1
+			war_exhaustion = 0.04
 			global_ship_recruit_speed = 0.2
 		}
 	}
@@ -376,13 +378,21 @@ monarchy_maritime_laws = {
 }
 chinese_maritime_laws = {
 	potential = {
-		is_chinese_culture_group_trigger = yes
+		is_chinese_trigger = yes
 		is_tribal = no
 	}
 	chinese_naval_1 = { #slave oarsmen
 		modifier = {
 			trireme_offensive = 0.05
-			ship_cost = -0.05
+			ship_cost = 0.05
+		}
+	}
+	chinese_naval_3 = { #river outposts
+		allow  = {
+			num_of_ports >= 1
+		}
+		modifier = {
+			port_building_cost = -0.2
 		}
 	}
 	chinese_free_ports_monarchy_law = {#shrewd business tactics
@@ -426,7 +436,6 @@ chinese_maritime_laws = {
 			mercenary_naval_maintenance_cost = -0.1
 		}
 	}
-	
 	chinese_antipiracy_edict = { #anti priary
 		allow = {
 			num_of_ports >= 1

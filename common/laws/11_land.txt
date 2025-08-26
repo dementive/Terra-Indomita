@@ -37,14 +37,13 @@
 			holding_income_modifier = 0.2
 		}
 	}
-	republican_land_reform_4 = {#extensive land reform -- part of even chain to move around freemen back to the settlements, unable to unlock any other law for a yearand then automatically switches to next law
-		
+	republican_land_reform_4 = {
 		allow = {
 			civic_tech >= 11
 		#	has_variable = land_reform
 		}
 		modifier = {
-			global_migration_speed = 0.2
+			global_migration_speed = 2
 			global_freemen_desired_pop_ratio = 0.2
 			global_freemen_city_desired_pop_ratio = -0.2
 			global_nobles_happyness = -0.08
@@ -54,13 +53,12 @@
 		modifier = {
 			global_freemen_desired_pop_ratio = 0.2
 			global_freemen_city_desired_pop_ratio = -0.2
-			#global_proles_city_desired_pop_ratio = -0.1
 			happiness_for_same_culture_modifier = 0.04
 			global_nobles_happyness = -0.04
 		}
 		allow = {
 			civic_tech >= 12
-		#	has_variable = land_reform_finsihed
+			has_law = republican_land_reform_4
 		}
 	}
 }
@@ -106,7 +104,6 @@ republican_land_reforms_car = { # Carthage Land Reforms
 		modifier = {
 			global_freemen_desired_pop_ratio = 0.2
 			global_freemen_city_desired_pop_ratio = -0.2
-			#global_proles_city_desired_pop_ratio = -0.1
 			happiness_for_same_culture_modifier = 0.04
 			global_nobles_happyness = -0.04
 		}
@@ -163,8 +160,7 @@ republican_land_reforms_rom = { # Land Reforms
 		modifier = {
 			global_freemen_desired_pop_ratio = 0.2
 			global_freemen_city_desired_pop_ratio = -0.2
-			global_slaves_desired_pop_ratio = -0.2
-			global_slaves_city_desired_pop_ratio = 0.1
+			global_migration_speed = 2
 		}
 
 		allow = {
@@ -229,7 +225,7 @@ monarchy_economic_law = {
 	}
 	land_law_4_mon = {#extensive land reform -- part of even chain to move around freemen back to the settlements, unable to unlock any other law for a yearand then automatically switches to next law
 		modifier = {
-			global_migration_speed = 0.2
+			global_migration_speed = 2
 			global_freemen_desired_pop_ratio = 0.2
 			global_freemen_city_desired_pop_ratio = -0.2
 			global_nobles_happyness = -0.08
@@ -242,12 +238,12 @@ monarchy_economic_law = {
 		modifier = {
 			global_freemen_desired_pop_ratio = 0.2
 			global_freemen_city_desired_pop_ratio = -0.2
-			#global_proles_city_desired_pop_ratio = -0.1
 			happiness_for_same_culture_modifier = 0.04
 			global_nobles_happyness = -0.04
 		}
 		allow = {
 			civic_tech >= 12
+			has_law = land_law_4_mon
 		}
 	}
 }
@@ -259,19 +255,32 @@ chinese_land_refoms = {
 	zhou_system = { #aristocraic dominacne
 		modifier = {
 			global_nobles_happyness = 0.06
-			global_slaves_desired_pop_ratio = 0.1
+			global_slaves_desired_pop_ratio = 0.15
 			holding_income_modifier = 0.2
 		}
 	}
-
+	legalist_land_reform = {#
+		modifier = {
+			global_migration_speed = 2
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_nobles_happyness = -0.12
+		}
+	}
 	qin_system = {#centrlaized legalist land policiies
 		modifier = {
-			army_maintenance_cost = -0.05
-			global_freemen_desired_pop_ratio = 0.15
+			global_monthly_food_modifier = 0.05
+			global_freemen_desired_pop_ratio = 0.3
 			global_freemen_city_desired_pop_ratio = -0.15
 		}
 		allow = {
-			civic_tech >= 7
+			or = {
+				and = {
+					has_law = legalist_land_reform
+					civic_tech >= 6
+				}
+				tag = QIN
+			}
 		}
 	}
 	han_system = {#well field system
@@ -281,32 +290,9 @@ chinese_land_refoms = {
 			global_freemen_desired_pop_ratio = 0.1
 			global_freemen_city_desired_pop_ratio = -0.1
 		}
-		allow = {civic_tech >= 7}
 	}
-	land_reform = {#extensive land reform -- part of even chain to move around freemen back to the settlements, unable to unlock any other law for a yearand then automatically switches to next law
-		modifier = {
-			global_migration_speed = 0.2
-			global_freemen_desired_pop_ratio = 0.2
-			global_freemen_city_desired_pop_ratio = -0.2
-			global_nobles_happyness = -0.08
-		}
-		allow = {
-			civic_tech >= 11
-		}
-	}
-	true_equal_field_system = {
-		modifier = {
-			global_freemen_desired_pop_ratio = 0.33
-			global_freemen_city_desired_pop_ratio = -0.2
-			#global_proles_city_desired_pop_ratio = -0.1
-			happiness_for_same_culture_modifier = 0.04
-			global_nobles_happyness = -0.04
-		}
-		allow = {
-			civic_tech >= 12
-		}
-	}
-}
+}	
+
 tribal_domestic_laws = {
 	potential = {
 		is_tribal = yes

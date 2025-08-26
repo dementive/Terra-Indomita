@@ -7,34 +7,20 @@
 			tag = ROM
 		}
 	}
-	judicial_law_1_rep = {  #none
-		modifier = { 
-		
-		}
-	}
 	judicial_law_2_rep = {  #official judges
 		modifier = { 
-			global_citizen_happyness = 0.04
+			global_citizen_happyness = 0.02
+			court_building_cost = -0.1
 		}
 		allow = {
-			oratory_tech >= 4
-			civic_tech >= 5
-		}
-	}
-	judicial_law_3_rep = {  #official juries
-		modifier = { 
-			global_citizen_happyness = 0.04
-			court_building_cost = -0.05
-		}
-		allow = {
-			oratory_tech >= 6
+			oratory_tech >= 2
 
 		}
 	}
-	judicial_law_4_rep = { # rights of appeal
+	judicial_law_3_rep = { # rights of appeal
 		modifier = { 
 			global_citizen_happyness = 0.06
-			monthly_tyranny = -0.02
+			monthly_corruption = -0.03
 		}
 		allow = {
 			oratory_tech >= 10
@@ -43,10 +29,11 @@
 	}
 	judicial_law_5_rep = {  #established law code
 		modifier = { 
-			happiness_for_same_culture_modifier = 0.04
+			happiness_for_same_culture_modifier = 0.02
+			monthly_tyranny = -0.03
 		}
 		allow = {
-			oratory_tech >= 14
+			oratory_tech >= 20
 
 		}
 	}
@@ -61,15 +48,7 @@ judicial_laws_rom = {
 	lex_aternia = {  #lex aternia tarperiaa #set maximumfines
 		modifier = { 
 			global_tax_modifier = 0.05
-		}
-	}
-	judicial_law_2_rom = {  #Lex Aquilia compensation
-		modifier = { 
-			global_citizen_happyness = 0.05
-		}
-		allow = {
-			oratory_tech >= 4
-			civic_tech >= 5
+			monthly_corruption = -0.02
 		}
 	}
 	lex_porcia = { #lex porcia rights of appea
@@ -78,24 +57,14 @@ judicial_laws_rom = {
 			monthly_tyranny = -0.033
 		}
 		allow = {
-			oratory_tech >= 7
+			oratory_tech >= 8
 
 		}
 	}
-	judicial_law_3_rom = {  #lex Cassia tabellaria (secfet ballots injury decisions)
-		modifier = { 
-			stability_monthly_change = 0.02
-			court_building_cost = -0.05
-		}
-		allow = {
-			oratory_tech >= 10
-
-		}
-	}
-	
 	judicial_law_5_rom = {  #lex aurelia jury reform
 		modifier = { 
-			happiness_for_same_culture_modifier = 0.04
+			happiness_for_same_culture_modifier = 0.02
+			stability_monthly_change = 0.02
 		}
 		allow = {
 			oratory_tech >= 14
@@ -109,21 +78,6 @@ judicial_laws_mon = {
 		is_chinese_culture_group_trigger = no
 	}
 
-	judicial_law_1_mon = {  #NONE
-		modifier = { 
-		}
-	}
-	
-	judicial_law_2_mon = {  #local_courts
-		modifier = { 
-			happiness_for_wrong_culture_group_modifier = 0.03
-			global_unrest = -1
-		}
-		allow = {
-			oratory_tech >= 4
-
-		}
-	}
 	established_courts_for_landholders = {  #establish courts for landowners
 		modifier = { 
 			global_freemen_happyness = 0.04
@@ -146,7 +100,7 @@ judicial_laws_mon = {
 	}
 	judicial_law_5_mon = {  #standardized code
 		modifier = { 
-			stability_monthly_change = 0.02
+			monthly_corruption = -0.02
 			happiness_for_same_culture_modifier = 0.02
 		}
 		allow = {
@@ -163,27 +117,18 @@ chinese_judicial_laws = {
 
 	five_punishments_law = {  #Laws were developed by government officials to regulate ancient Chinese society. The laws of the aristocratic societies of early China put substantial emphasis on maintaining distinct ranks and orders amongst the nobles, in addition to controlling the populace. As a result, lǐ (禮), meaning "ritual" or "etiquette," governed the conduct of the nobles, whilst xíng (刑), the rules of punishment, governed the commoners and slaves.
 		modifier = { 
+			global_nobles_happyness = 0.04
+			global_freemen_happyness = -0.04
 		}
 	}
-	
-	proto_legalist_law = {  #local_courts
+	legalist_law = {  
 		modifier = { 
+			monthly_corruption = -0.05
+			monthly_tyranny = 0.03
 			global_unrest = -1
 		}
 		allow = {
-			oratory_tech >= 4
-
-		}
-	}
-	qin_legalist_law = {  #*
-		modifier = { 
-			global_unrest = -5
-			monthly_political_influence_modifier = -0.5
-			monthly_tyranny = 0.05
-		}
-		allow = {
-			oratory_tech >= 10
-
+			civic_tech > 4
 		}
 	}
 	han_judicial_law = {  #right of appeal
@@ -192,18 +137,7 @@ chinese_judicial_laws = {
 			monthly_tyranny = -0.02
 		}
 		allow = {
-			oratory_tech >= 12
-
-		}
-	}
-	chinese_standardized_code = {  #standardized code
-		modifier = { 
-			stability_monthly_change = 0.02
-			happiness_for_same_culture_modifier = 0.02
-		}
-		allow = {
-			oratory_tech >= 16
-
+			oratory_tech > 8
 		}
 	}
 }

@@ -4,7 +4,7 @@
 		NOR = {
 			tag = ROM
 			tag = CAR
-			is_chinese_culture_group_trigger = yes
+			is_chinese_trigger = yes
 			religion = hindu
 			religion = agama
 			religion = jainism
@@ -17,7 +17,7 @@
 	
 	republican_religious_1 = {
 		modifier = {
-			happiness_for_same_religion_modifier = 0.04
+			happiness_for_same_religion_modifier = 0.02
 			happiness_for_wrong_religion_modifier = 0.02
 		}
 	}
@@ -59,8 +59,7 @@ republican_religious_car_laws = { # Carthage Religious Laws
 	}
 	republican_religious_car_1 = {
 		modifier = {
-			happiness_for_same_religion_modifier = 0.02
-			happiness_for_wrong_religion_modifier = 0.02
+			happiness_for_wrong_religion_modifier = 0.04
 		}
 	}
 	republican_religious_car_2 = {
@@ -76,7 +75,7 @@ republican_religious_car_laws = { # Carthage Religious Laws
 			civic_tech >= 3
 		}
 		modifier = {
-			global_pop_conversion_speed_modifier = 0.2
+			global_pop_conversion_speed_modifier = 0.25
 		}
 	}
 	republican_religious_car_4 = {
@@ -84,7 +83,7 @@ republican_religious_car_laws = { # Carthage Religious Laws
 			civic_tech >= 3
 		}
 		modifier = {
-			stability_cost_modifier = -0.33
+			stability_cost_modifier = -0.4
 		}
 	}
 }
@@ -97,7 +96,6 @@ republican_religious_laws_rom = { # Religious Laws
 	grant_religious_freedoms = {
 		modifier = {
 			happiness_for_same_religion_modifier = 0.04
-			happiness_for_wrong_religion_modifier = 0.02
 		}
 	}
 	
@@ -108,17 +106,6 @@ republican_religious_laws_rom = { # Religious Laws
 		}
 		modifier = {
 			global_pop_conversion_speed_modifier = 0.2
-		}
-		on_enact = {
-			random_character = {
-				limit = {
-					is_minor_character = yes
-					zeal >= 8 
-				}
-				#add_trait = priest
-				add_trait = zealous
-				#give_office = minor piresthood
-			}
 		}
 	}
 	
@@ -147,7 +134,7 @@ republican_religious_laws_rom = { # Religious Laws
 monarchy_religious_laws = {
 	potential = {
 		is_monarchy = yes
-		is_chinese_culture_group_trigger = no
+		is_chinese_trigger = no
 		NOR = {
 			religion = hindu
 			religion = agama
@@ -216,7 +203,7 @@ monarchy_religious_laws = {
 chinese_religious_law = {
 	potential = {
 		is_tribal = no
-		is_chinese_culture_group_trigger = yes
+		is_chinese_trigger = yes
 	}
 	shenic_traditions = { #religious toleratoon 
 		allow  = {
@@ -229,22 +216,24 @@ chinese_religious_law = {
 	}
 	confucian_law = { #religious convesrion 
 		modifier = {
-			research_points_modifier = 0.05
-			global_citizen_happyness = 0.04
+			civic_tech_investment = 0.05
+			global_citizen_happyness = 0.08
 		}
+		
 	}
-	legalism_law = { #rsgatesponsored religioin
+	mohism_law = { #rsgatesponsored religioin
 		modifier = {
-			stability_cost_modifier = -0.1
-			global_pop_conversion_speed_modifier = -0.2			
+			oratory_tech_investment = 0.05
+			global_population_happiness = 0.04		
 		}
+		
 	}
 	taoism_law = { #ruler c
 		modifier = {
-			global_population_happiness = 0.08
-			global_pop_conversion_speed_modifier = 0.2
-			monthly_legitimacy = -0.33
+			religious_tech_investment = 0.05
+			global_freemen_happyness = 0.08
 		}
+		
 	}
 }
 jewish_monarchy_divinity_statutes = {

@@ -1,7 +1,7 @@
 ﻿republic_military_recruitment_laws = { # Military Reforms
 	potential = {
 		is_republic = yes
-		is_chinese_culture_group_trigger = no
+		is_chinese_trigger = no
 		NOR = {
 			tag = ROM
 			tag = CAR
@@ -9,7 +9,8 @@
 	}
 	republican_recruitment_3 = {
 		modifier = {
-			levy_size_multiplier = 0.06
+			levy_size_multiplier = 0.05
+			global_start_experience = 2.5
 		}
 		on_enact = {
 			custom_tooltip = legions_in_no_region
@@ -18,8 +19,8 @@
 	}
 	republican_recruitment_1 = { 
 		modifier = {
-			levy_size_multiplier = 0.04
-			war_exhaustion = -0.04
+			levy_size_multiplier = 0.1
+			war_exhaustion = 0.02
 		}
 		on_enact = {
 			custom_tooltip = legions_in_no_region
@@ -43,7 +44,7 @@
 		}
 		modifier = {
 			global_manpower_modifier = 0.05
-			levy_size_multiplier = 0.025
+			levy_size_multiplier = 0.03
 		}
 		on_enact = {
 			custom_tooltip = legions_in_capital_region
@@ -89,7 +90,6 @@ republic_military_recruitment_car_laws = { # Carthage Military Reforms
 		modifier = {
 			levy_size_multiplier = 0.05
 			mercenary_land_maintenance_cost = -0.1
-			war_exhaustion = -0.04
 		}
 		on_enact = {
 			custom_tooltip = legions_in_no_region
@@ -100,7 +100,6 @@ republic_military_recruitment_car_laws = { # Carthage Military Reforms
 		modifier = {
 			mercenary_land_maintenance_cost = -0.1
 			recruit_mercenary_cost_modifier = -0.25
-			levy_size_multiplier = 0.025
 		}
 		on_enact = {
 			custom_tooltip = legions_in_no_region
@@ -113,8 +112,7 @@ republic_military_recruitment_car_laws = { # Carthage Military Reforms
 			rank >= regional_power
 		}
 		modifier = {
-			discipline = 0.05
-			global_cohort_start_experience = 5
+			recruit_mercenary_cost_modifier = -0.1
 			levy_size_multiplier = 0.025
 		}
 		on_enact = {
@@ -145,8 +143,8 @@ republic_military_recruitment_laws_rom = { # Military Reforms
 	}
 	testamentum_militis = { #Servian System
 		modifier = {
-			levy_size_multiplier = 0.06
-			war_exhaustion = -0.06
+			levy_size_multiplier = 0.075
+			war_exhaustion = -0.04
 		}
 		on_enact = {
 			custom_tooltip = legions_in_no_region
@@ -155,9 +153,9 @@ republic_military_recruitment_laws_rom = { # Military Reforms
 	} 
 	military_law_2_rom = { #Polybian System
 		modifier = {
-			levy_size_multiplier = 0.075
-			war_exhaustion = 0.04
+			levy_size_multiplier = 0.1
 			manpower_recovery_speed = 0.05
+			war_exhaustion = 0.04
 		}
 		on_enact = {
 			custom_tooltip = legions_in_no_region
@@ -170,8 +168,8 @@ republic_military_recruitment_laws_rom = { # Military Reforms
 			rank >= regional_power
 		}
 		modifier = {
-			global_manpower_modifier = 0.1
-			levy_size_multiplier = 0.025
+			global_manpower_modifier = 0.05
+			levy_size_multiplier = 0.05
 		}
 		on_enact = {
 			custom_tooltip = legions_in_capital_region
@@ -192,7 +190,7 @@ republic_military_recruitment_laws_rom = { # Military Reforms
 		modifier = {
 			discipline = 0.05
 			army_maintenance_cost = -0.1
-			loyalty_gain_chance = 0.5
+			loyalty_gain_chance = 0.1
 		}
 		on_enact = {
 			custom_tooltip = legions_in_any_region
@@ -208,7 +206,7 @@ republic_military_recruitment_laws_rom = { # Military Reforms
 		modifier = {
 			global_defensive = 0.05
 			discipline = 0.05
-			army_maintenance_cost = 0.05
+			army_maintenance_cost = -0.05
 		}
 		on_enact = {
 			custom_tooltip = legions_in_any_region
@@ -219,7 +217,7 @@ republic_military_recruitment_laws_rom = { # Military Reforms
 monarchy_military_reforms = {
 	potential = {
 		is_monarchy = yes
-		is_chinese_culture_group_trigger = no
+		is_chinese_trigger = no
 		nor = {
 			tag = ROM
 			tag = CAR
@@ -251,7 +249,6 @@ monarchy_military_reforms = {
 	
 	mercenary_reliance = {
 		modifier = {
-			levy_size_multiplier = 0.025
 			mercenary_land_maintenance_cost = -0.1
 			recruit_mercenary_cost_modifier = -0.1
 		}
@@ -292,33 +289,48 @@ monarchy_military_reforms = {
 }
 chinese_military_reforms = {
 	potential = {
-		is_chinese_culture_group_trigger = yes
+		is_chinese_trigger = yes
 		is_tribal = no
 	}
 
 	
-	corvee_recruitment = { #Noble Retinues - Macedon
+	chinese_nobles_military_law = { #Noble Retinues - Macedon
 		modifier = {
 			levy_size_multiplier = 0.05
-			global_freemen_output = 0.03
+			global_cohort_start_experience = 5
 		}
 		on_enact = {
 			custom_tooltip = legions_in_no_region
 			set_legion_recruitment = disabled
 		}
 	}
-	
 	conscription_chinese_law = {	#Military Service - Sparta
+		modifier = {
+			levy_size_multiplier = 0.075
+			global_population_happiness = -0.04
+			global_cohort_start_experience = -5
+		}
+		on_enact = {
+			custom_tooltip = legions_in_no_region
+			set_legion_recruitment = disabled
+		}
+	}
+	qin_conscription_law = {	#Military Service - Sparta
 		modifier = {
 			levy_size_multiplier = 0.1
 			global_population_happiness = -0.06
+			war_exhaustion = 0.04
+		}
+		allow = {
+			or = {
+				tag = QIN
+			}
 		}
 		on_enact = {
 			custom_tooltip = legions_in_no_region
 			set_legion_recruitment = disabled
 		}
 	}
-	
 	border_garrison_chinese_law = { #Royal Guard - Diadochi
 		allow = {
 			rank >= regional_power
@@ -332,16 +344,15 @@ chinese_military_reforms = {
 			set_legion_recruitment = capital
 		}
 	}
-	
-	standing_army_chinese_law = { #Roman Empire
+	han_military_law = {
+		modifier = {
+			global_tax_modifier = 0.1
+			global_manpower = -0.15
+		}
 		allow = {
 			or = {invention = martial_unit_inv_2
 				invention = discipline_inv_5}
 			rank >= major_power
-		}
-		modifier = {
-			army_maintenance_cost = -0.1
-			pikemen_cost = -0.1
 		}
 		on_enact = {
 			custom_tooltip = legions_in_any_region
