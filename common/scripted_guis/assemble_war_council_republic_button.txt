@@ -12,22 +12,17 @@
 	}
     is_valid = {
 		trigger_if = {
-			limit = {
-				tag = ROM
-				NOT = {
-					has_law = lex_calpurnia
-				}
-			}
-			has_law = lex_calpurnia
+			limit = {tag = ROM}
+			tag = ROM
 		} 
 		trigger_if = {
 			limit = {
 				tag = CAR
-				NOT = {
-					has_law = republic_corruption_car_4
-				}
 			}
-			has_law = republic_corruption_car_4
+			or = {
+				has_law = republic_corruption_car_5
+				has_law = republic_corruption_car_1
+			}
 		} 
 		trigger_else_if = {
 			limit = {
@@ -36,11 +31,11 @@
 					tag = CAR
 				}
 				is_republic = yes
-				NOT = {
-					has_law = republic_corruption_4
-				}
 			}
-			has_law = republic_corruption_4
+			or = {
+				has_law = republic_corruption_5
+				has_law = republic_corruption_4
+			}
 		}
 		trigger_if = {
 			limit = {
