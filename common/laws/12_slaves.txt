@@ -131,7 +131,7 @@ chinese_slave_laws = {
 	}
 	zhou_slave = { #pow's
 		modifier = {
-			enslavement_efficiency = 0.05
+			global_slaves_desired_pop_ratio = 0.1
 			global_slaves_output = 0.05
 		}
 		allow = {
@@ -140,9 +140,10 @@ chinese_slave_laws = {
 	}
 	qin_slave = {#slave economy
 		modifier = {
-			build_cost = -0.25
-			global_freemen_output = 0.1
+			build_cost = -0.1
+			slaves_move_cost_modifier = -0.75
 			global_unrest = 1
+			global_slaves_desired_pop_ratio = -0.1
 		}
 		allow = {
 			rank >= regional_power
@@ -151,13 +152,10 @@ chinese_slave_laws = {
 	han_manumission = {#slave rights
 		modifier = {
 			global_slaves_happyness = 0.1
-			global_slaves_desired_pop_ratio = -0.2
 			global_freemen_happyness = 0.08
 		}
 		allow = {
-			OR = {
-				invention = global_slaves_output_inv_2
-			}
+			invention = global_slaves_output_inv_2
 		}
 	}
 	wang_mang_freedom = { #limited manumission
@@ -167,9 +165,7 @@ chinese_slave_laws = {
 			global_slaves_desired_pop_ratio = -1
 		}
 		allow = {
-			or = {
-				invention = freemen_promotion_cost_modifier_inv
-			}
+			invention = freemen_promotion_cost_modifier_inv
 		}
 	}
 }
