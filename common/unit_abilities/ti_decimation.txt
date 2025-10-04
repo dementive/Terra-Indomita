@@ -1,0 +1,81 @@
+﻿decimation = {
+
+	enable = yes
+	toggle = no
+	army_only = yes
+	
+	map = yes
+	
+	soundeffect ="event:/SFX/UI/Unit/sfx_ui_unit_reorganization"
+
+
+	allow = {
+		is_army = yes
+		in_combat = no
+		is_moving = no
+		is_exiled = no
+		owner = {
+			exists = yes
+			invention = land_morale_recovery_inv_5
+
+		}
+		every_sub_unit = {
+			subunit_strength_percentage > 0.1
+		}
+		hidden:unit_location = {
+			has_owner = yes
+			OR = {
+				controller = root.unit_owner
+				controller = {
+					alliance_with = root.unit_owner
+				}
+				controller = {
+					is_subject_of = root.unit_owner
+				}
+			}
+			OR = {
+				owner = root.unit_owner
+				owner = {
+					alliance_with = root.unit_owner
+				}
+				owner = {
+					is_subject_of = root.unit_owner
+				}
+			}
+		}
+		trigger_if = {
+			limit = {
+				exists = commander
+			}
+			commander = {
+				loyalty > 33
+			}
+		}
+	}
+	
+	
+	start_effect = {
+		every_sub_unit = {
+			add_subunit_strength = -0.1
+			add_subunit_morale = -1
+		}
+		remove_distinction = distinction_dishonor_cowardly
+		add_unit_modifier =  { 
+			name = decimation_modifier
+			duration = 180
+		}
+	}
+	
+	
+	ai_will_do = {
+		modifier = {
+			trigger = {
+				has_distinction = distinction_dishonor_cowardly
+			}
+			add = {
+				value = 250
+				divide = unit_size_rank
+			}
+		}
+	}
+}
