@@ -3,7 +3,6 @@
 		or = {
 			is_republic = yes
 		}
-		is_chinese_trigger = no
 		nor = {
 			tag = ROM
 		}
@@ -76,7 +75,7 @@ judicial_laws_rom = {
 judicial_laws_mon = {
 	potential = {
 		is_monarchy = yes
-		is_chinese_trigger = no
+		is_chinese_culture_group_trigger = no
 	}
 
 	established_courts_for_landholders = {  #establish courts for landowners
@@ -112,7 +111,7 @@ judicial_laws_mon = {
 }
 chinese_judicial_laws = {
 	potential = {
-		is_chinese_trigger = yes
+		is_chinese_culture_group_trigger = yes
 		is_tribal = no
 	}
 
@@ -124,7 +123,8 @@ chinese_judicial_laws = {
 	}
 	legalist_law = {  
 		modifier = { 
-			global_citizen_happyness = 0.04
+			monthly_corruption = -0.05
+			monthly_tyranny = 0.03
 			global_unrest = -1
 		}
 		allow = {
@@ -133,8 +133,8 @@ chinese_judicial_laws = {
 	}
 	han_judicial_law = {  #right of appeal
 		modifier = { 
-			global_population_happiness = 0.02
-			monthly_tyranny = -0.04
+			global_citizen_happyness = 0.04
+			monthly_tyranny = -0.02
 		}
 		allow = {
 			oratory_tech > 8

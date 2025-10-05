@@ -171,7 +171,7 @@ monarchy_religious_laws = {
 			
 		}
 		allow = {
-			invention = religious_wisdom_inv_5
+			invention = omen_power_inv_5
 
 		}
 	}
@@ -200,48 +200,10 @@ monarchy_religious_laws = {
 		}
 	}
 }
-hundred_schools_law = {
-	potential = {
-		is_tribal = no
-		or = {
-			religion = taoism
-			religion = confucian
-			religion = mohism
-		}
-	}
-	tolerance_law = { #religious toleratoon 
-		modifier = {
-			happiness_for_wrong_religion_modifier = 0.03
-			happiness_for_same_religion_modifier = 0.03
-		}
-	}
-	confucian_law = { #religious convesrion 
-		modifier = {
-			research_points_modifier = 0.05
-			global_citizen_happyness = 0.04
-		}
-	}
-	mohism_law = { #rsgatesponsored religioin
-		modifier = {
-			stability_cost_modifier = -0.1
-			omen_power = 0.1			
-		}
-	}
-	taoism_law = { #ruler c
-		modifier = {
-			global_population_happiness = 0.08
-			global_pop_conversion_speed_modifier = 0.2
-			monthly_legitimacy = -0.33
-		}
-	}
-}
 chinese_religious_law = {
 	potential = {
 		is_tribal = no
-		or = {
-			religion = chinese_religions
-			religion = baiyue_religions
-		}
+		is_chinese_trigger = yes
 	}
 	shenic_traditions = { #religious toleratoon 
 		allow  = {
@@ -252,45 +214,26 @@ chinese_religious_law = {
 			happiness_for_same_religion_modifier = 0.03
 		}
 	}
-	assimilation_law = { #religious convesrion 
+	confucian_law = { #religious convesrion 
 		modifier = {
-			global_pop_assimilation_speed_modifier = 0.2
-		}
-		allow = {
-			religious_tech > 5
+			civic_tech_investment = 0.05
+			global_citizen_happyness = 0.08
 		}
 		
 	}
-	conversion_law = { #rsgatesponsored religioin
+	mohism_law = { #rsgatesponsored religioin
 		modifier = {
-			global_pop_conversion_speed_modifier = 0.5
-		}
-		allow = {
-			invention = religious_wisdom_inv_5
+			oratory_tech_investment = 0.05
+			global_population_happiness = 0.04		
 		}
 		
 	}
-	divine_emperor_law = { #ruler c
-		allow  = {
-			current_ruler = {
-				zeal >= 8
-				popularity >= 95
-			}
-			legitimacy >= 95
-			stability >= 70
-			rank = major_power
-			invention = omen_power_inv_5 
+	taoism_law = { #ruler c
+		modifier = {
+			religious_tech_investment = 0.05
+			global_freemen_happyness = 0.08
 		}
 		
-		modifier = {
-			global_pop_assimilation_speed = 0.2
-			deify_ruler_cost_modifier = -0.2
-			omen_power = 0.1
-		}
-			
-		on_enact = {
-			custom_tooltip = can_always_nominate_heirs
-		}
 	}
 }
 jewish_monarchy_divinity_statutes = {

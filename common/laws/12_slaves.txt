@@ -15,9 +15,6 @@
 			global_slaves_desired_pop_ratio = 0.15
 			latifundia_building_cost = -0.1
 		}
-		allow = {
-			invention = global_goods_from_slaves_inv
-		}
 	}
 	slave_law_3_rom = {#slave rights
 		modifier = {
@@ -41,7 +38,9 @@
 			global_slaves_desired_pop_ratio = 0.05
 		}
 		allow = {
-			invention = freemen_promotion_cost_modifier_inv
+			or = {
+				invention = freemen_promotion_cost_modifier_inv
+			}
 		}
 	}
 	lex_aelia_sentia = {#encourage manumission
@@ -51,14 +50,16 @@
 			global_slaves_happyness = 0.06
 		}
 		allow = {
-			invention = freemen_promotion_cost_modifier_inv
+			or = {
+				invention = freemen_promotion_cost_modifier_inv
+			}
 		}
 	}
 }
 slave_laws = {
 	potential = {
 		is_tribal = no
-		is_chinese_trigger = no
+		is_chinese_culture_group_trigger = no
 		nor = {
 			religion = buddhism
 			tag = ROM
@@ -79,7 +80,7 @@ slave_laws = {
 			global_slaves_desired_pop_ratio = 0.15
 		}
 		allow = {
-			invention = global_slaves_output_inv_2
+			rank >= regional_power
 		}
 	}
 	republican_citizen_2 = {#slave rights
@@ -90,7 +91,7 @@ slave_laws = {
 		}
 		allow = {
 			OR = {
-				invention = global_slaves_output_inv_1
+				invention = global_slaves_output_inv_2
 			}
 		}
 	}
@@ -124,7 +125,7 @@ slave_laws = {
 chinese_slave_laws = {
 	potential = {
 		is_tribal = no
-		is_chinese_trigger = yes
+		is_chinese_culture_group_trigger = yes
 		nor = {
 			religion = buddhism
 		}
@@ -140,9 +141,10 @@ chinese_slave_laws = {
 	}
 	qin_slave = {#slave economy
 		modifier = {
+			global_slaves_desired_pop_ratio = 0.1
 			build_cost = -0.25
-			global_freemen_output = 0.1
-			global_unrest = 1
+			global_freemen_output = 0.2
+			global_unrest = 2
 		}
 		allow = {
 			rank >= regional_power
@@ -150,9 +152,8 @@ chinese_slave_laws = {
 	}
 	han_manumission = {#slave rights
 		modifier = {
-			global_slaves_happyness = 0.1
-			global_slaves_desired_pop_ratio = -0.2
-			global_freemen_happyness = 0.08
+			global_slaves_happyness = 0.08
+			global_slaves_desired_pop_ratio = -0.1
 		}
 		allow = {
 			OR = {

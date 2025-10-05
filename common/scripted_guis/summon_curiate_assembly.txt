@@ -9,20 +9,25 @@
 	ai_is_valid = {
 		war = no
 	}
-   is_valid = {
+    is_valid = {
 		trigger_if = {
-			limit = {tag = ROM}
-			tag = ROM
-		} 
+			limit = {
+				tag = ROM
+				NOT = {
+					has_law = no_laws_on_corruption
+				}
+			}
+			has_law = no_laws_on_corruption
+		}
 		trigger_if = {
 			limit = {
 				tag = CAR
+				NOT = {
+					has_law = republic_corruption_car_1
+				}
 			}
-			or = {
-				has_law = republic_corruption_car_5
-				has_law = republic_corruption_car_4
-			}
-		} 
+			has_law = republic_corruption_car_1
+		}  
 		trigger_else_if = {
 			limit = {
 				NOT = {
@@ -30,11 +35,11 @@
 					tag = CAR
 				}
 				is_republic = yes
+				NOT = {
+					has_law = republic_corruption_1
+				}
 			}
-			or = {
-				has_law = republic_corruption_5
-				has_law = republic_corruption_1
-			}
+			has_law = republic_corruption_1
 		}
 		trigger_if = {
 			limit = {
