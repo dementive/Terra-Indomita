@@ -30,7 +30,6 @@
 
 	on_completion = {
         complete_mission_effect = yes
-        change_law = qin_conscription_law
     }
 
     qin_01_shan_yang_task_1 = { #Abrogate Fengjian
@@ -43,8 +42,6 @@
             custom_tooltip = qin_01_shan_yang_task_1_tt
             show_as_tooltip = {
 				add_political_influence = -15
-				add_legitimacy = -5
-				add_tyranny = 5
 			}
         }
     }
@@ -71,9 +68,6 @@
                         target = root
                     }
                 }
-            }
-            current_ruler = {
-            	add_corruption = 5
             }
             custom_tooltip = qin_01_shan_yang_task_2_tt
         }
@@ -107,7 +101,6 @@
             owns_or_subject_owns_area = tianshui_area
         }
         on_completion = {
-        	add_legitimacy = 5
 			show_as_tooltip = {
 				random_owned_province = {
 					limit = {
@@ -143,7 +136,6 @@
         on_start = {
             #Trigger 3 random event with different descriptions so it feels different
             #trigger_event = me_qin_shan_yang.4a
-            add_legitimacy = -10
 			trigger_event = {
 				id = me_qin_shan_yang.4000
 				days = { 100 150 }
@@ -160,7 +152,6 @@
         on_completion = {
             trigger_event = me_qin_shan_yang.4
 			show_as_tooltip = {
-				add_legitimacy = 5
 				add_country_modifier = {
 					name = womens_militia_mod #5% fort def, -5% fort maint
 					duration = -1
@@ -186,7 +177,6 @@
             political_influence >= 25
         }
         on_start = {
-        	add_tyranny = 5
             trigger_event = {
 				id = me_qin_shan_yang.5000
 				days = { 100 150 }
@@ -229,21 +219,17 @@
         icon = "task_calm"
         requires = { qin_01_shan_yang_task_1 }
         allow = {
-        	trigger_if = {
-        		every_character = {
-        			num_holdings_owned = 0
-        		}
-        	}
+			any_character = {
+				count >=3
+				has_loyalty = revoked_holding_l
+			}
+            #Remove 7 holdings from great families (svalue in the revoke char interaction) --> too complicated --> use has_loyalty = revoked_holding_l
         }
         on_completion = {
-        	current_ruler = {
-        		add_corruption = -5
-        	}
             trigger_event = me_qin_shan_yang.6
 			show_as_tooltip = {
 				add_political_influence = 30
-				add_legitimacy = -10
-				add_tyranny = 10
+				add_legitimacy = 10
 				add_country_modifier = {
 					name = sechuan_admin_mod
 					duration = 3650
@@ -290,7 +276,6 @@
         on_completion = {
             trigger_event = me_qin_shan_yang.7
 			show_as_tooltip = {
-				add_legitimacy = 5
 				add_2_free_province_investments = yes
 				every_owned_province = {
 					limit = {
@@ -393,10 +378,6 @@
     		}
         }
         on_completion = {
-        	current_ruler = {
-        		add_corruption = -5
-        	}
-        	add_legitimacy = 5
             trigger_event = me_qin_shan_yang.8
 			custom_tooltip = qin_01_shan_yang_task_8_reward_tt #Every character with an office gets:
 			show_as_tooltip = {
@@ -468,7 +449,6 @@
 			#Yiqu is has no land or is vassalized
         }
         on_completion = {
-        	add_legitimacy = 5
             trigger_event = me_qin_shan_yang.10
 			show_as_tooltip = {
 				add_country_modifier = {
@@ -485,7 +465,6 @@
             qin_01_shan_yang_task_8
             qin_01_shan_yang_task_9
             qin_01_shan_yang_task_10
-            qin_01_shan_yang_task_21
         }
         final = yes
         allow = {}
@@ -494,7 +473,6 @@
 			show_as_tooltip = {
 				add_political_influence = 20
 				add_legitimacy = 10
-				add_tyranny = -10
 				add_country_modifier = {
 					name = shan_yangs_legacy_country_mod
 					duration = 3650
@@ -502,86 +480,4 @@
 			}
         }
     }
-    qin_01_shan_yang_task_20 = { #redistribute land to the peasants
-        icon = "task_political"
-        duration = 2000
-        requires = { qin_01_shan_yang_task_6 }
-        allow = {
-           treasury > 400
-           has_law = legalist_land_reform
-        }
-        on_start = { 
-        	add_legitimacy = -15
-        	add_tyranny = 10
-        	add_treasury = -400 
-        	add_country_modifier = {
-            	name = qin_land_redistribution_1
-            	duration = 400
-            }
-        }
-        on_completion = {
-        	change_law = qin_system
-        	add_legitimacy = 5
-        	add_tyranny = -5
-            random_owned_province = {
-            	limit = {
-            		can_build_building = basic_settlement_infratructure_building
-            	}
-            	add_building_level = basic_settlement_infratructure_building
-            }
-            random_owned_province = {
-            	limit = {
-            		can_build_building = basic_settlement_infratructure_building
-            	}
-            	add_building_level = basic_settlement_infratructure_building
-            }
-            add_treasury = -400
-        }
-    }
-    qin_01_shan_yang_task_21 = { #establsih farming systems
-        icon = "task_economical"
-        requires = {qin_01_shan_yang_task_20}
-		allow = {
-			every_owned_province = {
-				limit = {
-					can_build_building = basic_settlement_infratructure_building
-				}
-				has_building = basic_settlement_infratructure_building
-			}
-			treasury > 500
-		}
-		
-		highlight = {
-			every_owned_province = {
-				can_build_building = basic_settlement_infratructure_building
-			}
-		}
-		
-		on_completion = {
-			random_owned_province = {
-				limit = {
-					has_building = basic_settlement_infratructure_building
-				}
-				add_building_level = free_farm_building
-			}
-			random_owned_province = {
-				limit = {
-					has_building = basic_settlement_infratructure_building
-				}
-				add_building_level = free_farm_building
-			}
-			random_owned_province = {
-				limit = {
-					has_building = basic_settlement_infratructure_building
-				}
-				add_building_level = free_farm_building
-			}
-			add_country_modifier = {
-            	name = qin_land_redistribution_2
-            	duration = 7200
-            }
-			add_treasury = -500
-		}
-	}
-	
 }
