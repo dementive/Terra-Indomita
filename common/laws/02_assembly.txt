@@ -9,22 +9,19 @@
 	
 	republic_corruption_2 = { #traditional system
 		modifier = {
-			monthly_corruption = -0.05`
+			monthly_corruption = -0.05
 		}
-		#on_enact = {
-		#	custom_tooltip = "enables_tribal_assembly_tt"
-		#}
 	}
 	
 	republic_corruption_3 = { #military assembly
 		modifier = {
 			fabricate_claim_cost_modifier = -0.5
 		}
-		#on_enact = {
-		#	custom_tooltip = "enables_centuriate_assembly_tt"
-		#}
 		on_enact = {
 			custom_tooltip = "enables_war_council_tt"
+		}
+		allow = {
+			invention = agressive_expansion_impact_inv_1
 		}
 	}
 	
@@ -34,9 +31,6 @@
 			monthly_political_influence_modifier = 0.1
 			global_nobles_happyness = 0.04
 		}
-		#on_enact = {
-		#	custom_tooltip = "enables_war_council_tt"
-		#}
 	}
 	
 	republic_corruption_1 = { #religious assembly
@@ -46,6 +40,9 @@
 		on_enact = {
 			custom_tooltip = "enables_curiate_assembly_tt"
 		}
+		allow = {
+			invention = endorse_party_inv
+		}
 	}
 	republic_corruption_5 = { # 3 assemblies
 		modifier = {
@@ -53,11 +50,10 @@
 		}
 		allow = {
 			civic_tech >= 12
+			invention = global_unrest_inv_5
 		}
 		on_enact = {
 			custom_tooltip = "enables_curiate_assembly_tt"
-			#custom_tooltip = "enables_centuriate_assembly_tt"
-			#custom_tooltip = "enables_tribal_assembly_tt"
 			custom_tooltip = "enables_war_council_tt"
 		}
 	}
@@ -70,51 +66,46 @@ corruption_car_laws = { # Punic Assembly Endorsement
 		modifier = {
 			monthly_corruption = -0.05
 		}
-		#on_enact = {
-		#	custom_tooltip = "enables_tribal_assembly_tt"
-		#	custom_tooltip = "enables_centuriate_assembly_tt"
-		#	custom_tooltip = "enables_curiate_assembly_tt"
-		#}
 	}
 	republic_corruption_car_3 = {
 		modifier = {
 			governor_loyalty = 5
 		}
-		#on_enact = {
-		#	custom_tooltip = "enables_tribal_assembly_tt"
-		#	custom_tooltip = "enables_centuriate_assembly_tt"
-		#	custom_tooltip = "enables_curiate_assembly_tt"
-		#}
 	}
 	republic_corruption_car_4 = { 
 		modifier = {
-			monthly_tyranny = 0.03
 			monthly_political_influence_modifier = 0.1
 			global_nobles_happyness = 0.04
 		}
 		on_enact = {
-			custom_tooltip = "enables_war_council_tt"
+			custom_tooltip = "enables_curiate_assembly_tt"
+		}
+		allow = {
+			invention = endorse_party_inv
 		}
 	}
 	republic_corruption_car_1 = { 
 		modifier = {
-			monthly_tyranny = -0.02
+			monthly_tyranny = 0.02
+			general_loyalty = 5
+			enact_law_cost_modifier = -0.1
 		}
+		
 		on_enact = {
-			custom_tooltip = "enables_curiate_assembly_tt"
+			custom_tooltip = "enables_war_council_tt"
+			unlock_invention = global_slaves_output_inv_5
 		}
 	}
 	republic_corruption_car_5 = { # assembly reform
 		modifier = {
 			happiness_for_same_culture_modifier = 0.04
+			monthly_tyranny = -0.03
 		}
 		allow = {
 			civic_tech >= 12
 		}
 		on_enact = {
 			custom_tooltip = "enables_curiate_assembly_tt"
-			#custom_tooltip = "enables_centuriate_assembly_tt"
-			#custom_tooltip = "enables_tribal_assembly_tt"
 			custom_tooltip = "enables_war_council_tt"
 		}
 	}
@@ -133,10 +124,7 @@ corruption_laws_rom = { # Assembly Endorsement
 		}
 		on_enact = {
 			custom_tooltip = "enables_curiate_assembly_tt"
-		#	custom_tooltip = "enables_centuriate_assembly_tt"
-		#	custom_tooltip = "enables_tribal_assembly_tt"
 			custom_tooltip = "enables_war_council_tt"
-
 		}
 	}
 	
@@ -147,10 +135,11 @@ corruption_laws_rom = { # Assembly Endorsement
 		}
 		on_enact = {
 			custom_tooltip = "enables_curiate_assembly_tt"
-		#	custom_tooltip = "enables_centuriate_assembly_tt"
-		#	custom_tooltip = "enables_tribal_assembly_tt"
 			custom_tooltip = "enables_war_council_tt"
 
+		}
+		allow = {
+			invention = change_governor_policy_inv
 		}
 	}
 	assembly_law_3_rom  = { #senatorial domination
@@ -163,6 +152,9 @@ corruption_laws_rom = { # Assembly Endorsement
 			custom_tooltip = "enables_war_council_tt"
 
 		}
+		allow = {
+			invention = endorse_party_inv
+		}
 	}
 	assembly_law_4_rom = { #Lex Atinia
 		modifier = {
@@ -171,23 +163,25 @@ corruption_laws_rom = { # Assembly Endorsement
 		}
 		on_enact = {
 			custom_tooltip = "enables_curiate_assembly_tt"
-		#	custom_tooltip = "enables_centuriate_assembly_tt"
-		#	custom_tooltip = "enables_tribal_assembly_tt"
 			custom_tooltip = "enables_war_council_tt"
 			
+		}
+		allow = {
+			invention = global_unrest_inv_5
 		}
 	}
 	assembly_law_5_rom  = { #sullas reforms
 		modifier = {
-			monthly_tyranny = 0.2
+			monthly_tyranny = 0.25
 			stability_monthly_change = 0.033
 			enact_law_cost_modifier = -0.25
 		}
 		on_enact = {
 			custom_tooltip = "enables_curiate_assembly_tt"
-		#	custom_tooltip = "enables_centuriate_assembly_tt"
-		#	custom_tooltip = "enables_tribal_assembly_tt"
 			custom_tooltip = "enables_war_council_tt"
+		}
+		allow = {
+			invention = dictatorship_step_1
 		}
 	}
 }
@@ -207,18 +201,12 @@ monarchy_legitimacy_laws = { # Royal Council
 			monthly_political_influence = 0.1
 			global_nobles_happyness = 0.06
 		}
-		#on_enact = {
-		#	custom_tooltip = "enables_tribal_assembly_tt"
-		#}
 	}
 	assembly_law_4_mon = { #religious assembly
 		modifier = {
 			stability_monthly_change = 0.02
 			omen_power = 0.1
 		}
-		#on_enact = {
-		#	custom_tooltip = "enables_curiate_assembly_tt"
-		#}
 	}
 	scholarly_pursuits_law = { #patronize schoarls
 		allow = {
@@ -236,6 +224,7 @@ monarchy_legitimacy_laws = { # Royal Council
 		}
 		allow = {
 			rank >= major_power
+			invention = diplomatic_reputation_inv_4
 		}
 	}
 }

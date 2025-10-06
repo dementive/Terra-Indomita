@@ -61,3 +61,42 @@ republic_citizen_laws_rom = { # Citizenship Laws
 		}
 	}
 }
+tribal_super_centralized_laws = {
+	potential = {
+		is_tribal = yes
+	}
+		
+	super_centralized_law_one = {
+		modifier = {
+			global_tribesmen_happyness = happiness_small_svalue
+		}
+	}
+
+
+	closed_court_law = {
+		modifier = {
+			global_nobles_desired_pop_ratio = 0.05
+			global_citizen_happyness = -0.08
+			global_freemen_happyness = -0.08
+		}
+	}
+	open_court_law = {
+		allow = {
+			oratory_tech >= 5
+		}
+		modifier = {
+			global_freemen_city_desired_pop_ratio = 0.2
+			country_civilization_value = 5
+		}
+	}
+	institute_right_to_be_heard = {
+		allow = {
+			oratory_tech >= 10
+		}
+		modifier = {
+			country_civilization_value = 5
+			global_citizen_city_desired_pop_ratio = 0.2
+		}
+	}
+	
+}

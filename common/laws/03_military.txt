@@ -324,6 +324,13 @@ chinese_military_reforms = {
 		allow = {
 			or = {
 				tag = QIN
+				and = {
+					rank >= regional_power
+					not = {
+						invention = global_start_experience_inv_3
+					}
+					invention = global_supply_limit_modifier_inv_3
+				}
 			}
 		}
 		on_enact = {
@@ -334,6 +341,7 @@ chinese_military_reforms = {
 	border_garrison_chinese_law = { #Royal Guard - Diadochi
 		allow = {
 			rank >= regional_power
+			invention = global_cohort_recruit_speed_inv
 		}
 		modifier = {
 			global_defensive = 0.05
@@ -347,7 +355,7 @@ chinese_military_reforms = {
 	han_military_law = {
 		modifier = {
 			global_tax_modifier = 0.1
-			global_manpower = -0.15
+			global_manpower_modifier = -0.15
 		}
 		allow = {
 			or = {invention = martial_unit_inv_2

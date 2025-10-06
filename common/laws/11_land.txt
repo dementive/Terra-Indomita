@@ -11,18 +11,25 @@
 			global_freemen_desired_pop_ratio = 0.1
 			global_freemen_happyness = 0.04
 		}
+		allow= {
+			not = {
+				has_law = republican_land_reform_3
+			}
+		}
+
 	}
 	republican_land_reform_2 = {#soldier land grants
 	
 		allow = {
-			or = {
-				invention = army_maintenance_cost_inv_2
-				invention = martial_veterans_1
+			invention = army_maintenance_cost_inv_2
+			not = {
+				has_law = republican_land_reform_3
 			}
 		}
 		modifier = {
 			global_migration_speed = 1.5
 			global_pop_promotion_speed = 6
+			global_freemen_desired_pop_ratio = 0.1
 		}
 	}
 	republican_land_reform_3 = {#noble slave estates
@@ -45,7 +52,7 @@
 		modifier = {
 			global_migration_speed = 2
 			global_freemen_desired_pop_ratio = 0.2
-			global_freemen_city_desired_pop_ratio = -0.2
+			global_freemen_city_desired_pop_ratio = -0.1
 			global_nobles_happyness = -0.08
 		}
 	}
@@ -74,7 +81,7 @@ republican_land_reforms_car = { # Carthage Land Reforms
 	}
 	republican_land_reform_car_2 = {
 		allow = {
-			civic_tech >= 12
+			civic_tech >= 3
 		}
 		modifier = {
 			global_migration_speed = 1.5
@@ -83,7 +90,7 @@ republican_land_reforms_car = { # Carthage Land Reforms
 	}
 	republican_land_reform_car_3 = {
 		allow = {
-			civic_tech >= 12
+			civic_tech >= 5
 		}
 		modifier = {
 			global_goods_from_slaves = -2
@@ -91,7 +98,7 @@ republican_land_reforms_car = { # Carthage Land Reforms
 	}
 	republican_land_reform_car_4 = {
 		allow = {
-			civic_tech >= 12
+			civic_tech >= 11
 		}
 		modifier = {
 			global_slaves_output = 0.25
@@ -120,15 +127,15 @@ republican_land_reforms_rom = { # Land Reforms
 			global_slaves_output = -0.03
 		}
 		allow = {
+			not = {
+				has_law = land_law_3_rom
+			}
 			rank < regional_power
 		}
 	}
 	lex_servilia_glaucia = { #lex_servilia_glaucia
 		allow = {
-			or = {
 				invention = army_maintenance_cost_inv_2
-				invention = martial_veterans_1
-			}
 			not = {
 				has_law = land_law_3_rom
 			}
@@ -136,8 +143,7 @@ republican_land_reforms_rom = { # Land Reforms
 		modifier = {
 			global_migration_speed = 1.5
 			global_pop_promotion_speed = 6
-			global_freemen_desired_pop_ratio = 0.2
-			global_freemen_city_desired_pop_ratio = -0.2
+			global_freemen_desired_pop_ratio = 0.1
 		}
 	}
 	land_law_3_rom = { #slave_latifundia
@@ -158,8 +164,7 @@ republican_land_reforms_rom = { # Land Reforms
 	lex_sempronia_agraria = {#lex_agraria
 	
 		modifier = {
-			global_freemen_desired_pop_ratio = 0.2
-			global_freemen_city_desired_pop_ratio = -0.2
+			global_freemen_desired_pop_ratio = 0.25
 			global_migration_speed = 2
 		}
 
@@ -182,8 +187,8 @@ republican_land_reforms_rom = { # Land Reforms
 		modifier = {
 			global_freemen_desired_pop_ratio = 0.33
 			global_freemen_city_desired_pop_ratio = -0.25
-			global_slaves_desired_pop_ratio = -0.33
-			global_slaves_city_desired_pop_ratio = 0.15
+			global_freemen_desired_pop_ratio = 0.3
+			global_freemen_city_desired_pop_ratio = -0.2
 
 		}
 	}
@@ -191,7 +196,7 @@ republican_land_reforms_rom = { # Land Reforms
 monarchy_economic_law = {
 	potential = {
 		is_monarchy = yes
-		is_chinese_culture_group_trigger = no
+		is_chinese_trigger = no
 	}
 	land_tithe = { #protect inheritance
 		modifier = {
@@ -199,29 +204,34 @@ monarchy_economic_law = {
 			global_freemen_happyness = 0.04
 			global_freemen_city_desired_pop_ratio = -0.1
 		}
+		allow = {
+			not = {
+				has_law = heritage_tax_exemption
+			}
+		}
 	}
 
 	local_investment_policy = {#soldier land grants
 		modifier = {
-			army_maintenance_cost = -0.05
-			global_freemen_desired_pop_ratio = 0.15
-			global_freemen_city_desired_pop_ratio = -0.15
+			army_maintenance_cost = -0.1
+			global_freemen_desired_pop_ratio = 0.2
+			global_freemen_city_desired_pop_ratio = -0.2
+			global_pop_promotion_speed_modifier = 0.2
 		}
 		allow = {
-			or = {
-				invention = army_maintenance_cost_inv_2
-				invention = martial_veterans_1
+			invention = army_maintenance_cost_inv_2
+			not = {
+				has_law = heritage_tax_exemption
 			}
-			civic_tech >= 7
 		}
 	}
 	heritage_tax_exemption = {#noble slave estates
 		modifier = {
 			global_nobles_happyness = 0.06
-			global_slaves_desired_pop_ratio = 0.1
+			global_slaves_desired_pop_ratio = 0.15
 			holding_income_modifier = 0.2
 		}
-		allow = {civic_tech >= 7}
+		allow = {invention = global_goods_from_slaves_inv}
 	}
 	land_law_4_mon = {#extensive land reform -- part of even chain to move around freemen back to the settlements, unable to unlock any other law for a yearand then automatically switches to next law
 		modifier = {
@@ -239,7 +249,7 @@ monarchy_economic_law = {
 			global_freemen_desired_pop_ratio = 0.2
 			global_freemen_city_desired_pop_ratio = -0.2
 			happiness_for_same_culture_modifier = 0.04
-			global_nobles_happyness = -0.04
+			global_nobles_happyness = -0.08
 		}
 		allow = {
 			civic_tech >= 12
@@ -264,7 +274,7 @@ chinese_land_refoms = {
 			global_migration_speed = 2
 			global_freemen_desired_pop_ratio = 0.2
 			global_freemen_city_desired_pop_ratio = -0.2
-			global_nobles_happyness = -0.12
+			global_nobles_happyness = -0.1
 		}
 	}
 	qin_system = {#centrlaized legalist land policiies

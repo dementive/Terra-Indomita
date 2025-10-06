@@ -439,13 +439,11 @@ oratory_2 = {
     	modifier = { 
     		monarchy_new_ruler_cost_modifier = -0.3
     		monthly_corruption = -0.01
+    		court_building_cost = -0.05
 		}
 		potential = {
 			oratory_tech >= 6
 		}
-        allow = {
-        	is_monarchy = yes
-        }
         requires = { ruler_popularity_gain_inv_1 } 
     }
 	gw_effect_fantastic_ruler_inv = { 
@@ -472,15 +470,10 @@ oratory_2 = {
 	dictatorship_step_1 = {
 		modifier = { 
 			monthly_tyranny = 0.02  
-			enact_law_cost_modifier = -0.25
+			enact_law_cost_modifier = -0.1
 		}
 		allow = { 
-			OR = {
-				government = oligarchic_republic
-				government = aristocratic_republic
-				government = plutocratic_republic
-				government = theocratic_republic
-			}
+			is_republic = yes
 		}
 		potential = {
 			custom_tooltip = {
@@ -501,7 +494,11 @@ oratory_2 = {
 				}
 			}
 		}
-		on_activate = {}
+		on_activate = {
+			add_stability = -10
+			add_tyranny = 10
+			add_political_influence = 100
+		}
 		requires = { assassinate_attempt_cost_modifier_inv }
 	}
 	
@@ -510,12 +507,7 @@ oratory_2 = {
 			stability_monthly_change = -0.03
 		}
 		allow = { 
-			OR = {
-				government = oligarchic_republic
-				government = aristocratic_republic
-				government = plutocratic_republic
-				government = theocratic_republic
-			}
+			is_republic = yes
 		}
 		potential = {
 			trigger_if = {
@@ -565,12 +557,7 @@ oratory_2 = {
 			monthly_political_influence_modifier = 0.1
 		}
 		allow = { 
-			OR = {
-				government = oligarchic_republic
-				government = aristocratic_republic
-				government = plutocratic_republic
-				government = theocratic_republic
-			}
+			is_republic = yes
 		}
 		keystone = yes
 		potential = {
@@ -811,7 +798,6 @@ oratory_2 = {
 
 	endorse_party_inv = {  #Regular Senate Hours
 		allow = { 
-			always = no # modifier now redundant
 			is_republic = yes
 		}
 		potential = {
@@ -884,12 +870,6 @@ oratory_2 = {
 		}
 		keystone = yes
 		requires_or = { control_range_modifier_inv diplo_range_inv_2 }
-		on_activate = {
-			if = {
-				limit = { is_monarchy = yes }
-				custom_tooltip = contract_law_tooltip
-			}
-		}
 	}
 
 	tyranny_inv_3 = { #Acclamation
@@ -1038,12 +1018,6 @@ oratory_2 = {
 	# Level 9
 	diplomatic_reputation_inv_4 = {
 		modifier = { diplomatic_reputation = 2   }
-		on_activate = {
-			if = {
-				limit = { is_monarchy = yes }
-				custom_tooltip = unlocks_might_of_majesty
-			}
-		}
 		potential = {
 			oratory_tech >= 12
 		}
