@@ -18,6 +18,38 @@
 
     on_start = {
         start_mission_ai_effect = yes
+        add_truce = {
+			target = c:CHU
+			duration = 7200
+		}
+		add_truce = {
+			target = c:HAN
+			duration = 7200
+		}
+		add_truce = {
+			target = c:WEI
+			duration = 7200
+		}
+		add_truce = {
+			target = c:ZHA
+			duration = 7200
+		}
+		add_truce = {
+			target = c:WZO
+			duration = 7200
+		}
+		add_truce = {
+			target = c:WZO
+			duration = 7200
+		}
+		add_truce = {
+			target = c:ZHO
+			duration = 7200
+		}
+		add_truce = {
+			target = c:EZO
+			duration = 7200
+		}
     }
 
     on_abort = {
@@ -228,20 +260,26 @@
         icon = "task_calm"
         requires = { qin_01_shan_yang_task_1 }
         allow = {
-			every_character = {
-				num_holdings_owned < 1
+			any_character = {
+				count >= 3
+				has_loyalty = revoked_holding_l
 			}
+			not = {
+				any_character = {
+					num_holdings_owned > 0
+				}
+			}
+            #Remove 7 holdings from great fam
         }
         on_completion = {
         	current_ruler = {
-        		add_corruption = -5
-        		add_legitimacy = -10
-				add_tyranny = 10
+        		add_corruption = 5
         	}
             trigger_event = me_qin_shan_yang.6
 			show_as_tooltip = {
 				add_political_influence = 30
-				add_legitimacy = 10
+				add_legitimacy = -10
+				add_tyranny = 10
 				add_country_modifier = {
 					name = sechuan_admin_mod
 					duration = 3650
@@ -395,6 +433,7 @@
         		add_corruption = -5
         	}
         	add_legitimacy = 5
+        	add_tyranny = -5
             trigger_event = me_qin_shan_yang.8
 			custom_tooltip = qin_01_shan_yang_task_8_reward_tt #Every character with an office gets:
 			show_as_tooltip = {
@@ -431,7 +470,9 @@
         on_completion = {
             trigger_event = me_qin_shan_yang.9
 			show_as_tooltip = {
-				add_political_influence = 20
+				add_political_influence = 40
+				add_tyranny = 5
+				add_stability = 10
 				current_ruler.family = { add_prestige = 200 }
 				add_country_modifier = {
 					name = absolute_authority_country_mod
@@ -500,13 +541,20 @@
 			}
         }
     }
-     qin_01_shan_yang_task_20 = { #redistribute land to the peasants
+
+
+    qin_01_shan_yang_task_20 = { #redistribute land to the peasants
         icon = "task_political"
         duration = 2000
         requires = { qin_01_shan_yang_task_6 }
         allow = {
            treasury > 400
            has_law = legalist_land_reform
+           not = {
+				any_character = {
+					num_holdings_owned > 0
+				}
+			}
         }
         on_start = { 
         	add_legitimacy = -15
@@ -516,43 +564,46 @@
             	name = qin_land_redistribution_1
             	duration = 400
             }
+            random_owned_province = {
+            	limit = {
+            		can_build_building = basic_settlement_infratructure_building
+            	}
+            	add_building_level = basic_settlement_infratructure_building
+            }
+            random_owned_province = {
+            	limit = {
+            		can_build_building = basic_settlement_infratructure_building
+            	}
+            	add_building_level = basic_settlement_infratructure_building
+            }
         }
         on_completion = {
         	change_law = qin_system
         	add_legitimacy = 5
         	add_tyranny = -5
-            random_owned_province = {
-            	limit = {
-            		can_build_building = basic_settlement_infratructure_building
-            	}
-            	add_building_level = basic_settlement_infratructure_building
-            }
-            random_owned_province = {
-            	limit = {
-            		can_build_building = basic_settlement_infratructure_building
-            	}
-            	add_building_level = basic_settlement_infratructure_building
-            }
             add_treasury = -400
         }
     }
     qin_01_shan_yang_task_21 = { #establsih farming systems
         icon = "task_economical"
-        requires = {qin_01_shan_yang_task_20}
+        requires = {qin_01_shan_yang_task_20}    
 		allow = {
-			every_owned_province = {
-				limit = {
-					can_build_building = basic_settlement_infratructure_building
-				}
-				has_building = basic_settlement_infratructure_building
-			}
+			custom_tooltip = "Build Farming Infrastructure in every possible province"
 			treasury > 500
+			not = {
+				any_owned_province = {
+					can_build_building = basic_settlement_infratructure_building
+					not = {
+						has_building = basic_settlement_infratructure_building
+					}
+				}
+			}
 		}
 		
 		highlight = {
-			every_owned_province = {
-				can_build_building = basic_settlement_infratructure_building
-			}
+			any_owned_province = {
+            	can_build_building = basic_settlement_infratructure_building
+            }
 		}
 		
 		on_completion = {

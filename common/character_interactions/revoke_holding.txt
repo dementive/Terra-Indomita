@@ -18,8 +18,6 @@
 			NOT = { employer = { tag = MER } }
 			is_mercenary = no
 			is_adult = yes
-			is_head_of_family = yes
-			loyalty >= 30
 			NAND = {
 				employer = {
 					is_monarchy = yes
@@ -56,6 +54,21 @@
 					is_ruler = no
 				}
 				add_loyalty = revoked_holding_l
+			}
+			if = {
+				limit = {
+					loyalty < 30
+				}
+				family = {
+					every_family_member = {
+						limit = { 
+							NOT = { this = scope:target } 
+							is_ruler = no
+						}
+						custom = all_members_tt
+						add_loyalty = revoked_holding_l
+					}
+				}
 			}
 		}
 		if = {	
