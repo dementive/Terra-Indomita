@@ -64,7 +64,7 @@
 		allow = {
             treasury >= 100
 			trigger_if = {
-                limit = {
+                limit = {c
                     is_ai = no
                     has_variable = li_si_character_scope_variable
                     var:li_si_character_scope_variable = {
@@ -168,7 +168,7 @@
         icon = "task_calm"
         requires = { qin_02_li_si_task_2 }
         allow = {
-		has_law = king_of_kings #placeholder law until Stephan's laws are implemented
+		has_law = qin_administration #placeholder law until Stephan's laws are implemented
             #Bureacratic centrilization laws, whatever that means
         }
         on_completion = {
@@ -233,7 +233,7 @@
             # minority characters, nations, and vassals.
         }
         on_completion = {
-            
+            change_law = conversion_law
             trigger_event = me_qin_li_si.7
             show_as_tooltip = {
 				add_country_modifier = {
@@ -601,6 +601,10 @@
 					}
 				}
 			}
+			or = {
+				has_law = border_garrison_chinese_law
+				has_law = han_military_law
+			}
 			#Capital region has a legion
         }
         on_completion = {
@@ -691,6 +695,7 @@
         }
         allow = {
 			political_influence >= 50
+			has_law = conversion_law
         }
         on_start = {
 			set_variable = {

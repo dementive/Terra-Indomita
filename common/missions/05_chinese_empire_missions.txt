@@ -43,6 +43,12 @@
         allow = {
 			has_country_modifier = meritocracy_mod_4
 			political_influence >= 50
+			tyranny < 1
+			or = {
+				has_law = qin_administration
+				has_law = han_inspectors
+				has_law = legendary_bureaucracy
+			}
 		}
 
 		on_start = {
@@ -65,12 +71,12 @@
 
         allow = {
 			OR = {
-				has_law = increased_citizenship_quotas
-				has_law = established_courts_for_landholders
+				has_law = minister_lord_law
+				has_law = han_court_law
 			}
 			OR = {
-				has_law = scholarly_pursuits_law
-				has_law = royal_bureaucracy
+				has_law = legalist_law
+				has_law = han_judicial_law
 			}
 		}
 
@@ -651,20 +657,20 @@
         }
 
         allow = {
-			custom_tooltip = {
-				text = missions_chinese_empire_task_15_10_slave_estates_on_salt
-				any_owned_province = {
-					count >= 10
-					trade_goods = salt
-					has_building = latifundia_building
+			any_owned_province = {
+				count >= 10
+				trade_goods = salt
+				or = {
+					has_building = workshop_building
+					has_building = crafts_workshop_building
 				}
 			}
-			custom_tooltip = {
-				text = missions_chinese_empire_task_15_10_slave_estates_on_silk
-				any_owned_province = {
-					count >= 10
-					trade_goods = silk
-					has_building = latifundia_building
+			any_owned_province = {
+				count >= 10
+				trade_goods = silk
+				or = {
+					has_building = workshop_building
+					has_building = crafts_workshop_building
 				}
 			}
 		}
@@ -722,7 +728,7 @@
 					zeal >= 10
 				}
 				any_character = {
-					has_office = office_philosopher
+					has_office = 
 					zeal >= 10
 				}
 				any_character = {

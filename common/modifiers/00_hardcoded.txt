@@ -735,7 +735,6 @@ base_values = {
 	global_manpower = 0.25
 	global_tax_income = 2
 	stability_monthly_decay = 0.01
-	
 	civil_war_threshold = 0.25
 	
 	
@@ -1100,14 +1099,16 @@ revanchism ={
 
 # Multiplied by the current Tyranny value
 tyranny = {
-	character_loyalty = -0.12
+	character_loyalty = -0.20
 	civil_war_threshold = -0.0012
 	global_slaves_output = 0.005
 	price_imprison_cost_modifier = -0.01
 	price_execute_cost_modifier = -0.01
 	loyalty_gain_chance_modifier = 0.002
-	agressive_expansion_monthly_change = -0.004
-	global_monthly_state_loyalty = -0.002
+	agressive_expansion_monthly_change = -0.005
+	global_monthly_state_loyalty = -0.005
+	global_unrest =  -0.01
+	enact_law_cost_modifier = -0.03
 }
 
 num_diplomatic_stance_changes = {
@@ -1165,8 +1166,9 @@ aggressive_expansion = {
 # AE -= NDefines::NCountry::HIGH_AGRESSIVE_THRESHOLD, and only if above it.
 high_aggressive_expansion = {
 	monthly_political_influence_modifier = -0.001
-	happiness_for_same_culture_modifier = 0.003
-	global_population_happiness = -0.003
+	happiness_for_same_culture_modifier = -0.001
+	happiness_for_wrong_culture_modifier = -0.002
+	happiness_for_wrong_culture_group_modifier = -0.003
 	agressive_expansion_impact = -0.02
 }
 
@@ -1361,7 +1363,7 @@ negative_centralization = {
 	global_tribesmen_output = -0.25
 	levy_size_multiplier = -0.15
 	land_morale_modifier = -0.25
-	start_migration_cost_modifier = 0.5
+	global_citizen_happyness = 1
 }
 
 positive_centralization = {
@@ -1379,13 +1381,17 @@ tutorial_boost = {
 
 negative_legitimacy = {
 	enact_law_cost_modifier = -0.5
+	monthly_tyranny = 0.033
 	character_loyalty = 20
 	primary_heir_attraction = 5
+	agressive_expansion_impact = 0.1
 }
 
 positive_legitimacy = {
 	global_freemen_happyness = 0.1
 	primary_heir_attraction = 5
+	monthly_tyranny = -0.033
+	agressive_expansion_monthly_decay = 0.1
 }
 
 in_deficit =  {
