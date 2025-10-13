@@ -16,6 +16,7 @@ fortress_building = { #ALL #1
 		1 = local_unrest
 	}
 	allow = {
+		custom_tooltip = fortress_building_allow_tt
 		or = {
 			num_of_fortress_building < 2
 			AND = {
@@ -137,6 +138,7 @@ port_building = {
 	local_population_capacity = 1
 
 	allow = {
+		custom_tooltip = port_building_allow_tt
 		can_have_port = yes
 		or = {
 			num_of_port_building < 2
@@ -327,6 +329,7 @@ aqueduct_building = { #Aqueduct // Sanitation Works
 	}
 
 	allow = {
+		custom_tooltip = aqueduct_building_allow_tt
 		or = {
 			and = {
 				civilization_value  >= 22
@@ -338,7 +341,6 @@ aqueduct_building = { #Aqueduct // Sanitation Works
 					invention = ruler_popularity_gain_inv_4
 				}
 			}
-			invention = ruler_popularity_gain_inv_4
 		}
 	}
 
@@ -500,6 +502,7 @@ population_building = { #Granary
 		}
 	}
 	allow = {
+		custom_tooltip = population_building_allow_tt
 		or = {
 			num_of_population_building < 3
 			AND = {
@@ -547,6 +550,7 @@ workshop_building = { #Production District
 		}
 	}
 	allow = {
+		custom_tooltip = workshop_building_allow_tt
 		has_city_status = yes
 		owner = {
 			is_tribal = no
@@ -557,7 +561,7 @@ workshop_building = { #Production District
 				num_of_workshop_building < 2
 				exists = owner
 				owner = {
-					invention = global_population_growth_inv_5
+					invention = civic_tech_investment_inv_2
 				}
 			}
 			AND = {
@@ -678,6 +682,7 @@ military_building = { #Conscription Camp
 		}
 	}
 	allow = {
+		custom_tooltip = military_building_allow_tt
 		or = {
 			num_of_military_building < 1
 			AND = {
@@ -745,6 +750,7 @@ forum_building = { #Forum [UNIQUE]
 		}
 	}
 	allow = {
+		custom_tooltip = forum_building_allow_tt
 		has_city_status = yes
 		owner = {
 			is_tribal = no
@@ -1272,6 +1278,7 @@ commerce_building = { #Commercial District
 		}
 	}
 	allow = {
+		custom_tooltip = commerce_building_allow_tt
 		has_city_status = yes
 		civilization_value >= 20
 		or = {
@@ -1344,6 +1351,7 @@ gardens_building = { ##gardens
 		}
 	}
 	allow = {
+		custom_tooltip = gardens_building_allow_tt
 		has_city_status = yes
 		owner = {
 				is_tribal = no
@@ -1450,6 +1458,7 @@ library_building = { #Library
 		}
 	}
 	allow = {
+		custom_tooltip = library_building_allow_tt
 		has_city_status = yes	
 		or = {
 			num_of_library_building < 3
@@ -1522,6 +1531,7 @@ academy_building = { #Academy
 		}
 	}
 	allow = {
+		custom_tooltip = academy_building_allow_tt
 		has_city_status = yes
 		owner = {
 			is_tribal = no
@@ -1637,9 +1647,9 @@ gymnasium_building = { #
 	local_happiness_for_same_culture_modifier = 0.03
 	local_country_civilization_value = 1
 	local_unrest = 0.5
-	local_pop_assimilation_speed_modifier = 0.03
+	local_pop_assimilation_speed = 0.05
 
-	cost = 100
+	cost = 120
 	time = 360
 
 	max_amount = 3
@@ -1654,6 +1664,7 @@ gymnasium_building = { #
 		}
 	}
 	allow = {
+		custom_tooltip = gymnasium_building_allow_tt
 		has_city_status = yes
 		owner = {
 				is_tribal = no
@@ -1689,9 +1700,9 @@ gymnasium_building = { #
 	}
 }
 theathre_building = { #Theater
-	local_pop_assimilation_speed_modifier = 0.1
-	local_happiness_for_same_culture_modifier = 0.05 
-	local_unrest = -2
+	local_pop_assimilation_speed_modifier = 0.15
+	local_happiness_for_same_culture_modifier = 0.06
+	local_unrest = -3
 	local_country_civilization_value = 2
 
 	cost = 300
@@ -1774,11 +1785,11 @@ theathre_building = { #Theater
 circus_building = {
 	local_population_happiness = 0.2
 	local_country_civilization_value = 3
-	local_tax_modifier = -0.1
+	local_tax_modifier = -0.15
 	local_pop_assimilation_speed = 0.33
 	local_research_points_modifier = -0.1
 
-	cost = 300
+	cost = 500
 	time = 400
 
 	max_amount = 1
@@ -1832,14 +1843,14 @@ circus_building = {
 # 9 Religion 9
 
 shrine_building = { #9
-	local_happiness_for_same_religion_modifier = 0.05
-	local_pop_conversion_speed_modifier = 0.05
+	local_happiness_for_same_religion_modifier = 0.04
+	local_pop_conversion_speed = 0.1
 	local_happiness_for_wrong_religion_modifier = -0.1
 	local_country_civilization_value = 1
 
 	max_amount = 1
 
-	cost = 100
+	cost = 150
 	time = 360
 
 	potential = {
@@ -1878,7 +1889,7 @@ shrine_building = { #9
 }
 ####
 temple_building = {
-	local_pop_conversion_speed_modifier = 0.1
+	local_pop_conversion_speed_modifier = 0.15
 	local_happiness_for_same_religion_modifier = 0.1
 	local_country_civilization_value = 2
 	local_happiness_for_wrong_religion_modifier = -0.2
@@ -2039,6 +2050,7 @@ town_hall_building = { #Tax Office
 		}
 	}
 	allow = {
+		custom_tooltip = town_hall_building_allow_tt
 		has_city_status = yes
 		owner = {
 				is_tribal = no
@@ -2104,6 +2116,7 @@ court_building = { #Court of Law
 		}
 	}
 	allow = {
+		custom_tooltip = court_building_allow_tt
 		has_city_status = yes
 		owner = {
 				is_tribal = no
@@ -3295,7 +3308,7 @@ tribal_sacred_building = { #5 religion #shrine
 	}
 	allow = {
 		owner = {
-				is_tribal = yes
-			}
+			is_tribal = yes
+		}
 	}
 }
