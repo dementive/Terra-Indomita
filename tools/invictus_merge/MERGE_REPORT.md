@@ -136,7 +136,7 @@ Also repaired:
      - `dictatorship_step_3` AI weight is now 0 (Invictus's).
      - Theatres can't be built: they require deleted `agressive_expansion_monthly_decay_inv_3` (pre-existing TI bug). *Fixed in section 8.*
      - `pilum_inv` is undefined (pre-existing). *Fixed in section 8.*
-     - 12 inventions have no AI weight.
+     - ~~12 inventions have no AI weight~~ 13; fixed in section 9.
    - **Content:**
      - horde_conquest `conquer_cost` kept TI's 0 (base −0.1, Invictus 0.6).
      - TI's laws in `03_military.txt`/`04_naval.txt` lack Invictus 1.12's changes: maritime `num_of_port_building >= 1`, reform unlock `num_of_cities >= 25`, and the Carthage unlock.
@@ -260,6 +260,7 @@ Source: `error.log` from a played session, compared with a boot of Invictus 1.12
 - **Pantheons of KOR, KOM, ZEL and MAN.** TI countries have 6 pantheon slots (adding justice and wisdom); these 4 came from Invictus with 4 gods each. The game filled the empty slots with random gods that failed their checks. Added: Corinth Hades and Athena; Comana Sipylene and Berecyntia; Zela Haurvatat and Ameretat; Anabura Kakasbos and Cybele. All 47 pantheons now have one god per category.
 - **Chinese unification points** (`ti_mandate_effects.txt`). The variable only existed for countries that got the "Turmoil in China" event, so the monthly check failed for the rest (50 errors in 10 years). It's now created when missing. Ezo's 5 points were also outside their `is_subject_of` check, so every Chinese country got them once whether or not Ezo was its subject.
 - **Decimation ability.** Its AI weight checked the unit's legion for every army (227 errors); now guarded with `exists = legion`, as is the start effect.
+- **Invictus AI changes are kept.** Of the 42 AI script files Invictus 1.12 changed, 38 match it exactly; the other 4 differ only where references to things TI lacks are disabled. 343 of the 576 AI weights Invictus changed in other files match it in place, one governor policy has Invictus's change plus a TI rule, and the rest are inventions (117 deleted by TI's rework; 312 of the 325 that remain, matched by name, are Invictus's). The last 13 inventions had no `ai_will_do` in TI at all (dropped before this merge); they now have Invictus 1.12's weights. A 3-year headless run shows no errors from them.
 
 Left alone, because the code is identical to Invictus and only the game state differs:
 - the Diadochi Caria event releasing countries that aren't PRY subjects;
