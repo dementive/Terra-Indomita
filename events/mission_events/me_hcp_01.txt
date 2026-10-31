@@ -32,17 +32,17 @@ me_hcp_01.1 = {			#Pontic League - Request submission in exchange for a tidy sum
     	add_treasury = -100
 		add_political_influence = -50
     	c:TIE = {
-    		trigger_event = {
+            trigger_event = {
     			id = me_hcp_01.2
     			days = 4
-    		}
-    	}
+            }
+        }
 		c:SMS = {
-    		trigger_event = { # stagger time to fire to make event less spammy, also for rp since sesamos is farther away i guess lol
+            trigger_event = { # stagger time to fire to make event less spammy, also for rp since sesamos is farther away i guess lol
     			id = me_hcp_01.2
     			days = 8
-    		}
-    	}
+            }
+        }
     }
 }
 
@@ -62,17 +62,17 @@ me_hcp_01.2 = {   #For TIE and SMS, choose to become HCP slave or no
     	name = me_hcp_01.2.a
     	trigger = {
     		is_subject = no
-    	}
+        }
     	c:HCP = {
     		make_subject = {
     			target = root
     			type = feudatory
-    		}
-    		trigger_event = {
+            }
+            trigger_event = {
     			id =  me_hcp_01.3
     			days = 5
-    		}
-    	}
+            }
+        }
     	ai_chance = {
             factor = 80
 			modifier = {
@@ -95,7 +95,7 @@ me_hcp_01.2 = {   #For TIE and SMS, choose to become HCP slave or no
 			trigger_event = {
     			id =  me_hcp_01.4
     			days = 5
-    		}
+            }
 		}
 		ai_chance = {
             factor = 30
@@ -124,8 +124,8 @@ me_hcp_01.3 = {			# response yeah
     		make_subject = {
     			target = scope:hcp_offer
     			type = feudatory
-    		}
-    	}
+            }
+        }
 		clear_saved_scope = hcp_offer
 	}
 }
@@ -144,8 +144,8 @@ me_hcp_01.4 = {			# response no
     			every_owned_province = {
 					add_claim = c:HCP
 				}
-    		}
-    	}
+            }
+        }
 		clear_saved_scope = hcp_offer
 	}
 }
@@ -246,7 +246,7 @@ me_hcp_01.5 = { # royal wedding
     
         if = {
             limit = { 
-                c:KIO = { has_land = yes }
+                c:MIT = { has_land = yes }
                 char:84 = { is_alive = yes }
             }
             #Marry Klearchos to mithridatid woman or a random child if none available
@@ -256,7 +256,7 @@ me_hcp_01.5 = { # royal wedding
                 }
                 char:84 = { divorce_character = spouse }
             }
-            c:KIO = {
+            c:MIT = {
                 random_character = {
                     limit = {
                         has_trait = mithridates
@@ -275,7 +275,7 @@ me_hcp_01.5 = { # royal wedding
         }
         else_if = {
             limit = {
-                c:KIO = { 
+                c:MIT = { 
                     has_land = yes
                     any_character = {
                         has_trait = mithridates
@@ -285,7 +285,7 @@ me_hcp_01.5 = { # royal wedding
                     }
                 }
             }
-            c:KIO = {
+            c:MIT = {
                 random_character = {
                     limit = {
                         has_trait = mithridates
@@ -316,7 +316,7 @@ me_hcp_01.5 = { # royal wedding
                     marry_character = scope:marriage_partner
                 }
             }
-			c:KIO = {
+			c:MIT = {
 				add_opinion = {
 					target = root
 					modifier = hcp_marriage_ties_opmod
@@ -339,7 +339,7 @@ me_hcp_01.6 = {		#thracian auxiliares
     type = country_event
     title = me_hcp_01.6.t
     desc = me_hcp_01.6.desc
-    picture = celtic_britannic_path_2_event
+    picture = event_hellenic_soldiers_fortress_hill
 
     option = {
     	name = me_hcp_01.6.a
@@ -417,63 +417,77 @@ type = country_event
 
    option = {
 		name = "me_hcp_01.10.a" #Ankyra
-		if = {
-			limit = {
-				owns = 194
+		trigger = { 
+			owns = 194
+	    }
+		set_capital = 194
+		p:194 = {
+            change_province_name = "Achaemenidya"
+            hidden_effect = { state = { set_state_capital = 194 } }
+			create_state_pop = citizen
+			create_state_pop = freemen
+			add_province_modifier = {
+				name = founding_city_in_progress
+				duration = 730
 			}
-			set_capital = 194
-			p:194 = {
-                change_province_name = "Achaemenidya"
-                hidden_effect = { state = { set_state_capital = 194 } }
-				create_state_pop = citizen
-				create_state_pop = freemen
-				establish_city_effect = yes
-				add_province_modifier = {
-					name = hcp_achaemenid_capital
-					duration = -1
-				}
+			trigger_event = {
+				id = state_improvement.6
+				days = 730
+			}
+			add_province_modifier = {
+				name = hcp_achaemenid_capital
+				duration = -1
 			}
 		}
 	}
 	
 	option = {
 		name = "me_hcp_01.10.b" #Sinope
-		if = {
-			limit = {
-				owns = 1812
+		trigger = { 
+			owns = 1812
+	    }
+		set_capital = 1812
+		p:1812 = {
+			change_province_name = Achaemenidea_Pontica
+			hidden_effect = { state = { set_state_capital = 1812 } }
+			create_state_pop = citizen
+			create_state_pop = freemen
+			add_province_modifier = {
+				name = founding_city_in_progress
+				duration = 730
 			}
-			set_capital = 1812
-			p:1812 = {
-				change_province_name = Achaemenidea_Pontica
-				hidden_effect = { state = { set_state_capital = 1812 } }
-				create_state_pop = citizen
-				create_state_pop = freemen
-				establish_city_effect = yes
-				add_province_modifier = {
-					name = hcp_achaemenid_capital
-					duration = -1
-				}
+			trigger_event = {
+				id = state_improvement.6
+				days = 730
 			}
-
+			add_province_modifier = {
+				name = hcp_achaemenid_capital
+				duration = -1
+			}
 		}
 	}
 	
 	option = {
 		name = "me_hcp_01.10.c" #Amastris
-		if = {
-			limit = {
-				owns = 208
+		trigger = { 
+			owns = 208
+	    }
+		set_capital = 208
+		p:208 = {
+			hidden_effect = { state = { set_state_capital = 208 } }
+			create_state_pop = citizen
+			create_state_pop = freemen
+			add_province_modifier = {
+				name = founding_city_in_progress
+				duration = 730
 			}
-			set_capital = 208
-			p:208 = {
-				hidden_effect = { state = { set_state_capital = 208 } }
-				create_state_pop = citizen
-				create_state_pop = freemen
-				establish_city_effect = yes
-				add_province_modifier = {
-					name = hcp_achaemenid_capital
-					duration = -1
-				}
+			trigger_event = {
+				id = state_improvement.6
+				days = 730
+			}
+			add_province_modifier = {
+				name = hcp_achaemenid_capital
+				duration = -1
 			}
 		}
 	}
@@ -522,7 +536,7 @@ type = country_event
 			trigger_event = {
     			id = me_hcp_01.21
     			days = 80
-    		}
+            }
 		}
 	}
 me_hcp_01.21 = {	#military reform - Mercs or Levies?
@@ -705,11 +719,11 @@ type = country_event
     	add_treasury = -75
 		add_political_influence = -50
     	c:ARM = {
-    		trigger_event = {
+            trigger_event = {
     			id = me_hcp_01.16
     			days = 4
-    		}
-    	}
+            }
+        }
 	}
     option = { # Lesser Armenia
     	name = me_hcp_01.15.b
@@ -720,25 +734,12 @@ type = country_event
     	add_treasury = -150
 		add_political_influence = -75
 		hidden_effect = {
-            random_list = {
-                20 = {
-		    		trigger_event = {
-		    			id = me_hcp_01.18
-		    			days = 12
-		    		}
-                }
-                80 = {
-		    		make_subject = {
-		    			target = c:AR2
-		    			type = satrapy
-		    		}                	
-		    		trigger_event = {
-		    			id = me_hcp_01.17
-		    			days = 12
-		    		}
-                }            
-            }
-
+			c:ARM = {
+				trigger_event = {
+					id = me_hcp_01.17
+		    		days = 12
+		    	}
+			}
 		}
 	}
 	option = { # ask for "border adjustments" and become satrapy
@@ -746,11 +747,11 @@ type = country_event
     	add_treasury = -300
 		add_political_influence = -150
     	c:ARM = {
-    		trigger_event = {
+            trigger_event = {
     			id = me_hcp_01.17
     			days = 4
-    		}
-    	}
+            }
+        }
 	}
 }
 
@@ -767,11 +768,11 @@ type = country_event
     	add_treasury = 150
 		add_political_influence = 50
     	c:HCP = {
-    		trigger_event = {
+            trigger_event = {
     			id = me_hcp_01.19
     			days = 8
-    		}
-    	}
+            }
+        }
 		ai_chance = {
             factor = 80
 			modifier = {
@@ -789,11 +790,11 @@ type = country_event
     	name = me_hcp_01.16.b
 		add_political_influence = 10
     	c:HCP = {
-    		trigger_event = {
+            trigger_event = {
     			id = me_hcp_01.18
     			days = 8
-    		}
-    	}
+            }
+        }
 		ai_chance = {
             factor = 30
 			modifier = {
@@ -824,12 +825,12 @@ me_hcp_01.17 = { #armenia event hcp asks for "border adjustment" and satrapy sta
     		make_subject = {
     			target = root
     			type = satrapy
-    		}
-    		trigger_event = {
+            }
+            trigger_event = {
     			id = me_hcp_01.20
     			days = 8
-    		}
-    	}
+            }
+        }
 		ai_chance = {
             factor = 70
 			modifier = {
@@ -847,11 +848,11 @@ me_hcp_01.17 = { #armenia event hcp asks for "border adjustment" and satrapy sta
     	name = me_hcp_01.16.b
 		add_treasury = 300
     	c:HCP = {
-    		trigger_event = {
+            trigger_event = {
     			id = me_hcp_01.18
     			days = 8
-    		}
-    	}
+            }
+        }
 		ai_chance = {
             factor = 40
 			modifier = {
@@ -943,6 +944,10 @@ type = country_event
 
     option = { # transfer any provinces owned by armenia in parydes, armenia maioris and armenia minoris
     	name = me_hcp_01.20.a
+		make_subject = {
+		    target = c:AR2
+			type = satrapy
+		}
     	p:1844.area = {
             every_area_province = {
                 limit = { 
@@ -989,7 +994,7 @@ me_hcp_01.23 = { #The Cataphract
 type = country_event
     title = me_hcp_01.23.t
     desc = me_hcp_01.23.desc
-    picture = persian_scythian_path_end_bonus_event
+    picture = event_horses_escaping
 
 	option = { 
     	name = me_hcp_01.23.a
@@ -1020,7 +1025,7 @@ me_hcp_01.24 = { #Rebirth of the Immortals
 type = country_event
     title = me_hcp_01.24.t
     desc = me_hcp_01.24.desc
-    picture = persian_achaemenid_path_2_event
+    picture = Event_roman_legion_vs_calvary_charge
 
 	option = { 
     	name = me_hcp_01.24.a	
@@ -1036,7 +1041,7 @@ me_hcp_01.25 = { #Macedonian Veteran offers services
 type = country_event
     title = me_hcp_01.25.t
     desc = me_hcp_01.25.desc
-    picture = north_african_naval_path_5_event
+    picture = event_infantry_horse_bodies_desert
 	left_portrait = scope:hcp_veteran
 
 	immediate = {
@@ -1064,7 +1069,7 @@ me_hcp_01.26 = { #Wholesome 100 greco persian reddit chungus
 type = country_event
     title = me_hcp_01.26.t
     desc = me_hcp_01.26.desc
-    picture = persian_bactrian_path_2_event
+    picture = event_wise_men_indoors_debate
 	option = {
 		name = me_hcp_01.26.a
 			add_stability = 5
@@ -1079,7 +1084,7 @@ me_hcp_01.27 = { #Fishy Business
 type = country_event
     title = me_hcp_01.27.t
     desc = me_hcp_01.27.desc
-    picture = north_african_naval_path_1_event
+    picture = event_ship_leaving_levant_port
 
 
  option = {
@@ -1117,7 +1122,7 @@ me_hcp_01.28 = { #Launching of the Leontophoros
 type = country_event
     title = me_hcp_01.28.t
     desc = me_hcp_01.28.desc
-    picture = levantine_arabian_path_5_event
+    picture = event_ship_leaving_levant_port
 
  option = {
     name = me_hcp_01.28.a
@@ -1214,6 +1219,6 @@ type = country_event
 			c:SMS = {
 				every_owned_province = { set_owned_by = c:HCP }
 				every_country_treasure = { transfer_treasure_to_country = c:HCP }
-    		}
+            }
 		}
 	}

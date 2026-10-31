@@ -2,7 +2,7 @@
   value = 0
   area:cilicia_pedias_area = {
     every_area_province = {
-      limit = { owner = root }
+      #limit = { owner = root }
       every_pops_in_province = {
         add = 1
       }
@@ -101,5 +101,24 @@ asia_pop_happiness_max_svalue = { # max
     }
   }
   multiply = 0.4
-  round = floor
+  floor = yes
+}
+
+owned_provinces_count = {
+  value = {
+    every_country_state = {
+      add = 1
+    }
+  }
+}
+
+owned_provinces_66_loy_count = {
+  value = {
+    every_country_state = {
+      limit = {
+        state_level_loyalty >= 66
+      }
+      add = 1
+    }
+  }
 }

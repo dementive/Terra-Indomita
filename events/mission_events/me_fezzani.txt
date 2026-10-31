@@ -680,30 +680,6 @@ me_fezzani.20 = { # all form fezzan
     }
 
     immediate = {
-        random_country_culture = {
-            limit = {
-                is_culture = nasamonian
-            }
-            save_scope_as = nasamonian_culture_scope
-        }
-        random_country_culture = {
-            limit = {
-                is_culture = macaean
-            }
-            save_scope_as = macaean_culture_scope
-        }
-        random_country_culture = {
-            limit = {
-                is_culture = psyllic
-            }
-            save_scope_as = psyllic_culture_scope
-        }
-        random_country_culture = {
-            limit = {
-                is_culture = phazani
-            }
-            save_scope_as = phazani_culture_scope
-        }
     }
 
     option = {
@@ -725,12 +701,6 @@ me_fezzani.20 = { # all form fezzan
             add_popularity = popularity_large
             add_trait = invictus
             add_nickname = NICKNAME_AEROZONA
-        }
-        ROOT = {
-            integrate_country_culture = scope:nasamonian_culture_scope
-            integrate_country_culture = scope:macaean_culture_scope
-            integrate_country_culture = scope:psyllic_culture_scope
-            integrate_country_culture = scope:phazani_culture_scope
         }
     }
 
@@ -756,13 +726,6 @@ me_fezzani.20 = { # all form fezzan
         add_country_modifier = {
             name = tribal_fezzan
             duration = -1
-        }
-
-        ROOT = {
-            integrate_country_culture = scope:nasamonian_culture_scope
-            integrate_country_culture = scope:macaean_culture_scope
-            integrate_country_culture = scope:psyllic_culture_scope
-            integrate_country_culture = scope:phazani_culture_scope
         }
     }
 }
@@ -2912,7 +2875,14 @@ me_fezzani.303 = { # humble beginnings
 
         add_centralization = 15
         p:9962 = {
-            found_city_effect = yes
+            add_province_modifier = {
+                name = founding_city_in_progress
+                duration = 730
+            }
+            trigger_event = {
+                id = state_improvement.6
+                days = 730
+            }
             add_building_level = population_building
             create_state_pop = freemen
             create_state_pop = freemen
@@ -3367,7 +3337,14 @@ me_fezzani.402 = { # the girgiri capital
         add_centralization = 20
 
         p:10027 = {
-            found_city_effect = yes
+            add_province_modifier = {
+                name = founding_city_in_progress
+                duration = 730
+            }
+            trigger_event = {
+                id = state_improvement.6
+                days = 730
+            }
             create_state_pop = freemen
             create_state_pop = freemen
             create_state_pop = freemen

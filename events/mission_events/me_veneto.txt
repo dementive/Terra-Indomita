@@ -77,7 +77,7 @@ secure_venetia_mission_event.1 = { #Take Adria effect
 	    	    add_claim = root 
 	    	}
 		}
-		every_province = { 
+		every_ownable_province = { 
 	    	limit = { 
 	    		has_owner = yes
 	    		owner = c:HIS
@@ -118,12 +118,25 @@ secure_venetia_mission_event.4 = { #Fortify Carnia effect
 	hidden = yes
     
     immediate = {
+        if = {
+            limit = {
+                p:4025 = { num_of_fortress_building < 2 }
+            }
+            add_treasury = -200
+            p:4025 = {
+                if = {
+                    limit = { num_of_fortress_building < 1 }
+                    add_building_level = fortress_building
+                }
+                add_building_level = fortress_building
+            }
+        }
     	p:4025.state = {
     	    add_state_modifier = {
     	        name = me_carnian_fortifications_pmod
     	        duration = -1
     	    }
-    	}
+        }
         trigger_event = { id = secure_venetia_mission_event.136 }
     }
 }
@@ -155,6 +168,7 @@ secure_venetia_mission_event.6 = { #Ally the Cenomani effect
 		}
 	    if = {
 	        limit = {
+	            exists = c:CNM
 	            alliance_with = c:CNM
 	        }
 	        c:CNM = {
@@ -172,10 +186,11 @@ secure_venetia_mission_event.6 = { #Ally the Cenomani effect
 	        c:CNM = {
 	            if = {
 	                limit = {
-	                    alliance_with = c:HIS
-	                }        
+	                    exists = c:LGN
+	                    alliance_with = c:LGN
+	                }
+	                trigger_event = { id = secure_venetia_mission_event.16 } #Option to break alliance with The ligoni
 	            }
-	            trigger_event = { id = secure_venetia_mission_event.16 } #Option to break alliance with The ligoni
 	        }
 	    }
 	    add_country_modifier = {
@@ -215,12 +230,13 @@ secure_venetia_mission_event.7 = { #Gallic Colonies effect
 	    random_country_culture = {
     		limit = { 
     		    is_culture = lepontic
-    		}
+            }
     		set_country_culture_right = citizen
     	    add_integration_progress = 0.5
     	    save_scope_as = target_culture
-    	}
+        }
         random_owned_province = {
+            limit = { is_in_region = cisalpine_gaul_region }
             define_pop = {
                 type = tribesmen 
                 culture = lepontic
@@ -238,6 +254,7 @@ secure_venetia_mission_event.7 = { #Gallic Colonies effect
             }
         }
     	random_owned_province = {
+            limit = { is_in_region = cisalpine_gaul_region }
             define_pop = {
                 type = tribesmen 
                 culture = lepontic
@@ -255,6 +272,7 @@ secure_venetia_mission_event.7 = { #Gallic Colonies effect
             }
         }
 	    random_owned_province = {
+            limit = { is_in_region = cisalpine_gaul_region }
             define_pop = {
                 type = tribesmen 
                 culture = lepontic
@@ -272,6 +290,7 @@ secure_venetia_mission_event.7 = { #Gallic Colonies effect
             }
         }
         random_owned_province = {
+            limit = { is_in_region = cisalpine_gaul_region }
             define_pop = {
                 type = tribesmen 
                 culture = lepontic
@@ -289,6 +308,7 @@ secure_venetia_mission_event.7 = { #Gallic Colonies effect
             }
         }
         random_owned_province = {
+            limit = { is_in_region = cisalpine_gaul_region }
             define_pop = {
                 type = tribesmen 
                 culture = lepontic
@@ -430,7 +450,7 @@ secure_venetia_mission_event.14 = { #Favorable Diplomacy effect
 	        }
 	        if = {
                 limit = {
-                    is_subject_of = ROM
+                    is_subject_of = c:ROM
                 }
                 trigger_event = { id = secure_venetia_mission_event.22 days = { 40 1800 }} #Rome might seek further integration in the future
             }
@@ -443,6 +463,7 @@ secure_venetia_mission_event.14 = { #Favorable Diplomacy effect
 	    if = {
             limit = {
 	            AND = {
+	                exists = c:ROM
 	                alliance_with = c:ROM
 	                    c:ROM = {
 	                    opinion = {
@@ -468,6 +489,7 @@ secure_venetia_mission_event.14 = { #Favorable Diplomacy effect
 	    if = {
             limit = {
 	            AND = {
+	                exists = c:ETR
 	                alliance_with = c:ETR
 	                    c:ETR = {
 	                    opinion = {
@@ -606,7 +628,7 @@ secure_venetia_mission_event.18 = { #Rome receives the offer
     } 
     option = { #Venetia would be better controlled more directly...
         name = secure_venetia_mission_event.18.b
-        every_province = {
+        every_ownable_province = {
             if = {
 			    limit = { 
 			    	has_owner = yes
@@ -686,7 +708,7 @@ secure_venetia_mission_event.20 = { #Etrurias response
     option = {
         name = secure_venetia_mission_event.18.b #Ha! Now they seek our protection!
         scope:vnt_sends_offer_of_subserviance_to_etruria = {
-        	trigger_event = { id = secure_venetia_mission_event.143 }
+            trigger_event = { id = secure_venetia_mission_event.143 }
         }
     }
 }
@@ -751,45 +773,43 @@ secure_venetia_mission_event.21 = { #Veneto adopts Roman Culture and Religion (r
 
     option = {
         name = secure_venetia_mission_event.21.a #You know, the roman way of life seems awfully appealing
-        root = { 	
-            set_primary_culture_cleanup_effect = { 
-                NEW_PRIMARY_CULTURE = roman 
-                MAKE_OLD_CULTURE_INTEGRATED = yes 
+        root = {
+            set_primary_culture_cleanup_effect = {
+                NEW_PRIMARY_CULTURE = roman
+                MAKE_OLD_CULTURE_INTEGRATED = yes
             }
             set_country_religion = roman_pantheon
         }
-        scope:province = {
         hidden_effect = {
-        random_owned_province = {
-            random_pops_in_province = {
-                set_pop_culture = roman
-                set_pop_religion = roman_pantheon
+            random_owned_province = {
+                random_pops_in_province = {
+                    set_pop_culture = roman
+                    set_pop_religion = roman_pantheon
+                }
+                random_pops_in_province = {
+                    set_pop_culture = roman
+                    set_pop_religion = roman_pantheon
+                }
+                random_pops_in_province = {
+                    set_pop_culture = roman
+                    set_pop_religion = roman_pantheon
+                }
             }
-            random_pops_in_province = {
-                set_pop_culture = roman
-                set_pop_religion = roman_pantheon
-            }
-            random_pops_in_province = {
-                set_pop_culture = roman
-                set_pop_religion = roman_pantheon
+            random_owned_province = {
+                random_pops_in_province = {
+                    set_pop_culture = roman
+                    set_pop_religion = roman_pantheon
+                }
+                random_pops_in_province = {
+                    set_pop_culture = roman
+                    set_pop_religion = roman_pantheon
+                }
+                random_pops_in_province = {
+                    set_pop_culture = roman
+                    set_pop_religion = roman_pantheon
+                }
             }
         }
-        random_owned_province = {
-            random_pops_in_province = {
-                set_pop_culture = roman
-                set_pop_religion = roman_pantheon
-            }
-            random_pops_in_province = {
-                set_pop_culture = roman
-                set_pop_religion = roman_pantheon
-            }
-            random_pops_in_province = {
-                set_pop_culture = roman
-                set_pop_religion = roman_pantheon
-            }
-        }       
-        }
-    }
     }
     option = { #Worship of Jupiter won't go away, but let's maintain some of the old ways
         name = secure_venetia_mission_event.21.b
@@ -818,6 +838,11 @@ secure_venetia_mission_event.22 = { #Rome wishes further integration (from persp
     desc = secure_venetia_mission_event.22.desc
     picture = romans_marching
 
+    trigger = {
+        exists = c:ROM
+        is_subject_of = c:ROM
+    }
+
     option = { #Very well, let us integrate further with rome!
         name = secure_venetia_mission_event.22.a 
         custom_tooltip = secure_venetia_mission_event.22.a.tt
@@ -826,7 +851,7 @@ secure_venetia_mission_event.22 = { #Rome wishes further integration (from persp
             if = {
             	limit = {
             		is_tribal = yes
-            	}
+                }
                 change_government = aristocratic_republic
             }
             change_country_flag = VENETIA_ET_HISTRIA_FLAG
@@ -899,7 +924,7 @@ secure_venetia_mission_event.23 = { #Rome is offended
 
     option = { #It looks like we'll have to integrate the barbarians by force!
         name = secure_venetia_mission_event.23.a
-        every_province = {
+        every_ownable_province = {
             if = {
 	    	    limit = { 
 		   	    	has_owner = yes
@@ -1079,9 +1104,10 @@ secure_venetia_mission_event.26 = { #Direct Control over Cenomannia effect
         }
         if = {
             limit = {
-        	    c:CNM = { has_land = yes }	
+        	    exists = c:CNM
+        	    c:CNM = { has_land = yes }
         	    NOT = {
-        	        C:CNM = {
+        	        c:CNM = {
         	            is_subject_of = root
         	        }
         	    }    
@@ -1125,6 +1151,10 @@ secure_venetia_mission_event.28 = { #Veneto requests subserviance
 
     option = {
         name = secure_venetia_mission_event.28.a #They do seem to be growing in force,
+        if = {
+            limit = { is_subject = yes }
+            overlord = { release_subject = ROOT }
+        }
         scope:vnt_country_to_vassalize_cenomania_peacefully = {
             make_subject = {
                 target = c:CNM
@@ -1207,7 +1237,7 @@ secure_venetia_mission_event.31 = { #rival cenomannia effect
 	    area:east_insubria_area = {
             add_provincial_claim_effect = yes
 		}
-		every_province = { 
+		every_ownable_province = { 
 	    	limit = { 
 	    		has_owner = yes
 	    		owner = c:CNM
@@ -1542,23 +1572,18 @@ secure_venetia_mission_event.39 = {
 	    area:aetolia_area = {
             add_provincial_claim_effect = yes
 		}
-	    area:epirus_area = {
-	        ROOT = {
-	            random_owned_province = {
-	                create_state_pop = freemen
-	                create_state_pop = freemen
-	                create_state_pop = citizen
-	                create_state_pop = citizen	            
-	            }
-	            random_owned_province = {
-	                limit = {
-	                    exists = yes
-	                }
-	                create_state_pop = freemen
-	                create_state_pop = freemen
-	                create_state_pop = citizen
-	            }
-	        }
+	    random_owned_province = {
+	        limit = { is_in_area = epirus_area }
+	        create_state_pop = freemen
+	        create_state_pop = freemen
+	        create_state_pop = citizen
+	        create_state_pop = citizen
+	    }
+	    random_owned_province = {
+	        limit = { is_in_area = epirus_area }
+	        create_state_pop = freemen
+	        create_state_pop = freemen
+	        create_state_pop = citizen
 	    }	
 	}
 }
@@ -1899,6 +1924,7 @@ secure_venetia_mission_event.54 = {
 	immediate = {
 	    root = {
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = roman
@@ -1911,6 +1937,7 @@ secure_venetia_mission_event.54 = {
                 }
 	        }
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = roman
@@ -1923,6 +1950,7 @@ secure_venetia_mission_event.54 = {
                 }
 	        }
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = roman
@@ -1935,6 +1963,7 @@ secure_venetia_mission_event.54 = {
                 }
 	        }
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = roman
@@ -1947,6 +1976,7 @@ secure_venetia_mission_event.54 = {
                 }
 	        }
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = roman
@@ -1976,6 +2006,7 @@ secure_venetia_mission_event.55 = {
 	immediate = {
 	    root = {
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = etruscan
@@ -1988,6 +2019,7 @@ secure_venetia_mission_event.55 = {
                 }
 	        }
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = etruscan
@@ -2000,6 +2032,7 @@ secure_venetia_mission_event.55 = {
                 }
 	        }
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = etruscan
@@ -2012,6 +2045,7 @@ secure_venetia_mission_event.55 = {
                 }
 	        }
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = etruscan
@@ -2024,6 +2058,7 @@ secure_venetia_mission_event.55 = {
                 }
 	        }
 	        random_owned_province = {
+                limit = { is_in_region = cisalpine_gaul_region }
                 define_pop = {
                     type = freemen
                     culture = etruscan
@@ -2103,46 +2138,6 @@ secure_venetia_mission_event.56 = {
 	            duration = 18250 #50 years
 	        }
 	        trigger_event = { id = secure_venetia_mission_event.156 }
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 360 1800 } #  1-5 years
-	        #}
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 2160 3600 } #  1-5 years later / in 6-10 years
-	        #}
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 3960 5400 }#  + 1-5 years later / in 11-15 years
-	        #}
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 5760 7200 }#  + 1-5 years later / in 15-20 years
-	        #}
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 7560 9000 }#  + 1-5 years later / in 21-25 years
-	        #}
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 9360 10800 }#  + 1-5 years later / in 26-30 years
-	        #}
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 11160 12600 }#  + 1-5 years later / in 31-35 years
-	        #}
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 12960 14400 }#  + 1-5 years later / in 36-40 years
-	        #}
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 14760 16200 }#  + 1-5 years later / in 41-45 years
-	        #}
-	        #trigger_event = {
-	        #    id = secure_venetia_mission_event.102
-	        #    days = { 16560 18000 }#  + 1-5 years later / in 46-50 years
-	        #}
 	    }
 	}
 }
@@ -2249,14 +2244,17 @@ secure_venetia_mission_event.65 = {
 	hidden = yes
 
 	immediate = {
-	    add_opinion = {
-	        modifier = venetic_raeti_alliance_opinion
-	        target = c:RAE
-	    }
-	    c:RAE = {
+	    if = {
+	        limit = { exists = c:RAE }
 	        add_opinion = {
 	            modifier = venetic_raeti_alliance_opinion
-	            target = ROOT
+	            target = c:RAE
+	        }
+	        c:RAE = {
+	            add_opinion = {
+	                modifier = venetic_raeti_alliance_opinion
+	                target = ROOT
+	            }
 	        }
 	    }
 	    trigger_event = { id = secure_venetia_mission_event.168 }
@@ -2466,10 +2464,12 @@ secure_venetia_mission_event.72 = { #Veneto offers suzeranity
                 }
             }
         }
-        scope:venetic_country_asking_greeks_for_fealty = {
-            make_subject = {
-                target = ROOT
-                type = feudatory
+        else = {
+            scope:venetic_country_asking_greeks_for_fealty = {
+                make_subject = {
+                    target = ROOT
+                    type = feudatory
+                }
             }
         }
         current_ruler = {
@@ -2540,7 +2540,7 @@ secure_venetia_mission_event.72 = { #Veneto offers suzeranity
         }
         current_ruler = {
             add_popularity = 10
-            add_charisma = -10
+            add_charisma = -2
         }
         ai_chance = {
             factor = 10
@@ -2603,7 +2603,7 @@ secure_venetia_mission_event.74 = { #Veneto offers to buy Spina
             set_owned_by = scope:venetic_country_asking_for_spina
         }
         scope:venetic_country_asking_for_spina = {
-            add_treasury = -200
+            add_treasury = -300
             add_truce = {
                 target = root
                 duration = 1800 #5 years
@@ -2681,7 +2681,11 @@ secure_venetia_mission_event.761 = { #Veneto seeks an arrangement
     picture = greek_court
 
     option = {
-        name = secure_venetia_mission_event.761.a #We cannot stand against Veneto 
+        name = secure_venetia_mission_event.761.a #We cannot stand against Veneto
+        if = {
+            limit = { is_subject = yes }
+            overlord = { release_subject = ROOT }
+        }
         scope:venetic_country_subjugating_chersos = {
             make_subject = {
                 target = c:ASP
@@ -2836,7 +2840,7 @@ secure_venetia_mission_event.79 = { #Veneto seeks to protect us
 
     option = {
         name = secure_venetia_mission_event.79.a #Such an agreement might benefit our city,
-        add_treasury = 250
+        add_treasury = 150
         if = {
             limit = {
                 is_subject = yes
@@ -2928,7 +2932,6 @@ secure_venetia_mission_event.80 = { #Ancona declines
     option = {
         name = secure_venetia_mission_event.80.a #A pity, 
         custom_tooltip = "secure_venetia_mission_event.80.a_tt"
-        add_treasury = 250
     }
 }
 
@@ -2940,11 +2943,12 @@ secure_venetia_mission_event.81 = { #Veneto seeks to protect Ancona
 
     option = {
         name = secure_venetia_mission_event.81.a #Such an agreement might benefit Ancona, and their incentive is tempting
-        add_treasury = 250
+        add_treasury = 150
         p:117 = {
             set_owned_by = c:ANO
         }
         scope:venetic_country_offering_to_protect_ankona = {
+            add_treasury = -150
             make_subject = {
                 target = c:ANO
                 type = subject_league_city_state
@@ -3104,7 +3108,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3125,7 +3129,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3146,7 +3150,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3167,7 +3171,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3188,7 +3192,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3209,7 +3213,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3230,7 +3234,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3251,7 +3255,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3272,7 +3276,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3293,7 +3297,7 @@ secure_venetia_mission_event.83 = { #Veneto offers to buy our coast
                 set_owned_by = scope:venetic_country_wants_illyrian_coast
                 add_province_modifier = {
                     name = me_growth_of_venetic_colony_pmod
-                    duration = 5500 #15 years
+                    duration = 5475 #15 years
                 }
                 create_state_pop = freemen
                 create_state_pop = freemen
@@ -3349,7 +3353,6 @@ secure_venetia_mission_event.84 = { #Offer to buy Illyria Graecia
 
     option = { #Our offer is sent
         name = secure_venetia_mission_event.84.a
-        add_treasury = -450
     }	
 }
 
@@ -3377,6 +3380,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:415 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3388,6 +3392,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:422 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3399,6 +3404,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:2336 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3410,6 +3416,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:2213 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3421,6 +3428,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:2264 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3432,6 +3440,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:455 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3443,6 +3452,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:1445 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3482,6 +3492,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:415 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3493,6 +3504,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:422 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3504,6 +3516,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:2336 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3515,6 +3528,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:2213 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3526,6 +3540,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:2264 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3537,6 +3552,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:455 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3548,6 +3564,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
                 p:1445 = {
                     set_owned_by = scope:venetic_country_wants_illyria_graeca
                 }
@@ -3588,6 +3605,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
             }   
             if = {
                 limit = {
@@ -3596,6 +3614,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
             }   
             if = {
                 limit = {
@@ -3604,6 +3623,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
             }   
             if = {
                 limit = {
@@ -3612,6 +3632,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
             }   
             if = {
                 limit = {
@@ -3620,6 +3641,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
             }   
             if = {
                 limit = {
@@ -3628,6 +3650,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
             }   
             if = {
                 limit = {
@@ -3636,6 +3659,7 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
                     }
                 }
                 add_treasury = 100
+                scope:venetic_country_wants_illyria_graeca = { add_treasury = -100 }
             }        
 	    }    
 	    scope:venetic_country_wants_illyria_graeca = {
@@ -3651,80 +3675,6 @@ secure_venetia_mission_event.85 = { #Veneto Desires Illyria Graeca
 	option = {
 	    name = secure_venetia_mission_event.85.d
 	    custom_tooltip = secure_venetia_mission_event.85.d_tt
-	    hidden_effect = {
-	    #custom_tooltip = {
-	        #text = secure_venetia_mission_event.85.d_tt #Tooltip broken
-	        if = {
-                limit = {
-                    root = {
-                        owns = p:415
-                    }
-                }
-                scope:venetic_country_wants_illyria_graeca = {
-                    add_treasury = 64
-                }
-            }   
-            if = {
-                limit = {
-                    root = {
-                        owns = p:422
-                    }
-                }
-                scope:venetic_country_wants_illyria_graeca = {
-                    add_treasury = 64
-                }
-            }   
-            if = {
-                limit = {
-                    root = {
-                        owns = p:2336
-                    }
-                }
-                scope:venetic_country_wants_illyria_graeca = {
-                    add_treasury = 64
-                }
-            }   
-            if = {
-                limit = {
-                    root = {
-                        owns = p:2213
-                    }
-                }
-                scope:venetic_country_wants_illyria_graeca = {
-                    add_treasury = 64
-                }
-            }   
-            if = {
-                limit = {
-                    root = {
-                        owns = p:2264
-                    }
-                }
-                scope:venetic_country_wants_illyria_graeca = {
-                    add_treasury = 64
-                }
-            }   
-            if = {
-                limit = {
-                    root = {
-                        owns = p:455
-                    }
-                }
-                scope:venetic_country_wants_illyria_graeca = {
-                    add_treasury = 64
-                }
-            }   
-            if = {
-                limit = {
-                    root = {
-                        owns = p:1445
-                    }
-                }
-                scope:venetic_country_wants_illyria_graeca = {
-                    add_treasury = 64
-                }
-            }  
-	    }
 	    scope:venetic_country_wants_illyria_graeca = {
 	        trigger_event = {
 	            id = secure_venetia_mission_event.113
@@ -3766,7 +3716,8 @@ secure_venetia_mission_event.87 = { #Veneto requests subserviance
         name = secure_venetia_mission_event.87.a #We could do with protection,
         scope:venetic_country_offering_protection_to_raetia = {
             make_subject = {
-                target = RAE
+                target = c:RAE
+
                 type = subject_league_city_state
             }
             trigger_event = {
@@ -3979,7 +3930,8 @@ secure_venetia_mission_event.93 = { #A Roman Colony in Aquilleia
         root = {
             add_opinion = {
                 modifier = sent_colonists_to_aquilleia
-                target = ROM
+                target = c:ROM
+
             }
             trigger_event = {
                 id = secure_venetia_mission_event.101
@@ -4135,7 +4087,14 @@ secure_venetia_mission_event.101 = { #Rome forms a colony in Aquilleia
         custom_tooltip = secure_venetia_mission_event_101_tt
         hidden_effect = {
             p:3606 = {
-                found_city_effect = yes
+                add_province_modifier = {
+                    name = founding_city_in_progress
+                    duration = 730
+                }
+                trigger_event = {
+                    id = state_improvement.6
+                    days = 730
+                }
                 change_province_name = Aquileia
                 if = {
                    limit = {
@@ -4185,88 +4144,6 @@ secure_venetia_mission_event.101 = { #Rome forms a colony in Aquilleia
     }
 }
 
-secure_venetia_mission_event.102 = { #VNT pop growth
-    type = country_event
-    hidden = yes
-
-    immediate = {
-        root = {
-	        random_owned_province = {
-	            limit = {
-	                OR = {
-	                    has_province_rank = city	
-	                    has_province_rank = city_metropolis                
-	                }
-	            }
-                create_state_pop = freemen           
-	        }
-	        random_owned_province = {
-	            limit = {
-	                OR = {
-	                    has_province_rank = city	
-	                    has_province_rank = city_metropolis                
-	                }
-	            }
-                create_state_pop = freemen
-	        }
-	        random_owned_province = {
-	            limit = {
-	                OR = {
-	                    has_province_rank = city	
-	                    has_province_rank = city_metropolis                
-	                }
-	            }
-                create_state_pop = freemen                
-	        }
-	        random_owned_province = {
-	            limit = {
-	                OR = {
-	                    has_province_rank = city	
-	                    has_province_rank = city_metropolis                
-	                }
-	            }
-                create_state_pop = freemen                
-	        }
-	        random_owned_province = {
-	            limit = {
-	                OR = {
-	                    has_province_rank = city	
-	                    has_province_rank = city_metropolis                
-	                }
-	            }
-                create_state_pop = freemen                
-	        }
-	        random_owned_province = {
-	            limit = {
-	                OR = {
-	                    has_province_rank = city	
-	                    has_province_rank = city_metropolis                
-	                }
-	            }
-                create_state_pop = freemen                
-	        }
-	        random_owned_province = {
-	            limit = {
-	                OR = {
-	                    has_province_rank = city	
-	                    has_province_rank = city_metropolis                
-	                }
-	            }
-                create_state_pop = freemen                
-	        }
-	        random_owned_province = {
-	            limit = {
-	                OR = {
-	                    has_province_rank = city	
-	                    has_province_rank = city_metropolis                
-	                }
-	            }
-                create_state_pop = freemen                
-	        }
-	    }
-    }
-}
-
 secure_venetia_mission_event.103 = { #add claims on rhaetia, in case RAE has already been conquered
     type = country_event
 	hidden = yes
@@ -4274,29 +4151,32 @@ secure_venetia_mission_event.103 = { #add claims on rhaetia, in case RAE has alr
 	immediate = {
 	    if = {
             limit = {
-                c:RAE = {
-                    has_land = yes
-                }
+                exists = c:RAE
+                c:RAE = { has_land = yes }
             }
-            root = {
-                trigger_event = {
-                    id = secure_venetia_mission_event.86
-                }
-            }
+            trigger_event = { id = secure_venetia_mission_event.86 }
         }
-        if = {
+        else_if = {
             limit = {
-                NOT = {
-                    c:RAE = {
-                        has_land = yes
+                any_country = {
+                    NOT = { this = root }
+                    any_owned_province = {
+                        OR = {
+                            province_id = 3661
+                            province_id = 3660
+                            province_id = 3659
+                            province_id = 3658
+                            province_id = 3656
+                            province_id = 3655
+                            province_id = 3654
+                            province_id = 3665
+                            province_id = 3663
+                            province_id = 3666
+                        }
                     }
                 }
             }
-            root = {
-                trigger_event = {
-                    id = secure_venetia_mission_event.107
-                }
-            }
+            trigger_event = { id = secure_venetia_mission_event.107 }
         }
         p:3661 = { 
 			if = {
@@ -4371,15 +4251,6 @@ secure_venetia_mission_event.103 = { #add claims on rhaetia, in case RAE has alr
 			}
 		}
 		p:3665 = { 
-			if = {
-				limit = { 
-					has_owner = yes
-					NOT = { owner = root } 
-				}
-				add_claim = root 
-			}
-		}
-		p:3661 = { 
 			if = {
 				limit = { 
 					has_owner = yes
@@ -4834,26 +4705,13 @@ secure_venetia_mission_event.115 = { #Chersos accepts offer for vassalization
     desc = secure_venetia_mission_event.115.desc 
     picture = greek_marketplace
 
-    immediate ={
-        if = {
-            limit = {
-                c:ASP = {
-                    is_subject = yes
+    immediate = {
+        show_as_tooltip = {
+            scope:venetic_country_subjugating_chersos = {
+                make_subject = {
+                    target = c:ASP
+                    type = subject_league_city_state
                 }
-            }
-            every_country = {
-                limit = {
-                    any_subject = {
-                        tag = ASP
-                    }
-                }
-                release_subject = c:ASP
-            }
-        }
-        scope:venetic_country_subjugating_chersos = {
-            make_subject = {
-                target = c:ASP
-                type = subject_league_city_state
             }
         }
     }
@@ -4870,26 +4728,13 @@ secure_venetia_mission_event.116 = { #Cenomannia accepts vassalization
     desc = secure_venetia_mission_event.116.desc 
     picture = celtic_chiefs
 
-    immediate ={
-        if = {
-            limit = {
-                c:CNM = {
-                    is_subject = yes
+    immediate = {
+        show_as_tooltip = {
+            scope:vnt_country_to_vassalize_cenomania_peacefully = {
+                make_subject = {
+                    target = c:CNM
+                    type = feudatory
                 }
-            }
-            every_country = {
-                limit = {
-                    any_subject = {
-                        tag = CNM
-                    }
-                }
-                release_subject = c:CNM
-            }
-        }
-        scope:vnt_country_to_vassalize_cenomania_peacefully = {
-            make_subject = {
-                target = c:CNM
-                type = feudatory
             }
         }
     }
@@ -5106,7 +4951,7 @@ secure_venetia_mission_event.126 = {
 	            name = me_venetic_manpower_law_cmod
 	            duration = 36500 #100 years
 	        }
-    	}
+        }
     }
     
     option = {
@@ -5128,7 +4973,7 @@ secure_venetia_mission_event.127 = {
 	            name = me_consolidating_the_veneti_cities_cmod
 	            duration = 3650
 	        }
-    	}
+        }
     }
     
     option = {
@@ -5151,7 +4996,7 @@ secure_venetia_mission_event.128 = {
     	show_as_tooltip = {
     		add_stability = 20
 	        add_centralization = 5
-    	}
+        }
     }
     
     option = {
@@ -5173,7 +5018,7 @@ secure_venetia_mission_event.129 = {
     	        name = me_a_fleet_to_rival_carthage_ven_cmod
                 duration = 36500 #100 years
     	    }
-    	}
+        }
     }
 
     option = {
@@ -5196,7 +5041,7 @@ secure_venetia_mission_event.130 = {
 	            name = me_veneto_chose_diplomacy_cmod
 	            duration = 10950 #30 years
 	        }
-    	}
+        }
     }
 
     option = {
@@ -5216,8 +5061,8 @@ secure_venetia_mission_event.131 = {
     	show_as_tooltip = {
     		add_country_modifier = {
         	    name = me_veneto_gallic_warfare_cmod
-        	}
-    	}
+            }
+        }
     	custom_tooltip = "ven_we_unlock_celtic_millitary_traditions"
     }
 
@@ -5242,7 +5087,6 @@ secure_venetia_mission_event.132 = {
                     duration = 18250 
                 }
         }
-        add_stability = -5
     }
 
     option = {
@@ -5316,15 +5160,13 @@ secure_venetia_mission_event.136 = {
 	left_portrait = current_ruler
 
 	immediate = {
-        if = {
-            limit = {
-                p:4025 = {
-                	NOT = {
-                        num_of_fortress_building >= 2
-                	}
-                }
+		show_as_tooltip = {
+		    p:4025.state = {
+		    	add_state_modifier = {
+		    	    name = me_carnian_fortifications_pmod
+		    	    duration = -1
+		    	}
             }
-            add_treasury = -200
         }
 	}
 
@@ -5500,6 +5342,7 @@ secure_venetia_mission_event.145 = {
     	if = {
     		limit = {
 	            AND = {
+	                exists = c:ROM
 	                alliance_with = c:ROM
 	                    c:ROM = {
 	                    opinion = {
@@ -5512,10 +5355,11 @@ secure_venetia_mission_event.145 = {
 	        show_as_tooltip = {
 	        	custom_tooltip = "ven_romes_opinion_of_us_will_have_permanently_increased"
 	        }
-    	}
+        }
     	if = {
     		limit = {
 	            AND = {
+	                exists = c:ETR
 	                alliance_with = c:ETR
 	                    c:ETR = {
 	                    opinion = {
@@ -5528,14 +5372,14 @@ secure_venetia_mission_event.145 = {
 	        show_as_tooltip = {
 	        	custom_tooltip = "ven_etrurias_opinion_of_us_will_have_permanently_increased"
 	        }
-    	}
+        }
     	show_as_tooltip = {
     		add_stability = 10
     		add_country_modifier = {
 	            name = me_favorable_diplomacy_veneto_cmod
 	            duration = 18250
 	        }
-    	}   
+        }   
     }
 
     option = {
@@ -5703,7 +5547,7 @@ secure_venetia_mission_event.152 = {
 	                }
 	            } 	    
 	        }   
-    	}
+        }
     }
 
     option = {
@@ -5727,7 +5571,7 @@ secure_venetia_mission_event.153 = {
 	            name = me_well_equipped_ekupets_cmod
 	            duration = -1
 	        }
-    	}
+        }
     }
 
     option = {
@@ -5749,7 +5593,7 @@ secure_venetia_mission_event.154 = {
 	            name = me_arrival_of_roman_colonists_cmod
 	            duration = 9125 #25 years
 	        }
-    	}
+        }
     }
 
     option = {
@@ -5790,7 +5634,7 @@ secure_venetia_mission_event.155 = {
 	            name = me_etruscan_settlers_arrive_cmod
 	            duration = 9125 #25 years
 	        }
-    	}
+        }
     }
 
     option = {
@@ -5823,20 +5667,20 @@ secure_venetia_mission_event.156 = {
     			OR = {
     				is_in_area = ferraria_area
     				is_in_area = venetia_area
-    			}
+                }
     			has_city_status = yes
-    		}
-    		add_province_modifier = {
+            }
+            add_province_modifier = {
         		name = me_venetic_city_urbanization_pmod
         		duration = -1
-        	}
-    	}
+            }
+        }
     	show_as_tooltip = {
             add_country_modifier = {
 	            name = me_venetian_urbanization_program_cmod
 	            duration = 18250 #50 years
 	        }
-    	}
+        }
     }
 
     option = {
@@ -5857,7 +5701,7 @@ secure_venetia_mission_event.157 = {
                 name = me_nationwide_fortifications_cmod
                 duration = -1
             }
-    	}
+        }
     }
 
     option = {
@@ -5895,7 +5739,7 @@ secure_venetia_mission_event.159 = {
     type = country_event 
 	title = secure_venetia_mission_event.159.t #The Situlas of Ateste
 	desc = secure_venetia_mission_event.159.desc 
-	picture = alis_ubbo_greek_lady
+	picture = interesting_histories_greek_lady
 
     immediate = {
     	show_as_tooltip = {
@@ -5905,7 +5749,7 @@ secure_venetia_mission_event.159 = {
                     duration = -1
                 }
             }
-    	}
+        }
     }
 
     option = {
@@ -5928,7 +5772,7 @@ secure_venetia_mission_event.160 = {
                     duration = -1
                 }
             }
-    	}
+        }
     }
 
     option = {
@@ -5951,7 +5795,7 @@ secure_venetia_mission_event.161 = {
                     duration = -1
                 }
             }
-    	}
+        }
     }
 
     option = {
@@ -5972,7 +5816,7 @@ secure_venetia_mission_event.162 = {
                 name = me_improved_commerce_cmod
                 duration = 1825
             }
-    	}
+        }
     }
 
     option = {
@@ -6021,7 +5865,7 @@ secure_venetia_mission_event.164 = {
                     name = me_expanded_adrian_waterworks_pmod
                 }
             }
-    	}
+        }
     }
 
     option = {
@@ -6043,7 +5887,7 @@ secure_venetia_mission_event.165 = {
                     name = me_great_temple_at_altinom_pmod
                 }
             }
-    	}
+        }
     }
 
     option = {
@@ -6066,7 +5910,7 @@ secure_venetia_mission_event.166 = {
                     duration = 3650
                 }
             }
-    	}
+        }
     }
 
     option = {
@@ -6079,7 +5923,7 @@ secure_venetia_mission_event.167 = {
     type = country_event 
 	title = secure_venetia_mission_event.167.t #Centre of Mediterranean Trade
 	desc = secure_venetia_mission_event.167.desc 
-	picture = alis_ubbo_hellenic_dock
+	picture = interesting_histories_hellenic_dock
 
 
     immediate = {
@@ -6087,7 +5931,7 @@ secure_venetia_mission_event.167 = {
     		add_country_modifier = {
                 name = me_center_of_the_amber_road_cmod
             }
-    	}
+        }
     }
 
     option = {
@@ -6176,7 +6020,7 @@ secure_venetia_mission_event.172 = {
 		        name = me_new_route_for_amber_imports_cmod
 		        duration = 365
 		    }
-    	}
+        }
     	custom_tooltip = "ven_gains_claims_over_surrounding_alpes_raetae_and_carniae"
     }
     option = {
@@ -6197,7 +6041,7 @@ secure_venetia_mission_event.173 = {
 		        name = me_amber_imports_secured_cmod
 		        duration = -1
 		    }
-    	}
+        }
     	custom_tooltip = "ven_we_gain_claims_in_noricum"
     }
 
@@ -6223,7 +6067,7 @@ secure_venetia_mission_event.174 = {
                     }	 
                 }
             }
-    	}
+        }
     }
 
     option = {
@@ -6253,7 +6097,7 @@ secure_venetia_mission_event.176 = {
     type = country_event 
 	title = secure_venetia_mission_event.176.t #The city of Daorson
 	desc = secure_venetia_mission_event.176.desc
-	picture = alis_ubbo_fish_market
+	picture = interesting_histories_fish_market
 
     immediate = {
     	show_as_tooltip = {
@@ -6276,14 +6120,16 @@ secure_venetia_mission_event.177 = {
 
     immediate = {
     	custom_tooltip = "ven_every_fort_territory_in_latobicia_gets"
-    	random_owned_province = {
-     	    limit = {
-     	    	is_in_area = noricum_mediterranum_area
-     	    }
-            add_province_modifier = {
-                name = me_noricum_fortifications_vnt_pmod
-                duration = 18250 #50 years
-            }	
+    	show_as_tooltip = {
+    	    random_owned_province = {
+     	        limit = {
+     	        	is_in_area = noricum_mediterranum_area
+     	        }
+                add_province_modifier = {
+                    name = me_noricum_fortifications_vnt_pmod
+                    duration = 18250 #50 years
+                }
+            }
         }
     }
 
@@ -6334,7 +6180,7 @@ secure_venetia_mission_event.179 = {
 	                duration = 18250 #50 years
 	            }
 	        }
-    	}
+        }
     }
 
     option = {

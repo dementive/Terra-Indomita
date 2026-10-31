@@ -64,6 +64,9 @@ rel_flavor_kemetic.1 = {
 		add_treasury = {
 		subtract = root.has_monthly_income
 		multiply = 6
+		floor = yes
+		max = -20
+		min = -2000
 		}
 		add_political_influence = subtract_influence_large
 		add_country_modifier = {
@@ -189,6 +192,9 @@ rel_flavor_kemetic.3 = {
 		add_treasury = {
 			subtract = root.has_monthly_income
 			multiply = 6
+			floor = yes
+			max = -20
+			min = -2000
 		}
 		add_country_modifier = {
 			name = country_improvement_temple_of_isis
@@ -307,6 +313,7 @@ rel_flavor_kemetic.5 = {
 		add_treasury = {
 			subtract = root.has_monthly_income
 			multiply = 10
+			min = -6000
 		}
 	}
 
@@ -348,6 +355,7 @@ rel_flavor_kemetic.6 = {
 		add_treasury = {
 			subtract = root.has_monthly_income
 			multiply = 40
+			min = -6000
 		}		
 	}
 }
@@ -365,6 +373,7 @@ rel_flavor_kemetic.7 = {
 	goto_location = p:613
 
 	trigger = {
+		has_global_variable = ahistorical_formables_variable
 		owns = 613
 	}
 
@@ -625,7 +634,7 @@ rel_flavor_kemetic.8 = {
 	trigger = {
 		religion = egyptian_pantheon
 		current_ruler = {
-			number_of_traits < max_number_of_traits_svalue
+			number_of_personality_traits < max_number_of_traits_svalue
 			OR = {
 				NOT = { has_trait = modest }
 				NOT = { has_trait = just }
@@ -1068,6 +1077,7 @@ rel_flavor_kemetic.9 = {
 		add_treasury = {
 			subtract = root.has_monthly_income
 			multiply = 10
+			min = -6000
 		}
 	}
 
@@ -1679,8 +1689,8 @@ rel_flavor_kemetic.18 = {	#Temple Offerings
         add_treasury = {
         	value = root.has_monthly_income
         	multiply = -12
-        	min = 100
-        	max = 350
+        	min = -350
+        	max = -100
         }
         scope:deity_holy_site = {
         	add_province_modifier = {
@@ -2417,6 +2427,7 @@ rel_flavor_kemetic.30 = {	#Opet Festival
         add_treasury = {
 			subtract = root.has_monthly_income
 			multiply = -5
+			max = 5000
 		}
         p:569 = {
         	add_province_modifier = {
@@ -3061,8 +3072,9 @@ rel_flavor_kemetic.38 = {	#Complication event - materials misplaced
 		add_treasury = {
 			subtract = root.has_monthly_income
 			multiply = 6
-			min = -500
+			floor = yes
 			max = -50
+			min = -500
 		}
 		change_variable = {
 			name = pyramid_progress
@@ -3442,6 +3454,7 @@ rel_flavor_kemetic.48 = {	#Explosive commerce
 		add_treasury = {
 			value = root.has_monthly_income
 			multiply = 6
+			max = 5000
 		}
 		scope:randomized_country_province = {
 			add_province_modifier = {
@@ -3456,6 +3469,7 @@ rel_flavor_kemetic.48 = {	#Explosive commerce
 		add_treasury = {
 			subtract = root.has_monthly_income
 			multiply = 4
+			min = -6000
 		}
 		add_country_modifier = {
 			name = country_improvement_commerce_blessing
@@ -3775,6 +3789,7 @@ rel_flavor_kemetic.51 = {	# Hellenics convinced by charismatic character to beco
 		add_treasury = {
 			subtract = root.has_monthly_income
 			multiply = 2
+			min = -6000
 		}
 		scope:country_province = {
 			every_pops_in_province = {
@@ -3797,7 +3812,7 @@ rel_flavor_kemetic.51 = {	# Hellenics convinced by charismatic character to beco
 					count = 3
 					if = {
 						limit = {
-							number_of_traits < max_number_of_traits_svalue
+							number_of_personality_traits < max_number_of_traits_svalue
 						}
 						random_list = {
 							10 = {

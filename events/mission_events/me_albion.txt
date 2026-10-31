@@ -11,7 +11,7 @@ me_albion.1 = { #a legendary bloodline
 	option = { #a ring will be forged
 		name = me_albion.1.a
 		current_ruler = {
-			force_add_trait = blood_of_albion_kings
+			grant_bloodline_to_descendants_effect = { BLOODLINE = blood_of_albion_kings }
 		}	
 		create_country_treasure = {
 			key = albion_ring
@@ -35,7 +35,7 @@ me_albion.1 = { #a legendary bloodline
 	option = { #We need an iron throne for my eternal power
 		name = me_albion.1.b
 		current_ruler = {
-			force_add_trait = blood_of_albion_kings
+			grant_bloodline_to_descendants_effect = { BLOODLINE = blood_of_albion_kings }
 		}
 		create_country_treasure = {
 			key = albion_throne
@@ -59,7 +59,7 @@ me_albion.1 = { #a legendary bloodline
 	option = { #Under the name of the gods, we will win every battle with this sword
 		name = me_albion.1.c
 		current_ruler = {
-			force_add_trait = blood_of_albion_kings
+			grant_bloodline_to_descendants_effect = { BLOODLINE = blood_of_albion_kings }
 		}	
 		create_country_treasure = {
 			key = albion_sword
@@ -232,9 +232,17 @@ me_albion.7 = {#prosper time
 		show_as_tooltip = {
 			add_country_modifier = {
 				name = albion_mod_9
-				duration = 10950 #30 years
+				duration = 9125 #25 years
 			} 
 		}
+	}
+	
+	option = {#new trade toll 
+		name = me_albion.7.b
+		add_country_modifier = {
+			name = albion_mod_126
+			duration = 9125 #25 years
+		} 
 	}
 
 }
@@ -290,8 +298,11 @@ me_albion.11 = {#Albion
 		show_as_tooltip = {
 			add_country_modifier = {
 				name = albion_mod_6
-				duration = 36500
+				duration = 18250
 			}
+		}
+		current_ruler = {
+			add_popularity = 20
 		}
 	}
 
@@ -309,9 +320,12 @@ me_albion.11 = {#Albion
 		show_as_tooltip = {
 			add_country_modifier = {
 				name = albion_mod_6
-				duration = 36500
+				duration = 18250
 			}
 		}
+			current_ruler = {
+				add_popularity = 30
+			}
 		hidden_effect = {
 			current_ruler = {
 				add_health = 25
@@ -435,7 +449,8 @@ me_albion.15 = {#north fortress
 				}
 				is_state_capital = yes
 				has_city_status = yes
-				num_of_fortress_building >= 3
+				num_of_fortress_building >= 2
+				num_of_population_building >= 1
 				total_population >= 15
 			}	
 			save_scope_as = north_fortress
@@ -521,7 +536,16 @@ me_albion.17 = {
 				}
 			if = {
 				limit = { has_city_status = no}
-				show_as_tooltip = { found_city_effect = yes }
+				show_as_tooltip = {
+					add_province_modifier = {
+						name = founding_city_in_progress
+						duration = 730
+					}
+					trigger_event = {
+						id = state_improvement.6
+						days = 730
+					}
+				}
 				trigger_event = {
 					id = state_improvement.6
 				}
@@ -550,7 +574,16 @@ me_albion.17 = {
 				}
 			if = {
 				limit = { has_city_status = no}
-				show_as_tooltip = { found_city_effect = yes }
+				show_as_tooltip = {
+					add_province_modifier = {
+						name = founding_city_in_progress
+						duration = 730
+					}
+					trigger_event = {
+						id = state_improvement.6
+						days = 730
+					}
+				}
 				trigger_event = {
 					id = state_improvement.6
 				}
@@ -579,7 +612,16 @@ me_albion.17 = {
 				}
 			if = {
 				limit = { has_city_status = no}
-				show_as_tooltip = { found_city_effect = yes }
+				show_as_tooltip = {
+					add_province_modifier = {
+						name = founding_city_in_progress
+						duration = 730
+					}
+					trigger_event = {
+						id = state_improvement.6
+						days = 730
+					}
+				}
 				trigger_event = {
 					id = state_improvement.6
 				}
@@ -611,7 +653,16 @@ me_albion.17 = {
 				}
 			if = {
 				limit = { has_city_status = no}
-				show_as_tooltip = { found_city_effect = yes }
+				show_as_tooltip = {
+					add_province_modifier = {
+						name = founding_city_in_progress
+						duration = 730
+					}
+					trigger_event = {
+						id = state_improvement.6
+						days = 730
+					}
+				}
 				trigger_event = {
 					id = state_improvement.6
 				}	
@@ -633,7 +684,16 @@ me_albion.17 = {
 				}
 			if = {
 				limit = { has_city_status = no}
-				show_as_tooltip = { found_city_effect = yes }
+				show_as_tooltip = {
+					add_province_modifier = {
+						name = founding_city_in_progress
+						duration = 730
+					}
+					trigger_event = {
+						id = state_improvement.6
+						days = 730
+					}
+				}
 				trigger_event = {
 					id = state_improvement.6
 				}	
@@ -1080,7 +1140,7 @@ me_albion.26 = {#costal  claim
 				name = albion_mod_22
 				duration = 10950 #30 years
 			}
-			add_political_influence = -60
+			add_political_influence = -80
 		}
 		hidden_effect = {
 			area:armorica_minoris_area = { mission_area_claim_effect = yes }
@@ -1105,10 +1165,10 @@ me_albion.27 = {#roman alliance
 		show_as_tooltip = {
 			add_country_modifier = {
 				name = albion_mod_34
-				duration = 10950
+				duration = 7300 #20 years
 			}
-			add_innovation = 4
-			add_military_experience = 50
+			add_innovation = 1
+			add_military_experience = 10
 		}
 	}
 }
@@ -1124,9 +1184,9 @@ me_albion.28 = {#roman plundering
 		show_as_tooltip = {
 			add_country_modifier = {
 				name = albion_mod_35
-				duration = 10950
+				duration = 7300 #20 years
 			}
-		add_military_experience = 100
+		add_military_experience = 50
 		}
 	}
 }
@@ -1214,7 +1274,7 @@ me_albion.31 = {#homeland united
 
 	option = {#Generations will remembered this story for centuries
 		name = me_albion.31.a
-		add_political_influence = 40
+		add_political_influence = 30
 		current_ruler = {
 			add_popularity = 20
 		}
@@ -1278,7 +1338,7 @@ me_albion.32 = {#home of hibernians
 		}
 		add_country_modifier = {
 			name = albion_mod_48
-			 duration = 10950 #30years
+			 duration = 7300 #20years
 		}
 		current_ruler = {
 			add_popularity = 10
@@ -1336,16 +1396,17 @@ me_albion.32 = {#home of hibernians
 			}
 		}
 		add_stability = -5
-		add_political_influence = 40
+		add_political_influence = 25
 		add_treasury = {
 			add = ROOT.has_monthly_income
 			multiply = 18
-			max = 2000
-			min = 250
+			ceiling = yes
+			max = 1500
+			min = 300
 		}
 		current_ruler = {
-			add_popularity = -10
-			add_corruption = 5
+			add_popularity = -20
+			add_corruption = 10
 		}
 		custom_tooltip = hibernian_slavery
 		show_as_tooltip = {
@@ -1365,7 +1426,7 @@ me_albion.32 = {#home of hibernians
 		}
 		add_country_modifier = {
 			name = albion_mod_53
-			duration = 3650 #10years
+			duration = 1825 #5 years
 		}
 		hidden_effect = {
 			every_country_culture = {
@@ -1446,7 +1507,7 @@ me_albion.33 = {#indomitable caledonians
 		}
 		add_country_modifier = {
 			name = albion_mod_49
-			 duration = 10950 #30years
+			 duration = 7300 #20years
 		}
 		current_ruler = {
 			add_popularity = 10
@@ -1508,16 +1569,17 @@ me_albion.33 = {#indomitable caledonians
 			}
 		}
 		add_stability = -5
-		add_political_influence = 40
+		add_political_influence = 30
 		add_treasury = {
 			add = ROOT.has_monthly_income
 			multiply = 18
-			max = 2000
-			min = 250
+			ceiling = yes
+			max = 1500
+			min = 300
 		}
 		current_ruler = {
-			add_popularity = -10
-			add_corruption = 5
+			add_popularity = -20
+			add_corruption = 10
 		}
 		custom_tooltip = caledonian_slavery
 		show_as_tooltip = {
@@ -1539,7 +1601,7 @@ me_albion.33 = {#indomitable caledonians
 		}
 		add_country_modifier = {
 			name = albion_mod_53
-			duration = 3650 #10years
+			duration = 1825 #5years
 		}
 		hidden_effect = {
 			every_country_culture = {
@@ -1705,7 +1767,7 @@ me_albion.34 = {#Prittania farmlands
 		}
 		add_country_modifier = {
 			name = albion_mod_50
-			 duration = 10950 #30years
+			 duration = 7300 #20years
 		}
 		current_ruler = {
 			add_popularity = 10
@@ -1719,7 +1781,8 @@ me_albion.34 = {#Prittania farmlands
 		add_treasury = {
 			add = ROOT.has_monthly_income
 			multiply = 12
-			max = 1500
+			ceiling = yes
+			max = 1200
 			min = 150
 		}
 		custom_tooltip = prittania_domination
@@ -1783,16 +1846,15 @@ me_albion.34 = {#Prittania farmlands
 			}
 		}
 		add_stability = -10
-		add_political_influence = 20
 		add_treasury = {
 			add = ROOT.has_monthly_income
 			multiply = 36
-			max = 4000
+			max = 1500
 			min = 400
 		}
 		current_ruler = {
-			add_popularity = -10
-			add_corruption = 5
+			add_popularity = -25
+			add_corruption = 15
 		}
 		custom_tooltip = prittania_slavery
 		show_as_tooltip = {
@@ -1822,7 +1884,7 @@ me_albion.34 = {#Prittania farmlands
 		}
 		add_country_modifier = {
 			name = albion_mod_53
-			duration = 3650 #10years
+			duration = 1825 #5 years
 		}
 		hidden_effect = {
 			every_country_culture = {
@@ -1886,9 +1948,10 @@ me_albion.36 = {#gold influx
 		}
 		add_treasury = {
 			add = has_monthly_income
-			multiply = 24
+			multiply = 12
+			ceiling = yes
 			min = 500
-			max = 3000
+			max = 2000
 		}
 	}
 }
@@ -2261,7 +2324,7 @@ me_albion.39 = {# a warrior emerge
 		hidden_effect = {
 			create_character = {
 				female = no
-				add_martial = 5
+				add_martial = 3
 				add_charisma = 1
 				add_finesse = 1
 				add_zeal = 1
@@ -3174,6 +3237,7 @@ me_albion.52 = {# Peace and modernization
 			has_country_modifier = albion_mod_69
 			has_country_modifier = albion_mod_68
 			has_country_modifier = albion_mod_70
+			has_country_modifier = albion_mod_71
 		}
 	}
 
@@ -3235,7 +3299,7 @@ me_albion.52 = {# Peace and modernization
 	}
 }
 
-me_albion.53 = {# Reward for the efforts 
+me_albion.53 = {#Golden Age
 	type = country_event
 	title = me_albion_53_title
 	desc = me_albion_53_desc
@@ -3279,7 +3343,8 @@ me_albion.53 = {# Reward for the efforts
 		name = me_albion.53.e
 		add_treasury = {
 			value = has_monthly_income
-			multiply = 12
+			multiply = 8
+			max = 5000
 		}
 	}
 }
@@ -3318,7 +3383,7 @@ me_albion.54 = {# traditions ambitions
 			}
 			add_country_culture_modifier = {
 				name = albion_mod_73
-				duration = 3650 #10 years
+				duration = 7300 #20 years
 			}
 		}
 		set_country_heritage = hellenic_albion_heritage
@@ -3335,7 +3400,7 @@ me_albion.54 = {# traditions ambitions
 			}
 			add_country_culture_modifier = {
 				name = albion_mod_73
-				duration = 3650 #10 years
+				duration = 7300 #20 years
 			}
 		}
 		set_country_heritage = italic_albion_heritage
@@ -3352,7 +3417,7 @@ me_albion.54 = {# traditions ambitions
 			}
 			add_country_culture_modifier = {
 				name = albion_mod_73
-				duration = 3650 #10 years
+				duration = 7300 #20 years
 			}
 		}
 		set_country_heritage = punic_albion_heritage
@@ -3448,7 +3513,7 @@ me_albion.57 = {#The voice for the druids
 		}
 		highlight = yes
 		custom_tooltip = AIO_oratory_tech
-		add_innovation = 3
+		add_innovation = 2
 		add_country_modifier = {
 			name = albion_mod_78
 			duration = -1
@@ -3465,7 +3530,7 @@ me_albion.58 = {#Alphabet choice
 
 	option = {#We will grab these foreigns knowledge for our alphabet
 		name = me_albion.58.a
-		add_innovation = 3
+		add_innovation = 2
 		add_country_modifier = {
 			name = albion_mod_78
 			duration = -1
@@ -3477,7 +3542,7 @@ me_albion.58 = {#Alphabet choice
 		trigger = {
 			has_variable = italic_ways
 		}
-		add_innovation = 4
+		add_innovation = 3
 		add_country_modifier = {
 			name = albion_mod_79
 			duration = -1
@@ -3489,7 +3554,7 @@ me_albion.58 = {#Alphabet choice
 		trigger = {
 			has_variable = punic_ways
 		}
-		add_innovation = 4
+		add_innovation = 3
 		add_country_modifier = {
 			name = albion_mod_80
 			duration = -1
@@ -3501,7 +3566,7 @@ me_albion.58 = {#Alphabet choice
 		trigger = {
 			has_variable = hellenic_ways
 		}
-		add_innovation = 4
+		add_innovation = 3
 		add_country_modifier = {
 			name = albion_mod_81
 			duration = -1
@@ -3643,10 +3708,40 @@ me_albion.64 = {#Celtic festival
 	title = me_albion_64_title
 	desc = me_albion_64_desc
 	picture = celtic_chiefs
+	
+	immediate = {
+		add_treasury = -750
+		custom_tooltip = completion_albion_main_mission_7_6
+		show_as_tooltip = {
+			capital_scope = {
+				add_province_modifier = {
+					name = albion_mod_125
+					duration = -1
+				}
+			}
+		}
+		hidden_effect = {
+			region:britain_region = {
+				every_region_province = {
+					add_province_modifier = {
+						name = albion_mod_125
+						duration = -1
+					}
+				}
+			}
+			region:caledonia_region = {
+				every_region_province = {
+					add_province_modifier = {
+						name = albion_mod_125
+						duration = -1
+					}
+				}
+			}
+		}
+	}
 
 	option = {#A military festival
 		name = me_albion.64.a
-		add_treasury = -750
 		add_military_experience = 30
 		add_country_modifier = {
 			name = albion_mod_92
@@ -3656,7 +3751,6 @@ me_albion.64 = {#Celtic festival
 
 	option = {#A religious festival
 		name = me_albion.64.b
-		add_treasury = -750
 		add_stability = 10
 		add_country_modifier = {
 			name = albion_mod_93
@@ -3765,6 +3859,7 @@ me_albion.68 = {#Manisfest destiny
 	title = me_albion_68_title
 	desc = me_albion_68_desc
 	picture = grand_ship
+	left_portrait = current_ruler
 
 	option = {#Our legacy is beyond us
 		name = me_albion.68.a
@@ -3809,7 +3904,14 @@ me_albion.70 = {#Belgican workers
 		name = me_albion.70.a
 		add_country_modifier = {
 			name = albion_mod_98
-			duration = 9125 #25 yers
+			duration = 7300 #20 years
+		}
+		add_manpower = {
+			value = max_manpower
+			multiply = 0.05
+			floor = yes
+			max = 20
+			min = 2
 		}
 	}
 }
@@ -3825,7 +3927,7 @@ me_albion.71 = {#Armorican trade
 		name = me_albion.71.a
 		add_country_modifier = {
 			name = albion_mod_97
-			duration = 9125 #25 yers
+			duration = 7300 #20 years
 		}
 	}
 }
@@ -3861,12 +3963,12 @@ me_albion.72 = {#Aquitainian submission
 		name = me_albion.72.c
 		add_treasury = {
 			value = has_monthly_income
-			multiply = 10
+			multiply = 5
 			min = 200
-			max = 2000
+			max = 1000
 		}
 		current_ruler = {
-			add_popularity = -5
+			add_popularity = -15
 		}
 	}
 }
@@ -3881,9 +3983,9 @@ me_albion.73 = {#Gaulish tribes
 		name = me_albion.73.a
 		add_treasury = {
 			value = has_monthly_income
-			multiply = 7
+			multiply = 3
 			min = 150
-			max = 1500
+			max = 600
 		}
 	}
 
@@ -3891,7 +3993,7 @@ me_albion.73 = {#Gaulish tribes
 		name = me_albion.73.b
 		add_country_modifier = {
 			name = albion_mod_99
-			duration = 10950 #30 years
+			duration = 7300 #20 years
 		}
 	}
 
@@ -3908,7 +4010,7 @@ me_albion.73 = {#Gaulish tribes
 			value = max_manpower
 			multiply = 0.25
 			floor = yes
-			max = 70
+			max = 40
 			min = 7
 		}
 	}
@@ -4009,7 +4111,7 @@ me_albion.78 = {#Feed everyone
 			capital_scope = {
 				add_province_modifier = {
 					name = albion_mod_25
-						duration = -1
+					duration = -1
 				}
 			}
 		}
@@ -4032,7 +4134,14 @@ me_albion.79 = {#The colony is growing
 			}
 			if = {
 				limit = { has_city_status = no }
-				set_city_status = city
+				add_province_modifier = {
+					name = founding_city_in_progress
+					duration = 730
+				}
+				trigger_event = {
+					id = state_improvement.6
+					days = 730
+				}
 			}
 		}
 		custom_tooltip =  completion_albion_main_mission_7_7
@@ -4144,7 +4253,7 @@ me_albion.80 = {#The baby elephants
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}	
 	}
@@ -4154,7 +4263,7 @@ me_albion.80 = {#The baby elephants
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}	
 	}
@@ -4164,7 +4273,7 @@ me_albion.80 = {#The baby elephants
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}	
 	}
@@ -4174,7 +4283,7 @@ me_albion.80 = {#The baby elephants
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}	
 	}
@@ -4184,7 +4293,7 @@ me_albion.80 = {#The baby elephants
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}	
 	}
@@ -4296,7 +4405,7 @@ me_albion.81 = {#elephants import
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}	
 	}
@@ -4306,7 +4415,7 @@ me_albion.81 = {#elephants import
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}	
 	}
@@ -4316,7 +4425,7 @@ me_albion.81 = {#elephants import
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}
 	}
@@ -4326,7 +4435,7 @@ me_albion.81 = {#elephants import
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}
 	}
@@ -4336,7 +4445,7 @@ me_albion.81 = {#elephants import
 			set_trade_goods = elephants
 			add_province_modifier = {
 				name = albion_mod_58
-				duration = 1825 #5 years
+				duration = 5478 #15 years
 			}
 		}	
 	}
@@ -4363,6 +4472,7 @@ me_albion.82 = {#Dyes import
 				OR = {
 					has_minor_river = yes
 					is_coastal = yes
+					is_adjacent_to_major_river = yes
 				}
 			}
 			save_scope_as = prov_1
@@ -4380,6 +4490,7 @@ me_albion.82 = {#Dyes import
 				OR = {
 					has_minor_river = yes
 					is_coastal = yes
+					is_adjacent_to_major_river = yes
 				}
 				trigger_if = {
 					limit = {exists = scope:prov_1}
@@ -4401,6 +4512,7 @@ me_albion.82 = {#Dyes import
 				OR = {
 					has_minor_river = yes
 					is_coastal = yes
+					is_adjacent_to_major_river = yes
 				}
 				
 				trigger_if = {
@@ -4428,6 +4540,7 @@ me_albion.82 = {#Dyes import
 				OR = {
 					has_minor_river = yes
 					is_coastal = yes
+					is_adjacent_to_major_river = yes
 				}
 
 				trigger_if = {
@@ -4638,7 +4751,7 @@ me_albion.84 = { #The goods of the trader
 	option = { #Let me watch the Elephants
 		name = me_albion.84.a
 		trigger = {
-			any_province = {
+			any_ownable_province = {
 				count < 2
 				OR = {
 					is_in_region = britain_region
@@ -4692,7 +4805,7 @@ me_albion.84 = { #The goods of the trader
 	option = { #Dye is exotic and interesting
 		name = me_albion.84.b
 		trigger = {
-			any_province = {
+			any_ownable_province = {
 				count < 2
 				OR = {
 					is_in_region = britain_region
@@ -4709,6 +4822,7 @@ me_albion.84 = { #The goods of the trader
 					OR = {
 						has_minor_river = yes
 						is_coastal = yes
+						is_adjacent_to_major_river = yes
 					}
 				}
 				any_owned_province = {
@@ -4728,7 +4842,7 @@ me_albion.84 = { #The goods of the trader
 	option = { #Bees ? I need honey!
 		name = me_albion.84.c
 		trigger = {
-			any_province = {
+			any_ownable_province = {
 				count < 2
 				OR = {
 					is_in_region = britain_region
@@ -4759,16 +4873,18 @@ me_albion.84 = { #The goods of the trader
 
 	option = { #Our country need goods for the high society.
 		name = me_albion.84.d
+		add_political_influence = 15
 		add_country_modifier = {
 			name = albion_mod_124
-			duration = 1825
+			duration = 1825 #5 years
 		}
 	}
 
 	option = { #Nothing is interesting yet
 		name = me_albion.84.e
 		remove_variable = AIO_import_cooldown
-		add_treasury = 250
+		add_treasury = 350
+		add_political_influence = 15
 		custom_tooltip = AIO_reset_import_cooldown
 	}
 }

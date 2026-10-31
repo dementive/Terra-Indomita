@@ -7,7 +7,7 @@ inv_building_events.1 = {
     type = country_event
     title = inv_building_events.1.t
     desc = inv_building_events.1.desc
-    picture = greek_states_path_6_event
+    picture = interesting_histories_italic_hilltop
     goto_location = scope:building_province
     left_portrait = current_ruler
 
@@ -47,6 +47,7 @@ inv_building_events.1 = {
         add_treasury = {
             subtract = root.has_monthly_income
 				multiply = 3
+				min = -6000
         }
     }
 }
@@ -56,7 +57,7 @@ inv_building_events.2 = {
     type = country_event
     title = inv_building_events.2.t
     desc = inv_building_events.2.desc
-    picture = greek_states_path_6_event
+    picture = event_wooden_gate_fortifications
     goto_location = scope:building_province
     left_portrait = current_ruler
 
@@ -117,6 +118,7 @@ inv_building_events.2 = {
         add_treasury = {
             subtract = root.has_monthly_income
 				multiply = 3
+				min = -6000
         }
         current_ruler = {
             add_popularity = 5
@@ -129,7 +131,7 @@ inv_building_events.3 = {
     type = country_event
     title = inv_building_events.3.t
     desc = inv_building_events.3.desc
-    picture = greek_states_path_6_event
+    picture = event_wooden_gate_fortifications
     goto_location = scope:building_province
     left_portrait = current_ruler
     right_portrait = scope:fort_guy
@@ -170,10 +172,12 @@ inv_building_events.3 = {
             }
             else = {
                 root = {
-                    create_character = {
+                    hidden_effect = {
+                        create_character = {
                         female = no
                         good_finesse_trait_effect = yes
                         save_scope_as = fort_guy
+                    }
                     }
                 }
             }
@@ -191,7 +195,10 @@ inv_building_events.3 = {
         name = inv_building_events.3.b
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            floor = yes
+            max = -20
+            min = -2000
         }
         capital_scope = {
             add_province_modifier = {
@@ -207,7 +214,7 @@ inv_building_events.4 = {
     type = country_event
     title = inv_building_events.4.t
     desc = inv_building_events.4.desc
-    picture = Event_fire_city
+    picture = event_hellenic_city_fire
 
     goto_location = scope:burning_fort_province
     left_portrait = current_ruler
@@ -265,7 +272,7 @@ inv_building_events.4 = {
                     exists = governor_or_ruler
                     governor_or_ruler = { has_trait = pyromaniac }
                 }
-                holding_owner = {
+                governor_or_ruler = {
                     save_scope_as = pyromaniac_administrator
                 }
             }
@@ -294,7 +301,7 @@ inv_building_events.5 = {
     type = country_event
     title = inv_building_events.5.t
     desc = inv_building_events.5.desc
-    picture = greek_seleucid_path_6_event
+    picture = event_wooden_gate_fortifications
     goto_location = scope:building_province
     
     trigger = {
@@ -321,6 +328,7 @@ inv_building_events.5 = {
         add_treasury = {
             add = root.has_monthly_income
 			multiply = 4
+			max = 5000
         }
     }
     option = {      
@@ -339,7 +347,7 @@ inv_building_events.6 = {
     type = country_event
     title = inv_building_events.6.t
     desc = inv_building_events.6.desc
-    picture = greek_seleucid_path_6_event
+    picture = event_hellenic_soldiers_fortress_hill
     goto_location = scope:building_province
 
     trigger = {
@@ -372,6 +380,7 @@ inv_building_events.6 = {
         add_treasury = {
             subtract = root.has_monthly_income
 			multiply = 4
+			min = -6000
         }
     }
     option = {      
@@ -390,7 +399,7 @@ inv_building_events.7 = {
     type = country_event
     title = inv_building_events.7.t
     desc = inv_building_events.7.desc
-    picture = trade_port
+    picture = interesting_histories_greek_port
     goto_location = scope:building_province
 
     trigger = {
@@ -415,7 +424,10 @@ inv_building_events.7 = {
         name = inv_building_events.7.a
         add_treasury = {
             add = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            ceiling = yes
+            max = 1000
+            min = 10
         }
     }
     option = {      
@@ -429,7 +441,7 @@ inv_building_events.8 = {
     type = country_event
     title = inv_building_events.8.t
     desc = inv_building_events.8.desc
-    picture = trade_port
+    picture = interesting_histories_hellenic_dock
     goto_location = scope:building_province
     left_portrait = scope:port_manager
     right_portrait = current_ruler
@@ -459,10 +471,12 @@ inv_building_events.8 = {
             }
             else = {
                 root = {
-                    create_character = {
+                    hidden_effect = {
+                        create_character = {
                         female = no
                         good_popularity_trait_effect = yes
                         save_scope_as = port_manager
+                    }
                     }
                 }
             }
@@ -495,7 +509,7 @@ inv_building_events.9 = {
     type = country_event
     title = inv_building_events.9.t
     desc = inv_building_events.9.desc
-    picture = interesting_histories_greek_port
+    picture = event_busy_market_generic
     
     goto_location = scope:building_province
     left_portrait = scope:port_manager
@@ -530,10 +544,12 @@ inv_building_events.9 = {
             }
             else = {
                 root = {
-                    create_character = {
+                    hidden_effect = {
+                        create_character = {
                         female = no
                         bad_popularity_trait_effect = yes
                         save_scope_as = port_manager
+                    }
                     }
                 }
             }
@@ -553,7 +569,10 @@ inv_building_events.9 = {
         name = inv_building_events.9.b
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            floor = yes
+            max = -20
+            min = -2000
         }
         add_manpower = -1
     }
@@ -564,7 +583,7 @@ inv_building_events.10 = {
     type = country_event
     title = inv_building_events.10.t
     desc = inv_building_events.10.desc
-    picture = greek_antigonid_path_2_event
+    picture = interesting_histories_ship_port_africa
     goto_location = scope:building_province
     left_portrait = scope:port_manager
     right_portrait = current_ruler
@@ -597,11 +616,13 @@ inv_building_events.10 = {
                 holding_owner = { save_scope_as = port_manager }
             }
             else = {
-                root = {
-                    create_character = {
-                        female = no
-                        good_finesse_trait_effect = yes
-                        save_scope_as = port_manager
+                hidden_effect = {
+                    ROOT = {
+                        create_character = {
+                            female = no
+                            good_finesse_trait_effect = yes
+                            save_scope_as = port_manager
+                        }
                     }
                 }
             }
@@ -612,7 +633,10 @@ inv_building_events.10 = {
         name = inv_building_events.10.a
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 12
+            multiply = 12
+            floor = yes
+            max = -20
+            min = -4000
         }
         scope:building_province = {
             add_province_modifier = {
@@ -625,7 +649,10 @@ inv_building_events.10 = {
         name = inv_building_events.10.b
         add_treasury = {
             add = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            ceiling = yes
+            max = 1000
+            min = 10
         }
     }
 }
@@ -635,7 +662,7 @@ inv_building_events.11 = {
     type = country_event
     title = inv_building_events.11.t
     desc = inv_building_events.11.desc
-    picture = Event_fire_city
+    picture = event_ship_sea_battle
     goto_location = scope:burning_port_province
     left_portrait = scope:pyromaniac_administrator
     right_portrait = current_ruler
@@ -692,7 +719,7 @@ inv_building_events.11 = {
                     exists = governor_or_ruler
                     governor_or_ruler = { has_trait = pyromaniac }
                 }
-                holding_owner = {
+                governor_or_ruler = {
                     save_scope_as = pyromaniac_administrator
                 }
             }
@@ -704,6 +731,7 @@ inv_building_events.11 = {
         add_treasury = {
             subtract = root.has_monthly_income
 			multiply = 3
+			min = -6000
         }
         scope:burning_port_province = {
             add_province_modifier = {
@@ -726,7 +754,7 @@ inv_building_events.12 = {
     type = country_event
     title = inv_building_events.12.t
     desc = inv_building_events.12.desc
-    picture = latin_tribal_path_4_event
+    picture = event_army_marching_fields_fire
     goto_location = scope:building_province
     trigger = {
         NOT = { has_variable = military_building_cooldown }
@@ -766,7 +794,7 @@ inv_building_events.13 = {
     type = country_event
     title = inv_building_events.13.t
     desc = inv_building_events.13.desc
-    picture = latin_roman_path_end_bonus_event
+    picture = interesting_histories_greek_soldiers_pops
     goto_location = scope:building_province
     left_portrait = current_ruler
     right_portrait = scope:governor_dude
@@ -818,7 +846,7 @@ inv_building_events.14 = {
     type = country_event
     title = inv_building_events.14.t
     desc = inv_building_events.14.desc
-    picture = latin_support_path_end_bonus_event
+    picture = interesting_histories_sparta_city
     
     goto_location = scope:building_province
     left_portrait = scope:badass_soldier
@@ -859,11 +887,13 @@ inv_building_events.14 = {
         scope:building_province = {
             governor = { save_scope_as = bitch_ass_governor }
         }
-        create_character = {
+        hidden_effect = {
+            create_character = {
             female = no
             positive_martial_trait_effect = yes
             add_martial = 2
             save_scope_as = badass_soldier
+        }
         }
     }
 
@@ -895,7 +925,7 @@ inv_building_events.15 = {
     type = country_event
     title = inv_building_events.15.t
     desc = inv_building_events.15.desc
-    picture = greek_seleucid_path_2_event
+    picture = interesting_histories_greek_soldiers
     goto_location = scope:building_province
 
     trigger = {
@@ -927,7 +957,10 @@ inv_building_events.15 = {
         name = inv_building_events.15.b
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            floor = yes
+            max = -20
+            min = -2000
         }
         scope:building_province = {
             add_province_modifier = {
@@ -943,7 +976,7 @@ inv_building_events.16 = {
     type = country_event
     title = inv_building_events.16.t
     desc = inv_building_events.16.desc
-    picture = north_african_army_path_4_event
+    picture = event_city_life_columns_colours
     goto_location = scope:building_province
 
     trigger = {
@@ -982,6 +1015,7 @@ inv_building_events.16 = {
         add_treasury = {
             add = root.has_monthly_income
 			multiply = 3
+			max = 5000
         }
     }
 }
@@ -1002,7 +1036,7 @@ inv_building_events.17 = {
             }
         }
     }
-    picture = latin_tribal_path_1_event
+    picture = interesting_histories_fish_market
     goto_location = scope:building_province
 
     trigger = {
@@ -1047,7 +1081,10 @@ inv_building_events.17 = {
         name = inv_building_events.17.a
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            floor = yes
+            max = -20
+            min = -2000
         }
         add_country_modifier = {
             name = iron_weapons
@@ -1097,21 +1134,26 @@ inv_building_events.18 = {
                 save_scope_as = murdered_master
             }
         }
+    }
+
+    option = {      
+        name = inv_building_events.18.a
+        add_stability = -3
         scope:murdered_master = {
             death = {
                 death_reason = death_decapitated
             }
         }
     }
-
-    option = {      
-        name = inv_building_events.18.a
-        add_stability = -3
-    }
     option = {      
         name = inv_building_events.18.b
         add_manpower = -2
         add_treasury = -50
+        scope:murdered_master = {
+            death = {
+                death_reason = death_decapitated
+            }
+        }
     }
 }
 
@@ -1124,7 +1166,7 @@ inv_building_events.26 = {
     type = country_event
     title = inv_building_events.26.t
     desc = inv_building_events.26.desc
-    picture = aqueducts
+    picture = interesting_histories_greek_lady
     right_portrait = scope:aqueduct_governor
     goto_location = scope:building_province
     trigger = {
@@ -1155,7 +1197,10 @@ inv_building_events.26 = {
         name = inv_building_events.26.a
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            floor = yes
+            max = -20
+            min = -2000
         }
         scope:building_province = {
             add_province_modifier = {
@@ -1184,6 +1229,7 @@ inv_building_events.27 = {
     title = inv_building_events.27.t
     desc = inv_building_events.27.desc
     picture = aqueducts
+    left_portrait = current_ruler
     goto_location = scope:building_province
     trigger = {
         NOT = { has_variable = economy_building_cooldown }
@@ -1223,7 +1269,10 @@ inv_building_events.27 = {
         name = inv_building_events.27.b
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            floor = yes
+            max = -20
+            min = -2000
         }
     }
 }
@@ -1233,7 +1282,7 @@ inv_building_events.28 = {
     type = country_event
     title = inv_building_events.28.t
     desc = inv_building_events.28.desc
-    picture = aqueducts
+    picture = interesting_histories_greek_lady
     goto_location = scope:building_province
 
     trigger = {
@@ -1260,6 +1309,12 @@ inv_building_events.28 = {
 
     option = {      
         name = inv_building_events.28.a
+        scope:building_province = {
+            add_province_modifier = {
+                name = happy_city_reward_modifier
+                duration = 1840
+            }
+        }
     }
 }
 
@@ -1319,6 +1374,7 @@ inv_building_events.29 = {
         add_treasury = {
             subtract = root.has_monthly_income
 			multiply = 3
+			min = -6000
         }
     }
     option = {      
@@ -1361,6 +1417,7 @@ inv_building_events.30 = {
         add_treasury = {
             subtract = root.has_monthly_income
 			multiply = 8
+			min = -6000
         }
         scope:building_province = {
             add_province_modifier = {
@@ -1385,7 +1442,7 @@ inv_building_events.31 = {
     type = country_event
     title = inv_building_events.31.t
     desc = inv_building_events.31.desc
-    picture = interesting_histories_greek_city_temple
+    picture = interesting_histories_greek_city_man
     goto_location = scope:building_province
     trigger = {
         NOT = { has_variable = economy_building_cooldown }
@@ -1417,6 +1474,7 @@ inv_building_events.31 = {
         add_treasury = {
             subtract = root.has_monthly_income
 			multiply = 3
+			min = -6000
         }
         add_stability = 3
     }
@@ -1424,7 +1482,10 @@ inv_building_events.31 = {
         name = inv_building_events.31.b
         add_treasury = {
             add = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            ceiling = yes
+            max = 1000
+            min = 10
         }
         current_ruler = {
             add_corruption = 5
@@ -1437,7 +1498,7 @@ inv_building_events.32 = {
     type = country_event
     title = inv_building_events.32.t
     desc = inv_building_events.32.desc
-    picture = farming
+    picture = event_farmers_in_green_countryside
     
     goto_location = scope:helping_prov
     
@@ -1470,7 +1531,7 @@ inv_building_events.32 = {
         }
         random_country_state = {
             limit = {
-                has_state_food > 1200
+                has_state_food >= 1200
                 granaries_in_state >= 2
                 state_food_current >= state_food_max
             }
@@ -1483,7 +1544,7 @@ inv_building_events.32 = {
                                 owner = root
                             }
                             state = {
-                                has_state_food < low_state_food
+                                has_state_food <= low_state_food
                             }
                         }
                     }
@@ -1504,9 +1565,18 @@ inv_building_events.32 = {
         }
     }
 
-    option = {      
+    option = {
         name = inv_building_events.32.a
-        add_stability = 3
+        add_stability = 1
+        scope:helping_state = {
+            add_state_food = {
+                value = 200
+                multiply = -1
+            }
+        }
+        scope:state_to_help = {
+            add_state_food = 200
+        }
     }
 }
 
@@ -1560,6 +1630,7 @@ inv_building_events.33 = {
         add_treasury = {
             subtract = root.has_monthly_income
 			multiply = 3
+			min = -6000
         }
         scope:building_province = {
             add_province_modifier = {
@@ -1573,6 +1644,7 @@ inv_building_events.33 = {
         add_treasury = {
             add = root.has_monthly_income
 			multiply = 2
+			max = 5000
         }
         current_ruler = {
             add_corruption = 5
@@ -1703,7 +1775,7 @@ inv_building_events.41 = {
     type = country_event
     title = inv_building_events.41.t
     desc = inv_building_events.41.desc
-    picture = interesting_histories_greek_city_temple
+    picture = event_dancing_party_wine
     goto_location = scope:building_province
     trigger = {
         NOT = { has_variable = population_building_cooldown }
@@ -1778,7 +1850,7 @@ inv_building_events.42 = {
             }
         }
     }
-    picture = city_province
+    picture = interesting_histories_greek_debate
     goto_location = scope:building_province
     left_portrait = current_ruler
     right_portrait = scope:neighbor.current_ruler
@@ -1849,17 +1921,7 @@ inv_building_events.42 = {
                         value = {
                             integer_range = {
                                 min = 1
-                                max = {
-                                    value = prev.num_of_nobles
-                                    divide = {
-                                        value = {
-                                            integer_range = {
-                                                min = 3
-                                                max = 4
-                                            }
-                                        }
-                                    }
-                                }
+                                max = 3
                             }
                         }
                     }
@@ -2113,8 +2175,9 @@ inv_building_events.45 = {
             }
         }
     }
-    picture = great_library
+    picture = interesting_histories_generic_city_soldiers
     goto_location = scope:building_province
+    left_portrait = current_ruler
     left_portrait = scope:building_governor
     right_portrait = scope:great_thinker
     trigger = {
@@ -2173,6 +2236,7 @@ inv_building_events.45 = {
         add_treasury = {
             add = root.has_monthly_income
 			multiply = 2
+			max = 5000
         }
     }
     option = {      
@@ -2180,6 +2244,7 @@ inv_building_events.45 = {
         add_treasury = {
             subtract = root.has_monthly_income
 			multiply = 1
+			min = -6000
         }
         scope:building_province = {
             add_province_modifier = {
@@ -2195,7 +2260,7 @@ inv_building_events.46 = {
     type = country_event
     title = inv_building_events.46.t
     desc = inv_building_events.46.desc
-    picture = city_province
+    picture = interesting_histories_purple_soldier
     goto_location = scope:building_province
     trigger = {
         NOT = { has_variable = population_building_cooldown }
@@ -2251,7 +2316,7 @@ inv_building_events.47 = {
     type = country_event
     title = inv_building_events.47.t
     desc = inv_building_events.47.desc
-    picture = city_province
+    picture = event_wise_men_indoors_debate
     goto_location = scope:building_province
     trigger = {
         NOT = { has_variable = academy_boon_event_happened }
@@ -2275,7 +2340,10 @@ inv_building_events.47 = {
         name = inv_building_events.47.a
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            floor = yes
+            max = -20
+            min = -2000
         }
         scope:building_province = {
             add_province_modifier = {
@@ -2296,7 +2364,7 @@ inv_building_events.48 = {
     type = country_event
     title = inv_building_events.48.t
     desc = inv_building_events.48.desc
-    picture = greek_states_path_7_event
+    picture = event_busy_market_generic
     left_portrait = current_ruler
     right_portrait = scope:building_governor
     goto_location = scope:building_province
@@ -2357,7 +2425,7 @@ inv_building_events.49 = {
     type = country_event
     title = inv_building_events.49.t
     desc = inv_building_events.49.desc
-    picture = trade_port
+    picture = interesting_histories_generic_market
     goto_location = scope:building_province
 
     trigger = {
@@ -2385,6 +2453,7 @@ inv_building_events.49 = {
         add_treasury = {
             add = root.has_monthly_income
 			multiply = 4
+			max = 5000
         }
     }
     option = {      
@@ -2403,7 +2472,8 @@ inv_building_events.50 = {
     type = country_event
     title = inv_building_events.50.t
     desc = inv_building_events.50.desc
-    picture = greek_court
+    picture = interesting_histories_generic_city_soldiers
+    left_portrait = current_ruler
     goto_location = scope:building_province
 
     trigger = {
@@ -2447,7 +2517,10 @@ inv_building_events.50 = {
         add_political_influence = 20
         add_treasury = {
             add = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            ceiling = yes
+            max = 1000
+            min = 10
         }
         current_ruler = {
             add_corruption = 5
@@ -2460,7 +2533,7 @@ inv_building_events.51 = {
     type = country_event
     title = inv_building_events.51.t
     desc = inv_building_events.51.desc
-    picture = greek_court
+    picture = interesting_histories_greek_city_man
     goto_location = scope:building_province
     left_portrait = scope:building_governor
     trigger = {
@@ -2510,6 +2583,7 @@ inv_building_events.51 = {
         add_treasury = {
             add = root.has_monthly_income
 			multiply = 3
+			max = 5000
         }
         current_ruler = {
             add_corruption = 5
@@ -2522,7 +2596,7 @@ inv_building_events.52 = {
     type = country_event
     title = inv_building_events.52.t
     desc = inv_building_events.52.desc
-    picture = greek_states_path_7_event
+    picture = event_infantry_horse_bodies_desert
     goto_location = scope:building_province
 
     trigger = {
@@ -2564,7 +2638,7 @@ inv_building_events.53 = {
     type = country_event
     title = inv_building_events.53.t
     desc = inv_building_events.53.desc
-    picture = greek_seleucid_path_2_event
+    picture = event_soldiers_marching_through_town
     goto_location = scope:building_province
 
     trigger = {
@@ -2598,6 +2672,7 @@ inv_building_events.53 = {
         add_treasury = {
             add = root.has_monthly_income
 			multiply = 3
+			max = 5000
         }
     }
 }
@@ -2607,7 +2682,7 @@ inv_building_events.54 = {
     type = country_event
     title = inv_building_events.54.t
     desc = inv_building_events.54.desc
-    picture = aqueducts
+    picture = interesting_histories_punic_city_purple
     goto_location = scope:building_province
 
     trigger = {
@@ -2634,7 +2709,10 @@ inv_building_events.54 = {
         name = inv_building_events.54.a
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            floor = yes
+            max = -20
+            min = -2000
         }
         scope:building_province = {
             add_province_modifier = {
@@ -2660,7 +2738,7 @@ inv_building_events.55 = {
     type = country_event
     title = inv_building_events.55.t
     desc = inv_building_events.55.desc
-    picture = city_province
+    picture = interesting_histories_city_mountains
     goto_location = scope:building_province
     left_portrait = scope:building_governor
     trigger = {
@@ -2718,7 +2796,7 @@ inv_building_events.56 = {
     type = country_event
     title = inv_building_events.56.t
     desc = inv_building_events.56.desc
-    picture = city_province
+    picture = event_crowd_speech_celebration
     goto_location = scope:building_province
     trigger = {
         NOT = { has_variable = forum_research_boon_happened }
@@ -2762,7 +2840,7 @@ inv_building_events.57 = {
     type = country_event
     title = inv_building_events.57.t
     desc = inv_building_events.57.desc
-    picture = war_chest
+    picture = interesting_histories_fish_market
     goto_location = scope:building_province
     trigger = {
         NOT = { has_variable = population_building_cooldown }
@@ -2802,6 +2880,7 @@ inv_building_events.57 = {
         add_treasury = {
             add = root.has_monthly_income
 			multiply = 3
+			max = 5000
         }
         add_tyranny = 5
         scope:building_province = {
@@ -2864,7 +2943,10 @@ inv_building_events.58 = {
         name = inv_building_events.58.b
         add_treasury = {
             subtract = root.has_monthly_income
-			multiply = 6
+            multiply = 6
+            floor = yes
+            max = -20
+            min = -2000
         }
         current_ruler = {
             add_popularity = 5

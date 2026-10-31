@@ -1,5 +1,5 @@
 ﻿albion_mission = {
-	header = "mission_image_macedon"  # placeholder when specific icon / header
+	header = "albion_mission1_header"  # placeholder when specific icon / header
 	icon = "macedon_2"
 	repeatable = no
 	
@@ -113,6 +113,9 @@
 						country_culture_group = britannic
 						NOT = {
 							is_subject_of = ROOT
+						}
+						NOT = {
+							this = root
 						}
 					}
 					add_opinion = {
@@ -515,7 +518,8 @@
 							}
 							is_state_capital = yes
 							has_city_status = yes
-							num_of_fortress_building >= 3
+							num_of_fortress_building >= 2
+							num_of_population_building >= 1
 							total_population >= 15
 						}
 					}
@@ -706,6 +710,7 @@
 		}
 		
 		allow = { 
+			war = no
 			custom_tooltip = {
 				text = trigger_formed_albion
 				has_variable = formed_albion_inv #add in the decision of Albion
@@ -717,7 +722,7 @@
 			custom_tooltip =  completion_albion_main_mission_4
 			add_country_modifier = {
 				name = albion_mod_6
-				duration = 36500 #100 years
+				duration = 18250 #50 years
 			}
 			remove_variable = formed_albion_inv
 		}
@@ -752,17 +757,22 @@
 		}
 		
 		allow = { 
-			stability >= 60
+			stability >= 65
+			has_war_exhaustion < 1
+			has_aggressive_expansion < 1
 			war = no
 			has_monthly_balance >= 10
 			has_monthly_income >= 25
+			trigger_if = {
+				limit = {
+					treasury < 0
+				}
+				treasury > 0
+			}
 		}
 
 		on_completion = { 
-			add_country_modifier = {
-			name = albion_mod_9
-			duration = 10950 #30 years
-			} 
+			custom_tooltip = completion_albion_main_mission_5_2
 			trigger_event = { id = me_albion.7}
 		} 
 	}
@@ -1057,7 +1067,9 @@
 		}
 		
 		allow = {
-			any_owned_province = {
+			custom_tooltip = {
+				text = albion_main_mission_7_5tt
+				any_owned_province = {
 				count >= 3
 				trade_goods = iron
 				num_goods_produced >= 3
@@ -1065,13 +1077,11 @@
 					num_of_foundry_building >= 1
 					num_of_slave_mine_building >= 1
 				}
-				custom_tooltip = {
-					text = caledonia_or_britain
-					OR = {
+				OR = {
 						is_in_region = caledonia_region
 						is_in_region = britain_region
-					}
 				}
+			}
 			}
 		}
 		highlight = {
@@ -1100,7 +1110,7 @@
 		}
 
 		bypass = {
-			any_province = {
+			any_ownable_province = {
 				count <= 15
 				OR = {
 					is_in_region = caledonia_region
@@ -1143,13 +1153,14 @@
 				capital_scope = {
 					add_province_modifier = {
 						name = albion_mod_25
-							duration = -1
+						duration = -1
 					}
 				}
 			}
 			hidden_effect = {
 				region:britain_region = {
 					every_region_province = {
+						limit = { has_food_trade_good_trigger = yes }
 						add_province_modifier = {
 							name = albion_mod_25
 							duration = -1
@@ -1158,10 +1169,11 @@
 				}
 				region:caledonia_region = {
 					every_region_province = {
+						limit = { has_food_trade_good_trigger = yes }
 						add_province_modifier = {
 							name = albion_mod_25
 							duration = -1
-						}	
+						}
 					}
 				}
 			}
@@ -1185,7 +1197,7 @@
 						total_population >= 12
 						civilization_value >= 20
 						OR = {
-							num_of_ports >= 1
+							num_of_port_building >= 1
 							num_of_fortress_building >= 1
 						}
 					}
@@ -1249,7 +1261,7 @@
 				capital_scope = {
 					add_province_modifier = {
 						name = albion_mod_38
-						duration = 14600 #40 years
+						duration = 5475 #15 years
 					}
 				}
 			}
@@ -1263,7 +1275,7 @@
 						}
 						add_province_modifier = {
 							name = albion_mod_38
-							duration = 14600 #40 years
+							duration = 5475 #15 years
 						}
 					}
 				}
@@ -1275,7 +1287,7 @@
 						}
 						add_province_modifier = {
 							name = albion_mod_38
-							duration = 14600 #40 years
+							duration = 5475 #15 years
 						}
 					}
 				}
@@ -1700,7 +1712,9 @@
 		}
 		
 		allow = {
-			any_owned_province = {
+			custom_tooltip = {
+				text = albion_main_mission_8_10tt
+				any_owned_province = {
 				count >= 6
 				custom_tooltip = {
 					text = caledonia_or_britain 
@@ -1712,6 +1726,7 @@
 					num_goods_produced >= 2
 					trade_goods = wood
 				}
+			}
 			}
 			
 			highlight = {
@@ -1782,12 +1797,13 @@
 		}
 		
 		allow = {
+			has_this_omen = deity:omen_brigantia
 			p:2090 = {
 				owner = ROOT
-				is_holy_site = yes
 				num_goods_produced >= 3
 				has_city_status = yes
 				num_of_temple_building >= 1
+				is_holy_site_of_deity = deity:omen_brigantia
 			}
 			trigger_if = {
 				limit = {
@@ -1832,7 +1848,7 @@
 		}
 
 		bypass = {
-			any_province = {
+			any_ownable_province = {
 				count < 3
 				OR = {
 					is_in_region = caledonia_region
@@ -1846,6 +1862,13 @@
 				count >= 3
 				num_of_hill_fort >= 1
 				trade_goods = wild_game
+				custom_tooltip = {
+					text = caledonia_or_britain
+					OR = {
+						is_in_region = caledonia_region
+						is_in_region = britain_region
+					}
+				}
 			}
 		}
 
@@ -1864,7 +1887,7 @@
 			add_innovation = 1
 			add_country_modifier = {
 				name = albion_mod_43
-				duration = 7200 #20 years 
+				duration = 7300 #20 years 
 			}
 			custom_tooltip = completion_albion_main_mission_8_12
 			set_variable = {
@@ -2143,9 +2166,10 @@
 				}
 				add_treasury = {
 					add = has_monthly_income
-					multiply = 24
+					multiply = 12
+					ceiling = yes
 					min = 500
-					max = 3000
+					max = 2000
 				}
 			}
 			trigger_event = {id = me_albion.36 }
@@ -2376,7 +2400,7 @@
 		requires = { albion_side_mission_2}
 		bypass = {is_tribal = no}
 		allow = {
-			political_influence >= 50
+			political_influence >= 75
 			has_law = absolute_authority
 			stability >= 40
 			trigger_if = {
@@ -2394,7 +2418,7 @@
 		}
 		prevented_by = {albion_side_mission_3_2}
 		on_completion = { 
-			add_political_influence = -50
+			add_political_influence = -75
 			change_government = despotic_monarchy
 			switch_government_type_event_clearup_effect = yes  
 			current_ruler = {
@@ -2579,19 +2603,21 @@
 					}
 				}
 			}
+			has_completed_mission_task = albion_main_mission_5_1
+			has_completed_mission_task = albion_main_mission_5_2
 		}
 
 		allow = {
 			has_completed_mission_task = albion_main_mission_5_1
 			has_completed_mission_task = albion_main_mission_5_2
 			has_civil_war = no
-			political_influence >= 60
+			political_influence >= 80
 		}
 
 		duration = 150
 
 		on_start = {
-			add_political_influence = -60
+			add_political_influence = -80
 		}
 
 		on_completion = { 
@@ -2920,7 +2946,7 @@
 							any_current_war = {
 								war_score = {
 									target = c:ROM
-									value <= 60
+									value <= -60
 								}
 							}
 						}
@@ -2939,18 +2965,18 @@
 			show_as_tooltip = {
 				add_country_modifier = {
 					name = albion_mod_34
-					duration = 10950 #30 years
+					duration = 7300 #20 years
 				}
-				add_innovation = 4
-				add_military_experience = 50
+				add_innovation = 1
+				add_military_experience = 10
 			}
 			custom_tooltip = albion_roman_superiority
 			show_as_tooltip = {
 				add_country_modifier = {
 					name = albion_mod_35
-					duration = 10950 #30 years
+					duration = 7300 #20 years
 				}
-				add_military_experience = 100
+				add_military_experience = 50
 			}
 			hidden_effect = {
 				if = {
@@ -2962,18 +2988,18 @@
 					}
 					add_country_modifier = {
 						name = albion_mod_34
-						duration = 10950 #30 years
+						duration = 7300 #20 years
 					}
-					add_innovation = 4
-					add_military_experience = 50
+					add_innovation = 1
+					add_military_experience = 10
 					trigger_event = {id = me_albion.27}
 				}
 				else = {
 					add_country_modifier = {
 						name = albion_mod_35
-						duration = 10950 #30 years
+						duration = 7300 #20 years
 					}
-					add_military_experience = 100
+					add_military_experience = 50
 					trigger_event = {id = me_albion.28}
 				}
 			}

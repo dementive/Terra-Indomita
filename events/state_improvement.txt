@@ -187,39 +187,35 @@ state_improvement.6 = { #Toggles City Status
 		}
 		if = {
 			limit = {
-				food_trade_good_trigger = yes
-				NOT = {
-					terrain = oasis
+				exists = owner
+				owner = {
+					has_land = yes
+					has_variable = pth_qanat_all_var
 				}
+				has_city_status = yes
+				NOT = { has_province_modifier = pth_qanat_pmod } 
+				terrain = desert
 			}
-			switch = { #Must not be cleared!
-				trigger = trade_goods
-				grain = { set_variable = had_grain }
-				fish = { set_variable = had_fish }
-				cattle = { set_variable = had_cattle  }
-				vegetables = { set_variable = had_vegetables }
-				fruits = { set_variable = had_fruits }
-				olive = { set_variable = had_olive }
-				dates = { set_variable = had_dates }
-			}
-			hidden_effect = {
-				replace_food_after_city_upgrade_effect = { VARIABLE_OR_SET_TRADE_GOODS = set_variable } #See comments in scripted effect before tampering with this
-			}
-			while = {
-				count = 3
-				random_pops_in_province = {
-					limit = {
-						NOT = { pop_type = citizen }
-					}
-					set_pop_type = citizen
+			add_province_modifier = { name = pth_qanat_pmod }		
+		}
+		if = {
+			limit = {
+				exists = owner
+				owner = {
+					has_land = yes
+					has_variable = germ_forest_all_var
 				}
+				has_city_status = yes
+				NOT = { has_province_modifier = germania_mod_56 } 
+				terrain = forest
 			}
+			add_province_modifier = { name = germania_mod_56 }		
 		}
 	}
 
 	option = {
 		name = "state_improvement.6.a"
-		replace_food_after_city_upgrade_finish_effect = yes
+		replace_food_after_city_upgrade_finish_effect_tooltip = yes
 	}
 }
 
@@ -262,6 +258,9 @@ state_improvement.8 = { #Toggles Metropolis Status
 	hidden = yes
 	
 	trigger = {
+		# Replaced by ai_upgrade_to_metropolis_or_found_city
+		always = no
+		
 		is_ai = yes
 		any_owned_province = {
 			has_city_status = yes
@@ -303,6 +302,9 @@ state_improvement.9 = { #Toggles City Status
 	hidden = yes
 	
 	trigger = {
+		# Replaced by ai_upgrade_to_metropolis_or_found_city
+		always = no
+
 		is_ai = yes
 		num_of_cities > 30
 		trigger_if = {

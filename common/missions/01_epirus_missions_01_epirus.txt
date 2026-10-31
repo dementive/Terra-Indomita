@@ -33,7 +33,7 @@
     	start_mission_ai_effect = yes
     	set_variable = me_epirus_1_flag
     	save_scope_as = me_epirus_scope
-    	trigger_event = { id = me_epirus_1_epirus.110 }
+        trigger_event = { id = me_epirus_1_epirus.110 }
     	if = {
     		limit = {
     			capital_scope = {
@@ -56,9 +56,9 @@
 			        	}
 		    		}
 				}
-    		}
+            }
     		set_variable = me_epi_1_12_block
-    	}
+        }
     	if = {
     		limit = {
     			current_ruler.family = {
@@ -70,9 +70,9 @@
 	                    any_family_member = { me_epi_royal_marriage_groom_trigger = yes }
 	                }
 				}
-    		}
+            }
     		set_variable = me_epi_1_15_block
-    	}
+        }
     }
 
     on_abort = {
@@ -101,11 +101,11 @@
     	show_as_tooltip = {
     		add_country_modifier = {
     			name = me_epi_1_end_cmod
-    			duration = 7300 # 20 years
-    		}
-    	}
+                duration = 7300 # 20 years
+            }
+        }
     	complete_mission_effect = yes #
-    	trigger_event = { id = me_epirus_1_epirus.111 }
+        trigger_event = { id = me_epirus_1_epirus.111 }
     	if = {
 			limit = { has_variable = me_epi_1_12_block }
 			remove_variable = me_epi_1_12_block
@@ -119,13 +119,21 @@
 				NOT = {
 					has_completed_mission_task = epirus_1_epirus_17
 				}
-				is_ai = yes 
+				is_ai = yes
+				owns = 465
 			}
 			set_capital = p:465
 		    p:465 = {
 		        if = {
 			        limit = { has_city_status = no }
-			        found_city_effect = yes
+			        add_province_modifier = {
+			        	name = founding_city_in_progress
+			        	duration = 730
+			        }
+			        trigger_event = {
+			        	id = state_improvement.6
+			        	days = 730
+			        }
 		        }
 	        	define_pop = {
 	                type = citizen
@@ -172,7 +180,7 @@
 					is_ai = no
 				}
 				political_influence >= 20
-			}			
+			}
 			custom_tooltip = {
 				text = epirus_1_epirus_1_allow_tt_3
 				OR = {
@@ -206,13 +214,13 @@
         		limit = {
         			NOT = {
         				any_character = { has_office = office_marshal }
-        			}
-        		}
+                    }
+                }
         		custom_tooltip = {
         			text = "epirus_1_3_block_tt"
         			always = no
-        		}
-        	}
+                }
+            }
 			custom_tooltip = {
 				text = epirus_1_3_req_tt
 				OR = {
@@ -302,20 +310,20 @@
         		limit = {
         			NOT = {
         				any_character = { has_office = office_steward }
-        			}
-        		}
+                    }
+                }
         		custom_tooltip = {
         			text = "epirus_1_5_block_tt"
         			always = no
-        		}
-        	}
+                }
+            }
     		custom_tooltip = {
         		text = epirus_1_5_req_tt
         		any_character = {
 	        		has_office = office_steward
 	        		loyalty >= me_epi_1_5_loyalty_total
 	        	}
-        	}
+            }
 		}
 
 		on_start = {
@@ -332,6 +340,15 @@
 				}
 			}
 		}
+
+		bypass = {
+			is_ai = yes
+		}
+
+		on_bypass = {
+			trigger_event = { id = me_epirus_1_epirus.5 }
+		}
+
 	}
 	
 	epirus_1_epirus_6 = { # Expand Royal Kennels
@@ -480,6 +497,8 @@
 		requires = { epirus_1_epirus_3 }
 		duration = 180
 
+		potential = { always = no }  #superceeded by epirus_1_epirus_19
+
 		allow = {
 			NOT = { owns_or_subject_owns = 470 }
 			hidden:c:KRK = { owns = 470 }
@@ -511,6 +530,7 @@
 
 		bypass = {
 			OR = {
+				has_global_variable = corcyra_conquered_variable
 				owns_or_subject_owns = 470
 				c:KRK = { 
 					OR = {
@@ -744,7 +764,7 @@
 	
 	epirus_1_epirus_14 = { # Macedonian Lessons
 		icon = task_conquest
-		requires = { epirus_1_epirus_9 }
+		requires = { epirus_1_epirus_19 }
 		duration = 365
 		
 		allow = {
@@ -1138,4 +1158,77 @@
 			trigger_event = { id = me_epirus_1_epirus.35 }
 		}
 	}
+
+
+	epirus_1_epirus_19 = { #Capturing Corcyra
+		icon = task_expansion
+		requires = { epirus_1_epirus_3 }
+
+		potential = {
+			is_ai = no
+			NOR = {
+				has_global_variable = corcyra_conquered_variable
+				c:KRK = {
+					OR = {
+						is_subject = yes
+						is_ai = no
+					}
+					has_land = no
+				}				
+			}
+		}
+
+		bypass = {
+			OR = {
+				has_global_variable = corcyra_conquered_variable
+				c:KRK = {
+					OR = {
+						is_subject = yes
+						is_ai = no
+					}
+					has_land = no
+				}				
+			}
+		}
+		
+		allow = {
+			custom_tooltip = {
+                text = trigger_epirus_1_epirus_19
+                any_unit = {
+                    is_navy = yes
+					OR = {
+						unit_location = p:2613
+						unit_location = p:2612
+					}
+                    any_sub_unit = {
+                        count >= 20
+                    }
+                }
+            }
+		}
+
+		highlight = {
+			scope:province = {
+				OR = {
+                    province_id = 470
+				}
+			}
+        }
+
+		on_completion = { #
+            trigger_event = {
+                id = me_syracuse_2_sicily.21
+            }
+			show_as_tooltip = {
+                make_subject = {
+                    type = feudatory
+                    target = c:KRK
+                }			
+			}
+		 }
+	}
+
+
+
+
 }

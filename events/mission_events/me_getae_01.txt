@@ -201,6 +201,9 @@ me_getae_01_inv.5 = {
         add_treasury = {
 			subtract = root.has_monthly_income
 			multiply = 12
+			floor = yes
+			max = -20
+			min = -4000
 		}
         add_research = {
             technology = civic_tech
@@ -299,11 +302,6 @@ me_getae_01_inv.7 = {
 			area:europa_area = {
 				add_provincial_claim_effect = yes
             }
-            declare_war_with_wargoal = {
-                war_goal = conquer_wargoal
-                province = 350
-                target = p:350.owner
-            }
         }
     }
 
@@ -311,6 +309,7 @@ me_getae_01_inv.7 = {
         custom_tooltip = me_getae_7_tooltip
         name = me_getae_01_inv.7.b
         highlight = yes
+        end_truce = c:TRE
         declare_war_with_wargoal = {
             war_goal = conquer_wargoal
             province = 350
@@ -355,22 +354,22 @@ me_getae_01_inv.8 = {
             add_military_experience = 20
 			p:4249 = {
         		add_claim = ROOT
-        	}
+            }
 			p:4248 = {
         		add_claim = ROOT
-        	}
+            }
 			p:4247 = {
         		add_claim = ROOT
-        	}
+            }
 			p:480 = {
         		add_claim = ROOT
-        	}
+            }
 			p:481 = {
         		add_claim = ROOT
-        	}
+            }
 			p:482 = {
         		add_claim = ROOT
-        	}
+            }
         }
     }
 
@@ -521,22 +520,22 @@ me_getae_01_inv.8 = {
             add_military_experience = 20
 			p:4249 = {
         		add_claim = ROOT
-        	}
+            }
 			p:4248 = {
         		add_claim = ROOT
-        	}
+            }
 			p:4247 = {
         		add_claim = ROOT
-        	}
+            }
 			p:480 = {
         		add_claim = ROOT
-        	}
+            }
 			p:481 = {
         		add_claim = ROOT
-        	}
+            }
 			p:482 = {
         		add_claim = ROOT
-        	}
+            }
         }
     }
 }
@@ -648,6 +647,7 @@ me_getae_01_inv.12 = {
             force_add_trait = two_faced
         }
         change_government = despotic_monarchy
+		switch_government_type_event_clearup_effect = yes
         show_as_tooltip = {
             current_ruler = {
                 deify_character = {
@@ -860,7 +860,14 @@ me_getae_01_inv.20 = {
                 limit = {
                     has_city_status = no
                 }
-                found_city_effect = yes
+                add_province_modifier = {
+                    name = founding_city_in_progress
+                    duration = 730
+                }
+                trigger_event = {
+                    id = state_improvement.6
+                    days = 730
+                }
             }
             if = {
                 limit = {
@@ -905,7 +912,14 @@ me_getae_01_inv.20 = {
                     limit = {
                         has_city_status = no
                     }
-                    found_city_effect = yes
+                    add_province_modifier = {
+                        name = founding_city_in_progress
+                        duration = 730
+                    }
+                    trigger_event = {
+                        id = state_improvement.6
+                        days = 730
+                    }
                 }
 				if = {
                     limit = {

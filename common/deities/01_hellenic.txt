@@ -254,33 +254,7 @@ deity_hades = {
 
 	on_activate = {
 		economy_apotheosis_province_improvement_effect = yes
-		if = {
-			limit = {
-				exists = scope:deified_ruler
-				is_ai = no
-			}
-			hidden_effect = {
-				random = {
-					chance = 5
-					random_character = {
-						limit = {
-							is_ruler = no
-							is_head_of_family = no
-							is_general = no
-							is_admiral = no
-							is_primary_heir = no
-							is_governor = no
-							has_any_office = no
-							from_ruler_family = no
-							is_mercenary = no
-							is_party_leader = no
-							is_pretender = no
-						}
-						death = { death_reason = death_claimed_by_the_underworld }
-					}
-				}
-			}
-		}
+		deadly_apotheosis_effect = yes
 	}
 
 	deification_trigger = {
@@ -721,17 +695,15 @@ deity_zeus_stratios = {
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
-			religion = roman_pantheon
-			religion = anatolian_religion
-			religion = zoroaster
-			deity:omen_zeus_stratios = {
-				holy_site_deity_check_trigger = yes
+			rare_deity_trigger = {
+				RELIGION = roman_pantheon
 			}
-		}
-		has_variable = hellenistic_omens
-		OR = {
-			tag = PON
-			tag = PTU
+			very_rare_deity_trigger = {
+				RELIGION = anatolian_religion
+			}
+			has_variable = hellenistic_omens
+			primary_culture = aetolian
+			primary_culture = greco_pontic
 		}
 	}
 	icon = deity_war
@@ -753,17 +725,16 @@ deity_selene = {
 	trigger = {
 		polytheistic_check_religion_trigger = yes
 		OR = {
-			religion = roman_pantheon
-			religion = anatolian_religion
-			religion = zoroaster
-			deity:omen_selene = {
-				holy_site_deity_check_trigger = yes
+			very_rare_deity_trigger = {
+				RELIGION = roman_pantheon
 			}
-		}
-		has_variable = hellenistic_omens
-		OR = {
-			tag = PON
-			tag = PTU
+			rare_deity_trigger = {
+				RELIGION = anatolian_religion
+			}
+			has_variable = hellenistic_omens
+			primary_culture = cretan
+			primary_culture = peloponnesian
+			primary_culture = greco_pontic
 		}
 	}
 	icon = deity_eloquence
@@ -1018,6 +989,48 @@ deity_apollo_karneios = {
 
 	on_activate = {
 		economy_apotheosis_province_improvement_effect = yes
+	}
+}
+
+deity_zeus_chrysaoreus = {
+
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			primary_culture = ionian
+			primary_culture = carian
+			any_integrated_culture = {
+				is_culture = carian
+			}
+		}
+		OR = {
+			very_rare_deity_trigger = {
+				RELIGION = roman_pantheon
+			}
+			common_deity_trigger = {
+				RELIGION = anatolian_religion
+			}
+			common_deity_trigger = {
+				RELIGION = hurrian_pantheon
+			}			
+			deity:omen_zeus_chrysaoreus = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+
+	icon = deity_tribal_war
+	passive_modifier = { global_manpower_modifier = deity_global_manpower_modifier_svalue }
+	omen = { monthly_experience_gain = deity_monthly_experience_gain_svalue }
+	religion = roman_pantheon
+	deity_category = war # This Deity uses a War slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+
+	on_activate = {
+		military_apotheosis_military_experience_effect = yes
 	}
 }
 
@@ -1964,6 +1977,62 @@ deity_eris = {
 
 }
 
+deity_achelous = {
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			NOT = { country_culture_group = illyrian_group } #Illyrians have own deities
+			primary_culture = messapian #Messapians have Greek deities (some with a different name)
+		}
+		OR = {
+			rare_deity_trigger = {
+				RELIGION = roman_pantheon
+			}
+			deity:omen_achelous = {
+				holy_site_deity_check_trigger = yes
+			}
+		}
+	}
+	icon = deity_love
+	passive_modifier = { global_population_capacity_modifier = deity_global_monthly_food_modifier_svalue }
+	omen = { global_citizen_happyness = omen_global_citizen_happiness_svalue } #Bonus from Omen
+	religion = roman_pantheon
+	deity_category = fertility #This Deity uses a Fertility Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+
+	on_activate = {
+		fertility_apotheosis_capital_slaves_effect = yes
+	}
+}
+
+deity_demetrios = {
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			very_rare_deity_trigger = {
+				RELIGION = roman_pantheon
+			}
+			deity:omen_demetrios = {
+				holy_site_deity_check_trigger = yes
+			}
+			tag = ATH
+			is_subject_of = c:PRY
+		}
+	}
+	icon = deity_love
+	passive_modifier = { global_monthly_food_modifier = deity_global_monthly_food_modifier_svalue }
+	omen = { global_freemen_happyness = omen_global_freemen_happiness_svalue } #Bonus from Omen
+	religion = roman_pantheon
+	deity_category = fertility #This Deity uses a Fertility Slot
+
+	on_activate = {
+		military_apotheosis_capital_freemen_effect = yes
+	}
+}
+
 deity_artemis_tauropolos = {
 	trigger = {
 		polytheistic_check_religion_trigger = yes
@@ -2504,12 +2573,7 @@ deity_glycon = {  # Make sure can be used by Paphlagonians
 	}
 	
 	on_activate = {
-		culture_apotheosis_oratory_tech_effect = yes
-		add_political_influence = 15
-		add_research = {
-			technology = religious_tech
-            value = 10
-		}
+		glycon_apotheosis_effect = yes
 	}
 }
 deity_hermes_trumsiates = {
@@ -2610,6 +2674,60 @@ deity_artemis_reitia = {
 
 	on_activate = {
 		culture_apotheosis_assimilate_effect = yes
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_aphrodite_hoplimense = { #Aphrodite the Armed for Korinth
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			deity:omen_aphrodite_hoplimense = {
+				holy_site_deity_check_trigger = yes
+			}
+		OR = {
+			tag = KOR
+			}
+		}
+	}
+	icon = deity_diadochi_love
+	passive_modifier = { global_population_growth = deity_global_population_growth_svalue }
+	omen = { global_supply_limit_modifier = deity_global_supply_limit_modifier_svalue } #Bonus from Omen
+	religion = roman_pantheon
+	deity_category = fertility #This Deity uses a Fertility Slot
+
+	on_activate = {
+		fertility_apotheosis_capital_effect = yes
+	}
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_bellerophon = { #Bellerophon for Korinth
+	trigger = {
+		polytheistic_check_religion_trigger = yes
+		OR = {
+			deity:omen_bellerophon = {
+				holy_site_deity_check_trigger = yes
+			}
+		OR = {
+			tag = KOR
+		}
+		}
+	}
+	icon = deity_diadochi_war
+	passive_modifier = { light_cavalry_movement_speed = 0.05 }
+	omen = { light_cavalry_morale = 0.10 } #Bonus from Omen
+	religion = roman_pantheon
+	deity_category = war #This Deity uses a War Slot
+
+	on_activate = {
+		military_apotheosis_capital_freemen_effect = yes
 	}
 
 	deification_trigger = {

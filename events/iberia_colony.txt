@@ -5,7 +5,7 @@ iberia_colony.1 = { #tagswitch event as Carthage
 	type = country_event
 	title = "iberia_colony.1.t"
 	desc = "iberia_colony.1.desc"
-	picture = alis_ubbo_punic_ship_city
+	picture = interesting_histories_punic_ship_city
 	goto_location = p:1319
 
 	trigger = {
@@ -141,7 +141,7 @@ iberia_colony.2 = { #Punic Purchase
 	type = country_event
 	title = "iberia_colony.2.t"
 	desc = "iberia_colony.2.desc"
-	picture = alis_ubbo_punic_ship_city
+	picture = interesting_histories_punic_ship_city
     left_portrait = current_ruler
     right_portrait = scope:alis_ubbo_punic.current_ruler
     goto_location = p:1319
@@ -169,7 +169,14 @@ iberia_colony.2 = { #Punic Purchase
 		add_treasury = 50.0
 		hidden_effect = {
 		    p:1319 = {
-				establish_city_effect = yes
+				add_province_modifier = {
+					name = founding_city_in_progress
+					duration = 730
+				}
+				trigger_event = {
+					id = state_improvement.6
+					days = 730
+				}
 	            define_pop = {
 	                type = nobles
 	                culture = carthaginian
@@ -215,7 +222,7 @@ iberia_colony.3 = { #Alis Ubbo
 	type = country_event
 	title = "iberia_colony.3.t"
 	desc = "iberia_colony.3.desc"
-	picture = alis_ubbo_punic_ship_city
+	picture = interesting_histories_punic_ship_city
     left_portrait = current_ruler
     right_portrait = scope:alis_ubbo_tribe.current_ruler
     goto_location = p:1319
@@ -573,7 +580,7 @@ iberia_colony.6 = { #Land of Tin BAR
 	type = country_event
 	title = "iberia_colony.6.t"
 	desc = "iberia_colony.6.desc"
-	picture = alis_ubbo_punic_ship_city
+	picture = interesting_histories_punic_ship_city
     left_portrait = current_ruler
     right_portrait = scope:kassiteros_greek.current_ruler
     goto_location = scope:kassiteros_prov
@@ -610,7 +617,14 @@ iberia_colony.6 = { #Land of Tin BAR
 		hidden_effect = {
 		    scope:kassiteros_prov = {
 				set_trade_goods = base_metals
-				establish_city_effect = yes
+				add_province_modifier = {
+					name = founding_city_in_progress
+					duration = 730
+				}
+				trigger_event = {
+					id = state_improvement.6
+					days = 730
+				}
 	            define_pop = {
 	                type = nobles
 	                culture = massalian
@@ -858,14 +872,14 @@ iberia_colony.8 = { #[iberia_colony_tribe.GetAdjective] Offer (more land)
     		triggered_desc = {
     			trigger = { 
     				exists = scope:iberia_colony_prov_3
-    			}
+                }
     			desc = iberia_colony.8.desc_1
-    		}
+            }
     		triggered_desc = {
     			trigger = { always = yes }
     			desc = iberia_colony.8.desc_2
-    		}
-    	}
+            }
+        }
     }
 
 	picture = celtic_village

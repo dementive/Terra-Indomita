@@ -223,6 +223,14 @@ deity_kusinagara = {
 		OR = {
 			polytheistic_check_religion_trigger = yes
 			religion = buddhism
+			trigger_if = {
+				limit = {
+					exists = current_ruler
+				}
+				current_ruler = {
+					has_religion = buddhism
+				}
+			}
 		}
 		OR = {
 			common_deity_trigger = {
@@ -230,6 +238,14 @@ deity_kusinagara = {
 			}
 			deity:omen_kusinagara = {
 				holy_site_deity_check_trigger = yes
+			}
+			trigger_if = {
+				limit = {
+					exists = current_ruler
+				}
+				current_ruler = {
+					has_religion = buddhism
+				}
 			}
 		}
 	}
@@ -410,33 +426,67 @@ deity_marici = {
 
 	on_activate = {
 		economy_apotheosis_province_improvement_effect = yes
-		if = {
-			limit = {
-				exists = scope:deified_ruler
-				is_ai = no
-			}
-			hidden_effect = {
-				random = {
-					chance = 5
-					random_character = {
-						limit = {
-							is_ruler = no
-							is_head_of_family = no
-							is_general = no
-							is_admiral = no
-							is_primary_heir = no
-							is_governor = no
-							has_any_office = no
-							from_ruler_family = no
-							is_mercenary = no
-							is_party_leader = no
-							is_pretender = no
-						}
-						death = { death_reason = death_claimed_by_the_underworld }
-					}
+		deadly_apotheosis_effect = yes
+	}
+}
+
+deity_buddha_mazda = {
+	trigger = {
+		#polytheistic_check_religion_trigger = yes
+		OR = {
+			AND = {
+				religion = zoroaster
+				religion_pops_in_country = {
+					target = buddhism
+					value >= common_deity_svalue
 				}
 			}
+			AND = {
+				religion = buddhism
+				religion_pops_in_country = {
+					target = zoroaster
+					value >= common_deity_svalue
+				}
+			}
+			deity:omen_buddha_mazda = {
+				holy_site_deity_check_trigger = yes
+			}
 		}
+	}
+	icon = deity_hindu_wealth
+	passive_modifier = { diplomatic_relations = deity_diplomatic_relations_svalue }
+	omen = { global_pop_conversion_speed_modifier = omen_global_pop_conversion_speed_modifier_svalue }
+	on_activate = {
+		military_apotheosis_military_experience_effect = yes
+	}
+	religion = buddhism
+	deity_category = economy #This Deity uses an Economy Slot
+
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+}
+
+deity_mithra_mitreya = {
+	trigger = {
+		OR = {
+			deity:omen_mithra_mitreya = {
+				holy_site_deity_check_trigger = yes
+			}
+			has_variable = unlocked_mithra_mitreya
+		}		
+	}
+	icon = deity_hindu_eloquence
+	passive_modifier = { monthly_political_influence_modifier = 0.15 }
+	omen = { monthly_corruption = -0.1 } #Bonus from Omen
+	religion = buddhism
+	deity_category = culture
+	deification_trigger = {
+		can_deify_trigger = yes
+	}
+	on_activate = {
+		culture_apotheosis_characters_effect = yes
+		add_legitimacy_apotheosis_effect = yes
 	}
 }
 
@@ -514,6 +564,7 @@ deity_herakles_vajpranios = {
 				holy_site_deity_check_trigger = yes
 			}
 			has_variable = cyr_buddhism
+			has_variable = par_buddhism
 		}
 	}
 	icon = deity_hindu_war
@@ -560,6 +611,7 @@ deity_wardo = {
 				holy_site_deity_check_trigger = yes
 			}
 			has_variable = cyr_buddhism
+			has_variable = par_buddhism
 		}
 	}
 	icon = deity_hindu_wealth
