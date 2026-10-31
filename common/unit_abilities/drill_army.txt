@@ -17,13 +17,32 @@
 		is_exiled = no
 		in_siege = no
 		has_commander = yes
-		has_legion_trigger = yes
-		
+
 		NOT = { unit_owner = { has_low_economic_policy = expense_army } }
 
 		trigger_if = {
 			limit = {
 				exists = commander
+			}
+			trigger_if = {
+				limit = {
+					commander = {
+						is_mercenary = no
+					}
+				}
+				has_legion_trigger = yes
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = unlock_mercenary_training_tt
+					unit_owner = {
+						OR = {
+							has_law = mercenary_reliance
+							has_law = republic_military_recruitment_car_1
+							has_variable = unlock_mercenary_training_var
+						}
+					}
+				}
 			}
 			commander = {
 				loyalty > 33
@@ -60,8 +79,16 @@
 				experience_percentage < 0.65
 				
 				unit_owner = {
-					treasury > 50
-					manpower > 20
+					treasury > 40 #Lowered from 50
+					manpower > 6 #Honestly this doesn't seem needed, lowered from 20 but training doesn't cost manpower)
+				}
+				trigger_if = {
+					limit = {
+						exists = commander
+					}
+					commander = {
+						is_mercenary = no
+					}
 				}
 			}
 			add = {
@@ -81,7 +108,7 @@
 				treasury < 1
 			}
 			unit_owner = {
-				months_to_war < 12
+				months_to_war < 8 #Lowered from 12
 			}
 		}
 	}

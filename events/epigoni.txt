@@ -117,6 +117,7 @@ epigoni.2 = {#Passing of Ptolemaios
 						is_alive = yes
 						age >= 16
 						is_married = no
+						is_spouse_of = current_ruler
 						is_ruler = no
 						employer = root
 						prisoner = no
@@ -157,7 +158,6 @@ epigoni.2 = {#Passing of Ptolemaios
 					nickname="NICKNAME_PHILADELPHOS"
 					culture = c:EGY.current_ruler.culture
 					religion = c:EGY.current_ruler.religion
-					female = no
 					mother = c:EGY.current_ruler.mother
 					father = c:EGY.current_ruler.father
 		            age = 16
@@ -205,7 +205,7 @@ epigoni.2 = {#Passing of Ptolemaios
                     }    
                 }
 	        	c:EGY.current_ruler = { add_nickname = NICKNAME_PHILADELPHOS }
-    		}
+            }
 	        scope:pharaonic_wife_scope = { add_nickname = NICKNAME_PHILADELPHOS }
     		if = {
     			limit = {
@@ -216,7 +216,7 @@ epigoni.2 = {#Passing of Ptolemaios
 	    		c:EGY.current_ruler = {
 	    			divorce_character = spouse
 	    		}
-    		}
+            }
 	        scope:pharaonic_wife_scope = {
 	            if = {
 	                limit = { is_married = yes }
@@ -326,8 +326,8 @@ epigoni.3 = {
 					limit = {
 						is_in_region = cyrenaica_region
 					}
-				order_by = total_population
-				save_scope_as = cyrenacia_capital
+					order_by = total_population
+					save_scope_as = cyrenacia_capital
 				}
 				scope:cyrenacia_capital = {
 					create_country = { 
@@ -348,6 +348,7 @@ epigoni.3 = {
 					change_country_flag = CYR
 					set_country_religion = roman_pantheon
 					change_government = despotic_monarchy
+					switch_government_type_event_clearup_effect = yes
 				}				
 			}
         }
@@ -470,8 +471,8 @@ epigoni.4 = {#Fall of [agathocles_scope.GetPraenomen]: Conspiracy
 				is_in_area = bithynia_area
 				is_in_area = bithynia_superior_area
 				is_in_area = heracleotis_area
-    		}
-    	}
+            }
+        }
 	}
 
 	immediate = {
@@ -582,6 +583,7 @@ epigoni.4 = {#Fall of [agathocles_scope.GetPraenomen]: Conspiracy
 				change_country_flag = HELLESPONTINE_PHRYGIA_FLAG
 				change_country_tag = HPP
 				change_government = despotic_monarchy
+				switch_government_type_event_clearup_effect = yes
 				if = {
 					limit = {
 						NOT = {
@@ -608,7 +610,14 @@ epigoni.4 = {#Fall of [agathocles_scope.GetPraenomen]: Conspiracy
 		            set_capital = p:253 #Dascylium
 				}
 				capital_scope = {
-                    found_city_effect = yes
+                    add_province_modifier = {
+                        name = founding_city_in_progress
+                        duration = 730
+                    }
+                    trigger_event = {
+                        id = state_improvement.6
+                        days = 730
+                    }
                     define_pop = {
                         type = nobles
                         culture = root.culture
@@ -935,6 +944,7 @@ epigoni.7 = {#Fall of [agathocles_scope.GetPraenomen]: Accusations
 				change_country_flag = HELLESPONTINE_PHRYGIA_FLAG
 				change_country_tag = HPP
 				change_government = despotic_monarchy
+				switch_government_type_event_clearup_effect = yes
 				if = {
 					limit = {
 						NOT = {
@@ -961,7 +971,14 @@ epigoni.7 = {#Fall of [agathocles_scope.GetPraenomen]: Accusations
 		            set_capital = p:253 #Dascylium
 				}
 				capital_scope = {
-	                found_city_effect = yes
+	                add_province_modifier = {
+	                	name = founding_city_in_progress
+	                	duration = 730
+	                }
+	                trigger_event = {
+	                	id = state_improvement.6
+	                	days = 730
+	                }
 	                define_pop = {
 	                    type = nobles
 	                    culture = root.culture

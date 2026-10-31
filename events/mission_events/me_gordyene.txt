@@ -300,9 +300,9 @@ me_gordyene.5 = { # Friends in Adiabene
 				any_subject = {
 					tag = ADI
 				}
-    		}
+            }
     		save_scope_as = adiabene_overlord_country
-    	}
+        }
     }
 
     option = { # trade arrangement
@@ -406,24 +406,27 @@ me_gordyene.8 = { # Sons of Subartu
     desc = me_gordyene_8_desc
     picture = religious_rite
 
+    immediate = {
+        custom_tooltip = me_gordyene_8_tooltip
+    }
+
     option = { # Do Nothing
         name = "me_gordyene_8.a"
         custom_tooltip = me_gordyene_8_a_tooltip
-        
-    }
-
-    option = { # Adopt Hurrian Religion
-        name = "me_gordyene_8.b"
-        custom_tooltip = me_gordyene_8_b_tooltip
-        hidden_effect = {
+         hidden_effect = {
             change_religion_effect = { 
-                RELIGION = hurrian_pantheon
+                RELIGION = armenian_religion
             }
             add_country_modifier = {
                 name = karduchian_convert_hurrian
                 duration = 1200
             }
         }
+    }
+
+    option = { # Adopt Hurrian Religion
+        name = "me_gordyene_8.b"
+        current_ruler = { add_zeal = 3 }
     }
 
     option = { # Reform the Kingom of Subartu
@@ -595,7 +598,28 @@ me_gordyene.14 = { # Amomum Abounds
             add_finesse = 1
         }
         p:843 = {
-            increase_province_rank_effect = yes
+            if = {
+                limit = { has_province_rank = settlement }
+                add_province_modifier = {
+                    name = founding_city_in_progress
+                    duration = 730
+                }
+                trigger_event = {
+                    id = state_improvement.6
+                    days = 730
+                }
+            }
+            else_if = {
+                limit = { has_province_rank = city }
+                add_province_modifier = {
+                    name = founding_metropolis_in_progress
+                    duration = 730
+                }
+                trigger_event = {
+                    id = state_improvement.7
+                    days = 730
+                }
+            }
             add_permanent_province_modifier = {
                 name = spice_farms
             }

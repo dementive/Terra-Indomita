@@ -5,77 +5,192 @@
 	}
 	set_variable = {
 		name = ai_mission_backout
-		days = 21900 # 60 years # defines how long after taking a mission the AI will automatically abort it
+		days = 54750 # 150 years # defines how long after taking a mission the AI will automatically abort it
+	}
+}
+
+me_gre_hellenic_list_startup_effect = {
+	hidden_effect = {
+		gm_1_hellenic_liberation_list_effect = yes # Saves ports owned by barbarians to a list
+		gm_1_list_effect = yes
+		random_list = {
+			1 = {
+				trigger = {
+					NAND = {
+						owns_or_subject_owns = 207
+						owns_or_subject_owns = 1812
+						owns_or_subject_owns = 1807
+						owns_or_subject_owns = 1734
+					}
+					OR = {
+						p:207 = { control_range = root }
+						p:1812 = { control_range = root }
+						p:1807 = { control_range = root }
+						p:1734 = { control_range = root }
+					}
+				}
+				modifier = {
+					factor = 15
+					capital_scope = { is_in_region = taurica_region }
+				}
+				set_variable = { # Khersonesos path
+					name = gm_1_path
+					value = 1
+				}
+			}
+			1 = {
+				trigger = {
+					NAND = {
+						owns_or_subject_owns = 4549
+						owns_or_subject_owns = 4544
+						owns_or_subject_owns = 4538
+						owns_or_subject_owns = 4536
+					}
+					OR = {
+						p:4549 = { control_range = root }
+						p:4544 = { control_range = root }
+						p:4538 = { control_range = root }
+						p:4536 = { control_range = root }
+					}
+				}
+				modifier = {
+					factor = 15
+					capital_scope = { is_in_region = bithynia_region }
+				}
+				set_variable = { # Bithynia path
+					name = gm_1_path
+					value = 2
+				}
+			}
+			1 = {
+				trigger = {
+					NAND = {
+						owns_or_subject_owns = 4513
+						owns_or_subject_owns = 4526
+						owns_or_subject_owns = 4529
+						owns_or_subject_owns = 4522
+					}
+					OR = {
+						p:4513 = { control_range = root }
+						p:4526 = { control_range = root }
+						p:4529 = { control_range = root }
+						p:4522 = { control_range = root }
+					}
+				}
+				modifier = {
+					factor = 15
+					capital_scope = { is_in_area = olbia_area }
+				}
+				set_variable = { # Olbia path
+					name = gm_1_path
+					value = 3
+				}
+			}
+			1 = {
+				trigger = {
+					NAND = {
+						owns_or_subject_owns = 1720
+						owns_or_subject_owns = 1725
+						owns_or_subject_owns = 1730
+						owns_or_subject_owns = 1738
+					}
+					OR = {
+						p:1720 = { control_range = root }
+						p:1725 = { control_range = root }
+						p:1730 = { control_range = root }
+						p:1738 = { control_range = root }
+					}
+				}
+				modifier = {
+					factor = 15
+					capital_scope = { is_in_region = colchis_region }
+				}
+				set_variable = { # Colchis path
+					name = gm_1_path
+					value = 4
+				}
+			}
+			1 = { #Fallback
+				modifier = {
+					factor = 0.01
+					always = yes
+				}
+				set_variable = { # Bithynia path
+					name = gm_1_path
+					value = 2
+				}
+			}
+		}
 	}
 }
 
 gm_1_list_effect = {
 	region:taurica_region = {
 		every_region_province = {
-			limit = { is_port = yes }
+			limit = { num_of_port_building >= 1 }
 			add_to_list = gm_1_list
 		}
 	}
 	region:colchis_region = {
 		every_region_province = {
-			limit = { is_port = yes } 
+			limit = { num_of_port_building >= 1 } 
 			add_to_list = gm_1_list
 		}
 	}
 	region:scythia_region = {
 		every_region_province = {
 			limit = { 
-				is_port = yes
+				num_of_port_building >= 1
 			} 
 			add_to_list = gm_1_list
 		}
 	}
 	area:haemimontus_area  = {
 		every_area_province = {
-			limit = { is_port = yes } 
+			limit = { num_of_port_building >= 1 } 
 			add_to_list = gm_1_list
 		}
 	}
 	area:moesia_orientalis_area  = {
 		every_area_province = {
-			limit = { is_port = yes } 
+			limit = { num_of_port_building >= 1 } 
 			add_to_list = gm_1_list
 		}
 	}
 	area:scythia_area  = {
 		every_area_province = {
-			limit = { is_port = yes } 
+			limit = { num_of_port_building >= 1 } 
 			add_to_list = gm_1_list
 		}
 	}
 	area:machelonia_area = {
 		every_area_province = {
-			limit = { is_port = yes }
+			limit = { num_of_port_building >= 1 }
 			add_to_list = gm_1_list
 		}
 	}
 	area:paphlagonia_inferior_area = {
 		every_area_province = {
-			limit = { is_port = yes }
+			limit = { num_of_port_building >= 1 }
 			add_to_list = gm_1_list
 		}
 	}
 	area:heracleotis_area = {
 		every_area_province = {
-			limit = { is_port = yes }
+			limit = { num_of_port_building >= 1 }
 			add_to_list = gm_1_list
 		}
 	}
 	area:bithynia_inferior_area = {
 		every_area_province = {
-			limit = { is_port = yes }
+			limit = { num_of_port_building >= 1 }
 			add_to_list = gm_1_list
 		}
 	}
 	area:bithynia_area = {
 		every_area_province = {
 			limit = { 
-				is_port = yes
+				num_of_port_building >= 1
 				NOR = {
 					province_id = 248
 				}
@@ -86,7 +201,7 @@ gm_1_list_effect = {
 	area:europa_area = {
 		every_area_province = {
 			limit = { 
-				is_port = yes
+				num_of_port_building >= 1
 				NOR = {
 					province_id = 350
 					province_id = 347
@@ -304,7 +419,7 @@ alexanders_vision_claim_effect = {
 		limit = {
 			NOR = {
 				this = region:tibet_region
-				this = region:himalayan_region
+				this = region:xiyu_region
 				this = region:colchis_region
 				this = region:albania_region
 				this = region:sarmatia_asiatica_region
@@ -316,6 +431,7 @@ alexanders_vision_claim_effect = {
 				this = region:venedia_region
 				this = region:bohemia_region
 				this = region:vistulia_region
+				this = region:hyperborea_region
 				this = region:central_asian_steppes_region # Sarmatia Ultima
 			}
 		}
@@ -478,7 +594,7 @@ samnium_separate_peace_effect = {
 			}
 		}
 	}
-	set_local_variable = {
+	set_global_variable = {
 		name = samnium_war_rep_var
 		value = 0
 	}
@@ -493,7 +609,7 @@ samnium_separate_peace_effect = {
 		custom_tooltip = samnium_war_rep_tt
 		add_treasury = 25
 		add_political_influence = 50
-		change_local_variable = {
+		change_global_variable = {
 			name = samnium_war_rep_var
 			add = 1
 		}
@@ -501,7 +617,7 @@ samnium_separate_peace_effect = {
 	c:SAM = {
 		add_treasury = {
 			value = -25
-			multiply = local_var:samnium_war_rep_var
+			multiply = global_var:samnium_war_rep_var
 		}
 		add_political_influence = -100 # not doing multiply bcs 50 pi each.... could be -200 or so
 		add_stability = -10 # just lost a war
@@ -718,6 +834,18 @@ turdetanian_mission_02_heirs_tartessia_inv_variable_cleanup_effect = {
 			has_variable = olisipo_territory_variable
 		}
 		remove_variable = olisipo_territory_variable
+	}
+	if = {
+		limit = {
+			has_variable = phokaia_territory_variable
+		}
+		remove_variable = phokaia_territory_variable
+	}
+	if = {
+		limit = {
+			has_variable = cancho_roano_progress
+		}
+		remove_variable = cancho_roano_progress
 	}
 }
 
@@ -985,7 +1113,7 @@ change_religion_effect_igk = { #Same as change_religion_effect, but only with -2
 	}
 }
 
-# Armenian Culture Points
+# zhangzhung Culture Points
 persian_culture_point_effect = {
 	custom_tooltip = add_persian_points_tt
 	change_variable = {
@@ -1006,4 +1134,420 @@ armenian_culture_point_effect = {
 		name = armenian_culture_points
 		add = 1
 	}
+}
+
+# Erythraean Culture Points
+arabian_culture_point_effect = {
+	custom_tooltip = add_arabian_points_tt
+	change_variable = {
+		name = arabian_culture_points
+		add = 1
+	}
+}
+indian_culture_point_effect = {
+	custom_tooltip = add_indian_points_tt
+	change_variable = {
+		name = indian_culture_points
+		add = 1
+	}
+}
+african_culture_point_effect = {
+	custom_tooltip = add_african_points_tt
+	change_variable = {
+		name = african_culture_points
+		add = 1
+	}
+}
+
+# Tayuan Culture Points
+ionian_culture_point_effect = {
+	custom_tooltip = add_ionian_points_tt
+	change_variable = {
+		name = ionian_culture_points
+		add = 1
+	}
+	if = {
+		limit = {
+			tay_heavenly_points_svalue >= 10
+		}
+		trigger_event = {
+			    id = me_tayuan_ferghana.202
+			    days = { 100 120 }
+		}
+	}
+}
+tayuan_culture_point_effect = {
+	custom_tooltip = add_ferghani_points_tt
+	change_variable = {
+		name = tayuan_culture_points
+		add = 1
+	}
+	if = {
+		limit = {
+			tay_heavenly_points_svalue >= 10
+		}
+		trigger_event = {
+			    id = me_tayuan_ferghana.202
+			    days = { 100 120 }
+		}
+	}
+}
+qin_culture_point_effect = {
+	custom_tooltip = add_huaxia_points_tt
+	change_variable = {
+		name = qin_culture_points
+		add = 1
+	}
+	if = {
+		limit = {
+			tay_heavenly_points_svalue >= 10
+		}
+		trigger_event = {
+		    id = me_tayuan_ferghana.202
+			days = { 100 120 }
+		}
+	}
+}
+
+soodak_harrowing_tale_effect = {
+	create_country_treasure = {
+		key = "soodak_harrowing_tale"
+		icon = "old_script_3"
+		modifier = {
+			local_hostile_attrition = 2.5
+		}
+	}
+}
+
+zhangzhung_culture_point_effect = {
+	custom_tooltip = add_buddhist_points_tt
+	change_variable = {
+		name = zhangzhung_culture_points
+		add = 1
+	}
+	if = {
+		limit = {
+			tay_heavenly_points_svalue >= 10
+		}
+		trigger_event = {
+			id = me_tayuan_ferghana.202
+			days = { 100 120 }
+		}
+	}
+}
+soodak_stuffed_hand_effect = {
+	create_country_treasure = {
+		key = "soodak_hand"
+		icon = "stuffed_hand"
+		modifier = {
+			local_manpower_modifier = 0.15
+		}
+	}
+}
+
+soodak_cookbook_effect = {
+	create_country_treasure = {
+		key = "soodak_cookbook"
+		icon = "cr_treasure_tablets_of_velianus_01"
+		modifier = {
+			pop_food_consumption = 0.20
+		}
+	}
+}
+
+soodak_get_overlord_effect = {
+	random_country = {
+		limit = {
+			root = { is_subject_of = PREV }
+		}
+		save_scope_as = soodak_overlord
+	}
+}
+
+soodak_select_candidate_country_effect = { #Saves candidate as soodak_foreign_nobility_target
+	#scope:soodak_foreign_nobility_target = {
+	#	clear_saved_scope = scope:soodak_foreign_nobility_target
+	#}
+	soodak_get_overlord_effect = yes #Saves overlord as soodak_overlord
+	scope:soodak_overlord.current_ruler = { save_scope_as = soodak_overlord_ruler }
+	current_ruler = { save_scope_as = soodak_ruler }
+	random_country = { #First get sent to another player
+		limit = {
+			is_ai = no
+			NOR = { #Is neither Soodak nor overlord
+				current_ruler = scope:soodak_overlord_ruler
+				current_ruler = scope:soodak_ruler
+				#current_ruler = { has_variable = soodak_declined_nobility_var }
+				AND = { #Only target ANP if relations are established
+					tag = ANP
+					NOT = { has_variable = soodak_good_relations }
+				}
+			}
+			#count = 1
+		}
+		save_scope_as = soodak_foreign_nobility_target
+	}
+	if = { #Try to get Finnic dynasty
+		limit = { NOT = { exists = scope:soodak_foreign_nobility_target } }
+		random_country = {
+			limit = {
+				NOR = { #Is neither Soodak nor overlord
+					current_ruler = scope:soodak_overlord_ruler
+					current_ruler = scope:soodak_ruler
+					#current_ruler = { has_variable = soodak_declined_nobility_var }
+					AND = { #Only target ANP if relations are established
+						tag = ANP
+						NOT = { has_variable = soodak_good_relations }
+					}
+				}
+				country_culture_group = finnic_group
+			}
+			save_scope_as = soodak_foreign_nobility_target
+		}
+	}
+	if = { #Try to get the dynasty of a neigboring monarchy
+		limit = { NOT = { exists = scope:soodak_foreign_nobility_target } }
+		random_neighbour_country = {
+			limit = {
+				NOR = { #Is neither Soodak nor overlord
+					current_ruler = scope:soodak_overlord_ruler
+					current_ruler = scope:soodak_ruler
+					#current_ruler = { has_variable = soodak_declined_nobility_var }
+				}
+				is_monarchy = yes
+			}
+			save_scope_as = soodak_foreign_nobility_target
+		}
+	}
+	if = { #Try to get the dynasty of a monarchy within Eastern Europe
+		limit = { NOT = { exists = scope:soodak_foreign_nobility_target } }
+		random_country = {
+			limit = {
+				NOR = { #Is neither Soodak nor overlord
+					current_ruler = scope:soodak_overlord_ruler
+					current_ruler = scope:soodak_ruler
+					#current_ruler = { has_variable = soodak_declined_nobility_var }
+				}
+				is_monarchy = yes
+				capital_scope = {
+					OR = {
+						is_in_region = hyperborea_region
+						is_in_region = venedia_region
+						is_in_region = borysthenia_region
+						is_in_region = vistulia_region
+						is_in_region = scythia_region
+						is_in_region = sarmatia_asiatica_region
+						is_in_region = taurica_region
+					}
+				}
+			}
+			save_scope_as = soodak_foreign_nobility_target
+		}
+	}
+	if = { #Try to get the dynasty of a monarchy within the Balkans
+		limit = { NOT = { exists = scope:soodak_foreign_nobility_target } }
+		random_country = {
+			limit = {
+				NOR = { #Is neither Soodak nor overlord
+					current_ruler = scope:soodak_overlord_ruler
+					current_ruler = scope:soodak_ruler
+					#current_ruler = { has_variable = soodak_declined_nobility_var }
+				}
+				is_monarchy = yes
+				capital_scope = {
+					OR = {
+						is_in_region = dacia_region
+						is_in_region = moesia_region
+						is_in_region = thrace_region
+						is_in_region = moesia_s_region
+						is_in_region = macedonia_region
+						is_in_region = greece_region
+					}
+				}
+			}
+			save_scope_as = soodak_foreign_nobility_target
+		}
+	}
+	if = { #Try to get the dynasty of a monarchy within Anatolia and the Caucuses
+		limit = { NOT = { exists = scope:soodak_foreign_nobility_target } }
+		random_country = {
+			limit = {
+				NOR = { #Is neither Soodak nor overlord
+					current_ruler = scope:soodak_overlord_ruler
+					current_ruler = scope:soodak_ruler
+					#current_ruler = { has_variable = soodak_declined_nobility_var }
+				}
+				is_monarchy = yes
+				capital_scope = {
+					OR = {
+						is_in_region = asia_region
+						is_in_region = bithynia_region
+						is_in_region = galatia_region
+						is_in_region = cilicia_region
+						is_in_region = cappadocia_region
+						is_in_region = cappadocia_pontica_region
+						is_in_region = colchis_region
+						is_in_region = armenia_region
+					}
+				}
+			}
+			save_scope_as = soodak_foreign_nobility_target
+		}
+	}
+	if = { #Try to get the dynasty of a monarchy from Britain or Gaul
+		limit = { NOT = { exists = scope:soodak_foreign_nobility_target } }
+		random_country = {
+			limit = {
+				NOR = { #Is neither Soodak nor overlord
+					current_ruler = scope:soodak_overlord_ruler
+					current_ruler = scope:soodak_ruler
+					#current_ruler = { has_variable = soodak_declined_nobility_var }
+				}
+				is_monarchy = yes
+				capital_scope = {
+					OR = {
+						is_in_region = britain_region
+						is_in_region = caledonia_region
+						is_in_region = belgica_region
+						is_in_region = armorica_region
+						is_in_region = central_gaul_region
+						is_in_region = aquitaine_region
+						is_in_region = transalpine_gaul_region
+						is_in_region = armenia_region
+					}
+				}
+			}
+			save_scope_as = soodak_foreign_nobility_target
+		}
+	}
+	if = { #Try to get the dynasty from Rome, monarchy or not
+		limit = { NOT = { exists = scope:soodak_foreign_nobility_target } }
+		random_country = {
+			limit = {
+				NOR = { #Is neither Soodak nor overlord
+					current_ruler = scope:soodak_overlord_ruler
+					current_ruler = scope:soodak_ruler
+					#current_ruler = { has_variable = soodak_declined_nobility_var }
+				}
+				tag = ROM
+			}
+			save_scope_as = soodak_foreign_nobility_target
+		}
+	}
+	if = { #Try to get the dynasty of any monarchy around the world
+		limit = { NOT = { exists = scope:soodak_foreign_nobility_target } }
+		random_country = {
+			limit = {
+				NOR = { #Is neither Soodak nor overlord
+					current_ruler = scope:soodak_overlord_ruler
+					current_ruler = scope:soodak_ruler
+					#current_ruler = { has_variable = soodak_declined_nobility_var }
+				}
+				is_monarchy = yes
+			}
+			save_scope_as = soodak_foreign_nobility_target
+		}
+	}
+	if = { #Try to get the dynasty of any other country as a fallback
+		limit = { NOT = { exists = scope:soodak_foreign_nobility_target } }
+		random_country = {
+			limit = {
+				NOR = { #Is neither Soodak nor overlord
+					current_ruler = scope:soodak_overlord_ruler
+					current_ruler = scope:soodak_ruler
+					#current_ruler = { has_variable = soodak_declined_nobility_var }
+				}
+			}
+			save_scope_as = soodak_foreign_nobility_target
+		}
+	}
+}
+
+soodak_get_high_priest_effect = {
+	if = {
+		limit = { NOT = { office_is_empty = office_high_priest } }
+		job_holder:office_high_priest = {
+			save_scope_as = soodak_high_priest
+		}
+	}
+	if = {
+		limit = { NOT = { office_is_empty = office_high_priest_monarchy } }
+		job_holder:office_high_priest_monarchy = {
+			save_scope_as = soodak_high_priest
+		}
+	}
+	if = {
+		limit = { NOT = { office_is_empty = office_augur } }
+		job_holder:office_augur = {
+			save_scope_as = soodak_high_priest
+		}
+	}
+}
+
+germania_create_soodak_effect = { #Made it an effect now that it is used in multiple places
+	hidden_effect = {
+		p:12606 = {
+			add_permanent_province_modifier = {
+				name = germania_mod_56
+				duration = -1
+			}
+		}
+		p:12606 = {
+			while = {
+				count = 1
+				random_pops_in_province = {
+					set_pop_culture = root.culture
+					set_pop_religion = germanic_religion
+				}
+			}
+			create_country = {
+				name = {
+					name = SOODAK_NAME
+					adjective = SOODAK_ADJECTIVE
+				}
+				change_country_color = ultrasuperior_nuragic_choosen_by_sardo_himself_color
+				change_country_flag = SOODAK_FLAG
+				change_country_tag = SOO
+				if = {
+					limit = {
+						NOT = {
+							#primary_culture = fennic
+							primary_culture = root.culture
+						}
+					}
+					set_primary_culture_cleanup_effect = {
+						#NEW_PRIMARY_CULTURE = fennic #Instead the player goes Fennic via tree
+						NEW_PRIMARY_CULTURE = root.culture
+						MAKE_OLD_CULTURE_INTEGRATED = yes
+					}
+				}	
+				#set_country_religion = uralic_pantheon #Instead the player goes Ilmaric via tree
+				set_country_religion = germanic_religion
+				change_government = tribal_kingdom
+				set_country_heritage = coastal_heritage
+				save_scope_as = soodak_country_scope
+			}
+		}
+		make_subject = {
+			target = scope:soodak_country_scope
+			type = subject_colony #Changed from being feudatory
+		}
+	}
+}
+
+ai_build_city_pay_price_effect = {
+	if = {
+        limit = {
+            is_ai = yes
+            trigger_if = {
+            	limit = { treasury > 50 }
+            	can_pay_price = price_found_city
+            }
+            $CITY$ = { has_city_status = no }
+        }
+        pay_price = price_found_city
+        $CITY$ = {
+			found_city_effect = yes
+		}
+    }
 }

@@ -90,7 +90,7 @@
 		p:4538 = {
 			add_to_list = miletos_colonies_list
 		}
-		p:4529 = {
+		p:4528 = {
 			add_to_list = miletos_colonies_list
 		}
 		p:4525 = {
@@ -173,15 +173,16 @@
 
 		allow = {
 			owns = 350
-			owns = 1453
+			owns = 252
 		}
 
 		highlight = {
 			scope:province = {
-				is_in_list = miletos_colonies_list
 				OR = {
-					is_in_area = europa_area
-					is_in_area = bithynia_inferior_area
+					province_id = 350
+					province_id = 252
+					province_id = 1453
+					province_id = 240
 				}
 			}
 		}
@@ -257,7 +258,7 @@
 				}
 				random_owned_province = {
 					limit = {
-						is_port = yes
+						num_of_port_building >= 1
 					}
 					owner = {
 						create_unit = {
@@ -404,7 +405,7 @@
 				}
 				random_owned_province = {
 					limit = {
-						is_port = yes
+						num_of_port_building >= 1
 					}
 					owner = {
 						create_unit = {
@@ -660,7 +661,7 @@
 		allow = {
 			owns = 4525
 			owns = 4526
-			owns = 4529
+			owns = 4528
 		}
 
 		highlight = {
@@ -804,8 +805,8 @@
 
 		on_completion = {
 			trigger_event = miletos_event.17
+			add_treasury = 300
 			show_as_tooltip = {
-				add_treasury = 300
 				capital_scope.state = {
 					add_state_modifier = {
 						name = trading_hub_smod
@@ -1040,7 +1041,7 @@
 				custom_tooltip = {
 					text = colchis_missions_task_14_tt
 					NOT = { 
-						any_province = {
+						any_ownable_province = {
 							OR = {
 								is_in_area = colchis_area
 								is_in_area = abasgoi_area

@@ -88,8 +88,9 @@ disasters_inv.1 = { #flood in flood_plain
 		add_treasury = {
 			subtract = has_monthly_income
 			multiply = 6
-			max = -200
-			min = -50
+			floor = yes
+			max = -50
+			min = -200
 		}
 		trigger_event = {
 			id = disasters_inv.3
@@ -370,6 +371,8 @@ disasters_inv.4 = { #Avalanche
 					}
 					random = {
 						chance = 50
+						if = {
+							limit = { has_owner = yes }
 						owner = {
 							trigger_event = {
 								id = disasters_inv.4
@@ -379,6 +382,7 @@ disasters_inv.4 = { #Avalanche
 					}
 				}
 			}
+		}
 		}
 		else = {
 			set_variable = {
@@ -504,8 +508,9 @@ disasters_inv.5 = { #landslide
 		add_treasury = {
 			subtract = has_monthly_income
 			multiply = 12
-			max = -300
-			min = -50
+			floor = yes
+			max = -50
+			min = -300
 		}
 		set_variable = {
 			name = money_money_money
@@ -775,8 +780,8 @@ disasters_inv.7 = { #drought
 		add_treasury = {
 			subtract = has_monthly_income
 			multiply = 16
-			max = -300
-			min = -50
+			min = -300
+			max = -50
 		}
 		current_ruler = {
 			add_trait = benefactor
@@ -902,8 +907,8 @@ disasters_inv.8 = {
 		add_treasury = {
 			subtract = has_monthly_income
 			multiply = 32
-			max = -500
-			min = -50
+			min = -500
+			max = -50
 		}
 		highlight = yes
 	}
@@ -962,7 +967,9 @@ disasters_inv.9 = { #Seastorm hitting coast - using vanilla events as base for l
 	goto_location = scope:stormy_daniels
 
 	trigger = {
-		any_province = {
+		any_owned_province = {
+			is_coastal = yes
+			any_neighbor_province = {
 			OR = {
 				has_province_modifier = ravaged_by_storms
 				has_province_modifier = stormy_seas
@@ -971,8 +978,6 @@ disasters_inv.9 = { #Seastorm hitting coast - using vanilla events as base for l
 				terrain = coastal_terrain
 				terrain = ocean
 			}
-			any_neighbor_province = {
-				owner = root
 			}
 		}
 	}
@@ -1085,14 +1090,19 @@ disasters_inv.10 = { #Sandstorm Extreme - using vanilla events as base for locat
 	goto_location = scope:sandman
 
 	trigger = {
-		any_province = {
+		any_owned_province = {
+			OR = {
+				terrain = desert
+				terrain = desert_hills
+				terrain = oasis
+			}
+			any_neighbor_province = {
 			has_province_modifier = desert_storm
 			OR = {
 				terrain = desert
 				terrain = desert_hills
+					terrain = oasis
 			}
-			any_neighbor_province = {
-				owner = root
 			}
 		}
 	}
@@ -1461,6 +1471,11 @@ disasters_inv.11 = { #Snowstorm Extreme
 						}
 					}
 				}
+				if = {
+					limit = {
+						exists = scope:not_snowden
+						scope:not_snowden = { has_owner = yes }
+					}
 				scope:not_snowden.owner = {
 					trigger_event = {
 						id = disasters_inv.11
@@ -1469,6 +1484,7 @@ disasters_inv.11 = { #Snowstorm Extreme
 				}
 			}
 		}
+	}
 	}
 }
 ###Locusts
@@ -1510,8 +1526,8 @@ disasters_inv.12 = { #first sightings of bigger swarms of locusts. Can try to sq
 		add_treasury = {
 			subtract = has_monthly_income
 			multiply = 24
-			max = -500
-			min = -50
+			min = -500
+			max = -50
 		}
 		set_variable = {
 			name = act_against_locusts
@@ -1577,8 +1593,8 @@ disasters_inv.13 = { #locusts getting worse
 		add_treasury = {
 			subtract = has_monthly_income
 			multiply = 36
-			max = -600
-			min = -50
+			min = -600
+			max = -50
 		}
 		set_variable = {
 			name = act_against_locusts
@@ -1706,8 +1722,8 @@ disasters_inv.14 = {
 		add_treasury = {
 			subtract = has_monthly_income
 			multiply = 15
-			max = -300
-			min = -50
+			min = -300
+			max = -50
 		}
 	}
 

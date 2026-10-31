@@ -11,6 +11,15 @@ cappadocia_event.1 = { # eumenes' kids start rebellion
 	right_portrait = char:431 # Eumenes
 	right_portrait = char:432 # Artonis
 
+	trigger = {
+		OR = {
+			char:432 = { is_alive = yes }
+			char:433 = { is_alive = yes }
+			char:434 = { is_alive = yes }
+			char:435 = { is_alive = yes }
+		}
+	}
+
 	immediate = {
 		custom_tooltip = eumenes_heirs_rise_up_tt
 		hidden_effect = {
@@ -397,7 +406,8 @@ cappadocia_event.7 = { # Ariarathes tries to seize the throne
 	immediate = {
 		custom_tooltip = ariarathes_rebellion_tt
 		hidden_effect = {
-			p:1854 = { # Melitene
+			p:1893 = { # Lesser Armenia Border
+				change_province_name = "Ariaratheia"
 				create_country = {
 					name = {
 						name = "ARI_REB_NAME"
@@ -411,9 +421,10 @@ cappadocia_event.7 = { # Ariarathes tries to seize the throne
 					change_country_color = ariarathid_color
 					change_country_flag = ARI_FLAG
 					change_country_tag = ARI
+					change_government = aristocratic_monarchy
 					set_global_variable = {
                         name = ARI_tag
-                        value = p:1854.owner
+                        value = p:1893.owner
                     }
 					set_country_heritage = cappadocian_heritage
 					save_scope_as = ariarathes_rebellion_scope
@@ -445,9 +456,10 @@ cappadocia_event.7 = { # Ariarathes tries to seize the throne
 					}
 					set_as_ruler = char:50
 				}
-				area = {
+				area = {#Not needed
 					every_area_province = {
 						limit = {
+							owner = ROOT
 							NOT = {
 								owner = scope:ariarathes_rebellion_scope
 							}
@@ -455,6 +467,21 @@ cappadocia_event.7 = { # Ariarathes tries to seize the throne
 						set_owned_by = scope:ariarathes_rebellion_scope
 					}
 				}	
+			}
+			every_owned_province = {
+				limit = {
+					OR = {
+						is_in_area = cappadocia_cataonia_area
+						is_in_area = pontus_colopene_area
+						province_id = 1899
+						province_id = 1907
+						province_id = 6420
+					}
+					NOR = {
+						province_id = 1979
+					}
+				}
+				set_owned_by = scope:ariarathes_rebellion_scope
 			}
 			scope:ariarathes_rebellion_scope = {
 				create_unit = {
@@ -483,6 +510,23 @@ cappadocia_event.7 = { # Ariarathes tries to seize the throne
 		declare_war_with_wargoal = { # should call overlord in
 			target = scope:ariarathes_rebellion_scope
 			war_goal = imperial_conquest_wargoal
+		}
+		hidden_effect = {
+			set_variable = {
+				name = ariarathid_war_watch
+				days = 1825
+			}
+			if = {
+				limit = { is_subject = yes }
+				set_variable = {
+					name = ariarathid_war_overlord
+					value = overlord
+				}
+			}
+			trigger_event = {
+				id = cappadocia_event.128
+				days = 14
+			}
 		}
 	}
 
@@ -643,7 +687,7 @@ cappadocia_event.11 = { # change subject type to no longer be integrateable
 			release_subject = c:CAP
 			make_subject = { 
 				target = c:CAP
-				type = subject_colony
+				type = march
 			}
 		}
 		set_variable = {
@@ -1018,7 +1062,7 @@ cappadocia_event.18 = { # mil ping back
 			culture = root.overlord.culture
 			religion = root.overlord.religion
 			female = no
-			add_martial = 8
+			add_martial = 4
 			add_trait = original_thinker
 		}
 	}
@@ -1406,6 +1450,7 @@ cappadocia_event.25 = { # bribe first governor (you have to chose which one in t
 		name = cappadocia_event.25.a
 		add_treasury = {
 			subtract = has_monthly_income
+			min = -6000
 		}
 		scope:cap_beguile_gov_char_1 = {
 			add_gold = root.has_monthly_income
@@ -1439,6 +1484,7 @@ cappadocia_event.26 = { # bribe second governor (you have to chose which one in 
 		name = cappadocia_event.26.a
 		add_treasury = {
 			subtract = has_monthly_income
+			min = -6000
 		}
 		scope:cap_beguile_gov_char_2 = {
 			add_gold = root.has_monthly_income
@@ -2159,8 +2205,11 @@ cappadocia_event.43 = { # Ariarathes' Rebellion; you take over
 	right_portrait = char:50
 
 	immediate = {
-		overlord = {
-			save_scope_as = overlord_scope
+		if = {
+			limit = { is_subject = yes }
+			overlord = {
+				save_scope_as = overlord_scope
+			}
 		}
 		hidden_effect = {
 			char:50 = {
@@ -2168,13 +2217,20 @@ cappadocia_event.43 = { # Ariarathes' Rebellion; you take over
 				move_country = root
 				remove_character_modifier = foreign_citizen
 			}
-			area:cappadocia_melitene_area = {
-				every_area_province = {
-					limit = {
-						owner = root
+			every_owned_province = {
+				limit = {
+					OR = {
+						is_in_area = cappadocia_cataonia_area
+						is_in_area = pontus_colopene_area
+						province_id = 1899
+						province_id = 1907
+						province_id = 6420
 					}
-					add_to_list = new_country_province_list
+					NOR = {
+						province_id = 1979
+					}
 				}
+				add_to_list = new_country_province_list
 			}
 			switch_player_country_effect = {
 				NEW_NAME = ARI_REB_NAME
@@ -2204,11 +2260,18 @@ cappadocia_event.43 = { # Ariarathes' Rebellion; you take over
 					set_country_culture_right = citizen
 				}
 			}
-			scope:overlord_scope = {
-				release_subject = scope:new_country
-				make_subject = {
-					target = scope:old_country
-					type = satrapy
+			set_global_variable = {
+				name = ARI_tag
+				value = scope:new_country
+			}
+			if = {
+				limit = { exists = scope:overlord_scope }
+				scope:overlord_scope = {
+					release_subject = scope:new_country
+					make_subject = {
+						target = scope:old_country
+						type = satrapy
+					}
 				}
 			}
 			add_alliance = c:ARM
@@ -2236,9 +2299,12 @@ cappadocia_event.43 = { # Ariarathes' Rebellion; you take over
 			}
 			if = {
 				limit = {
-					owns = 1854 # Melitene
+					owns = 1893 # Lesser Armenia Border
 				}
-				set_capital = p:1854
+				set_capital = p:1893
+			}
+			capital_scope = {
+				change_province_name = "Ariaratheia"
 			}
 		}
 	}
@@ -2249,6 +2315,23 @@ cappadocia_event.43 = { # Ariarathes' Rebellion; you take over
 			declare_war_with_wargoal = {
 				war_goal = imperial_conquest_wargoal
 				target = scope:new_country
+			}
+			hidden_effect = {
+				set_variable = {
+					name = ariarathid_war_watch
+					days = 1825
+				}
+				if = {
+					limit = { is_subject = yes }
+					set_variable = {
+						name = ariarathid_war_overlord
+						value = overlord
+					}
+				}
+				trigger_event = {
+					id = cappadocia_event.128
+					days = 14
+				}
 			}
 		}
 		# every_current_war = {
@@ -3200,7 +3283,7 @@ cappadocia_event.62 = {
 				release_subject = root
 			}
 		}
-		every_province = {
+		every_ownable_province = {
 			limit = {
 				OR = {
 					is_in_area = armenia_minor_area
@@ -3301,7 +3384,7 @@ cappadocia_event.63 = { #Name choices for Persia path
 				}
 			}
 			current_ruler = {
-				add_trait = achaemenid
+				grant_bloodline_to_descendants_effect = { BLOODLINE = achaemenid }
 			}
 		}
 		else = {
@@ -3811,8 +3894,8 @@ cappadocia_event.82 = { # task 5a
 		name = cappadocia_event.82.a
 		declare_war_with_wargoal = {
 	        war_goal = conquer_wargoal
-	        province = 1790
-	        target = p:1790.owner
+	        province = 1819
+	        target = p:1819.owner
 	    }
 		add_country_modifier = {
 		name = satrapy_borders_restored
@@ -4097,6 +4180,7 @@ cappadocia_event.95 = { # task 29
 		name = cappadocia_event.95.a
 		current_ruler = {
 			add_popularity = 10
+			add_nickname = NICKNAME_PHILOPATOR
 		}
 		add_political_influence = 25
 	}
@@ -4329,7 +4413,6 @@ cappadocia_event.103 = { # task 3d
 			value = 25
 		}
 		p:7998 = {
-			set_city_status = city_metropolis
 			add_province_modifier = {
 				name = ariarathes_palace
 				duration = -1
@@ -4357,6 +4440,22 @@ cappadocia_event.104 = { # task 4d
 		add_research = {
 			technology = oratory_tech
 			value = 25
+		}
+		hidden_effect = {
+			while = {
+				count = 1000
+				random_owned_province = {
+					random_pops_in_province = {
+						limit = {
+							pop_hapiness >= 0.75
+							NOT = {
+								pop_culture = root.culture
+							}
+						}
+						set_pop_culture = root.culture
+					}
+				}
+			}
 		}
 	}
 }
@@ -4450,11 +4549,11 @@ cappadocia_event.108 = { # task 8d
 		}
 		if = {
 			limit = {
-				any_owned_province = { is_port = yes }
+				any_owned_province = { num_of_port_building >= 1 }
 			}
 			random_owned_province = {
 				limit = {
-					is_port = yes
+					num_of_port_building >= 1
 				}
 				owner = {
 					create_unit = {
@@ -4798,8 +4897,141 @@ cappadocia_event.125 = { # task native 20
 	option = { #
 		name = cappadocia_event.125.a
 		add_country_modifier = {
-			name = reconauered_steppes
+			name = reconquered_steppes
 			duration = -1
+		}
+	}
+}
+
+cappadocia_event.126 = { # Flaming Lotus cappadocia_mission_inv_23C_task
+	type = country_event
+	title = cappadocia_event.126.t
+	desc = cappadocia_event.126.desc
+	picture = diadochi_coronation
+	left_portrait = current_ruler
+	right_portrait = c:ZEL.current_ruler
+    goto_location = c:ZEL.capital_scope
+
+    immediate = {
+        hidden_effect = {
+			if = {
+				limit = {
+					c:ZEL = { is_subject = yes }
+				}
+				c:ZEL.overlord = {
+					release_subject = c:ZEL
+				}   
+			}
+    	}	
+    }
+
+	option = {
+		name = cappadocia_event.126.a
+		make_subject = { 
+			target = c:ZEL
+			type = temple_state
+		}
+		add_political_influence = -50 
+	}
+}
+
+cappadocia_event.127 = { # Little Corinth  cappadocia_mission_inv_23D_task
+	type = country_event
+	title = cappadocia_event.127.t
+	desc = cappadocia_event.127.desc
+	picture = diadochi_coronation
+	left_portrait = current_ruler
+	right_portrait = c:KOM.current_ruler
+    goto_location = c:KOM.capital_scope
+
+    immediate = {
+    	#add tooltip
+    	#option to replace high priest
+        hidden_effect = {
+			if = {
+				limit = {
+					c:KOM = { is_subject = yes }
+				}
+				c:KOM.overlord = {
+					release_subject = c:KOM
+				}   
+			}
+    	}	
+    }
+
+	option = {
+		name = cappadocia_event.127.a
+		make_subject = { 
+			target = c:KOM
+			type = temple_state
+		}
+		add_political_influence = -50 
+	}
+}
+
+cappadocia_event.128 = { # Ariarathid war watchdog - the Cappadocian subject re-declares if an overlord transfer removed it from the war
+	type = country_event
+	hidden = yes
+
+	trigger = {
+		has_variable = ariarathid_war_watch
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_land = yes
+				has_global_variable = ARI_tag
+				global_var:ARI_tag = { has_land = yes }
+			}
+			if = {
+				limit = {
+					NOT = { war_with = global_var:ARI_tag }
+					trigger_if = {
+						limit = { has_variable = ariarathid_war_overlord }
+						NOT = { is_subject_of = var:ariarathid_war_overlord }
+					}
+					trigger_else = {
+						is_subject = yes
+					}
+				}
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					target = global_var:ARI_tag
+				}
+			}
+			if = {
+				limit = { war_with = global_var:ARI_tag }
+				if = {
+					limit = { is_subject = yes }
+					set_variable = {
+						name = ariarathid_war_overlord
+						value = overlord
+					}
+				}
+				else_if = {
+					limit = { has_variable = ariarathid_war_overlord }
+					remove_variable = ariarathid_war_overlord
+				}
+				trigger_event = {
+					id = cappadocia_event.128
+					days = 14
+				}
+			}
+			else = {
+				remove_variable = ariarathid_war_watch
+				if = {
+					limit = { has_variable = ariarathid_war_overlord }
+					remove_variable = ariarathid_war_overlord
+				}
+			}
+		}
+		else = {
+			remove_variable = ariarathid_war_watch
+			if = {
+				limit = { has_variable = ariarathid_war_overlord }
+				remove_variable = ariarathid_war_overlord
+			}
 		}
 	}
 }

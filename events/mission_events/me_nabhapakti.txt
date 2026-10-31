@@ -100,7 +100,14 @@ me_nabhapakti.3 = { # Legacy of Shakya
                 }
             }
             p:4450 = {
-                found_city_effect = yes
+                add_province_modifier = {
+                    name = founding_city_in_progress
+                    duration = 730
+                }
+                trigger_event = {
+                    id = state_improvement.6
+                    days = 730
+                }
             }
         }
     }
@@ -135,7 +142,14 @@ me_nabhapakti.4 = { # King of the Nepali
                 }
             }
             p:7656 = {
-                found_city_effect = yes
+                add_province_modifier = {
+                    name = founding_city_in_progress
+                    duration = 730
+                }
+                trigger_event = {
+                    id = state_improvement.6
+                    days = 730
+                }
             }
         }
         change_country_adjective = "nepali"
@@ -153,7 +167,14 @@ me_nabhapakti.5 = { # Question of Capital
         custom_tooltip = me_nabhapakti_5_tooltip
         set_capital = p:4450
         p:4450 = {
-            found_city_effect = yes
+            add_province_modifier = {
+                name = founding_city_in_progress
+                duration = 730
+            }
+            trigger_event = {
+                id = state_improvement.6
+                days = 730
+            }
         }
         add_2_free_province_investments = yes
         p:4459 = {
@@ -267,7 +288,7 @@ me_nabhapakti.7 = {
                     add_claim = root
                 }
             }
-            region:himalayan_region = {
+            region:xiyu_region = {
                 every_region_province = {
                     add_claim = root
                 }
@@ -476,7 +497,7 @@ me_nabhapakti.120 = { # Great Ganges: Successful
         custom_tooltip = me_nabhapakti_12_tooltip
         add_country_modifier = {
             name = wealth_of_the_ganges
-            duration = 1825
+            duration = 7300 #20 years
         }
         scope:ganges_country_scope = {
             set_variable = poison_pill_league
@@ -576,6 +597,7 @@ me_nabhapakti.130 = { # Temple in Disrepair
         add_treasury  = {
            value = root.has_monthly_income
            multiply = subtract_monthly_income_large
+           max = 5000
         }
     }
 
@@ -887,6 +909,7 @@ me_nabhapakti.141 = {
         add_treasury  = {
            value = root.has_monthly_income
            multiply = subtract_monthly_income_medium
+           max = 5000
         }
         trigger_event = {
             id = me_nabhapakti.14
@@ -1067,6 +1090,7 @@ me_nabhapakti.150 = {
         add_treasury  = {
            value = root.has_monthly_income
            multiply = subtract_monthly_income_large
+           max = 5000
         }
         trigger_event = {
             id = me_nabhapakti.15
@@ -1155,6 +1179,7 @@ me_nabhapakti.152 = {
         add_treasury  = {
            value = root.has_monthly_income
            multiply = subtract_monthly_income_small
+           max = 5000
         }
         trigger_event = {
             id = me_nabhapakti.15
@@ -1303,7 +1328,7 @@ me_nabhapakti.17 = { # Kalinga Crisis
             }
             scope:kalinga_restored = {
                 current_ruler = {
-                    add_trait = kalinga
+                    grant_bloodline_to_descendants_effect = { BLOODLINE = kalinga }
                 }
             }
         }
@@ -1514,10 +1539,10 @@ me_nabhapakti.21 = { # Benefits of Tribute
         custom_tooltip = me_nabhapakti_21_tooltip
         add_country_modifier = {
             name = mauryan_trust
-            duration = 1825
+            duration = 7300 #20 years
         }
         add_2_free_province_investments = yes
-        add_innovation = 2
+        add_innovation = 3
     }
 }
 
@@ -1595,7 +1620,7 @@ me_nabhapakti.220 = { # Influence the Indus: Successful
         custom_tooltip = me_nabhapakti_22_tooltip
         add_country_modifier = {
             name = grain_of_punjab
-            duration = 1825
+            duration = 7300 #20 years
         }
         scope:indus_country_scope = {
             set_variable = poison_pill_league
@@ -1701,7 +1726,7 @@ me_nabhapakti.230 = { # Call to the Jungle: Successful
         custom_tooltip = me_nabhapakti_23_tooltip
         add_country_modifier = {
             name = hide_in_the_trees
-            duration = 1825
+            duration = 7300 #20 years
         }
         scope:jungle_country_scope = {
             set_variable = poison_pill_league
@@ -1808,7 +1833,7 @@ me_nabhapakti.240 = { # Buddha for the Greeks: Successful
         custom_tooltip = me_nabhapakti_24_tooltip
         add_country_modifier = {
             name = ghost_of_alexander
-            duration = 1825
+            duration = 7300 #20 years
         }
         scope:macedonian_country_scope = {
             set_variable = poison_pill_league
@@ -2245,7 +2270,14 @@ me_nabhapakti_k.4 = {
         name = "me_nabhapakti_k4.a"
         custom_tooltip = me_nabhapakti_k4_tooltip
         capital_scope = {
-            set_city_status = city_metropolis
+            add_province_modifier = {
+                name = founding_metropolis_in_progress
+                duration = 730
+            }
+            trigger_event = {
+                id = state_improvement.7
+                days = 730
+            }
         }
         capital_scope = {
             add_province_modifier = {

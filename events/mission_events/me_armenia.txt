@@ -43,7 +43,6 @@ me_armenia.2 = {
     option = {
         name = "me_armenia.2.a"
         persian_culture_point_effect = yes
-        add_political_influence = 25
         create_country_treasure = {
             key = persian_statue_gift
             icon = "treasure_statue"
@@ -458,13 +457,6 @@ me_armenia.17 = {
         mission_claim_region_effect = { REGION = armenia_region }
         mission_claim_region_effect = { REGION = colchis_region }
         mission_claim_region_effect = { REGION = albania_region }
-        mission_claim_region_effect = { REGION = media_region }
-        mission_claim_region_effect = { REGION = cappadocia_pontica_region }
-        mission_claim_region_effect = { REGION = cappadocia_region }
-        mission_claim_region_effect = { REGION = syria_region }
-        mission_claim_region_effect = { REGION = assyria_region }
-        mission_claim_area_effect = { AREA = cilicia_pedias_area }
-        mission_claim_area_effect = { AREA = cilicia_trachea_area }
     }
 }
 
@@ -625,7 +617,14 @@ me_armenia.23 = {
         name = "me_armenia.23.a"
         armenian_culture_point_effect = yes
         p:988 = {
-            set_city_status = city
+            add_province_modifier = {
+                name = founding_city_in_progress
+                duration = 730
+            }
+            trigger_event = {
+                id = state_improvement.6
+                days = 730
+            }
             add_permanent_province_modifier = {
                 name = van_fortress
                 duration = -1
@@ -778,6 +777,7 @@ me_armenia.26 = {
                 add_gold = 420
                 add_popularity = 100
                 save_scope_as = zorgoball_char
+                dna="GW4Y+XFysp3vjLnNAX8BZgOVA6ICFAKXApsCdQJxAnECbgJuAnsCewKYApgCjgKOAm4CbgFcAVwDwgPCAnICcgAlACUCigKKAnMCcwJ9An0CeQJ5AokCiQJ+An4CgwKDAnUCdQKQApACewJ7AmgCaAJ+An4CiQKJA6YDpgOnA6cClwKXApACkAKCAoICkQKRApYClgKUApQCjQKNAoECgQA1ADUCcgJyAoYChgJrAmsCiAKIAoICggOoA6gCiQKJAmkCaQKXApcCfQJ9ApICkgTiBOICcwJzA4IDggJ/An8CgwKDA5wDnAQMBAwACAAIAGwAbACPAI8A9QD1ANAA0AKsAqwARQBFAC8ALwC5ALkAMQAxAvoC+gB/AH8AOQA5ArACsAF9AX0AxQDFAQgBCACGAIYAWABYAUsBSwB/AH8AKAAoApUClQBtAG0A5gDmAXkBeQEhASEBaQFpBJMEkwAUABQCygLKAUUBRQBTAFMCqQVaAHYAfwNLBVgJ/wbrAWsBeAOzA/oEsgRKASwBTwAAAAAAAAAAAAAAAA=="
             }
         }
     }
@@ -820,7 +820,7 @@ me_armenia.28 = {
         add_political_influence = -50
         custom_tooltip = unlock_bactrian_mil_trads_tt
         set_variable = unlock_bactrian_mil_trads_var
-        mission_claim_region_effect = { REGION = bactriana_region }
+        mission_claim_area_effect = { AREA = bactria_area }
     }
 }
 
@@ -1102,7 +1102,14 @@ me_armenia.39 = {
                 limit = {
                     NOT = { has_province_rank = city_metropolis }
                 }
-                set_city_status = city_metropolis
+                add_province_modifier = {
+                    name = founding_metropolis_in_progress
+                    duration = 730
+                }
+                trigger_event = {
+                    id = state_improvement.7
+                    days = 730
+                }
             }
             add_province_modifier = {
                 name = resplendent_capital
@@ -1338,6 +1345,7 @@ me_armenia.47 = { # could be expanded into an event chain
             value = has_monthly_income
             multiply = 2
             min = 80
+            max = 5000
         }
     }
 }
@@ -1367,6 +1375,7 @@ me_armenia.48 = { #
             value = has_monthly_income
             multiply = 3
             min = 90
+            max = 5000
         }
         current_ruler = {
             add_popularity = -5

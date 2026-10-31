@@ -123,7 +123,14 @@ me_india_01_gandara.3 = { # Task 2 - An Indo-Greek Capital
             p:4340 = {
                 change_province_name = "Euthymedeia"
                 capital_formable_huge_effect = yes
-		establish_city_effect = yes
+		add_province_modifier = {
+			name = founding_city_in_progress
+			duration = 730
+		}
+		trigger_event = {
+			id = state_improvement.6
+			days = 730
+		}
             }
         }
         if = {
@@ -132,7 +139,14 @@ me_india_01_gandara.3 = { # Task 2 - An Indo-Greek Capital
             }
             p:4340 = {
                 capital_formable_huge_effect = yes
-		establish_city_effect = yes
+		add_province_modifier = {
+			name = founding_city_in_progress
+			duration = 730
+		}
+		trigger_event = {
+			id = state_improvement.6
+			days = 730
+		}
                 change_province_name = "Sangala"
             }
         }
@@ -161,7 +175,14 @@ me_india_01_gandara.3 = { # Task 2 - An Indo-Greek Capital
                     duration = -1
                 }
                 capital_formable_large_effect = yes
-		        establish_city_effect = yes
+		        add_province_modifier = {
+		        	name = founding_city_in_progress
+		        	duration = 730
+		        }
+		        trigger_event = {
+		        	id = state_improvement.6
+		        	days = 730
+		        }
             }
             p:4340 = {
                 change_province_name = "Sangala"
@@ -1454,7 +1475,7 @@ me_india_01_gandara.32 = { # Task 25 - Forging a Bloodline - End
         name = me_india_01_gandara.32.a
         custom_tooltip = me_india_01_gandara.32.a.tt
 	current_ruler = {
-            add_trait = blood_of_menander
+            grant_bloodline_to_descendants_effect = { BLOODLINE = blood_of_menander }
         }
         hidden_effect = {
             current_ruler.family = {

@@ -33,14 +33,6 @@ char_can_be_rival_trigger = {
 	NOT = { has_same_family = ROOT }
 }
 
-char_has_military_trait = {
-	OR = {
-		has_trait = tactician
-		has_trait = disciplined
-		has_trait = steadfast
-		has_trait = aggressive
-	}	
-}
 
 char_rival_is_valid_antagonist_trigger = {
 	is_ruler = no
@@ -105,24 +97,6 @@ city_has_colossus_trigger = {
 }
 
 # For DHE Museion check
-char_is_hellenic_sphere_trigger = {
-	OR = {
-		has_culture_group = west_levantine
-		has_culture_group = east_levantine
-		has_culture_group = south_levantine
-		has_culture_group = persia
-		has_culture_group = anatolian
-		has_culture_group = bactrian
-		has_culture_group = hellenic
-		has_culture_group = north_african
-		has_culture_group = latin
-		has_religion = roman_pantheon
-		has_religion = egyptian_pantheon
-		has_religion = carthaginian_pantheon
-		has_religion = anatolian_religion
-		has_religion = zoroaster
-	}
-}
 
 # War Check
 scripted_famous_cities_list_trigger = {
@@ -379,21 +353,6 @@ has_any_military_office_trigger = {
 	}
 }
 
-has_tendency_to_bitterness = {
-	OR = {
-		has_trait = jealous
-		has_trait = lapsed
-		has_trait = arbitrary
-		has_trait = corrupt
-		has_trait = vengeful
-		has_trait = selfish
-		has_trait = reckless
-		has_trait = deceitful
-		has_trait = foolish
-		has_trait = ambitious
-		has_trait = arrogant
-	}
-}
 
 recruit_char_in_trigger = {
 	OR = {
@@ -468,18 +427,6 @@ will_defect_notable_trigger = {
 	NOT = { loyalty > 40 }
 }
 
-citizenship_restrictions_trigger = {
-	trigger_if = {
-		limit = {
-			NOT = { has_culture = employer.culture }
-		}
-		employer = {
-			any_country_culture = {
-				has_country_culture_modifier = citizenship_by_adoption
-			}
-		}
-	}
-}
 
 eligible_for_country_move = {
 	is_alive = yes

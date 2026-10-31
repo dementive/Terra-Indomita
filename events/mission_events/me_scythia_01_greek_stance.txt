@@ -208,13 +208,13 @@ me_scythia_01_greek_stance.5 = {	# To Be or Not To Be Greek - Bacchic Rites
 					if = {
 						limit = { pop_type = citizen }
 						set_pop_religion = roman_pantheon
-						move_pop = p:4529
+						move_pop = p:4528
 					}
 					else_if = {
 						limit = { pop_type = freemen }
 						set_pop_type = citizen
 						set_pop_religion = roman_pantheon
-						move_pop = p:4529
+						move_pop = p:4528
 					}
 				}
 			}
@@ -420,7 +420,7 @@ me_scythia_01_greek_stance.11 = {	#	Bonds With Olbia - Scythia Start
     title = me_scythia_01_greek_stance.11.t
     desc = me_scythia_01_greek_stance.11.desc
     picture = greek_city
-	goto_location = p:4529
+	goto_location = p:4528
     left_portrait = current_ruler
     right_portrait = c:OLB.current_ruler
 
@@ -432,7 +432,7 @@ me_scythia_01_greek_stance.11 = {	#	Bonds With Olbia - Scythia Start
  	}
 
 	immediate = {
-		p:4529.owner = {
+		p:4528.owner = {
 			save_scope_as = scythia_olbia_owner_scope
 		}
 	}
@@ -450,7 +450,7 @@ me_scythia_01_greek_stance.11 = {	#	Bonds With Olbia - Scythia Start
 					limit = {
 						pop_type = slaves
 					}
-					move_pop = p:4529
+					move_pop = p:4528
 				}
 			}
 		}
@@ -1252,7 +1252,7 @@ me_scythia_01_greek_stance.17 = { # Olbia Response
 		}
 	}
     picture = greek_city
-	goto_location = p:4529
+	goto_location = p:4528
     left_portrait = current_ruler
     right_portrait = c:OLB.current_ruler
 
@@ -1270,12 +1270,16 @@ me_scythia_01_greek_stance.17 = { # Olbia Response
 				}
 			}
 			create_character = {
+				age = 30
+				female = no
+				culture = bosporan
+				religion = roman_pantheon
+				no_traits = yes
 				add_finesse = 3
 				add_charisma = 3
 				add_zeal = 3
 				add_trait = wise
 				add_trait = scholar
-				set_culture = bosporan
 			}
 		}
 		else_if = {
@@ -4046,7 +4050,14 @@ me_scythia_01_greek_stance.68 = { # Unlikely Allies - Tyrgetae Ping
 		if = {
 			limit = { scope:me_scythia_1_scope.var:scythia_chersonesus_owner_offer = 1 }
 			p:4800 = {
-				found_city_effect = yes
+				add_province_modifier = {
+					name = founding_city_in_progress
+					duration = 730
+				}
+				trigger_event = {
+					id = state_improvement.6
+					days = 730
+				}
 				hidden_effect = { #tooltip; get bunch of stuff
 					add_building_level = population_building
 					add_building_level = commerce_building
@@ -4321,7 +4332,14 @@ me_scythia_01_greek_stance.75 = { # The Cimmerian Bosporus - Scythia - The Fate 
 		name = me_scythia_01_greek_stance.75.a
 		add_treasury = -200
 		p:4549 = {
-			set_city_status = city_metropolis
+			add_province_modifier = {
+				name = founding_metropolis_in_progress
+				duration = 730
+			}
+			trigger_event = {
+				id = state_improvement.7
+				days = 730
+			}
 			create_country = {
 				name = {
 					name = PANTI_VASSAL_NAME
@@ -5394,7 +5412,14 @@ me_scythia_01_greek_stance.101 = { # Ready The Horse Lords - end
 				limit = {
 					has_city_status = no
 				}
-				found_city_effect = yes
+				add_province_modifier = {
+					name = founding_city_in_progress
+					duration = 730
+				}
+				trigger_event = {
+					id = state_improvement.6
+					days = 730
+				}
 			}
 			add_building_level = military_building
 			add_building_level = military_building
@@ -5455,8 +5480,10 @@ me_scythia_01_greek_stance.101 = { # Ready The Horse Lords - end
 				female = no
 				no_stats = yes
 				no_traits = yes
-				hidden_effect = {
-					add_martial = 20
+				add_martial = 12
+				add_charisma = 3
+				add_finesse = 2
+				add_zeal = 4
 					good_charisma_effect = yes
 					average_finesse_effect = yes
 					bad_zeal_effect = yes
@@ -5469,7 +5496,6 @@ me_scythia_01_greek_stance.101 = { # Ready The Horse Lords - end
 					add_nickname = GHOST_TARGITAOS_NICKNAME
 					add_gold = 200
 					add_prominence = 50
-				}
 				save_scope_as = legendary_general
 			}
 			random_owned_province = {
@@ -5781,7 +5807,7 @@ me_scythia_01_greek_stance.108 = { # From Our Palms
 				}
 			}
 		}
-		p:4553 = {
+		p:7188 = {
 			add_province_modifier = {
 				duration = -1
 				name = fortified_plantation
@@ -5871,7 +5897,14 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 			add_gold = -150
 		}
 		p:4552 = {
-			found_city_effect = yes
+			add_province_modifier = {
+				name = founding_city_in_progress
+				duration = 730
+			}
+			trigger_event = {
+				id = state_improvement.6
+				days = 730
+			}
 			add_province_modifier = {
 				name = promising_port
 				duration = -1
@@ -5953,7 +5986,14 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 		}
 		add_treasury = 150
 		p:4552 = {
-			found_city_effect = yes
+			add_province_modifier = {
+				name = founding_city_in_progress
+				duration = 730
+			}
+			trigger_event = {
+				id = state_improvement.6
+				days = 730
+			}
 			add_province_modifier = {
 				name = burgeoning_port
 				duration = -1
@@ -6034,7 +6074,14 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 		}
 		p:4552 = {
 			set_trade_goods = precious_metals
-			found_city_effect = yes
+			add_province_modifier = {
+				name = founding_city_in_progress
+				duration = 730
+			}
+			trigger_event = {
+				id = state_improvement.6
+				days = 730
+			}
 			add_province_modifier = {
 				name = trading_capital
 				duration = -1
@@ -6142,7 +6189,14 @@ me_scythia_01_greek_stance.112 = { # Luxuries Are Necessities
 			add_corruption = 40
 		}
 		p:4552 = {
-			found_city_effect = yes
+			add_province_modifier = {
+				name = founding_city_in_progress
+				duration = 730
+			}
+			trigger_event = {
+				id = state_improvement.6
+				days = 730
+			}
 			add_province_modifier = {
 				name = well_funded_market
 				duration = -1

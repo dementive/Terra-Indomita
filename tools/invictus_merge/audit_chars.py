@@ -73,14 +73,21 @@ def row(path, ln, cid, new, origin, how, commit, person, final, line_text, note)
     }
 
 
-def main(ti_ref, base_ref, main_ref):
+def main(ti_ref, base_ref, main_ref, check=False):
+    """check=True: verify a merged ref instead of proposing repairs. Every line is resolved through
+    blame against its own commit's table (Invictus lines blame to the vendor commit) and compared
+    with ti_ref's own table; any row with change=yes or UNRESOLVED is a reference that changed
+    meaning."""
     bad = git("rev-parse", BAD_SCRIPT_COMMIT).decode().strip()
-    inv_commits = set(git("rev-list", base_ref).decode().split())
+    inv_commits = set() if check else set(git("rev-list", base_ref).decode().split())
     base_tab = load_table(base_ref)
     main_tab = load_table(main_ref)
     ti_tab = load_table(ti_ref)
-    final = {k: v for k, v in main_tab.items() if isinstance(k, int)}
-    final.update({k: v for k, v in ti_tab.items() if isinstance(k, int) and k >= TI_FIRST_ID})
+    if check:
+        final = {k: v for k, v in ti_tab.items() if isinstance(k, int)}
+    else:
+        final = {k: v for k, v in main_tab.items() if isinstance(k, int)}
+        final.update({k: v for k, v in ti_tab.items() if isinstance(k, int) and k >= TI_FIRST_ID})
     final_m = Matcher(final)
 
     tree = ls_tree(ti_ref)
@@ -138,7 +145,7 @@ def main(ti_ref, base_ref, main_ref):
             ordinal = next((i for i, r in enumerate(lrefs) if r[1] == col), 0)
 
             t, _ = template(path, line_text)
-            cands = base_tmpl.get(t, set())
+            cands = base_tmpl.get(t, set()) if not check else set()
             if len(cands) == 1 and len(t.replace("#", "").strip()) >= 20:
                 new = next(iter(cands))[ordinal]
                 how = "inv-line-untouched" if new == cid else "restored-from-base-line"
@@ -146,7 +153,7 @@ def main(ti_ref, base_ref, main_ref):
                 rows.append(row(path, ln, cid, new, "INV", how, commit, base_tab.get(new), final, line_text, note))
                 continue
 
-            if ln in aligned:
+            if ln in aligned and not check:
                 bids = [r[0] for r in character_refs(primary, aligned[ln])]
                 if len(bids) == len(lrefs):
                     new = bids[ordinal]
@@ -192,7 +199,7 @@ def main(ti_ref, base_ref, main_ref):
             rows.append(row(path, ln, cid, new, origin, how, commit, person, final, line_text, note))
 
     os.makedirs(os.path.join(HERE, "reports"), exist_ok=True)
-    out = os.path.join(HERE, "reports", "char_audit.csv")
+    out = os.path.join(HERE, "reports", "char_check.csv" if check else "char_audit.csv")
     with open(out, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         w.writeheader()
@@ -203,4 +210,7 @@ def main(ti_ref, base_ref, main_ref):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:4])
+    if sys.argv[1] == "check":  # python audit_chars.py check <merged_ref> <vendor_ref>
+        main(sys.argv[2], sys.argv[3], sys.argv[3], check=True)
+    else:
+        main(*sys.argv[1:4])

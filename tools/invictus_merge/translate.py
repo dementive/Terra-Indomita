@@ -72,6 +72,11 @@ class Translator:
         """-> new text. log (list) receives (path, line, kind, old, new, confidence) for every change
         and ('unmapped', ...) for IDs with no mapping."""
         log = log if log is not None else []
+        if path.endswith(".gui"):
+            if self.tag_rxs:
+                text, tlog = R.rewrite(text, R.tag_refs(path, text, self.tag_rxs), lambda t: self.tmap.get(t))
+                log += [(path, ln, "tag", o, n, "") for o, n, ln in tlog]
+            return text
         lines_dropped = 0
         # 1. drop province-name definitions that TI owns (base PROVn keys of non-identity provinces,
         #    and culture names / province_names entries that can't be carried over one-to-one)
@@ -127,12 +132,14 @@ class Translator:
         return [(path, text.count("\n", 0, m.start()) + 1, m.group(0)[:80]) for m in DISTANCE_RE.finditer(text)]
 
 
-def vendor_tree(inv_ref, province_csv, ti_deleted, log):
+def vendor_tree(inv_ref, province_csv_or_translator, ti_deleted, log):
     """Translated tree of inv_ref: {path: (mode, sha_or_None, bytes_or_None)}."""
-    tr = Translator(province_csv)
+    tr = province_csv_or_translator
+    if isinstance(tr, str):
+        tr = Translator(tr)
     tree = ls_tree(inv_ref)
     keep = {p: v for p, v in tree.items() if v[1] == "blob" and not is_ti_owned(p, ti_deleted)}
-    text_paths = [p for p in keep if p.endswith((".txt", ".yml"))]
+    text_paths = [p for p in keep if p.endswith((".txt", ".yml", ".gui"))]
     blobs = read_blobs([keep[p][2] for p in text_paths])
     out = {}
     for p, (mode, _, sha) in keep.items():

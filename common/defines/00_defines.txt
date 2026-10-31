@@ -37,6 +37,9 @@
 
 	STARTING_COHORTS_PER_MANPOWER = 0.2
 	STARTING_SHIPS_PER_PORT_POPULATION = 0.06
+
+	# From Invictus 1.12
+	TAG_LIMIT = 4096 # How many total countries the game supports. This does have a slight performance implication, and the theoretical maximum is 33696
 }
 
 NCountry = {
@@ -114,7 +117,7 @@ NCountry = {
 	
 	
 	CIVIL_WAR_STATES_THRESHOLD = 1
-	CIVIL_WAR_CITIES_THRESHOLD = 2
+	CIVIL_WAR_CITIES_THRESHOLD = 5
 	
 	
 	CIVIL_WAR_MONTHLY_TICK = 5
@@ -218,8 +221,8 @@ NCombat = {
 	
 	SHIP_CAPTURE_CATEGORY_IMPACT = 0.1
 
-	NAVAL_EXPERIENCE_DAMAGE_REDUCTION = 0.3
-	LAND_EXPERIENCE_DAMAGE_REDUCTION = 0.3
+	NAVAL_EXPERIENCE_DAMAGE_REDUCTION = 0.25
+	LAND_EXPERIENCE_DAMAGE_REDUCTION = 0.25
 
 	MINIMUM_LOSS_RATIO_THRESHOLD_FOR_BATTLE_RESULT = 0.1 	# The battle result is only stored if this value is surpassed. The value it is compared against is the loss ratio of both sides add together, which is then multiplied by 4
 
@@ -278,7 +281,7 @@ NCombat = {
 	
 	SIEGE_FORCE_NEEDED_MULTIPLIER  = 4
 	
-	EXPERIENCE_GAIN = 40
+	EXPERIENCE_GAIN = 60
 	
 	EXHAUSTION_FROM_GREAT_CONQUEST = 0.1 #Per province taken
 	AE_FROM_GREAT_CONQUEST = 0.75 #Great Conquest wars reduce AE by 25%
@@ -802,7 +805,7 @@ NAI = {
 	BUILD_REPEAT_TIME = 30						# Time window ( in days ) since last build date that the AI has to quickly queue another building to the front of the plan ( if it can afford it etc. ), else it will be queued at the end
 	BUILD_INSTANT_GOLD_THRESHOLD = 750.0		# If the AI has more than this much gold left after construction it will try to instantly queue another build
 	BUILD_DELAY = 10							# Default time the AI will wait before trying to build another building unless it decides to do so instantly
-	DESTROY_THRESHOLD = 0.0						# If the AI weight of any building is less than or equal to this the AI might destroy it
+	DESTROY_THRESHOLD = -0.001						# If the AI weight of any building is less than or equal to this the AI might destroy it
 	PORT_BUILDING_COASTAL_NO_PORTS_WEIGHT = 0	# If the Country has coastal provinces but no ports this will be added
 
 	#Performance and search
@@ -840,10 +843,10 @@ NAI = {
 	
 	#Objectives
 	MAX_RECON_DISTANCE_ARMY = 464516 #因地图比例而修改
-	MAX_RECON_DISTANCE_NAVY = 206 #因地图比例而修改
-	INVASION_REGRET_YEARS = 6 #Number of years that AI feels regret over a failed invasion and vows to use more forces.
-	INVASION_REGRET_BOOST = 300 #Additional % of troops AI will try to send as the result of a failed invasion.
-	INVASION_MIN_LAND_PATH_FOR_NAVAL_TRANSPORT = 619 #因地图比例而修改. If an army can walk less than this distance to goal, don't use naval transport.
+	MAX_RECON_DISTANCE_NAVY = 1802 # Invictus 1.12 raised this to 3500 ("Italy -> Albion" on its map); scaled to TI's map (TI had vanilla 400 scaled: 206)
+	INVASION_REGRET_YEARS = 3 #Number of years that AI feels regret over a failed invasion and vows to use more forces.
+	INVASION_REGRET_BOOST = 100 #Additional % of troops AI will try to send as the result of a failed invasion.
+	INVASION_MIN_LAND_PATH_FOR_NAVAL_TRANSPORT = 10 #因地图比例而修改. If an army can walk less than this distance to goal, don't use naval transport.
 	
 	#Planning
 	FAST_PLANNED_WAR_MONTHS = 24 #Increasing this makes AI more tolerant of choosing long wars.
@@ -872,7 +875,7 @@ NAI = {
 	ARMY_BUDGET_MANPOWER_REDUCTION = 20 #Percent of reduction in max army size for building troops due to manpower pool getting empty.
 	FORT_BUDGET = 25
 
-	MAX_FORT_DISTANCE_CALCULATION = 3
+	MAX_FORT_DISTANCE_CALCULATION = 1
 	WAR_BUDGET_MULTIPLIER = 1 #Don't go over budget any more, it's very hard to climb back down w/ legions
 	DEFICIT_YEARS = 25 #How long does AI plan to run a deficit when distressed.
 	LEGITIMACY_TARGET = 90 #Amount of desired legitimacy AI will try to reach
@@ -890,19 +893,19 @@ NAI = {
 	IGNORE_STRENGTH_RATIO = 0.15 #AI mostly ignores enemies this much smaller than themselves in terms of prioritization.
 	
 	#Forts
-	PLACE_FORT_BORDER_FACTOR = 2 #Is on border 1/0 multiplied by this.
-	PLACE_FORT_COAST_FACTOR = -1.5 #Is on cost 1/0 multiplied by this.
-	PLACE_FORT_PORT_FACTOR = 1 #Is on cost 1/0 multiplied by this.
-	PLACE_FORT_DISTANCE_FACTOR = 2 #Distance in provinces to nearest fort multiplied by this.
-	PLACE_FORT_CAPITAL_FACTOR = 2 #Capital 1/0 multiplied by this.
-	PLACE_FORT_TERRAIN_FACTOR = 1 #Def bonus multiplied by this.
-	PLACE_FORT_RIVER_FACTOR = 1 #River 1/0 multiplied by this.
-	PLACE_FORT_LEVEL_FACTOR = 0.75 #Existing fort level multiplied by this.
+	PLACE_FORT_BORDER_FACTOR = 0.5 #Is on border 1/0 multiplied by this.
+	PLACE_FORT_COAST_FACTOR = 0.5 #Is on cost 1/0 multiplied by this.
+	PLACE_FORT_PORT_FACTOR = 0 #Is on cost 1/0 multiplied by this.
+	PLACE_FORT_DISTANCE_FACTOR = 0 #Distance in provinces to nearest fort multiplied by this.
+	PLACE_FORT_CAPITAL_FACTOR = 7 #Capital 1/0 multiplied by this.
+	PLACE_FORT_TERRAIN_FACTOR = 0.5 #Def bonus multiplied by this.
+	PLACE_FORT_RIVER_FACTOR = 0.5 #River 1/0 multiplied by this.
+	PLACE_FORT_LEVEL_FACTOR = -7 #Existing fort level multiplied by this.
 	PLACE_FORT_PROVINCE_CAPITAL_FACTOR = 10 #Forts in province capitals.
 	PLACE_FORT_PROVINCE_VALUE_FACTOR = 6 #Forts in province capitals relative to value of province.
-	PLACE_FORT_LOCAL_UNREST_FACTOR = 1.25 #Multiplied by local unrest
+	PLACE_FORT_LOCAL_UNREST_FACTOR = 0.1 #Multiplied by local unrest
 	PLACE_ROAD_MIN_DISTANCE = 2 #Minimum distance from one road endpoint to another.
-	DISBAND_FORTS_CAPITAL_BIAS = 1.5 # More likely to choose Forts in capital city to disband first
+	DISBAND_FORTS_CAPITAL_BIAS = 0.0001 # More likely to choose Forts in capital city to disband first
 	
 	#Recruitment
 	RECRUIT_THREAT_FACTOR = 1.0 #Scale threat by this factor when considering for recruitment.
@@ -936,7 +939,7 @@ NAI = {
 	# FMO - 6 -> 1, this mechanic is stupid. get fucked
 	PEACE_RESPITE_MONTHS = 1 #Anti-ragequit device applied to human player on Easy and Normal; don't DOW them if they had no time to rest.
 	PEACE_ACCEPTANCE_SEPARATE_PEACE = -25 #Modifier for peacing out separatately in the cases that's despicable.
-	PEACE_ACCEPTANCE_MONTHS_OF_WAR = 48 #Maximum months of war (and coincidentally, maximum modifier).
+	PEACE_ACCEPTANCE_MONTHS_OF_WAR = 60 #Maximum months of war (and coincidentally, maximum modifier).
 	PEACE_ACCEPTANCE_MONTHS_OF_WAR_GW = 100 #Max months of war for Great Conquests
 	PEACE_ACCEPTANCE_EXHAUSTION = -10
 	PEACE_ACCEPTANCE_DESPERATION = -10
@@ -982,7 +985,7 @@ NAI = {
 	#War declarations
 	WAR_NEIGHBOR_FACTOR = 10 #Scaled weight to declare war on neighbors.
 	WAR_TARGET_NEIGHBOR_FACTOR = 7 #Weight to declare on a target adjacent to a past or present target.
-	WAR_INNER_FACTOR = 40 #Scaled weight to declare war on inner countries (e.g. OPMs) inside AI country.
+	WAR_INNER_FACTOR = 100 #Scaled weight to declare war on inner countries (e.g. OPMs) inside AI country.
 	WAR_NEXT_TO_ENEMY_FACTOR = 5 #Scaling weight for target next to enemy being fought.
 	WAR_EASY_FACTOR = 400 #Actually a term, but w/e.. The easier war is expected to be, the more likely AI is to schedule it. Even war will be about 0.5^2 of this value.
 	WAR_QUICK_FACTOR = 120 #To be extra confusing, here is another factor for the (not quite) same thing.
@@ -995,11 +998,11 @@ NAI = {
 	WAR_POWER_FACTOR = 0.012 #Separate code path for power block balancing war declarations.
 	WAR_POWER_FACTOR_ACTIVE = 0.16 #If power war flag has already been raised.
 	WAR_POWER_DISTANCE = 181 #因地图比例而修改. Maximum distance countries may consider engaging in power wars.
-	EAGERNESS_EXTERNAL_MANPOWER_FACTOR = 0.45 #How much manpower advantage over neighbors matters vs. %MP of max for eagerness to declare war.
+	EAGERNESS_EXTERNAL_MANPOWER_FACTOR = 0.5 #How much manpower advantage over neighbors matters vs. %MP of max for eagerness to declare war.
 	WAR_EXHAUSTION_RECOVERY_MONTHS = 12 #AI will not actively reduce war exhaustion if it can reach WAR_EXHAUSTION_DESIRED at the current rate during war.
 	WAR_EXHAUSTION_RECOVERY_MONTHS_PEACE = 24 #AI will not actively reduce war exhaustion if it can reach WAR_EXHAUSTION_DESIRED at the current rate during peace.
 	WAR_EXHAUSTION_TYRANNY_MONTHS = 60 #Hardcoded way to make AI spend tyranny (up to this number of months when tyranny is decreasing) to decrease WE.
-	WAR_EXHAUSTION_DESIRED = 10 #How much WE is the AI allowed to have before declaring war?
+	WAR_EXHAUSTION_DESIRED = 15 #How much WE is the AI allowed to have before declaring war?
 	WAR_DESIRED_STABILITY = 35 #How much Stability should the AI have before declaring war?
 	LOW_AGGRESSIVE_NO_WAR = 21 #Aggressiveness lower than this threshold means AI will not declare wars
 	HIGH_AGGRESSIVE_ALWAYS_WAR = 400 #Aggressiveness higher than this threshold means AI will always declare wars when it can
@@ -1059,15 +1062,15 @@ NLevy = {
 	MIN_SIZE = 4 # minimum number of cohorts raised as levy
 	SUPPORT_REQUIREMENT = 9 # every n-th number of cohorts in a levy should be support units
 	DISBAND_MILITARY_EXP_MULT = 0.015 # when disbanding a levy military experience will be added to the country
-	EXPERIENCE_GAIN_THRESHOLD = 8 # months that the levy has to be raised before disbanding it will give any military experience
+	EXPERIENCE_GAIN_THRESHOLD = 12 # months that the levy has to be raised before disbanding it will give any military experience
 	WAR_EXHAUSTION_THRESHOLD = 6 # months until a newly raised levy will start contributing to war exhaustion
 	WAR_EXHAUSTION_ON_RAISE = 0.5 # amount of war exhaustion gained from simply raising a levy
 	MONTHLY_WAR_EXHAUSTION = 0.04 # each governorship contributes this much to war exhaustion after having levies raised for too long
-	RAISE_LEVY_COOLDOWN_MONTHS = 4 # number of months of cooldown after disbanding before you can raise a levy again
+	RAISE_LEVY_COOLDOWN_MONTHS = 6 # number of months of cooldown after disbanding before you can raise a levy again
 	SIZE_MULTIPLIER_MAX = 1.5 # that the max value for the raise levy size multiplier is. 
 	FOOD_TO_LEAVE_IN_STATE_ON_RAISE = 50 # Minimum food to leave raising state with.
 	FLAGGED_ATTRITION_DECAY = 0.1
-	MONTHS_TO_ADD_TO_DISBAND = 24 #The maximum months that can be added to a levy cooldown when disbanded, based on the strength of the levy at disband time.
+	MONTHS_TO_ADD_TO_DISBAND = 36 #The maximum months that can be added to a levy cooldown when disbanded, based on the strength of the levy at disband time.
 	LEVY_IMPACT_MULTIPLIER = 7
 }
 

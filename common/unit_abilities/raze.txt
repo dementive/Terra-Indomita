@@ -65,7 +65,31 @@
 	}
 	
 	start_effect = {
+		unit_owner = {
+			if = {
+				limit = {
+					has_variable = scandian_pillage_bonus_var
+				}
+				add_research = {
+            		technology = civic_tech
+            		value = 2
+        		}
+			}
+		}
 		unit_location = {
+			if = {
+				limit = { has_variable = razed_count }
+				change_variable = {
+					name = razed_count
+					add = 1
+				}
+			}
+			else = {
+				set_variable = {
+					name = razed_count
+					value = 1
+				}
+			}
 			if = {
 				limit = {
 					exists = owner

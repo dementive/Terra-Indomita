@@ -112,18 +112,16 @@ fortress_ramparts_building = {#19
 
 	}
 
-	ai_will_do = {
-		modifier = {
-			add = {
-				value = fort_level
-				multiply = 10
-			}
-		}
-	}
-
 	modification_display = {
 		0 = local_combat_width_modifier
 		1 = local_defensive
+	}
+
+	chance = {
+		base = 1
+		modifier = {
+			factor = brc_fortress_ramparts
+		}
 	}
 }
 
@@ -168,34 +166,10 @@ port_building = {
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			num_of_port_building > 0
-			num_of_port_building < 3
-			add = 5
+			factor = brc_port
 		}
-		modifier = {
-			num_of_port_building >= 2
-			add = 5
-		}
-		modifier = {
-			owner = { num_of_ports < 1 }
-			add = 5
-		}
-		modifier = {
-			owner = { num_of_ports = 1 }
-			add = 3
-		}
-		modifier = {
-			owner = {
-				is_tribal = yes
-			}
-			add = -1.5
-		}
-		modifier = {
-			has_city_status = no
-			add = -3
-		}
-		
 	}
 }
 military_harbor_building = { #Military Harbor [UNIQUE]
@@ -352,36 +326,9 @@ aqueduct_building = { #Aqueduct // Sanitation Works
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			total_population >= near_popcp_svalue
-			population_cap >= 80
-			add = 10
-		}
-		modifier = {
-			add = {
-				value = population_cap
-				multiply = 0.1
-			}
-		}
-		modifier = {
-			total_population >= 80
-			add = 5
-		}
-		modifier = {
-			population_cap >= 100
-			add = 10
-		}
-		modifier = {
-			total_population >= 100
-			add = 10
-		}
-		modifier = {
-			total_population >= 130
-			add = 15
-		}
-		modifier = {
-			population_cap >= 150
-			add = 15
+			factor = brc_aqueduct
 		}
 	}
 }
@@ -524,8 +471,9 @@ population_building = { #Granary
 	}
 
 	chance = {
-		modifier= {
-			add = 10
+		base = 1
+		modifier = {
+			factor = brc_granary
 		}
 	}
 }
@@ -580,23 +528,9 @@ workshop_building = { #Production District
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			add = {
-				value = 1
-			 	multiply = num_of_slaves
-			}
-		}
-		modifier = {
-			add = 3
-			num_of_slaves > 14
-		}
-		modifier = {
-			add = 3
-			num_of_slaves > 18
-		}
-		modifier = {
-			add = -20
-			num_of_slaves < 7
+			factor = brc_workshop
 		}
 	}
 }
@@ -641,22 +575,9 @@ foundry_building = { #Foundry
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			add = 15
-		}
-		modifier = {
-			add = 10
-			is_capital = yes
-		}
-		modifier = {
-			add = {
-				value = 1
-				multiply = num_of_freemen
-			}
-		}
-		modifier = {
-			has_expensive_trade_good = yes
-			add = 5
+			factor = brc_foundry
 		}
 	}
 }
@@ -708,24 +629,10 @@ military_building = { #Conscription Camp
 		1 = local_freemen_desired_pop_ratio
 	}
 
-	chance = {
+	chance = {		
+		base = 1
 		modifier = {
-			add = {
-				value = province_manpower_income
-				multiply = {
-					value = 25
-				}
-			}
-		}
-		modifier = {
-			add = {
-				value = 1
-				multiply = num_of_freemen
-			}
-		}
-		modifier = {
-			has_expensive_trade_good = yes
-			add = -50
+			factor = brc_military
 		}
 	}
 }
@@ -779,62 +686,10 @@ forum_building = { #Forum [UNIQUE]
 
 	}
 
-	chance = {
+	chance = {	
+		base = 1	
 		modifier = {
-			add = 10
-		}
-		modifier = {
-			num_of_nobles > 0
-			add = 20
-		}
-		modifier = {
-			num_of_citizen > 0
-			add = 20
-		}
-		modifier = {
-			num_of_freemen > 0
-			add = 20
-		}
-		modifier = {
-			num_of_nobles > 0
-			add = {
-				value = nobles_happiness
-				multiply = -20
-			}
-		}
-		modifier = {
-			num_of_citizen > 0
-			add = {
-				value = citizen_happiness
-				multiply = -20
-			}
-		}
-		modifier = {
-			num_of_freemen > 0
-			add = {
-				value = freemen_happiness
-				multiply = -20
-			}
-		}
-		modifier = {
-			NOT = {dominant_province_religion = owner.religion}
-			add = 3
-		}
-		modifier = {
-			NOT = { dominant_province_culture_group = owner.culture_group }
-			add = 3
-		}
-		modifier = {
-			add = {
-				value = 0.3
-				multiply = num_other_religion
-			}
-		}
-		modifier = {
-			add = {
-				value = 0.3
-				multiply = num_foreign_culture
-			}
+			factor = brc_forum
 		}
 	}
 }
@@ -1305,31 +1160,9 @@ commerce_building = { #Commercial District
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			add = 5
-			is_capital = yes
-		}
-		modifier = {
-			add = 5
-			is_state_capital = yes
-		}
-		modifier = {
-			add = {
-				value = 1.25
-				multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 0.25
-				multiply = num_of_citizen
-			}
-		}
-		modifier = {
-			add = {
-				value = 5
-				multiply = num_of_port_building
-			}
+			factor = brc_commerce
 		}
 	}
 }
@@ -1480,33 +1313,9 @@ library_building = { #Library
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			add = 5
-			is_capital = yes
-		}
-		modifier = {
-			add = {
-				value = 1
-			  multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 0.5
-			  multiply = num_of_citizen
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_library_building_sv
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_academy_building_sv
-			}
+			factor = brc_library
 		}
 	}
 }
@@ -1561,27 +1370,9 @@ academy_building = { #Academy
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			add = 5
-			is_capital = yes
-		}
-		modifier = {
-			add = {
-				value = 1
-			  multiply = num_of_nobles
-			}
-		}
-		modifier = {
-			add = {
-				value = 0.75
-			  multiply = num_of_citizen
-			}
-		}
-		modifier = {
-			add = {
-				value = 3
-				multiply = num_of_library_building_sv
-			}
+			factor = brc_academy
 		}
 	}
 }
@@ -1734,51 +1525,9 @@ theathre_building = { #Theater
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			add = 5
-		}
-		modifier = {
-			NOT = { dominant_province_culture_group = owner.culture_group }
-			add = 10
-		}
-		modifier = {
-			add = {
-				value = 0.3
-				multiply = num_foreign_culture
-			}
-		}
-		modifier = {
-			num_of_nobles > 0
-			add = 10
-		}
-		modifier = {
-			num_of_citizen > 0
-			add = 10
-		}
-		modifier = {
-			num_of_freemen > 0
-			add = 10
-		}
-		modifier = {
-			num_of_nobles > 0
-			add = {
-				value = nobles_happiness
-				multiply = -10
-			}
-		}
-		modifier = {
-			num_of_citizen > 0
-			add = {
-				value = citizen_happiness
-				multiply = -10
-			}
-		}
-		modifier = {
-			num_of_freemen > 0
-			add = {
-				value = freemen_happiness
-				multiply = -10
-			}
+			factor = brc_theatre
 		}
 	}
 }
@@ -1925,51 +1674,9 @@ temple_building = {
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			add = 5
-		}
-		modifier = {
-			add = 10
-			NOT = {dominant_province_religion = owner.religion}
-		}
-		modifier = {
-			add = {
-				value = 0.5
-				multiply = num_other_religion
-			}
-		}
-		modifier = {
-			num_of_nobles > 0
-			add = 10
-		}
-		modifier = {
-			num_of_citizen > 0
-			add = 10
-		}
-		modifier = {
-			num_of_freemen > 0
-			add = 10
-		}
-		modifier = {
-			num_of_nobles > 0
-			add = {
-				value = nobles_happiness
-				multiply = -10
-			}
-		}
-		modifier = {
-			num_of_citizen > 0
-			add = {
-				value = citizen_happiness
-				multiply = -10
-			}
-		}
-		modifier = {
-			num_of_freemen > 0
-			add = {
-				value = freemen_happiness
-				multiply = -10
-			}
+			factor = brc_temple
 		}
 	}
 }
@@ -2078,20 +1785,10 @@ town_hall_building = { #Tax Office
 		1 = happiness_for_wrong_culture_group_modifier
 	}
 
-	chance = {
+	chance = {		
+		base = 1
 		modifier = {
-			add = {
-				value = 0.5
-				multiply = num_of_citizen
-			}
-		}
-		modifier = {
-			add = {
-				value = province_tax_income
-				multiply = {
-					value = 1
-				}
-			}
+			factor = brc_town_hall
 		}
 	}
 }
@@ -2151,14 +1848,10 @@ court_building = { #Court of Law
 		1 = city_monthly_state_loyalty
 	}
 
-	chance = {
+	chance = {		
+		base = 1
 		modifier = {
-			add = {
-				value = province_unrest
-				multiply = {
-					value = 5
-				}
-			}
+			factor = brc_court
 		}
 	}
 }
@@ -2343,6 +2036,12 @@ local_forum_building = { #Provincial Legation
 		0 = local_migration_speed_modifier
 		1 = local_pop_assimilation_speed_modifier
 	}
+	chance = {
+		base = 1
+		modifier = {
+			factor = brc_local_forum
+		}
+	}
 }
 hill_fort = { #Tribal Settlement
 	local_tribesmen_happyness = 0.2
@@ -2384,30 +2083,9 @@ hill_fort = { #Tribal Settlement
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			owner = {
-				is_tribal = yes
-			}
-			add = 1.5
-		}
-
-		# really bad unless we have some tribesmen in the province
-		modifier = {
-			any_pops_in_province = {
-				percent < 0.25
-				pop_type = tribesmen
-			}
-			add = -100
-		}
-		modifier = {
-			is_capital = yes
-			add = -100
-		}
-		modifier = {
-			add = -100
-			owner = {
-				is_tribal = no
-			}
+			factor = brc_hill_fort
 		}
 	}
 }
@@ -2504,35 +2182,9 @@ barracks_building = {
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			add = {
-				value = fort_level
-				multiply = {
-					value = 10
-				}
-			}
-		}
-		modifier = {
-			add = {
-				value = 2
-				multiply = num_of_freemen
-			}
-		}
-		modifier = {
-			any_pops_in_province = {
-				percent > 0.3
-				pop_type = freemen
-			}
-			add = 5
-		}
-		modifier = {
-			OR = {
-				trade_goods = elephants
-				trade_goods = iron
-				trade_goods = steppe_horses
-				trade_goods = camel
-			}
-			add = 2
+			factor = brc_barracks
 		}
 	}
 }
@@ -2645,9 +2297,9 @@ basic_settlement_infratructure_building = { #Farming Settlement
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			has_food_trade_good_trigger = yes
-			add = 15
+			factor = brc_basic_settlement_infratructure
 		}
 	}
 }
@@ -2733,8 +2385,9 @@ latifundia_building = { #Slave Estate
 	}
 
 	chance = {
+		base = 1
 		modifier = {
-			add = 1
+			factor = brc_latifundia
 		}
 	}
 }
@@ -2941,8 +2594,9 @@ slave_mine_building = {
 		}
 	}
 	chance = {
+		base = 1
 		modifier = {
-			add = 40
+			factor = brc_slave_mine
 		}
 	}
 	cost = 175

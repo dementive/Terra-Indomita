@@ -166,22 +166,24 @@ def load_loc_province_names(ref, lang="english"):
     return names, sources
 
 
+def _named_lists(ref, path, inner):
+    import pdx
+    text, _, _ = decode(show(ref, path))
+    out = {}
+    for n in pdx.parse(text).items:
+        if n.key and n.is_block:
+            lst = n.value.get(inner)
+            if lst is not None and lst.is_block:
+                out[n.key] = [str(v) for v in lst.value.values()]
+    return out
+
+
 def parse_areas(ref):
-    text, _, _ = decode(show(ref, "map_data/areas.txt"))
-    text = re.sub(r"#[^\n]*", "", text)
-    areas = {}
-    for m in re.finditer(r"(\w+)\s*=\s*\{\s*provinces\s*=\s*\{([^}]*)\}", text):
-        areas[m.group(1)] = [int(x) for x in m.group(2).split()]
-    return areas
+    return {k: [int(x) for x in v if x.isdigit()] for k, v in _named_lists(ref, "map_data/areas.txt", "provinces").items()}
 
 
 def parse_regions(ref):
-    text, _, _ = decode(show(ref, "map_data/regions.txt"))
-    text = re.sub(r"#[^\n]*", "", text)
-    regions = {}
-    for m in re.finditer(r"(\w+)\s*=\s*\{[^{}]*?areas\s*=\s*\{([^}]*)\}", text, re.S):
-        regions[m.group(1)] = m.group(2).split()
-    return regions
+    return _named_lists(ref, "map_data/regions.txt", "areas")
 
 
 def parse_default_map(ref):

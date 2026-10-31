@@ -155,8 +155,14 @@ me_epirus_2_magna.2 = {							    # Benevolent Moves - Start/Selection
 			save_scope_as = italiote_threat_scope
 		}
 		every_country = {
-			limit = { 
-				has_truce_with = scope:italiote_threat_scope
+			limit = {
+                trigger_if = {
+                    limit = { exists = scope:italiote_threat_scope }
+                    NOT = {
+                        this = scope:italiote_threat_scope
+                    }
+                    has_truce_with = scope:italiote_threat_scope
+                }
 				is_subject_of = c:EPI
 			}
 			trigger_event = { id = me_epirus_2_magna.333 } 
@@ -328,6 +334,7 @@ me_epirus_2_magna.4 = {							    # Italiote Leadership - End
                     save_scope_as = epi_mg_scope
                     change_country_color = yellowish_grey
                     set_country_heritage = italiote_heritage
+					set_variable = subject_block_formation_var
                     create_character = {
                         culture = italiotian
                         save_scope_as = italiote_governor
@@ -1260,6 +1267,7 @@ me_epirus_2_magna.14 = {							# Master of Sicily - End
                     change_country_color = syracuse_yellow
                     set_country_heritage = siceliote_heritage
                     set_variable = form_sicily_block_flag
+					set_variable = subject_block_formation_var
                 }
             }
             every_owned_province = {
@@ -1521,8 +1529,14 @@ me_epirus_2_magna.17 = {                            # Round on the Cities - Resp
 			save_scope_as = italiote_threat_scope
 		}
 		every_country = {
-			limit = { 
-				has_truce_with = scope:italiote_threat_scope
+			limit = {
+                trigger_if = {
+                    limit = { exists = scope:italiote_threat_scope }
+                    NOT = {
+                        this = scope:italiote_threat_scope
+                    }
+                    has_truce_with = scope:italiote_threat_scope
+                }
 				is_subject_of = c:EPI
 			}
 			trigger_event = { id = me_epirus_2_magna.333 } 
@@ -1720,7 +1734,10 @@ me_epirus_2_magna.19 = {                            # Benevolent Moves - Offer
 			save_scope_as = italiote_threat_scope
 		}		
 		if = { 
-			limit = { has_truce_with = scope:italiote_threat_scope }
+			limit = {
+				exists = scope:italiote_threat_scope
+				has_truce_with = scope:italiote_threat_scope
+			}
 			trigger_event = { id = me_epirus_2_magna.333 } 
 		}
         ai_chance = {
@@ -1843,7 +1860,13 @@ me_epirus_2_magna.20 = {                            # Benevolent Moves - End/Rep
 		}
 		every_country = {
 			limit = { 
-				has_truce_with = scope:italiote_threat_scope
+                trigger_if = {
+                    limit = { exists = scope:italiote_threat_scope }
+                    NOT = {
+                        this = scope:italiote_threat_scope
+                    }
+                    has_truce_with = scope:italiote_threat_scope
+                }
 				is_subject_of = c:EPI
 			}
 			trigger_event = { id = me_epirus_2_magna.333 } 
@@ -2146,7 +2169,13 @@ me_epirus_2_magna.23 = {                            # Audacious Italiotes - Offe
 		}
 		every_country = {
 			limit = { 
-				has_truce_with = scope:italiote_threat_scope
+				trigger_if = {
+					limit = { exists = scope:italiote_threat_scope }
+					NOT = {
+						this = scope:italiote_threat_scope
+					}
+					has_truce_with = scope:italiote_threat_scope
+				}
 				is_subject_of = c:EPI
 			}
 			trigger_event = { id = me_epirus_2_magna.333 } 
@@ -2308,6 +2337,7 @@ me_epirus_2_magna.24 = {                            # Audacious Italiotes - End/
         }
         if = {
             limit = {
+                exists = scope:audacious_italics_war
                 scope:audacious_italics_war = {
                     any_war_attacker = { this = scope:italiote_threat_scope }
                 }
@@ -2326,7 +2356,8 @@ me_epirus_2_magna.24 = {                            # Audacious Italiotes - End/
                 }
             }
         }
-        else = {
+        else_if = {
+            limit = { exists = scope:audacious_italics_war }
             add_to_war = {
                 target = scope:audacious_italics_war
                 leader = yes
@@ -2407,6 +2438,7 @@ me_epirus_2_magna.25 = {                            # Audacious Italiotes - Rome
             show_as_tooltip = {
                 if = {
                     limit = {
+                        exists = scope:audacious_italics_war
                         scope:audacious_italics_war = {
                             any_war_attacker = { this = scope:italiote_threat_scope }
                         }
@@ -2425,7 +2457,8 @@ me_epirus_2_magna.25 = {                            # Audacious Italiotes - Rome
                         }
                     }
                 }
-                else = {
+                else_if = {
+                    limit = { exists = scope:audacious_italics_war }
                     add_to_war = {
                         target = scope:audacious_italics_war
                         leader = yes
@@ -3004,6 +3037,7 @@ me_epirus_2_magna.33 = {                            # Audacious Italics - Italio
             remove_variable = me_epi_2_30_flag
             if = {
                 limit = {
+                    exists = scope:audacious_italics_war
                     scope:audacious_italics_war = {
                         any_war_attacker = { this = scope:italiote_threat_scope }
                     }
@@ -3016,6 +3050,7 @@ me_epirus_2_magna.33 = {                            # Audacious Italics - Italio
             }
             else_if = {
                 limit = {
+                    exists = scope:audacious_italics_war
                     scope:audacious_italics_war = {
                         any_war_defender = { this = scope:italiote_threat_scope }
                     }
@@ -3034,10 +3069,45 @@ me_epirus_2_magna.33 = {                            # Audacious Italics - Italio
 		}
 		every_country = {
 			limit = { 
-				has_truce_with = scope:italiote_threat_scope
+				trigger_if = {
+					limit = { exists = scope:italiote_threat_scope }
+					NOT = {
+						this = scope:italiote_threat_scope
+					}
+					has_truce_with = scope:italiote_threat_scope
+				}
 				is_subject_of = c:EPI
 			}
-			trigger_event = { id = me_epirus_2_magna.333 } 
+            end_truce = scope:italiote_threat_scope
+            scope:italiote_threat_scope = {
+                end_truce = PREV
+            }
+            if = {
+                limit = {
+                    exists = scope:audacious_italics_war
+                    scope:audacious_italics_war = {
+                        any_war_attacker = { this = scope:italiote_threat_scope }
+                    }
+                }
+                add_to_war = {
+                    target = scope:audacious_italics_war
+                    leader = no
+                    attacker = no
+                }
+            }
+            else_if = {
+                limit = {
+                    exists = scope:audacious_italics_war
+                    scope:audacious_italics_war = {
+                        any_war_defender = { this = scope:italiote_threat_scope }
+                    }
+                }			
+                add_to_war = {
+                    target = scope:audacious_italics_war
+                    leader = no
+                    attacker = yes
+                }
+            }
 		}
     }
 
@@ -3053,39 +3123,6 @@ me_epirus_2_magna.33 = {                            # Audacious Italics - Italio
         }
         custom_tooltip = me_epirus_2_magna.33.bt
     }
-}
-
-me_epirus_2_magna.333 = {
-	type = country_event
-	hidden = yes
-	
-	immediate = {
-		scope:italiote_threat_scope = {
-			set_variable = {
-				name = ita_stab
-				value = scope:italiote_threat_scope.stability
-			}
-			set_variable = {
-				name = ita_ae
-				value = scope:italiote_threat_scope.has_aggressive_expansion
-			}
-			set_variable = {
-				name = ita_we
-				value = scope:italiote_threat_scope.has_war_exhaustion
-			}
-			declare_war_with_wargoal = {
-				war_goal = conquer_wargoal 
-				province = root.capital_scope
-				target = root
-			}
-			add_stability = -100
-			add_aggressive_expansion = -100
-			add_war_exhaustion = -100
-			add_stability = scope:italiote_threat_scope.var:ita_stab
-			add_aggressive_expansion = scope:italiote_threat_scope.var:ita_ae
-			add_war_exhaustion = scope:italiote_threat_scope.var:ita_we
-		}
-	}
 }
 
 me_epirus_2_magna.34 = {                            # Audacious Italics - Italic offer ping
@@ -3216,6 +3253,7 @@ me_epirus_2_magna.35 = {                            # Audacious Italics - Italic
             limit = { has_variable = me_epi_2_30_flag }
             if = {
                 limit = {
+                    exists = scope:audacious_italics_war
                     scope:audacious_italics_war = {
                         any_war_attacker = { this = scope:italiote_threat_scope }
                     }
@@ -3226,7 +3264,8 @@ me_epirus_2_magna.35 = {                            # Audacious Italics - Italic
                     attacker = no
                 }
             }
-            else = {
+            else_if = {
+                limit = { exists = scope:audacious_italics_war }
                 add_to_war = {
                     target = scope:audacious_italics_war
                     leader = no

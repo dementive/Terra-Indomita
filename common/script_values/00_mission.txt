@@ -91,7 +91,7 @@ port_forts_province_svalue = {
 		every_state_province = {
 			limit = {
 				has_building = fortress_building
-				is_port = yes
+				num_of_port_building >= 1
 			}
 			add = 1
 		}
@@ -104,7 +104,7 @@ port_cities_in_province_svalue = {
 		every_state_province = {
 			limit = {
 				has_city_status = yes
-				is_port = yes
+				num_of_port_building >= 1
 			}
 			add = 1
 		}
@@ -118,7 +118,7 @@ ports_in_subjects_svalue = {
 			limit = {
 				exists = owner
 				owner = { is_subject_of = ROOT }
-				is_port = yes
+				num_of_port_building >= 1
 			}
 			add = 1
 		}
@@ -131,7 +131,7 @@ port_markets_in_province_svalue = {
 		every_state_province = {
 			limit = {
 				num_of_commerce_building >= 2
-				is_port = yes
+				num_of_port_building >= 1
 			}
 			add = 1
 		}
@@ -143,7 +143,7 @@ port_cities_potential_tooltip_svalue = {
 	scope:port_province = {
 		every_state_province = {
 			limit = {
-				is_port = yes
+				num_of_port_building >= 1
 			}
 			add = 1
 		}
@@ -458,7 +458,7 @@ mauryan_reconquest_task_6_pops_current = {
 mauryan_reconquest_task_6_pops_total = {
 	value = mauryan_reconquest_task_6_pops_absolute_total
 	multiply = 0.80
-	round = floor	
+	floor = yes	
 }
 
 mauryan_reconquest_task_6_pops_absolute_total = {
@@ -1000,6 +1000,36 @@ owned_alexandrias_svalue = {
 		}
 		add = 1
 	}
+	every_subject = {
+		every_owned_province = {
+			limit = {
+				is_alexandria = yes
+			}
+			add = 1
+		}
+	}
+}
+
+built_up_alexandrias_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_alexandria = yes
+			has_city_status = yes
+			num_of_used_building_slots >= 3
+		}
+		add = 1
+	}
+	every_subject = {
+		every_owned_province = {
+			limit = {
+				is_alexandria = yes
+				has_city_status = yes
+				num_of_used_building_slots >= 3
+			}
+			add = 1
+		}
+	}
 }
 
 cappadocia_fort_svalue = {
@@ -1100,7 +1130,7 @@ total_pop_happiness_max_svalue = { # max
 		}
   	}
   	multiply = 0.4
-  	round = floor
+  	floor = yes
 }
 
 total_pop_happiness_svalue_33p = { # defacto 33% happiness
@@ -1133,7 +1163,7 @@ total_pop_happiness_max_svalue_33p = { # max 80% of non-salve pops
 		}
   	}
   	multiply = 0.8 # 80 %
-  	round = floor
+  	floor = yes
 }
 
 rank_scaled_manpower_svalue = {
@@ -1337,7 +1367,7 @@ paurava_missions_task_26_current = {
 paurava_missions_task_26_needed = {
 	value = country_population
 	multiply = 0.4
-	round = floor
+	floor = yes
 }
 
 albania_mission_task_16_have_10_military_buildings_current = {
@@ -1428,8 +1458,39 @@ arabia_punt_trade_goods_svalue = {
 		}
 	}
 	multiply = 0.6 # need 60%
-	round = ceiling
+	ceiling = yes
 }
+
+arabia_punt_trade_goods_svalue2 = {
+	value = 0
+	region:punt_region = {
+		every_region_province = {
+			limit = {
+				OR = {
+					trade_goods = incense
+					trade_goods = myrrh
+					trade_goods = spices
+				}
+			}
+			add = num_goods_produced
+		}
+	}
+	region:arabia_felix_region = {
+		every_region_province = {
+			limit = {
+				OR = {
+					trade_goods = incense
+					trade_goods = myrrh
+					trade_goods = spices
+				}
+			}
+			add = num_goods_produced
+		}
+	}
+	multiply = 0.75 # need 75%
+	ceiling = yes
+}
+
 
 arabia_felix_isrealite_provinces = {
 	value = 0
@@ -1852,7 +1913,7 @@ sam_export_svalue = {
 	value = 0
 	every_country_state = {
 		add = state_commerce_income 
-		round = floor
+		floor = yes
 	}
 }
 
@@ -1897,6 +1958,9 @@ pontus_region_coast_svalue = {
 		every_region_province = {
 			limit = {
 				is_in_list = miletos_colonies_list
+				NOT = {
+					province_id = 245
+				}
 			}
 			add = 1
 		}
@@ -1919,7 +1983,10 @@ pontus_asia_region_coast_svalue = {
 			OR = {
 				is_in_region = bithynia_region
 				is_in_region = cappadocia_pontica_region
-			}	
+			}
+			NOT = {
+					province_id = 245
+			}
 		}
 		add = 1
 	}
@@ -2041,7 +2108,7 @@ mlo_state_food_svalue = {
 	value = 0
 	every_country_state = {
 		limit = {
-			any_province = {
+			any_state_province = {
 				is_in_region = asia_region
 			}
 			has_state_food < 250
@@ -2238,7 +2305,7 @@ pontus_02_coasts_task_24_current = {
 pontus_02_coasts_task_24_total = {
 	value = pontus_02_coasts_task_24_absolute
 	multiply = 0.75
-	round = floor
+	floor = yes
 }
 
 pontus_02_coasts_task_24_absolute = {
@@ -2528,4 +2595,338 @@ carthaginian_mission_africa_securing_coastline_current_svalue = {
 			add = 1
 		}
 	}
+}
+
+androphagian_amber_total_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = amber
+		}
+		add = num_goods_produced
+	}
+}
+
+me_subject_independence_2_right_argument_points = {
+	value = var:right_argument_points
+}
+
+me_subject_independence_2_left_argument_points = {
+	value = var:left_argument_points
+}
+
+tayuan_owns_parthia_region_svalue = {
+	value = 0
+	region:parthia_region = {
+		every_region_province = {
+			limit = {
+				exists = owner
+				owner = ROOT
+			}
+			add = 1
+		}
+	}
+}
+
+tayuan_grain_production_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = grain
+		}
+		add = num_goods_produced
+	}
+}
+
+tayuan_disloyal_svalue = {
+	value = 0
+	every_character = {
+		limit = {
+			loyalty <= 35
+		}
+		add = 1
+	}
+}
+
+tay_bactrian_champion_svalue = {
+	value = 0
+	region:sogdiana_region = {
+		every_region_province = {
+			limit = {
+				this.culture.culture_group = culture_group:bactrian
+			}
+			add = 1
+		}
+	}
+	region:bactriana_region = {
+		every_region_province = {
+			limit = {
+				this.culture.culture_group = culture_group:bactrian
+			}
+			add = 1
+		}
+	}
+	region:parthia_region = {
+		every_region_province = {
+			limit = {
+				this.culture.culture_group = culture_group:bactrian
+			}
+			add = 1
+		}
+	}
+	region:xiyu_region = {
+		every_region_province = {
+			limit = {
+				this.culture.culture_group = culture_group:bactrian
+			}
+			add = 1
+		}
+	}
+}
+
+tay_bactrian_champion_owned_svalue = {
+	value = 0
+	region:sogdiana_region = {
+		every_region_province = {
+			limit = {
+				exists = owner
+				owner = ROOT
+				this.culture.culture_group = culture_group:bactrian
+			}
+			add = 1
+		}
+	}
+	region:bactriana_region = {
+		every_region_province = {
+			limit = {
+				exists = owner
+				owner = ROOT
+				this.culture.culture_group = culture_group:bactrian
+			}
+			add = 1
+		}
+	}
+	region:parthia_region = {
+		every_region_province = {
+			limit = {
+				exists = owner
+				owner = ROOT
+				this.culture.culture_group = culture_group:bactrian
+			}
+			add = 1
+		}
+	}
+	region:xiyu_region = {
+		every_region_province = {
+			limit = {
+				exists = owner
+				owner = ROOT
+				this.culture.culture_group = culture_group:bactrian
+			}
+			add = 1
+		}
+	}
+}
+
+tay_heavenly_points_svalue = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = qin_culture_points
+		}
+		add = var:qin_culture_points
+	}
+	if = {
+		limit = {
+			has_variable = zhangzhung_culture_points
+		}
+		add = var:zhangzhung_culture_points
+	}
+	if = {
+		limit = {
+			has_variable = ionian_culture_points
+		}
+		add = var:ionian_culture_points
+	}
+	if = {
+		limit = {
+			has_variable = tayuan_culture_points
+		}
+		add = var:tayuan_culture_points
+	}
+}
+num_of_training_camps_svalue = {
+	every_owned_province = {
+		limit = { num_of_military_building > 0 }
+		add = num_of_military_building
+	}
+	every_owned_province = {
+		limit = { num_of_barracks_building > 0 }
+		add = num_of_barracks_building
+		multiply = 2
+	}
+	max = 10
+}
+
+germania_horses_total_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = horses
+		}
+		add = num_goods_produced
+	}
+}
+
+gre_mis_1_4_current = {
+    value = 0
+	if = {
+        limit = { exists = scope:gm_1_greek_scope }
+        if = {
+        	limit = {
+        		scope:gm_1_greek_scope = {
+        			any_owned_province = {
+                        is_port = yes
+                        OR = {
+                            is_in_region = bithynia_region
+                            is_in_region = colchis_region
+                            is_in_region = taurica_region
+                            is_in_area = olbia_area
+                            is_in_area = scythia_area
+                            is_in_area = moesia_orientalis_area
+                            is_in_area = haemimontus_area
+                            is_in_area = europa_area
+                        }
+                        province_dominant_culture_group = hellenic
+        			}
+        		}
+        	}
+        	every_owned_province = {
+        		limit = {
+        			is_port = yes
+                    OR = {
+                        is_in_region = bithynia_region
+                        is_in_region = colchis_region
+                        is_in_region = taurica_region
+                        is_in_area = olbia_area
+                        is_in_area = scythia_area
+                        is_in_area = moesia_orientalis_area
+                        is_in_area = haemimontus_area
+                        is_in_area = europa_area
+                    }
+                    province_dominant_culture_group = hellenic
+        		}
+        		add = 1
+        	}
+        }
+        if = {
+            limit = {
+                scope:gm_1_greek_scope = {
+                    any_subject = {
+                        any_owned_province = {
+                            is_port = yes
+                            OR = {
+                                is_in_region = bithynia_region
+                                is_in_region = colchis_region
+                                is_in_region = taurica_region
+                                is_in_area = olbia_area
+                                is_in_area = scythia_area
+                                is_in_area = moesia_orientalis_area
+                                is_in_area = haemimontus_area
+                                is_in_area = europa_area
+                            }
+                            province_dominant_culture_group = hellenic
+                        }
+                    }
+                }
+            }
+            every_subject = {
+                limit = {
+                    any_owned_province = {
+                        is_port = yes
+                        OR = {
+                            is_in_region = bithynia_region
+                            is_in_region = colchis_region
+                            is_in_region = taurica_region
+                            is_in_area = olbia_area
+                            is_in_area = scythia_area
+                            is_in_area = moesia_orientalis_area
+                            is_in_area = haemimontus_area
+                            is_in_area = europa_area
+                        }
+                        province_dominant_culture_group = hellenic
+                    }
+                }
+                every_owned_province = {
+                    limit = {
+                        is_port = yes
+                        OR = {
+                            is_in_region = bithynia_region
+                            is_in_region = colchis_region
+                            is_in_region = taurica_region
+                            is_in_area = olbia_area
+                            is_in_area = scythia_area
+                            is_in_area = moesia_orientalis_area
+                            is_in_area = haemimontus_area
+                            is_in_area = europa_area
+                        }
+                        province_dominant_culture_group = hellenic
+                    }
+                    add = 1
+                }
+            }
+        }
+    }
+    max = gre_mis_1_4_target
+}
+
+gre_mis_4_4_current = {
+    if = {
+        limit = { exists = scope:gm_4_greek_scope }
+        if = {
+            limit = {
+                scope:gm_4_greek_scope = {
+                    any_owned_province = {
+                        is_port = yes
+                        province_dominant_culture_group = hellenic
+                    }
+                }
+            }
+            every_owned_province = {
+                limit = {
+                    is_port = yes
+                    province_dominant_culture_group = hellenic
+                }
+                add = 1
+            }
+        }
+        if = {
+            limit = {
+                scope:gm_4_greek_scope = {
+                    any_subject = {
+                        any_owned_province = {
+                            is_port = yes
+                            province_dominant_culture_group = hellenic
+                        }
+                    }
+                }
+            }
+            every_subject = {
+                limit = {
+                    any_owned_province = {
+                        is_port = yes
+                        province_dominant_culture_group = hellenic
+                    }
+                }
+                every_owned_province = {
+                    limit = {
+                        is_port = yes
+                        province_dominant_culture_group = hellenic
+                    }
+                    add = 1
+                }
+            }
+        }
+    }
+    max = gre_mis_1_4_target
 }

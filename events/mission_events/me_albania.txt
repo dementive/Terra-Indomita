@@ -280,7 +280,7 @@ me_albania.9 = { # A Rebel King
                 female = no
                 culture = albanian
                 religion = caucasian_religion
-                add_martial = 8
+                add_martial = 4
 				add_trait = conqueror
                 force_add_trait = blood_of_arhan
                 save_scope_as = albanian_rebel_king
@@ -290,7 +290,7 @@ me_albania.9 = { # A Rebel King
                 female = no
                 culture = albanian
                 religion = caucasian_religion
-                add_martial = 12
+                add_martial = 4
 				add_trait = disciplined
                 force_add_trait = blood_of_arhan
                 save_scope_as = albanian_rebel_commander
@@ -310,6 +310,7 @@ me_albania.9 = { # A Rebel King
 		    scope:albanian_rebel_king.employer = {
                 set_capital = 1584
                 change_government = despotic_monarchy
+			    switch_government_type_event_clearup_effect = yes
 			    set_country_heritage = caucasia_albania_heritage
 			    change_country_name = albanian_king_rebellion_name
 			    change_country_adjective = albanian_king_rebellion_adj
@@ -523,7 +524,7 @@ me_albania.11 = { # 4-way Tribal Imperial Challenge War (The Albanian War)
                 female = no
                 culture = albanian
                 religion = caucasian_religion
-                add_martial = 8
+                add_martial = 4
 				add_trait = conqueror
                 force_add_trait = blood_of_arhan
                 save_scope_as = albanian_rebel_king
@@ -533,7 +534,7 @@ me_albania.11 = { # 4-way Tribal Imperial Challenge War (The Albanian War)
                 female = no
                 culture = albanian
                 religion = caucasian_religion
-                add_martial = 12
+                add_martial = 4
 				add_trait = disciplined
                 force_add_trait = blood_of_arhan
                 save_scope_as = albanian_rebel_commander
@@ -579,7 +580,7 @@ me_albania.11 = { # 4-way Tribal Imperial Challenge War (The Albanian War)
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 9
+                        add_martial = 4
 				        add_trait = conqueror
                         force_add_trait = blood_of_arhan
                         save_scope_as = lupenian_rebel_king
@@ -589,7 +590,7 @@ me_albania.11 = { # 4-way Tribal Imperial Challenge War (The Albanian War)
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 12
+                        add_martial = 4
 				        add_trait = disciplined
                         force_add_trait = blood_of_arhan
                         save_scope_as = lupenian_rebel_commander
@@ -676,7 +677,7 @@ me_albania.11 = { # 4-way Tribal Imperial Challenge War (The Albanian War)
                         age = 42
                         culture = legian
                         religion = caucasian_religion
-                        add_martial = 9
+                        add_martial = 4
 				        add_trait = wise
                         add_trait = intelligent
                         save_scope_as = legian_rebel_king
@@ -685,7 +686,7 @@ me_albania.11 = { # 4-way Tribal Imperial Challenge War (The Albanian War)
                         age = 40
                         culture = legian
                         religion = caucasian_religion
-                        add_martial = 12
+                        add_martial = 4
 				        add_trait = steadfast
                         add_trait = victorious
                         save_scope_as = legian_rebel_commander
@@ -752,6 +753,7 @@ me_albania.11 = { # 4-way Tribal Imperial Challenge War (The Albanian War)
 		    scope:albanian_rebel_king.employer = {
                 set_capital = 1584
                 change_government = despotic_monarchy
+			    switch_government_type_event_clearup_effect = yes
 			    set_country_heritage = caucasia_albania_heritage
 			    change_country_name = albanian_king_rebellion_name
 			    change_country_adjective = albanian_king_rebellion_adj
@@ -954,12 +956,18 @@ me_albania.12 = { # Switch to play Udian Kingdom
     option = {
         name = "me_albania_12.a"
         custom_tooltip = me_albania_12_tooltip
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:new_country
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
     }
 }
 me_albania.13 = { # Switch to play Albanian Democracy
@@ -1067,12 +1075,18 @@ me_albania.13 = { # Switch to play Albanian Democracy
     option = {
         name = "me_albania_13.a"
         custom_tooltip = me_albania_13_tooltip
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:new_country
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
     }
 }
 me_albania.14 = { # The War of the Albanians Begins (You are playing as Albania)
@@ -1105,7 +1119,7 @@ me_albania.15 = { # The War of the Albanians Begins (You are playing as The Udia
                 female = no
                 culture = albanian
                 religion = caucasian_religion
-                add_martial = 8
+                add_martial = 4
 				add_trait = conqueror
                 force_add_trait = blood_of_arhan
                 save_scope_as = albanian_rebel_king
@@ -1115,7 +1129,7 @@ me_albania.15 = { # The War of the Albanians Begins (You are playing as The Udia
                 female = no
                 culture = albanian
                 religion = caucasian_religion
-                add_martial = 12
+                add_martial = 4
 				add_trait = disciplined
                 force_add_trait = blood_of_arhan
                 save_scope_as = albanian_rebel_commander
@@ -1152,7 +1166,7 @@ me_albania.15 = { # The War of the Albanians Begins (You are playing as The Udia
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 9
+                        add_martial = 4
 				        add_trait = conqueror
                         force_add_trait = blood_of_arhan
                         save_scope_as = lupenian_rebel_king
@@ -1162,7 +1176,7 @@ me_albania.15 = { # The War of the Albanians Begins (You are playing as The Udia
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 12
+                        add_martial = 4
 				        add_trait = disciplined
                         force_add_trait = blood_of_arhan
                         save_scope_as = lupenian_rebel_commander
@@ -1244,7 +1258,7 @@ me_albania.15 = { # The War of the Albanians Begins (You are playing as The Udia
                         age = 42
                         culture = legian
                         religion = caucasian_religion
-                        add_martial = 9
+                        add_martial = 4
 				        add_trait = wise
                         add_trait = intelligent
                         save_scope_as = legian_rebel_king
@@ -1253,7 +1267,7 @@ me_albania.15 = { # The War of the Albanians Begins (You are playing as The Udia
                         age = 40
                         culture = legian
                         religion = caucasian_religion
-                        add_martial = 12
+                        add_martial = 4
 				        add_trait = steadfast
                         add_trait = victorious
                         save_scope_as = legian_rebel_commander
@@ -1399,42 +1413,78 @@ me_albania.15 = { # The War of the Albanians Begins (You are playing as The Udia
     option = {
         name = "me_albania_15.a"
         custom_tooltip = me_albania_15_tooltip
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:lupenian_royal_rebellion_scope
-			}
-		}
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:legian_royal_rebellion_scope
-			}
-		}
-        scope:lupenian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
-        scope:lupenian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:legian_royal_rebellion_scope
-			}
-		}
-        scope:legian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:new_country
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:lupenian_royal_rebellion_scope
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:lupenian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:legian_royal_rebellion_scope
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:legian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:lupenian_royal_rebellion_scope
+        		exists = scope:new_country
+        	}
+        	scope:lupenian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:lupenian_royal_rebellion_scope
+        		exists = scope:legian_royal_rebellion_scope
+        	}
+        	scope:lupenian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:legian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:legian_royal_rebellion_scope
+        		exists = scope:new_country
+        	}
+        	scope:legian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
     }
 }
 me_albania.16 = { # The War of the Albanians Begins (You are playing as The Lupenian Kingdom)
@@ -1451,7 +1501,7 @@ me_albania.16 = { # The War of the Albanians Begins (You are playing as The Lupe
                 female = no
                 culture = albanian
                 religion = caucasian_religion
-                add_martial = 9
+                add_martial = 4
                 add_trait = conqueror
                 force_add_trait = blood_of_arhan
                 save_scope_as = lupenian_rebel_king
@@ -1461,7 +1511,7 @@ me_albania.16 = { # The War of the Albanians Begins (You are playing as The Lupe
                 female = no
                 culture = albanian
                 religion = caucasian_religion
-                add_martial = 12
+                add_martial = 4
                 add_trait = disciplined
                 force_add_trait = blood_of_arhan
                 save_scope_as = lupenian_rebel_commander
@@ -1496,7 +1546,7 @@ me_albania.16 = { # The War of the Albanians Begins (You are playing as The Lupe
                         age = 42
                         culture = legian
                         religion = caucasian_religion
-                        add_martial = 9
+                        add_martial = 4
 				        add_trait = wise
                         add_trait = intelligent
                         save_scope_as = legian_rebel_king
@@ -1505,7 +1555,7 @@ me_albania.16 = { # The War of the Albanians Begins (You are playing as The Lupe
                         age = 40
                         culture = legian
                         religion = caucasian_religion
-                        add_martial = 12
+                        add_martial = 4
 				        add_trait = steadfast
                         add_trait = victorious
                         save_scope_as = legian_rebel_commander
@@ -1588,7 +1638,7 @@ me_albania.16 = { # The War of the Albanians Begins (You are playing as The Lupe
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 8
+                        add_martial = 4
                         add_trait = conqueror
                         force_add_trait = blood_of_arhan
                         save_scope_as = albanian_rebel_king
@@ -1598,7 +1648,7 @@ me_albania.16 = { # The War of the Albanians Begins (You are playing as The Lupe
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 12
+                        add_martial = 4
                         add_trait = disciplined
                         force_add_trait = blood_of_arhan
                         save_scope_as = albanian_rebel_commander
@@ -1748,42 +1798,78 @@ me_albania.16 = { # The War of the Albanians Begins (You are playing as The Lupe
     option = {
         name = "me_albania_16.a"
         custom_tooltip = me_albania_16_tooltip
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:albanian_royal_rebellion_scope
-			}
-		}
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:legian_royal_rebellion_scope
-			}
-		}
-        scope:albanian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
-        scope:albanian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:legian_royal_rebellion_scope
-			}
-		}
-        scope:legian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:new_country
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:albanian_royal_rebellion_scope
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:albanian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:legian_royal_rebellion_scope
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:legian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:albanian_royal_rebellion_scope
+        		exists = scope:new_country
+        	}
+        	scope:albanian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:albanian_royal_rebellion_scope
+        		exists = scope:legian_royal_rebellion_scope
+        	}
+        	scope:albanian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:legian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:legian_royal_rebellion_scope
+        		exists = scope:new_country
+        	}
+        	scope:legian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
     }
 }
 me_albania.17 = { # The War of the Albanians Begins (You are playing as The Legian Kingdom)
@@ -1799,7 +1885,7 @@ me_albania.17 = { # The War of the Albanians Begins (You are playing as The Legi
                 age = 42
                 culture = legian
                 religion = caucasian_religion
-                add_martial = 9
+                add_martial = 4
                 add_trait = wise
                 add_trait = intelligent
                 save_scope_as = legian_rebel_king
@@ -1808,7 +1894,7 @@ me_albania.17 = { # The War of the Albanians Begins (You are playing as The Legi
                 age = 40
                 culture = legian
                 religion = caucasian_religion
-                add_martial = 12
+                add_martial = 4
                 add_trait = steadfast
                 add_trait = victorious
                 save_scope_as = legian_rebel_commander
@@ -1844,7 +1930,7 @@ me_albania.17 = { # The War of the Albanians Begins (You are playing as The Legi
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 8
+                        add_martial = 4
                         add_trait = conqueror
                         force_add_trait = blood_of_arhan
                         save_scope_as = albanian_rebel_king
@@ -1854,7 +1940,7 @@ me_albania.17 = { # The War of the Albanians Begins (You are playing as The Legi
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 12
+                        add_martial = 4
                         add_trait = disciplined
                         force_add_trait = blood_of_arhan
                         save_scope_as = albanian_rebel_commander
@@ -1942,7 +2028,7 @@ me_albania.17 = { # The War of the Albanians Begins (You are playing as The Legi
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 9
+                        add_martial = 4
 				        add_trait = conqueror
                         force_add_trait = blood_of_arhan
                         save_scope_as = lupenian_rebel_king
@@ -1952,7 +2038,7 @@ me_albania.17 = { # The War of the Albanians Begins (You are playing as The Legi
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 12
+                        add_martial = 4
 				        add_trait = disciplined
                         force_add_trait = blood_of_arhan
                         save_scope_as = lupenian_rebel_commander
@@ -2098,42 +2184,78 @@ me_albania.17 = { # The War of the Albanians Begins (You are playing as The Legi
     option = {
         name = "me_albania_17.a"
         custom_tooltip = me_albania_17_tooltip
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:albanian_royal_rebellion_scope
-			}
-		}
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:lupenian_royal_rebellion_scope
-			}
-		}
-        scope:albanian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
-        scope:albanian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:lupenian_royal_rebellion_scope
-			}
-		}
-        scope:lupenian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:new_country
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:albanian_royal_rebellion_scope
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:albanian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:lupenian_royal_rebellion_scope
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:lupenian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:albanian_royal_rebellion_scope
+        		exists = scope:new_country
+        	}
+        	scope:albanian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:albanian_royal_rebellion_scope
+        		exists = scope:lupenian_royal_rebellion_scope
+        	}
+        	scope:albanian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:lupenian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:lupenian_royal_rebellion_scope
+        		exists = scope:new_country
+        	}
+        	scope:lupenian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
     }
 
     option = { # If regular Legia is alive, try to involve it
@@ -2180,42 +2302,78 @@ me_albania.17 = { # The War of the Albanians Begins (You are playing as The Legi
             }
         }
 
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:albanian_royal_rebellion_scope
-			}
-		}
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:lupenian_royal_rebellion_scope
-			}
-		}
-        scope:albanian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
-        scope:albanian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:lupenian_royal_rebellion_scope
-			}
-		}
-        scope:lupenian_royal_rebellion_scope = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:new_country
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:albanian_royal_rebellion_scope
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:albanian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:lupenian_royal_rebellion_scope
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:lupenian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:albanian_royal_rebellion_scope
+        		exists = scope:new_country
+        	}
+        	scope:albanian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:albanian_royal_rebellion_scope
+        		exists = scope:lupenian_royal_rebellion_scope
+        	}
+        	scope:albanian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:lupenian_royal_rebellion_scope
+        		}
+        	}
+        }
+        if = {
+        	limit = {
+        		exists = scope:lupenian_royal_rebellion_scope
+        		exists = scope:new_country
+        	}
+        	scope:lupenian_royal_rebellion_scope = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
     }
 }
 me_albania.18 = { # Masters of the Kura-Araxes
@@ -2895,7 +3053,7 @@ me_albania.26 = { # An Albanian-Iranian Army
                 religion = mithra_religion
                 female = no
                 hidden_effect = {
-                    add_martial = 10
+                    add_martial = 4
                     add_trait = intelligent
                     add_trait = ambitious
                 }
@@ -3242,7 +3400,7 @@ me_albania.29 = { # The Satrapies of Albania
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 6
+                        add_martial = 3
                         add_zeal = 3
 				        add_trait = disciplined
                         save_scope_as = albanian_media_satrapy_ruler
@@ -3449,7 +3607,7 @@ me_albania.29 = { # The Satrapies of Albania
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 6
+                        add_martial = 3
                         add_zeal = 3
 				        add_trait = disciplined
                         save_scope_as = albanian_media_satrapy_ruler
@@ -3747,7 +3905,7 @@ me_albania.36 = { # Accepting the Caspians
                     female = no
                     culture = caspian
                     religion = caucasian_religion
-                    add_martial = 7
+                    add_martial = 3
                     add_charisma = 4
                     add_trait = wise
                     save_scope_as = caspian_tributary_king_scope
@@ -3777,7 +3935,7 @@ me_albania.37 = { # Rebellious Caspians
                 female = no
                 culture = caspian
                 religion = caucasian_religion
-                add_martial = 5
+                add_martial = 3
 				add_trait = conqueror
                 save_scope_as = caspian_rebel_king
             }
@@ -3786,7 +3944,7 @@ me_albania.37 = { # Rebellious Caspians
                 female = no
                 culture = caspian
                 religion = caucasian_religion
-                add_martial = 9
+                add_martial = 4
 				add_trait = disciplined
                 save_scope_as = caspian_rebel_commander
             }
@@ -4019,11 +4177,17 @@ me_albania.37 = { # Rebellious Caspians
 				}
 				set_capital = p:1652
 			}
-            scope:old_country = {
-                declare_war_with_wargoal = {
-                    war_goal = imperial_conquest_wargoal
-                    target = scope:new_country
-                }
+            if = {
+            	limit = {
+            		exists = scope:old_country
+            		exists = scope:new_country
+            	}
+            	scope:old_country = {
+            		declare_war_with_wargoal = {
+            			war_goal = imperial_conquest_wargoal
+            			target = scope:new_country
+            		}
+            	}
             }
 		}
     }
@@ -4233,7 +4397,28 @@ me_albania.40 = { # A Hurrian History
         add_innovation = 4
         add_6_free_province_investments = yes
         p:1554 = {
-            increase_province_rank_effect = yes
+            if = {
+                limit = { has_province_rank = settlement }
+                add_province_modifier = {
+                    name = founding_city_in_progress
+                    duration = 730
+                }
+                trigger_event = {
+                    id = state_improvement.6
+                    days = 730
+                }
+            }
+            else_if = {
+                limit = { has_province_rank = city }
+                add_province_modifier = {
+                    name = founding_metropolis_in_progress
+                    duration = 730
+                }
+                trigger_event = {
+                    id = state_improvement.7
+                    days = 730
+                }
+            }
             add_building_level = fortress_building
             add_building_level = academy_building
             add_building_level = temple_building
@@ -4354,7 +4539,7 @@ me_albania.41 = { # The Power of the Lupenii
                 female = no
                 culture = albanian
                 religion = caucasian_religion
-                add_martial = 12
+                add_martial = 4
                 add_trait = disciplined
                 force_add_trait = blood_of_arhan
                 save_scope_as = lupenian_rebel_commander
@@ -4408,7 +4593,7 @@ me_albania.41 = { # The Power of the Lupenii
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 9
+                        add_martial = 4
 				        add_trait = conqueror
                         force_add_trait = blood_of_arhan
                         save_scope_as = lupenian_rebel_king
@@ -4418,7 +4603,7 @@ me_albania.41 = { # The Power of the Lupenii
                         female = no
                         culture = albanian
                         religion = caucasian_religion
-                        add_martial = 12
+                        add_martial = 4
 				        add_trait = disciplined
                         force_add_trait = blood_of_arhan
                         save_scope_as = lupenian_rebel_commander
@@ -4569,11 +4754,17 @@ me_albania.41 = { # The Power of the Lupenii
 				set_capital = p:1634
 			}
 		}
-        scope:old_country = {
-			declare_war_with_wargoal = {
-				war_goal = imperial_conquest_wargoal
-				target = scope:new_country
-			}
-		}
+        if = {
+        	limit = {
+        		exists = scope:old_country
+        		exists = scope:new_country
+        	}
+        	scope:old_country = {
+        		declare_war_with_wargoal = {
+        			war_goal = imperial_conquest_wargoal
+        			target = scope:new_country
+        		}
+        	}
+        }
     }
 }

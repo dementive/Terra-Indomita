@@ -176,7 +176,7 @@ me_belgae.3 = {		#Menapian Claims
         }
         trigger_event = {
             id = me_belgae_ultimatum.2
-            days = 10
+            days = 75
         }
     }
 }
@@ -204,7 +204,21 @@ me_belgae.4 = {		#Striking a Nerve
                     set_variable = { name = hail_emperor_fox }
 				}
 				scope:rups_belgae = {
-					add_martial = 6
+					if = {
+						limit = {
+							martial < 4
+						}
+						add_martial = 6
+					}
+					else_if = {
+						limit = {
+							martial < 7
+						}
+						add_martial = 3
+					}
+					else = {
+						add_martial = 1
+					}
                     add_trait = shrewd
                     add_trait = invictus
 				}
@@ -220,7 +234,7 @@ me_belgae.4 = {		#Striking a Nerve
             limit = {
                 OR = {
                     THIS = c:NRV
-                    THIS = c:SGN
+                    #THIS = c:SGN
                 }
             }
             add_to_list = belgae_subject_list
@@ -235,6 +249,10 @@ me_belgae.4 = {		#Striking a Nerve
         }
         trigger_event = {
             id = me_belgae_ultimatum.2
+            days = 10
+        }
+        trigger_event = {
+            id = me_belgae.24
             days = 10
         }
     }
@@ -341,7 +359,7 @@ me_belgae.7 = {		#Something To Be Proud Of
         every_owned_province = {
             limit = {
                 is_in_region = belgica_region
-                is_port = yes
+                num_of_port_building >= 1
             }
             add_permanent_province_modifier = {
                 name = britannic_trade
@@ -406,7 +424,7 @@ me_belgae.9 = {		#Britannic Traders
         random_owned_province = {
             limit = {
                 is_in_region = belgica_region
-                is_port = yes
+                num_of_port_building >= 1
             }
             add_province_modifier = {
                 name = britannic_trade_2
@@ -428,7 +446,14 @@ me_belgae.10 = {		#City of The Eburones
         name = me_belgae_10.a
         add_treasury = -80
         p:3675 = {
-            found_city_effect = yes
+            add_province_modifier = {
+                name = founding_city_in_progress
+                duration = 730
+            }
+            trigger_event = {
+                id = state_improvement.6
+                days = 730
+            }
         }
     }
 }
@@ -482,7 +507,14 @@ me_belgae.13 = {		#Ganuentian Pirates
         add_political_influence = -25
         add_treasury = -80
         p:3843 = {
-            found_city_effect = yes
+            add_province_modifier = {
+                name = founding_city_in_progress
+                duration = 730
+            }
+            trigger_event = {
+                id = state_improvement.6
+                days = 730
+            }
             add_province_modifier = {
                 name = belgae_ganuentian_pirates
                 duration = -1
@@ -729,8 +761,8 @@ me_belgae.21 = {		#Murder of the Ruler!
                 save_scope_as = civil_war_capital
             }
             scope:civil_war_capital.owner = {
-                change_country_name = "diadochi_revolter_name"
-                change_country_adjective = "diadochi_revolter_adjective"
+                change_country_name = "belgae_revolter_name"
+                change_country_adjective = "belgae_revolter_adjective"
                 add_country_modifier = {
                     duration = 3650
                     name = civil_war_buff_ai				
@@ -783,20 +815,19 @@ me_belgae.23 = {		#Aftermath
     }
 }
 
-me_belgae.24 = {		#Tribal Frisian bitch spawns
+me_belgae.24 = {		
     type = country_event
-    title = me_belgae_19_title
-    desc = me_belgae_19_desc
-    picture = celtic_chiefs
-
+    title = me_belgae_24_title
+    desc = me_belgae_24_desc
+    picture = event_forest_night_moonlight
     left_portrait = current_ruler
+    right_portrait = scope:rups_belgae
 
     immediate = {
     }
 
     option = {      
-        name = me_belgae_18.a
-        #Antagonist spawns (remnants of civil war)
-        #Add truce with them
+        name = me_belgae_24.a
+        add_stability = -3
     }
 }

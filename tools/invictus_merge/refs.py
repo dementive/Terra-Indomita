@@ -109,12 +109,17 @@ def tag_token_res(tags):
         "script": re.compile(rf"(?:(?<=c:)|(?<![\w.:'\"$\-/]))({alt})(?![\w.'\"$\-/:])|(?<=c:)({alt})(?=\.)"),
         "quoted": re.compile(rf"(?<=\")({alt})(?=\")"),
         "getcountry": re.compile(rf"(?<=GetCountry\(')({alt})(?='\))"),
+        "lobbytag": re.compile(rf"(?<=SetLobbyCountryTag\(')({alt})(?='\))"),
         "lockey": re.compile(rf"^(\s*)({alt})(?=(?:_ADJ|_DEF)?:)", re.M),
     }
 
 
 def tag_refs(path, text, rxs):
     out = []
+    if path.endswith(".gui"):
+        out += [(m.group(1), m.start(1), m.end(1)) for m in rxs["getcountry"].finditer(text)]
+        out += [(m.group(1), m.start(1), m.end(1)) for m in rxs["lobbytag"].finditer(text)]
+        return out
     if is_loc(path):
         out += [(m.group(2), m.start(2), m.end(2)) for m in rxs["lockey"].finditer(text)]
         out += [(m.group(1), m.start(1), m.end(1)) for m in rxs["getcountry"].finditer(text)]
