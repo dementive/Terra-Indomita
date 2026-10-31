@@ -114,13 +114,13 @@ uct_discipline_50_to_85 = {
 					# Has Cohorts, is 2 inventions away from Promotion Through Valor
 					AND = {
 						invention = discipline_inv_5
-						invention = global_start_experience_inv_4
+						always = no # TI has no global_start_experience_inv_4
 					}
 					# Has Promotion Through Valor, is 2 inventions away from Cohorts
 					AND = {
 						invention = discipline_inv_4
 						OR = {
-							invention = global_start_experience_inv_5
+							always = no # TI has no global_start_experience_inv_5
 							invention = experience_decay_inv_2
 						}
 					}
@@ -467,7 +467,7 @@ cdt_civic_left_branch_25_to_75 = {
 				limit = {
 					OR = {
 						cdt_silent_trade_85 = irc_base
-						invention = silent_trade_inv
+						always = no # TI has no silent_trade_inv
 					}
 					OR = {
 						cdt_clock_mechanics_85_to_90 = irc_base
@@ -556,7 +556,7 @@ cdt_school_of_philosophy_50_to_90 = {
 			limit = {
 				OR = {
 					cdt_silent_trade_85 = irc_base
-					invention = silent_trade_inv
+					always = no # TI has no silent_trade_inv
 				}
 				OR = {
 					cdt_clock_mechanics_85_to_90 = irc_base
@@ -686,7 +686,7 @@ uct_mercenary_benefits_90 = {
 				has_global_variable = game_rule_advanced_ai_mercenaries
 			}
 			NOT = {
-				invention = recruit_mercenary_inv
+				always = no # TI has no recruit_mercenary_inv
 			}
 		}
 		value = irc_90

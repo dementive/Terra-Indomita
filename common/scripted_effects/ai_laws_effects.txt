@@ -298,7 +298,7 @@ ai_choose_and_enact_law_tribal_high_priority = {
         limit = {
             # No law enacted in the group
             NOR = {
-                has_law = formalized_industry_law_tribal
+                always = no # TI has no formalized_industry_law_tribal
                 has_law = oppidi_law_tribal # Hill-Fort Initiative
             }
             # Conditions of the law itself
@@ -550,20 +550,6 @@ ai_choose_and_enact_law_tribal_low_priority = {
         }
         ai_enact_law = {
             name = super_decentralized_law_three
-        }
-    }
-    else_if = {
-        limit = {
-            # No law enacted in the group
-            NOR = {
-                has_law = super_centralized_law_two # global_freemen_city_desired_pop_ratio
-                has_law = super_centralized_law_three # global_citizen_city_desired_pop_ratio
-            }
-            # Conditions of the law itself
-            centralization >= 80
-        }
-        ai_enact_law = {
-            name = super_centralized_law_three
         }
     }
     else_if = {
