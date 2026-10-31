@@ -170,6 +170,19 @@ Both builds loaded the game; `error.log` from each run was compared with `errorl
 - `lepontic_colonia_scope_20_percent_svalue` is referenced only by Invictus loc. TI deleted the script value along with Invictus's Barbaricum mission values.
 - `num_of_tribal_farm_building` / `num_of_tribal_mine_building` were already in TI's Fezzan and Albion missions before the merge.
 
+## 7. Follow-ups after the merge
+- **"Emperor of China" window:** the wars-overview button that opens it was shown to every player, and the window shows the player's own ruler (Egypt saw Ptolemaios). It's now limited to countries in the Mandate of Heaven system. This was a pre-existing TI bug.
+- **Family IDs** (`fix_families.py`, `reports/fix_families.csv`). TI had reused Invictus family IDs:
+  - 30 TI families (the Chinese, Korean and Japanese royal houses) moved +1000 to 2000–2029, with their country links updated.
+  - Invictus's families came back at their own IDs:
+    - Eurypontid (10), Ozbaalid (46) and Baalshillemi (47), where TI had renamed them;
+    - Edescid (304) and Helladis (91) for Selge;
+    - the Galatian families (1000–1006), where TI's Chinese houses had sat;
+    - Teukrid (92), Orontids (93) and Pylaemenid (500), which were missing.
+  - Their countries' `family =` links were restored.
+  - Kios's link to the Mithridatid family (now Invictus's MIT) was removed.
+  - Every `c:TAG.fam:Key` reference now resolves. The exceptions are 4 that are also broken or commented out in Invictus 1.12: Amyntid, Frataraka, Hannid and `al`.
+
 ## Upstream (Invictus) bugs found
 These are worth reporting to Invictus. They're fixed in TI but still present in 1.12.0.1:
 - `events/dhe/dhe_mithridates.txt` and `events/bloodlines_startup_events.txt` use `char:97` for Mithridates, who is now 228.

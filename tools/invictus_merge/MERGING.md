@@ -12,6 +12,7 @@ Greek events. Merge through the translated vendor branch instead.
 | Provinces | 1–8062 mean the same place in both. INV 8063–9469 are renumbered in TI (9888+). INV's newer IDs map to the TI province covering that land | TI map is authoritative: `map_data/`, `gfx/map/` and `setup/provinces` placement |
 | Country tags | `maps/tags.csv`: e.g. INV `SIC` (Sicyon) is `SYC` in TI, INV `AMA` (Amantinia) is `X16` | TI's tags |
 | Treasures (`treasure_manager.database`) | below 1000 | 1000+ |
+| Families (`setup/main/01_families.txt`, linked by `family = N` in country setup) | below 2000 | 2000+ (`fix_families.py` enforces this) |
 | Areas/regions | `maps/areas_regions.csv` maps INV names TI lacks | TI's `map_data` |
 
 ## How the merge works
@@ -49,6 +50,7 @@ changes where a step says so.
    - Port changes to files TI replaced with `port_defines.py` (defines) and `semantic_merge.merge_script` (e.g. `00_hardcoded_inv.txt` into `00_hardcoded.txt`).
 7. **Post-merge.**
    - Delete Dudley placeholders for IDs INV now defines.
+   - Run `python fix_families.py upstream/main`. It keeps TI's families at 2000+ and restores Invictus families TI shadowed or lacks.
    - Run `check_integrity.py scan` on the pre-merge and merged trees, then `diff`.
    - Run imperator-tiger on both trees and diff (see `MERGE_REPORT.md` for the 2026-10 run).
    - After committing the merge, run `python audit_chars.py check HEAD invictus-translated`. It resolves every character reference through blame against the table of the commit that wrote it, and compares the result with HEAD's table. Any row in `reports/char_check.csv` with `change=yes` or `UNRESOLVED` is a reference that now points at a different person.
