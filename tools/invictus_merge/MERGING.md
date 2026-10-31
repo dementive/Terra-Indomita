@@ -63,4 +63,12 @@ changes where a step says so.
 - `resolve_trivial.py`, `semantic_merge.py`: conflict resolution (whitespace-only hunks; keyed 3-way merges).
 - `setup_merge.py`, `setup_fixups.py`, `port_defines.py`: setup data and replaced-file ports.
 - `check_integrity.py`: before/after static checks.
+- `tiger_diff.py`: diffs two `imperator-tiger --json` reports. Also run tiger on the Invictus checkout and subtract its findings, so you see only merge-induced problems.
+- `dedupe_defs.py`: resolves definitions duplicated across the two mods; feed it tiger's duplicate-item findings.
+
+## Lessons from the 2026-10 merge
+
+- **Invictus adding a file that redefines a whole TI database entry** silently replaces TI's version. Example: `common/cultures/01_chinese.txt` dropped TI's Chinese cultures. Look for tiger "redefined" warnings in culture, religion and similar files.
+- **Content that uses things TI deleted.** Inventions, laws, culture groups, regions and event pictures that TI deleted are still used by new Invictus content. The tiger `missing-item` errors that Invictus itself doesn't have are the to-do list.
+- **Loc-key hash collisions.** Two different loc keys can collide on their murmur3 hash. tiger reports these as `localization-key-collision`.
 - `obsolete/`: the old renumbering script that corrupted references. Don't use it.
