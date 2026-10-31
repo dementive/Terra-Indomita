@@ -1,5 +1,12 @@
 ﻿check_chinese_unification_provs_effect = {
 	if = {
+		limit = { NOT = { has_variable = unification_points } }
+		set_variable = {
+			name = unification_points
+			value = 0
+		}
+	}
+	if = {
 		limit = {
 			owns_or_subject_owns = 8313
 			NOT = { has_variable = chinese_prov_1_owned }
@@ -290,6 +297,13 @@
 check_chinese_unification_subjects_effect = {
 	save_scope_as = root_scope # because it's also in on_ownership_change
 	if = {
+		limit = { NOT = { has_variable = unification_points } }
+		set_variable = {
+			name = unification_points
+			value = 0
+		}
+	}
+	if = {
 		limit = {
 			exists = c:WZO
 			NOT = { has_variable = wzo_subject_var }
@@ -330,11 +344,11 @@ check_chinese_unification_subjects_effect = {
 			limit = {
 				c:EZO = { is_subject_of = scope:root_scope }
 			}
-		}
-		set_variable = ezo_subject_var
-		change_variable = {
-			name = unification_points
-			add = 5
+			set_variable = ezo_subject_var
+			change_variable = {
+				name = unification_points
+				add = 5
+			}
 		}
 	}
 }

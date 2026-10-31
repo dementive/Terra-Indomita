@@ -164,7 +164,7 @@ Both builds loaded the game; `error.log` from each run was compared with `errorl
   - **Family lookups fail.** 113 failures before the merge, 98 after. TI reused Invictus family IDs: 10, 46, 47 and 304 were renamed, 82, 91–93 and 500 deleted, and TI's Chinese royal families sit on 1000–1006, which Invictus uses for its Galatian families. So `c:SPA.fam:Eurypontid`, `c:PAP.fam:Pylaemenid`, the Galatian families and others resolve to nothing.
   - *(Fixed in section 8.)* **`cchinese_administration_laws`** is a typo in `02_countries.txt`.
   - **Two engine assertions,** `TagID < TAG_LIMIT` and `nIndex > -1`.
-- **"Invalid Deity" messages for the new Invictus countries KOR, KOM, ZEL and MAN.** These don't come from Invictus's data: Invictus alone doesn't log them, and the four countries' setup is identical in both mods. Still open (section 8).
+- **"Invalid Deity" messages for the new Invictus countries KOR, KOM, ZEL and MAN.** *(Fixed in section 9.)*
 
 ## Left as is
 - `lepontic_colonia_scope_20_percent_svalue` is referenced only by Invictus loc. TI deleted the script value along with Invictus's Barbaricum mission values.
@@ -249,11 +249,23 @@ Source: `error.log` from a played session, compared with a boot of Invictus 1.12
   - Paphlagonian and Thracian mission rewards.
 
   The full list is tiger's `missing-item` errors under `common/inventions`.
-- **"Invalid Deity" for KOR, KOM, ZEL and MAN at game start** (see section 6). Their setup matches Invictus; the cause wasn't found.
+- ~~"Invalid Deity" for KOR, KOM, ZEL and MAN~~ Fixed in section 9.
 - **12 `study_*_ways_of_war` decisions** are defined in both `TI_military_traditions.txt` and `integrated_culture_decisions_inv.txt`, and Invictus's copy wins. The two versions differ only in an AI exemption and a wider Persian culture check.
 - **Unwritten TI events** referenced by missions: `me_chinese_empire.1103/1104`, `me_honshu.30`, `me_louland.18`, `me_sapmi.1300`, `me_yue_state.1200`.
 - `iranian_influence` is never set, so the Persian tree's branch for it can't be met.
 - 8 impassable provinces log missing city locators (5278, 5299, 5380, 5970, 5971, 5981, 7296, 7801). This is harmless.
+
+## 9. Headless AI play test (`headless_test.py`)
+`imperator.exe -nographics -handsoff` lets the AI play 10 game years with no window. TI and Invictus 1.12 were each run this way, and the error logs compared with line numbers ignored. All 7 checks in `headless/ti_checks.txt` passed: Hundred Schools and Nabataean deities exist, Wei has its law, and KOR, KOM, ZEL and MAN exist with cities. Fixed from the TI-only errors; a second 10-year run confirmed each is gone (TI-only errors 549 → 382, the rest varying with what the AI does):
+- **Pantheons of KOR, KOM, ZEL and MAN.** TI countries have 6 pantheon slots (adding justice and wisdom); these 4 came from Invictus with 4 gods each. The game filled the empty slots with random gods that failed their checks. Added: Corinth Hades and Athena; Comana Sipylene and Berecyntia; Zela Haurvatat and Ameretat; Anabura Kakasbos and Cybele. All 47 pantheons now have one god per category.
+- **Chinese unification points** (`ti_mandate_effects.txt`). The variable only existed for countries that got the "Turmoil in China" event, so the monthly check failed for the rest (50 errors in 10 years). It's now created when missing. Ezo's 5 points were also outside their `is_subject_of` check, so every Chinese country got them once whether or not Ezo was its subject.
+- **Decimation ability.** Its AI weight checked the unit's legion for every army (227 errors); now guarded with `exists = legion`, as is the start effect.
+
+Left alone, because the code is identical to Invictus and only the game state differs:
+- the Diadochi Caria event releasing countries that aren't PRY subjects;
+- praetor checks in the Tylos and Ionian missions;
+- the Albania mission's Tplis governor check;
+- the Dahae belligerency variable.
 
 ## Upstream (Invictus) bugs found
 These are worth reporting to Invictus. They're fixed in TI but still present in 1.12.0.1:

@@ -1,0 +1,76 @@
+# Checks for known merge pitfalls, evaluated on the first day of a headless campaign.
+# `success` is tried first; `failure = { always = yes }` makes every check conclude at once,
+# so each one logs exactly one OK or FAILED line to logs/scripted_tests.log.
+
+# Setup files with a BOM fail to parse, which silently dropped the Hundred Schools deities.
+ti_check_hundred_schools_deities = {
+	suite = "ti_probe"
+	interval = daily
+	success = {
+		exists = deity:omen_suntzu
+		exists = deity:omen_confucius
+	}
+	failure = { always = yes }
+}
+
+# Lost in the January 2025 merge; used by the Nabataean missions.
+ti_check_nabataean_deities = {
+	suite = "ti_probe"
+	interval = daily
+	success = {
+		exists = deity:omen_atarsamain
+		exists = deity:omen_rekem
+	}
+	failure = { always = yes }
+}
+
+ti_check_wei_admin_law = {
+	suite = "ti_probe"
+	interval = daily
+	success = {
+		exists = c:WEI
+		c:WEI = { has_law = county_and_commandery_law }
+	}
+	failure = { always = yes }
+}
+
+# Countries Invictus 1.12 added; the game logs "Invalid Deity" during their setup.
+ti_check_KOR_exists = {
+	suite = "ti_probe"
+	interval = daily
+	success = {
+		exists = c:KOR
+		c:KOR = { num_of_cities >= 1 }
+	}
+	failure = { always = yes }
+}
+
+ti_check_KOM_exists = {
+	suite = "ti_probe"
+	interval = daily
+	success = {
+		exists = c:KOM
+		c:KOM = { num_of_cities >= 1 }
+	}
+	failure = { always = yes }
+}
+
+ti_check_ZEL_exists = {
+	suite = "ti_probe"
+	interval = daily
+	success = {
+		exists = c:ZEL
+		c:ZEL = { num_of_cities >= 1 }
+	}
+	failure = { always = yes }
+}
+
+ti_check_MAN_exists = {
+	suite = "ti_probe"
+	interval = daily
+	success = {
+		exists = c:MAN
+		c:MAN = { num_of_cities >= 1 }
+	}
+	failure = { always = yes }
+}

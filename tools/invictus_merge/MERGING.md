@@ -55,6 +55,7 @@ changes where a step says so.
    - Run `python remap_dna.py`. It re-points TI characters' DNA at the gene templates they were made with, if a template's index moved (in January 2025 Invictus's pharaoh headdress took index 18 from `japanese_hairstyles`, putting it on Zhou's king).
    - Run `check_integrity.py scan` on the pre-merge and merged trees, then `diff`.
    - Run imperator-tiger on both trees and diff (see `MERGE_REPORT.md` for the 2026-10 run).
+   - Let the AI play headless: `python headless_test.py --mod-path <Invictus checkout> --label inv`, then `python headless_test.py --compare %TEMP%\ti_headless\inv\error.log`. Close the game first. It runs `imperator.exe -nographics -handsoff` for 10 game years (about 14 minutes for TI, 7 for Invictus), checks `headless/ti_checks.txt`, and lists the runtime errors Invictus alone doesn't have. Add a check to `ti_checks.txt` for each bug you fix that a script can test.
    - After committing the merge, run `python audit_chars.py check HEAD invictus-translated`. It resolves every character reference through blame against the table of the commit that wrote it, and compares the result with HEAD's table. Any row in `reports/char_check.csv` with `change=yes` or `UNRESOLVED` is a reference that now points at a different person.
 
 ## Files
@@ -68,6 +69,7 @@ changes where a step says so.
 - `setup_merge.py`, `setup_fixups.py`, `port_defines.py`: setup data and replaced-file ports.
 - `check_integrity.py`: before/after static checks.
 - `tiger_diff.py`: diffs two `imperator-tiger --json` reports. Also run tiger on the Invictus checkout and subtract its findings, so you see only merge-induced problems.
+- `headless_test.py`, `headless/ti_checks.txt`: AI-played headless campaign with scripted-test checks (flags from the IRSE project, `C:\Users\dm\dev\irse\docs\re\cli-automation.md`).
 - `fix_families.py`, `remap_dna.py`: keep TI's family IDs and portrait gene indices clear of Invictus's.
 - `dedupe_defs.py`: resolves definitions duplicated across the two mods; feed it tiger's duplicate-item findings.
 
@@ -78,5 +80,6 @@ changes where a step says so.
 - **Invictus content dropped by an earlier merge** looks like a TI deletion to the next 3-way merge (the base has it, TI doesn't), so it never comes back on its own. Example: the Nabataean deities lost in January 2025. List tiger `missing-item` errors whose definition exists in Invictus, and check each one in TI's history.
 - **Setup files under `setup/main/` must not have a BOM.** The setup reader treats it as part of the first key ("Unexpected token \ufeffdeity_manager").
 - **Don't edit with Git Bash `sed -i`.** It rewrites CRLF files as LF, which turns a one-line change into a whole-file diff.
+- **TI pantheons have 6 slots** (war, economy, culture, fertility, justice, wisdom); Invictus's have 4. Countries Invictus adds need two more deities, or the game fills the slots at random and logs "Invalid Deity … during Country setup".
 - **Loc-key hash collisions.** Two different loc keys can collide on their murmur3 hash. tiger reports these as `localization-key-collision`.
 - `obsolete/`: the old renumbering script that corrupted references. Don't use it.

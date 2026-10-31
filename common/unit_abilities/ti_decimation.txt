@@ -38,8 +38,11 @@
 	
 	
 	start_effect = {
-		legion = {
-			remove_distinction = distinction_dishonor_cowardly
+		if = {
+			limit = { exists = legion }
+			legion = {
+				remove_distinction = distinction_dishonor_cowardly
+			}
 		}
 		every_sub_unit = {
 			add_subunit_strength = -0.1
@@ -60,6 +63,7 @@
 	ai_will_do = {
 		modifier = {
 			trigger = {
+				exists = legion
 				legion = {
 					has_distinction = distinction_dishonor_cowardly
 				}
