@@ -799,12 +799,14 @@ NAI = {
 	MAX_DEPTH_SEARCH_FOR_NAVAL_INVASION = 5 # How far the AI will search for a shore from land for naval invasions to reachable targets
 	
 	#Buildings (improved buildings defines), makes AI spend money on builings better
+	#TROOPS_DELAY, REPEAT_TIME, INSTANT_GOLD_THRESHOLD and BUILD_DELAY are back at the vanilla/Invictus values (were 10/30/750/10):
+	#the faster build planning cost ~3x the AI_PLANNING time with 1000+ countries.
 	BUILD_DURING_WAR_DELAY = 6					# Months the AI will wait before building buildings while at war
-	BUILD_MONTHS_AWAY_FROM_WAR_THRESHOLD = 2	# If the AI is less than this number of months away from declaring war they will hold building construction	
-	BUILD_TROOPS_DELAY = 10						# Delay added to the build counter if the AI wants to build troops, effectively prioritizing troop construction
-	BUILD_REPEAT_TIME = 30						# Time window ( in days ) since last build date that the AI has to quickly queue another building to the front of the plan ( if it can afford it etc. ), else it will be queued at the end
-	BUILD_INSTANT_GOLD_THRESHOLD = 750.0		# If the AI has more than this much gold left after construction it will try to instantly queue another build
-	BUILD_DELAY = 10							# Default time the AI will wait before trying to build another building unless it decides to do so instantly
+	BUILD_MONTHS_AWAY_FROM_WAR_THRESHOLD = 2	# If the AI is less than this number of months away from declaring war they will hold building construction
+	BUILD_TROOPS_DELAY = 60						# Delay added to the build counter if the AI wants to build troops, effectively prioritizing troop construction
+	BUILD_REPEAT_TIME = 100						# Time window ( in days ) since last build date that the AI has to quickly queue another building to the front of the plan ( if it can afford it etc. ), else it will be queued at the end
+	BUILD_INSTANT_GOLD_THRESHOLD = 800			# If the AI has more than this much gold left after construction it will try to instantly queue another build
+	BUILD_DELAY = 30							# Default time the AI will wait before trying to build another building unless it decides to do so instantly
 	DESTROY_THRESHOLD = -0.001						# If the AI weight of any building is less than or equal to this the AI might destroy it
 	PORT_BUILDING_COASTAL_NO_PORTS_WEIGHT = 0	# If the Country has coastal provinces but no ports this will be added
 
