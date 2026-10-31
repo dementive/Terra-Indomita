@@ -182,6 +182,7 @@ Both builds loaded the game; `error.log` from each run was compared with `errorl
   - Their countries' `family =` links were restored.
   - Kios's link to the Mithridatid family (now Invictus's MIT) was removed.
   - Every `c:TAG.fam:Key` reference now resolves. The exceptions are 4 that are also broken or commented out in Invictus 1.12: Amyntid, Frataraka, Hannid and `al`.
+- **Pharaoh headdress on Chinese and Japanese rulers** (`remap_dna.py`, `reports/remap_dna.csv`). Character DNA stores hairstyles by template number. Index 18 was `japanese_hairstyles` when TI made its East Asian characters; the January 2025 merge gave 18 to Invictus's `egyptian_pharaoh_hairstyles` and moved Japanese to 19. Yan of Zhou (1621), Korei of Yamato (1635) and Ping of Chu (1708) are back on `japanese_hairstyles`. No other TI DNA uses a moved template, and Invictus's characters use the same indices in both mods.
 
 ## Upstream (Invictus) bugs found
 These are worth reporting to Invictus. They're fixed in TI but still present in 1.12.0.1:

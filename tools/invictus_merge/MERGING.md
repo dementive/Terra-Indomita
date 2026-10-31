@@ -13,6 +13,7 @@ Greek events. Merge through the translated vendor branch instead.
 | Country tags | `maps/tags.csv`: e.g. INV `SIC` (Sicyon) is `SYC` in TI, INV `AMA` (Amantinia) is `X16` | TI's tags |
 | Treasures (`treasure_manager.database`) | below 1000 | 1000+ |
 | Families (`setup/main/01_families.txt`, linked by `family = N` in country setup) | below 2000 | 2000+ (`fix_families.py` enforces this) |
+| Portrait gene templates (`common/genes/00_genes.txt` `index = N`, stored by number in character `dna`) | Invictus's indices | TI templates take indices after Invictus's. When a merge shifts one, `remap_dna.py` rewrites TI-authored DNA |
 | Areas/regions | `maps/areas_regions.csv` maps INV names TI lacks | TI's `map_data` |
 
 ## How the merge works
@@ -51,6 +52,7 @@ changes where a step says so.
 7. **Post-merge.**
    - Delete Dudley placeholders for IDs INV now defines.
    - Run `python fix_families.py upstream/main`. It keeps TI's families at 2000+ and restores Invictus families TI shadowed or lacks.
+   - Run `python remap_dna.py`. It re-points TI characters' DNA at the gene templates they were made with, if a template's index moved (in January 2025 Invictus's pharaoh headdress took index 18 from `japanese_hairstyles`, putting it on Zhou's king).
    - Run `check_integrity.py scan` on the pre-merge and merged trees, then `diff`.
    - Run imperator-tiger on both trees and diff (see `MERGE_REPORT.md` for the 2026-10 run).
    - After committing the merge, run `python audit_chars.py check HEAD invictus-translated`. It resolves every character reference through blame against the table of the commit that wrote it, and compares the result with HEAD's table. Any row in `reports/char_check.csv` with `change=yes` or `UNRESOLVED` is a reference that now points at a different person.
@@ -66,6 +68,7 @@ changes where a step says so.
 - `setup_merge.py`, `setup_fixups.py`, `port_defines.py`: setup data and replaced-file ports.
 - `check_integrity.py`: before/after static checks.
 - `tiger_diff.py`: diffs two `imperator-tiger --json` reports. Also run tiger on the Invictus checkout and subtract its findings, so you see only merge-induced problems.
+- `fix_families.py`, `remap_dna.py`: keep TI's family IDs and portrait gene indices clear of Invictus's.
 - `dedupe_defs.py`: resolves definitions duplicated across the two mods; feed it tiger's duplicate-item findings.
 
 ## Lessons from the 2026-10 merge
