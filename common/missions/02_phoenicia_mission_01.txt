@@ -9,19 +9,21 @@
 
     potential = {
         NOT = { has_variable = phoenicia_missions_cooldown_var }
-        NAND = {#Don't have to worry about competition
-            is_ai = yes
-            any_country = {
-                primary_culture = phoenician
-                is_ai = no
-            }
-        }
+        # Cheap culture/heritage check first: the engine re-checks every mission tree's potential
+        # for most countries every day, and the any_country loop below is O(countries).
         OR = {
             primary_culture = phoenician
             heritage = sidon_heritage
             heritage = arados_heritage
             heritage = byblos_heritage
             heritage = tyre_heritage
+        }
+        NAND = {#Don't have to worry about competition
+            is_ai = yes
+            any_country = {
+                primary_culture = phoenician
+                is_ai = no
+            }
         }
     }
 
