@@ -261,7 +261,7 @@ harbour_building = {#20
 				is_tribal = no
 			}
 		num_of_port_building > 2
-		num_of_commerce_building > 2
+		#num_of_commerce_building > 2 # Disabled: num_of_<building> triggers only exist for buildings defined above this one in the file, and commerce_building comes later
 		total_population >= 60
 		civilization_value  >= 50
 
@@ -1514,7 +1514,7 @@ theathre_building = { #Theater
 		AND = {
 			exists = owner
 			owner = {
-				invention = agressive_expansion_monthly_decay_inv_3
+				invention = global_unrest_inv_4 # Exported Drama
 			}
 		}
 	}
@@ -1741,7 +1741,6 @@ great_temple_building = {
 
 town_hall_building = { #Tax Office
 	local_tax_modifier = 0.1
-	local_happiness_for_wrong_culture_group_modifier = -0.02
 	local_country_civilization_value = 1
 	max_amount = 5
 	cost = 120
@@ -1782,7 +1781,7 @@ town_hall_building = { #Tax Office
 
 	modification_display = {
 		0 = local_tax_modifier
-		1 = happiness_for_wrong_culture_group_modifier
+		1 = local_country_civilization_value
 	}
 
 	chance = {		
@@ -2016,8 +2015,11 @@ local_forum_building = { #Provincial Legation
 	potential = {
 		has_city_status = no
 		or = {
-			owner = {
-				is_tribal = no
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = no
+				}
 			}
 			num_of_local_forum_building > 0
 		}
@@ -2054,8 +2056,11 @@ hill_fort = { #Tribal Settlement
 	potential = {
 		has_city_status = no
 		or = {
-			owner = {
-				is_tribal = no
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = no
+				}
 			}
 			num_of_hill_fort > 0
 		}
@@ -2100,6 +2105,7 @@ sanctuary_building = { #Sanctuary
 		has_city_status = no
 		or = {
 			and = {
+				exists = owner
 				owner = {
 					is_tribal = no
 				}
@@ -2163,8 +2169,11 @@ barracks_building = {
 	potential = {
 		has_city_status = no
 		or = {
-			owner = {
-				is_tribal = no
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = no
+				}
 			}
 			num_of_barracks_building > 0
 		}
@@ -2199,8 +2208,11 @@ crafts_workshop_building = {
 	potential = {
 		has_city_status = no
 		or = {
-			owner = {
-				is_tribal = no
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = no
+				}
 			}
 			num_of_crafts_workshop_building > 0
 		}
@@ -2232,8 +2244,11 @@ trade_post_building = {
 	potential = {
 		has_city_status = no
 		or = {
-			owner = {
-				is_tribal = no
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = no
+				}
 			}
 			num_of_trade_post_building > 0
 		}
@@ -2314,8 +2329,11 @@ free_farm_building = { #Farming Settlement
 	potential = {
 		has_city_status = no
 		or = {
-			owner = {
-				is_tribal = no
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = no
+				}
 			}
 			num_of_free_farm_building > 0
 		}
@@ -2359,8 +2377,11 @@ latifundia_building = { #Slave Estate
 	potential = {
 		has_city_status = no
 		or = {
-			owner = {
-				is_tribal = no
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = no
+				}
 			}
 			num_of_latifundia_building > 0
 		}
@@ -2406,8 +2427,11 @@ villa_building = {
 	potential = {
 		has_city_status = no
 		or = {
-			owner = {
-				is_tribal = no
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = no
+				}
 			}
 			num_of_villa_building > 0
 		}
@@ -2492,8 +2516,11 @@ fishing_building = {
 	potential = {
 		has_city_status = no
 		or = {
-			owner = {
-				is_tribal = no
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = no
+				}
 			}
 			num_of_fishing_building > 0
 		}
@@ -2658,8 +2685,11 @@ tribal_pastures_building = { #pasturesFarming Settlement
 	potential = {
 		has_city_status = no
 		or = { 
-			owner = {
-				is_tribal = yes
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = yes
+				}
 			}
 			num_of_tribal_pastures_building > 0
 		}
@@ -2806,8 +2836,11 @@ warrior_building = { #Sparring grounds 7 military
 
 	potential = {
 		or = {
-			owner = {
-				is_tribal = yes
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = yes
+				}
 			}
 			num_of_warrior_building > 0
 		}
@@ -2834,8 +2867,11 @@ tribal_tax_building = { #12
 
 	potential = {
 		or = {
-			owner = {
-				is_tribal = yes
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = yes
+				}
 			}
 			num_of_tribal_tax_building > 0
 		}
@@ -2860,8 +2896,11 @@ tribal_trade_building = {#Bartering house 9
 	max_amount = 3
 	potential = {
 		or = {
-			owner = {
-				is_tribal = yes
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = yes
+				}
 			}
 			num_of_tribal_trade_building > 0
 		}
@@ -2898,10 +2937,13 @@ tribal_court_building = { #6 tribesmen
 	max_amount = 1
 	potential = {
 		or = {
-			owner = {
-				is_tribal = yes
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = yes
+				}
 			}
-			num_of_tribal_building > 0
+			num_of_tribal_court_building > 0
 		}
 	}
 	allow = {
@@ -2920,8 +2962,11 @@ storehouse_building = { #10storehouse
 
 	potential = {
 		or = {
-			owner = {
-				is_tribal = yes
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = yes
+				}
 			}
 			num_of_storehouse_building > 0
 		}
@@ -2954,8 +2999,11 @@ tribal_sacred_building = { #5 religion #shrine
 	time = 100
 	potential = {
 		or = {
-			owner = {
-				is_tribal = yes
+			AND = {
+				exists = owner
+				owner = {
+					is_tribal = yes
+				}
 			}
 			num_of_tribal_sacred_building > 0
 		}

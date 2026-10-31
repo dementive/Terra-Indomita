@@ -55,7 +55,7 @@
 		on_activate = {
 			set_variable = {
 				name = clan_tradition
-				duration = -1
+				days = -1
 			}
 			ordered_owned_province = {
 				limit = {
@@ -325,9 +325,16 @@
 				}
 				max = 3
 				check_range_bounds = no
-				create_2_freemen_effect = yes
-				set_pop_culture = hebrew
-				set_pop_religion = judaism
+				define_pop = {
+					type = freemen
+					culture = hebrew
+					religion = judaism
+				}
+				define_pop = {
+					type = freemen
+					culture = hebrew
+					religion = judaism
+				}
 
 			}
 		}
@@ -340,7 +347,6 @@
 			global_monthly_civilization = 0.02
 			
 		}
-		requires = {nubian_start}
 		on_activate = {
 			set_country_religion = judaism
 			current_ruler = {

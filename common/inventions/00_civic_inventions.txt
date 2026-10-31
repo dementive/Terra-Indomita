@@ -555,13 +555,14 @@
     	keystone = yes
     	on_activate = {
 			add_1_free_province_investments = yes
+			custom_tooltip = "enables_sewers_building_tt"
 		}
     	requires_or = { civic_construction_inv_2 greek_advanced_mechanics_inv }
     }
     #middle east wells 
     cistern_inv = {
 		modifier = { 
-			well_building_cost = -0.1
+			aqueduct_building_cost = -0.1
 		}
 
 		allow = {
@@ -1382,7 +1383,6 @@
     		not = {invention = civic_roads_inv}
 			civic_tech >= 8
     	}
-    	on_activate = { custom_tooltip = "enables_sewers_building_tt" }
     	requires = {land_surveyor_inv }
     }
     civic_roads_inv = { #gromatici
@@ -1390,7 +1390,6 @@
         	build_expensive_roads_cost_modifier = -0.2  
 			ruler_popularity_gain = 0.02 
 		}
-        on_activate = { custom_tooltip = "enables_sewers_building_tt" }
         requires = { land_surveyor_inv }
         ai_will_do = {
 			modifier = {
@@ -2584,7 +2583,7 @@
     		character_loyalty = 1
     	}
         on_activate = {
-			custom_tooltip = "Bureacracy Laws Unlocked"
+			custom_tooltip = "unlocks_vast_bureaucracy_law_tt"
     	}
         requires = { monthly_wage_inv }
         allow = {

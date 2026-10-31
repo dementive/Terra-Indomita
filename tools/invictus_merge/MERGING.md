@@ -75,5 +75,8 @@ changes where a step says so.
 
 - **Invictus adding a file that redefines a whole TI database entry** silently replaces TI's version. Example: `common/cultures/01_chinese.txt` dropped TI's Chinese cultures. Look for tiger "redefined" warnings in culture, religion and similar files.
 - **Content that uses things TI deleted.** Inventions, laws, culture groups, regions and event pictures that TI deleted are still used by new Invictus content. The tiger `missing-item` errors that Invictus itself doesn't have are the to-do list.
+- **Invictus content dropped by an earlier merge** looks like a TI deletion to the next 3-way merge (the base has it, TI doesn't), so it never comes back on its own. Example: the Nabataean deities lost in January 2025. List tiger `missing-item` errors whose definition exists in Invictus, and check each one in TI's history.
+- **Setup files under `setup/main/` must not have a BOM.** The setup reader treats it as part of the first key ("Unexpected token \ufeffdeity_manager").
+- **Don't edit with Git Bash `sed -i`.** It rewrites CRLF files as LF, which turns a one-line change into a whole-file diff.
 - **Loc-key hash collisions.** Two different loc keys can collide on their murmur3 hash. tiger reports these as `localization-key-collision`.
 - `obsolete/`: the old renumbering script that corrupted references. Don't use it.

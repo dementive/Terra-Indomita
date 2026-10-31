@@ -134,8 +134,8 @@ Also repaired:
 5. **From the reviews:**
    - **Balance:**
      - `dictatorship_step_3` AI weight is now 0 (Invictus's).
-     - Theatres can't be built: they require deleted `agressive_expansion_monthly_decay_inv_3` (pre-existing TI bug).
-     - `pilum_inv` is undefined (pre-existing).
+     - Theatres can't be built: they require deleted `agressive_expansion_monthly_decay_inv_3` (pre-existing TI bug). *Fixed in section 8.*
+     - `pilum_inv` is undefined (pre-existing). *Fixed in section 8.*
      - 12 inventions have no AI weight.
    - **Content:**
      - horde_conquest `conquer_cost` kept TI's 0 (base −0.1, Invictus 0.6).
@@ -143,11 +143,11 @@ Also repaired:
      - Sparta's state-investment trigger fix.
      - Korkei (6912) produces wootz steel in TI but is targeted by the new gemstones decision.
    - **Military, religion and culture:**
-     - TI has no `grain` trade good, but many missions use it (pre-existing, made worse by new Invictus content).
+     - ~~TI has no `grain` trade good~~ This was a false alarm. `grain` is defined on the first line of `00_TI_goods.txt`, right after the BOM, which the scan missed.
      - Invictus horses add light-cavalry discipline.
      - Invictus moved AI road building and AI state investment into scripts. Check that they cover TI-only areas such as China, and TI's extra investment buttons.
      - Invictus-style levies were added for new cultures.
-     - `yuezhi` has no levy.
+     - ~~`yuezhi` has no levy~~ It inherits `levy_steppes_east` from TI's `saka_g` group.
 6. **TI's Indian military traditions now load for the first time** (the `ti18` rename). Please playtest Indian nations.
 7. **Treasure 504** is TI's `treasure_turdetanian_bull`, whose loc is commented out in both mods. Invictus has `treasure_turdetanian_reliefs_iberic` there.
 
@@ -160,11 +160,11 @@ Both builds loaded the game; `error.log` from each run was compared with `errorl
   - Treasure 59 owned twice. It stays with PTA.
   - A road between non-adjacent provinces (1873–1874).
 - **Pre-existing in TI, not caused by the merge:**
-  - **Hundred Schools deities fail to load.** `setup/main/deities/01_hundredschools.txt` fails to parse ("Unexpected token ﻿deity_manager"), so `deity:omen_suntzu` and `omen_confucius` don't resolve in TI's Chinese missions.
+  - *(Fixed in section 8.)* **Hundred Schools deities fail to load.** `setup/main/deities/01_hundredschools.txt` fails to parse ("Unexpected token ﻿deity_manager"), so `deity:omen_suntzu` and `omen_confucius` don't resolve in TI's Chinese missions.
   - **Family lookups fail.** 113 failures before the merge, 98 after. TI reused Invictus family IDs: 10, 46, 47 and 304 were renamed, 82, 91–93 and 500 deleted, and TI's Chinese royal families sit on 1000–1006, which Invictus uses for its Galatian families. So `c:SPA.fam:Eurypontid`, `c:PAP.fam:Pylaemenid`, the Galatian families and others resolve to nothing.
-  - **`cchinese_administration_laws`** is a typo in `02_countries.txt`.
+  - *(Fixed in section 8.)* **`cchinese_administration_laws`** is a typo in `02_countries.txt`.
   - **Two engine assertions,** `TagID < TAG_LIMIT` and `nIndex > -1`.
-- **Probably from Invictus 1.12's own setup:** "Invalid Deity" messages for the new Invictus countries KOR, KOM, ZEL and MAN.
+- **"Invalid Deity" messages for the new Invictus countries KOR, KOM, ZEL and MAN.** These don't come from Invictus's data: Invictus alone doesn't log them, and the four countries' setup is identical in both mods. Still open (section 8).
 
 ## Left as is
 - `lepontic_colonia_scope_20_percent_svalue` is referenced only by Invictus loc. TI deleted the script value along with Invictus's Barbaricum mission values.
@@ -184,9 +184,81 @@ Both builds loaded the game; `error.log` from each run was compared with `errorl
   - Every `c:TAG.fam:Key` reference now resolves. The exceptions are 4 that are also broken or commented out in Invictus 1.12: Amyntid, Frataraka, Hannid and `al`.
 - **Pharaoh headdress on Chinese and Japanese rulers** (`remap_dna.py`, `reports/remap_dna.csv`). Character DNA stores hairstyles by template number. Index 18 was `japanese_hairstyles` when TI made its East Asian characters; the January 2025 merge gave 18 to Invictus's `egyptian_pharaoh_hairstyles` and moved Japanese to 19. Yan of Zhou (1621), Korei of Yamato (1635) and Ping of Chu (1708) are back on `japanese_hairstyles`. No other TI DNA uses a moved template, and Invictus's characters use the same indices in both mods.
 
+## 8. Bug fixes from the play-test error log
+Source: `error.log` from a played session, compared with a boot of Invictus 1.12 alone so that only TI's errors count. Most were older than this merge. A menu-only boot afterwards shows 21 of the 121 targeted error lines left, all listed under "Still open" below. Errors that only happen during play (missing tooltips, deity setup) need a played session to confirm.
+
+**Setup and deities**
+- Hundred Schools deities load again. `01_hundredschools.txt` was the only deity setup file saved with a BOM, which the setup reader rejects.
+- Wei's `cchinese_administration_laws` typo.
+- **Deity database IDs are another ID space.** TI and Invictus number 22 deities differently (Nhialic and Voxite are 3000+/3050+ in TI, 2000+/2050+ in Invictus). Nothing uses those numbers today; translate them like provinces if Invictus content starts to.
+- Atarsamain and Rekem (Nabataean missions) are restored at Invictus's IDs 822 and 823, with Anbay moved to 824. The January 2025 merge had dropped them, and this merge read that as a TI deletion. Athtar again allows South Arabian cultures, as in Invictus.
+- Removed 5 holy sites naming gods that don't exist (provinces 3401, 1555, 6747, 6769, 6787). Invictus had already removed one of them.
+- Removed `LPR` and `LAL` from `setup/countries/countries.txt`. Neither has a setup block or a country file, and Invictus 1.12 dropped both.
+
+**Buildings, inventions, laws**
+- 17 building `potential` blocks checked `owner` on unowned provinces (34 errors). They're now guarded with `exists = owner`.
+- The theatre and Emishi task 14 required a deleted invention. Both now require `global_unrest_inv_4` (Exported Drama), the oratory keystone for same-culture happiness. *Your call if you'd prefer another.*
+- The harbour's `num_of_commerce_building > 2` never worked, because that trigger only exists for buildings defined earlier in the file. Harbours have always ignored it, so it's commented out. Moving `harbour_building` below `commerce_building` would restore it but changes the building order.
+- `well_building_cost` is now `aqueduct_building_cost`, and the Yan reservoir task now needs `aqueduct_building`. TI replaced Wells and Reservoirs with Sanitation Works in 2024-09.
+- Removed dead `pilum_inv` references and fixed the Sewers, bureaucracy-law and slave-raid tooltips. The `05_admin.txt` legion checks now work in country scope.
+- Defines: fixed the `WRONG_RELIGION_HAPPNESS` typo, and added the two `MACRO_BUILDER_CAN_OVERLORD_*` colours missing from TI's old copy of `00_graphics.txt`.
+- Levies: Nivkh and Tungusic use `levy_huimo` instead of `levy_yi`, `levy_indo_germanic` is ported from Invictus, and the default levy's nonexistent `militia` is now `light_infantry`.
+- Heritage: the pre-2.0 `clan_retinue_size` is now `levy_size_multiplier = 0.025`. *This is a balance guess.*
+
+**Military traditions**
+- Fixed three dependencies:
+  - Aksum Jewish 2 had a stale extra `requires`.
+  - Celtic Britannic 4 linked across trees.
+  - Armenian 4 required a bonus that never existed. The requirement is removed, so it stays a root, as it has played until now.
+- `naval_raiding.txt` checked trees that don't exist (`*_philosophy_2`). It now checks TI's trees.
+- The Nubian Jewish Diaspora now creates the 2 Hebrew freemen per city it was meant to.
+- The Roman `border_forts` variable is now set when the bonus activates.
+- The Persian decision unlock (the `trigger_else` chain) now works.
+- `administration_law_3_mon` is now `centralized_bureaucracy`.
+- The Decimation ability used `every_sub_unit`, which is an effect, as a trigger, and checked an invention on the unit instead of its owner.
+- Missions: the Chu task no longer needs a removed sword tradition, and Scythia task 15 now needs `bactrian_path_5`, the root of TI's steppe tree.
+
+**Missions, events, decisions**
+- The tribal buildings TI removed in 2025-10 are gone from the Fezzan, Albion, Bohemia, Saxonia and Getae missions. Tribal Getae can use Sparring Grounds in place of barracks.
+- Fixed two typos from TI's "hotfix 2": `limit = {c` (Qin) and an empty `has_office =` (Chinese empire).
+- Culture and area names:
+  - `pyu` → `piaoyue`, including Form Piaoyue.
+  - `pyu_area` → `beikthano_area`.
+  - `scythian_east` → `sarmatian_group` in Legia, Form Scythia and Miletos. Form Scythia could never fire before.
+  - `daxinabeishan_area` → `daxianbeishan_east_area` (Donghu).
+- A blank `trade_goods =` in `has_farmabale_trade_good_trigger` swallowed the wine check.
+- Disabled `trade_good_events.1` to `.10` in the 5-year pulse. Those Invictus events never existed in TI, and they check variables TI's decisions don't set.
+- Removed the Gerrha dates decision, which TI deliberately deleted in 2024. A later merge brought it back without its modifier.
+
+**Localization**
+- Restored or added about 30 missing keys, including:
+  - the minable trade goods tooltip (118 errors);
+  - tradition unlock requirements;
+  - Jain flavor modifiers;
+  - Colchis, Diadochi and Fugandulu text;
+  - India law tooltips.
+- Fixed two broken lines in `replace/laws_l_english.yml`.
+- Fixed 7 invalid GUI anchors (`top|center` → `top|hcenter`).
+
+**Still open**
+- **Invictus's Roman and Carthaginian senate objectives** enact laws TI replaced (`lex_calpurnia`, `no_laws_on_corruption`, `republican_citizen_car_2` and others), so they silently do nothing. Mapping them onto TI's law groups is a design decision.
+- **19 inventions TI removed in its 2024 tree rework still gate Invictus features.** Examples:
+  - `recruit_mercenary_inv` (the bribe-mercenary button);
+  - `intervene_inv` (offer protection);
+  - 5 great-work effects;
+  - Paphlagonian and Thracian mission rewards.
+
+  The full list is tiger's `missing-item` errors under `common/inventions`.
+- **"Invalid Deity" for KOR, KOM, ZEL and MAN at game start** (see section 6). Their setup matches Invictus; the cause wasn't found.
+- **12 `study_*_ways_of_war` decisions** are defined in both `TI_military_traditions.txt` and `integrated_culture_decisions_inv.txt`, and Invictus's copy wins. The two versions differ only in an AI exemption and a wider Persian culture check.
+- **Unwritten TI events** referenced by missions: `me_chinese_empire.1103/1104`, `me_honshu.30`, `me_louland.18`, `me_sapmi.1300`, `me_yue_state.1200`.
+- `iranian_influence` is never set, so the Persian tree's branch for it can't be met.
+- 8 impassable provinces log missing city locators (5278, 5299, 5380, 5970, 5971, 5981, 7296, 7801). This is harmless.
+
 ## Upstream (Invictus) bugs found
 These are worth reporting to Invictus. They're fixed in TI but still present in 1.12.0.1:
 - `events/dhe/dhe_mithridates.txt` and `events/bloodlines_startup_events.txt` use `char:97` for Mithridates, who is now 228.
 - In `setup/post_character/00_default.txt`, Alexander IV's `ruler_term` uses 291 (now Vakhsuvar); he is 557.
 - In `antigonid_missions_events_l_english.yml`, the Eumenes reference uses 408 (now Diotimos); he is 431.
+- `me_epirus_2_magna.txt` triggers `me_epirus_2_magna.333` five times, and `revolt_events_inv.txt` triggers `revolt_events.4`. Neither event exists.
 - `me_diadochi_empire.txt` references province 9768, and `me_patauion_02.txt` province 33595. Neither exists in Invictus.
