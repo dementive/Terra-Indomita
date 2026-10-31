@@ -173,7 +173,7 @@ widget = {
 					onclick = "[GetVariableSystem.Toggle('show_chinese_empire_window')]"
 					clicksound = "event:/SFX/Events/Generic/sfx_event_generic_happy"
 					oversound = "event:/SFX/UI/Generic/sfx_ui_generic_mouse_over"
-					visible = "[Not(WarsOverviewWar.GetWar.IsCivilWar)]"
+					visible = "[And(Not(WarsOverviewWar.GetWar.IsCivilWar), Player.MakeScope.Var('mandate_variable').IsSet)]" # only countries in the Mandate of Heaven system
 					enabled = "[Not(GetVariableSystem.Exists('show_chinese_empire_window'))]"
 				}
 			}
