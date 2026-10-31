@@ -1,0 +1,58 @@
+﻿## If adding bloodlines no changes to this file are needed. Change bloodline_setup_effect in file common/scripted_effects/00_bloodlines_inheritance_inv.txt 
+
+namespace = bloodlines_setup_completion
+
+bloodlines_setup_completion.1 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+
+		bloodline_setup_effect = yes
+
+		if = {
+			limit = {
+				NOT = {
+					has_variable = run_two_more_times
+				} 
+				NOT = {
+					has_variable = run_one_more_time
+				}
+				NOT = {
+					has_variable = run_once
+				}
+			}
+			set_variable = run_two_more_times
+		}
+
+		else_if = {
+			limit = {
+				has_variable = run_two_more_times
+			}
+			set_variable = run_one_more_time
+			remove_variable = run_two_more_times
+		}
+
+		else_if = {
+			limit = {
+				has_variable = run_one_more_time
+			}
+			set_variable = run_once
+			remove_variable = run_one_more_time
+		}
+
+		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						has_variable = run_two_more_times
+						has_variable = run_one_more_time
+					}
+				}
+				trigger_event = {
+					id = bloodlines_setup_completion.1
+				}
+			}
+		}
+	}
+}

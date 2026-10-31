@@ -1,0 +1,73 @@
+﻿country_decisions = {
+
+	form_sardinia = {
+		potential = {
+			num_of_cities >= 1
+			OR = {
+				primary_culture = nuragic
+				primary_culture = corsian
+			}
+			NOT = {
+				tag = SAR
+			}
+			NOR = {
+				is_tier_2_formable_trigger = yes
+				is_endgame_tag_trigger = yes
+			}
+		}
+
+		highlight = {
+			scope:province = {
+				OR = {
+					is_in_area = sardinia_meridionalis
+					is_in_area = sardinia_septentrionalis
+				}
+			}
+		}
+
+		allow = {
+			custom_tooltip = {
+				text = formable_not_sardinia_exists
+				NOT = {
+					any_country = {
+						tag = SAR
+					}
+				}
+			}
+			can_form_nation_trigger = yes
+			owns_or_subject_owns_area = sardinia_septentrionalis
+			owns_or_subject_owns_area = sardinia_meridionalis
+		}
+
+		effect = {
+			custom_tooltip = "tier_2_formable_tooltip"
+			change_country_name = "SARDINIA_NAME"
+			tribal_formable_government_change_effect = yes
+			hidden_effect = {
+				change_country_adjective = "SARDINIA_ADJECTIVE"
+				change_country_tag = SAR
+				change_country_color = ultrasuperior_nuragic_choosen_by_sardo_himself_color
+				change_country_flag = SARDINIA_FLAG
+			}
+			if = {
+				limit = {
+					primary_culture = corsian
+				}
+				hidden_effect = {
+					change_country_flag = BAR2
+					change_country_color = "corsica_color"
+				}
+			}
+			capital_scope = {
+				capital_formable_tribal_effect = yes
+				formable_capital_modifier_tribal_effect = yes
+			}
+			add_3_free_province_investments = yes
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+}

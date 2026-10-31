@@ -1,0 +1,1009 @@
+﻿start_mission_ai_effect = {
+	if = {
+		limit = { has_variable = ai_mission_backout }
+		remove_variable = ai_mission_backout
+	}
+	set_variable = {
+		name = ai_mission_backout
+		days = 21900 # 60 years # defines how long after taking a mission the AI will automatically abort it
+	}
+}
+
+gm_1_list_effect = {
+	region:taurica_region = {
+		every_region_province = {
+			limit = { is_port = yes }
+			add_to_list = gm_1_list
+		}
+	}
+	region:colchis_region = {
+		every_region_province = {
+			limit = { is_port = yes } 
+			add_to_list = gm_1_list
+		}
+	}
+	region:scythia_region = {
+		every_region_province = {
+			limit = { 
+				is_port = yes
+			} 
+			add_to_list = gm_1_list
+		}
+	}
+	area:haemimontus_area  = {
+		every_area_province = {
+			limit = { is_port = yes } 
+			add_to_list = gm_1_list
+		}
+	}
+	area:moesia_orientalis_area  = {
+		every_area_province = {
+			limit = { is_port = yes } 
+			add_to_list = gm_1_list
+		}
+	}
+	area:scythia_area  = {
+		every_area_province = {
+			limit = { is_port = yes } 
+			add_to_list = gm_1_list
+		}
+	}
+	area:machelonia_area = {
+		every_area_province = {
+			limit = { is_port = yes }
+			add_to_list = gm_1_list
+		}
+	}
+	area:paphlagonia_inferior_area = {
+		every_area_province = {
+			limit = { is_port = yes }
+			add_to_list = gm_1_list
+		}
+	}
+	area:heracleotis_area = {
+		every_area_province = {
+			limit = { is_port = yes }
+			add_to_list = gm_1_list
+		}
+	}
+	area:bithynia_inferior_area = {
+		every_area_province = {
+			limit = { is_port = yes }
+			add_to_list = gm_1_list
+		}
+	}
+	area:bithynia_area = {
+		every_area_province = {
+			limit = { 
+				is_port = yes
+				NOR = {
+					province_id = 248
+				}
+			}
+			add_to_list = gm_1_list
+		}
+	}
+	area:europa_area = {
+		every_area_province = {
+			limit = { 
+				is_port = yes
+				NOR = {
+					province_id = 350
+					province_id = 347
+				}
+			}
+			add_to_list = gm_1_list
+		}
+	}
+}
+
+#gm_5_colony_scope_effect = { # UNUSED
+#	save_scope_as = gm_5_colony_target_scope
+#	trigger_event = { 
+#		id = me_greek_5_pontus.71
+#		days = { 5 10 }
+#	}
+#}
+
+gm_5_colony_option_effect = {
+	custom_tooltip = me_greek_5_pontus.7.tt
+    root = {
+	    change_variable = {
+	    	name = gm_colony_tracker
+	    	add = 3
+	    }
+	}
+}
+
+gm_5_bartering_portrait_effect = {
+	if = {
+		limit = {
+			exists = scope:gm_5_bartering_scope_2
+			NOT = { scope:gm_5_bartering_scope_2.owner = scope:gm_5_bartering_scope_1.owner }
+		}
+		scope:gm_5_bartering_scope_2.owner.current_ruler = { save_scope_as = gm_5_barter_portrait_scope_2 }
+	}
+	else_if = { 
+		limit = {
+			exists = scope:gm_5_bartering_scope_3
+			NOT = { scope:gm_5_bartering_scope_3.owner = scope:gm_5_bartering_scope_1.owner }
+		}
+		scope:gm_5_bartering_scope_3.owner.current_ruler = { save_scope_as = gm_5_barter_portrait_scope_2 }
+	}
+	else_if = { 
+		limit = {
+			exists = scope:gm_5_bartering_scope_4
+			NOT = { scope:gm_5_bartering_scope_4.owner = scope:gm_5_bartering_scope_1.owner }
+		}
+		scope:gm_5_bartering_scope_4.owner.current_ruler = { save_scope_as = gm_5_barter_portrait_scope_2 }
+	}
+	else_if = { 
+		limit = {
+			exists = scope:gm_5_bartering_scope_5
+			NOT = { scope:gm_5_bartering_scope_5.owner = scope:gm_5_bartering_scope_1.owner }
+		}
+		scope:gm_5_bartering_scope_5.owner.current_ruler = { save_scope_as = gm_5_barter_portrait_scope_2 }
+	}
+	else_if = { 
+		limit = {
+			exists = scope:gm_5_bartering_scope_6
+			NOT = { scope:gm_5_bartering_scope_6.owner = scope:gm_5_bartering_scope_1.owner }
+		}
+		scope:gm_5_bartering_scope_6.owner.current_ruler = { save_scope_as = gm_5_barter_portrait_scope_2 }
+	}
+	if = {
+		limit = {
+			exists = scope:gm_5_bartering_scope_3
+			NOR = { 
+				scope:gm_5_bartering_scope_3.owner = scope:gm_5_bartering_scope_1.owner
+				scope:gm_5_bartering_scope_3.owner = scope:gm_5_bartering_scope_2.owner
+			}
+		}
+		scope:gm_5_bartering_scope_3.owner.current_ruler = { save_scope_as = gm_5_barter_portrait_scope_3 }
+	}
+	else_if = {
+		limit = {
+			exists = scope:gm_5_bartering_scope_4
+			NOR = { 
+				scope:gm_5_bartering_scope_4.owner = scope:gm_5_bartering_scope_1.owner
+				scope:gm_5_bartering_scope_4.owner = scope:gm_5_bartering_scope_2.owner
+			}
+		}
+		scope:gm_5_bartering_scope_4.owner.current_ruler = { save_scope_as = gm_5_barter_portrait_scope_3 }
+	}
+	else_if = {
+		limit = {
+			exists = scope:gm_5_bartering_scope_5
+			NOR = { 
+				scope:gm_5_bartering_scope_5.owner = scope:gm_5_bartering_scope_1.owner
+				scope:gm_5_bartering_scope_5.owner = scope:gm_5_bartering_scope_2.owner
+			}
+		}
+		scope:gm_5_bartering_scope_5.owner.current_ruler = { save_scope_as = gm_5_barter_portrait_scope_3 }
+	}
+	else_if = {
+		limit = {
+			exists = scope:gm_5_bartering_scope_6
+			NOR = { 
+				scope:gm_5_bartering_scope_6.owner = scope:gm_5_bartering_scope_1.owner
+				scope:gm_5_bartering_scope_6.owner = scope:gm_5_bartering_scope_2.owner
+			}
+		}
+		scope:gm_5_bartering_scope_6.owner.current_ruler = { save_scope_as = gm_5_barter_portrait_scope_3 }
+	}
+}
+
+gm_5_barter_territory_effect = {
+	custom_tooltip = me_greek_5_pontus.121.tt
+    root = {
+	    change_variable = {
+	    	name = gm_bartering_tracker
+	    	add = 3
+	    }
+	}
+}
+
+#gm_5_barter_territory_scope_effect = { # UNUSED
+#	save_scope_as = gm_5_barter_target_territory
+#	owner = { 
+#		trigger_event = { 
+#			id = me_greek_5_pontus.122 
+#			days = { 5 10 }
+#		}
+#	}
+#}
+
+kushite_colony_specialization_effect = {
+	hidden_effect = {
+		remove_province_modifier = kushite_general_colony
+		switch = {
+		trigger = has_variable
+			kush_military_flag = {
+		    add_permanent_province_modifier = {
+		    name = kush_military_colony
+		    }
+		    remove_variable = kush_military_flag	        				
+			}
+			kush_civic_flag = {
+	        add_permanent_province_modifier = {
+	        name = kush_civic_colony
+	        }
+	        remove_variable = kush_civic_flag
+			}
+			kush_religious_flag = {
+	        add_permanent_province_modifier = {
+	        name = kush_religious_colony
+	        }
+	        remove_variable = kush_religious_flag
+			}
+			kush_trade_flag = {
+	        add_permanent_province_modifier = {
+	        name = kush_trade_colony
+	        }
+	        remove_variable = kush_trade_flag
+			}
+		}
+	}	
+}
+
+lepontic_mission_colonia_effect = {
+	save_scope_as = lepontic_colonia_scope
+	hidden_effect = {
+		ordered_pops_in_province = {
+			limit = {
+				NOR = { 
+					pop_culture = lepontic
+					pop_type = slaves
+					pop_type = tribesmen
+				}
+			}
+			order_by = pop_hapiness
+			max = {
+				value = total_population
+				divide = 5
+			}
+			check_range_bounds = no
+			set_pop_culture = lepontic
+		}
+	}
+	custom_tooltip = lepontic_conquest.poptt
+	if = {
+		limit = {
+			NOR = { 
+				has_province_rank = city 
+				has_province_rank = city_metropolis
+			} 
+		}
+		custom_tooltip = "time_to_complete_city_tt"
+		hidden_effect = {
+			add_province_modifier = {
+				name = founding_city_in_progress
+				duration = 730
+			}
+		}
+		trigger_event = {
+			id = state_improvement.6
+			days = 730
+		}
+	}
+	else = { 
+		hidden_effect = {
+			scope:lepontic_colonia_scope = {
+				create_state_pop = freemen
+				create_state_pop = freemen
+				create_state_pop = freemen
+				create_state_pop = freemen
+			}
+		}
+		custom_tooltip = lepontic_conquest.freepopstt
+	}
+}
+
+alexanders_vision_claim_effect = {
+	every_region = {
+		limit = {
+			NOR = {
+				this = region:tibet_region
+				this = region:himalayan_region
+				this = region:colchis_region
+				this = region:albania_region
+				this = region:sarmatia_asiatica_region
+				this = region:sakia_region
+				this = region:borysthenia_region
+				this = region:dacia_region
+				this = region:germania_region
+				this = region:scandinavia_region
+				this = region:venedia_region
+				this = region:bohemia_area
+				this = region:vistulia_region
+				this = region:central_asian_steppes_region # Sarmatia Ultima
+			}
+		}
+		every_region_province = {
+			limit = {
+				NOT = {
+					owner = root
+				}
+			}
+			add_claim = root
+		}
+	}
+}
+
+saba_decline_modifier_reduction_effect = {
+	if = {
+		limit = {
+			has_country_modifier = kingdom_in_decline
+		}
+		hidden_effect = {
+			remove_country_modifier = kingdom_in_decline
+			add_country_modifier = {
+				name = kingdom_in_decline_2
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = kingdom_in_decline_2
+		}
+		hidden_effect = { 
+			remove_country_modifier = kingdom_in_decline_2 
+			add_country_modifier = {
+				name = kingdom_in_decline_3
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = kingdom_in_decline_3
+		}
+		hidden_effect = { remove_country_modifier = kingdom_in_decline_3 }
+	}
+	else = {
+		hidden_effect = {
+			add_country_modifier = {
+				name = kingdom_restored
+				duration = -1
+			}
+		}
+	}
+}
+
+qataba_rise_modifier_addition_effect = {
+	if = {
+		limit = {
+			has_country_modifier = qataba_rise_in_power_1
+		}
+		hidden_effect = {
+			remove_country_modifier = qataba_rise_in_power_1
+			add_country_modifier = {
+				name = qataba_rise_in_power_2
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = qataba_rise_in_power_2
+		}
+		hidden_effect = { 
+			remove_country_modifier = qataba_rise_in_power_2 
+			add_country_modifier = {
+				name = qataba_rise_in_power_3
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = qataba_rise_in_power_3
+		}
+		hidden_effect = { 
+			remove_country_modifier = qataba_rise_in_power_3 
+			add_country_modifier = {
+				name = qataba_rise_in_power_4
+				duration = -1
+			}
+		}
+	}
+	else = {
+		hidden_effect = { 
+			add_country_modifier = {
+				name = qataba_rise_in_power_4
+				duration = -1
+			}
+		}
+	}
+}
+
+# Samnium Surrenders, Lucania does not
+samnium_separate_peace_effect = {
+	if = {
+		limit = {
+			c:SAM = {
+				any_owned_province = {
+					is_in_area = cannae_area
+				}
+			}
+		}
+		c:SAM = {
+			if = {
+				limit = {
+					c:APU = {
+						has_land = yes
+						is_target_in_global_variable_list = {
+							name = war_303_list
+							target = c:APU
+						}
+					}
+				}
+				every_owned_province = {
+					limit = {
+						is_in_area = cannae_area
+					}
+					set_owned_by = c:APU
+				}
+			}
+			else_if = {
+				limit = {
+					c:MSP = {
+						has_land = yes
+						is_target_in_global_variable_list = {
+							name = war_303_list
+							target = c:MSP
+						}
+					}
+				}
+				every_owned_province = {
+					limit = {
+						is_in_area = cannae_area
+					}
+					set_owned_by = c:MSP
+				}
+			}
+			else_if = { # "Fallback"
+				limit = {
+					c:TAR = {
+						has_land = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						is_in_area = cannae_area
+					}
+					set_owned_by = c:TAR
+				}
+			}
+		}
+	}
+	set_local_variable = {
+		name = samnium_war_rep_var
+		value = 0
+	}
+	every_in_global_list = { 
+		variable = war_303_list
+		limit = { # Lucania
+			NOR = {
+				tag = LCA
+				tag = SAM # Samnium should already be out of the list, but just in case
+			}
+		}
+		custom_tooltip = samnium_war_rep_tt
+		add_treasury = 25
+		add_political_influence = 50
+		change_local_variable = {
+			name = samnium_war_rep_var
+			add = 1
+		}
+	}
+	c:SAM = {
+		add_treasury = {
+			value = -25
+			multiply = local_var:samnium_war_rep_var
+		}
+		add_political_influence = -100 # not doing multiply bcs 50 pi each.... could be -200 or so
+		add_stability = -10 # just lost a war
+	}
+}
+
+# End of War if Lucania surrenders
+lucania_surrenders_peace_effect = {
+	if = {
+		limit = {
+			NOT = { has_global_variable = war_303_samnium_out } # Samnium already separate peaced
+		}
+		samnium_separate_peace_effect = yes # first part is the same as if Samnium peaced out separately
+	}
+	# Lucania stuff
+	if = {
+		limit = {
+			c:LCA = {
+				any_owned_province = {
+					is_in_area = cannae_area
+				}
+			}
+		}
+		c:LCA = {
+			if = { 
+				limit = {
+					c:TAR = {
+						has_land = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						is_in_area = cannae_area
+					}
+					set_owned_by = c:TAR
+				}
+			}
+			else_if = {
+				limit = {
+					c:APU = {
+						has_land = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						is_in_area = cannae_area
+					}
+					set_owned_by = c:APU
+				}
+			}
+			else_if = {
+				limit = {
+					c:MSP = {
+						has_land = yes
+					}
+				}
+				every_owned_province = {
+					limit = {
+						is_in_area = cannae_area
+					}
+					set_owned_by = c:MSP
+				}
+			}
+		}
+	}
+	set_local_variable = {
+		name = lucania_war_rep_var
+		value = 0
+	}
+	every_in_global_list = { 
+		variable = war_303_list
+		limit = { # Lucania
+			NOR = {
+				tag = LCA
+				tag = SAM # Samnium should already be out of the list, but just in case
+			}
+		}
+		custom_tooltip = lucania_war_rep_tt
+		add_treasury = 25
+		add_political_influence = 50
+		change_local_variable = {
+			name = lucania_war_rep_var
+			add = 1
+		}
+	}
+	c:LCA = {
+		add_treasury = {
+			value = -25
+			multiply = local_var:lucania_war_rep_var
+		}
+		add_political_influence = -100 # not doing multiply bcs 50 pi each.... could be -200 or so
+		add_stability = -10 # just lost a war
+	}
+}
+
+war_303_coalition_surrender_effect = {
+	# No Separate Peaces here
+	set_global_variable = tarentum_lost_war
+	if = {
+		limit = {
+			c:APU = {
+				is_target_in_global_variable_list = {
+					name = war_303_list
+					target = c:APU
+				}
+				any_owned_province = {
+					is_in_area = cannae_area
+				}
+			}
+		}
+		c:APU = {
+			every_owned_province = {
+				limit = {
+					is_in_area = cannae_area
+				}
+				set_owned_by = c:LCA
+			}
+		}
+	}
+	c:SAM = {
+		if = {
+			limit = {
+				is_target_in_global_variable_list = {
+					name = war_303_list
+					target = c:SAM
+				}
+			}
+			add_treasury = 100
+			add_political_influence = 50
+		}
+	}
+	c:LCA = { # always in list if war exists
+		add_treasury = 100
+		add_political_influence = 50
+	}
+	c:TAR = {
+		add_treasury = -100
+		add_political_influence = -100
+	}
+	c:APU = {
+		if = {
+			limit = {
+				is_target_in_global_variable_list = {
+					name = war_303_list
+					target = c:APU
+				}
+			}
+			add_treasury = -50
+			add_political_influence = -50
+		}
+	}
+	c:MSP = {
+		if = {
+			limit = {
+				is_target_in_global_variable_list = {
+					name = war_303_list
+					target = c:MSP
+				}
+			}
+			add_treasury = -50
+			add_political_influence = -50
+		}
+	}
+}
+
+turdetanian_mission_01_sons_baetica_inv_variable_cleanup_effect = {
+	if = {
+		limit = {
+			has_variable = punic_priest_character_scope_variable
+		}
+		remove_variable = punic_priest_character_scope_variable
+	}
+	if = {
+		limit = {
+			has_variable = turdetanian_republic_variable
+		}
+		remove_variable = turdetanian_republic_variable
+	}
+	if = {
+		limit = {
+			has_variable = turdetanian_monarchy_variable
+		}
+		remove_variable = turdetanian_monarchy_variable
+	}
+	if = {
+		limit = {
+			has_variable = turdetanian_expansion_variable
+		}
+		remove_variable = turdetanian_expansion_variable
+	}
+	if = {
+		limit = {
+			has_variable = turdetanian_commerce_variable
+		}
+		remove_variable = turdetanian_commerce_variable
+	}
+	if = {
+		limit = {
+			has_variable = turdetanian_victim_scope_variable
+		}
+		remove_variable = turdetanian_victim_scope_variable
+	}
+}
+
+turdetanian_mission_02_heirs_tartessia_inv_variable_cleanup_effect = {
+	if = {
+		limit = {
+			has_variable = turdetanian_multilingual_bronzes_variable
+		}
+		remove_variable = turdetanian_multilingual_bronzes_variable
+	}
+	if = {
+		limit = {
+			has_variable = olisipo_territory_variable
+		}
+		remove_variable = olisipo_territory_variable
+	}
+}
+
+turdetanian_mission_03_conquerors_inv_variable_cleanup_effect = {
+	if = {
+		limit = {
+			has_variable = free_religion_conversion
+		}
+		remove_variable = free_religion_conversion
+	}
+}
+
+gadir_mission_01_beyond_pillars_inv_variable_cleanup_effect = {
+	
+}
+
+alexanders_empire_claim_effect = {
+	region:syria_region = { formable_region_province_effect = yes }
+	region:ariana_region = { formable_region_province_effect = yes }
+	region:bactriana_region = { formable_region_province_effect = yes }
+	region:media_region = { formable_region_province_effect = yes }
+	region:persis_region = { formable_region_province_effect = yes }
+	region:mesopotamia_region = { formable_region_province_effect = yes }
+	region:assyria_region = { formable_region_province_effect = yes }
+	region:bithynia_region = { formable_region_province_effect = yes }
+	region:cappadocia_region = { formable_region_province_effect = yes }
+	region:galatia_region = { formable_region_province_effect = yes }
+	region:cilicia_region = { formable_region_province_effect = yes }
+	region:asia_region = { formable_region_province_effect = yes }
+	region:palestine_region = { formable_region_province_effect = yes }
+	region:gandhara_region = { formable_region_province_effect = yes }
+	region:lower_egypt_region = { formable_region_province_effect = yes }
+	region:macedonia_region = { formable_region_province_effect = yes }
+	region:thrace_region = { formable_region_province_effect = yes }
+	region:moesia_region = { formable_region_province_effect = yes }
+	area:patalene_area = { formable_area_province_effect = yes }
+	area:north_sindhu_area = { formable_area_province_effect = yes }
+	area:south_sindhu_area = { formable_area_province_effect = yes }
+	area:sauvira_area = { formable_area_province_effect = yes }
+	region:syria_region = { formable_region_province_effect = yes }
+	region:ariana_region = { formable_region_province_effect = yes }
+	region:bactriana_region = { formable_region_province_effect = yes }
+	region:media_region = { formable_region_province_effect = yes }
+	region:persis_region = { formable_region_province_effect = yes }
+	region:mesopotamia_region = { formable_region_province_effect = yes }
+	region:assyria_region = { formable_region_province_effect = yes }
+	region:bithynia_region = { formable_region_province_effect = yes }
+	region:cappadocia_region = { formable_region_province_effect = yes }
+	region:galatia_region = { formable_region_province_effect = yes }
+	region:cilicia_region = { formable_region_province_effect = yes }
+	region:asia_region = { formable_region_province_effect = yes }
+	region:palestine_region = { formable_region_province_effect = yes }
+	region:lower_egypt_region = { formable_region_province_effect = yes }
+	region:macedonia_region = { formable_region_province_effect = yes }
+	region:thrace_region = { formable_region_province_effect = yes }
+	region:moesia_region = { formable_region_province_effect = yes }
+	region:gandhara_region = { formable_region_province_effect = yes }
+	area:aswan_area = { formable_area_province_effect = yes }
+	area:ammon_area = { formable_area_province_effect = yes }
+	area:marmarica_orientalis_area = { formable_area_province_effect = yes }
+	area:myos_hormos_area = { formable_area_province_effect = yes }
+	area:luxor_area = { formable_area_province_effect = yes }
+	area:troglodytica_area = { formable_area_province_effect = yes }
+	area:khargana_area = { formable_area_province_effect = yes }
+	area:kharga_area = { formable_area_province_effect = yes }
+	area:farfara_area = { formable_area_province_effect = yes }
+	area:hema_nome_area = { formable_area_province_effect = yes }
+	area:cyropolis_area = { formable_area_province_effect = yes }
+	area:sogdiana_area = { formable_area_province_effect = yes }
+	area:jaxartia_area = { formable_area_province_effect = yes }
+	area:ferghana_area = { formable_area_province_effect = yes }
+	area:hyrcania_area = { formable_area_province_effect = yes }
+	area:parthia_komishene_area = { formable_area_province_effect = yes }
+	area:parthia_area = { formable_area_province_effect = yes }
+	area:vishpauzatis_area = { formable_area_province_effect = yes }
+	area:margu_area = { formable_area_province_effect = yes }
+	area:epirus_area = { formable_area_province_effect = yes }
+	area:aetolia_area = { formable_area_province_effect = yes }
+	area:boeotia_area = { formable_area_province_effect = yes }
+	area:euboea_area = { formable_area_province_effect = yes }
+	area:aegean_islands_area = { formable_area_province_effect = yes }
+	area:central_greece_area = { formable_area_province_effect = yes }
+	area:achaea_area = { formable_area_province_effect = yes }
+	area:arcadia_area = { formable_area_province_effect = yes }	
+	area:south_peleponnesos_area = { formable_area_province_effect = yes }	
+	area:patalene_area = { formable_area_province_effect = yes }
+	area:north_sindhu_area = { formable_area_province_effect = yes }
+	area:south_sindhu_area = { formable_area_province_effect = yes }
+	area:sauvira_area = { formable_area_province_effect = yes }
+	area:aswan_area = { formable_area_province_effect = yes }
+	area:ammon_area = { formable_area_province_effect = yes }
+	area:marmarica_orientalis_area = { formable_area_province_effect = yes }
+	area:myos_hormos_area = { formable_area_province_effect = yes }
+	area:luxor_area = { formable_area_province_effect = yes }
+	area:troglodytica_area = { formable_area_province_effect = yes }
+	area:khargana_area = { formable_area_province_effect = yes }
+	area:kharga_area = { formable_area_province_effect = yes }
+	area:farfara_area = { formable_area_province_effect = yes }
+	area:hema_nome_area = { formable_area_province_effect = yes }
+	area:cyropolis_area = { formable_area_province_effect = yes }
+	area:sogdiana_area = { formable_area_province_effect = yes }
+	area:jaxartia_area = { formable_area_province_effect = yes }
+	area:ferghana_area = { formable_area_province_effect = yes }
+	area:hyrcania_area = { formable_area_province_effect = yes }
+	area:parthia_komishene_area = { formable_area_province_effect = yes }
+	area:parthia_area = { formable_area_province_effect = yes }
+	area:vishpauzatis_area = { formable_area_province_effect = yes }
+	area:margu_area = { formable_area_province_effect = yes }
+	area:epirus_area = { formable_area_province_effect = yes }
+	area:aetolia_area = { formable_area_province_effect = yes }
+	area:boeotia_area = { formable_area_province_effect = yes }
+	area:euboea_area = { formable_area_province_effect = yes }
+	area:aegean_islands_area = { formable_area_province_effect = yes }
+	area:central_greece_area = { formable_area_province_effect = yes }
+	area:achaea_area = { formable_area_province_effect = yes }
+	area:arcadia_area = { formable_area_province_effect = yes }	
+	area:south_peleponnesos_area = { formable_area_province_effect = yes }
+}
+
+igk_border_settlement_effect = { #province scope
+	custom_tooltip = "igk_border_settlement_effect_tt"
+	hidden_effect = {
+		create_state_pop = tribesmen
+		create_state_pop = tribesmen
+		create_state_pop = tribesmen
+		create_state_pop = tribesmen
+		create_state_pop = tribesmen
+		create_state_pop = tribesmen
+		add_province_modifier = {
+			name = igk_border_settlement_modifier
+			duration = 10950 #30 years
+		}
+	}
+}
+
+igk_gen_forged_document_effect = {
+	create_country_treasure = {
+		key = "igk_mauryan_records_fake"
+		icon = "old_script_3"
+		modifier = {
+			local_output_modifier = -0.05
+		}
+	}
+}
+
+igk_gen_real_document_effect = {
+	create_country_treasure = {
+		key = "igk_mauryan_records"
+		icon = "old_script_3"
+		modifier = {
+			local_output_modifier = 0.05
+		}
+	}
+}
+
+igk_select_country_with_mp_bias_effect = {
+		random_country = {
+			limit = {
+				is_ai = no
+				NOT = {
+					tag = IGK
+				}
+				#count = 1
+			}
+			save_scope_as = igk_scam_target
+		}
+		if = {
+			limit = { NOT = { exists = scope:igk_scam_target } }
+			random_neighbour_country = {
+				#limit = {
+					#count = 1
+				#}
+				save_scope_as = igk_scam_target
+			}
+		}
+}
+
+change_religion_effect_igk = { #Same as change_religion_effect, but only with -25 PI instead of -200
+	custom_tooltip = religion_conversion_tooltip
+	custom_tooltip = religion_conversion_family_tooltip
+	if = {
+		limit = { 
+			is_republic = yes
+			has_party_type = traditionalist_party
+		}
+		add_party_approval = {
+			party_type = traditionalist_party
+			value = -10
+		}
+	}
+	if = {
+		limit = { 
+			is_republic = yes
+			has_party_type = boni_party
+		}
+		add_party_approval = {
+			party_type = boni_party
+			value = -10
+		}
+	}
+	if = {
+		limit = {
+			# Set this variable in events so costs can be handled outside of this effect
+			NOT = { has_variable = free_religion_conversion }
+		}
+		add_political_influence = -25
+		add_stability = -30
+	}
+	add_country_modifier = {
+		name = "recent_convert_modifier"
+		duration = 3650
+	}
+	set_country_religion = $RELIGION$
+	current_ruler = {
+		if = {
+			limit = {
+				NOT = { has_religion = $RELIGION$ }
+			}
+			set_character_religion = $RELIGION$
+		}
+	}
+	hidden_effect = {
+		every_character = {
+			limit = { NOT = { has_same_religion_as = employer.current_ruler } }
+			add_loyalty = national_conversion_l
+		}
+		current_ruler.family = {
+			every_family_member = {
+				limit = {
+					employer = ROOT
+					loyalty >= 60
+					NOT = { has_religion = $RELIGION$ }
+				}
+				set_character_religion = $RELIGION$
+			}
+		}
+	}
+	ordered_character = {
+		limit = {
+			loyalty >= 60
+			NOT = { has_religion = $RELIGION$ }
+			is_ruler = no
+			from_ruler_family = no
+		}
+		max = 6
+		order_by = prominence
+		check_range_bounds = no
+		set_character_religion = $RELIGION$
+	}
+	if = {
+		limit = {
+			has_senate_approval < 60
+			is_republic = yes
+			NOT = { has_variable = dictatorship_enabled }
+		}
+		add_tyranny = {
+			# Calculates the percentage of disapproval
+			value = 0.6 # -- SENATE_REQUIRED_APPROVAL_WITHOUT_PENALTIES
+			subtract = has_senate_approval
+			divide = 0.3 # -- SENATE_REQUIRED_APPROVAL
+			
+			# This is the real value that you want for 100% of the effect
+			multiply = 20
+		}
+	}
+}
+
+# Armenian Culture Points
+persian_culture_point_effect = {
+	custom_tooltip = add_persian_points_tt
+	change_variable = {
+		name = persian_culture_points
+		add = 1
+	}
+}
+hellenic_culture_point_effect = {
+	custom_tooltip = add_hellenic_points_tt
+	change_variable = {
+		name = hellenic_culture_points
+		add = 1
+	}
+}
+armenian_culture_point_effect = {
+	custom_tooltip = add_armenian_points_tt
+	change_variable = {
+		name = armenian_culture_points
+		add = 1
+	}
+}

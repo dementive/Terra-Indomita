@@ -1,0 +1,107 @@
+﻿country_decisions = {
+	form_pong = {
+		
+		potential = {
+			num_of_cities >= 1
+			primary_culture = shan
+			NOT = {
+				tag = POG
+			}
+			OR = {
+				is_ai = no
+				num_of_cities >= 6
+			}
+			NOR = {
+				is_tier_1_formable_trigger = yes
+				is_tier_2_formable_trigger = yes
+				is_endgame_tag_trigger = yes
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 9796
+					province_id = 9791
+					province_id = 11076
+					province_id = 11075
+					province_id = 11078
+					province_id = 11076
+					province_id = 11079
+					province_id = 11077
+					province_id = 11077
+					province_id = 9405
+					province_id = 9795
+					province_id = 9795
+					province_id = 9405
+					province_id = 8955
+					province_id = 11072
+					province_id = 11073
+					province_id = 11074
+				}
+			}
+		}
+		
+		allow = {
+			custom_tooltip = {
+				text = formable_not_pong_exists
+				NOT = {
+					any_country = {
+						num_of_cities >= 1
+						tag = POG
+					}
+				}
+			}
+			can_form_nation_trigger = yes
+			owns_or_subject_owns = 9796
+			owns_or_subject_owns = 9791
+			owns_or_subject_owns = 11076
+			owns_or_subject_owns = 11075
+			owns_or_subject_owns = 11078
+			owns_or_subject_owns = 11076
+			owns_or_subject_owns = 11079
+			owns_or_subject_owns = 11077
+			owns_or_subject_owns = 11077
+			owns_or_subject_owns = 9405
+			owns_or_subject_owns = 9795
+			owns_or_subject_owns = 9795
+			owns_or_subject_owns = 9405
+			owns_or_subject_owns = 8955
+			owns_or_subject_owns = 11072
+			owns_or_subject_owns = 11073
+			owns_or_subject_owns = 11074
+		}
+		
+		effect = {
+			custom_tooltip = "tier_1_formable_tooltip"
+			change_country_name = "PONG_NAME"
+			if = {
+				limit = { is_tribal = yes }
+				add_country_modifier = {
+					name = civilized_tribe
+					duration = 5475
+				}
+				change_government = tribal_federation
+				switch_government_type_event_clearup_effect = yes
+			}
+			hidden_effect = {
+				change_country_adjective = "PONG_ADJECTIVE"
+				change_country_color =  "pong_color"
+				change_country_tag = POG
+				change_country_flag = PONG_FLAG					
+			}
+			capital_scope = {
+				establish_city_effect = yes
+				capital_formable_tribal_effect = yes
+				formable_capital_modifier_tribal_effect = yes
+			}
+			add_2_free_province_investments = yes
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+} 
+

@@ -1,0 +1,77 @@
+﻿is_obsessive = {
+	scope = character
+
+	is_shown = {
+		has_trait = obsessive
+	}
+}
+
+is_intelligent = {
+	scope = character
+
+	is_shown = {
+		has_trait = intelligent
+	}
+}
+
+is_polymath = {
+	scope = character
+
+	is_shown = {
+		has_trait = polymath
+	}
+}
+
+is_scholar = {
+	scope = character
+
+	is_shown = {
+		has_trait = scholar
+	}
+}
+
+is_eccentric = {
+	scope = character
+
+	is_shown = {
+		has_trait = eccentric
+	}
+}
+
+give_up_claims = {
+	scope = country
+
+
+	confirm_title = "give_up_claims"
+	confirm_text = "give_up_claims_confirm"
+
+	saved_scopes = {
+		target
+	}
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_valid = {
+		in_diplomatic_range = scope:target
+		NOT = {
+			scope:target = root
+		}
+		# scope:target = {
+		# 	has_opinion = { modifier = opinion_they_have_casus_belli target = root }
+		# }
+	}
+
+	# is_shown = {
+	#
+	# }
+
+	effect = {
+		scope:target = {
+			every_owned_province = {
+				remove_claim = root
+			}
+		}
+	}
+}

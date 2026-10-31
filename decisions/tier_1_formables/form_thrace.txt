@@ -1,0 +1,113 @@
+﻿country_decisions = {
+	# finally works
+	form_thrace = {
+		potential = {
+			OR = {
+				primary_culture = odrysi
+				primary_culture = triballoi
+				primary_culture = moesi				
+			}
+			
+			num_of_cities >= 1
+			NOR = {
+				is_tier_1_formable_trigger = yes
+				is_tier_2_formable_trigger = yes
+				is_endgame_tag_trigger = yes
+			}
+			NOT = {
+				tag = OYK
+			}
+		}
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 478 #Seuthopolis
+					province_id = 480 #Mesembria
+					province_id = 350 #Lysimacheia
+					province_id = 362 #Abdera
+					province_id = 4217 #Ratiaria
+					province_id = 4516 #Argamum				
+
+				}
+			}
+		}
+		allow = {
+			war = no
+			custom_tooltip = {
+				text = formable_not_thrace_exists
+				NOT = {
+					any_country = {
+						tag = OYK
+					}
+				}
+			}
+			owns_or_subject_owns = 478 #Seuthopolis
+			owns_or_subject_owns = 480 #Mesembria
+			owns_or_subject_owns = 350 #Lysimacheia
+			owns_or_subject_owns = 362 #Abdera
+			owns_or_subject_owns = 4217 #Ratiaria
+			owns_or_subject_owns = 4516 #Argamum
+		}
+		effect = {
+			custom_tooltip = "tier_1_formable_tooltip"
+			change_country_name = "THRACIA_NAME"
+		    current_ruler = { 
+		    	if = {
+		    		limit = {
+		    			NOT = { has_trait = blood_of_teres }
+		    		}
+		    		add_trait = blood_of_teres # Ruler trait
+		    		hidden_effect = {
+			    		if = {
+			    			limit = {
+			    				num_of_children > 0
+			    				any_child = {
+			    					is_alive = yes
+			    					NOT = { has_trait = blood_of_teres }
+			    				}
+			    			}
+			    			every_child = { # Children of ruler
+			    				limit = {
+			    					is_alive = yes
+			    					NOT = { has_trait = blood_of_teres }
+			    				}
+			    				add_trait = blood_of_teres
+			    				if = {
+				        			limit = {
+				        				num_of_children > 0
+				        				any_child = {
+				        					is_alive = yes
+				        					NOT = { has_trait = blood_of_teres }
+				        				}
+				        			}
+				        			every_child = { # Children of ruler's children
+				        				limit = {
+				        					is_alive = yes
+				        					NOT = { has_trait = blood_of_teres }
+				        				}
+				        				add_trait = blood_of_teres
+				        			}
+				        		}
+			    			}
+			    		}
+			    	}
+		    	}
+	   		}
+			tribal_formable_government_change_effect = yes
+			hidden_effect = {
+				change_country_adjective = "THRACIA_ADJECTIVE"
+				change_country_color = "odryssian_kingdom_color"
+				change_country_flag = THRACIA_FLAG
+				change_country_tag = OYK
+			}
+			capital_scope = {
+				capital_formable_tribal_effect = yes
+				formable_capital_modifier_tribal_effect = yes
+			}
+			add_2_free_province_investments = yes
+		}
+		ai_will_do = {
+			base = 1
+		}
+	}
+}

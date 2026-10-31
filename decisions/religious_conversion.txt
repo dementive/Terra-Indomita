@@ -1,0 +1,1193 @@
+﻿#Rules for religious conversions can be found in 00_religions in common/scripted_triggers, the effect for changing religion is in common/00_religions in scripted_effects.
+
+country_decisions = {
+	
+	convert_to_buddhist = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = buddhism
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = buddhism
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = buddhism
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = buddhism
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					tag = MRY
+				}
+				NOT = {
+					tag = BAC
+				}
+			}
+		}
+	}
+	
+	convert_to_jainism = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = jainism
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = jainism
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = jainism
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = jainism
+				}
+			}
+		}
+	}
+	
+	convert_to_hinduism = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = hindu
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = hindu
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = hindu
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = hindu
+				}
+			}
+		}
+	}
+	
+	convert_to_kemeticism = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = egyptian_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = egyptian_pantheon
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = egyptian_pantheon
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = egyptian_pantheon
+				}
+			}
+		}
+	}
+	
+	convert_to_hellenic = {
+		
+		potential = {
+			num_of_cities >= 1
+			NOT = {
+				religion = italic_pantheon
+			}
+			potential_change_religion_trigger = {
+				RELIGION = roman_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = roman_pantheon
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = roman_pantheon
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = roman_pantheon
+				}
+			}
+		}
+	}
+	
+	convert_to_canaanite = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = carthaginian_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = carthaginian_pantheon
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = carthaginian_pantheon
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = carthaginian_pantheon
+				}
+			}
+		}
+	}
+	
+	convert_to_shamanism = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = shamanism
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = shamanism
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = shamanism
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = shamanism
+				}
+			}
+		}
+	}
+	
+	convert_to_caucasian_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = caucasian_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = caucasian_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = caucasian_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = caucasian_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_mesopotamian_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = mesopotamian_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = mesopotamian_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = mesopotamian_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = mesopotamian_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_armenian_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = armenian_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = armenian_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = armenian_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = armenian_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_anahitic_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = anahitic_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = anahitic_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = anahitic_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = anahitic_religion
+				}
+			}
+		}
+	}
+
+	convert_to_anatolian_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = anatolian_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = anatolian_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = anatolian_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = anatolian_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_druidism = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = druidism
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = druidism
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = druidism
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = druidism
+				}
+			}
+		}
+	}
+	
+	convert_to_animism = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = animism
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = animism
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = animism
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = animism
+				}
+			}
+		}
+	}
+	
+	convert_to_judaism = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = judaism
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = judaism
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = judaism
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = judaism
+				}
+			}
+		}
+	}
+	
+	convert_to_zoroastrianism = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = zoroaster
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = zoroaster
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = zoroaster
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = zoroaster
+				}
+			}
+		}
+	}
+	
+	convert_to_berber_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = berber_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = berber_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = berber_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = berber_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_germanic_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = germanic_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = germanic_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = germanic_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = germanic_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_indo_iranian_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = indo_iranian_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = indo_iranian_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = indo_iranian_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = indo_iranian_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_arabian_pantheon = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = arabian_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = arabian_pantheon
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = arabian_pantheon
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = arabian_pantheon
+				}
+			}
+		}
+	}
+	
+	convert_to_eastern_animism = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = eastern_animism
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = eastern_animism
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = eastern_animism
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = eastern_animism
+				}
+			}
+		}
+	}
+	
+	convert_to_bon_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = bon_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = bon_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = bon_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = bon_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_matrist_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = matrist_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = matrist_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = matrist_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = matrist_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_pre_indo_european_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = pre_indo_european_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = pre_indo_european_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = pre_indo_european_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = pre_indo_european_religion
+				}
+			}
+		}
+	}
+	
+	convert_to_puntic_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = puntic_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = puntic_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = puntic_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = puntic_religion
+				}
+			}
+		}
+	}
+
+	convert_to_italic_pantheon = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = italic_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = italic_pantheon
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = italic_pantheon
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = italic_pantheon
+				}
+			}
+		}
+	}
+
+	convert_to_illyrian_pantheon = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = illyrian_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = illyrian_pantheon
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = illyrian_pantheon
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = illyrian_pantheon
+				}
+			}
+		}
+	}
+
+	convert_to_agama = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = agama
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = agama
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = agama
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = agama
+				}
+			}
+		}
+	}
+
+	convert_to_ajivika = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = ajivika
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = ajivika
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = ajivika
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = ajivika
+				}
+			}
+		}
+	}
+
+	convert_to_burmese_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = burmese_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = burmese_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = burmese_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = burmese_religion
+				}
+			}
+		}
+	}
+	convert_to_vaksh_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = vaksh_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = vaksh_religion
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = vaksh_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = vaksh_religion
+				}
+			}
+		}
+	}
+	convert_to_nilotic_pantheon = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = nilotic_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = nilotic_pantheon
+			}
+		}
+		
+		effect = {
+			change_religion_effect = {
+				RELIGION = nilotic_pantheon
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = nilotic_pantheon
+				}
+			}
+		}
+	}
+	convert_to_nuragic_pantheon = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = nuragic_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = nuragic_pantheon
+			}
+		}
+
+		effect = {
+			change_religion_effect = {
+				RELIGION = nuragic_pantheon
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = nuragic_pantheon
+				}
+			}
+		}
+	}
+	convert_to_mithra_religion = {
+		
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = mithra_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = mithra_religion
+			}
+		}
+
+		effect = {
+			change_religion_effect = {
+				RELIGION = mithra_religion
+			}
+		}
+		
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = mithra_religion
+				}
+			}
+		}
+	}
+	convert_to_uralic_pantheon = {
+
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = uralic_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = uralic_pantheon
+			}
+		}
+
+		effect = {
+			change_religion_effect = {
+				RELIGION = uralic_pantheon
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = uralic_pantheon
+				}
+			}
+		}
+	}
+	convert_to_hurrian_pantheon = {
+
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = hurrian_pantheon
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = hurrian_pantheon
+			}
+		}
+
+		effect = {
+			change_religion_effect = {
+				RELIGION = hurrian_pantheon
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = hurrian_pantheon
+				}
+			}
+		}
+	}
+	convert_to_hatti_religion = {
+
+		potential = {
+			num_of_cities >= 1
+			potential_change_religion_trigger = {
+				RELIGION = hatti_religion
+			}
+		}
+
+		allow = {
+			could_change_religion_trigger = {
+				RELIGION = hatti_religion
+			}
+		}
+
+		effect = {
+			change_religion_effect = {
+				RELIGION = hatti_religion
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				capital_scope = {
+					dominant_province_religion = hatti_religion
+				}
+			}
+		}
+	}
+}

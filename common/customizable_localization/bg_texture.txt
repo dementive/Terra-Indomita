@@ -1,0 +1,451 @@
+﻿
+character_bg = {
+	type = character
+
+	text = {
+		localization_key = background_ruler_monarchy_wartent_antigonids
+		trigger = {
+			is_general = yes
+			is_ruler = yes
+			employer = c:PRY
+		}
+	}
+	text = {
+		localization_key = background_monarchy_wartent_antigonids
+		trigger = {
+			is_general = yes
+			is_ruler = no
+			employer = c:PRY
+		}
+	}
+	text = {
+		localization_key = background_ruler_republic_wartent_roman
+		trigger = {
+			is_general = yes
+			employer = c:ROM
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_wartent_egypt
+		trigger = {
+			is_general = yes
+			is_ruler = yes
+			employer = c:EGY
+		}
+	}
+	text = {
+		localization_key = background_monarchy_wartent_egypt
+		trigger = {
+			is_general = yes
+			is_ruler = no
+			employer = c:EGY
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_wartent_macedon
+		trigger = {
+			is_general = yes
+			employer = c:MAC
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_wartent_thrace
+		trigger = {
+			is_general = yes
+			is_ruler = yes
+			employer = c:TRE
+		}
+	}
+	text = {
+		localization_key = background_monarchy_wartent_thrace
+		trigger = {
+			is_general = yes
+			is_ruler = no
+			employer = c:TRE
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_wartent_seleucid
+		trigger = {
+			is_general = yes
+			employer = c:SEL
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_wartent_maurya
+		trigger = {
+			is_general = yes
+			employer = c:MRY
+		}
+	}
+	text = {
+		localization_key = background_ruler_republic_wartent_carthage
+		trigger = {
+			is_general = yes
+			is_ruler = yes
+			employer = c:CAR
+		}
+	}
+	text = {
+		localization_key = background_republic_wartent_carthage
+		trigger = {
+			is_general = yes
+			is_ruler = no
+			employer = c:CAR
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_wartent_generic
+		trigger = {
+			is_general = yes
+			employer = {
+				is_monarchy = yes
+			}
+		}
+	}
+	text = {
+		localization_key = background_ruler_tribal_wartent_generic
+		trigger = {
+			is_general = yes
+			employer = {
+				is_tribal = yes
+			}
+		}
+	}
+	text = {
+		localization_key = background_ruler_republic_wartent_generic
+		trigger = {
+			is_general = yes
+			employer = {
+				is_republic = yes
+			}
+		}
+	}
+	text = {
+		localization_key = background_ruler_republic_rome
+		trigger = {
+			OR = {
+				has_any_office = yes
+				has_tech_office = yes
+				is_ruler = yes
+			}
+			employer = c:ROM
+			is_general = no
+			is_admiral = no
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_parthia
+		trigger = {
+			OR = {
+				is_ruler = yes
+				is_co_ruler = yes
+			}
+			employer = c:PAR
+			is_general = no
+			is_admiral = no
+		}
+	}
+
+	text = {
+		localization_key = background_ruler_persian
+		trigger = {
+			OR = {
+				has_any_office = yes
+				is_governor = yes
+				is_ruler = yes
+				is_co_ruler = yes
+				has_tech_office = yes
+				is_clan_chief = yes
+				AND = {
+					employer = { is_monarchy = yes }
+					this = employer.consort
+				}
+			}
+			this.culture.culture_group = culture_group:persia
+			is_general = no
+			is_admiral = no
+		}
+	}
+
+	text = {
+		localization_key = background_ruler_monarchy_wartent_india
+		trigger = {
+			OR = {
+				has_any_office = yes
+				has_tech_office = yes
+				is_governor = yes
+				is_ruler = yes
+				is_co_ruler = yes
+				is_clan_chief = yes
+				AND = {
+					employer = { is_monarchy = yes }
+					this = employer.consort
+				}
+			}
+			this.culture.culture_group = culture_group:indian
+		}
+	}
+
+	text = {
+		localization_key = background_ruler_monarchy_india
+		trigger = {
+			OR = {
+				has_any_office = yes
+				has_tech_office = yes
+				is_governor = yes
+				is_ruler = yes
+				is_co_ruler = yes
+				is_clan_chief = yes
+				AND = {
+					employer = { is_monarchy = yes }
+					this = employer.consort
+				}
+			}
+			employer = { NOT = { tag = MRY } }
+			OR = {
+				this.culture.culture_group = culture_group:aryan
+				this.culture.culture_group = culture_group:pracyan
+			}
+		}
+	}
+
+	text = {
+		localization_key = background_ruler_steppe
+		trigger = {
+			OR = {
+				has_any_office = yes
+				is_governor = yes
+				is_ruler = yes
+				is_co_ruler = yes
+				has_tech_office = yes
+				is_clan_chief = yes
+			}
+			employer = {
+				is_tribal = yes
+			}
+			OR = {
+				this.culture.culture_group = culture_group:scythia
+				this.culture.culture_group = culture_group:scythian_east
+			}
+		}
+	}
+	text = {
+		localization_key = background_nubian
+		trigger = {
+			OR = {
+				has_any_office = yes
+				is_governor = yes
+				is_ruler = yes
+				is_co_ruler = yes
+				has_tech_office = yes
+				is_clan_chief = yes
+			}
+			this.culture.culture_group = culture_group:meroitic_group
+		}
+	}
+	text = {
+		localization_key = background_city_knossos
+		trigger = {
+			is_at_location = p:358
+		}
+	}
+
+	text = {
+		localization_key = background_ruler_monarchy_alexandria
+		trigger = {
+			is_at_location = p:516
+			is_ruler = yes
+		}
+	}
+	text = {
+		localization_key = background_monarchy_alexandria
+		trigger = {
+			is_at_location = p:516
+			is_ruler = no
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_babylon
+		trigger = {
+			is_at_location = p:918
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_memphis
+		trigger = {
+			OR = {
+				is_at_location = p:536
+				is_at_location = p:500
+			}
+		}
+	}
+	text = {
+		localization_key = background_ruler_athens
+		trigger = {
+			is_at_location = p:416
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_pella
+		trigger = {
+			OR = {
+				is_at_location = p:428
+				is_at_location = p:379
+			}
+		}
+	}
+	text = {
+		localization_key = background_city_republic_rome
+		trigger = {
+			is_at_location = p:1
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_seleukid
+		trigger = {
+			is_at_location = p:911
+			is_ruler = yes
+		}
+	}
+	text = {
+		localization_key = background_monarchy_seleukid
+		trigger = {
+			is_at_location = p:911
+			is_ruler = no
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_thrace
+		trigger = {
+			is_at_location = p:350
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_antigonid
+		trigger = {
+			is_at_location = p:790
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_sparta
+		trigger = {
+			is_at_location = p:427
+			is_ruler = yes
+		}
+	}
+	text = {
+		localization_key = background_monarchy_sparta
+		trigger = {
+			is_at_location = p:427
+			is_ruler = no
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_argos
+		trigger = {
+			is_at_location = p:440
+			is_ruler = yes
+		}
+	}
+	text = {
+		localization_key = background_monarchy_argos
+		trigger = {
+			is_at_location = p:440
+			is_ruler = no
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_olympia
+		trigger = {
+			is_at_location = p:439
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_korinth
+		trigger = {
+			is_at_location = p:418
+			is_ruler = yes
+		}
+	}
+	text = {
+		localization_key = background_monarchy_korinth
+		trigger = {
+			is_at_location = p:418
+			is_ruler = no
+		}
+	}
+	text = {
+		localization_key = background_city_republic_carthage
+		trigger = {
+			is_at_location = p:3256
+			is_general = no
+			is_admiral = no
+		}
+	}
+	text = {
+		localization_key = background_city_rhodes_yesstatue
+		trigger = {
+			is_at_location = p:266
+			is_general = no
+			is_admiral = no
+		}
+	}
+	text = {
+		localization_key = background_city_rhodes_yesstatue_ruler
+		trigger = {
+			is_at_location = p:266
+			is_ruler = yes
+		}
+	}
+	text = {
+		localization_key = background_city_artemis_temple
+		trigger = {
+			is_at_location = p:290
+			is_general = no
+			is_admiral = no
+		}
+	}
+	text = {
+		localization_key = background_city_mausoleum
+		trigger = {
+			is_at_location = p:1981
+			is_general = no
+			is_admiral = no
+		}
+	}
+	text = {
+		localization_key = background_city_mausoleum_ruler
+		trigger = {
+			is_at_location = p:1981
+			is_ruler = yes
+		}
+	}
+	text = {
+		localization_key = background_city_jeruselum
+		trigger = {
+			is_at_location = p:687
+			is_general = no
+			is_admiral = no
+		}
+	}
+	text = {
+		localization_key = background_city_stonehenge
+		trigger = {
+			is_at_location = p:2012
+			is_general = no
+			is_admiral = no
+		}
+	}
+	text = {
+		localization_key = background_ruler_monarchy_maurya_capital
+		trigger = {
+			is_at_location = p:4440
+			is_general = no
+			is_admiral = no
+		}
+	}
+	text = {
+		localization_key = transparent_character_bg
+	}
+}

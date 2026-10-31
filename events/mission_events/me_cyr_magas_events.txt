@@ -1,0 +1,3440 @@
+﻿namespace = cyr_magas_01
+
+cyr_magas_01.1 = { # Task 1 - A New Governor for Cyrenaica - Start
+    type = country_event
+    title = cyr_magas_01.1.t
+    desc = cyr_magas_01.1.desc
+    picture = greek_court
+
+    trigger = {
+        is_subject = no        
+    }
+
+
+    option = {      
+        name = cyr_magas_01.1.a
+        c:EGY = {
+            add_opinion = {
+                modifier = requesting_govenor
+                target = ROOT
+            }
+        }
+    }
+}
+
+cyr_magas_01.2 = { # Task 1 - A New Governor for Cyrenaica - Magas Appointed
+    type = country_event
+    title = cyr_magas_01.2.t
+    desc = cyr_magas_01.2.desc
+    picture = diadochi_coronation
+    left_portrait = scope:cyr_magas_magas_scope
+    right_portrait = char:18 
+
+    trigger = {
+
+        c:CYR = { 
+            NOT ={
+                current_ruler = char:46
+            }
+        }
+        NOT = { 
+            char:46 = {is_alive = no} 
+        }
+    }
+
+
+    immediate = {
+        current_ruler = { save_scope_as = cyr_magas_old_ruler }
+    }
+
+    option = {      
+        name = cyr_magas_01.2.a
+        hidden_effect = {
+            scope:cyr_magas_magas_scope = {
+                remove_all_positions = yes
+                move_country = c:CYR
+                set_home_country = c:CYR
+                remove_character_modifier = foreign_citizen
+            }
+            scope:cyr_magas_magas_scope.spouse = {
+                remove_all_positions = yes
+                move_country = c:CYR
+                set_home_country = c:CYR
+                remove_character_modifier = foreign_citizen
+            }
+            c:EGY = {
+                every_character = {
+                    limit = {
+#                       has_father = yes
+#                       father = char:46
+						has_same_family = char:46
+						NOT = { THIS = char:18 }
+                    }
+                    remove_all_positions = yes
+                    move_country = c:CYR
+                    set_home_country = c:CYR
+                    remove_character_modifier = foreign_citizen
+					add_to_list = magid_family_list
+                }
+            }
+        }
+        set_as_ruler = scope:cyr_magas_magas_scope
+        create_family = scope:cyr_magas_magas_scope
+        c:EGY = {
+            make_subject = {
+                target = c:CYR
+                type = feudatory
+            }   
+        }
+		hidden_effect = {
+			every_living_character = {
+				limit = {
+					is_in_list = magid_family_list
+				}
+				set_family = char:46.family
+			}
+		}
+		scope:cyr_magas_magas_scope = {
+			family = { 
+				add_prestige = 2000 
+			}
+		}		
+    }
+}
+
+#cyr_magas_01.3 = { # Task 1 - A New Governor for Cyrenaica - End - Deprecated 
+#    type = country_event
+#    title = cyr_magas_01.3.t
+#    desc = cyr_magas_01.3.desc
+#    picture = greek_court
+#
+#    option = {      
+#        name = cyr_magas_01.3.a	
+#    }
+#}
+
+
+#cyr_magas_01.4 = { # Egyptian Ties- Alliance Broken - Deprecated
+#    type = country_event
+#    title = cyr_magas_01.4.t
+#    desc = cyr_magas_01.4.desc
+#    picture = greeks_marching
+#    
+#    trigger = {
+#        c:CYR = {
+#        has_country_modifier = independent_egyptian_subject
+#        }
+#        c:CYR = {
+#        NOT =  {alliance_with = c:EGY}
+#        }
+#    }
+#
+#    option = {      
+#        name = cyr_magas_01.4.a
+#        c:EGY ={
+#            declare_war_with_wargoal ={
+#                war_goal = conquer_wargoal
+#                province = c:CYR.capital_scope
+#                target = c:CYR
+#             }
+#        }
+#        c:EGY = {
+#            add_opinion = {
+#                modifier = cyr_independence_opinion
+#                target = ROOT
+#            }
+#        }
+#        c:CYR = {
+#            remove_country_modifier = independent_egyptian_subject
+#            
+#        }
+#
+#    }
+#}
+
+#cyr_magas_01.5 = { # Egyptian Ties- Tribute Demanded
+#    type = country_event
+#    title = cyr_magas_01.5.t
+#    desc = cyr_magas_01.5.desc
+#    picture = greek_court
+#    
+#    
+#    trigger = {
+#        Root = c:CYR
+#        Root = {has_country_modifier = independent_egyptian_subject}
+#        Root = {
+#            alliance_with = c:EGY
+#        }
+#    }
+#
+#    immediate ={
+#            random_country_state = {
+#                limit = {
+#                    has_state_food > 200
+#                }
+#               save_scope_as = CYR_EGY_food_tribute
+#            }
+#        
+#
+#    }
+#
+#    option = {      
+#        name = cyr_magas_01.5.a
+#
+#        scope:CYR_EGY_food_tribute = { add_state_food = -200}
+#        ROOT = {
+#
+#            add_treasury = {
+#                value = has_monthly_income
+#                multiply = -4
+#            }
+#            add_manpower = -5
+#        }
+#        
+#    }
+#
+#    option = {      
+#        name = cyr_magas_01.5.b
+#        ROOT = {break_alliance = c:EGY}
+#        c:EGY = {
+#            add_opinion = {
+#                modifier = CYR_egyptian_ties_denied
+#                target = ROOT
+#            }
+#        }
+#    }
+#}
+
+
+cyr_magas_01.6 = {               # Approaching Potential Allies 
+    type = country_event
+    title = cyr_magas_01.6.t
+    desc = cyr_magas_01.6.desc
+    picture = greek_court
+    
+    
+    trigger = {
+        Root = c:CYR
+        any_country = {
+            country_culture_group = hellenic 
+            num_of_cities >= 50
+            is_subject = no
+            NOT = {tag = EGY}
+            NOT = {has_variable = cyr_embassy_received}
+            NOT = {tag = CYR}            
+        }
+    }
+
+    immediate =  {       
+        random_country ={
+            limit = {
+                country_culture_group = hellenic 
+                num_of_cities >= 50
+                is_subject = no
+                NOT = {tag = EGY}
+                NOT = {has_variable = cyr_embassy_received}
+                NOT = {tag = CYR}
+            }
+            save_scope_as = magas_diplomacy_scope
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.6.a  # No involvement
+        
+        scope:magas_diplomacy_scope = {
+            add_opinion = {
+                modifier = CYR_indep_diplo_neg
+                target = ROOT
+            }
+            set_variable = {
+                name = cyr_embassy_received
+            }
+        }
+
+    }
+
+    option = {      
+        name = cyr_magas_01.6.b  # Basic Opinion bonus
+
+        scope:magas_diplomacy_scope = {
+            add_opinion = {
+                modifier = CYR_indep_diplo_small
+                target = ROOT
+            }
+            set_variable = cyr_embassy_received
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.6.c    # Large Opinion Bonus
+    
+        scope:magas_diplomacy_scope = {
+            add_opinion = {
+                modifier = CYR_indep_diplo_large
+                target = ROOT
+            }
+            set_variable = cyr_embassy_received
+        }
+        ROOT = {
+            add_treasury = {
+                value = has_monthly_income
+                multiply = -8
+            }
+        }
+
+    }
+
+}
+
+cyr_magas_01.7 = {              # Royal Marriage 
+    type = country_event
+    title = cyr_magas_01.7.t
+    desc = cyr_magas_01.7.desc
+    picture = religious_rite
+    left_portrait = scope:cyr_royal_marriage_groom
+    right_portrait = scope:cyr_royal_marriage_bride
+    
+    trigger = {
+
+   }
+
+    immediate ={       
+        root.current_ruler = {
+            save_scope_as = cyr_royal_marriage_groom 
+        }
+        scope:cyr_royal_marriage_country = {
+            random_character = {
+                limit = { 
+                   is_female = yes
+                   from_ruler_family = yes
+                   age < 30
+                   is_adult = yes
+                }
+                save_scope_as = cyr_royal_marriage_bride
+            }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.7.a
+        
+        scope:cyr_royal_marriage_bride = {  
+            if = {
+                limit = { is_married = yes }
+                spouse = { save_scope_as = cyr_royal_marriage_bride_spouse }
+                divorce_character = spouse
+            }
+            move_country = c:CYR
+            hidden_effect = { 
+                remove_character_modifier = foreign_citizen
+                set_home_country = c:CYR 
+                set_as_minor_character = scope:cyr_royal_marriage_bride
+            }
+        }
+        scope:cyr_royal_marriage_groom = {
+            if = {
+                limit = { is_married = yes }
+                spouse = { save_scope_as = cyr_royal_marriage_groom_spouse }
+                divorce_character = spouse
+            }
+        }
+        scope:cyr_royal_marriage_groom = {
+            marry_character = scope:cyr_royal_marriage_bride
+        }
+        add_alliance = scope:cyr_royal_marriage_country
+        scope:cyr_royal_marriage_country = {
+            add_opinion = {
+                modifier = CYR_royal_marriage
+                target = ROOT
+            }
+        }
+        if = {
+            limit = {
+                scope:cyr_royal_marriage_country = { alliance_with = c:EGY }
+            }
+            scope:cyr_royal_marriage_country = { break_alliance = c:EGY }
+        }
+   }
+
+}
+
+
+
+cyr_magas_01.8 = {          # Indian ties event 
+    type = country_event
+    title = cyr_magas_01.8.t
+    desc = cyr_magas_01.8.desc
+    picture = pataliputra
+    left_portrait = char:46
+    right_portrait = c:MRY.current_ruler
+    
+    
+    trigger = {
+		OR = {
+			tag = CYR
+			has_variable = cyr_egy_var
+		}
+		owns = 505
+		char:66 = {
+			is_alive = yes
+            is_ruler = yes
+			employer = c:MRY
+		}
+    }
+
+    immediate ={
+		create_country_treasure = { 
+			key = "cyr_rock_edict"
+			icon = "treasure_chest"     
+			modifier = {
+				local_monthly_food_modifier = 0.2
+			}
+		}
+    }
+	
+	option = {
+		name = cyr_magas_01.8.aa
+		custom_tooltip = cyr_magas_01.8.a.tt
+        custom_tooltip = cyr_magas_01.8.b.tt
+		add_treasury = -100
+		add_political_influence = -25
+        trigger_event = {
+            id = cyr_magas_01.121
+            days = { 730 1095 }
+        }
+        c:MRY = {
+            add_opinion = {
+                modifier = CYR_buddhist_embassies
+                target = ROOT
+            }
+        }       
+        hidden_effect = {
+            ROOT.capital_scope = {
+                every_pops_in_province = {
+                    random = {
+                        chance = 5
+                        set_pop_religion = buddhism
+                    }
+                }
+            }
+		}
+	}
+	
+	option = {
+		name = cyr_magas_01.8.bb
+	}
+
+#    option = {      
+#        name = cyr_magas_01.8.a
+#        add_country_modifier = {
+#            name = "cyr_indian_herbalism"
+#            duration = -1
+#        }
+#        add_research = { technology = civic_tech value = 25 } 
+#        c:MRY = {
+#            add_opinion = {
+#                modifier = CYR_buddhist_embassies
+#                target = ROOT
+#            }
+#        }
+#        hidden_effect = {
+#            c:MRY = {
+#                create_country_treasure = { 
+#                    key = "cyr_rock_edict"
+#                    icon = "treasure_chest"
+#                    
+#                    modifier = {
+#                        local_happiness_for_same_religion_modifier  = 0.05
+#                        local_migration_attraction    = 2
+#                   }
+#                }
+#            }  
+#        }             
+#   }
+
+#    option = {      
+#        name = cyr_magas_01.8.b
+#
+#        add_research = { technology = religious_tech value = 80 }
+#        create_character = {
+#            first_name = "Hegesias"
+#            family_name = "Peisithanatos"
+#            age = 25
+#            no_stats = yes
+#            culture = root.culture
+#            religion = root.religion
+#            save_scope_as = death_persuader
+#        }
+#        hidden_effect = {
+#            scope:death_persuader = {
+#                add_martial = 2
+#                add_charisma = 10
+#                add_finesse = 14
+#                add_zeal = 7
+#                add_trait = scholar
+#                add_trait = polymath
+#                add_trait = intelligent
+#                add_prominence = 50
+#            }
+#        }
+#        custom_tooltip = cyr_magas_01.8.b.ttt
+
+#        custom_tooltip = cyr_magas_01.8.b.tt
+#        trigger_event = {
+#            id = cyr_magas_01.12
+#            days = { 730 1095 }
+#        }
+#        c:MRY = {
+#            add_opinion = {
+#                modifier = CYR_buddhist_embassies
+#                target = ROOT
+#            }
+#        }       
+#        hidden_effect = {
+#            ROOT.capital_scope = {
+#                every_pops_in_province = {
+#                    random = {
+#                        chance = 5
+#                        set_pop_religion = buddhism
+#                    }
+#                }
+#            }
+#            c:MRY = {
+#                create_country_treasure = { 
+#                    key = "cyr_rock_edict"
+#                    icon = "treasure_chest"
+#                    
+#                    modifier = {
+#                        local_happiness_for_same_religion_modifier  = 0.05
+#                        local_migration_attraction    = 2
+#                    }
+#                }
+#            }
+#        }
+#   }
+
+#    option = {      
+#        name = cyr_magas_01.8.c
+#        
+#        add_political_influence = -200
+#        add_stability = -20
+#        add_country_modifier = {
+#            name = "recent_convert_modifier"
+#            duration = 3650
+#            }
+#        set_country_religion = buddhism
+#        current_ruler = {
+#            if = {
+#                limit = {
+#                    NOT = { has_religion = buddhism }
+#                }
+#                set_character_religion = buddhism
+#            }
+#        }
+#        hidden_effect = {
+#            current_ruler.family = {
+#                every_family_member = {
+#                    limit = {
+#                        employer = ROOT
+#                        NOT = { has_religion = buddhism }
+#                    }
+#                    set_character_religion = buddhism
+#                }
+#            }
+#        }
+#        ordered_character = {
+#            limit = {
+#                loyalty >= 50
+#                NOT = { has_religion = buddhism }
+#                is_ruler = no
+#                from_ruler_family = no
+#            }
+#            max = 10
+#            order_by = prominence
+#            set_character_religion = buddhism
+#        }
+#        custom_tooltip = cyr_magas_01.8.c.tt
+#        hidden_effect = {
+#            every_character = {
+#                limit = { 
+#                    NOT = { 
+#                        has_same_religion_as = employer.current_ruler 
+#                    } 
+#                }
+#                add_loyalty = assets_seized_sl
+#            }
+#            ROOT.capital_scope = {
+#                every_pops_in_province = {
+#                    random = {
+#                        chance = 10
+#                        set_pop_religion = buddhism
+#                    }
+#                }
+#            }
+#            c:MRY = {
+#                create_country_treasure = { 
+#                    key = "cyr_rock_edict"
+#                    icon = "treasure_chest"
+                    
+#                    modifier = {
+#                        local_happiness_for_same_religion_modifier  = 0.05
+#                        local_migration_attraction    = 2
+#                    }
+#                }
+#            }
+#        } 
+#    }
+
+}
+
+
+
+cyr_magas_01.9 = {          # CYR Independence Wae
+    type = country_event
+    title = cyr_magas_01.9.t
+    desc = cyr_magas_01.9.desc
+    picture = elephant_battle
+
+    option = {      
+        name = cyr_magas_01.9.a
+
+        c:EGY ={
+            declare_war_with_wargoal ={
+                war_goal = conquer_wargoal
+                province = c:CYR.capital_scope
+                target = c:CYR
+            }
+        }
+        c:EGY = {
+            add_opinion = {
+                modifier = cyr_independence_opinion
+                target = ROOT
+            }
+			every_owned_province = {
+				limit = {
+					has_province_modifier = cyr_secured_area
+				}
+				remove_province_modifier = cyr_secured_area
+			}
+        }
+        c:CYR = {
+            remove_country_modifier = independent_egyptian_subject
+            
+        }        
+   }
+}
+
+
+cyr_magas_01.10 = {          # Looking for allies
+    type = country_event
+    title = cyr_magas_01.10.t
+    desc = cyr_magas_01.10.desc
+    picture = throneroom
+    left_portrait = c:CYR.current_ruler
+    right_portrait = c:EGY.current_ruler
+
+
+    immediate ={    
+        add_country_modifier = {
+            name = cyr_looking_for_allies
+            duration = 1825
+        }    
+    }
+
+    option = {      
+        name = cyr_magas_01.10.a
+        hidden_effect = {
+            add_country_modifier = {
+                name = cyr_looking_for_allies
+                duration = 1825
+            }            
+        }    
+   }
+}
+
+
+cyr_magas_01.11 = {          # Coronation Flavour
+    type = country_event
+    title = cyr_magas_01.11.t
+    desc = cyr_magas_01.11.desc
+    picture = diadochi_coronation
+    left_portrait = c:CYR.current_ruler
+
+    option = {      
+        name = cyr_magas_01.11.a
+        c:CYR = {
+            current_ruler = {
+                add_popularity = 15
+            }
+        }
+
+   }
+
+
+}
+
+cyr_magas_01.121 = { #emissaries come back
+	type = country_event
+	title = cyr_magas_01.121.t
+	desc = cyr_magas_01.121.desc
+	picture = great_library
+	
+	option = {
+		name = cyr_magas_01.8.a
+		add_country_modifier = {
+			name = "cyr_indian_herbalism"
+			duration = 7300
+		}
+		add_research = { technology = civic_tech value = 25 } 
+	}
+	
+	option = {
+		name = cyr_magas_01.8.c
+        add_political_influence = -100
+        add_stability = -10
+        add_country_modifier = {
+            name = "recent_convert_modifier"
+            duration = 3650
+            }
+        set_country_religion = buddhism
+        current_ruler = {
+            if = {
+                limit = {
+                    NOT = { has_religion = buddhism }
+                }
+                set_character_religion = buddhism
+            }
+        }
+        hidden_effect = {
+            current_ruler.family = {
+                every_family_member = {
+                   limit = {
+                       employer = ROOT
+                        NOT = { has_religion = buddhism }
+                   }
+                    set_character_religion = buddhism
+                }
+            }
+        }
+        ordered_character = {
+            limit = {
+                loyalty >= 50
+                NOT = { has_religion = buddhism }
+                is_ruler = no
+                from_ruler_family = no
+            }
+            max = 10
+            order_by = prominence
+            set_character_religion = buddhism
+        }
+        custom_tooltip = cyr_magas_01.8.c.tt
+        hidden_effect = {
+			set_variable = {
+				name = cyr_buddhism
+				days = -1
+			}
+            every_character = {
+                limit = { 
+                    NOT = { 
+                        has_same_religion_as = employer.current_ruler 
+                    } 
+                }
+                add_loyalty = assets_seized_sl
+            }
+            ROOT.capital_scope = {
+                every_pops_in_province = {
+                   random = {
+                        chance = 10
+                        set_pop_religion = buddhism
+                    }
+                }
+            }
+		} 
+	}
+	
+	option = {
+        name = cyr_magas_01.121.c
+		trigger = {
+			has_country_modifier = cyr_hegesiad_state_philosophy
+
+			# Hegesias of Cyrene must be alive.
+			char:468 = {
+				is_alive = yes
+			}
+		}
+        add_political_influence = -200
+        add_stability = -20
+        add_country_modifier = {
+            name = "recent_convert_modifier"
+            duration = 3650
+            }
+        set_country_religion = jainism
+        current_ruler = {
+            if = {
+                limit = {
+                    NOT = { has_religion = jainism }
+                }
+                set_character_religion = jainism
+            }
+        }
+        hidden_effect = {
+            current_ruler.family = {
+                every_family_member = {
+                   limit = {
+                       employer = ROOT
+                        NOT = { has_religion = jainism }
+                   }
+                    set_character_religion = jainism
+                }
+            }
+        }
+        ordered_character = {
+            limit = {
+                loyalty >= 50
+                NOT = { has_religion = jainism }
+                is_ruler = no
+                from_ruler_family = no
+            }
+            max = 10
+            order_by = prominence
+            set_character_religion = jainism
+        }
+        custom_tooltip = cyr_magas_01.121.c.tt
+        add_research = { technology = religious_tech value = 80 }
+
+        char:468 = { save_scope_as = death_persuader }
+        hidden_effect = {
+            scope:death_persuader = {
+                add_finesse = 2
+                add_trait = scholar
+                add_trait = polymath
+                add_prominence = 50
+            }
+        }
+        custom_tooltip = cyr_magas_01.8.b.ttt
+        trigger_event = {
+            id = cyr_magas_01.12
+            days = 30
+        }
+        hidden_effect = {
+			set_variable = {
+				name = cyr_jainism
+				days = -1
+			}
+            every_character = {
+                limit = { 
+                    NOT = { 
+                        has_same_religion_as = employer.current_ruler 
+                    } 
+                }
+                add_loyalty = assets_seized_sl
+            }
+            ROOT.capital_scope = {
+                every_pops_in_province = {
+                   random = {
+                        chance = 10
+                        set_pop_religion = jainism
+                    }
+                }
+            }
+		}
+	}
+}
+
+ cyr_magas_01.12 = {          # death-persuader
+    type = country_event
+    title = cyr_magas_01.12.t
+    desc = cyr_magas_01.12.desc
+    picture = great_library
+    left_portrait = scope:death_persuader
+
+
+    option = {      
+        name = cyr_magas_01.12.a
+        create_country_treasure = { 
+            key = "cyr_death_by_starvation"
+            icon = "treasure_chest"
+            
+            modifier = {
+                local_unrest = -2
+                local_research_points_modifier   = 0.10
+            }
+        }
+   }
+ }
+
+ ##### New Events ####
+
+
+cyr_magas_01.13 = {          # The Libyans
+    type = country_event
+    title = cyr_magas_01.13.t
+    desc = cyr_magas_01.13.desc
+    picture = throneroom
+    left_portrait = current_ruler
+
+    option = {      
+        name = cyr_magas_01.13.a
+        random_country_culture = {
+            limit = {
+                is_culture = libyan
+            }
+            add_country_culture_modifier = {
+                name = cyr_libyan_tolerance
+                duration = -1
+            }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.13.b  
+        random_country_culture = {
+            limit = {
+                is_culture = cyrenaican
+            }
+            add_country_culture_modifier = {
+                name = cyr_greek_cyrenaica
+                duration = 3650
+            }
+        }
+   }
+
+}
+
+
+cyr_magas_01.14 = {          # The Libyans War - Prelude
+    type = country_event
+    title = cyr_magas_01.14.t
+    desc = cyr_magas_01.14.desc
+    picture = throneroom
+    left_portrait = current_ruler
+
+    option = {      
+        name = cyr_magas_01.14.a
+        p:8068 = {
+            every_neighbor_province = {
+                limit = {
+                    owner = root
+                }
+                add_province_modifier = {
+                    name = cyr_border_patrols
+                    duration = 730
+                }
+            }
+        }
+        p:5993 = {
+            every_neighbor_province = {
+                limit = {
+                    owner = root
+                }
+                add_province_modifier = {
+                    name = cyr_border_patrols
+                    duration = 730
+                }
+            }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.14.b
+        p:8068 = {
+            every_neighbor_province = {
+                limit = {
+                    any_pops_in_province = {
+                        pop_culture = libyan
+                    }
+                }
+                add_to_list = cyr_libyan_counter_raid_province_list
+            }
+        }
+        p:5993 = {
+            every_neighbor_province = {
+                limit = {
+                    any_pops_in_province = {
+                        pop_culture = libyan
+                    }
+                }
+                add_to_list = cyr_libyan_counter_raid_province_list
+            }
+        }
+        random_list = {
+            33 = {
+                while = {
+                    count = 3
+                    random_in_list = {
+                        list = cyr_libyan_counter_raid_province_list
+                        random_pops_in_province = {
+                            limit = {
+                                pop_culture = libyan
+                            }
+                            kill_pop = yes
+                        }
+                    }
+                }
+                add_treasury = 120
+            }
+            33 = {
+                while = {
+                    count = 2
+                    random_in_list = {
+                        list = cyr_libyan_counter_raid_province_list
+                        random_pops_in_province = {
+                            limit = {
+                                pop_culture = libyan
+                            }
+                            kill_pop = yes
+                        }
+                    }
+                }
+                add_treasury = 90
+            }
+            33 = {
+                while = {
+                    count = 1
+                    random_in_list = {
+                        list = cyr_libyan_counter_raid_province_list
+                        random_pops_in_province = {
+                            limit = {
+                                pop_culture = libyan
+                            }
+                            kill_pop = yes
+                        }
+                    }
+                }
+                add_treasury = 60
+            }
+        }
+    }
+
+
+}
+
+
+cyr_magas_01.15 = {          # The Libyans War - War Triggers
+    type = country_event
+    title = cyr_magas_01.15.t
+    desc = cyr_magas_01.15.desc
+    picture = throneroom
+    right_portrait = current_ruler
+    left_portrait = scope:cyr_libyan_leader_scope
+
+    immediate = {
+        p:5993 = {
+            random_neighbor_province = {
+                limit = {
+                    owner = root
+                    NOT = { province_id = 3344 }
+                }
+                save_scope_as = cyr_barb_spawn_scope_1
+            }
+        }
+        hidden_effect = {
+            c:BAR = {
+                create_character = {
+                    culture = libyan
+                    religion = berber_religion
+                    add_martial = 3
+                    save_scope_as = cyr_libyan_leader_scope
+                }
+                create_character = {
+                    culture = libyan
+                    religion = berber_religion
+                    add_martial = 2
+                    save_scope_as = cyr_libyan_leader2_scope
+                }
+            }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.15.a
+        custom_tooltip = cyr_magas_01_15_tooltip_1
+        hidden_effect = {
+            c:BAR = {
+                create_unit = {
+                    location = scope:cyr_barb_spawn_scope_1
+                    commander = scope:cyr_libyan_leader_scope
+                    while = {
+                        count = 11
+                        add_subunit = light_infantry 
+                    }
+                    while = {
+                        count = 6
+                        add_subunit = camels  
+                    }
+                    while = {
+                        count = 2
+                        add_subunit = supply_train  
+                    }
+                }
+            }
+            c:BAR = {
+                create_unit = {
+                    location = 3364
+                    commander = scope:cyr_libyan_leader2_scope
+                    while = {
+                        count = 5
+                        add_subunit = light_infantry 
+                    }
+                    while = {
+                        count = 3
+                        add_subunit = camels  
+                    }
+                    add_subunit = supply_train
+                }
+            }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.15.b
+        custom_tooltip = cyr_magas_01_15_tooltip_2
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    NOR = {
+                        province_id = 3340
+                        province_id = 3341
+                        province_id = 3342
+                        province_id = 3344
+                        province_id = 3346
+                        province_id = 3348
+                        province_id = 3350
+                        province_id = 3352
+                        province_id = 3353
+                        province_id = 3354
+                        province_id = 3358
+                        province_id = 3360
+                        province_id = 3361
+                        province_id = 3363
+                        province_id = 3365
+                        province_id = 3366
+                        province_id = 3367
+                        province_id = 3368
+                    }
+                }
+                add_to_list = new_country_province_list
+            }
+            switch_player_country_setup_effect = {
+                RULER_NAME = Masinissa
+                RULER_LAST_NAME = Ahmid
+                RULER_CULTURE = libyan
+                RULER_RELIGION = berber_religion
+            }
+            trigger_event = cyr_magas_01.1599
+        }
+    }
+}
+
+cyr_magas_01.1599 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        switch_player_country_effect = {
+            NEW_NAME = libya_name
+            NEW_ADJECTIVE = libya_adj
+            NEW_GOVERNMENT = tribal_federation
+            NEW_COLOR = eastern_roman_color
+            NEW_RELIGION = berber_religion
+            NEW_CULTURE = libyan
+            NEW_TAG = LBU
+            NEW_FLAG = LBU
+            NEW_HERITAGE = libu_heritage
+            OLD_COUNTRY_COLOR = judea_blue
+            OLD_COUNTRY_NAME = CYR
+            OLD_COUNTRY_ADJ = CYR_ADJ
+            OLD_COUNTRY_FLAG = CYR
+            OLD_COUNTRY_HERITAGE = cyrenaican_heritage
+            OLD_COUNTRY_CULTURE = cyrenaican
+            OLD_COUNTRY_RELIGION = roman_pantheon
+            OLD_TAG = CYR
+        }
+        create_unit = {
+            location = scope:cyr_barb_spawn_scope_1
+            commander = scope:cyr_libyan_leader_scope
+            while = {
+                count = 3
+                add_subunit = light_infantry 
+            }
+            while = {
+                count = 2
+                add_subunit = camels  
+            }
+        }
+        c:EGY = {
+            release_subject = c:LBU
+            release_subject = c:CYR
+        }
+        p:3360.owner = {
+            declare_war_with_wargoal = {
+                war_goal = diadochi_wargoal
+                target = p:3345.owner
+            }
+        }
+    }
+}
+
+cyr_magas_01.16 = {          # Death of Ptolemy
+    type = country_event
+    title = cyr_magas_01.16.t
+    desc = cyr_magas_01.16.desc
+    picture = throneroom
+    left_portrait = current_ruler
+    fire_only_once = yes
+
+    trigger = {
+        tag = CYR
+        has_completed_mission_task = cyrene_1_magas_task_1
+        char:42 = {
+            is_alive = no
+        }
+        NOT = {
+            has_completed_mission_task = cyrene_1_magas_task_5 
+            has_completed_mission_task = cyrene_1_magas_task_7 
+            has_completed_mission_task = cyrene_1_magas_task_10 
+            has_completed_mission_task = cyrene_1_magas_task_12
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.16.a 
+        custom_tooltip = cyr_magas_01.16.a.tt
+        set_variable = {
+            name = cyr_magasbypass_all_flag
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.16.b  
+        custom_tooltip = cyr_magas_01.16.b.tt
+        set_variable = {
+            name = cyr_magasbypass_libyan_flag
+        }
+
+    }
+
+    option = {      
+        name = cyr_magas_01.16.c  
+        custom_tooltip = cyr_magas_01.16.c.tt
+
+    }
+}
+
+cyr_magas_01.17 = {          # Art of WAR
+    type = country_event
+    title = cyr_magas_01.17.t
+    desc = cyr_magas_01.17.desc
+    picture = throneroom
+    left_portrait = current_ruler
+    right_portrait = scope:cyr_focus_martial_char_scope
+    fire_only_once = yes
+
+    trigger = {
+        any_character = {
+            OR = {
+                has_office = office_marshal 
+                has_office = office_master_of_the_guard 
+            }
+            martial > root.current_ruler.martial
+        }
+    }
+
+    immediate = {
+        random_character = {
+            limit = {
+                OR = {
+                    has_office = office_marshal 
+                    has_office = office_master_of_the_guard 
+                }
+                martial > root.current_ruler.martial
+            }
+            save_scope_as = cyr_focus_martial_char_scope
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.17.a 
+        current_ruler = {
+            add_martial = 1
+        }
+        scope:cyr_focus_martial_char_scope = {
+            add_character_modifier = {
+                name = cyr_advising_ruler 
+                duration = -1
+            }
+        }
+
+    }
+
+    option = {      
+        name = cyr_magas_01.17.b  
+
+        trigger = {
+            scope:cyr_focus_martial_char_scope = {
+                OR = {
+                    has_trait = original_thinker 
+                    has_trait = tactician 
+                    has_trait = disciplined 
+                }
+            }
+        }
+
+        scope:cyr_focus_martial_char_scope = {
+            if = {
+                limit = {
+                    has_trait = original_thinker 
+                }
+                root.current_ruler = {
+                    add_trait = original_thinker
+                }
+            }
+            else_if = {
+                limit = {
+                    has_trait = tactician 
+                }
+                root.current_ruler = {
+                    add_trait = tactician
+                }
+            }
+            else = {
+                root.current_ruler = {
+                    add_trait = disciplined
+                }
+            }
+        }
+        scope:cyr_focus_martial_char_scope = {
+            add_character_modifier = {
+                name = cyr_advising_ruler 
+                duration = -1
+            }
+        }
+    }
+
+
+    option = {      
+        name = cyr_magas_01.17.c  
+        current_ruler = {
+            add_corruption = -5
+        }
+    }
+}
+
+cyr_magas_01.18 = {          # Levy Exercising
+    type = country_event
+    title = cyr_magas_01.18.t
+    desc = cyr_magas_01.18.desc
+    picture = throneroom
+    left_portrait = current_ruler
+
+    immediate = {
+    }
+
+    option = {      
+        name = cyr_magas_01.18.a
+        add_military_experience = 5
+        current_ruler = {
+            random_list = {
+                50 = {
+                    add_character_modifier = {
+                        name = cyr_good_exercise
+                        duration = 1825
+                    }
+                }
+                30 = {
+                    add_character_modifier = {
+                        name = cyr_bad_exercise
+                        duration = 1825
+                    }
+                }
+                15 = {
+                    add_trait = steadfast
+                }
+                5 = {
+                    add_trait = wounded
+                }
+            }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.18.b  
+
+        trigger = {
+            capital_scope = {
+                free_building_slots >= 1
+            }
+        }
+
+        add_treasury = -50
+        capital_scope = {
+            add_building_level = military_building 
+        }
+        current_ruler = {
+            add_popularity = 5
+        }
+    }
+
+
+    option = {      
+        name = cyr_magas_01.18.c  
+        add_country_modifier = {
+            name = cyr_reviewing_ledgers
+            duration = 1825
+        }
+    }
+}
+
+cyr_magas_01.19 = {          # Pardoning the Exiles
+    type = country_event
+    title = cyr_magas_01.19.t
+    desc = cyr_magas_01.19.desc
+    picture = throneroom
+    left_portrait = current_ruler
+    fire_only_once = yes
+
+    trigger = {
+    }
+
+    immediate = { 
+        random_country = {
+            limit = {
+                in_diplomatic_range = root
+                country_culture_group = hellenic 
+            }
+            save_scope_as = cyr_exile_scope
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.19.a 
+        while = {
+            count = 3
+            capital_scope = {
+                create_state_pop = freemen
+            }
+        }
+        add_country_modifier = {
+            name = cyr_local_courts_disrespected
+            duration = 3650
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.19.b  
+        add_tyranny = -10
+        region:greece_region = {
+            random_region_province = {
+                limit = {
+                    NOT = { owner = root }
+                }
+                while = {
+                    count = 3
+                    define_pop = {
+                        type = freemen
+                        culture = cyrenaican
+                        religion = root.religion
+                    }
+                }
+            }
+        }
+    }
+
+
+    option = {      
+        name = cyr_magas_01.19.c 
+        trigger = {
+            exists = scope:cyr_exile_scope
+            any_character = {
+                is_rival = root.current_ruler
+            }
+        }
+        random_character = {
+            limit = {
+                is_rival = root.current_ruler                
+            }
+            banish = scope:cyr_exile_scope
+        }
+        add_tyranny = 15
+    }
+}
+
+cyr_magas_01.20 = {          # Libyan Mercenaries
+    type = country_event
+    title = cyr_magas_01.20.t
+    desc = cyr_magas_01.20.desc
+    picture = army_desert
+
+
+    option = {      
+        name = cyr_magas_01.20.a
+        c:CYR = {
+            create_unit = {
+                name = cyr_libyan_mercs_name
+                location = scope:cyr_libyan_mercs_spawn_province
+                add_subunit = light_infantry 
+                add_subunit = camels  
+                add_subunit = camels 
+                add_subunit = light_infantry 
+                add_subunit = camels  
+                add_subunit = camels
+                add_subunit = supply_train
+            }
+        }
+    }
+    option = {      
+        name = cyr_magas_01.20.b
+        add_manpower = 4
+        scope:cyr_libyan_mercs_spawn_province = {
+            define_pop = {
+                type = tribesmen
+                culture = libyan
+                religion = berber_religion
+            }
+            define_pop = {
+                type = tribesmen
+                culture = libyan
+                religion = berber_religion
+            }
+        }
+    }
+}
+
+cyr_magas_01.21 = {          # Royal Marriage - Country Selection
+    type = country_event
+    title = cyr_magas_01.21.t
+    desc = cyr_magas_01.21.desc
+    picture = greek_court
+    
+    left_portrait = current_ruler
+    left_portrait = scope:cyr_marriage_country_scope_4.current_ruler
+    left_portrait = scope:cyr_marriage_country_scope_5.current_ruler
+    right_portrait = scope:cyr_marriage_country_scope_1.current_ruler
+    right_portrait = scope:cyr_marriage_country_scope_2.current_ruler
+    right_portrait = scope:cyr_marriage_country_scope_3.current_ruler
+
+    trigger = {
+    
+    }
+
+    immediate = {
+        random_in_list = {
+            list = cyr_marriage_candidate_list
+            save_scope_as = cyr_marriage_country_scope_1
+            remove_from_list = cyr_marriage_candidate_list
+        }
+        random_in_list = {
+            list = cyr_marriage_candidate_list
+            save_scope_as = cyr_marriage_country_scope_2
+            remove_from_list = cyr_marriage_candidate_list
+        }
+        random_in_list = {
+            list = cyr_marriage_candidate_list
+            save_scope_as = cyr_marriage_country_scope_3
+            remove_from_list = cyr_marriage_candidate_list
+        }
+        random_in_list = {
+            list = cyr_marriage_candidate_list
+            save_scope_as = cyr_marriage_country_scope_4
+            remove_from_list = cyr_marriage_candidate_list
+        }
+        random_in_list = {
+            list = cyr_marriage_candidate_list
+            save_scope_as = cyr_marriage_country_scope_5
+            remove_from_list = cyr_marriage_candidate_list
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.a
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_1
+        }
+        scope:cyr_marriage_country_scope_1 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.b
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_2
+        }
+        scope:cyr_marriage_country_scope_2 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.c
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_3
+        }
+        scope:cyr_marriage_country_scope_3 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.d
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_4
+        }
+        scope:cyr_marriage_country_scope_4 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.e
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_5
+        }
+        scope:cyr_marriage_country_scope_5 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.f
+    }
+}
+
+cyr_magas_01.22 = {          # Royal Marriage - Offer 
+    type = country_event
+    title = cyr_magas_01.22.t
+    desc = cyr_magas_01.22.desc
+    picture = greek_court
+    
+    left_portrait = current_ruler
+
+    trigger = {
+    
+    }
+
+    immediate = {
+        ordered_character = {
+            limit = {
+                is_female = yes
+                age <= 35
+                is_adult = yes 
+            }
+            order_by = cyr_royal_marriage_fit_svalue
+            max = 1
+            save_scope_as = cyr_marriage_princess_scope
+        }
+        if = {
+            limit = {
+                OR = {
+                    NOT = { exists = scope:cyr_marriage_princess_scope }
+                    NOT = { scope:cyr_marriage_princess_scope.employer = ROOT }
+                }
+            }
+            create_character = {
+                age = 17
+                female = yes
+                culture = root.culture
+                religion = root.religion
+                add_prominence = 50
+                save_scope_as = cyr_marriage_princess_scope
+            }
+        }
+        root = {
+            save_scope_as = cyr_royal_marriage_country
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.22.a
+
+        c:CYR = {
+            trigger_event = { 
+               id = cyr_magas_01.23 
+               days = { 5 25 }
+            }
+        }
+        show_as_tooltip = {
+            scope:cyr_marriage_princess_scope = {  
+                if = {
+                    limit = { is_married = yes }
+                    divorce_character = spouse
+                }
+                move_country = c:CYR
+                hidden_effect = { 
+                    remove_character_modifier = foreign_citizen
+                    set_home_country = c:CYR 
+                    set_as_minor_character = scope:cyr_marriage_princess_scope
+                }
+            }
+            c:CYR.current_ruler = {
+                if = {
+                    limit = { is_married = yes }
+                    divorce_character = spouse
+                }
+            }
+            c:CYR.current_ruler = {
+                marry_character = scope:cyr_marriage_princess_scope
+            }
+            custom_tooltip = cyr_magas_01.23.a.tt
+            ROOT = {
+                add_opinion = {
+                    modifier = CYR_royal_marriage
+                    target = c:CYR
+                }
+            }
+        }        
+    }
+    option = {      
+        name = cyr_magas_01.22.b
+        ai_chance = { factor = 0 }
+
+        c:CYR = {
+            trigger_event = { 
+               id = cyr_magas_01.24 
+               days = { 5 25 }
+            }
+        } 
+        set_variable = {
+            name = cyr_royal_marriage_blocker
+        }
+        c:CYR = {
+            add_opinion = {
+                modifier = cyr_marriage_offer_rejected
+                target = ROOT
+            }
+        }
+    }
+}
+
+cyr_magas_01.23 = {          # Royal Marriage - Main Event
+    type = country_event
+    title = cyr_magas_01.23.t
+    desc = cyr_magas_01.23.desc
+    picture = religious_rite
+    
+    left_portrait = current_ruler
+    right_portrait = scope:cyr_marriage_princess_scope
+
+    trigger = {
+    
+    }
+
+    immediate = {       
+        root.current_ruler = {
+            save_scope_as = cyr_royal_marriage_groom 
+        }
+        scope:cyr_marriage_princess_scope = {
+            save_scope_as = cyr_royal_marriage_bride
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.23.a
+        
+        scope:cyr_royal_marriage_bride = {  
+            if = {
+                limit = { is_married = yes }
+                divorce_character = spouse
+            }
+            move_country = c:CYR
+            hidden_effect = { 
+                remove_character_modifier = foreign_citizen
+                set_home_country = c:CYR 
+                set_as_minor_character = scope:cyr_royal_marriage_bride
+            }
+        }
+        scope:cyr_royal_marriage_groom = {
+            if = {
+                limit = { is_married = yes }
+                divorce_character = spouse
+            }
+        }
+        scope:cyr_royal_marriage_groom = {
+            marry_character = scope:cyr_royal_marriage_bride
+        }
+        custom_tooltip = cyr_magas_01.23.a.tt
+        scope:cyr_royal_marriage_country = {
+            set_variable = {
+                name = cyr_royal_marrriage_marker
+            }
+        }
+        scope:cyr_royal_marriage_country = {
+            add_opinion = {
+                modifier = CYR_royal_marriage
+                target = ROOT
+            }
+        }
+    }
+}
+ 
+cyr_magas_01.24 = {          # Royal Marriage - Country Selection Redo
+    type = country_event
+    title = cyr_magas_01.24.t
+    desc = cyr_magas_01.24.desc
+    picture = greek_court
+    
+    left_portrait = current_ruler
+
+    trigger = {
+    
+    }
+
+    immediate = {
+    }
+
+    option = {      
+        name = cyr_magas_01.21.a
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_1
+            scope:cyr_marriage_country_scope_1 = {
+                NOT = { has_variable = cyr_royal_marriage_blocker }
+            }
+        }
+        scope:cyr_marriage_country_scope_1 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.b
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_2
+            scope:cyr_marriage_country_scope_2 = {
+                NOT = { has_variable = cyr_royal_marriage_blocker }
+            }
+        }
+        scope:cyr_marriage_country_scope_2 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.c
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_3
+            scope:cyr_marriage_country_scope_3 = {
+                NOT = { has_variable = cyr_royal_marriage_blocker }
+            }
+        }
+        scope:cyr_marriage_country_scope_3 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.d
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_4
+            scope:cyr_marriage_country_scope_4 = {
+                NOT = { has_variable = cyr_royal_marriage_blocker }
+            }
+        }
+        scope:cyr_marriage_country_scope_4 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.e
+        trigger = {
+            exists = scope:cyr_marriage_country_scope_5
+            scope:cyr_marriage_country_scope_5 = {
+                NOT = { has_variable = cyr_royal_marriage_blocker }
+            }
+        }
+        scope:cyr_marriage_country_scope_5 = {
+            trigger_event = { id = cyr_magas_01.22 }
+        }
+    }
+
+    option = {      
+        name = cyr_magas_01.21.f
+    }
+}
+
+cyr_magas_01.25 = {
+    type = country_event
+    title = cyr_magas_01.25.t
+    desc = cyr_magas_01.25.desc
+    picture = successors
+    
+    left_portrait = char:46
+    right_portrait = char:18
+
+    trigger = {   
+    }
+
+    immediate = {
+    }
+
+    option = {      
+        name = cyr_magas_01.25.a
+        add_treasury = 50
+        add_political_influence = 10
+        ordered_owned_province = {
+            limit = {
+                free_building_slots >= 1
+            }
+            order_by = total_population
+            max = 1
+            add_building_level = town_hall_building  
+        }
+    }
+    option = {      
+        name = cyr_magas_01.25.b
+        custom_tooltip = cyr_magas_01.25.b.tt
+#        hidden_effect = {
+            while = {
+                count = 3
+                create_character = {
+                    family_name = "Magid"
+                    culture = macedonian
+                    religion = roman_pantheon
+                    while = {
+                        count = 3
+                        random_list = {
+                            25 = { add_zeal = 1 }
+                            25 = { add_charisma = 1 }
+                            25 = { add_finesse = 1 }
+                            25 = { add_martial = 1 }
+                        }
+                    }
+                    set_family = root.current_ruler.family
+                    add_loyalty = cyr_magid_family_recruit
+                }
+            }
+#        }
+    }
+    option = {      
+        name = cyr_magas_01.25.c
+        add_country_modifier = {
+            name = cyr_supporting_berenike
+            duration = 3650
+        }
+        cyr_coup_support_small_effect = yes
+    }
+}
+
+cyr_magas_01.26 = {
+    type = country_event
+    title = cyr_magas_01.26.t
+    desc = cyr_magas_01.26.desc
+    picture = greek_home
+    
+    left_portrait = current_ruler
+
+
+    option = {      
+        name = cyr_magas_01.26.a
+        current_ruler = {
+            add_popularity = 5
+        }
+    }
+}
+
+cyr_magas_01.27 = {
+    type = country_event
+	hidden = yes
+    
+	trigger = {
+		has_variable = cyr_timer
+    }
+	
+    immediate = {      
+		change_variable = {
+			name = "cyr_timer"
+			subtract = 1
+		}
+		trigger_event = {
+			id = cyr_magas_01.27
+			days = 1
+		}
+		if = { 
+			limit = { 
+				var:cyr_timer <= 0
+				c:EGY = { is_ai = no }
+			}
+			trigger_event = {
+				id = cyr_magas_01.28
+			}
+		}
+		if = {
+			limit = { 
+				var:cyr_timer <= 0
+				c:EGY = { is_ai = yes }
+			}
+			trigger_event = {
+				id = cyr_magas_01.29
+			}
+		}
+    }
+}
+
+cyr_magas_01.28 = {
+	type = country_event
+	hidden = yes
+	
+	immediate = {
+		remove_variable = cyr_timer	
+		remove_variable = cyr_timer_t
+		if = {
+			limit = { var:cyr_coup_support > 10 }
+			add_legitimacy = {
+				value = var:cyr_coup_support
+				subtract = 10
+			}
+		}
+		set_variable = {
+			name = egy_manpower
+			value = c:EGY.manpower
+		}
+        change_variable = {
+            name = egy_manpower
+            divide = 2
+        }
+		every_province = {
+			limit = { 
+				OR = {
+					has_province_modifier = cyr_secured_area 
+					owner = c:CYR
+				}
+			}
+			add_to_list = cyr_secured_area_list
+		}
+		c:EGY = { release_subject = c:CYR }
+		every_current_war = {
+			remove_from_war = root
+		}
+		declare_war_with_wargoal = {
+			war_goal = imperial_conquest_wargoal
+			target = EGY
+			province = c:EGY.capital_scope
+		}
+		every_living_character = {
+			limit = { is_in_list = cyr_to_defect_list }
+			move_country = c:CYR
+			set_home_country = c:CYR
+			set_as_minor_character = THIS
+			remove_character_modifier = foreign_citizen
+		}
+		every_province = {
+			limit = { is_in_list = cyr_secured_area_list }
+			set_owned_by = c:CYR
+		}
+		c:EGY = { save_scope_as = civil_war_country }
+		c:EGY = { set_variable = cyr_allow_help }
+        random_country_culture = {
+            limit = { THIS.culture = culture:egyptian }
+            ROOT = {
+                integrate_country_culture = PREV
+            }
+        }
+		if = {
+			limit = { has_variable = cyr_defection }
+			trigger_event = { #event for defection of some EGY troops
+				id = cyr_magas_01.38
+				days = 21
+			}
+		}
+	}
+}
+
+cyr_magas_01.29 = {
+    type = country_event
+	hidden = yes
+	
+	immediate = {
+		remove_variable = cyr_timer	
+		remove_variable = cyr_timer_t
+		p:8003 = { 
+            if = {
+                limit = { owner = c:EGY }
+                set_owned_by = p:418.owner 
+            }
+		}
+		if = {
+			limit = { var:cyr_coup_support > 10 }
+			add_legitimacy = {
+				value = var:cyr_coup_support
+				subtract = 10
+			}
+		}
+		every_province = {
+			limit = { 
+				OR = {
+					has_province_modifier = cyr_secured_area 
+					owner = c:CYR
+				}
+			}
+			add_to_list = cyr_secured_area_list
+		}
+		every_character = {
+			limit = { 
+				employer = c:CYR
+				is_ruler = no
+			}
+			add_to_list = cyr_cyr_chars_list
+		}
+		set_variable = {
+			name = egy_manpower
+			value = c:EGY.manpower
+		}
+        change_variable = {
+            name = egy_manpower
+            divide = 2
+        }
+		set_variable = {
+			name = egy_treasury
+			value = c:EGY.treasury
+		}
+		c:EGY = {
+            release_subject = c:CYR
+			release_subject = c:ADR
+			release_subject = c:KOS
+			every_navy = { add_to_list = egy_army_list }
+			every_allied_country = {
+				add_to_list = egy_ally_list
+				break_alliance = ROOT
+			}
+			every_character = {
+				limit = { employer = c:EGY }
+				add_to_list = cyr_egy_chars_list
+				move_country = c:CYR
+				set_home_country = c:CYR
+				set_as_minor_character = THIS
+				remove_character_modifier = foreign_citizen
+			}
+			every_legion = {
+				save_scope_as = egy_legion_scope
+				move_legion = c:CYR.capital_scope.governorship
+			}
+			every_owned_province = { set_owned_by = c:CYR }
+			every_country_treasure = { transfer_treasure_to_country = c:CYR }
+		}
+		random_character = {
+			limit = {
+				is_adult = yes
+				is_governor = no
+				is_general = no
+				is_admiral = no
+				is_ruler = no
+				has_legion_trigger = no
+			}
+			remove_all_positions = yes
+			save_scope_as = instigator
+		}
+		start_civil_war = scope:instigator
+		scope:instigator.employer = {
+			save_scope_as = civil_war_country
+		}
+		scope:civil_war_country = {
+			change_country_name = "EGY" 
+			change_country_adjective = "EGY_ADJ"
+			change_country_color = "magid_black"
+			change_country_flag = EGY
+			change_government = aristocratic_monarchy
+			set_country_heritage = ptolemys_heritage
+			add_manpower = ROOT.var:egy_manpower
+			add_treasury = ROOT.var:egy_treasury
+			change_law = recruit_from_nobles
+			add_military_experience = 200
+			add_stability = 25
+			add_political_influence = 200
+			set_variable = cyr_allow_help
+#			add_country_modifier = {
+#				duration = 3650
+#				name = civil_war_buff_ai				
+#			}
+			every_in_list = { # Recreate alliances
+				list = egy_ally_list
+				add_alliance = scope:civil_war_country
+			}
+			every_in_list = { # Move Egyptian navy
+				list = egy_army_list
+				if = {
+					limit = { exists = commander }
+					commander = { remove_all_positions = yes }
+				}
+				change_unit_owner = scope:civil_war_country
+			}
+			trigger_event = { #event to reset Lagid surname to Ptolemies
+				id = cyr_magas_01.37
+			}
+			random_owned_province = { #debugging, otherwise I find that levies won't calculate correctly for Ptolemies
+				limit = {
+					any_pops_in_province = {
+						NOT = { pop_culture = macedonian }
+						NOT = { pop_culture = egyptian }
+					}
+				}
+				hidden_effect = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = { pop_culture = macedonian }
+							NOT = { pop_culture = egyptian }
+						}
+						order_by = pop_hapiness
+						max = 1
+						set_pop_culture = macedonian
+					}
+				}
+			}	
+			random_owned_province = {
+				limit = {
+					any_pops_in_province = {
+						NOT = { pop_culture = egyptian }
+						NOT = { pop_culture = macedonian }
+					}
+				}
+				hidden_effect = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = { pop_culture = egyptian }
+							NOT = { pop_culture = macedonian }
+						}
+						order_by = pop_hapiness
+						max = 1
+						set_pop_culture = egyptian
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					any_pops_in_province = {
+						NOT = { pop_culture = egyptian }
+						NOT = { pop_culture = upper_egyptian }
+					}
+				}
+				hidden_effect = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = { pop_culture = egyptian }
+							NOT = { pop_culture = upper_egyptian }
+						}
+						order_by = pop_hapiness
+						max = 1
+						set_pop_culture = upper_egyptian
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					any_pops_in_province = {
+						NOT = { pop_culture = egyptian }
+						NOT = { pop_culture = middle_egyptian }
+					}
+				}
+				hidden_effect = {
+					ordered_pops_in_province = {
+						limit = {
+							NOT = { pop_culture = egyptian }
+							NOT = { pop_culture = middle_egyptian }
+						}
+						order_by = pop_hapiness
+						max = 1
+						set_pop_culture = middle_egyptian
+					}
+				}
+			}			
+			set_primary_culture_cleanup_effect = {
+				NEW_PRIMARY_CULTURE = macedonian
+				MAKE_OLD_CULTURE_INTEGRATED = yes
+			}
+			random_country_culture = {
+				limit = { THIS.culture = culture:egyptian }
+				ROOT = {
+					integrate_country_culture = PREV
+				}
+			}
+			random_country_culture = {
+				limit = { THIS.culture = culture:upper_egyptian }
+				ROOT = {
+					integrate_country_culture = PREV
+				}
+			}
+			random_country_culture = {
+				limit = { THIS.culture = culture:middle_egyptian }
+				ROOT = {
+					integrate_country_culture = PREV
+				}
+			}
+		}
+		every_living_character = {
+			limit = {
+				is_in_list = cyr_egy_chars_list
+				NOT = {
+					is_in_list = cyr_to_defect_list
+				}
+			}
+			move_country = scope:civil_war_country
+			set_home_country = scope:civil_war_country
+			set_as_minor_character = THIS
+			remove_character_modifier = foreign_citizen
+		}
+		every_living_character = {
+			limit = {
+				is_in_list = cyr_cyr_chars_list 
+				NOT = { employer = c:CYR }				
+			}
+			move_country = c:CYR
+			set_home_country = c:CYR
+			set_as_minor_character = THIS
+			remove_character_modifier = foreign_citizen
+		}
+		if = {
+			limit = {
+				char:45 = {
+					NOT = { employer = c:CYR }
+					has_variable = philadelphos_king
+				}
+            }
+            char:45 = {
+                remove_character_modifier = foreign_citizen
+                move_country = c:CYR
+                set_home_country = c:CYR
+                set_as_minor_character = THIS
+            }
+		}
+		every_province = {
+			limit = {
+				owner = c:CYR
+				NOT = {
+					is_in_list = cyr_secured_area_list
+				}
+			}
+			set_owned_by = scope:civil_war_country
+		}
+		if = {
+			limit = {
+				char:43 = { is_alive = yes }
+			}
+			char:43 = { save_scope_as = lagid_head }
+		}
+		else = {
+			scope:civil_war_country = {
+				ordered_character = {
+					limit = {
+						has_trait = lagids
+					}
+					order_by = age
+					save_scope_as = lagid_head
+				}			
+			}
+		}
+		scope:civil_war_country = {
+			if = {
+				limit = { 
+					owns = 500 
+				}
+				p:500 = { save_scope_as = egy_capital }
+			}
+			else = {
+				ordered_owned_province = {
+					limit = {
+						OR = { 
+							is_in_region = lower_egypt_region
+							is_in_region = upper_egypt_region
+						}
+					}
+					order_by = total_population
+					save_scope_as = egy_capital
+				}
+			}
+			set_capital = scope:egy_capital
+			set_as_ruler = scope:lagid_head
+		}
+		scope:egy_legion_scope = {
+			move_legion = scope:civil_war_country.capital_scope.governorship
+		}
+        random_country_culture = {
+            limit = { THIS.culture = culture:egyptian }
+            ROOT = {
+                integrate_country_culture = PREV
+            }
+        }
+		every_province = {
+			limit = {
+				owner = scope:civil_war_country
+				OR = {
+					province_id = 3367
+					is_in_area = tripolitania_orientalis_area
+					is_in_area = cyrenaica_inferioris_area
+					is_in_area = cyrenaica_superioris_area
+					is_in_region = fezzan_region
+				}
+			}
+			set_owned_by = c:CYR
+		}
+		if = {
+			limit = { has_variable = cyr_defection }
+			trigger_event = { #event for defection of some EGY troops
+				id = cyr_magas_01.38
+				days = 21
+			}
+		}
+	}
+}
+		
+
+
+cyr_magas_01.30 = {
+    type = country_event
+	title = cyr_magas_01.30.t
+	desc = cyr_magas_01.30.desc 
+	picture = greek_court
+	
+	option = {      
+		name = cyr_magas_01.30.a
+		cyr_coup_support_small_effect = yes
+		add_manpower = -2
+	}
+	option = {      
+		name = cyr_magas_01.30.b
+		add_legitimacy = 5
+	}
+}
+
+cyr_magas_01.31 = {
+    type = country_event
+    title = cyr_magas_01.31.t
+    desc = cyr_magas_01.31.desc
+    picture = greek_court
+
+    option = {      
+        name = cyr_magas_01.31.a
+		cyr_coup_support_small_effect = yes
+		add_treasury = -50
+    }
+	option = {      
+        name = cyr_magas_01.31.b
+		add_legitimacy = 5
+    }
+}
+
+cyr_magas_01.32 = {
+    type = country_event
+    title = cyr_magas_01.32.t
+    desc = cyr_magas_01.32.desc 
+    picture = greek_court 
+
+    option = {      
+        name = cyr_magas_01.32.a
+		cyr_coup_support_small_effect = yes
+		add_political_influence = -25
+    }
+	option = {      
+        name = cyr_magas_01.32.b
+		add_legitimacy = 5
+    }
+}
+
+cyr_magas_01.33 = {
+    type = country_event
+    title = cyr_magas_01.33.t 
+    desc = cyr_magas_01.33.desc 
+    picture = greek_court 
+	
+	option = { #complete script for assassinations is long and complex, would have to rewrite it from scratch, might do later
+        name = cyr_magas_01.33.a
+		random_list = {
+            50 = {
+				current_ruler = {
+					death = {
+						death_reason = death_books_stairs
+					}
+				}
+				add_aggressive_expansion = 15
+            }
+            50 = {
+				current_ruler = {
+					death = {
+						death_reason = death_battering
+					}
+				}
+				add_aggressive_expansion = 20
+            }
+        }
+		hidden_effect = {
+			if = {
+				limit = {
+					char:46 = { 
+						is_alive = yes
+						is_ruler = no
+					}
+				}
+				set_as_ruler = char:46
+			}
+			current_ruler = {
+				add_trait = pharaoh   
+			}
+		}
+    }
+	option = { #complete script for assassinations is long and complex, would have to rewrite it from scratch, might do later
+        name = cyr_magas_01.33.b
+		random_list = {
+            50 = {
+				current_ruler = {
+					death = {
+						death_reason = death_books_stairs
+					}
+				}
+				add_aggressive_expansion = 15
+            }
+            50 = {
+				current_ruler = {
+					death = {
+						death_reason = death_battering
+					}
+				}
+				add_aggressive_expansion = 20
+            }
+        }
+		hidden_effect = {
+			if = {
+				limit = {
+					char:46 = { 
+						is_alive = yes
+						is_ruler = no
+					}
+				}
+				set_as_ruler = char:46
+			}
+			current_ruler = {
+				add_trait = pharaoh   
+			}
+		}
+    }
+}
+
+cyr_magas_01.34 = {
+    type = country_event
+    title = cyr_magas_01.34.t
+    desc = cyr_magas_01.34.desc
+    picture = greek_home
+
+    trigger = {}
+	
+	immediate = {
+		if = {
+			limit = {
+				any_area = {
+					count >= 1
+					any_area_province = {
+						NOT = { is_in_area = c:EGY.capital_scope }
+						owner = c:EGY
+						any_unit_in_province = { 
+							unit_owner = ROOT
+						}
+						NOT = { has_province_modifier = cyr_secured_area }
+					}
+				}
+			}
+			ordered_area = {
+				limit = {
+					any_area_province = {
+						NOT = { is_in_area = c:EGY.capital_scope }
+						owner = c:EGY
+						any_unit_in_province = { 
+							unit_owner = ROOT
+						}
+						NOT = { has_province_modifier = cyr_secured_area }
+					}
+				}
+				save_scope_as = cyr_area_1
+			}
+		}
+		if = {
+			limit = {
+				any_area = {
+					count >= 2
+					any_area_province = {
+					NOT = { is_in_area = c:EGY.capital_scope }
+					owner = c:EGY
+					any_unit_in_province = { 
+						unit_owner = ROOT
+						}
+						NOT = { has_province_modifier = cyr_secured_area }
+					}
+				}
+			}
+			ordered_area = {
+				limit = {
+					NOT = { this = scope:cyr_area_1 }
+					any_area_province = {
+						NOT = { is_in_area = c:EGY.capital_scope }
+						owner = c:EGY
+						any_unit_in_province = { 
+							unit_owner = ROOT
+						}
+						NOT = { has_province_modifier = cyr_secured_area }
+					}
+				}
+				save_scope_as = cyr_area_2
+			}
+		}
+		if = {
+			limit = {
+				any_area = {
+					count >= 3
+					any_area_province = {
+						NOT = { is_in_area = c:EGY.capital_scope }
+						owner = c:EGY
+						any_unit_in_province = { 
+							unit_owner = ROOT
+						}
+						NOT = { has_province_modifier = cyr_secured_area }
+					}
+				}
+			}
+			ordered_area = {
+				limit = {
+					NOR = { 
+						this = scope:cyr_area_1
+						this = scope:cyr_area_2
+					}
+					any_area_province = {
+						NOT = { is_in_area = c:EGY.capital_scope }
+						owner = c:EGY
+						any_unit_in_province = { 
+							unit_owner = ROOT
+						}
+						NOT = { has_province_modifier = cyr_secured_area }
+					}
+				}
+				save_scope_as = cyr_area_3
+			}
+		}
+	}
+	
+	option = {
+		name = cyr_magas_01.34.a
+		trigger = {
+			exists = scope:cyr_area_1
+		}
+		hidden_effect = { 
+			scope:cyr_area_1 = {
+				every_area_province = {
+					limit = { owner = c:EGY }
+					add_province_modifier = {
+						name = cyr_secured_area 
+						duration = -1
+					}
+				}
+			}
+		}		
+#		change_variable = {
+#			name = cyr_timer
+#			subtract = 30
+#		}
+		set_variable = {
+			name = cyr_area_to_secure_cooldown_var
+			days = 30
+		}
+		add_treasury = {
+			value = 0
+			subtract = cyr_secure_area_svalue_1
+		}
+	}
+	
+	option = {
+		name = cyr_magas_01.34.b
+		trigger = {
+			exists = scope:cyr_area_2
+		}
+		hidden_effect = { 
+			scope:cyr_area_2 = {
+				every_area_province = {
+					limit = { owner = c:EGY }
+					add_province_modifier = {
+						name = cyr_secured_area 
+						duration = -1
+					}
+				}
+			}
+		}
+#		change_variable = {
+#			name = cyr_timer
+#			subtract = 30
+#		}
+		set_variable = {
+			name = cyr_area_to_secure_cooldown_var
+			days = 30
+		}
+		add_treasury = {
+			value = 0
+			subtract = cyr_secure_area_svalue_2
+		}
+	}
+	
+	option = {
+		name = cyr_magas_01.34.c
+		trigger = {
+			exists = scope:cyr_area_3
+		}
+		hidden_effect = { 
+			scope:cyr_area_3 = {
+				every_area_province = {
+					limit = { owner = c:EGY }
+					add_province_modifier = {
+						name = cyr_secured_area 
+						duration = -1
+					}
+				}
+			}
+		}
+#		change_variable = {
+#			name = cyr_timer
+#			subtract = 30
+#		}
+		set_variable = {
+			name = cyr_area_to_secure_cooldown_var
+			days = 30
+		}
+		add_treasury = {
+			value = 0
+			subtract = cyr_secure_area_svalue_3
+		}
+		hidden_effect = {
+			clear_saved_scope = cyr_area_1
+			clear_saved_scope = cyr_area_2
+			clear_saved_scope = cyr_area_3
+		}
+	}
+	
+	option = {
+		name = cyr_magas_01.34.d
+		trigger = {
+			always = yes
+		}
+	}
+}
+
+cyr_magas_01.35 = {
+    type = country_event
+    title = cyr_magas_01.35.t
+    desc = cyr_magas_01.35.desc
+    picture = greek_home
+
+    option = {      
+        name = cyr_magas_01.35.a
+		cyr_coup_support_small_effect = yes
+		add_political_influence = -15
+    }
+	option = {      
+        name = cyr_magas_01.35.b
+		add_legitimacy = 5
+    }
+}
+
+cyr_magas_01.36 = {
+    type = country_event
+    title = cyr_magas_01.36.t
+    desc = cyr_magas_01.36.desc
+    picture = greek_home
+
+	option = {
+		name = cyr_magas_01.36.a
+		char:45 = { 
+			move_country = ROOT 
+			set_home_country = c:CYR
+			remove_character_modifier = foreign_citizen
+			set_family = char:46.family
+		}
+	}
+}
+
+cyr_magas_01.37 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		random_character = {
+			limit = {
+				is_ruler = yes
+			}
+			save_scope_as = the_important_guy
+		}
+
+		scope:the_important_guy = {
+			set_variable = {
+				name = prestige_family
+				value = scope:the_important_guy.family.prestige
+			}
+		}
+
+		create_character = {
+			first_name="Arkerios"
+			family_name="Lagides"
+			culture="macedonian"
+			religion="roman_pantheon"
+			no_stats=yes
+			no_traits=yes
+
+			save_scope_as = lagid_man
+		}
+
+		create_family = scope:lagid_man
+
+		scope:lagid_man = {
+			family = {
+				add_prestige = {
+					value = scope:the_important_guy.var:prestige_family
+
+				}
+			}
+		}
+
+		scope:the_important_guy = {
+			family = {
+				every_family_member = {
+					add_character_modifier = {
+						name = family_reorganisation
+					}
+				}
+			}
+		}
+
+		every_country = {
+			every_character = {
+				limit = {
+					has_character_modifier = family_reorganisation
+				}
+				set_as_minor_character = this
+			}
+		}
+		scope:the_important_guy = {
+
+			set_family = scope:lagid_man.family
+			adapt_family_name = yes
+			set_home_country = ROOT
+			remove_character_modifier = family_reorganisation
+		}
+
+		scope:lagid_man = {
+			death = {
+				death_reason = death_obscurity
+			}
+		}
+
+		every_country = {
+			every_character = {
+				limit = {
+					has_character_modifier = family_reorganisation
+				}
+				set_family = scope:the_important_guy.family
+				adapt_family_name = yes
+				set_home_country = ROOT
+				remove_character_modifier = family_reorganisation
+			}
+		}
+	}
+}
+
+cyr_magas_01.38 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {			
+		while = {
+			count = var:cyr_defection
+			scope:civil_war_country = {
+				random_country_sub_unit = { 
+					limit = { sub_unit_type = light_infantry } #don't know if it makes sense to try to add anything else, this is like 50% of their army and every other troop type would be better paid and less likely to defect
+					destroy_subunit = yes
+				}
+			}
+		}
+		c:CYR = {
+			add_manpower = ROOT.var:egy_manpower		
+			create_unit = {
+				location = p:516
+				name = PTOLEMAIC_DEFECTORS
+				while = {
+					limit = {
+						unit_size < ROOT.var:cyr_defection
+					}
+					add_subunit = light_infantry				
+				}
+				add_food = 30
+			}
+		}
+	}
+}
+
+cyr_magas_01.39 = {
+	type = country_event
+	hidden = yes
+	fire_only_once = yes
+
+	trigger = { has_variable = cyr_appealed_kush }
+	
+	immediate = {
+		c:KSH = {
+			make_subject = {
+				type = tributary
+				target = c:CYR
+			}
+		}
+		every_owned_province = {
+			limit = {
+				OR = {
+					is_in_region = upper_egypt_region
+					is_in_area = aswan_area
+				}
+			}
+			set_owned_by = c:KSH
+			add_claim = c:CYR
+		}
+		add_truce = {
+			target = c:KSH
+			duration = 1825 # 5 years
+		}
+	}
+}
+
+cyr_magas_01.40 = {
+	type = country_event
+	hidden = yes
+	fire_only_once = yes
+
+	trigger = { has_variable = cyr_appealed_sel	}
+	
+	immediate = {
+		c:SEL = {
+			make_subject = {
+				type = tributary
+				target = c:CYR
+			}
+		}
+		every_owned_province = {
+			limit = { 
+				OR = {
+					is_in_region = palestine_region
+					is_in_region = syria_region
+					is_in_region = cilicia_region
+					is_in_region = asia_region
+					is_in_region = galatia_region
+					is_in_region = cappadocia_region
+					is_in_region = bithynia_region
+				}
+			}
+			set_owned_by = c:SEL
+			add_claim = c:CYR
+		}
+		every_country = {
+			limit = {
+				is_subject_of = c:CYR
+				capital_scope = {
+					OR = {
+						is_in_region = palestine_region
+						is_in_region = syria_region
+						is_in_region = cilicia_region
+						is_in_region = asia_region
+						is_in_region = galatia_region
+						is_in_region = cappadocia_region
+						is_in_region = bithynia_region
+					}
+				}
+			}
+			ROOT = {
+				release_subject = PREV
+			}
+		}
+		add_truce = {
+			target = c:SEL
+			duration = 1825 # 5 years
+		}
+	}
+}
+
+cyr_magas_01.41 = {
+	type = country_event
+	hidden = yes
+	fire_only_once = yes
+
+	trigger = { has_variable = philadelphos_king }
+	
+	immediate = {
+		if = {
+            limit = {
+			    char:45 = {
+				    NOT = { employer = c:CYR }				
+                }
+            }
+            char:45 = {
+                remove_character_modifier = foreign_citizen
+                move_country = c:CYR
+                set_home_country = c:CYR
+                set_family = char:46.family
+            }		
+		}
+		set_as_ruler = char:45
+		char:46 = { give_office = office_royal_tutor }
+	}
+}
+
+
+cyr_magas_01.42 = {
+	type = country_event
+	
+	title = cyr_magas_01.42.t
+	desc = cyr_magas_01.42.desc
+	picture = throneroom
+	
+	option = {
+		name = cyr_magas_01.42.a 
+		ai_chance = { factor = 100 }
+		custom_tooltip = cyr_magas_01.42.a.tt
+		c:CYR = {
+			set_variable = {
+				name = cyr_appealed_kush
+				days = -1
+			}
+		}
+		if = { 
+			limit = { 
+				c:EGY = { is_ai = no }
+			}
+			trigger_event = {
+				id = cyr_magas_01.44
+			}
+		}
+		if = {
+			limit = { 
+				c:EGY = { is_ai = yes }
+			}
+			trigger_event = {
+				id = cyr_magas_01.45
+			}
+		}
+	}
+	
+	option = {
+		name = cyr_magas_01.42.b
+		ai_chance = { factor = 0 }
+	}
+}
+
+cyr_magas_01.43 = {
+	type = country_event
+
+	title = cyr_magas_01.43.t
+	desc = cyr_magas_01.43.desc
+	picture = throneroom
+	
+	option = {
+		name = cyr_magas_01.43.a
+		ai_chance = { factor = 100 }
+		custom_tooltip = cyr_magas_01.43.a.tt
+		c:CYR = {
+			set_variable = {
+				name = cyr_appealed_sel
+				days = -1
+			}
+		}
+		if = { 
+			limit = { 
+				c:EGY = { is_ai = no }
+			}
+			trigger_event = {
+				id = cyr_magas_01.44
+			}
+		}
+		if = {
+			limit = { 
+				c:EGY = { is_ai = yes }
+			}
+			trigger_event = {
+				id = cyr_magas_01.45
+			}
+		}
+	}
+	
+	option = {
+		name = cyr_magas_01.43.b
+		ai_chance = { factor = 0 }
+	}
+}
+
+cyr_magas_01.44 = {
+	type = country_event
+	hidden = yes
+	
+	immediate = {
+		c:CYR = {
+			random_current_war = {
+				limit = {
+					any_war_defender = {
+						tag = EGY
+					}
+				}
+				save_scope_as = cyr_war_scope
+			}
+		}
+		add_to_war = {
+			target = scope:cyr_war_scope
+			attacker = yes
+			leader = no
+		}		
+		every_subject = {
+			limit = {
+				OR = {
+					is_subject_type = feudatory
+					is_subject_type = satrapy
+					is_subject_type = client_state
+				}
+				has_subject_loyalty >= 33
+				save_temporary_scope_as = temp_subject_war_scope
+				scope:cyr_war_scope = {
+					NOR = {
+						any_war_attacker = { this = scope:temp_subject_war_scope }
+						any_war_defender = { this = scope:temp_subject_war_scope }
+					}
+				}
+			}
+			add_to_war = {
+				target = scope:cyr_war_scope
+				attacker = yes
+				leader = no
+			}
+		}
+	}
+}
+
+cyr_magas_01.45 = {
+	type = country_event
+	hidden = yes
+	
+	immediate = {
+		c:CYR = {
+			random_current_war = {
+				limit = {
+					any_war_defender = {
+						tag = CYR
+					}
+				}
+				save_scope_as = cyr_war_scope
+			}
+		}
+		add_to_war = {
+			target = scope:cyr_war_scope
+			attacker = no
+			leader = no
+		}
+		every_subject = {
+			limit = {
+				OR = {
+					is_subject_type = feudatory
+					is_subject_type = satrapy
+					is_subject_type = client_state
+				}
+				has_subject_loyalty >= 33
+				save_temporary_scope_as = temp_subject_war_scope
+				scope:cyr_war_scope = {
+					NOR = {
+						any_war_attacker = { this = scope:temp_subject_war_scope }
+						any_war_defender = { this = scope:temp_subject_war_scope }
+					}
+				}
+			}
+			add_to_war = {
+				target = scope:cyr_war_scope
+				attacker = no
+				leader = no
+			}
+		}
+	}
+}
+
+cyr_magas_01.46 = {
+	type = country_event
+	title = cyr_magas_01.46.t
+	desc = cyr_magas_01.46.desc
+	picture = throneroom
+	
+	left_portrait = c:EGY.current_ruler
+    right_portrait = c:CYR.current_ruler
+	
+	option = { #I'm going to pay you to f off
+		name = cyr_magas_01.46.a 
+		ai_chance = { factor = 100 }
+		custom_tooltip = cyr_magas_01.46.tt
+		c:CYR = {
+			add_treasury = 500
+		}
+		add_treasury = -500
+		every_current_war = {
+			limit = {
+				any_war_participant = {
+					OR = {
+						tag = EGY
+						tag = CYR
+					}
+				}
+			}
+			force_white_peace = THIS
+		}	
+	}
+	
+	option = { #nah
+		name = cyr_magas_01.46.b
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+
+#cyr_magas_01.46 = {
+#	type = country_event
+#	#title = "argead_dynasty_events.1.t"
+#	#desc = "argead_dynasty_events.1.desc"
+#	#picture = throneroom
+#	
+#	option = {
+#		ai_chance = { factor = 50 }
+#		add_treasury = 300
+#		every_province = {
+#			limit = { 
+#				owner = c:KSH
+#				is_in_region = upper_egypt_region 
+#				is_in_area = aswan_area
+#			}
+#			set_owned_by = c:CYR
+#		}
+#		c:KSH = {
+#			make_subject = {
+#				type = tributary
+#				target = c:CYR
+#			}
+#		}
+#		c:CYR = {
+#			add_treasury = -300
+#			remove_variable = cyr_appealed_kush
+#		}
+#	}
+#	
+#	option = {
+#		ai_chance = { factor = 50 }
+#		c:CYR = { remove_variable = cyr_appealed_kush }
+#	}
+#}
+#
+#cyr_magas_01.47 = {
+#	type = country_event
+#	title = "argead_dynasty_events.1.t"
+#	desc = "argead_dynasty_events.1.desc"
+#	picture = throneroom
+#	
+#	option = {
+#		ai_chance = { factor = 50 }
+#		add_treasury = 300
+#		every_province = {
+#			limit = { 
+#				owner = c:SEL
+#				OR = {
+#					is_in_region = palestine_region
+#					is_in_region = syria_region
+#					is_in_region = cilicia_region
+#				} 
+#			}
+#			set_owned_by = c:CYR
+#		}
+#		c:KSH = {
+#			make_subject = {
+#				type = tributary
+#				target = c:CYR
+#			}
+#		}
+#		c:CYR = {
+#			add_treasury = -300
+#			remove_variable = cyr_appealed_diadochi
+#		}
+#	}
+#	
+#	option = {
+#		ai_chance = { factor = 50 }
+#		c:CYR = { remove_variable = cyr_appealed_diadochi }
+#	}
+#}
+
+cyr_magas_01.48 = { #choose what colour you want
+	type = country_event
+	title = cyr_magas_01.48.t
+	desc = cyr_magas_01.48.desc
+	picture = throneroom
+	
+    right_portrait = root.current_ruler
+	
+	option = { #Ptolemaic colours
+		name = cyr_magas_01.48.a 
+		hidden_effect = {
+			change_country_color = "magid_black" 
+			change_country_flag = EGY 
+		}
+	}
+	
+	option = { #CYR colours
+		name = cyr_magas_01.48.b
+		hidden_effect = {
+			change_country_color = "magid_egy" 
+			change_country_flag = EGY_CYR_FLAG 
+		}
+	}
+}
+
+
+cyr_magas_01.999 = {          # Atreides
+    type = country_event
+    title = cyr_magas_01.999.t
+    desc = cyr_magas_01.999.desc
+    picture = throneroom
+    left_portrait = current_ruler
+	
+	immediate = {
+		set_variable = atr_var
+		random_character = {
+			limit = {
+				is_ruler = yes
+			}
+			save_scope_as = the_important_guy
+		}
+
+		scope:the_important_guy = {
+			set_variable = {
+				name = prestige_family
+				value = scope:the_important_guy.family.prestige
+			}
+		}
+
+		create_character = {
+			first_name="Agamemnon"
+			family_name="Atreides"
+			culture="macedonian"
+			religion="roman_pantheon"
+			age = 20
+			female = no
+			add_martial = 8
+			add_charisma = 8
+			add_zeal = 8
+			add_finesse = 8
+
+			save_scope_as = atreides_man
+		}
+
+		create_family = scope:atreides_man
+
+		scope:atreides_man = {
+			family = {
+				add_prestige = {
+					value = scope:the_important_guy.var:prestige_family
+
+				}
+			}
+		}
+		
+		scope:atreides_man.employer = {
+			change_country_name = "ATREIDES_NAME" 
+			hidden_effect = {
+				change_country_adjective = "ATREIDES_ADJECTIVE"
+				change_country_color = ck2_white
+				change_country_flag = ATR_FLAG
+			}
+			change_government = imperial_cult
+			add_country_modifier = {
+				duration = 10950
+				name = atreides_rising				
+			}
+			set_as_ruler = scope:atreides_man
+		}
+		
+		current_ruler = {
+			deify_character = {
+				deity = deity:omen_zeus_amun
+				country = ROOT
+			}
+		}
+		
+		create_unit = {
+			navy = no
+			name = UNIT_FREEMEN
+			location = p:3359
+			hidden_effect = {
+				while = {
+					limit = {
+						unit_size < 41
+					}
+					add_subunit = camels				
+				}			
+				add_food = 100
+				add_morale = 2
+				random_sub_unit = {
+					limit = { sub_unit_type = light_infantry }
+					destroy_subunit = yes
+				}	
+			}
+		}
+
+		set_variable = {
+			name = horde_invasion_origin
+			days = 3650
+		}
+		
+		hidden_effect = {
+			region:syria_region = { formable_region_province_effect = yes }
+			region:ariana_region = { formable_region_province_effect = yes }
+			region:bactriana_region = { formable_region_province_effect = yes }
+			region:media_region = { formable_region_province_effect = yes }
+			region:persis_region = { formable_region_province_effect = yes }
+			region:mesopotamia_region = { formable_region_province_effect = yes }
+			region:assyria_region = { formable_region_province_effect = yes }
+			region:bithynia_region = { formable_region_province_effect = yes }
+			region:cappadocia_region = { formable_region_province_effect = yes }
+			region:galatia_region = { formable_region_province_effect = yes }
+			region:cilicia_region = { formable_region_province_effect = yes }
+			region:asia_region = { formable_region_province_effect = yes }
+			region:palestine_region = { formable_region_province_effect = yes }
+			region:gandhara_region = { formable_region_province_effect = yes }
+			region:lower_egypt_region = { formable_region_province_effect = yes }
+			region:macedonia_region = { formable_region_province_effect = yes }
+			region:thrace_region = { formable_region_province_effect = yes }
+			region:moesia_region = { formable_region_province_effect = yes }
+			area:patalene_area = { formable_area_province_effect = yes }
+			area:north_sindhu_area = { formable_area_province_effect = yes }
+			area:south_sindhu_area = { formable_area_province_effect = yes }
+			area:sauvira_area = { formable_area_province_effect = yes }
+			area:aswan_area = { formable_area_province_effect = yes }
+			area:ammon_area = { formable_area_province_effect = yes }
+			area:marmarica_orientalis_area = { formable_area_province_effect = yes }
+			area:myos_hormos_area = { formable_area_province_effect = yes }
+			area:luxor_area = { formable_area_province_effect = yes }
+			area:troglodytica_area = { formable_area_province_effect = yes }
+			area:khargana_area = { formable_area_province_effect = yes }
+			area:kharga_area = { formable_area_province_effect = yes }
+			area:farfara_area = { formable_area_province_effect = yes }
+			area:hema_nome_area = { formable_area_province_effect = yes }
+			area:cyropolis_area = { formable_area_province_effect = yes }
+			area:sogdiana_area = { formable_area_province_effect = yes }
+			area:jaxartia_area = { formable_area_province_effect = yes }
+			area:ferghana_area = { formable_area_province_effect = yes }
+			area:hyrcania_area = { formable_area_province_effect = yes }
+			area:parthia_komishene_area = { formable_area_province_effect = yes }
+			area:parthia_area = { formable_area_province_effect = yes }
+			area:vishpauzatis_area = { formable_area_province_effect = yes }
+			area:margu_area = { formable_area_province_effect = yes }
+			area:epirus_area = { formable_area_province_effect = yes }
+			area:aetolia_area = { formable_area_province_effect = yes }
+			area:boeotia_area = { formable_area_province_effect = yes }
+			area:euboea_area = { formable_area_province_effect = yes }
+			area:aegean_islands_area = { formable_area_province_effect = yes }
+			area:central_greece_area = { formable_area_province_effect = yes }
+			area:achaea_area = { formable_area_province_effect = yes }
+			area:arcadia_area = { formable_area_province_effect = yes }	
+			area:south_peleponnesos_area = { formable_area_province_effect = yes }	
+		}
+	}
+	
+	option = {
+		name = cyr_magas_01.999.a
+		custom_tooltip = cyr_magas_01.999.tt
+	}
+}

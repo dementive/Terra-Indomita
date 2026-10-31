@@ -1,0 +1,2531 @@
+﻿farms_in_province_tooltip_svalue = {
+	value = 0
+	scope:food_province = {
+		every_state_province = {
+			limit = { has_building = basic_settlement_infratructure_building }
+			add = 1
+		}
+	}
+}
+
+potential_farms_in_province_tooltip_svalue = {
+	value = 0
+	scope:food_province = {
+		every_state_province = {
+			limit = {
+				has_city_status = no
+				has_food_trade_good_trigger = yes
+			}
+			add = 1
+		}
+	}
+}
+ 
+farms_in_province_svalue = {
+	value = 0
+	every_state_province = {
+		limit = { has_building = basic_settlement_infratructure_building }
+		add = 1
+	}
+}
+
+potential_farms_in_province_svalue = {
+	value = 0
+	every_state_province = {
+		limit = { 
+			has_city_status = no
+			has_food_trade_good_trigger = yes
+		}
+		add = 1
+	}
+}
+
+
+
+mines_in_province_tooltip_svalue = {
+	value = 0
+	scope:mining_province = {
+		every_state_province = {
+			limit = { has_building = slave_mine_building }
+			add = 1
+		}
+	}
+}
+
+potential_mines_in_province_tooltip_svalue = {
+	value = 0
+	scope:mining_province = {
+		every_state_province = {
+			limit = {
+				has_city_status = no
+				has_minable_trade_good_trigger = yes
+			}
+			add = 1
+		}
+	}
+}
+ 
+ 
+mines_in_province_svalue = {
+	value = 0
+	every_state_province = {
+		limit = { has_building = slave_mine_building }
+		add = 1
+	}
+}
+
+potential_mines_in_province_svalue = {
+	value = 0
+	every_state_province = {
+		limit = { 
+			has_city_status = no
+			has_minable_trade_good_trigger = yes 
+		}
+		add = 1
+	}
+}
+
+port_forts_province_svalue = {
+	value = 0
+	scope:port_province = {
+		every_state_province = {
+			limit = {
+				has_building = fortress_building
+				is_port = yes
+			}
+			add = 1
+		}
+	}
+}
+
+port_cities_in_province_svalue = {
+	value = 0
+	scope:port_province = {
+		every_state_province = {
+			limit = {
+				has_city_status = yes
+				is_port = yes
+			}
+			add = 1
+		}
+	}
+}
+
+ports_in_subjects_svalue = {
+	value = 0
+	area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = { is_subject_of = ROOT }
+				is_port = yes
+			}
+			add = 1
+		}
+	}
+}
+
+port_markets_in_province_svalue = {
+	value = 0
+	scope:port_province = {
+		every_state_province = {
+			limit = {
+				num_of_commerce_building >= 2
+				is_port = yes
+			}
+			add = 1
+		}
+	}
+}
+
+port_cities_potential_tooltip_svalue = {
+	value = 0
+	scope:port_province = {
+		every_state_province = {
+			limit = {
+				is_port = yes
+			}
+			add = 1
+		}
+	}
+}
+
+#Generic Religious Shrines Mission  - Always change shrine_cost_svalue as well if this is changed
+shrine_cost_afford_svalue = {
+	value = scope:shrine_territory.total_population
+	multiply = 20
+	min = 150
+	max = 500
+}
+
+#Generic Religious Shrines Mission - Always change shrine_cost_afford_svalue as well if this is changed
+shrine_cost_svalue = {
+	value = shrine_cost_afford_svalue
+	multiply = -1
+}
+
+#Generic Food Depot Mission  - Always change food_depot_price_pay as well if this is changed
+food_depot_price = {
+	value = scope:food_province_capital.total_population
+	multiply = 15
+	min = 600
+	max = 1200
+}
+
+#Generic Religious Shrines Mission - Always change food_depot_price as well if this is changed
+food_depot_price_pay = {
+	value = food_depot_price
+	multiply = -1
+}
+
+lots_of_stored_food_svalue = {
+	value = has_state_food_capacity
+	divide = 2
+	min = 600
+	max = 1600
+}
+
+lots_of_stored_food_pay_svalue = {
+	value = lots_of_stored_food_svalue
+	multiply = -1
+}
+
+prospecting_cost_svalue = {
+	value = 0
+	scope:mining_province = {
+		every_state_province = {
+			limit = {
+				has_city_status = no
+				terrain = hills
+				has_unminable_trade_good_trigger = yes
+			}
+			add = 100
+		}
+		every_state_province = {
+			limit = {
+				has_city_status = no
+				terrain = mountain
+				has_unminable_trade_good_trigger = yes
+			}
+			add = 150
+		}
+		every_state_province = {
+			limit = {
+				has_city_status = no
+				terrain = desert
+				has_unminable_trade_good_trigger = yes
+			}
+			add = 100
+		}
+	}
+	min = 200
+	max = 1200
+}
+
+prospecting_cost_pay_svalue = {
+	value = prospecting_cost_svalue
+	multiply = -1
+}
+
+slave_cost_svalue = {
+	value = 0
+	scope:mining_province = {
+		every_state_province = {
+			limit = {
+				has_city_status = no
+				has_minable_trade_good_trigger = yes
+			}
+			add = 200
+		}
+	}
+	min = 400
+	max = 1800
+}
+
+slave_cost_pay_svalue = {
+	value = slave_cost_svalue
+	multiply = -1
+}
+
+monarchy_family_num_of_expected_jobs_plus_svalue = {
+	value = scope:monarchy_family.num_of_expected_jobs
+	add = 1
+}
+
+monarchy_family_num_of_current_jobs_plus_svalue = {
+	value = scope:monarchy_family.num_of_jobs
+}
+
+republic_family_num_of_expected_jobs_plus_svalue = {
+	value = scope:republic_family.num_of_expected_jobs
+	add = 1
+}
+
+republic_family_num_of_current_jobs_plus_svalue = {
+	value = scope:republic_family.num_of_jobs
+}
+
+rm_land_purchase_buy_svalue = {
+	value = 0
+	scope:rm_purchase_territory_scope = {
+		every_pops_in_province = {
+			limit = { pop_type = slaves }
+			add = 2
+		}
+		every_pops_in_province = {
+			limit = { pop_type = tribesmen }
+			add = 1
+		}
+		every_pops_in_province = {
+			limit = { pop_type = freemen }
+			add = 1.5
+		}
+		every_pops_in_province = {
+			limit = { pop_type = citizen }
+			add = 2
+		}
+		every_pops_in_province = {
+			limit = { pop_type = nobles }
+			add = 4
+		}
+	}
+	multiply = 2
+}
+
+generic_mission_expansion_development_no_free_building_slots_svalue = {
+	value = 0
+	scope:development_branch_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				has_city_status = yes
+				free_building_slots = 0
+				has_construction = no
+			}
+			add = 1
+		}
+	}
+	max = 3
+}
+
+generic_mission_expansion_development_city_status_svalue = {
+	value = 0
+	scope:development_branch_area = {
+		every_area_province = {
+			limit = {
+				owner = root 
+				has_city_status = yes
+			}
+			add = 1
+		}
+	}
+	max = 3
+}
+
+generic_mission_expansion_development_importing_svalue = {
+	value = 0
+	scope:development_branch_area = {
+		if = {
+			limit = {
+				any_area_province = {
+					calc_true_if = {
+						amount >= 2
+						is_importing_trade_good = grain
+						is_importing_trade_good = vegetables
+						is_importing_trade_good = salt
+						is_importing_trade_good = fish
+						is_importing_trade_good = cattle
+					}
+				}
+			}
+			add = 2
+		}
+		else_if = {
+			limit = {
+				any_area_province = {
+					calc_true_if = {
+						amount = 1
+						is_importing_trade_good = grain
+						is_importing_trade_good = vegetables
+						is_importing_trade_good = salt
+						is_importing_trade_good = fish
+						is_importing_trade_good = cattle
+					}
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+generic_mission_expansion_defend_area_svalue = {
+	value = 0
+	scope:defend_target = {
+		every_state_province = {
+			limit = {
+				has_building = fortress_building
+			}
+			add = 1
+		}
+	}
+	max = 3
+}
+
+generic_mission_expansion_dominant_religion_svalue = {
+	value = 0
+	scope:third = {
+		every_area_province = {
+			limit = {
+				dominant_province_religion = root.religion
+				owner = root
+			}
+			add = 1
+		}
+	}
+	max = 5
+}
+
+generic_infrastructure_mission_trade_investment_svalue = {
+	value = 0
+	if = {
+		limit = {
+			state = {
+				has_variable = trade_routes_added
+			}
+		}
+		state = {
+			add = var:trade_routes_added
+		}
+	}
+}
+
+get_diadochi_pantheon_svalue = {
+	every_pantheon_deity = {
+		limit = {
+			NOT = { deity_religion = ROOT.religion }
+		}
+		add = 1
+	}
+}
+
+diadochi_pantheon_target_svalue = {
+	value = 2
+}
+
+mauryan_reconquest_task_6_pops_current = {
+	value = 0
+	region:madhyadesa_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+			}
+			every_pops_in_province = {
+				limit = {
+					OR = {
+						pop_culture = root.culture
+						AND = {
+							exists = country_culture
+							country_culture = { is_integrated = yes }
+						}
+					}
+				}
+				add = 1
+			}
+		}
+	}
+	region:avanti_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+			}
+			every_pops_in_province = {
+				limit = {
+					OR = {
+						pop_culture = root.culture
+						AND = {
+							exists = country_culture
+							country_culture = { is_integrated = yes }
+						}
+					}
+				}
+				add = 1
+			}
+		}
+	}	
+	max = mauryan_reconquest_task_6_pops_total	
+}
+
+mauryan_reconquest_task_6_pops_total = {
+	value = mauryan_reconquest_task_6_pops_absolute_total
+	multiply = 0.80
+	round = floor	
+}
+
+mauryan_reconquest_task_6_pops_absolute_total = {
+	value = 0
+	region:madhyadesa_region = {
+		every_region_province = {
+			limit = {
+#				owner = root
+			}
+			every_pops_in_province = {
+				limit = {
+					OR = {
+						pop_culture = root.culture
+						AND = {
+							exists = country_culture
+							country_culture = { is_integrated = yes }
+						}
+					}
+				}
+				add = 1
+			}
+		}
+	}
+	region:avanti_region = {
+		every_region_province = {
+			limit = {
+#				owner = root
+			}
+			every_pops_in_province = {
+				limit = {
+					OR = {
+						pop_culture = root.culture
+						AND = {
+							exists = country_culture
+							country_culture = { is_integrated = yes }
+						}
+					}
+				}
+				add = 1
+			}
+		}
+	}		
+}
+
+mauryan_reconquest_task_7_pracya_buildings_current = {
+	value = 0
+	region:pracya_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+			}
+			add = num_of_used_building_slots
+		}
+	}
+	max = mauryan_reconquest_task_7_pracya_buildings_total
+}
+mauryan_reconquest_task_7_pracya_buildings_total = {
+	value = 75
+}
+
+mauryan_reconquest_task_12_ports_current = {
+	value = 0
+	region:aparanta_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				num_of_port_building >= 1
+			}
+			add = num_of_port_building
+		}
+	}	
+	max = mauryan_reconquest_task_12_ports_total
+}
+mauryan_reconquest_task_12_ports_total = {
+	value = 40
+}
+
+mauryan_reconquest_task_11_exotic_current = {
+	value = 0
+	region:vindhyaprstha_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				OR = {
+					trade_goods = amber
+					trade_goods = spices
+					trade_goods = elephants
+					trade_goods = glass
+					trade_goods = silk
+					trade_goods = gems
+					trade_goods = precious_metals
+					trade_goods = dye
+					trade_goods = honey
+					trade_goods = incense
+					trade_goods = dates
+					trade_goods = sugar
+				}
+			}
+			add = num_goods_produced
+		}
+	}
+	max = mauryan_reconquest_task_11_exotic_total
+}
+mauryan_reconquest_task_11_exotic_total = {
+	value = 50
+}
+
+mauryan_reconquest_task_14_silk_current = {
+	value = 0
+	region:pracya_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				trade_goods = silk
+			}
+			add = num_goods_produced
+		}
+	}
+	max = mauryan_reconquest_task_14_silk_total
+}
+mauryan_reconquest_task_14_silk_total = {
+	value = 40
+}
+
+mauryan_reconquest_task_15_ports_current = {
+	value = 0
+	region:pracya_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				num_of_port_building >= 1
+			}
+			add = 1
+		}
+	}	
+	max = mauryan_reconquest_task_15_ports_total
+}
+mauryan_reconquest_task_15_ports_total = {
+	value = 30
+}
+mauryan_reconquest_task_15_trade_current = {
+	value = root.capital_scope.state.incoming_trade_routes
+}
+mauryan_reconquest_task_15_trade_total = {
+	value = 15
+}
+
+mauryan_reconquest_task_16_grain_veggie_current = {
+	value = 0
+	region:avanti_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				OR = {
+					trade_goods = grain
+					trade_goods = vegetables
+				}
+				
+			}
+			add = num_goods_produced
+		}
+	}
+	region:madhyadesa_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				OR = {
+					trade_goods = grain
+					trade_goods = vegetables
+				}
+				
+			}
+			add = num_goods_produced
+		}
+	}	
+	max = mauryan_reconquest_task_16_grain_veggie_total
+}
+mauryan_reconquest_task_16_grain_veggie_total = {
+	value = 100
+}
+
+mauryan_reconquest_task_2_shungan_destruction_current = {
+	value = 0
+	c:MRY = {
+		every_owned_province = {
+            every_pops_in_province = {
+                limit = {
+                    OR = {
+                        pop_type = nobles
+                        pop_type = citizen
+                    }
+                    pop_culture = avanti
+                }
+                add = 1
+            }
+        }
+    }
+}
+
+mauryan_reconquest_task_4_mry_offer_bully_svalue = {
+	value = 0
+	scope:mry_offer_scope = {
+		every_country_sub_unit = {
+			add = 1
+		}
+		every_allied_country = {
+			every_country_sub_unit = {
+				add = 1
+			}
+		}
+	}
+	multiply = 2
+	min = 0
+}
+thebes_missions_01_restoration_task_12_army_current = {
+	value = 0
+	if = {
+		limit = {
+			any_country_sub_unit = {
+				is_cohort = yes
+			}
+		}
+		every_country_sub_unit = {
+			limit = {
+				is_cohort = yes
+			}
+			add = 1
+		}
+	}
+	max = thebes_missions_01_restoration_task_12_army_total
+}
+
+thebes_missions_01_restoration_task_12_army_total = {
+	value = 10
+}
+thebes_missions_03_prosperity_task_4_pops_current = {
+	value = 0
+	area:boeotia_area = {
+		every_area_province = {
+			limit = { owner = root }
+			every_pops_in_province = {
+				add = 1
+			}
+		}
+	}
+	max = thebes_missions_03_prosperity_task_4_pops_total
+}
+thebes_missions_03_prosperity_task_4_pops_total = {
+	value = 135
+}
+thebes_missions_03_prosperity_task_8_buildings_current = {
+	value = 0
+	area:achaea_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+				num_of_used_building_slots >= 1
+			}
+			add = num_of_used_building_slots
+		}
+	}
+	max = thebes_missions_03_prosperity_task_8_buildings_total
+}
+thebes_missions_03_prosperity_task_8_buildings_total = {
+	value = 20
+}
+thebes_missions_03_prosperity_task_9_income_current = {
+	value = 0
+	region:greece_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+			}
+			add = province_income
+		}
+	}
+	max = thebes_missions_03_prosperity_task_9_income_total
+}
+thebes_missions_03_prosperity_task_9_income_total = {
+	value = 10
+}
+thebes_missions_03_prosperity_task_12_pops_current = {
+	value = 0
+	every_owned_province = {
+		every_pops_in_province = {
+			limit  = { pop_type = citizen }
+			add = 1
+		}
+	}
+	max = thebes_missions_03_prosperity_task_12_pops_total	
+}
+thebes_missions_03_prosperity_task_12_pops_total = {
+	value = 100
+}
+thebes_missions_03_prosperity_task_12_courts_total = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			num_of_court_building >= 3
+		}
+		add = 1
+	}
+	max = 5
+}
+thebes_missions_03_prosperity_task_13_academies_total = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			num_of_academy_building >= 3
+		}
+		add = 1
+	}
+	max = 5	
+}
+thebes_missions_03_prosperity_task_13_pops_current = {
+	value = 0
+	every_owned_province = {
+		every_pops_in_province = {
+			limit  = { pop_type = nobles }
+			add = 1
+		}
+	}
+	max = thebes_missions_03_prosperity_task_13_pops_total
+}
+thebes_missions_03_prosperity_task_13_pops_total = {
+	value = 65
+}
+thebes_missions_03_prosperity_task_14_olives_current = {
+	value = 0
+	region:greece_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				trade_goods = olive
+			}
+			add = num_goods_produced
+		}
+	}
+	max = thebes_missions_03_prosperity_task_14_olives_total
+}
+thebes_missions_03_prosperity_task_14_olives_total = {
+	value = 30
+}
+thebes_missions_03_prosperity_task_15_wine_current = {
+	value = 0
+	region:greece_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				trade_goods = wine
+			}
+			add = num_goods_produced
+		}
+	}
+	max = thebes_missions_03_prosperity_task_15_wine_total	
+}
+thebes_missions_03_prosperity_task_15_wine_total = {
+	value = 25
+}
+thebes_missions_04_conquest_task_4_pop_current = {
+	value = 0
+	area:thessaly_area = {
+		every_area_province = {
+			limit = {
+				owner = root
+			}
+			every_pops_in_province  = {
+				limit = {
+					pop_culture = root.culture
+				}
+				add = 1
+			}
+		}
+	}
+	max = thebes_missions_04_conquest_task_4_pop_total
+}
+thebes_missions_04_conquest_task_4_pop_total = {
+	value = 100
+}
+thebes_missions_04_conquest_task_15_buildings_current = {
+	value = 0
+	region:asia_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				num_of_used_building_slots >= 1
+			}
+			add = num_of_used_building_slots
+		}
+	}
+	max = thebes_missions_04_conquest_task_15_buildings_total
+}
+thebes_missions_04_conquest_task_15_buildings_total = {
+	value = 125
+}
+thebes_missions_04_conquest_task_19_buildings_current = {
+	value = 0
+	region:bithynia_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				OR = {
+					num_of_port_building >= 1
+					num_of_commerce_building >= 1
+					num_of_town_hall_building >= 1
+				}				
+			}
+			add = num_of_port_building
+			add = num_of_commerce_building
+			add = num_of_town_hall_building
+		}
+	}
+	max = thebes_missions_04_conquest_task_19_buildings_total
+}
+thebes_missions_04_conquest_task_19_buildings_total = {
+	value = 50
+}
+thebes_missions_04_conquest_task_20_buildings_current = {
+	value = 0
+	region:galatia_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				num_of_used_building_slots >= 1
+			}
+			add = num_of_used_building_slots
+		}
+	}
+	max = thebes_missions_04_conquest_task_20_buildings_total
+}
+thebes_missions_04_conquest_task_20_buildings_total = {
+	value = 100
+}
+generic_area_mission_25_economy_buildings_current = {
+	value = 0
+	if = {
+		limit = { has_variable = thebes_properity_counting }
+		area:arcadia_area = {
+			every_area_province = {
+				limit = {
+					owner = root
+					OR = {
+						num_of_port_building >= 1
+						num_of_commerce_building >= 1
+						num_of_town_hall_building >= 1
+					}
+				}
+				add = num_of_port_building
+				add = num_of_commerce_building
+				add = num_of_town_hall_building
+			}
+		}
+	}
+	max = generic_area_mission_25_economy_buildings_total
+}
+generic_area_mission_25_economy_buildings_total = {
+	value = 20
+}
+generic_area_mission_25_military_buildings_current = {
+	value = 0
+	if = {
+		limit = { has_variable = thebes_properity_counting }
+		area:south_peleponnesos_area = {
+			every_area_province = {
+				limit = {
+					owner = root
+					OR = {
+						num_of_barracks_building >= 1
+						num_of_military_building >= 1
+						num_of_workshop_building >= 1
+					}
+				}
+				add = num_of_barracks_building
+				add = num_of_military_building
+				add = num_of_workshop_building
+			}
+		}
+	}
+	max = generic_area_mission_25_military_buildings_total
+}
+generic_area_mission_25_military_buildings_total = {
+	value = 20
+}
+generic_area_mission_25_academic_buildings_current = {
+	value = 0
+	if = {
+		limit = { has_variable = thebes_properity_counting }
+		area:central_greece_area = {
+			every_area_province = {
+				limit = {
+					owner = root
+					OR = {
+						num_of_academy_building >= 1
+						num_of_court_building >= 1
+						num_of_library_building >= 1
+					}
+				}
+				add = num_of_academy_building
+				add = num_of_court_building
+				add = num_of_library_building
+			}
+		}
+	}
+	max = generic_area_mission_25_academic_buildings_total
+}
+generic_area_mission_25_academic_buildings_total = {
+	value = 20
+}
+generic_25_buildings_svalue_current = {
+	value = 0
+	if = {
+		limit = { has_variable = thebes_properity_counting }
+		area:boeotia_area = {
+			every_area_province = {
+				limit = {
+					owner = root
+					num_of_used_building_slots >= 1
+				}
+				add = num_of_used_building_slots
+			}
+		}
+	}
+	max = generic_25_buildings_svalue_total
+}
+generic_25_buildings_svalue_total = {
+	value = 20
+}
+orchomenos_pops_minus_one_svalue = {
+	value = 0
+	add = p:423.total_population
+	subtract = 1
+}
+
+owned_alexandrias_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_alexandria = yes
+		}
+		add = 1
+	}
+}
+
+cappadocia_fort_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			has_building = fortress_building
+		}
+		add = num_of_fortress_building
+	}
+}
+
+pop_happiness_political_influence_svalue = { # for religion
+	value = {
+		every_owned_province = {
+			every_pops_in_province = {
+				limit = {
+					pop_hapiness >= 0.75
+					NOT = {
+						pop_religion = root.religion
+					}
+				}
+				add = 1
+			}
+		}
+	}
+	min = 25
+	max = 250
+}
+
+pop_culture_happiness_political_influence_svalue = { # for religion
+	value = {
+		every_owned_province = {
+			every_pops_in_province = {
+				limit = {
+					pop_hapiness >= 0.75
+					NOT = {
+						pop_culture = root.culture
+					}
+				}
+				add = 1
+			}
+		}
+	}
+	min = 25
+	max = 250
+}
+
+cap_horse_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_in_region = cappadocia_region
+			trade_goods = horses
+		}
+		add = num_goods_produced
+	}
+}
+
+cilicia_ports_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_in_region = cilicia_region
+			num_of_port_building >= 1
+		}
+		add = num_of_port_building
+	}
+}
+
+total_pop_happiness_svalue = { # defacto
+  	value = 0
+  	every_owned_province = {
+		every_pops_in_province = {
+			limit = {
+				NOT = {
+					pop_type = slaves
+				}
+				pop_hapiness >= 0.5
+
+			}
+			add = 1
+		}
+	}
+}
+
+total_pop_happiness_max_svalue = { # max
+  	value = {
+		every_owned_province = {
+			every_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_type = slaves
+					}
+				}
+				add = 1
+			}
+		}
+  	}
+  	multiply = 0.4
+  	round = floor
+}
+
+total_pop_happiness_svalue_33p = { # defacto 33% happiness
+  	value = 0
+  	every_owned_province = {
+		every_pops_in_province = {
+			limit = {
+				NOT = {
+					pop_type = slaves
+				}
+				pop_hapiness >= 0.33
+
+			}
+			add = 1
+		}
+	}
+}
+
+total_pop_happiness_max_svalue_33p = { # max 80% of non-salve pops
+  	value = {
+		every_owned_province = {
+			every_pops_in_province = {
+				limit = {
+					NOT = {
+						pop_type = slaves
+					}
+				}
+				add = 1
+			}
+		}
+  	}
+  	multiply = 0.8 # 80 %
+  	round = floor
+}
+
+rank_scaled_manpower_svalue = {
+	value = 0
+	if = {
+		limit = {
+			current_date >= 600.1.1
+		}
+		if = {
+			limit = {
+				rank = migrant_horde
+			}
+			add = -2
+		}
+		else_if = {
+			limit = {
+				rank = city_power
+			}
+			add = -2
+		}
+		else_if = {
+			limit = {
+				rank = local_power
+			}
+			add = -4
+		}
+		else_if = {
+			limit = {
+				rank = regional_power
+			}
+			add = -8
+		}
+		else_if = {
+			limit = {
+				rank = major_power
+			}
+			add = -15
+		}
+		else_if = {
+			limit = {
+				rank = great_power
+			}
+			add = -30
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				rank = migrant_horde
+			}
+			add = -1
+		}
+		else_if = {
+			limit = {
+				rank = city_power
+			}
+			add = -1
+		}
+		else_if = {
+			limit = {
+				rank = local_power
+			}
+			add = -2
+		}
+		else_if = {
+			limit = {
+				rank = regional_power
+			}
+			add = -4
+		}
+		else_if = {
+			limit = {
+				rank = major_power
+			}
+			add = -10
+		}
+		else_if = {
+			limit = {
+				rank = great_power
+			}
+			add = -20
+		}
+	}
+}
+
+rank_scaled_treasury_svalue = {
+	value = 0
+	if = {
+		limit = {
+			current_date >= 600.1.1
+		}
+		if = {
+			limit = {
+				rank = migrant_horde
+			}
+			add = -50
+		}
+		else_if = {
+			limit = {
+				rank = city_power
+			}
+			add = -80
+		}
+		else_if = {
+			limit = {
+				rank = local_power
+			}
+			add = -150
+		}
+		else_if = {
+			limit = {
+				rank = regional_power
+			}
+			add = -300
+		}
+		else_if = {
+			limit = {
+				rank = major_power
+			}
+			add = -600
+		}
+		else_if = {
+			limit = {
+				rank = great_power
+			}
+			add = -1000
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				rank = migrant_horde
+			}
+			add = -25
+		}
+		else_if = {
+			limit = {
+				rank = city_power
+			}
+			add = -40
+		}
+		else_if = {
+			limit = {
+				rank = local_power
+			}
+			add = -75
+		}
+		else_if = {
+			limit = {
+				rank = regional_power
+			}
+			add = -150
+		}
+		else_if = {
+			limit = {
+				rank = major_power
+			}
+			add = -300
+		}
+		else_if = {
+			limit = {
+				rank = great_power
+			}
+			add = -500
+		}
+	}
+}
+
+owned_incense_province_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = incense
+		}
+		add = 1
+	}
+}
+
+owned_myrrh_province_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = myrrh
+		}
+		add = 1
+	}
+}	
+paurava_missions_task_26_current = {
+	value = 0
+	every_owned_province = {
+		every_pops_in_province = {
+			limit = {
+				pop_religion = root.religion
+			}
+			add = 1
+		}
+	}			
+	max = country_population
+}
+
+paurava_missions_task_26_needed = {
+	value = country_population
+	multiply = 0.4
+	round = floor
+}
+
+albania_mission_task_16_have_10_military_buildings_current = {
+	value = 0
+	if = {
+		limit = { has_variable = albania_properity_counting }
+		area:caucasian_albania_area = {
+			every_area_province = {
+				limit = {
+					owner = root
+					OR = {
+						num_of_barracks_building >= 1
+						num_of_military_building >= 1
+						num_of_workshop_building >= 1
+					}
+				}
+				add = num_of_barracks_building
+				add = num_of_military_building
+				add = num_of_workshop_building
+			}
+		}
+	}
+	max = albania_mission_task_16_have_10_military_buildings_total
+}
+albania_mission_task_16_have_10_military_buildings_total = {
+	value = 10
+}
+saba_neighbouring_countries_strength_svalue = {
+	value = {
+		every_neighbour_country = {
+			add = country_population
+		}
+	}
+}
+
+saba_neighbouring_countries_strength_svalue_own_pop = {
+	value = country_population
+}
+
+saba_trade_goods_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			OR = {
+				trade_goods = incense
+				trade_goods = myrrh
+				trade_goods = spices
+			}
+		}
+		add = num_goods_produced
+	}
+}
+
+masiliot_trade_goods_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = glass
+		}
+		add = num_goods_produced
+	}
+}
+
+arabia_punt_trade_goods_svalue = {
+	value = 0
+	region:punt_region = {
+		every_region_province = {
+			limit = {
+				OR = {
+					trade_goods = incense
+					trade_goods = myrrh
+					trade_goods = spices
+				}
+			}
+			add = num_goods_produced
+		}
+	}
+	region:arabia_felix_region = {
+		every_region_province = {
+			limit = {
+				OR = {
+					trade_goods = incense
+					trade_goods = myrrh
+					trade_goods = spices
+				}
+			}
+			add = num_goods_produced
+		}
+	}
+	multiply = 0.6 # need 60%
+	round = ceiling
+}
+
+arabia_felix_isrealite_provinces = {
+	value = 0
+	region:arabia_felix_region = {
+		every_region_province = {
+			limit = {
+				dominant_province_religion = judaism
+			}
+			add = 1
+		}
+	}
+}
+
+arabia_felix_isrealite_provinces_owned = {
+	value = 0
+	region:arabia_felix_region = {
+		every_region_province = {
+			limit = {
+				owner = root
+				dominant_province_religion = judaism
+			}
+			add = 1
+		}
+	}
+}
+
+saba_army_size_current_svalue = {
+	value = 0
+	if = {
+		limit = {
+			any_country_sub_unit = {
+				is_cohort = yes
+			}
+		}
+		every_country_sub_unit = {
+			limit = {
+				is_cohort = yes
+			}
+			add = 1
+		}
+	}
+	max = saba_army_size_total_svalue
+}
+
+saba_army_size_total_svalue = {
+	value = 50
+}
+
+main_sub_unit_count = {
+	value = 0
+	c:MIN = {
+		every_country_sub_unit = {
+			limit = {
+				is_cohort = yes
+			}
+			add = 1
+		}
+	}
+}
+
+root_sub_unit_count = {
+	value = 0
+	ROOT = {
+		every_country_sub_unit = {
+			limit = {
+				is_cohort = yes
+			}
+			add = 1
+		}
+	}
+}
+
+african_trade_svalue = {
+	value = 0
+	region:punt_region = {
+		every_region_province = {
+			limit = {
+				OR = {
+					trade_goods = myrrh
+					trade_goods = incense
+					trade_goods = precious_metals
+					trade_goods = spices
+					trade_goods = gems
+				}
+			}
+			add = num_goods_produced
+		}
+	}
+}
+
+marib_damage_svalue = {
+	value = 1000
+	if = {
+		limit = {
+			has_variable = marib_damage_value_var
+		}
+		multiply = var:marib_damage_value_var
+	}
+}
+
+himyar_province_number_svalue = {
+	value = 0
+	every_country = {
+		every_owned_province = {
+			limit = {
+				dominant_province_culture = himjar
+			}
+			add = 1
+		}
+	}
+}
+
+himyar_province_number_svalue_current = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			dominant_province_culture = himjar
+		}
+		add = 1
+	}
+}
+
+messapia_hellenistic_pops_svalue = {
+	value = 0
+	every_country_culture = {
+		limit = { culture.culture_group = culture_group:hellenic }
+		add = country_culture_pop_count
+	}
+}
+
+messapia_latin_pops_svalue = {
+	value = 0
+	every_country_culture = {
+		limit = { culture.culture_group = culture_group:latin }
+		add = country_culture_pop_count
+	}
+}
+
+messapia_balkan_pops_svalue = {
+	value = 0
+	every_country_culture = {
+		limit = { 
+			culture.culture_group = culture_group:illyrian_group 
+			NOT = {
+				culture = culture:messapian
+			}
+		}
+		add = country_culture_pop_count
+	}
+}
+
+illyria_region_owned_prov_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_in_region = illyria_region
+		}
+		add = 1
+	}
+}
+
+italia_region_owned_prov_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_in_region = central_italy_region
+		}
+		add = 1
+	}
+}
+
+adriatic_coast_owned_prov_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_coastal = yes
+			OR = {
+				is_in_region = illyria_region
+				is_in_area = illyria_graeca_area
+				is_in_area = asculum_area
+				is_in_area = cannae_area
+				is_in_area = ariminum_area
+				is_in_area = aternum_area
+				is_in_area = venetia_area
+				is_in_area = ferraria_area
+				is_in_area = aemilla_area
+				is_in_area = tarentum_area
+			}
+			NOR = {
+				province_id = 55
+				province_id = 56
+				province_id = 62
+				province_id = 63
+			}
+		}
+		add = 1
+	}
+}
+
+messapia_religion_italic_svalue = {
+	value = 0
+	every_owned_province = {
+		every_pops_in_province = {
+			limit = {
+				pop_religion = italic_pantheon
+			}
+			add = 1
+		}
+	}
+}
+country_ougoing_trade_routes_svalue = {
+	value = 0
+	every_country_state = {
+		add = outgoing_trade_routes
+	}
+}
+
+tartessia_onuba_iron_base_metals_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			OR = {
+				trade_goods = iron
+				trade_goods = base_metals
+			}
+		}
+		add = num_goods_produced
+	}
+}
+
+tartessia_precious_metals_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = precious_metals
+		}
+		add = num_goods_produced
+	}
+}
+
+tartessia_lusitanian_furs_svalue = {
+	value = 0
+	region:lusitania_region = {
+		every_region_province = {
+			limit = {
+				trade_goods = fur
+				owner = root
+			}
+			add = num_goods_produced
+		}
+	}
+}
+
+messapia_religion_illyrian_svalue = {
+	value = 0
+	every_owned_province = {
+		every_pops_in_province = {
+			limit = {
+				pop_religion = illyrian_pantheon
+			}
+			add = 1
+		}
+	}
+}
+
+messapia_religion_hellenic_svalue = { # resued in samnite mission tree
+	value = 0
+	every_owned_province = {
+		every_pops_in_province = {
+			limit = {
+				pop_religion = roman_pantheon
+			}
+			add = 1
+		}
+	}
+}
+
+training_camp_svalue = {
+	value = 0
+	every_owned_province = {
+		add = num_of_military_building
+	}
+}
+tartessia_cinnabar_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = cinnabar
+		}
+		add = num_goods_produced
+	}
+}
+
+tartessia_cured_ham_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = cattle
+		}
+		add = num_goods_produced
+	}
+}
+
+tartessian_incoming_trade_route_current = {
+	value = root.capital_scope.state.incoming_trade_routes
+}
+
+tartessian_incoming_trade_route_total = {
+	value = 10
+}
+
+samnite_production_svalue = {
+	value = 0
+	every_owned_province = {
+		add = num_goods_produced
+	}
+}
+
+samnite_pagus_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			num_of_used_building_slots >= 1
+			has_construction = no
+		}
+		add = num_of_used_building_slots
+	}
+}
+
+samnite_pastoralism_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			has_food_trade_good_trigger = yes
+			has_building = basic_settlement_infratructure_building
+		}
+		add = num_of_basic_settlement_infratructure_building
+	}
+}
+
+sam_destroy_idols_svalue = {
+	value = 0
+	every_holy_site = {
+		limit = {
+			OR = {
+				is_in_area = pisae_area
+				is_in_area = croton_area
+				is_in_area = heraclea_area
+				is_in_area = cannae_area
+				is_in_area = tarentum_area
+				is_in_area = aternum_area
+				is_in_area = ariminum_area
+				is_in_area = asculum_area
+				is_in_area = roma_area
+				is_in_area = south_etruria_area
+				is_in_area = north_etruria_area
+			}
+			province_deity = {
+				NOT = { deity_religion = root.religion }
+			}
+		}
+		add = 1
+	}
+	# every_deity = {
+	# 	limit = {
+	# 		NOT = {
+	# 			deity_religion = root.religion
+	# 		}
+	# 		has_holy_site = yes
+	# 		holy_site = {
+	# 			OR = {
+	# 				is_in_area = pisae_area
+	# 				is_in_area = croton_area
+	# 				is_in_area = heraclea_area
+	# 				is_in_area = cannae_area
+	# 				is_in_area = tarentum_area
+	# 				is_in_area = aternum_area
+	# 				is_in_area = ariminum_area
+	# 				is_in_area = asculum_area
+	# 				is_in_area = roma_area
+	# 				is_in_area = south_etruria_area
+	# 				is_in_area = north_etruria_area
+	# 			}
+	# 		}
+	# 	}
+	# 	add = 1
+	# }
+}
+
+sam_brut_luc_svalue = {
+	value = 0
+	region:magna_graecia_region = {
+		every_region_province = {
+			limit = {
+				OR = {
+					dominant_province_culture = lucanian
+					dominant_province_culture = bruttian
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+sam_owned_brut_luc_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_in_region = magna_graecia_region
+			OR = {
+				dominant_province_culture = lucanian
+				dominant_province_culture = bruttian
+			}
+		}
+		add = 1
+	}
+}
+
+sam_export_svalue = {
+	value = 0
+	every_country_state = {
+		add = state_commerce_income 
+		round = floor
+	}
+}
+
+ver_sacrum_territory_svalue = {
+	THIS = {
+		value = population_cap
+		multiply = 0.95
+	}
+}
+
+sab_take_women_home_svalue = {
+	value = p:1.total_population
+	multiply = 0.25 # 25%
+}
+
+asia_region_coast_svalue = {
+	value = 0
+	region:asia_region = {
+		every_region_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+}
+
+owned_asia_region_coast_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_in_region = asia_region
+			is_coastal = yes
+		}
+		add = 1
+	}
+}
+
+pontus_region_coast_svalue = {
+	value = 0
+	region:bithynia_region = {
+		every_region_province = {
+			limit = {
+				is_in_list = miletos_colonies_list
+			}
+			add = 1
+		}
+	}
+	region:cappadocia_pontica_region = {
+		every_region_province = {
+			limit = {
+				is_in_list = miletos_colonies_list
+			}
+			add = 1
+		}
+	}
+}
+
+pontus_asia_region_coast_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_in_list = miletos_colonies_list
+			OR = {
+				is_in_region = bithynia_region
+				is_in_region = cappadocia_pontica_region
+			}	
+		}
+		add = 1
+	}
+}
+
+taurica_region_svalue = {
+	value = 0
+	region:taurica_region = {
+		every_region_province = {
+			limit = {
+				is_in_list = miletos_colonies_list
+			}
+			add = 1
+		}
+	}
+}
+
+owned_taurica_region_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			is_in_list = miletos_colonies_list
+			is_in_region = taurica_region	
+		}
+		add = 1
+	}
+}
+
+miletos_grain_svalue = {
+	value = 0
+	every_country_state = {
+		limit = {
+			trade_good_surplus = {
+				target = grain
+				value >= 1
+			}
+		}
+		add = 1
+	}
+}
+
+miletos_wool_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = cloth
+		}
+		add = num_goods_produced
+	}
+}
+
+anatolian_pops_in_country = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			any_pops_in_province = {
+				
+			}
+		}
+		every_pops_in_province = {
+			limit = { pop_religion = anatolian_religion }
+			add = 1
+		}
+	}
+}
+
+feudatory_count_svalue = {
+	value = 0
+	every_subject = {
+		limit = {
+			is_subject_type = feudatory
+		}
+		add = 1
+	}
+}
+
+mlo_cities_civ_value = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			has_city_status = yes
+			civilization_value >= 80
+		}
+		add = 1
+	}
+}
+
+mlo_library_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			has_building = library_building
+		}
+		add = num_of_library_building
+	}
+}
+
+mlo_academy_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			has_building = academy_building
+		}
+		add = num_of_academy_building
+	}
+}
+
+mlo_high_population_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			total_population >= 50
+		}
+		add = 1
+	}
+}
+
+mlo_state_food_svalue = {
+	value = 0
+	every_country_state = {
+		limit = {
+			any_province = {
+				is_in_region = asia_region
+			}
+			has_state_food < 250
+		}
+		add = 1
+	}
+}
+
+dye_production_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = dye
+		}
+		add = num_goods_produced
+	}
+}
+
+ionia_greece_reward_svalue = {
+	value = {
+		every_owned_province = {
+			limit = {
+				OR = {
+                    province_id = 416
+                    province_id = 440
+                    province_id = 427
+                    province_id = 399
+                    province_id = 418
+                    province_id = 424
+                    province_id = 426
+                    province_id = 407
+                }
+			}
+			add = 1
+		}
+	}
+}
+
+hellenic_persia_comparison = {
+	value = 0
+	# positive = Persian, Negative = Hellenic
+	if = {
+		limit = {
+			has_variable = persian_culture_points
+		}
+		add = var:persian_culture_points
+	}
+	if = {
+		limit = {
+			has_variable = hellenic_culture_points
+		}
+		subtract = var:hellenic_culture_points
+	}
+}
+
+armenia_comparison_value = { # this value is armenia - hellenic OR persia; combined with the above, it tells us how the influence is distributed
+	value = 0 # positive value means, Armenia's
+	if = {
+		limit = {
+			has_variable = armenian_culture_points
+		}
+		add = var:armenian_culture_points
+	}
+	if = {
+		limit = {
+			hellenic_persia_comparison < 0
+		}
+		subtract = var:hellenic_culture_points # this compares the hellenic and persian variables
+	}
+	else_if = {
+		limit = {
+			hellenic_persia_comparison > 0
+		}
+		subtract = var:persian_culture_points # this compares the hellenic and persian variables
+	}
+	# else (unnecessary) means that there's the same amount of persian and armenian influence
+}
+
+country_arm_num_of_nobles = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			any_pops_in_province = {
+				pop_type = nobles
+				pop_culture = armenian
+			}
+		}
+		add = num_of_nobles
+	}
+}
+
+country_aqueduct_count = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			has_building = aqueduct_building
+		}
+		add = num_of_aqueduct_building
+	}
+}
+
+holdings_distributed_svalue = {
+	value = 0
+	every_character = {
+		limit = {
+			num_holdings_owned > 0
+		}
+		add = num_holdings_owned
+	}
+}
+
+armenian_wine_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = wine
+		}
+		add = num_goods_produced
+	}
+}
+
+armenian_apricots_svalue = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			trade_goods = fruits
+		}
+		add = num_goods_produced
+	}
+}
+
+pontus_ports_task_8_current = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			OR = {
+				is_in_area = paphlagonia_inferior_area
+				is_in_area = machelonia_area
+			}
+			num_of_port_building >= 1
+		}
+		add = num_of_port_building
+	}
+	max = pontus_ports_task_8_max
+}
+
+pontus_ports_task_8_max = 8
+
+pontus_forts_task_9_current = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			OR = {
+				is_in_area = paphlagonia_superior_area
+				is_in_area = pontus_area
+			}
+			num_of_fortress_building >= 1
+		}
+		add = num_of_fortress_building
+	}
+	max = pontus_forts_task_9_max
+}
+
+pontus_forts_task_9_max = 6
+
+pontus_academy_task_12_current = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			num_of_academy_building >= 1
+		}
+		add = num_of_academy_building
+	}
+	max = pontus_academy_task_12_max
+}
+
+pontus_academy_task_12_max = 4
+
+pontus_02_coasts_task_24_current = {
+	value = 0
+	every_owned_province = {
+		limit = {
+			OR = {
+				is_in_region = bithynia_region
+				is_in_region = cappadocia_pontica_region
+			}
+			is_coastal = yes
+			owner = root
+		}
+		add = 1
+	}
+}
+
+pontus_02_coasts_task_24_total = {
+	value = pontus_02_coasts_task_24_absolute
+	multiply = 0.75
+	round = floor
+}
+
+pontus_02_coasts_task_24_absolute = {
+	value = 0
+	region:bithynia_region = {
+		every_region_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	region:cappadocia_pontica_region = {
+		every_region_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+}
+
+carthaginian_mission_africa_securing_coastline_max_svalue = {
+	value = 0
+	area:mauretania_caesariensis_centralis_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:mauretania_caesariensis_occidentalis_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:mauretania_caesariensis_maioris_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:mauretania_caesariensis_orientalis_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:numidia_occidentalis_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:numidia_centralis_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:numidia_maioris_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:rutubis_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:carthage_area = {
+		every_area_province = {
+			limit = {
+				OR = {
+					province_id = 3256
+					province_id = 3257
+					province_id = 3258
+				}
+			}
+			add = 1
+		}
+	}
+	area:mauretania_tingitana_septentrionalis_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:mauretania_tingitana_meridionalis_area = {
+		every_area_province = {
+			limit = {
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+}
+
+carthaginian_mission_africa_securing_coastline_current_svalue = {
+	value = 0
+	area:mauretania_caesariensis_centralis_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:mauretania_caesariensis_occidentalis_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:mauretania_caesariensis_maioris_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:mauretania_caesariensis_orientalis_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:numidia_occidentalis_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:numidia_centralis_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:numidia_maioris_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:rutubis_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:carthage_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				OR = {
+					province_id = 3256
+					province_id = 3257
+					province_id = 3258
+				}
+			}
+			add = 1
+		}
+	}
+	area:mauretania_tingitana_septentrionalis_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+	area:mauretania_tingitana_meridionalis_area = {
+		every_area_province = {
+			limit = {
+				exists = owner
+				owner = {
+					OR = {
+						this = root
+						is_subject_of = root
+					}
+				}
+				is_coastal = yes
+			}
+			add = 1
+		}
+	}
+}

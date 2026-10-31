@@ -1,0 +1,157 @@
+﻿country_decisions = {
+	
+	# Form Argead Empire
+	reunite_alexanders_empire = {
+		
+		potential = {
+			NOT = { has_variable = formed_argead_empire }
+			num_of_cities >= 1
+			OR = {
+				country_culture_group = hellenic
+				has_variable = pentapotamia_hellenic_empire
+			}
+			is_monarchy = yes
+			NOT = {
+				tag = ALX
+			}
+			OR = {
+				is_ai = no
+				num_of_cities >= 40
+			}
+		}
+		
+		highlight = {
+			scope:province = {
+				OR = {
+					province_id = 379 #Pella
+					province_id = 418 #Corinth
+					#province_id = 426 #Thebes
+					#province_id = 427 #Sparta
+					#province_id = 440 #Argos
+					province_id = 416 #Athens
+					province_id = 350 #Lysimachea
+					#province_id = 189 #Gordion
+					province_id = 292 #Sardis
+					province_id = 516 #Alexandria
+					province_id = 500 #Memphis
+					province_id = 659 #Gaza
+					province_id = 743 #Tyre
+					province_id = 790 #Antigonia/Antioch
+					#province_id = 1874 #Epiphania
+					province_id = 5537 #Ammon
+					province_id = 918 #Babylon
+					province_id = 911 #Seleucia Magna
+					#province_id = 946 #Susa
+					province_id = 4799 #Persepolis
+					province_id = 1595 #Ecbatana
+					#province_id = 6611 #Alexandria in the Caucasus (afghanistan)
+					province_id = 7314 #Taxila
+					province_id = 6821 #Alexandria on the Indus
+				}
+			}
+		}
+		
+		allow = {
+			custom_tooltip = {
+				text = formable_not_argeads_exists
+				NOT = {
+					any_country = {
+						tag = ALX
+					}
+				}
+			}
+			is_monarchy = yes
+			can_form_nation_trigger = yes
+			owns_or_subject_owns = 379 #Pella
+			owns_or_subject_owns = 418 #Corinth
+			#owns_or_subject_owns = 426 #Thebes
+			#owns_or_subject_owns = 427 #Sparta
+			#owns_or_subject_owns = 440 #Argos
+			owns_or_subject_owns = 416 #Athens
+			owns_or_subject_owns = 350 #Lysimachea
+			#owns_or_subject_owns = 189 #Gordion
+			owns_or_subject_owns = 292 #Sardis
+			owns_or_subject_owns = 516 #Alexandria
+			owns_or_subject_owns = 500 #Memphis
+			owns_or_subject_owns = 659 #Gaza
+			owns_or_subject_owns = 743 #Tyre
+			owns_or_subject_owns = 790 #Antigonia/Antioch
+			#owns_or_subject_owns = 1874 #Epiphania
+			owns_or_subject_owns = 5537 #Ammon
+			owns_or_subject_owns = 918 #Babylon
+			owns_or_subject_owns = 911 #Seleucia Magna
+			#owns_or_subject_owns = 946 #Susa
+			owns_or_subject_owns = 4799 #Persepolis
+			owns_or_subject_owns = 1595 #Ecbatana
+			#owns_or_subject_owns = 6611 #Alexandria in the Caucasus (afghanistan)
+			owns_or_subject_owns = 7314 #Taxila
+			owns_or_subject_owns = 6821 #Alexandria on the Indus
+		}
+		
+		
+		effect = {
+			custom_tooltip = "tier_3_formable_tooltip"
+			set_variable = formed_argead_empire
+			if = {
+				limit = { is_tribal = yes }
+				add_country_modifier = {
+					name = civilized_tribe
+					duration = 5475
+				}
+			}
+			add_country_modifier = {
+				name = "argead_empire_modifier"
+				duration = -1
+			}
+			add_5_free_province_investments = yes
+			trigger_event = { id = diadochi_flavor.7 }
+			trigger_event = { id = diadochi_flavor.200 }
+			hidden_effect = {
+				if = {
+					limit = {
+						NOR = { 
+							government = imperium 
+							government = imperial_cult
+							government = spartan_monarchy
+							government = spartan_imperium
+							government = spartan_imperial_cult
+						}
+					}
+
+					republic_to_monarchy_law_variable_effect = yes # decide which legion law should be transferred
+					change_government = imperium
+					republic_to_monarchy_law_change_effect = yes # change legion law based on variable if present
+					switch_government_type_event_clearup_effect = yes
+				}
+				if = {
+					limit = {
+						NOR = {
+							government = spartan_imperial_cult
+							government = spartan_imperium
+						}
+						government = spartan_monarchy
+					}
+					change_government = spartan_imperium
+					switch_government_type_event_clearup_effect = yes
+				}
+				change_country_color = "argead_blue"
+				change_country_tag = ALX
+				change_country_flag = ARGEAD_FLAG
+				alexanders_empire_claim_effect = yes
+			}
+			if = {
+				limit = {
+					is_iron_man = yes
+					is_ai = no
+				}
+				set_variable = ach_alexanders_empire_var
+			}
+		}
+		
+		ai_will_do = {
+			base = 1
+		}
+	}
+
+} 
+

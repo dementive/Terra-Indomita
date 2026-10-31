@@ -1,0 +1,207 @@
+﻿galation_invasion_game_rule = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		NOT = { has_global_variable = galation_invasion_game_rule }
+	}
+
+	effect = {
+		if = {
+			limit =  { has_global_variable = galation_invasion_game_rule }
+			remove_global_variable = galation_invasion_game_rule
+		}
+		else = {
+			set_global_variable = galation_invasion_game_rule
+		}
+	}
+}
+
+bigger_revolts_game_rule = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		NOT = { has_global_variable = bigger_revolts_game_rule }
+	}
+
+	effect = {
+		if = {
+			limit =  { has_global_variable = bigger_revolts_game_rule }
+			remove_global_variable = bigger_revolts_game_rule
+		}
+		else = {
+			set_global_variable = bigger_revolts_game_rule
+		}
+	}
+}
+
+mauryan_collapse_game_rule = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		NOT = { has_global_variable = mauryan_collapse_game_rule }
+	}
+
+	effect = {
+		if = {
+			limit =  { has_global_variable = mauryan_collapse_game_rule }
+			remove_global_variable = mauryan_collapse_game_rule
+		}
+		else = {
+			set_global_variable = mauryan_collapse_game_rule
+		}
+	}
+}
+
+food_mechanic_game_rule = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		NOT = { has_global_variable = seaonal_food_game_rule }
+	}
+
+	effect = {
+		if = {
+			limit =  { has_global_variable = seaonal_food_game_rule }
+			remove_global_variable = seaonal_food_game_rule
+		}
+		else = {
+			set_global_variable = seaonal_food_game_rule
+		}
+	}
+}
+
+diadochi_old = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		NOT = { has_global_variable = diadochi_old }
+	}
+
+	effect = {
+		if = {
+			limit =  { has_global_variable = diadochi_old }
+			remove_global_variable = diadochi_old
+		}
+		else = {
+			set_global_variable = diadochi_old
+		}
+	}
+}
+
+diadochi_names = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_global_variable = has_changed_name_flag
+	}
+
+	effect = {
+		if = {
+			limit =  { has_global_variable = has_changed_name_flag }
+			remove_global_variable = has_changed_name_flag
+			c:MAC = {
+				change_country_name = "MAC"
+				hidden_effect = {
+					change_country_adjective = "MAC_ADJ"
+				}	
+			}
+			c:TRE = {
+				change_country_name = "TRE"
+				hidden_effect = {
+					change_country_adjective = "TRE_ADJ"
+				}
+			}
+		}
+		else = {
+			set_global_variable = has_changed_name_flag
+			c:MAC = {
+				change_country_name = "ANTIPATRID_KINGDOM"
+				hidden_effect = {
+					change_country_adjective = "ANTIPATRID_ADJ"
+				}	
+			}
+			c:TRE = {
+				change_country_name = "LYSIMACHID_KINGDOM"
+				hidden_effect = {
+					change_country_adjective = "LYSIMACHID_ADJ"
+				}
+			}
+		}
+	}
+}
+
+ai_aggressiveness_major = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_global_variable = game_rule_ai_aggressiveness_major
+	}
+
+	effect = {
+		if = {
+			limit =  { has_global_variable = game_rule_ai_aggressiveness_all }
+			remove_global_variable = game_rule_ai_aggressiveness_all
+		}
+		if = {
+			limit =  { has_global_variable = game_rule_ai_aggressiveness_major }
+			remove_global_variable = game_rule_ai_aggressiveness_major
+		}
+		else = {
+			set_global_variable = game_rule_ai_aggressiveness_major
+		}
+	}
+}
+
+ai_aggressiveness_all = {
+	scope = country
+
+	ai_is_valid = {
+		always = no
+	}
+
+	is_shown = {
+		has_global_variable = game_rule_ai_aggressiveness_all
+	}
+
+	effect = {
+		if = {
+			limit =  { has_global_variable = game_rule_ai_aggressiveness_major }
+			remove_global_variable = game_rule_ai_aggressiveness_major
+		}
+		if = {
+			limit =  { has_global_variable = game_rule_ai_aggressiveness_all }
+			remove_global_variable = game_rule_ai_aggressiveness_all
+		}
+		else = {
+			set_global_variable = game_rule_ai_aggressiveness_all
+		}
+	}
+}

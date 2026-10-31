@@ -1,0 +1,72 @@
+﻿deficit_strong_armed_button = {
+	scope = country
+	
+	is_shown = { # Can be omitted as always true
+      always = yes
+    } 
+	ai_is_valid = {
+		always = no #TODO PWN
+	}
+	is_valid = {
+		stability > 40
+		any_character = {
+			OR = {
+				has_any_office = yes
+				is_governor = yes
+			}
+			loyalty > 30
+		}
+	}
+	effect = {
+		# custom_tooltip = "deficit_strong_armed_button_tt"
+		
+		if = {
+			limit = {
+				has_country_modifier = deficit_character_loyalty
+			}
+			random_character = {
+				limit = {
+					OR = {
+						has_any_office = yes
+						is_governor = yes
+					}
+				}
+				weight = {
+					title_importance_modifier = yes
+				}
+				save_scope_as = deficit_4_target
+			}
+		}
+		
+		add_treasury  = {
+			value = root.has_monthly_income
+			multiply = add_monthly_income_medium
+			min = 20
+			max = 1200
+		}
+		add_stability = -8
+		if = {
+			limit = {
+				NOT = {
+					has_country_modifier = deficit_character_loyalty_manual
+				}
+			}
+			add_country_modifier = {
+				name = deficit_character_loyalty_manual
+				duration = 720
+			}
+		}
+		else = {
+			scope:deficit_4_target = {
+				add_loyalty = loyalty_wealth_requisitioned
+			}
+		}
+		current_ruler = {
+			if = {
+				limit = { is_minor_character = no }
+				family = { add_prestige = subtract_prestige_small }
+			}
+		}	
+	}
+}
+	

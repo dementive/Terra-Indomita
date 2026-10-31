@@ -1,0 +1,698 @@
+﻿on_game_initialized = {
+
+	on_actions = {
+		# delay = { days = { 10 30 } }
+		# cappadocia_gamestart_pulse
+		# delay = { days = { 10 30 } } ##delay be gone
+		fix_succession_on_action
+	}
+
+	events = {
+		###Spartan Diarchy
+		special_spartan_event.1
+
+		###Birth Order Traits
+		firstborn_traits.1
+		
+		###Roman Name Order
+		roman_name_order.1
+
+		###Bloodlines
+		bloodlines_startup.1 #Sparta
+		bloodlines_startup.2 #Rome
+		bloodlines_startup.3 #Athens
+		bloodlines_startup.4 #Armenia
+		bloodlines_startup.5 #Bactria
+		bloodlines_startup.6 #Bosporan
+		bloodlines_startup.7 #Heraclea
+		bloodlines_startup.8 #Judea
+		bloodlines_startup.9 #Atropatene
+		bloodlines_startup.10 #Syracuse
+		bloodlines_startup.11 #Taulantia
+		bloodlines_startup.12 #Maurya
+		bloodlines_startup.13 #Epirus
+		bloodlines_startup.14 #Senonia
+		bloodlines_startup.15 #Etruria
+		bloodlines_startup.16 #Kios
+		bloodlines_startup.17 #Macedon
+		bloodlines_startup.18 #Seleukids
+		bloodlines_startup.19 #Egypt
+		bloodlines_startup.20 #Phrygia
+		bloodlines_startup.21 #Thrace
+		bloodlines_startup.22 #Arvernia
+		bloodlines_startup.23 #Carthage
+		bloodlines_startup.24 #Pandya
+		bloodlines_startup.25 #Chola
+		bloodlines_startup.26 #Chera
+		bloodlines_startup.27 #Kalinga
+		bloodlines_startup.28 #Porus
+		bloodlines_startup.29 # Vijaya
+		bloodlines_startup.30 # Vijaya Ruhunu
+		bloodlines_startup.31 # Zipoetes
+		bloodlines_startup.32 # Samaria
+		bloodlines_startup.33 # Yaudheya
+		bloodlines_startup.34 # Saba
+		bloodlines_startup.35 # Odrysia
+		bloodlines_startup.36 # Paphlagonia
+		bloodlines_startup.37 # Paphlagonia
+		bloodlines_startup.38 # Gadir
+		bloodlines_startup.39 # Olbe
+
+		###Capadocian Flavor delay =  days =  10 30 for later Pulse for this now see above
+		flavor_cap.1
+
+		###Interesting Treasures
+		interesting_treasures.1
+
+		###Interesting Histories
+		interesting_histories_country_events.1
+		interesting_histories_country_events.2
+		interesting_histories_country_events.3
+		interesting_histories_country_events.4
+		interesting_histories_country_events.5
+		interesting_histories_country_events.6
+		interesting_histories_country_events.7
+		interesting_histories_country_events.8
+		interesting_histories_country_events.9
+		interesting_histories_country_events.10
+		interesting_histories_country_events.11
+		interesting_histories_country_events.12
+		interesting_histories_country_events.13
+		#interesting_histories_country_events.14
+		interesting_histories_country_events.15
+		interesting_histories_country_events.16
+		interesting_histories_country_events.17
+		#interesting_histories_country_events.18
+		#interesting_histories_country_events.19
+		#interesting_histories_country_events.20
+		interesting_histories_country_events.21
+		interesting_histories_country_events.22
+		interesting_histories_country_events.23
+		interesting_histories_country_events.24
+		interesting_histories_country_events.25
+		interesting_histories_country_events.26
+		interesting_histories_country_events.27
+		interesting_histories_country_events.28
+		interesting_histories_country_events.29
+		interesting_histories_country_events.30
+		interesting_histories_country_events.31
+		interesting_histories_country_events.32
+		interesting_histories_country_events.33
+		interesting_histories_country_events.34
+
+		###Iberian Starts
+		iberian_starting_country_events.1
+		iberian_starting_country_events.2
+		iberian_starting_country_events.3
+		iberian_starting_country_events.4
+		iberian_starting_country_events.5
+		iberian_starting_country_events.6
+		iberian_starting_country_events.7
+
+		#new starts
+		startup_events.9
+		startup_events.10
+		startup_events.11
+		startup_events.12
+		startup_events.13
+		startup_events.14
+		startup_events.15
+		startup_events.16
+		startup_events.17
+		startup_events.18
+		startup_events.19
+		startup_events.20
+		startup_events.21
+		startup_events.22
+		startup_events.23
+		#the Diadochi CB code
+		province_siege.2
+		#Ashoka Temporary health boost
+		flavor_maurya.4
+		#All mauryan provinces list event
+		flavor_maurya.15
+
+		#Saba
+		south_arabia.1000
+		# Lucania - Hidden - Used for setting up an event chain
+		me_messapia.100
+		# Kios
+		pontus_startup.1
+	}
+
+	effect = {
+		#vanilla
+		### Unique Mechanics ###
+		startup_variables_unique_mechanics_effect = yes
+		### Unique Deities ###
+		startup_variables_unique_deities_effect = yes
+		### Achievement Checks ###
+		startup_variables_achievement_effect = yes
+		### Cultural Minority Rights ###
+		startup_cultural_decisions_effect = yes
+		### Variable for fixing new monarchies ###
+		if = {
+			limit = {
+				is_monarchy = yes
+			}
+			set_variable = {
+				name = fix_new_countries
+			}
+		}
+		### Other ###
+		if = {
+			limit = {
+				has_law = work_for_the_best
+			}
+			set_legion_recruitment = capital
+		}
+		add_innovation = {
+			value = oratory_tech
+		}
+		add_innovation = {
+			value = military_tech
+		}
+		add_innovation = {
+			value = civic_tech
+		}
+		add_innovation = {
+			value = religious_tech
+		}
+		if = {
+			limit = { tag = PRY }
+			current_ruler = {
+				add_rival = C:EGY.current_ruler
+				add_rival = C:SEL.current_ruler
+				add_rival = C:MAC.current_ruler
+				add_friend = char:71
+			}
+			char:97 = {
+				add_friend = char:38
+				add_friend = char:71 #Nearchos				
+			}
+			char:190 = {#Antigonus II Gonatas
+				add_friend = char:533 #Menedemos the philosopher
+			}			
+			char:37 = {
+				add_friend = char:38
+			}
+			random_navy = {
+				add_subunit = mega_galley
+				add_subunit = mega_galley
+				add_subunit = mega_galley
+				add_subunit = octere
+				add_subunit = octere
+				add_subunit = octere
+				add_subunit = octere
+				add_subunit = octere
+			}
+			set_variable = me_ant_start_flag
+			antigonid_legion_setup_effect = yes
+			add_opinion = { target = c:MAC modifier = diadochi_rivals }
+			add_opinion = { target = c:TRE modifier = diadochi_rivals }
+			add_opinion = { target = c:EGY modifier = diadochi_rivals }
+			add_opinion = { target = c:SEL modifier = diadochi_rivals }
+		}
+		if = {
+			limit = { tag = MAC }
+			char:32 = {
+				trigger_event = {
+					id = dhe_macedon.1 # Cassander illness
+					days = { 700 760 } # 2 years
+				}
+			}
+			char:288 = {
+				trigger_event = {
+					id = dhe_macedon.2 # Philip IV illness
+					days = { 1400 1520 } # 4 years
+				}
+			}
+			add_opinion = {
+				modifier = pyrrhos_crowned_opmod
+				target = c:EPI
+			}
+			current_ruler = {
+				add_rival = C:PRY.current_ruler
+				add_friend = C:TRE.current_ruler
+			}
+			char:10 = { move_country = C:PRY } #Antipatrid mother
+			set_variable = me_mac_start_flag
+			macedon_legion_setup_effect = yes
+			add_opinion = { target = c:PRY modifier = diadochi_rivals }
+			add_opinion = { target = c:TRE modifier = diadochi_rivals }
+			add_opinion = { target = c:EGY modifier = diadochi_rivals }
+			add_opinion = { target = c:SEL modifier = diadochi_rivals }
+		}
+		if = {
+			limit = { tag = TRE }
+			current_ruler = {
+				add_friend = C:MAC.current_ruler
+				add_rival = C:ODR.current_ruler
+			}
+			set_variable = me_thrace_start_flag
+			thrace_legion_setup_effect = yes
+			add_opinion = { target = c:MAC modifier = diadochi_rivals }
+			add_opinion = { target = c:PRY modifier = diadochi_rivals }
+			add_opinion = { target = c:EGY modifier = diadochi_rivals }
+			add_opinion = { target = c:SEL modifier = diadochi_rivals }
+		}
+		if = {
+			limit = { tag = EGY }
+			current_ruler = {
+				add_rival = C:PRY.current_ruler
+				add_friend = C:SEL.current_ruler
+			}
+			egypt_legion_setup_effect = yes
+			trigger_event = dhe_body.4
+			add_opinion = { target = c:MAC modifier = diadochi_rivals }
+			add_opinion = { target = c:TRE modifier = diadochi_rivals }
+			add_opinion = { target = c:PRY modifier = diadochi_rivals }
+			add_opinion = { target = c:SEL modifier = diadochi_rivals }
+		}
+		if = {
+			limit = { tag = SEL }
+			current_ruler = {
+				add_rival = C:PRY.current_ruler
+				add_friend = C:EGY.current_ruler
+			}
+			trigger_event = { id = country_rename.2 }
+			seleukid_legion_setup_effect = yes
+			add_opinion = { target = c:MAC modifier = diadochi_rivals }
+			add_opinion = { target = c:TRE modifier = diadochi_rivals }
+			add_opinion = { target = c:EGY modifier = diadochi_rivals }
+			add_opinion = { target = c:PRY modifier = diadochi_rivals }
+		}
+		if = {
+			limit = { tag = EPI }
+			if = {
+				limit = {
+					NOT = { has_dlc = "Epirus Flavor Pack" }
+				}
+				trigger_event = {
+					id = flavor_epi.1
+					days = { 180 365 }
+				}
+			}
+			if = {
+				limit = { has_dlc = "Epirus Flavor Pack" }
+				trigger_event = { id = dhe_dde_pyrrhus.40 }
+				trigger_event = {
+					id = dhe_dde_pyrrhus.1
+					days = 730
+				}
+			}
+			current_ruler = { add_friend = c:TLN.current_ruler } # Pyrrhos and Glaukias
+			set_variable = me_epirus_start_flag
+			epirus_legion_setup_effect = yes
+		}
+		if = {
+			limit = { tag = TLN }
+			current_ruler = {
+				add_rival = c:MAC.current_ruler # Glaukias and Kassandros
+			}
+		}
+		if = {
+			limit = { tag = KIO }
+			set_variable = kios_start_flag
+		}
+		if = {
+			limit = { tag = SYR }
+			set_variable = me_syracuse_start_flag
+			random_navy = {
+				add_subunit = octere
+				add_subunit = octere
+			}
+			current_ruler = {
+				add_friend = char:319
+				add_friend = char:264
+			}
+			p:84 = {
+				trigger_event = {
+					id = flavor_syr.1
+					days = { 13505 15695 } # 37 - 43 years
+				}
+			}
+			trigger_event = {
+				id = flavor_syr.3
+				days = { 180 365 }
+			}
+		}
+		if = {
+			limit = { tag = SAM }
+			add_opinion = {
+				modifier = recent_conflicts
+				target = c:ROM
+			}
+		}
+		if = {
+			limit = { tag = ROM }
+			add_opinion = {
+				modifier = recent_conflicts
+				target = c:SAM
+			}
+		}
+		if = {
+			limit = { tag = SPA }
+			add_opinion = {
+				modifier = recent_conflicts
+				target = c:MSE
+			}
+		}
+		if = {
+			limit = { tag = MSE }
+			add_opinion = {
+				modifier = recent_conflicts
+				target = c:SPA
+			}
+		}
+		if = {
+			limit = { tag = JUD }
+			add_opinion = {
+				modifier = samaritan_judaean_schism
+				target = c:SMA
+			}
+		}
+		if = {
+			limit = { tag = SMA }
+			add_opinion = {
+				modifier = samaritan_judaean_schism
+				target = c:JUD
+			}
+		}
+		if = {
+			limit = { tag = ELI }
+	        set_global_variable = {
+	            name = olympic_counter_global_var
+	            value = 119
+	        }
+			p:439 = {
+				add_permanent_province_modifier = {
+					name = olympic_games_modifier
+					duration = -1
+				}
+				set_variable = {
+					name = olympics_countdown # for debugging
+					days = 1287
+				}
+				trigger_event = {
+					id = olympic.12
+					days = 1287 # 11 Apr 300 BC/454 AUC
+				}
+			}
+		}
+		if = {
+			limit = { tag = MRY }
+			set_global_variable = {
+				name = acting_as_ashoka
+				value = char:66
+			}
+			set_variable = {
+				name = ashoka_but_for_loc_local
+				value = char:66
+			}
+		}
+
+		if = {	# Arsean Greeks are Hellenic
+			limit = { tag = SGS }
+			every_character = {
+				limit = {
+					family = c:SGS.fam:Helladis
+					NOT = {
+						has_culture = massalian
+					}					
+				}
+				set_culture = massalian
+			}
+			every_character = {
+				limit = {
+					family = c:SGS.fam:Helladis
+					NOT = {
+						has_religion = roman_pantheon
+					}					
+				}
+				set_character_religion = roman_pantheon
+			}
+		}
+
+		if = {
+			limit = {
+				OR = {
+					rank = local_power
+					rank = regional_power
+					rank = major_power
+					rank = great_power
+				}
+				num_of_cities > 15
+			}
+			every_family = {
+				ROOT = {
+					random_owned_province = {
+						limit = {
+							is_capital = no
+							NOT = {
+								exists = holding_owner
+							}
+						}
+						save_scope_as = first_holding
+						weight = {
+							modifier = {
+								factor = 100000
+								any_neighbor_province = {
+									NOT = { exists = holding_owner }
+								}
+							}
+						}
+					}
+				}
+				head_of_family = {
+					add_holding = scope:first_holding
+				}
+			}
+		}
+		# Thrace Odrysians timer
+		if = {
+			limit = {
+				tag = TRE
+				has_dlc = "Heirs of Alexander"
+        		has_land = yes
+			}
+			set_variable = {
+				name = thracian_mission_02_paper_kingdom_ODR_revolt_timer
+				days = 7300
+			}
+		}
+		#More for the bigger tags!
+		if = {
+			limit = {
+				rank = regional_power
+			}
+			every_family = {
+				head_of_family = { save_scope_as = hof }
+				while = {
+					count = 3
+					ROOT = {
+						random_owned_province = {
+							limit = {
+								is_capital = no
+								OR = {
+									NOT = {
+										exists = holding_owner
+									}
+									AND = {
+										exists = holding_owner
+										holding_owner = {
+											is_alive = no
+										}
+									}
+								}
+							}
+							weight = {
+								modifier = {
+									factor = 10000
+									any_neighbor_province = {
+										trigger_if = {
+											limit = {
+												exists = holding_owner
+											}
+											holding_owner = scope:hof
+										}
+										trigger_else = {
+											always = no
+										}
+									}
+								}
+							}
+							save_scope_as = buy_holding_target
+						}
+					}
+					head_of_family = {
+						add_holding = scope:buy_holding_target
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				rank = major_power
+			}
+			every_family = {
+				head_of_family = { save_scope_as = hof }
+				while = {
+					count = 10
+					ROOT = {
+						random_owned_province = {
+							limit = {
+								is_capital = no
+								OR = {
+									NOT = {
+										exists = holding_owner
+									}
+									AND = {
+										exists = holding_owner
+										holding_owner = {
+											is_alive = no
+										}
+									}
+								}
+							}
+							weight = {
+								modifier = {
+									factor = 10000
+									any_neighbor_province = {
+										trigger_if = {
+											limit = {
+												exists = holding_owner
+											}
+											holding_owner = scope:hof
+										}
+										trigger_else = {
+											always = no
+										}
+									}
+								}
+							}
+							save_scope_as = buy_holding_target
+						}
+					}
+					head_of_family = {
+						add_holding = scope:buy_holding_target
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				rank = great_power
+			}
+			every_family = {
+				head_of_family = { save_scope_as = hof }
+				while = {
+					count = 20
+					ROOT = {
+						random_owned_province = {
+							limit = {
+								is_capital = no
+								OR = {
+									NOT = {
+										exists = holding_owner
+									}
+									AND = {
+										exists = holding_owner
+										holding_owner = {
+											is_alive = no
+										}
+									}
+								}
+							}
+							weight = {
+								modifier = {
+									factor = 10000
+									any_neighbor_province = {
+										trigger_if = {
+											limit = {
+												exists = holding_owner
+											}
+											holding_owner = scope:hof
+										}
+										trigger_else = {
+											always = no
+										}
+									}
+								}
+							}
+							save_scope_as = buy_holding_target
+						}
+					}
+					head_of_family = {
+						add_holding = scope:buy_holding_target
+					}
+				}
+			}
+		}
+		#AI buff by making them choose the good law at gamestart
+		if = {
+			limit = { 
+				is_monarchy = yes
+				has_law = relaxed_recruiting_standards
+			}
+			change_law = recruit_from_nobles
+		}
+		if = {
+			limit = { 
+				tag = ROM
+			}
+			change_law = lex_porcia
+		}
+		if = {
+			limit = {
+				NOT = { has_global_variable = seaonal_food_game_rule }
+				NOT = { has_global_variable = province_init_inv_done }
+			}
+			trigger_event = { id = harvest.1 months = 2 }
+			every_province = {
+				limit = {
+					has_owner = yes
+				}
+				add_province_modifier = {
+					name = harvest_day1boost_modifier
+					duration = 31
+				}
+			}
+			every_province = {
+				limit = {
+					NOR = {
+						is_sea = yes
+						terrain = riverine_terrain
+						has_city_status = yes
+					}
+				}
+				add_neighbor_city_modifier_effect = yes
+			}
+			set_global_variable = province_init_inv_done
+		}
+		#Civilization to settlements next to cities
+		if = {
+			limit = {
+				NOT = { has_global_variable = is_playing_invictus }
+			}
+			set_global_variable = is_playing_invictus #For other mods to check for Invictus stuff without errors plz don't remove
+		}
+		if = {
+			limit = {
+				primary_culture = samnite
+			}
+			set_variable = {
+				name = ver_sacrum_num_var
+				value = 0
+			}
+		}
+		if = {
+			limit = { tag = AZA }
+			current_ruler = {
+				add_rival = c:MAC.current_ruler
+				add_friend = c:PTA.current_ruler
+				add_friend = char:70
+			}
+		}
+	}
+}

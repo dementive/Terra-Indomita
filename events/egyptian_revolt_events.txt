@@ -1,0 +1,211 @@
+﻿namespace = egyptian_revolt
+
+
+egyptian_revolt.1 = {
+    type = country_event
+    title = egyptian_revolt.1.t
+    desc = egyptian_revolt.1.desc
+    picture = army_desert
+    left_portrait = current_ruler
+    right_portrait = scope:upper_egypt_scope.current_ruler
+    goto_location = p:569
+
+
+	fire_only_once = yes
+
+    trigger = {
+    	current_date > 525.2.1
+    	owns = 569
+    	current_ruler = {
+    		corruption >= 5
+    	}
+ 		NOT = { has_global_variable = thebes_preiests_attacked }
+    	any_owned_province = {
+    		NOT = { is_in_region = upper_egypt_region }
+    	}
+		NOT = {#No more upper egypt spam
+			any_country = {
+				tag = UPP
+			}
+		}
+    }
+    
+    weight_multiplier = {
+    	modifier = {
+    		factor = 5
+    		current_date > 575.2.1
+    	}
+    	modifier = {
+    		factor = 2
+    		current_date > 550.2.1
+    		current_date < 575.2.1
+    	}
+    }
+
+			
+
+    immediate = {
+    	set_global_variable = thebes_preiests_attacked
+		hidden_effect = {
+			p:569 = {
+				create_country = {
+	                set_country_religion = egyptian_pantheon
+	                if = {
+						limit = {
+							NOT = {
+								primary_culture = egyptian
+							}
+						}
+						set_primary_culture_cleanup_effect = {
+							NEW_PRIMARY_CULTURE = egyptian
+							MAKE_OLD_CULTURE_INTEGRATED = yes
+						}
+					}
+	                set_country_heritage = egyptian_heritage
+	                change_country_name = "UPPER_EGYPT_NAME"
+	                change_country_color = "lombard_red"
+	                change_government = theocratic_monarchy
+	                change_country_adjective = "UPPER_EGYPT_ADJ"
+	                change_country_flag = UPPER_EGYPT_FLAG
+	                change_country_tag = UPP
+	                save_scope_as = upper_egypt_scope
+	                set_variable = {
+	                    name = is_not_allowed_to_go_broke
+	                    days = 9125
+	                }
+	                set_variable = {
+	                    name = is_ignoring_ae
+	                    days = 3650
+	                }
+				    create_character = {
+				        first_name = "Horwennefer"
+				       	age = 34
+				        culture = upper_egyptian
+				        religion = egyptian_pantheon
+				        female = no
+				        good_finesse_trait_effect = yes
+				        amazing_zeal_effect = yes
+				        good_popularity_trait_effect = yes
+				        save_scope_as = king_priest
+				    }
+				}
+			}
+			p:569.region = {
+				every_region_province = {
+					limit = {
+						NOT = { owner = scope:upper_egypt_scope }
+						NOT = { is_in_area = ptolemais_area }
+						owner = root
+					}
+					set_owned_by = scope:upper_egypt_scope
+				}
+			}
+			area:aswan_area = {
+				every_area_province = {
+					limit = {
+						NOT = { owner = scope:upper_egypt_scope }
+					}
+					set_owned_by = scope:upper_egypt_scope
+				}
+			}
+			scope:upper_egypt_scope = {
+				add_treasury = 1000
+				add_manpower = 20
+				set_as_ruler = scope:king_priest
+				if = {
+					limit = {
+						NOR = {
+							has_law = republican_recruitment_2 # legions capital
+							has_law = republican_recruitment_4 # legions enabled
+						}
+					}
+					change_law = republican_recruitment_2 # capital
+				}
+				create_character = {
+					culture = egyptian
+					religion = egyptian_pantheon
+					age = 34
+					female = no
+					no_stats = yes
+					no_traits = yes
+	        		hidden_effect = {
+	        			good_martial_effect = yes
+	        			good_charisma_effect = yes
+	        			average_finesse_effect = yes
+	        			bad_zeal_effect = yes
+	        			add_trait = brave
+	        			add_trait = proud
+	        			add_trait = aggressive
+	        		}
+	        		save_scope_as = thebes_general
+				}
+				capital_scope.governorship = {
+					raise_legion = {
+						save_scope_as = thebes_legion
+						create_unit = {
+							location = p:569 
+							save_scope_as = thebes_unit
+							every_sub_unit = { set_personal_loyalty = scope:king_priest }
+							add_loyal_subunit = camels
+							add_loyal_subunit = camels
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = light_infantry
+							add_loyal_subunit = archers
+							add_loyal_subunit = archers
+							add_loyal_subunit = archers
+							add_loyal_subunit = heavy_infantry
+							add_loyal_subunit = heavy_infantry
+							add_loyal_subunit = heavy_infantry
+							add_loyal_subunit = heavy_infantry
+							add_loyal_subunit = heavy_infantry
+						}
+					}
+				}
+				scope:thebes_legion = {
+					add_commander = scope:thebes_general
+				}
+				scope:thebes_unit = {
+					set_as_commander = scope:thebes_general
+				}           		
+    		}
+			p:569 = { # capital fort
+				state = { set_state_capital = p:569 }
+				if = {
+					limit = { can_build_building = fortress_building }
+					add_building_level = fortress_building
+				}
+			}
+			scope:upper_egypt_scope = {
+				declare_war_with_wargoal = {
+					war_goal = imperial_conquest_wargoal
+					province = root.capital_scope
+					target = ROOT
+				}
+			}
+		}
+        custom_tooltip = egyptian_revolt.1.tt
+    }
+
+    option = {	# Time to Fight!
+        name = egyptian_revolt.1.a
+    }
+    option = {	# Perhaps we could join their cause...
+        custom_tooltip = egyptian_revolt.1.bt
+        name = egyptian_revolt.1.b
+        trigger = {
+        	is_ai = no
+        }
+		hidden_effect = { 
+			set_player_country = scope:upper_egypt_scope
+		}
+    }
+}
