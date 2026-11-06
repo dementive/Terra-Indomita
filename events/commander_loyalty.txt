@@ -1,0 +1,822 @@
+﻿namespace = commander_loyalty
+
+commander_loyalty.1 = { #commander with loyal troops asks to assign personal awards
+	type = country_event
+	title = "commander_loyalty.1.t"
+	desc = "commander_loyalty.1.desc"
+	picture = romans_marching
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:commander_loyalty_1_target
+	
+	trigger = {
+		any_character = { #Use general scope
+			is_general = yes
+			is_mercenary = no
+			is_ruler = no
+			num_loyal_cohorts > 4
+			NOT = {
+				has_variable = cloyalty_1_toggle
+			}
+		}
+	}
+	
+	immediate = {
+		random_character = {
+			limit = {
+				is_general = yes
+				is_mercenary = no
+				is_ruler = no
+				num_loyal_cohorts > 4
+				NOT = {
+					has_variable = cloyalty_1_toggle
+				}
+			}
+			weight = {
+				title_importance_modifier = yes
+			}
+			set_variable = {
+				name = cloyalty_1_toggle
+				days = 3600
+			}
+			save_scope_as = commander_loyalty_1_target
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.1.a"
+		scope:commander_loyalty_1_target = {
+			add_commander_ambition_effect = yes
+			ordered_character_unit = {
+				order_by = unit_size
+				add_unit_modifier = {
+					name = cloyalty_1_modifier
+					duration = 7300
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.1.b"
+		scope:commander_loyalty_1_target = {
+			add_loyalty = loyalty_denied_soldier_honors
+		}
+		remove_stability_effect = yes
+	}
+}
+
+commander_loyalty.2 = { #commander with loyal troops refuses orders
+	type = country_event
+	title = "commander_loyalty.2.t"
+	desc = "commander_loyalty.2.desc"
+	picture = proscription
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:cl_2_target
+	
+	trigger = {
+		any_character = { 
+			is_general = yes
+			is_ruler = no
+			num_loyal_cohorts > 4
+			has_variable = commander_ambition
+			var:commander_ambition >= 3
+		}
+	}
+	
+	weight_multiplier = {
+		modifier = {
+			factor = 3
+			war = yes
+		}
+	}
+	
+	immediate = {
+		random_character = {
+			limit = {
+				is_general = yes
+				is_ruler = no
+				num_loyal_cohorts > 4
+				has_variable = commander_ambition
+				var:commander_ambition >= 3
+			}
+			weight = {
+				modifier = {
+					factor = 10
+					loyalty < 60
+				}
+				title_importance_modifier = yes
+			}
+			save_scope_as = cl_2_target
+		}
+		scope:cl_2_target = {
+			ordered_character_unit = {
+				order_by = unit_size
+				add_unit_modifier = {
+					name = orders_refused
+					duration = 360
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.2.a"
+		scope:cl_2_target = {
+			add_commander_ambition_effect = yes
+			add_gold = {
+				value = root.has_monthly_income
+				multiply = 6
+			}
+			add_popularity = popularity_medium
+			random_character_unit = {
+				limit = { has_unit_modifier = orders_refused }
+				remove_unit_modifier = orders_refused
+			}
+		}
+		add_treasury = {
+			value = 0
+			subtract = root.has_monthly_income
+			multiply = 6
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.2.b"
+		scope:cl_2_target = {
+			add_loyalty = loyalty_denied_service_honors
+			add_prominence = prominence_large
+		}
+		remove_stability_effect = yes
+	}
+}
+
+commander_loyalty.3 = { #commander with friend demands office for friend
+	type = country_event
+	title = "commander_loyalty.3.t"
+	desc = "commander_loyalty.3.desc"
+	picture = proscription
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:cl_3_target
+	right_portrait = scope:cl_3_target_2
+	
+	trigger = {
+		any_character = { #Use general scope
+			is_general = yes
+			is_ruler = no
+			is_governor = no
+			num_loyal_cohorts > army_50_svalue
+			has_variable = commander_ambition
+			var:commander_ambition >= 3
+			OR = {
+				AND = {
+					num_of_friends >= 1
+					any_friend = {
+						employer = root
+						is_female = no
+						is_adult = yes
+						has_any_office = no
+					}
+				}
+				any_sibling = {
+					employer = root
+					is_female = no
+					is_adult = yes
+					has_any_office = no
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_character = {
+			limit = {
+				is_general = yes
+				is_ruler = no
+				is_governor = no
+				num_loyal_cohorts > army_50_svalue
+				has_variable = commander_ambition
+				var:commander_ambition >= 3
+				OR = {
+					AND = {
+						num_of_friends >= 1
+						any_friend = {
+							employer = root
+							is_female = no
+							is_adult = yes
+							has_any_office = no
+						}
+					}
+					any_sibling = {
+						employer = root
+						is_female = no
+						is_adult = yes
+						has_any_office = no
+					}
+				}
+			}
+			weight = {
+				title_importance_modifier = yes
+			}
+			save_scope_as = cl_3_target
+			if = {
+				limit = {
+					num_of_friends >= 1
+					any_friend = {
+						employer = root
+						is_female = no
+						is_adult = yes
+						has_any_office = no
+					}
+				}
+				random_friend = {
+					limit = {
+						employer = root
+						is_female = no
+						is_adult = yes
+						has_any_office = no
+					}
+					weight = {
+						title_importance_modifier = yes
+					}
+					save_scope_as = cl_3_target_2
+				}
+			}
+			else_if = {
+				limit = {
+					any_sibling = {
+						employer = root
+						is_female = no
+						is_adult = yes
+						has_any_office = no
+					}
+				}
+				random_sibling = {
+					limit = {
+						employer = root
+						is_female = no
+						is_adult = yes
+						has_any_office = no
+					}
+					weight = {
+						title_importance_modifier = yes
+					}
+					save_scope_as = cl_3_target_2
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.3.a"
+		scope:cl_3_target = {
+			add_commander_ambition_effect = yes
+			add_loyalty = loyalty_generals_friend_favored
+		}
+		if = {
+			limit = {
+				is_republic = yes
+			}
+			if = {
+				limit = {
+					office_is_empty = office_censor
+				}
+				scope:cl_3_target_2 = {
+					give_office = office_censor
+				}
+			}
+			else = {
+				random_character = {
+					limit = {
+						has_office = office_censor
+					}
+					remove_office = office_censor
+				}
+				scope:cl_3_target_2 = {
+					give_office = office_censor
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				is_monarchy = yes
+			}
+			if = {
+				limit = {
+					office_is_empty = office_master_of_the_guard
+				}
+				scope:cl_3_target_2 = {
+					give_office = office_master_of_the_guard
+				}
+			}
+			else = {
+				random_character = {
+					limit = {
+						has_office = office_master_of_the_guard
+					}
+					remove_office = office_master_of_the_guard
+				}
+				scope:cl_3_target_2 = {
+					give_office = office_master_of_the_guard
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				is_tribal = yes
+			}
+			if = {
+				limit = {
+					office_is_empty = office_arbitrator
+				}
+				scope:cl_3_target_2 = {
+					give_office = office_arbitrator
+				}
+			}
+			else = {
+				random_character = {
+					limit = {
+						has_office = office_arbitrator
+					}
+					remove_office = office_arbitrator
+				}
+				scope:cl_3_target_2 = {
+					give_office = office_arbitrator
+				}
+			}
+		}
+		add_political_influence = influence_medium
+		remove_stability_effect = yes
+	}
+	
+	option = {
+		name = "commander_loyalty.3.b"
+		scope:cl_3_target = {
+			add_loyalty  = loyalty_generals_friend_refused
+			if = {
+				limit = {
+					can_get_rivals = yes
+					NOR = {
+						is_rival = root.current_ruler
+						is_friend = root.current_ruler
+					}
+				}
+				add_rival = root.current_ruler
+			}
+		}
+		scope:cl_3_target_2 = {
+			add_loyalty = loyalty_refused_generals_friend
+		}
+	}
+}
+
+commander_loyalty.4 = { # Mechanical demand picker for disloyal but powerful generals. Demand events below this.
+	type = character_event
+	hidden = yes
+	
+	trigger = {
+		is_general = yes
+		loyalty <= 50
+		is_mercenary = no
+		employer = {
+			war = no
+		}
+		NOT = {
+			has_variable = general_demanded_something
+		}
+		is_governor = no
+		num_loyal_cohorts > army_50_svalue
+	}
+	
+	immediate = {
+		save_scope_as = demanding_general
+		set_variable = {
+			name = general_demanded_something
+			days = 3650
+		}
+		employer = {
+			trigger_event = {
+				on_action = commander_loyalty_demand_picker
+			}
+		}
+	}
+}
+
+commander_loyalty.5 = {
+	type = country_event
+	title = "commander_loyalty.5.t"
+	desc = "commander_loyalty.5.desc"
+	
+	left_portrait = current_ruler
+	right_portrait = scope:demanding_general
+	
+	picture = dagger_behind_back
+	
+	trigger = {
+		is_republic = yes
+		trigger_if = {
+			limit = {
+				tag = ROM
+			}
+			NOT = {
+				has_law = assembly_law_3_rom
+			}
+		}
+		trigger_else = {
+			NOT = {
+				has_law = republic_corruption_1
+			}
+		}
+		NOT = {
+			has_variable = commander_loyalty_5_toggle
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			name = commander_loyalty_5_toggle
+			days = 1825
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.5.a"
+		scope:demanding_general = {
+			add_loyalty = loyalty_general_law_granted
+		}
+		if = {
+			limit = {
+				tag = ROM
+			}
+			change_law = assembly_law_3_rom
+		}
+		else_if = {
+			limit = {
+				is_republic = yes
+			}
+			change_law = republic_corruption_1
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.5.b"
+		scope:demanding_general = {
+			add_loyalty = loyalty_general_law_refused
+		}
+		remove_stability_effect = yes
+	}
+	
+	option = {
+		name = "commander_loyalty.5.c"
+		scope:demanding_general = {
+			add_gold = {
+				value = root.has_monthly_income
+				multiply = 12
+			}
+		}
+		add_treasury = {
+			value = root.has_monthly_income
+			multiply = -12
+		}
+	}
+}
+
+commander_loyalty.6 = {
+	type = country_event
+	title = "commander_loyalty.6.t"
+	desc = "commander_loyalty.6.desc"
+	
+	left_portrait = current_ruler
+	right_portrait = scope:demanding_general
+	
+	picture = successors
+	
+	trigger = {
+		is_monarchy = yes
+		NOT = {
+			has_law = recruit_from_nobles
+		}
+		NOT = {
+			has_variable = commander_loyalty_6_toggle
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			name = commander_loyalty_6_toggle
+			days = 1825
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.6.a"
+		scope:demanding_general = {
+			add_loyalty = loyalty_general_recruitment_granted
+		}
+		change_law = recruit_from_nobles
+	}
+	
+	option = {
+		name = "commander_loyalty.6.b"
+		scope:demanding_general = {
+			add_loyalty = loyalty_general_recruitment_refused
+		}
+		remove_stability_effect = yes
+	}
+	
+	option = {
+		name = "commander_loyalty.6.c"
+		scope:demanding_general = {
+			add_gold = {
+				value = root.has_monthly_income
+				multiply = 12
+			}
+		}
+		add_treasury = {
+			value = root.has_monthly_income
+			multiply = -12
+		}
+	}
+}
+
+commander_loyalty.7 = {
+	type = country_event
+	title = "commander_loyalty.7.t"
+	desc = "commander_loyalty.7.desc"
+	
+	picture = war_chest
+	
+	left_portrait = current_ruler
+	right_portrait = scope:demanding_general
+	
+	trigger = {
+		NOT = {
+			has_variable = commander_loyalty_7_toggle
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			name = commander_loyalty_7_toggle
+			days = 1825
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.7.a"
+		scope:demanding_general = {
+			add_gold = {
+				value = root.has_monthly_income
+				multiply = 12
+			}
+			add_loyalty = loyalty_general_funds_granted
+		}
+		add_treasury = {
+			value = root.has_monthly_income
+			multiply = -12
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.7.b"
+		scope:demanding_general = {
+			add_loyalty = loyalty_general_funds_refused
+		}
+		remove_stability_effect = yes
+	}
+	
+}
+
+commander_loyalty.8 = {
+	type = country_event
+	title = "commander_loyalty.8.t"
+	desc = "commander_loyalty.8.desc"
+	
+	left_portrait = current_ruler
+	right_portrait = scope:demanding_general
+	
+	picture = romans_marching
+	
+	trigger = {
+		NOT = {
+			has_variable = commander_loyalty_8_toggle
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			name = commander_loyalty_8_toggle
+			days = 1825
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.8.a"
+		add_treasury = -50
+		add_manpower = -5
+		scope:demanding_general = {
+			ordered_character_unit = {
+				order_by = unit_size
+				add_loyal_subunit = heavy_infantry
+				add_loyal_subunit = heavy_infantry
+				add_loyal_subunit = archers
+				add_loyal_subunit = light_infantry
+				add_loyal_subunit = light_infantry
+			}
+			add_loyalty = loyalty_general_troops_granted
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.8.b"
+		scope:demanding_general = {
+			add_loyalty = loyalty_general_troops_refused
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.8.c"
+		add_manpower = -5
+		scope:demanding_general = {
+			ordered_character_unit = {
+				order_by = unit_size
+				add_loyal_subunit = light_infantry
+				add_loyal_subunit = light_infantry
+				add_loyal_subunit = light_infantry
+				add_loyal_subunit = light_infantry
+				add_loyal_subunit = light_infantry
+			}
+		}
+		remove_stability_effect = yes
+	}
+}
+
+commander_loyalty.9 = {
+	type = country_event
+	title = "commander_loyalty.9.t"
+	desc = "commander_loyalty.9.desc"
+	
+	left_portrait = current_ruler
+	right_portrait = scope:demanding_general
+	
+	picture = throneroom
+	
+	trigger = {
+		is_monarchy = yes
+		NOT = {
+			has_variable = commander_loyalty_9_toggle
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			name = commander_loyalty_9_toggle
+			days = 1825
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.9.a"
+		scope:demanding_general = {
+			add_popularity = popularity_medium
+			add_loyalty = loyalty_general_nobility_granted
+		}
+		add_legitimacy = subtract_legitimacy_large
+	}
+	
+	option = {
+		name = "commander_loyalty.9.b"
+		scope:demanding_general = {
+			add_loyalty = loyalty_general_nobility_refused
+		}
+		remove_stability_effect = yes
+	}
+}
+
+commander_loyalty.10 = { 
+	type = country_event
+	title = "commander_loyalty.10.t"
+	desc = "commander_loyalty.10.desc"
+	
+	goto_location = scope:state_location_cl_10
+	
+	left_portrait = current_ruler
+	right_portrait = scope:demanding_general
+	
+	picture = romans_marching
+	
+	trigger = {
+		NOT = {
+			has_variable = commander_loyalty_10_toggle
+		}
+		any_commander = {
+			is_general = yes
+			is_ruler = no
+			is_mercenary = no
+			OR = {
+				num_loyal_cohorts >= 5
+				wealth >= 400
+			}
+			location = {
+				has_owner = yes
+				is_capital = no
+				owner = root
+				state = {
+					NOT = {
+						has_state_modifier = disloyal_state_commander_modifier
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_commander = {
+			limit = {
+				is_general = yes
+				is_ruler = no
+				is_mercenary = no
+				OR = {
+					num_loyal_cohorts >= 5
+					wealth >= 400
+				}
+				location = {
+					has_owner = yes
+					owner = root
+					is_capital = no
+					state = {
+						NOT = {
+							has_state_modifier = disloyal_state_commander_modifier
+						}
+					}
+				}
+			}
+			weight = {
+				modifier = {
+					factor = 3
+					OR = {
+						loyalty <= 60
+						is_pretender = yes
+					}
+				}
+			}
+			save_scope_as = demanding_general
+			location = {
+				save_scope_as = state_location_cl_10
+			}
+		}
+		hidden_effect = {
+			scope:demanding_general = {	
+				add_gold = 600
+			}
+		}
+		set_variable = {
+			name = commander_loyalty_10_toggle
+			days = 1825
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.10.a"
+		scope:demanding_general = {
+			custom_tooltip = "relevant_loyal_subunit_tooltip_cl10"
+			hidden_effect = {
+				ordered_character_unit = {
+					order_by = unit_size
+					while = {
+						count = 5
+						add_relevant_loyal_subunit_effect = yes 
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "commander_loyalty.10.b"
+		scope:state_location_cl_10.state = { 
+			add_state_modifier = {     
+				name = disloyal_state_commander_modifier
+				duration = 3650
+			}
+		}
+		scope:demanding_general = {
+			add_loyalty = loyalty_general_volunteers_doubt
+		}
+		remove_stability_effect = yes
+	}
+	
+	option = {
+		name = "commander_loyalty.10.c"
+		custom_tooltip = cl10_is_friend_tooltip
+		highlight = yes
+		trigger = {
+			scope:demanding_general = {
+				is_friend = root.current_ruler
+			}
+		}
+	}
+	
+}

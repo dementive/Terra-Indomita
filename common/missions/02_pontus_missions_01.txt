@@ -125,10 +125,13 @@
             has_variable = paphlagonia_war
         }
         on_completion = {
-            declare_war_with_wargoal = {
-                war_goal = conquer_wargoal
-                province = p:198
-                target = p:198.owner
+            if = {
+                limit = { NOT = { owns_or_subject_owns = 198 } }
+                declare_war_with_wargoal = {
+                    war_goal = conquer_wargoal
+                    province = p:198
+                    target = p:198.owner
+                }
             }
             trigger_event = me_pontus_kingdom.2
         }

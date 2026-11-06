@@ -5929,11 +5929,15 @@ new_family_generation_effect = {
 			save_scope_as = poor_family
 		}
 		scope:$FAMILY_CANDIDATE$.family = {
-			add_prestige = {
-				value = scope:poor_family.prestige
-				subtract = 50
-				min = 200
+			if = {
+				limit = { exists = scope:poor_family }
+				add_prestige = {
+					value = scope:poor_family.prestige
+					subtract = 50
+					min = 200
+				}
 			}
+			else = { add_prestige = 200 } # no other family to compare with
 		}
 		#Now to populate the new Family:
 		if = { #Our ambitious young candidate needs a father

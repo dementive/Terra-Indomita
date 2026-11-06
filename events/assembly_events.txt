@@ -1,0 +1,776 @@
+﻿namespace = assembly
+
+assembly.1 = {
+	type = country_event
+	title = "assembly.1.t"
+	desc = {
+		random_valid = {
+			triggered_desc = {
+				trigger = {
+					tag = ROM
+					has_country_modifier = expanded_campus_martius
+					capital_scope = p:1 
+				}
+				desc = "curiate_assembly_para_1_campus_martius"
+			}
+			triggered_desc = {
+				trigger = {
+					always = yes
+				}
+				desc = "curiate_assembly_para_1_1"
+			}
+		}
+		random_valid = {
+			triggered_desc = {
+				trigger = {
+					exists = scope:magistrate_1
+					exists = scope:magistrate_2
+					exists = scope:magistrate_3
+				}
+				desc = "curiate_assembly_para_2_three_possible_candidates"
+			}
+			triggered_desc = {
+				trigger = {
+					exists = scope:magistrate_1
+					exists = scope:magistrate_2
+					NOT = {
+						exists = scope:magistrate_3
+					}
+				}
+				desc = "curiate_assembly_para_2_one_and_two"
+			}
+			triggered_desc = {
+				trigger = {
+					exists = scope:magistrate_1
+					NOT = {
+						exists = scope:magistrate_2
+					}
+					exists = scope:magistrate_3
+				}
+				desc = "curiate_assembly_para_2_one_and_three"
+			}
+			triggered_desc = {
+				trigger = {
+					NOT = {
+						exists = scope:magistrate_1
+					}
+					exists = scope:magistrate_2
+					exists = scope:magistrate_3
+				}
+				desc = "curiate_assembly_para_2_two_and_three"
+			}
+			triggered_desc = {
+				trigger = {
+					exists = scope:magistrate_1
+					NOR = {
+						exists = scope:magistrate_2
+						exists = scope:magistrate_3
+					}
+				}
+				desc = "curiate_assembly_para_2_only_one"
+			}
+		}  
+	}
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:magistrate_1
+	right_portrait = scope:magistrate_2
+	right_portrait = scope:magistrate_3
+	
+	picture = war_council
+	
+	trigger = {
+		
+	}
+	
+	immediate = {
+		random_character = {
+			limit = {
+				is_governor = yes
+				is_ruler = no
+			}
+			save_scope_as = temp_1
+		}
+		random_character = {
+			limit = {
+				is_governor = yes
+				is_ruler = no
+			}
+			weight = {
+				modifier = {
+					factor = 1.5
+					NOT = { 
+						this = scope:temp_1
+					}
+				}
+			}
+			save_scope_as = temp_2
+		}
+		random_character = {
+			limit = {
+				is_governor = yes
+				is_ruler = no
+			}
+			weight = {
+				modifier = {
+					factor = 1.5
+					NOR = {
+						this = scope:temp_1
+						this = scope:temp_2
+					}
+				}
+			}
+			save_scope_as = temp_3
+		}
+		scope:temp_1 = {
+			save_scope_as = magistrate_1
+		}
+		if = {
+			limit = {
+				scope:temp_2 = {
+					NOT = {
+						this = scope:temp_1
+					}
+				}
+			}
+			scope:temp_2 = {
+				save_scope_as = magistrate_2
+			}
+		}
+		if = {  
+			limit = {
+				scope:temp_3 = {
+					NOR = {
+						this = scope:temp_1
+						this = scope:temp_2
+					}
+				}
+			}
+			scope:temp_3 = {
+				save_scope_as = magistrate_3
+			}
+		}
+		set_local_variable = {
+			name = roll
+			value = {
+				integer_range = { min = 1 max = 100 }
+			}
+		}
+	}  
+	
+	
+	option = { 
+		name = "assembly.1.a" 
+		trigger = {
+			exists = scope:magistrate_1
+		}
+		custom_tooltip = "assembly.option.tooltip" 
+		if = {
+			limit = {
+				scope:magistrate_1 = {
+					has_variable = curiate_endorsement
+				}
+			}
+			custom_tooltip = "assembly.option.tooltip_already_endorsed_1"
+		}
+		custom_tooltip = "assembly.option.tooltip_deal_magistrate_1"
+		custom_tooltip = "magistrate_1_picked_for_consideration"
+		scope:magistrate_1 = {
+			save_scope_as = selected_candidate
+		}
+		if = {
+			limit = {
+				exists = local_var:roll
+				local_var:roll <= curiate_endorsement_result_chance_svalue_magistrate_1
+			}
+			trigger_event = {
+				id = assembly.2
+			}
+		}
+		else = {
+			trigger_event = {
+				id = assembly.3
+			}
+		}
+		custom_tooltip = "potential_endorsement_rewards"
+		if = {
+			limit = {
+				exists = scope:magistrate_2
+			}
+			scope:magistrate_2 = {
+				add_loyalty = loyalty_curiate_ignored
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:magistrate_3
+			}
+			scope:magistrate_3 = {
+				add_loyalty = loyalty_curiate_ignored
+			}
+		}
+		add_political_influence = subtract_influence_large
+	}
+	
+	option = { 
+		name = "assembly.1.b"
+		trigger = {
+			exists = scope:magistrate_2
+		}
+		custom_tooltip = "assembly.option.tooltip" 
+		if = {
+			limit = {
+				scope:magistrate_2 = {
+					has_variable = curiate_endorsement
+				}
+			}
+			custom_tooltip = "assembly.option.tooltip_already_endorsed_2"
+		}
+		custom_tooltip = "assembly.option.tooltip_deal_magistrate_2"
+		custom_tooltip = "magistrate_2_picked_for_consideration"
+		scope:magistrate_2 = {
+			save_scope_as = selected_candidate 
+		}
+		if = {
+			limit = {
+				exists = local_var:roll
+				local_var:roll <= curiate_endorsement_result_chance_svalue_magistrate_2
+			}
+			trigger_event = {
+				id = assembly.2
+			}
+		}
+		else = {
+			trigger_event = {
+				id = assembly.3
+			}
+		}
+		custom_tooltip = "potential_endorsement_rewards"
+		if = {
+			limit = {
+				exists = scope:magistrate_1
+			}
+			scope:magistrate_1 = {
+				add_loyalty = loyalty_curiate_ignored
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:magistrate_3
+			}
+			scope:magistrate_3 = {
+				add_loyalty = loyalty_curiate_ignored
+			}
+		}
+		add_political_influence = subtract_influence_large
+	}
+	
+	option = { 
+		name = "assembly.1.c"
+		trigger = {
+			exists = scope:magistrate_3
+		}
+		custom_tooltip = "assembly.option.tooltip" 
+		if = {
+			limit = {
+				scope:magistrate_3 = { 
+					has_variable = curiate_endorsement
+				}
+			}
+			custom_tooltip = "assembly.option.tooltip_already_endorsed_3"
+		}
+		custom_tooltip = "assembly.option.tooltip_deal_magistrate_3"
+		custom_tooltip = "magistrate_3_picked_for_consideration"
+		scope:magistrate_3 = {
+			save_scope_as = selected_candidate 
+		}
+		if = {
+			limit = {
+				exists = local_var:roll
+				local_var:roll <= curiate_endorsement_result_chance_svalue_magistrate_3
+			}
+			trigger_event = {
+				id = assembly.2
+			}
+		}
+		else = {
+			trigger_event = {
+				id = assembly.3
+			}
+		}
+		custom_tooltip = "potential_endorsement_rewards"
+		if = {
+			limit = {
+				exists = scope:magistrate_1
+			}
+			scope:magistrate_1 = {
+				add_loyalty = loyalty_curiate_ignored
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:magistrate_2
+			}
+			scope:magistrate_2 = {
+				add_loyalty = loyalty_curiate_ignored
+			}
+		}
+		add_political_influence = subtract_influence_large
+	}
+	
+	option = { 
+		name = "assembly.1.d"
+		trigger = {
+			calc_true_if = {
+				amount >= 2
+				exists = scope:magistrate_1
+				exists = scope:magistrate_2
+				exists = scope:magistrate_3
+			}
+		} 
+		custom_tooltip = "random_magistrate_picked" 
+		custom_tooltip = "potential_endorsement_rewards"
+		hidden_effect = {
+			random_list = {
+				1 = {
+					trigger = {
+						exists = scope:magistrate_1
+					}
+					scope:magistrate_1 = {
+						save_scope_as = selected_candidate
+					}
+					if = {
+						limit = {
+							#exists = local_var:roll
+							local_var:roll <= curiate_endorsement_result_chance_svalue_magistrate_1
+						}
+						root = {
+							trigger_event = {
+								id = assembly.2
+							}
+						}
+					}
+					else = {
+						root = {
+							trigger_event = {
+								id = assembly.3
+							}
+						}
+					}
+				}
+				1 = {
+					trigger = {
+						exists = scope:magistrate_2
+					}
+					scope:magistrate_2 = {
+						save_scope_as = selected_candidate
+					}
+					if = {
+						limit = {
+							#exists = local_var:roll
+							local_var:roll <= curiate_endorsement_result_chance_svalue_magistrate_2
+						}
+						root = {
+							trigger_event = {
+								id = assembly.2
+							}
+						}
+					}
+					else = {
+						root = {
+							trigger_event = {
+								id = assembly.3
+							}
+						}
+					}
+				}
+				1 = {
+					trigger = {
+						exists = scope:magistrate_3
+					}
+					scope:magistrate_3 = {
+						save_scope_as = selected_candidate
+					}
+					if = {
+						limit = {
+							#exists = local_var:roll
+							local_var:roll <= curiate_endorsement_result_chance_svalue_magistrate_3
+						}
+						root = {
+							trigger_event = {
+								id = assembly.2
+							}
+						}
+					}
+					else = {
+						root = {
+							trigger_event = {
+								id = assembly.3
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = { 
+		name = "assembly.1.e"
+		trigger = {
+			exists = scope:magistrate_1
+			NOR = {
+				exists = scope:magistrate_2
+				exists = scope:magistrate_3
+			}
+		} 
+		custom_tooltip = "assembly.option.total_magistrate_1" 
+		custom_tooltip = "potential_endorsement_rewards" 
+		scope:magistrate_1 = {
+			save_scope_as = selected_candidate
+		}
+		if = {
+			limit = {
+				local_var:roll <= curiate_endorsement_already_endorsed_chance_svalue_magistrate_1
+			}
+			root = {
+				trigger_event = {
+					id = assembly.2
+				}
+			}
+		}
+		else = {
+			root = {
+				trigger_event = {
+					id = assembly.3
+				}
+			}
+		}		
+	}
+	
+} 
+
+assembly.2 = {
+	type = country_event
+	title = "assembly.2.t"
+	desc = "assembly.2.desc"   
+	
+	left_portrait = root.current_ruler
+	right_portrait = scope:selected_candidate
+	
+	picture = senator_conversing
+	
+	immediate = {
+		scope:selected_candidate = {
+			if = {
+				limit = {
+					NOT = {
+						has_variable = curiate_endorsement
+					}
+				}
+				set_variable = {
+					name = curiate_endorsement
+					value = 1
+				}
+			}
+			else = {
+				change_variable = {
+					name = curiate_endorsement
+					add = 1 
+				}
+			}
+			add_loyal_veterans = 2
+		}
+	}
+	
+	option = {
+		name = "assembly.2.a"
+		trigger = {
+			scope:selected_candidate = {
+				martial <= 7
+			}
+		}
+		if = {
+			limit = {
+				scope:selected_candidate = {
+					martial <= 4
+				}
+			}
+			scope:selected_candidate = {
+				add_martial = 2
+				add_loyalty = loyalty_curiate_endorsment
+			}
+		}
+		else = {
+			scope:selected_candidate = {
+				add_martial = 1
+				add_loyalty = loyalty_curiate_endorsment
+			}
+		}
+		scope:selected_candidate = {
+			if = {
+				limit = {
+					has_variable = curiate_endorsement
+					var:curiate_endorsement > 1
+				}
+				employer.current_ruler = {
+					custom_tooltip = "multiple_endorsements_corruption"
+					add_corruption = {
+						value = 5
+						multiply = scope:selected_candidate.var:curiate_endorsement
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "assembly.2.b"
+		trigger = {
+			scope:selected_candidate = {
+				finesse <= 7 
+			}
+		}
+		if = {
+			limit = {
+				scope:selected_candidate = {
+					finesse <= 4
+				}
+			}
+			scope:selected_candidate = {
+				add_finesse = 2
+				add_loyalty = loyalty_curiate_endorsment
+			}
+		}
+		else = {
+			scope:selected_candidate = {
+				add_finesse = 1
+				add_loyalty = loyalty_curiate_endorsment
+			}
+		}
+		scope:selected_candidate = {
+			if = {
+				limit = {
+					has_variable = curiate_endorsement
+					var:curiate_endorsement > 1
+				}
+				employer.current_ruler = {
+					custom_tooltip = "multiple_endorsements_corruption"
+					add_corruption = {
+						value = 5
+						multiply = scope:selected_candidate.var:curiate_endorsement
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "assembly.2.d"
+		trigger = {
+			scope:selected_candidate = {
+				charisma <= 7 
+			}
+		}
+		if = {
+			limit = {
+				scope:selected_candidate = {
+					charisma <= 4
+				}
+			}
+			scope:selected_candidate = {
+				add_charisma = 2
+				add_loyalty = loyalty_curiate_endorsment
+			}
+		}
+		else = {
+			scope:selected_candidate = {
+				add_charisma = 1
+				add_loyalty = loyalty_curiate_endorsment 
+			}
+		}
+		scope:selected_candidate = {
+			if = {
+				limit = {
+					has_variable = curiate_endorsement
+					var:curiate_endorsement > 1
+				}
+				employer.current_ruler = {
+					custom_tooltip = "multiple_endorsements_corruption"
+					add_corruption = {
+						value = 5
+						multiply = scope:selected_candidate.var:curiate_endorsement
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "assembly.2.c"
+		trigger = {
+			scope:selected_candidate = {
+				zeal <= 7 
+			}
+		}
+		if = {
+			limit = {
+				scope:selected_candidate = {
+					zeal <= 4
+				}
+			}
+			scope:selected_candidate = {
+				add_zeal = 2
+				add_loyalty = loyalty_curiate_endorsment 
+			}
+		}
+		else = {
+			scope:selected_candidate = {
+				add_zeal = 1
+				add_loyalty = loyalty_curiate_endorsment 
+			}
+		}
+		scope:selected_candidate = {
+			if = {
+				limit = {
+					has_variable = curiate_endorsement
+					var:curiate_endorsement > 1
+				}
+				employer.current_ruler = {
+					custom_tooltip = "multiple_endorsements_corruption"
+					add_corruption = {
+						value = 5
+						multiply = scope:selected_candidate.var:curiate_endorsement
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "assembly.2.f"
+		custom_tooltip = "lunatic_tooltip"
+		trigger = {
+			current_ruler = {
+				has_trait = lunatic
+			}
+		}
+		highlight = yes 
+		scope:selected_candidate = {
+			add_gold = {
+				value = root.has_monthly_income
+				multiply = 6
+			}
+			add_loyalty = loyalty_curiate_large_endorsment 
+		}
+		add_stability = 5
+	}
+	
+	option = {
+		name = "assembly.2.e"
+		scope:selected_candidate = {
+			add_gold = {
+				value = root.has_monthly_income
+				multiply = 6
+			}
+			add_loyalty = loyalty_curiate_large_endorsment
+		}
+	}
+	
+}
+
+assembly.3 = {
+	type = country_event
+	title = "assembly.3.t"
+	desc = "assembly.3.desc"
+	
+	left_portrait = current_ruler
+	right_portrait = scope:selected_candidate
+	
+	picture = roman_trial
+	
+	option = {
+		name = "assembly.3.a" 
+		scope:selected_candidate = {
+			add_loyalty = loyalty_curiate_rebuked_endorsment
+		}
+		add_stability = -5
+	}
+	
+	option = {
+		name = "assembly.3.b" 
+		scope:selected_candidate = {
+			add_gold = {
+				value = root.has_monthly_income
+				multiply = 2
+			}
+		}
+		add_treasury = {
+			value = has_monthly_income
+			multiply = -2
+		}
+		add_stability = -5
+	} 
+	
+	option = {
+		name = "assembly.3.c"
+		custom_tooltip = "ambitious_tooltip"
+		trigger = {
+			current_ruler = {
+				has_trait = ambitious
+			}
+		}
+		highlight = yes
+		add_tyranny = 10
+		add_political_influence = influence_huge
+		if = {
+			limit = {
+				is_republic = yes
+				tag = ROM
+				has_law = assembly_law_3_rom
+			}
+			change_law = assembly_law_4_rom
+		}
+		else_if = {
+			limit = {
+				is_republic = yes
+				NOT = {
+					tag = ROM
+				}
+				has_law = republic_corruption_1
+			}
+			change_law = republic_corruption_4
+		} 
+	}
+	
+	option = {
+		name = "assembly.3.c"
+		custom_tooltip = "cruel_tooltip"
+		trigger = {
+			current_ruler = {
+				has_trait = cruel
+			}
+		}
+		highlight = yes
+		add_tyranny = 10
+		add_political_influence = influence_huge
+		if = {
+			limit = {
+				is_republic = yes
+				tag = ROM
+				has_law = assembly_law_3_rom
+			}
+			change_law = assembly_law_4_rom
+		}
+		else_if = {
+			limit = {
+				is_republic = yes
+				NOT = {
+					tag = ROM
+				}
+				has_law = republic_corruption_1
+			}
+			change_law = republic_corruption_4
+		} 
+	}
+	
+}

@@ -1343,6 +1343,15 @@ me_turdetania_1_generic.21 = { 						# Punic Relations - Root Event
 	
 	trigger = {
 		has_land = yes
+		any_country = {
+			NOT = { this = root }
+			primary_culture = carthaginian
+			in_diplomatic_range = ROOT
+			opinion = {
+				target = ROOT
+				value >= 35
+			}
+		} # needs a friendly Punic country for turdetanian_friendly_punic_scope
 	}
 
 	immediate = {

@@ -2649,7 +2649,10 @@ diadochi_flavor.23 = { #Antigonids agree
 					}
 					save_temporary_scope_as = temp_egypt_trade_subject
 					c:PRY = {
-						release_subject = PREV
+						if = {
+							limit = { PREV = { is_subject_of = c:PRY } }
+							release_subject = PREV
+						}
 					}
 					c:EGY = {
 						make_subject = {
@@ -2674,7 +2677,10 @@ diadochi_flavor.23 = { #Antigonids agree
 					}
 					save_temporary_scope_as = temp_egypt_trade_subject
 					c:PRY = {
-						release_subject = PREV
+						if = {
+							limit = { PREV = { is_subject_of = c:PRY } }
+							release_subject = PREV
+						}
 					}
 					c:EGY = {
 						make_subject = {
@@ -3407,7 +3413,10 @@ diadochi_flavor.33 = { #Antigonids Concede Syria
 					}
 					save_temporary_scope_as = temp_sel_trade_subject
 					c:PRY = {
-						release_subject = PREV
+						if = {
+							limit = { PREV = { is_subject_of = c:PRY } }
+							release_subject = PREV
+						}
 					}
 					c:SEL = {
 						make_subject = {
@@ -3437,7 +3446,10 @@ diadochi_flavor.33 = { #Antigonids Concede Syria
 					}
 					save_temporary_scope_as = temp_sel_trade_subject
 					c:PRY = {
-						release_subject = PREV
+						if = {
+							limit = { PREV = { is_subject_of = c:PRY } }
+							release_subject = PREV
+						}
 					}
 					c:SEL = {
 						make_subject = {
@@ -4139,7 +4151,10 @@ diadochi_flavor.44 = { #Antigonids agree
 						}
 					}
 					c:PRY = {
-						release_subject = PREV
+						if = {
+							limit = { PREV = { is_subject_of = c:PRY } }
+							release_subject = PREV
+						}
 					}
 					c:TRE = {
 						make_subject = {
@@ -4168,7 +4183,10 @@ diadochi_flavor.44 = { #Antigonids agree
 						}
 					}
 					c:PRY = {
-						release_subject = PREV
+						if = {
+							limit = { PREV = { is_subject_of = c:PRY } }
+							release_subject = PREV
+						}
 					}
 					c:TRE = {
 						make_subject = {
@@ -4548,6 +4566,8 @@ diadochi_flavor.49 = { # Egypt post Ipsos
 		if = {
 			limit = {
 				war_with = scope:antigonids_scope
+				ROOT = { war = yes }
+				scope:antigonids_scope = { war = yes }
 				any_current_war = {
 					is_war_leader = ROOT
 					is_war_leader = scope:antigonids_scope
@@ -5114,6 +5134,8 @@ diadochi_flavor.50 = { # Thrace post Ipsos
 		if = {
 			limit = {
 				war_with = scope:antigonids_scope
+				ROOT = { war = yes }
+				scope:antigonids_scope = { war = yes }
 				any_current_war = {
 					is_war_leader = ROOT
 					is_war_leader = scope:antigonids_scope
@@ -5448,6 +5470,8 @@ diadochi_flavor.51 = { # Seleukids post Ipsos
 		if = {
 			limit = {
 				war_with = scope:antigonids_scope
+				ROOT = { war = yes }
+				scope:antigonids_scope = { war = yes }
 				any_current_war = {
 					is_war_leader = ROOT
 					is_war_leader = scope:antigonids_scope
@@ -5904,7 +5928,10 @@ diadochi_flavor.55 = { # Transferred ping
 				tag = JUD
 			}
 			c:PRY = {
-				release_subject = PREV
+				if = {
+					limit = { PREV = { is_subject_of = c:PRY } }
+					release_subject = PREV
+				}
 			}
 			c:EGY = {
 				make_subject = {
@@ -5918,7 +5945,10 @@ diadochi_flavor.55 = { # Transferred ping
 				tag = MAN
 				}
 			c:PRY = {
-				release_subject = PREV
+				if = {
+					limit = { PREV = { is_subject_of = c:PRY } }
+					release_subject = PREV
+				}
 			}
 			c:TRE = {
 				make_subject = {
@@ -9063,17 +9093,20 @@ diadochi_flavor.66 = { #Iasos Egypt - sucess
 				}
 			}
 			hidden_effect = {
-				scope:ptolemy_new_satrapy = {
-			        create_character = {
-			            first_name="Eupolemos"
-			            family_name="Potalou"
-			            culture = macedonian
-			            religion =roman_pantheon
-			            female = no
-						save_scope_as = potalou_scope		
-			        }		
-					create_family = scope:potalou_scope
-					set_as_ruler = scope:potalou_scope
+				if = {
+					limit = { exists = scope:ptolemy_new_satrapy }
+					scope:ptolemy_new_satrapy = {
+				        create_character = {
+				            first_name="Eupolemos"
+				            family_name="Potalou"
+				            culture = macedonian
+				            religion =roman_pantheon
+				            female = no
+							save_scope_as = potalou_scope		
+				        }		
+						create_family = scope:potalou_scope
+						set_as_ruler = scope:potalou_scope
+					}
 				}
 			}
 			c:EGY = {
@@ -9114,6 +9147,7 @@ diadochi_flavor.66 = { #Iasos Egypt - sucess
 #		custom_tooltip = diadochi_flavor.66.ct
 		highlight = yes
 		trigger = {
+			exists = scope:caria_satrapy
 			scope:caria_satrapy.overlord = {
 				THIS = ROOT
 			}
